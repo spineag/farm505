@@ -156,7 +156,7 @@ public class HeroCat extends BasicCat{
 //    public function get armatureCatBack():Armature {  return armatureBack; }
 
     private function releaseFrontWoman(arma:Armature):void {
-        changeTexture("head", "heads/head_w", arma);
+        changeTexture("head", "head_w", arma);
         changeTexture("body", "bodys/body_w", arma);
         changeTexture("handLeft", "left_hand/handLeft_w", arma);
         changeTexture("legLeft", "left_leg/legLeft_w", arma);
@@ -176,7 +176,7 @@ public class HeroCat extends BasicCat{
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['cat_main'].getTextureDisplay(newName) as Image;
+        var im:Image = g.allData.factory['cat_main'].getTextureDisplay('clothTextureTemp', newName) as Image;
         var b:Slot = arma.getSlot(oldName);
         if (b.display) b.display.dispose();
         b.display = im;

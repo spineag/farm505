@@ -225,7 +225,7 @@ public class Train extends WorldObject{
 
     private function createBrokenTrain():void {
         _build.visible = true;
-        if (_armature) _armature.animation.stop('close');
+        if (_armature) _armature.animation.gotoAndStopByFrame('close');
     }
 
     protected function renderBuildTrainProgress():void {
@@ -247,7 +247,7 @@ public class Train extends WorldObject{
             var fEndOver:Function = function(e:Event=null):void {
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-                _armature.animation.stop('close');
+                _armature.animation.gotoAndStopByFrame('close');
             };
             _armature.addEventListener(EventObject.COMPLETE, fEndOver);
             _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);

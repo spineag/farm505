@@ -84,7 +84,7 @@ public class HeroEyesAnimation {
         if (!isAnimated) return;
         isAnimated  = false;
         _armatureEyes.removeEventListener(EventObject.LOOP_COMPLETE, armatureEventHandler);
-        _armatureEyes.animation.stop("idle");
+        _armatureEyes.animation.gotoAndStopByFrame("idle");
         WorldClock.clock.remove(_armatureEyes);
     }
 

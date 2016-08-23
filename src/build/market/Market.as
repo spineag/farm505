@@ -39,7 +39,7 @@ public class Market extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _armature.animation.stop('work');
+        _armature.animation.gotoAndStopByFrame('work');
         _fruits1 = _armature.getBone('fr');
         _fruits2 = _armature.getBone('fr2');
         _coins = _armature.getBone('coins');
@@ -169,7 +169,7 @@ public class Market extends WorldObject{
             }
         }
 
-        _armature.animation.stop('work');
+        _armature.animation.gotoAndStopByFrame('work');
         if (coins <= 0) {
             b = _armature.getSlot('coins');
             if (b != null) _armature.removeSlot(b);

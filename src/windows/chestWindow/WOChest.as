@@ -48,7 +48,7 @@ public class WOChest  extends WindowMain{
             var fEndOver:Function = function():void {
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-                _armature.animation.stop('idle_2');
+                _armature.animation.gotoAndStopByFrame('idle_2');
                 if (g.managerTutorial.isTutorial) _woChestItemsTutorial = new WOChestItemsTutorial(_source, closeAnimation);
                 else  _woChestItem = new WOChestItem(g.managerChest.dataPriseChest, _source, closeAnimation);
             };

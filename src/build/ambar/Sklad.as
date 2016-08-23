@@ -54,7 +54,7 @@ public class Sklad extends WorldObject{
             var fEndOver:Function = function(e:Event=null):void {
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-                _armature.animation.stop();
+                _armature.animation.gotoAndStopByFrame('idle');
             };
             _armature.addEventListener(EventObject.COMPLETE, fEndOver);
             _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);

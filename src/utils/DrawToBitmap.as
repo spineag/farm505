@@ -6,6 +6,7 @@ import flash.geom.Rectangle;
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.DisplayObject;
+import starling.display.Stage;
 import starling.rendering.Painter;
 
 public class DrawToBitmap {
@@ -17,22 +18,26 @@ public class DrawToBitmap {
     }
 
     public static function copyToBitmapData(disp:DisplayObject):BitmapData {
-        var stageWidth:Number = Starling.current.stage.stageWidth;
-        var stageHeight:Number = Starling.current.stage.stageHeight;
+        var bounds:Rectangle = disp.getBounds(disp);
+        var result:BitmapData = new BitmapData(bounds.width, bounds.height, true);
+        var stage:Stage = g.mainStage;
+//        var painter:Painter = new Painter(g.starling.stage3D);
+        var painter:Painter = g.starling.painter;
 
-        var support:Painter = new Painter(Starling.current.stage3D);
-        support.clear();
+        painter.pushState();
+        painter.state.renderTarget = null;
+        painter.state.setProjectionMatrix(bounds.x, bounds.y, stage.stageWidth, stage.stageHeight, stage.stageWidth, stage.stageHeight, stage.cameraPosition);
+        painter.clear();
+        disp.setRequiresRedraw();
+        disp.render(painter);
+        painter.finishMeshBatch();
+        painter.context.drawToBitmapData(result);
+        painter.context.present();
+        painter.popState();
 
-        var stageBitmapData:BitmapData = new BitmapData(stageWidth, stageHeight, true, 0x0);
-        disp.render(support);
-        Starling.context.drawToBitmapData(stageBitmapData);
-
-        var cropBounds:Rectangle = new Rectangle(0, 0, disp.width / disp.scaleX, disp.height / disp.scaleY);
-        var resultBitmapData:BitmapData = new BitmapData(cropBounds.width, cropBounds.height, true, 0x0);
-        resultBitmapData.copyPixels(stageBitmapData, cropBounds, new Point());
-
-        return resultBitmapData;
+        return result;
     }
     
 }
 }
+

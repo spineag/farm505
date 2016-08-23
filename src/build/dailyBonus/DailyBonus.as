@@ -34,7 +34,7 @@ public class DailyBonus extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _armature.animation.stop('idle');
+        _armature.animation.gotoAndStopByFrame('idle');
         if (!g.isAway) {
             _source.endClickCallback = onClick;
             _hitArea = g.managerHitArea.getHitArea(_source, 'dailyBonusBuild');
@@ -57,7 +57,7 @@ public class DailyBonus extends WorldObject{
             var fEndOver:Function = function(e:Event=null):void {
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-                _armature.animation.stop('idle');
+                _armature.animation.gotoAndStopByFrame('idle');
                 showLights();
 
 
@@ -144,12 +144,12 @@ public class DailyBonus extends WorldObject{
     }
 
     private function hoverout():void {
-        if (_armature) _armature.animation.stop('idle');
+        if (_armature) _armature.animation.gotoAndStopByFrame('idle');
         WorldClock.clock.remove(_armature);
     }
 
     public function hideLights():void {
-        if (_armature)  _armature.animation.stop('idle');
+        if (_armature)  _armature.animation.gotoAndStopByFrame('idle');
         WorldClock.clock.remove(_armature);
     }
 

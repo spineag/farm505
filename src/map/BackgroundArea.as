@@ -10,6 +10,8 @@ import flash.geom.Point;
 import map.Containers;
 import manager.Vars;
 
+import starling.display.BlendMode;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
@@ -106,6 +108,7 @@ public class BackgroundArea {
         var bg:Image = new Image(t);
         bg.x = _x * g.scaleFactor;
         bg.y = _y * g.scaleFactor;
+        bg.blendMode = BlendMode.NONE;
         _additionalCont.addChild(bg);
         g.pBitmaps[url].deleteIt();
         delete g.pBitmaps[url];

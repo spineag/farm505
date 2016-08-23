@@ -63,22 +63,22 @@ public class PlantOnRidge {
                 return;
 
             case Ridge.GROW1:
-                armature.animation.stop("state1");
+                armature.animation.gotoAndStopByFrame("state1");
                 _ridge.checkBuildRect(false);
                 if (needSetTimer) _timeToEndState = _data.timeToGrow2;
                 break;
             case Ridge.GROW2:
-                armature.animation.stop("state2");
+                armature.animation.gotoAndStopByFrame("state2");
                 _ridge.checkBuildRect(false);
                 if (needSetTimer) _timeToEndState = _data.timeToGrow3;
                 break;
             case Ridge.GROW3:
-                armature.animation.stop("state3");
+                armature.animation.gotoAndStopByFrame("state3");
                 _ridge.checkBuildRect(false);
                 if (needSetTimer) _timeToEndState = _data.timeToStateGwoned;
                 break;
             case Ridge.GROWED:
-                armature.animation.stop("state4");
+                armature.animation.gotoAndStopByFrame("state4");
                 _ridge.checkBuildRect(false);
 //                animateEndState(); !!!
 //                addParticles();

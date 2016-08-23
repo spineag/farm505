@@ -39,7 +39,7 @@ public class SmallHeroAnimation {
             _arma.animation.gotoAndPlayByFrame('start');
             _armaClip.visible = true;
         } else {
-            _arma.animation.stop('start');
+            _arma.animation.gotoAndStopByFrame('start');
             WorldClock.clock.remove(_arma);
             _armaClip.visible = false;
         }

@@ -865,7 +865,7 @@ public class WOOrder extends WindowMain{
         if (n == 1) str = 'bant';
         var im:Image = g.allData.factory['order_window'].getTextureDisplay('bants/' + str) as Image;
         if (b) {
-            b..display.visible = true;
+            if (b.display) b.display.visible = true;
             if (b.display) {
                 if (im) {
                     b.display.dispose();
@@ -964,8 +964,8 @@ public class WOOrder extends WindowMain{
         if (!_armatureCustomer || !_armatureSeller) {
             return;
         }
-        _armatureCustomer.animation.stop('idle1');
-        _armatureSeller.animation.stop('idle1');
+        _armatureCustomer.animation.gotoAndStopByFrame('idle1');
+        _armatureSeller.animation.gotoAndStopByFrame('idle1');
         if (_armatureSeller.hasEventListener(EventObject.COMPLETE)) _armatureSeller.removeEventListener(EventObject.COMPLETE, animateSellerCat);
         if (_armatureSeller.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureSeller.removeEventListener(EventObject.LOOP_COMPLETE, animateSellerCat);
         if (_armatureCustomer.hasEventListener(EventObject.COMPLETE)) _armatureCustomer.removeEventListener(EventObject.COMPLETE, animateCustomerCat);

@@ -155,7 +155,7 @@ public class Fabrica extends WorldObject {
                 var fEndOver:Function = function(e:Event=null):void {
                     _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                     _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-                    _armature.animation.stop('idle');
+                    _armature.animation.gotoAndStopByFrame('idle');
                 };
                 _armature.addEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
@@ -538,9 +538,9 @@ public class Fabrica extends WorldObject {
     }
 
     private function stopAnimation():void {
+        if (_armature) _armature.animation.gotoAndStopByFrame('idle');
         if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, chooseAnimation);
         if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
-        if (_armature) _armature.animation.stop('idle');
     }
 
     private function chooseAnimation(e:Event=null):void {

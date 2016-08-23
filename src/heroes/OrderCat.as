@@ -439,8 +439,8 @@ public class OrderCat {
 
     public function stopAnimation():void {
         showFront(true);
-        if (armature) armature.animation.stop('idle1');
-        if (armatureBack) armatureBack.animation.stop('idle');
+        if (armature) armature.animation.gotoAndStopByFrame('idle1');
+        if (armatureBack) armatureBack.animation.gotoAndStopByFrame('idle');
         if (armature.hasEventListener(EventObject.COMPLETE)) armature.removeEventListener(EventObject.COMPLETE, onFinishIdle);
         if (armature.hasEventListener(EventObject.LOOP_COMPLETE)) armature.removeEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
         if (armatureBack.hasEventListener(EventObject.COMPLETE)) armatureBack.removeEventListener(EventObject.COMPLETE, onFinishIdleBack);

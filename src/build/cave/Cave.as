@@ -113,12 +113,12 @@ public class Cave extends WorldObject{
                 }
                 if (!ob) {
                     _stateBuild = STATE_UNACTIVE;
-                    _armature.animation.stop('close');
+                    _armature.animation.gotoAndStopByFrame('close');
                     return;
                 }
                 if (ob.isOpen) {        // уже построенно и открыто
                     _stateBuild = STATE_ACTIVE;
-                    _armature.animation.stop('open');
+                    _armature.animation.gotoAndStopByFrame('open');
                 } else if (ob.isBuilded) {
                     _leftBuildTime = Number(ob.timeBuildBuilding);  // сколько времени уже строится
                     _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
@@ -133,13 +133,13 @@ public class Cave extends WorldObject{
                     }
                 } else {
                     _stateBuild = STATE_UNACTIVE;
-                    _armature.animation.stop('close');
+                    _armature.animation.gotoAndStopByFrame('close');
                 }
             } else {
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
                         _stateBuild = STATE_ACTIVE;
-                        _armature.animation.stop('open');
+                        _armature.animation.gotoAndStopByFrame('open');
                         g.directServer.getUserCave(fillFromServer);
                     } else {
                         _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
@@ -157,7 +157,7 @@ public class Cave extends WorldObject{
                     }
                 } else {
                     _stateBuild = STATE_UNACTIVE;
-                    _armature.animation.stop('close');
+                    _armature.animation.gotoAndStopByFrame('close');
                 }
             }
 //        } catch (e:Error) {
@@ -205,7 +205,7 @@ public class Cave extends WorldObject{
                 var fEndOver2:Function = function(e:Event=null):void {
                     _armature.removeEventListener(EventObject.COMPLETE, fEndOver2);
                     _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver2);
-                    _armature.animation.stop('open');
+                    _armature.animation.gotoAndStopByFrame('open');
                 };
                 _armature.addEventListener(EventObject.COMPLETE, fEndOver2);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver2);
@@ -217,7 +217,7 @@ public class Cave extends WorldObject{
                 var fEndOver:Function = function(e:Event=null):void {
                     _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                     _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-                    _armature.animation.stop('close');
+                    _armature.animation.gotoAndStopByFrame('close');
                 };
                 _armature.addEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
@@ -319,7 +319,7 @@ public class Cave extends WorldObject{
 
 //                        g.directServer.craftUserCave();
                         if (!_arrCrafted.length) {
-                            _armature.animation.stop('open');
+                            _armature.animation.gotoAndStopByFrame('open');
                         }
                     } else {
                         onOut();
@@ -343,7 +343,7 @@ public class Cave extends WorldObject{
             onOut();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (_source.wasGameContMoved) return;
-            _armature.animation.stop('open');
+            _armature.animation.gotoAndStopByFrame('open');
             g.directServer.openBuildedBuilding(this, onOpenBuilded);
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));
@@ -391,7 +391,7 @@ public class Cave extends WorldObject{
         var fOut:Function = function(e:Event=null):void {
             _armature.removeEventListener(EventObject.COMPLETE, fOut);
             _armature.removeEventListener(EventObject.LOOP_COMPLETE, fOut);
-            _armature.animation.stop('crafting');
+            _armature.animation.gotoAndStopByFrame('crafting');
             g.userInventory.addResource(id, -1);
             var v:Number = _dataBuild.variaty[_dataBuild.idResourceRaw.indexOf(id)];
             var c:int = 2 + int(Math.random() * 3);

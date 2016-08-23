@@ -30,7 +30,7 @@ public class Paper extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _armature.animation.stop('idle');
+        _armature.animation.gotoAndStopByFrame('idle');
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
