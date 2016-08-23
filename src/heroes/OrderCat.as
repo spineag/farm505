@@ -31,7 +31,6 @@ public class OrderCat {
     public static var PINK:int = 5;
     public static var WHITE:int = 6;
     public static var BROWN:int = 7;
-
     public static var ALL_CAT_COLORS:int = 7;
 
     public static var LONG_OUTTILE_WALKING:int=1;
@@ -168,121 +167,133 @@ public class OrderCat {
         var st:String;
         var st2:String;
         switch (_catData.color) {
-            case BLACK:   st = '';   st2 = '_black'; break;
-            case BLUE:   st = '_bl'; st2 = '_blue'; break;
-            case GREEN:  st = '_gr'; st2 = '_green'; break;
-            case BROWN:  st = '_br'; st2 = '_brown'; break;
-            case ORANGE: st = '_or'; st2 = '_orange'; break;
-            case PINK:   st = '_pk'; st2 = '_pink'; break;
-            case WHITE:  st = '_wh'; st2 = '_white';break;
+            case BLACK:  st = '5';   st2 = '_black'; break;
+            case BLUE:   st = '4'; st2 = '_blue'; break;
+            case GREEN:  st = '3'; st2 = '_green'; break;
+            case BROWN:  st = 'br'; st2 = '_brown'; break;
+            case ORANGE: st = '1'; st2 = '_orange'; break;
+            case PINK:   st = '2'; st2 = '_pink'; break;
+            case WHITE:  st = '6'; st2 = '_white';break;
         }
 
         releaseFrontTexture(st);
         releaseBackTexture(st);
-//        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st, st2, _catData.isWoman);
-
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, st+'_head_f', st2, _catData.isWoman);
 
         if (!_catData.isWoman) {
-            var b:Slot = armature.getSlot('bant');
-            if (b && b.display) b.display.visible = false;
-
-        } else  changeBant(int(Math.random() * 8 + 1));
+            var sl:Slot = armature.getSlot('bant');
+            sl.displayList=null;
+        } else changeBant(int(Math.random() * 8 + 1));
         var okuli:Slot = armature.getSlot('okuli');
         var sharf:Slot = armature.getSlot('sharf');
+        var b:Boolean = true;
         switch (_catData.type) {
             case DataCat.AKRIL:
-                if (okuli && okuli.display) okuli.display.visible = false;
+                okuli.displayList = null;
                 break;
             case DataCat.ASHUR:
-                if (okuli && okuli.display) okuli.display.visible = false;
-                if (sharf && sharf.display) sharf.display.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
+                b=false;
                 break;
             case DataCat.BULAVKA:
-                if (okuli && okuli.display)  okuli.display.visible = false;
-                if (sharf && sharf.display) sharf.display.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
+                b=false;    
                 break;
             case DataCat.BUSINKA:
-                if (okuli && okuli.display) okuli.display.visible = false;
+                okuli.displayList = null;
                 break;
             case DataCat.IGOLOCHKA:
-                if (okuli && okuli.display) okuli.display.visible = false;
-                if (sharf && sharf.display) sharf.display.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
+                b=false;    
                 break;
             case DataCat.IRIS:
-                if (okuli && okuli.display) okuli.display.visible = false;
-                if (sharf && sharf.display) sharf.display.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
+                b = false;    
                 break;
             case DataCat.KRUCHOK:
-                if (okuli && okuli.display) okuli.display.visible = false;
+                okuli.displayList = null;
                 break;
             case DataCat.LENTOCHKA:
-                if (okuli && okuli.display) okuli.display.visible = false;
-                if (sharf && sharf.display) sharf.display.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
+                b=false;    
                 break;
             case DataCat.NAPERSTOK:
-                if (okuli && okuli.display) okuli.display.visible = false;
-                if (sharf && sharf.display) sharf.display.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
+                 b=false;   
                 break;
             case DataCat.PETELKA:
-                if (okuli && okuli.display) okuli.display.visible = false;
-                if (sharf && sharf.display) sharf.display.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
+                b=false;    
                 break;
             case DataCat.PRYAGA:
-                if (okuli && okuli.display) okuli.display.visible = false;
-                if (sharf && sharf.display) sharf.display.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
+                b=false;    
                 break;
             case DataCat.SINTETIKA:
-                if (okuli && okuli.display) sharf.display.visible = false;
+                sharf.displayList = null;
                 break;
             case DataCat.STESHOK:
-                if (okuli && okuli.display) okuli.display.visible = false;
-                if (sharf && sharf.display) sharf.display.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
+                b=false;    
                 break;
             case DataCat.YZELOK:
-                if (okuli && okuli.display) okuli.display.visible = false;
+                okuli.displayList = null;
                 break;
         }
-        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(_catData.png) as Image;
-        if (!im)return;
-        var cast:Slot = armature.getSlot('sharf');
-        if (cast.display) cast.display.dispose();
-        cast.display = im;
+        if (b) {
+//            var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(_catData.png) as Image;
+            var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(_catData.png));
+            if (!im)return;
+            sharf.displayList = null;
+            sharf.display = im;
+        }
     }
 
     private function changeBant(n:int):void {
         var str:String = 'bant_'+ n;
         bant = n;
-        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(str) as Image;
+//        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(str) as Image;
+        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(str));
         var b:Slot = armature.getSlot('bant');
-        if (b.display) b.display.dispose();
+        b.displayList = null;
         b.display = im;
     }
 
     private function releaseFrontTexture(st:String):void {
-        changeTexture("head", "heads/head" + st, armature);
-        changeTexture("body", "bodys/body" + st, armature);
-        changeTexture("handLeft", "left_hand/handLeft" + st, armature);
-        changeTexture("handLeft 2copy", "left_hand/handLeft" + st, armature);
-        changeTexture("legLeft", "left_leg/legLeft" + st, armature);
-        changeTexture("handRight", "right_hand/handRight" + st, armature);
-        changeTexture("legRight", "right_leg/legRight" + st, armature);
-        changeTexture("tail", "tails/tail" + st, armature);
+        changeTexture("head", st + "_head_f", armature);
+        changeTexture("body", st + "_body_f", armature);
+        changeTexture("handLeft", st + '_lhand_f', armature);
+        changeTexture("handLeft 2copy", st + '_lhand_f', armature);
+        changeTexture("legLeft", st + '_lleg_f', armature);
+        changeTexture("handRight", st + '_rhand_f', armature);
+        changeTexture("legRight", st + '_rleg_f', armature);
+        changeTexture("tail", st + '_tail', armature);
     }
 
     private function releaseBackTexture(st:String):void {
-        changeTexture("head", "heads_b/head_b" + st, armatureBack);
-        changeTexture("body", "bodys_b/body_b" + st, armatureBack);
-        changeTexture("handLeft", "left_hand_b/handLeft_b" + st, armatureBack);
-        changeTexture("legLeft", "left_leg_b/legLeft_b" + st, armatureBack);
-        changeTexture("handRight", "right_hand_b/handRight_b" + st, armatureBack);
-        changeTexture("legRight", "right_leg_b/legRight_b" + st, armatureBack);
-        changeTexture("tail", "tails/tail" + st, armatureBack);
+        changeTexture("head", st + "_head_b", armatureBack);
+        changeTexture("body", st + "_body_b", armatureBack);
+        changeTexture("handLeft", st + '_lhand_b', armatureBack);
+        changeTexture("legLeft", st + '_lleg_b', armatureBack);
+        changeTexture("handRight", st + '_rhand_b', armatureBack);
+        changeTexture("legRight", st + '_rleg_b', armatureBack);
+        changeTexture("tail", st + '_tail', armatureBack);
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(newName) as Image;
+//        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(newName) as Image;
         var b:Slot = arma.getSlot(oldName);
-        if (b.display) b.display.dispose();
+        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
+        b.displayList = null;
         b.display = im;
     }
 

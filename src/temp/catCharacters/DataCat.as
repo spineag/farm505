@@ -64,7 +64,7 @@ public class DataCat {
         obj.color = OrderCat.WHITE;
         obj.isWoman = true;
         obj.name = 'Синтетика';
-        obj.png = 'shmot/glas_1';
+        obj.png = 'glas_1';
         _arrCats.push(obj);
 
 
@@ -73,7 +73,7 @@ public class DataCat {
         obj.color = OrderCat.ORANGE;
         obj.isWoman = true;
         obj.name = 'Бусинка';
-        obj.png = 'shmot/necklace';
+        obj.png = 'necklace';
         _arrCats.push(obj);
 
 
@@ -99,7 +99,7 @@ public class DataCat {
         obj.color = OrderCat.GREEN;
         obj.isWoman = false;
         obj.name = 'Крючок';
-        obj.png = 'shmot/cepka';
+        obj.png = 'cepka';
         _arrCats.push(obj);
 
 
@@ -108,7 +108,7 @@ public class DataCat {
         obj.color = OrderCat.PINK;
         obj.isWoman = false;
         obj.name = 'Акрил';
-        obj.png = 'shmot/sharf';
+        obj.png = 'sharf';
         _arrCats.push(obj);
 
 
@@ -117,7 +117,7 @@ public class DataCat {
         obj.color = OrderCat.BLACK;
         obj.isWoman = false;
         obj.name = 'Узелок';
-        obj.png = 'shmot/galstuk';
+        obj.png = 'galstuk';
         _arrCats.push(obj);
 
 

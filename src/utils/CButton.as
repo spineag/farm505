@@ -205,9 +205,9 @@ public class CButton extends Sprite {
         if (this.hasEventListener(TouchEvent.TOUCH)) this.removeEventListener(TouchEvent.TOUCH, onTouch);
         _bg.dispose();
         _bg = null;
-        clickFilter.dispose();
-        hoverFilter.dispose();
-        disableFilter.dispose();
+        if (clickFilter) clickFilter.dispose();
+        if (hoverFilter) hoverFilter.dispose();
+        if (disableFilter) disableFilter.dispose();
         dispose();
         _arrTextFields.length = 0;
         _clickCallback = null;

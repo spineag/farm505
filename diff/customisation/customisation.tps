@@ -197,6 +197,8 @@
             <filename>orange_cat</filename>
             <filename>pink_cat</filename>
             <filename>white_cat</filename>
+            <filename>brown_cat</filename>
+            <filename>diff</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
