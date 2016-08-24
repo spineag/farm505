@@ -2,6 +2,7 @@
  * Created by user on 12/2/15.
  */
 package manager {
+
 import starling.filters.ColorMatrixFilter;
 import starling.filters.DropShadowFilter;
 import starling.filters.GlowFilter;
@@ -56,6 +57,14 @@ public class ManagerFilters {
     private static var _RED_LIGHT_TINT_FILTER:ColorMatrixFilter;
 
     public function ManagerFilters() {}
+
+    public static function get NEW_TEXT_STROKE_BROWN2():GlowFilter {
+        return new GlowFilter(0x0, 20, 10, 1.0);
+    }
+
+    public static function get NEW_TEXT_STROKE_BROWN():DropShadowFilter {
+        return new DropShadowFilter(2, 0.785, 0, 200, 100, 1);
+    }
 
     public static function get SHADOW():DropShadowFilter {
 //        if (!_SHADOW) _SHADOW =

@@ -2,20 +2,13 @@
  * Created by user on 5/21/15.
  */
 package mouse {
-import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.ui.Mouse;
 import flash.ui.MouseCursorData;
-
 import manager.Vars;
-
 import starling.display.Image;
-import starling.display.Sprite;
-import starling.events.Touch;
-import starling.events.TouchEvent;
 import starling.textures.Texture;
-
 import utils.DrawToBitmap;
 
 public class OwnMouse {
