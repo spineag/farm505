@@ -54,13 +54,13 @@ public class PostOpenLand  extends WindowMain {
         txt.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         txt.x = 5;
         txt.y = 7;
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(txt);
         txt = new TextField(50,50,'3');
         txt.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         txt.x = 95;
         txt.y = -2;
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
         im.x = 140;

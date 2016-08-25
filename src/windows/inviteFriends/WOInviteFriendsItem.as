@@ -6,6 +6,8 @@ import com.junkbyte.console.Cc;
 
 import flash.display.Bitmap;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -35,6 +37,7 @@ public class WOInviteFriendsItem {
         var txt:TextField = new TextField(100,100,data.name + ' ' + data.lastName);
         txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.BLACK);
         txt.y = 20;
+        ManagerFilters.setEmptyStyle(txt);
         source.addChild(txt);
         check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         source.addChild(check);

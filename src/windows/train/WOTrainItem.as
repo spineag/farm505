@@ -34,15 +34,15 @@ public class WOTrainItem {
         source = new CSprite();
         _txtWhite = new TextField(60,30,'-3');
         _txtWhite.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtWhite.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtWhite.format.horizontalAlign = Align.RIGHT;
         _txtWhite.x = 23;
         _txtWhite.y = 60;
+        ManagerFilters.setStrokeStyle(_txtWhite, ManagerFilters.TEXT_BROWN_COLOR);
         _txtRed = new TextField(30,30,'');
         _txtRed.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
-        _txtRed.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtRed.format.horizontalAlign = Align.RIGHT;
         _txtRed.y = 60;
+        ManagerFilters.setStrokeStyle(_txtRed, ManagerFilters.TEXT_BROWN_COLOR);
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, 30, 30);
         _galo4ka.x = 65;

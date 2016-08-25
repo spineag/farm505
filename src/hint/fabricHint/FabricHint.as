@@ -49,15 +49,16 @@ public class FabricHint {
 
         _txtName = new TextField(240,70,'');
         _txtName.format.setTo(g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
-        _txtName.filter = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtName.y = 5;
         _txtName.x = -20;
+        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _source.addChild(_txtName);
 
 //        _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _txtCreate = new TextField(200, 30 ,'Для изготовления требуется:');
         _txtCreate.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCreate.y = 50;
+        ManagerFilters.setEmptyStyle(_txtCreate);
         _source.addChild(_txtCreate);
 
 //        _txtTimeCreate = new TextField(50, 30 ,'Время:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
@@ -65,23 +66,24 @@ public class FabricHint {
         _txtTimeCreate.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtTimeCreate.x = 20;
         _txtTimeCreate.y = 130;
-//        _txtOnSklad = new TextField(100, 30 ,'На складе:', g.allData.fonts['BloggerRegular'], 14, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+        ManagerFilters.setEmptyStyle(_txtTimeCreate);
         _txtOnSklad = new TextField(100, 30 ,'На складе:');
         _txtOnSklad.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtOnSklad.x = 100;
         _txtOnSklad.y = 130;
+        ManagerFilters.setEmptyStyle(_txtOnSklad);
         _txtItem = new TextField(50, 40 ,'');
         _txtItem.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtItem.filter = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtItem.format.horizontalAlign = Align.LEFT;
         _txtItem.x = 160;
         _txtItem.y = 150;
+        ManagerFilters.setStrokeStyle(_txtItem, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _txtTime = new TextField(100, 40 ,'');
         _txtItem.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtTime.filter = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
         _txtItem.format.horizontalAlign = Align.LEFT;
         _txtTime.x = 20;
         _txtTime.y = 150;
+        ManagerFilters.setStrokeStyle(_txtTime, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _source.addChild(_txtTimeCreate);
         _source.addChild(_txtOnSklad);
         _source.addChild(_txtItem);

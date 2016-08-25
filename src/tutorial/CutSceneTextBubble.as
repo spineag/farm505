@@ -61,7 +61,7 @@ public class CutSceneTextBubble {
         _btn.startClickCallback = startClick;
         var _btnTxt:TextField = new TextField(200, 30, btnSt);
         _btnTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _btnTxt.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(_btnTxt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(_btnTxt);
     }
 
@@ -99,6 +99,7 @@ public class CutSceneTextBubble {
                     txt.x = 62;
                     txt.y = -180;
                 }
+                ManagerFilters.setEmptyStyle(txt);    
                 if (_btn) {
                     _btn.x = 203;
                     _btn.y = -10;
@@ -119,7 +120,7 @@ public class CutSceneTextBubble {
                 }
                 txt.x = 62;
                 txt.y = -142;
-
+                ManagerFilters.setEmptyStyle(txt);
                 break;
             case SMALL:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
@@ -129,6 +130,7 @@ public class CutSceneTextBubble {
                 txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
                 txt.x = 62;
                 txt.y = -94;
+                ManagerFilters.setEmptyStyle(txt);
                 if (_btn) {
                     _btn.x = 203;
                     _btn.y = 0;

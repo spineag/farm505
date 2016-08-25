@@ -32,22 +32,22 @@ public class WOServerError extends WindowMain {
         var txt:TextField = new TextField(420,80,'Произошла ошибка в игре. Если подобное происходит часто, обратитесь в службу поддержки.');
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
         txt.autoScale = true;
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -210;
         txt.y = -120;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         txt.touchable = false;
         _source.addChild(txt);
         _txtError = new TextField(340,100,'Ошибка Сервера');
         _txtError.format.setTo(g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
-        _txtError.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtError.x = -170;
         _txtError.y = -170;
+        ManagerFilters.setStrokeStyle(_txtError, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtError);
         _txtErrorNew = new TextField(420,100,'');
         _txtErrorNew.format.setTo(g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
-        _txtErrorNew.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtErrorNew.x = -165;
         _txtErrorNew.y = -170;
+        ManagerFilters.setStrokeStyle(_txtErrorNew, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtErrorNew);
 
         _txtError.touchable = false;
@@ -57,7 +57,7 @@ public class WOServerError extends WindowMain {
         _source.addChild(_b);
         txt = new TextField(200, 34, "Перезагрузить");
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _b.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;

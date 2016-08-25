@@ -50,14 +50,15 @@ public class LockedLandItem {
         source.addChild(_iconCoins);
         var txt:TextField = new TextField(150,40,String(count));
         txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 55;
         txt.x = -30;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(txt);
         txt = new TextField(200,90,'Накопи состояние - '+ String(count)+ ' монет (спишутся после открытия)');
         txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 90;
         txt.y = -2;
+        ManagerFilters.setEmptyStyle(txt);
         source.addChild(txt);
 
         if (g.user.softCurrencyCount >= count) {
@@ -72,7 +73,7 @@ public class LockedLandItem {
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
             txt = new TextField(120,30,'Купить');
             txt.format.setTo(g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
-            txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
+            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btn.addChild(txt);
             _btn.x = 362;
             _btn.y = 50;
@@ -110,14 +111,15 @@ public class LockedLandItem {
         source.addChild(icon);
         var txt:TextField = new TextField(150,40,String(g.userInventory.getCountResourceById(id)) + '/' + String(count));
         txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.y = 55;
         txt.x = -40;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(txt);
         txt = new TextField(200,90,'Собрать '+String(count)+' '+g.dataResource.objectResources[id].name + ' (пропадут после открытия)');
         txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 90;
         txt.y = -2;
+        ManagerFilters.setEmptyStyle(txt);
         source.addChild(txt);
 
         if (g.userInventory.getCountResourceById(id) >= count) {
@@ -132,8 +134,8 @@ public class LockedLandItem {
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
             txt = new TextField(120,30,'Купить ' + String(g.dataResource.objectResources[id].priceHard *(count - g.userInventory.getCountResourceById(id))));
             txt.format.setTo(g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
-            txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
             txt.x = -15;
+            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btn.addChild(txt);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(im,25,25);
@@ -165,14 +167,15 @@ public class LockedLandItem {
         source.addChild(icon);
         var txt:TextField = new TextField(150,40,'0/' +String(count));
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = -35;
         txt.y = 55;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(txt);
         txt = new TextField(200,60,'Пригласить ' +String(count) + ' друзей');
         txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 90;
         txt.y = 15;
+        ManagerFilters.setEmptyStyle(txt);
         source.addChild(txt);
 
         if (0 > count) {
@@ -187,7 +190,7 @@ public class LockedLandItem {
             _btn.addButtonTexture(120, 30, CButton.YELLOW, true);
             txt = new TextField(120,30,'Пригласить');
             txt.format.setTo(g.allData.bFonts['BloggerMedium18'],16,Color.WHITE);
-            txt.filter = ManagerFilters.TEXT_STROKE_YELLOW;
+            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_YELLOW_COLOR);
             _btn.addChild(txt);
             _btn.x = 362;
             _btn.y = 50;

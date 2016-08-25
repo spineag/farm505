@@ -44,9 +44,9 @@ public class RawItem {
 
         var _countTxt:TextField = new TextField(50,30,'-' + String(count));
         _countTxt.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
-        _countTxt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _countTxt.x = im.width - 30;
         _countTxt.y = im.height - 15;
+        ManagerFilters.setStrokeStyle(_countTxt, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_countTxt);
 
         var tween:Tween = new Tween(_source, .4);

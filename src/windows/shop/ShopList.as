@@ -47,9 +47,9 @@ public class ShopList {
 
         _txtPageNumber = new TextField(100, 40, '657');
         _txtPageNumber.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtPageNumber.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtPageNumber.x = 283;
         _txtPageNumber.y = 268;
+        ManagerFilters.setStrokeStyle(_txtPageNumber, ManagerFilters.TEXT_BROWN_COLOR);
         parent.addChild(_txtPageNumber);
     }
 

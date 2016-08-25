@@ -50,9 +50,9 @@ public class WALLNewLevel {
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         _txtLevel = new TextField(500,200,String(g.user.level));
         _txtLevel.format.setTo(g.allData.bFonts['BloggerBold72'],83,Color.WHITE);
-        _txtLevel.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtLevel.x = 60;
         _txtLevel.y = 90;
+        ManagerFilters.setStrokeStyle(_txtLevel, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtLevel);
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),bitMap,'interfaceAtlas');

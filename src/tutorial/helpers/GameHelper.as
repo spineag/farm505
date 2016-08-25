@@ -50,6 +50,7 @@ public class GameHelper {
         _txt.x = -100;
         _txt.y = -60;
         _txt.autoScale = true;
+        ManagerFilters.setEmptyStyle(_txt);
         _source.addChild(_txt);
         _isUnderBuild = false;
         createCatHead();
@@ -98,7 +99,7 @@ public class GameHelper {
         _btnShow.addButtonTexture(126, 40, CButton.YELLOW, true);
         var txt:TextField = new TextField(125, 40, 'ПОКАЗАТЬ');
         txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_YELLOW;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_YELLOW_COLOR);
         _btnShow.addChild(txt);
         _btnShow.x = 4;
         _btnShow.y = 52;

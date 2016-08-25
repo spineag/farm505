@@ -38,6 +38,7 @@ public class TutorialCloud {
         _txtSp = new Sprite();
         _txt = new TextField(680, 340, '');
         _txt.format.setTo(g.allData.bFonts['BloggerBold30'], 30, ManagerFilters.TEXT_BLUE_COLOR);
+        ManagerFilters.setEmptyStyle(_txt);
         _txtSp.addChild(_txt);
         _txtSp.x = 177;
         _txtSp.y = 128;
@@ -50,7 +51,7 @@ public class TutorialCloud {
         _btn.y = 520;
         var btnTxt:TextField = new TextField(120, 40, 'Далее');
         btnTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        btnTxt.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(btnTxt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(btnTxt);
         _btn.clickCallback = onClick;
         _source.addChild(_btn);
@@ -58,6 +59,7 @@ public class TutorialCloud {
         _txtPage.format.setTo(g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BLUE_COLOR);
         _txtPage.x = 450;
         _txtPage.y = 460;
+        ManagerFilters.setEmptyStyle(_txtPage);
         _source.addChild(_txtPage);
         applyCallback();
     }

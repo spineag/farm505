@@ -25,9 +25,9 @@ public class WOBuyCoupone extends WindowMain{
         _callbackClickBG = hideIt;
         var txt:TextField = new TextField(400,100,'Собирай ваучеры, выполняя заказы, загружая корзину, и приобретайте на них особые товары');
         txt..format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -200;
         txt.y = -130;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
     }
 

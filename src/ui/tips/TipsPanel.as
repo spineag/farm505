@@ -3,6 +3,8 @@
  */
 package ui.tips {
 import com.greensock.TweenMax;
+
+import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.text.TextField;
@@ -39,6 +41,7 @@ public class TipsPanel {
         _txt.x = 18;
         _txt.y = 35;
         _txt.touchable = false;
+        ManagerFilters.setEmptyStyle(_txt);
         _source.addChild(_txt);
         _source.scaleX = _source.scaleY = .1;
         if (!g.cont.interfaceCont.contains(_source)) g.cont.interfaceCont.addChild(_source);

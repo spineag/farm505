@@ -4,6 +4,8 @@
 package hint {
 import com.junkbyte.console.Cc;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Image;
@@ -52,6 +54,8 @@ public class FarmHint {
         _countTxt.x = 85;
         _countTxt.y = 50;
         source.addChild(_countTxt);
+        ManagerFilters.setEmptyStyle(_countTxt);
+        ManagerFilters.setEmptyStyle(_nameTxt);
     }
 
     public function showIt(x:int, y:int, dataAnimal:Object, f:Function):void {

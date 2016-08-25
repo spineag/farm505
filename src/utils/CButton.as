@@ -21,6 +21,7 @@ import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import starling.filters.ColorMatrixFilter;
 import starling.filters.GlowFilter;
+import starling.styles.DistanceFieldStyle;
 import starling.text.TextField;
 import windows.WOComponents.WOSimpleButtonTexture;
 
@@ -77,8 +78,8 @@ public class CButton extends Sprite {
 //        _bg.flatten();
     }
 
-    public function registerTextField(tx:TextField, strokeFilter:GlowFilter):void {
-        _arrTextFields.push({t:tx, c:strokeFilter});
+    public function registerTextField(tx:TextField):void {
+        _arrTextFields.push({t:tx, style:tx.style});
     }
 
     public function deregisterTextField(tx:TextField):void {
@@ -183,19 +184,23 @@ public class CButton extends Sprite {
     }
 
     public function set setEnabled(v:Boolean):void {
-        var i:int;
-        this.isTouchable = v;
-        if (v) {
-            _bg.filter = null;
-            for (i=0; i<_arrTextFields.length; i++) {
-                _arrTextFields[i].t.nativeFilters = _arrTextFields[i].c;
-            }
-        } else {
-            _bg.filter = disableFilter;
-            for (i=0; i<_arrTextFields.length; i++) {
-                _arrTextFields[i].t.nativeFilters = ManagerFilters.TEXT_STROKE_GRAY;
-            }
-        }
+//        var i:int;
+//        this.isTouchable = v;
+//        if (v) {
+//            _bg.filter = null;
+//            for (i=0; i<_arrTextFields.length; i++) {
+//                if (_arrTextFields[i].t.style.mode == DistanceFieldStyle.MODE_BASIC) {
+//                    ManagerFilters.setStrokeStyle((_arrTextFields[i].t as TextField), ManagerFilters.TEXT_GRAY_HARD_COLOR);
+//                } else {
+//                    
+//                }
+//            }
+//        } else {
+//            _bg.filter = disableFilter;
+//            for (i=0; i<_arrTextFields.length; i++) {
+//                (_arrTextFields[i].t as TextField).style = _arrTextFields[i].style;
+//            }
+//        }
     }
 
     public function deleteIt():void {

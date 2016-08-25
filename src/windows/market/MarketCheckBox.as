@@ -27,7 +27,7 @@ public class MarketCheckBox {
         _stateChecked = true;
         _txt = new TextField(250, 40, 'Обьявление в газету на 4 часа');
         _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         im.scaleY = .8;

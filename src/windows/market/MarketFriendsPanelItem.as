@@ -46,9 +46,9 @@ public class MarketFriendsPanelItem{
         source.addChild(_ava);
         _txtPersonName = new TextField(100, 30, 'loading...');
         _txtPersonName.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtPersonName.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtPersonName.x = -15;
         _txtPersonName.y = 50;
+        ManagerFilters.setStrokeStyle(_txtPersonName, ManagerFilters.TEXT_BROWN_COLOR);
         if (_person.name) _txtPersonName.text = _person.name;
         source.addChild(_txtPersonName);
         source.endClickCallback = chooseThis;
@@ -73,8 +73,8 @@ public class MarketFriendsPanelItem{
             _planetBtn = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
             var txtBtn:TextField = new TextField(80, 25, "Посетить");
             txtBtn.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
-            txtBtn.filter = ManagerFilters.TEXT_STROKE_BROWN;
             txtBtn.x = -8;
+            ManagerFilters.setStrokeStyle(txtBtn, ManagerFilters.TEXT_BROWN_COLOR);
             _planet.addChild(_planetBtn);
             _planet.addChild(txtBtn);
             _planet.x = 20;

@@ -52,9 +52,9 @@ public class MouseHint {
 //        _source.addChild(_imageCircle);
         _txtCount = new TextField(30,30,"");
         _txtCount.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtCount.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCount.x = 29;
         _txtCount.y = 39;
+        ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtCount);
     }
 

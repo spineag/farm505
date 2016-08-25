@@ -34,16 +34,16 @@ public class WOMarketDeleteItem extends WindowMain{
         var txt:TextField = new TextField(300,30,'Этот продукт будет возвращен в хранилище.');
         txt.format.setTo(g.allData.bFonts['BloggerMedium24'],20,Color.WHITE);
         txt.autoScale = true;
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -150;
         txt.y = -20;
         txt.touchable = false;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
         txt = new TextField(300,30,'УБРАТЬ ТОВАР С ПРИЛАВКА?');
         txt.format.setTo(g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -157;
         txt.y = -60;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         txt.touchable = false;
         _source.addChild(txt);
         _callbackClickBG = onClickExit;
@@ -53,7 +53,7 @@ public class WOMarketDeleteItem extends WindowMain{
         _source.addChild(_b);
         txt = new TextField(200, 34, "Убрать за 1");
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _b.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         im.x = 150;

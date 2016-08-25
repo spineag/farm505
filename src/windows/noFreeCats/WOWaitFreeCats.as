@@ -30,17 +30,17 @@ public class WOWaitFreeCats extends WindowMain{
         createExitButton(hideIt);
         var txt:TextField = new TextField(400,100,"НЕТ СВОБОДНЫХ ПОМОЩНИКОВ!");
         txt.format.setTo(g.allData.bFonts['BloggerBold24'],20,Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.touchable = false;
         txt.x = -200;
         txt.y = -155;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
         txt = new TextField(400,100,'Все помощники сейчас заняты! Подождите окончания другого производства!');
         txt.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         txt.x = -200;
         txt.y = -120;
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.touchable = false;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
         _btn = new CButton();
         _btn.addButtonTexture(130,40,CButton.GREEN, true);
@@ -49,7 +49,7 @@ public class WOWaitFreeCats extends WindowMain{
         _source.addChild(_btn);
         txt = new TextField(130, 40, "ОК");
         txt.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
         im.x = -40;

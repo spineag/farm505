@@ -67,6 +67,7 @@ public class ToolsModifier {
         _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         _txtCount.x = 18;
         _txtCount.y = 29;
+        ManagerFilters.setEmptyStyle(_txtCount);
     }
 
     public function setTownArray():void {

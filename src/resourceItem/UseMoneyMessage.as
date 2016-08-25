@@ -30,9 +30,9 @@ public class UseMoneyMessage {
 
         var txt:TextField = new TextField(150,50, st);
         txt..format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = -75;
         txt.y = -25;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(txt);
         source.x = p.x;
         source.y = p.y;

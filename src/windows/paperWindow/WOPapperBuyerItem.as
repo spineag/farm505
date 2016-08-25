@@ -94,6 +94,7 @@ public class WOPapperBuyerItem {
         _txtCost.touchable = false;
         _txtCost.x = 53;
         _txtCost.y = 42;
+        ManagerFilters.setEmptyStyle(_txtCost);
         source.addChild(_txtCost);
 
         _txtCountResource = new TextField(84, 62, "10 шт.");
@@ -102,6 +103,7 @@ public class WOPapperBuyerItem {
         _txtCountResource.touchable = false;
         _txtCountResource.x = 80;
         _txtCountResource.y = 70;
+        ManagerFilters.setEmptyStyle(_txtCountResource);
         source.addChild(_txtCountResource);
 
         _txtResourceName = new TextField(200, 30, "Смаженый кабаньчик");
@@ -110,6 +112,7 @@ public class WOPapperBuyerItem {
         _txtResourceName.touchable = false;
         _txtResourceName.x = -38;
         _txtResourceName.y = 103;
+        ManagerFilters.setEmptyStyle(_txtResourceName);
         source.addChild(_txtResourceName);
 
         _txtUserName = new TextField(120, 50, "Станислав Йованович");
@@ -118,6 +121,7 @@ public class WOPapperBuyerItem {
         _txtUserName.touchable = false;
         _txtUserName.x = 56;
         _txtUserName.y = 12;
+        ManagerFilters.setEmptyStyle(_txtUserName);
         source.addChild(_txtUserName);
 
         source.visible = false;

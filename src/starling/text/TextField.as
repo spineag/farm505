@@ -25,7 +25,8 @@ import flash.display3D.Context3DTextureFormat;
     import starling.display.Quad;
     import starling.display.Sprite;
     import starling.events.Event;
-    import starling.rendering.Painter;
+import starling.filters.FragmentFilter;
+import starling.rendering.Painter;
     import starling.styles.MeshStyle;
     import starling.utils.RectangleUtil;
     import starling.utils.SystemUtil;
@@ -96,6 +97,10 @@ import flash.display3D.Context3DTextureFormat;
         private var _border:DisplayObjectContainer;
         private var _meshBatch:MeshBatch;
         private var _style:MeshStyle;
+        
+        //own by spineag
+        private var _deltaOwnX:int = 0;
+        private var _deltaOwnY:int = 0;
 
         // helper objects
         private static var sMatrix:Matrix = new Matrix();
@@ -513,5 +518,23 @@ import flash.display3D.Context3DTextureFormat;
             }
             return result;
         }
+
+
+        // own adds by spineag
+        public function set deltaOwnX(v:int):void { _deltaOwnX = v; }
+        public function set deltaOwnY(v:int):void { _deltaOwnY = v; }
+        override public function set x(value:Number):void {
+            value += _deltaOwnX;
+            super.x=value;
+        }
+        override public function set y(value:Number):void {
+            value += _deltaOwnY;
+            super.y=value;
+        }
+
+        override public function set filter(value:FragmentFilter):void {
+            super.filter = value;
+        }
+        
     }
 }

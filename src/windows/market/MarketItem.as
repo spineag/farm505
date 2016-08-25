@@ -94,21 +94,21 @@ public class MarketItem {
         _txtAdditem.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         _txtAdditem.x = 20;
         _txtAdditem.y = 30;
-        _txtAdditem.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(_txtAdditem, ManagerFilters.TEXT_BLUE_COLOR);
         source.addChild(_txtAdditem);
 
         _costTxt = new TextField(122, 30, '');
         _costTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 15, Color.WHITE);
-        _costTxt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _costTxt.y = 101;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2 - 5;
+        ManagerFilters.setStrokeStyle(_costTxt, ManagerFilters.TEXT_BROWN_COLOR);
 
         _countTxt = new TextField(30, 30, '');
         _countTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _countTxt.x = 77;
         _countTxt.y = 7;
-        _countTxt.filter = ManagerFilters.TEXT_STROKE_BROWN;
+        ManagerFilters.setStrokeStyle(_countTxt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_countTxt);
 
         _imageCont = new Sprite();
@@ -130,9 +130,9 @@ public class MarketItem {
 
         _txtPlawka = new TextField(90,60, 'Продано');
         _txtPlawka.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        _txtPlawka.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtPlawka.x = 10;
         _txtPlawka.y = 85;
+        ManagerFilters.setStrokeStyle(_txtPlawka, ManagerFilters.TEXT_BROWN_COLOR);
         _txtPlawka.visible = false;
         source.addChild(_txtPlawka);
 
@@ -199,14 +199,14 @@ public class MarketItem {
             txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
             txt.x = 5;
             txt.y = 20;
-            txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
+            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
             buyCont.addChild(txt);
             var _btnBuyCont:CButton = new CButton();
             _btnBuyCont.addButtonTexture(90,30,CButton.GREEN, true);
             txt = new TextField(30,30,String(String(_countBuyCell)));
             txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
             txt.x = 10;
-            txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
+            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btnBuyCont.addChild(txt);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             im.x = 55;
@@ -738,7 +738,7 @@ public class MarketItem {
         txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         txt.x = 4;
         txt.y = -4;
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btnGoAwaySaleItem.addChild(txt);
         source.addChild(_btnGoAwaySaleItem);
 

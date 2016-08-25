@@ -38,9 +38,9 @@ public class XPStar {
         _source.touchable = false;
         _txtStar = new TextField(80,50,'');
         _txtStar.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
-        _txtStar.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtStar.x = -15;
         _txtStar.y = 25;
+        ManagerFilters.setStrokeStyle(_txtStar, ManagerFilters.TEXT_BROWN_COLOR);
         _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
         _xp = xp;
         g.cont.animationsResourceCont.addChild(_source);

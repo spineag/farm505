@@ -95,9 +95,9 @@ public class CraftItem {
         }
         _txtNumber = new TextField(50,50,'');
         _txtNumber.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
-        _txtNumber.filter = ManagerFilters.TEXT_STROKE_BROWN;
 //        _txtNumber.x = -5;
         _txtNumber.y = 10;
+        ManagerFilters.setStrokeStyle(_txtNumber, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtNumber);
     }
     

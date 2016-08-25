@@ -44,7 +44,7 @@ public class WOBuyPlantItem {
         _txtNumber = new TextField(40,30,'');
         _txtNumber.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
         _txtNumber.format.horizontalAlign = Align.RIGHT;
-        _txtNumber.filter = ManagerFilters.TEXT_STROKE_BROWN;
+        ManagerFilters.setStrokeStyle(_txtNumber, ManagerFilters.TEXT_BROWN_COLOR);
 
         _txtNumber.x = 52;
         _txtNumber.y = 68;

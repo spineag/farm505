@@ -61,9 +61,9 @@ public class AfterTutorialWindow {
         _source.addChild(_btn);
         var txt:TextField = new TextField(110,100,"Дальше");
         txt.format.setTo(g.allData.bFonts['BloggerBold24'],20,Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.y = -25;
         txt.x = 30;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(txt);
     }
 

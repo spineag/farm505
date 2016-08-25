@@ -22,32 +22,29 @@ public class ManagerFilters {
     private static var _SHADOW_TINY:DropShadowFilter;
     private static var _SHADOW_TOP:DropShadowFilter;
 
-    public static var TEXT_BROWN_COLOR:int = 0x593b02;  //
-    public static var TEXT_ORANGE_COLOR:int = 0xd06d0a; //
-    public static var TEXT_LIGHT_GREEN_COLOR:int = 0x40f61c;  //
+    public static var TEXT_BROWN_COLOR:int = 0x593b02;  
+    public static var TEXT_ORANGE_COLOR:int = 0xd06d0a; 
+    public static var TEXT_LIGHT_GREEN_COLOR:int = 0x40f61c;  
     public static var TEXT_GREEN_COLOR:int = 0x10650a;
     public static var TEXT_YELLOW_COLOR:int = 0xa37b01;
-    public static var TEXT_BLUE_COLOR:int = 0x0659b6; 
     public static var TEXT_LIGHT_BLUE_COLOR:int = 0x1377ab;
-    public static var TEXT_OPTIMAL_BLUE_COLOR:int = 0x0968b1; //
     public static var TEXT_GRAY_HARD_COLOR:int = 0x444444;
-    public static var TEXT_BLUE_HARD:int = 0x0184df;
-    public static var TEXT_BLUE2:int = 0x0a6899;
+    public static var TEXT_BLUE_COLOR:int = 0x0968b1;
     public static var TEXT_LIGHT_BROWN:int = 0xa57728;
 
-    public static var TEXT_STROKE_ORANGE:GlowFilter = null; //new GlowFilter(TEXT_ORANGE_COLOR, 1, 4, 4);
-    public static var TEXT_STROKE_GREEN:GlowFilter = null; //new GlowFilter(TEXT_GREEN_COLOR, 1, 4, 4);
-    public static var TEXT_STROKE_GREEN2:GlowFilter = null; //new GlowFilter(TEXT_BLUE2, 1, 4, 4);
-    public static var TEXT_STROKE_YELLOW:GlowFilter = null; //new GlowFilter(TEXT_YELLOW_COLOR, 1, 4, 4);
-    public static var TEXT_STROKE_BLUE:GlowFilter = null; //new GlowFilter(TEXT_BLUE_COLOR, 1, 4, 4);
-    public static var TEXT_STROKE_LIGHT_BLUE:GlowFilter = null; //new GlowFilter(TEXT_LIGHT_BLUE_COLOR, 1, 4, 4);
-    public static var TEXT_STROKE_WHITE:GlowFilter = null; //new GlowFilter(Color.WHITE, 1, 4, 4);
-    public static var TEXT_STROKE_BROWN:GlowFilter = null; //new GlowFilter(TEXT_BROWN_COLOR, 1, 4, 4);
-    public static var TEXT_STROKE_RED:GlowFilter = null; //new GlowFilter(Color.RED, 1, 4, 4);
-    public static var TEXT_STROKE_GRAY:GlowFilter = null; //new GlowFilter(TEXT_GRAY_HARD_COLOR, 1, 4, 4);
-    public static var TEXT_STROKE_BROWN_BIG:GlowFilter = null; //new GlowFilter(TEXT_BROWN_COLOR, 1, 6, 6);
-    public static var TEXT_STROKE_BLUE_BIG:GlowFilter = null; //new GlowFilter(TEXT_BLUE_COLOR, 1, 6, 6);
-    public static var TEXT_STROKE_GREEN_BIG:GlowFilter = null; //new GlowFilter(TEXT_GREEN_COLOR, 1, 6, 6);
+//    public static var TEXT_STROKE_ORANGE:GlowFilter = null; //new GlowFilter(TEXT_ORANGE_COLOR, 1, 4, 4);
+//    public static var TEXT_STROKE_GREEN:GlowFilter = null; //new GlowFilter(TEXT_GREEN_COLOR, 1, 4, 4);
+//    public static var TEXT_STROKE_GREEN2:GlowFilter = null; //new GlowFilter(TEXT_BLUE2, 1, 4, 4);
+//    public static var TEXT_STROKE_YELLOW:GlowFilter = null; //new GlowFilter(TEXT_YELLOW_COLOR, 1, 4, 4);
+//    public static var TEXT_STROKE_BLUE:GlowFilter = null; //new GlowFilter(TEXT_BLUE_COLOR, 1, 4, 4);
+//    public static var TEXT_STROKE_LIGHT_BLUE:GlowFilter = null; //new GlowFilter(TEXT_LIGHT_BLUE_COLOR, 1, 4, 4);
+//    public static var TEXT_STROKE_WHITE:GlowFilter = null; //new GlowFilter(Color.WHITE, 1, 4, 4);
+//    public static var TEXT_STROKE_BROWN:GlowFilter = null; //new GlowFilter(TEXT_BROWN_COLOR, 1, 4, 4);
+//    public static var TEXT_STROKE_RED:GlowFilter = null; //new GlowFilter(Color.RED, 1, 4, 4);
+//    public static var TEXT_STROKE_GRAY:GlowFilter = null; //new GlowFilter(TEXT_GRAY_HARD_COLOR, 1, 4, 4);
+//    public static var TEXT_STROKE_BROWN_BIG:GlowFilter = null; //new GlowFilter(TEXT_BROWN_COLOR, 1, 6, 6);
+//    public static var TEXT_STROKE_BLUE_BIG:GlowFilter = null; //new GlowFilter(TEXT_BLUE_COLOR, 1, 6, 6);
+//    public static var TEXT_STROKE_GREEN_BIG:GlowFilter = null; //new GlowFilter(TEXT_GREEN_COLOR, 1, 6, 6);
 
 
     private static var _BUILDING_HOVER_FILTER:ColorMatrixFilter;
@@ -202,8 +199,8 @@ public class ManagerFilters {
         s.setupOutline(.5, color);
         txt.style = s;
         // fix x and y position for text with distance
-        txt.x -= 7;
-        txt.y -= 2;
+        txt.deltaOwnX = -7;
+        txt.deltaOwnY = -2;
 //        txt.border = true;
     }
 
@@ -211,8 +208,8 @@ public class ManagerFilters {
         var s:DistanceFieldStyle = new DistanceFieldStyle(.5, .25);
         txt.style = s;
         // fix x and y position for text with distance
-        txt.x -= 7;
-        txt.y -= 2;
+        txt.deltaOwnX = -7;
+        txt.deltaOwnY = -2;
 //        txt.border = true;
     }
 }

@@ -55,9 +55,9 @@ public class WOLockedLand extends WindowMain {
         _btnOpen.addButtonTexture(158, 46, CButton.BLUE, true);
         var txt:TextField = new TextField(158,46,'Открыть участок');
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btnOpen.addChild(txt);
-        _btnOpen.registerTextField(txt, ManagerFilters.TEXT_STROKE_BLUE);
+        _btnOpen.registerTextField(txt);
         _btnOpen.x = 0;
         _btnOpen.y = -_woHeight/2 + 515;
         _source.addChild(_btnOpen);
@@ -69,6 +69,7 @@ public class WOLockedLand extends WindowMain {
         _source.addChild(_pl);
         txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок');
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+        ManagerFilters.setEmptyStyle(txt);
         _pl.inSprite.addChild(txt);
         addAnimation();
     }

@@ -36,9 +36,9 @@ public class WOTips  extends WindowMain {
         var txt:TextField = new TextField(420,80,'Список действий');
         txt.format.setTo(g.allData.bFonts['BloggerBold30'],30,Color.WHITE);
         txt.autoScale = true;
-        txt.filter = ManagerFilters.TEXT_STROKE_GREEN2;
         txt.x = -210;
         txt.y = -240;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         txt.touchable = false;
         _source.addChild(txt);
 

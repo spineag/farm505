@@ -84,7 +84,7 @@ public class WODailyBonus extends WindowMain {
         _btnFree.addButtonTexture(146, 40, CButton.BLUE, true);
         var txt:TextField  = new TextField(146, 40, 'Вращать колесо');
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btnFree.addChild(txt);
         _btnFree.y = 260;
         _source.addChild(_btnFree);
@@ -93,7 +93,7 @@ public class WODailyBonus extends WindowMain {
         _btnBuy.addButtonTexture(200, 40, CButton.GREEN, true);
         _txtBtnBuy = new TextField(170, 40, 'Вращать колесо за 10');
         _txtBtnBuy.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        _txtBtnBuy.filter = ManagerFilters.TEXT_STROKE_GREEN;
+        ManagerFilters.setStrokeStyle(_txtBtnBuy, ManagerFilters.TEXT_GREEN_COLOR);
         _btnBuy.addChild(_txtBtnBuy);
         _btnBuy.y = 260;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

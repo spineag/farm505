@@ -78,15 +78,15 @@ public class WOMarketChoose extends WindowMain {
 
         var t:TextField = new TextField(100, 30, 'Количество:');
         t.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        t.filter = ManagerFilters.TEXT_STROKE_BROWN;
         t.x = -190;
         t.y = 145;
+        ManagerFilters.setStrokeStyle(t, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(t);
         t = new TextField(150, 30, 'Цена продажи:');
         t.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        t.filter = ManagerFilters.TEXT_STROKE_BROWN;
         t.x = -55;
         t.y = 145;
+        ManagerFilters.setStrokeStyle(t, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(t);
 
         _btnSell = new CButton();
@@ -96,8 +96,8 @@ public class WOMarketChoose extends WindowMain {
         _btnSell.addChild(im);
         t = new TextField(100, 50, 'Выставить на продажу');
         t.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        t.filter = ManagerFilters.TEXT_STROKE_BROWN;
         t.y = 45;
+        ManagerFilters.setStrokeStyle(t, ManagerFilters.TEXT_BROWN_COLOR);
         _btnSell.addChild(t);
         _btnSell.x = 160;
         _btnSell.y = 190;
@@ -127,9 +127,9 @@ public class WOMarketChoose extends WindowMain {
         _tabAmbar.addChild(im);
         var txt:TextField = new TextField(90, 40, "Амбар");
         txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 31;
         txt.y = 2;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _tabAmbar.addChild(txt);
         _tabAmbar.x = -205;
         _tabAmbar.y = _defaultY;
@@ -159,9 +159,9 @@ public class WOMarketChoose extends WindowMain {
         _tabSklad.addChild(im);
         txt = new TextField(90, 40, "Склад");
         txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 34;
         txt.y = 2;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _tabSklad.addChild(txt);
         _tabSklad.x = -75;
         _tabSklad.y = _defaultY;

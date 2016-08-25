@@ -57,15 +57,15 @@ public class XPPanel {
         _source.addChild(_imageStar);
         _txtLevel = new TextField(60, 60, '55');
         _txtLevel.format.setTo(g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
-        _txtLevel.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtLevel.x = -27;
         _txtLevel.y = -12;
+        ManagerFilters.setStrokeStyle(_txtLevel, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtLevel);
         _txtXPCount = new TextField(123, 30, '0');
         _txtXPCount.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtXPCount.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtXPCount.x = 35;
         _txtXPCount.y = 4;
+        ManagerFilters.setStrokeStyle(_txtXPCount, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtXPCount);
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;

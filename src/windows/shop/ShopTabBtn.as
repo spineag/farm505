@@ -38,8 +38,8 @@ public class ShopTabBtn {
         _source.addChild(_bg);
         var _txt:TextField = new TextField(123, 100, '');
         _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
-        _txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txt.y = 10;
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BLUE_COLOR);
         var f1:Function = function():void {
             if (g.managerCutScenes.isCutScene) return;
             if (g.managerTutorial.isTutorial) return;
@@ -120,6 +120,7 @@ public class ShopTabBtn {
                 }
                 break;
         }
+        ManagerFilters.setEmptyStyle(_txtNotification);
         im.x = 62 - im.width/2;
         im.y = 38 - im.height/2;
         _source.addChild(im);

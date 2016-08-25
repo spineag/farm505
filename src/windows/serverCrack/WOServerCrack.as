@@ -32,16 +32,16 @@ public class WOServerCrack  extends WindowMain {
         var txt:TextField = new TextField(420,80,'Не правильные данные');
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
         txt.autoScale = true;
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -210;
         txt.y = -130;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         txt.touchable = false;
         _source.addChild(txt);
         _txtError = new TextField(340,100,'Ошибка данных');
         _txtError.format.setTo(g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
-        _txtError.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtError.x = -170;
         _txtError.y = -170;
+        ManagerFilters.setStrokeStyle(_txtError, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtError);
         _txtError.touchable = false;
         _b = new CButton();
@@ -50,7 +50,7 @@ public class WOServerCrack  extends WindowMain {
         _source.addChild(_b);
         txt = new TextField(200, 34, "Перезагрузить");
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _b.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;

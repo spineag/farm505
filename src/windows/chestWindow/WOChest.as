@@ -68,7 +68,7 @@ public class WOChest  extends WindowMain{
             txt.text = 'Открыть за ' + String(ManagerChest.COST_OPEN);
             txt.x = - 10;
             txt.y = 5;
-            txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
+            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btnOpen.addChild(txt);
             _btnOpen.clickCallback = onClickOpen;
             _source.addChild(_btnOpen);

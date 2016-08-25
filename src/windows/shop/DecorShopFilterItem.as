@@ -36,7 +36,7 @@ public class DecorShopFilterItem {
                 g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), _width);
         _txt = new TextField(_width, 35, '');
         _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_bg);
         _source.addChild(_txt);
         _source.y = pos * 33;

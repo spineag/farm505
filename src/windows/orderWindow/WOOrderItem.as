@@ -73,7 +73,7 @@ public class WOOrderItem {
 
         _txtName = new TextField(112, 20, "Васько");
         _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtName.filter = ManagerFilters.TEXT_STROKE_BROWN;
+        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txtName);
 
         _starImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
@@ -84,9 +84,9 @@ public class WOOrderItem {
         source.addChild(_starImage);
         _txtXP = new TextField(52, 30, "8888");
         _txtXP.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtXP.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtXP.x = 48;
         _txtXP.y = 26;
+        ManagerFilters.setStrokeStyle(_txtXP, ManagerFilters.TEXT_BLUE_COLOR);
         source.addChild(_txtXP);
 
         _coinsImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
@@ -97,9 +97,9 @@ public class WOOrderItem {
         source.addChild(_coinsImage);
         _txtCoins = new TextField(52, 30, "8888");
         _txtCoins.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtCoins.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtCoins.x = 48;
         _txtCoins.y = 55;
+        ManagerFilters.setStrokeStyle(_txtCoins, ManagerFilters.TEXT_BLUE_COLOR);
         source.addChild(_txtCoins);
         _act = false;
 

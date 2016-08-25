@@ -95,6 +95,7 @@ public class TutorialTextBubble {
                 }
                 break;
         }
+        ManagerFilters.setEmptyStyle(_txt);
         _source.addChild(_im);
         _txt.autoScale = true;
         _source.addChild(_txt);

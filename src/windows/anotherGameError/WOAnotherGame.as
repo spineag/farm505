@@ -29,9 +29,9 @@ public class WOAnotherGame extends WindowMain {
         var txt:TextField = new TextField(420,130,'Игра уже запущена в другом окне');
         txt.format.setTo(g.allData.bFonts['BloggerMedium24'],24,Color.WHITE);
         txt.autoScale = true;
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -210;
         txt.y = -130;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         txt.touchable = false;
         _source.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));

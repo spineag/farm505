@@ -298,9 +298,9 @@ public class WOShop extends WindowMain {
     private function createMoneyBlock():void {
         var txt:TextField = new TextField(250, 40, 'Ваши сбережения:');
         txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = -_woWidth/2 + 238;
         txt.y = -_woHeight/2 + 461;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
 
         _pl1 = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
@@ -409,39 +409,39 @@ public class WOShop extends WindowMain {
 
         _txtHardMoney = new TextField(63, 33, '88888');
         _txtHardMoney.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        _txtHardMoney.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtHardMoney.x = -_woWidth/2 + 81;
         _txtHardMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtHardMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtHardMoney);
         _txtSoftMoney = new TextField(63, 33, '88888');
         _txtSoftMoney.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        _txtSoftMoney.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtSoftMoney.x = -_woWidth/2 + 239;
         _txtSoftMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtSoftMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtSoftMoney);
         _txtRedMoney = new TextField(39, 33, '888');
         _txtRedMoney.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        _txtRedMoney.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtRedMoney.x = -_woWidth/2 + 400;
         _txtRedMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtRedMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtRedMoney);
         _txtYellowMoney = new TextField(39, 33, '888');
         _txtYellowMoney.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        _txtYellowMoney.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtYellowMoney.x = -_woWidth/2 + 475;
         _txtYellowMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtYellowMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtYellowMoney);
         _txtGreenMoney = new TextField(39, 33, '888');
         _txtGreenMoney.format.setTo(g.allData.bFonts['BloggerBold18'], 14, Color.WHITE);
-        _txtGreenMoney.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtGreenMoney.x = -_woWidth/2 + 550;
         _txtGreenMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtGreenMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtGreenMoney);
         _txtBlueMoney = new TextField(39, 33, '888');
         _txtBlueMoney.format.setTo(g.allData.bFonts['BloggerBold18'], 14, Color.WHITE);
-        _txtBlueMoney.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtBlueMoney.x = -_woWidth/2 + 625;
         _txtBlueMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtBlueMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtBlueMoney);
     }
 

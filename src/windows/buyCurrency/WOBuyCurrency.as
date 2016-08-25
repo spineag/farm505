@@ -73,8 +73,8 @@ public class WOBuyCurrency extends WindowMain {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         var txt:TextField = new TextField(160, 67, 'Рубины');
         txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 85;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         txt.touchable = false;
         _tabHard.addChild(txt);
         _tabHard.x = -289;
@@ -94,8 +94,8 @@ public class WOBuyCurrency extends WindowMain {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
         txt= new TextField(160, 67, 'Монеты');
         txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 85;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         txt.touchable = false;
         _tabSoft.addChild(txt);
         _tabSoft.x = -9;

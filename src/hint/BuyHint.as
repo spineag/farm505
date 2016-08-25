@@ -27,7 +27,7 @@ public class BuyHint {
         _source = new Sprite();
         _txtHint = new TextField(100,50,"");
         _txtHint.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        _txtHint.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(_txtHint, ManagerFilters.TEXT_BLUE_COLOR);
         _source.touchable = false;
         _open = false;
     }

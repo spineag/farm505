@@ -55,7 +55,7 @@ public class CountBlock {
         _btnPlus.addDisplayObject(im);
         _txt = new TextField(50, 30, '0');
         _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
         _plawkaBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         _btnPlus.startClickCallback = onStartPlus;
         _btnPlus.clickCallback = onEndPlus;

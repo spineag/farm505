@@ -24,7 +24,7 @@ public class Birka extends Sprite{
         _txt = new TextField(300, 70, text);
         _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
         _txt.format.horizontalAlign = Align.LEFT;
-        _txt.filter = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _bg = new Sprite();
 
         createAll();

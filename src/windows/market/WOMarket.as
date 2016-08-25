@@ -96,9 +96,9 @@ public class WOMarket  extends WindowMain {
         _cont.addChild(c);
         var txt:TextField = new TextField(80, 25, 'Все друзья');
         txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        txt.filter = new GlowFilter(0x4b3600, 1, 4, 4);
         txt.x = 8;
         txt.y = 8;
+        ManagerFilters.setStrokeStyle(txt, 0x4b3600);
         _btnFriends.addChild(txt);
         _source.addChild(_btnFriends);
         _btnFriends.clickCallback = btnFriend;
@@ -155,9 +155,9 @@ public class WOMarket  extends WindowMain {
         _source.addChild(im);
         _txtNumberPage = new TextField(50, 50, '');
         _txtNumberPage.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtNumberPage.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtNumberPage.x = -253;
         _txtNumberPage.y = 153;
+        ManagerFilters.setStrokeStyle(_txtNumberPage, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtNumberPage);
 
         _contPaper = new Sprite();
@@ -181,7 +181,7 @@ public class WOMarket  extends WindowMain {
         txt = new TextField(30,30,'1');
         txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         txt.x = 10;
-        txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnPaper.addChild(txt);
         _btnPaper.x = 153;
         _btnPaper.y = 180;
@@ -196,16 +196,16 @@ public class WOMarket  extends WindowMain {
 
         txt = new TextField(200,30,'Выставить в газету:');
         txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 8;
         txt.y = 135;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _contPaper.addChild(txt);
 
         _txtTimerPaper = new TextField(80,30,'');
         _txtTimerPaper.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtTimerPaper.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtTimerPaper.x = 46;
         _txtTimerPaper.y = 165;
+        ManagerFilters.setStrokeStyle(_txtTimerPaper, ManagerFilters.TEXT_BROWN_COLOR);
         _contPaper.addChild(_txtTimerPaper);
         _contPaper.visible = false;
     }
@@ -224,9 +224,9 @@ public class WOMarket  extends WindowMain {
         _arrFriends.unshift(g.user);
         _txtName = new TextField(300, 30, '');
         _txtName.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
-        _txtName.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txtName.y = -200;
         _txtName.x = -195;
+        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BROWN_COLOR);
         _ma = new MarketAllFriend(_arrFriends, this, btnFriend);
         _source.addChild(_ma.source);
     }

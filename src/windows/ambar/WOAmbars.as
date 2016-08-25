@@ -90,9 +90,9 @@ public class WOAmbars extends WindowMain {
         _tabAmbar.addChild(im);
         var txt:TextField = new TextField(90, 40, "Амбар");
         txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 31;
         txt.y = 2;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _tabAmbar.addChild(txt);
         _tabAmbar.x = -205;
         _tabAmbar.y = _defaultY;
@@ -123,9 +123,9 @@ public class WOAmbars extends WindowMain {
         _tabSklad.addChild(im);
         txt = new TextField(90, 40, "Склад");
         txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 34;
         txt.y = 2;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _tabSklad.addChild(txt);
         _tabSklad.x = -75;
         _tabSklad.y = _defaultY;
@@ -170,9 +170,9 @@ public class WOAmbars extends WindowMain {
         _txtCount = new TextField(250, 67, "Вместимость: 0/0");
         _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
         _txtCount.format.horizontalAlign = Align.LEFT;
-        _txtCount.filter = ManagerFilters.TEXT_STROKE_WHITE;
         _txtCount.x = -_woWidth/2 + 47;
         _txtCount.y = -_woHeight/2 + 473;
+        ManagerFilters.setStrokeStyle(_txtCount, Color.WHITE);
         _source.addChild(_txtCount);
 
         _btnShowUpdate = new CButton();
@@ -181,9 +181,9 @@ public class WOAmbars extends WindowMain {
         _btnShowUpdate.y = -_woHeight/2 + 514;
         _txtBtnShowUpdate = new TextField(90, 50, "Увеличить склад");
         _txtBtnShowUpdate.format.setTo(g.allData.bFonts['BloggerMedium14'], 14, Color.WHITE);
-        _txtBtnShowUpdate.filter = ManagerFilters.TEXT_STROKE_GREEN;
         _txtBtnShowUpdate.x = 18;
         _txtBtnShowUpdate.y = -5;
+        ManagerFilters.setStrokeStyle(_txtBtnShowUpdate, ManagerFilters.TEXT_GREEN_COLOR);
         _btnShowUpdate.addChild(_txtBtnShowUpdate);
         _source.addChild(_btnShowUpdate);
         _btnShowUpdate.clickCallback = showUpdateState;
@@ -194,9 +194,9 @@ public class WOAmbars extends WindowMain {
         _btnBackFromUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
         var txt:TextField = new TextField(90, 50, "Назад");
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = 18;
         txt.y = -4;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btnBackFromUpdate.addChild(txt);
         _btnBackFromUpdate.x = -_woWidth/2 + 430;
         _btnBackFromUpdate.y = -_woHeight/2 + 514;
@@ -221,23 +221,23 @@ public class WOAmbars extends WindowMain {
         _updateSprite.addChild(_item3.source);
         txt = new TextField(284,45,'Необходимые материалы');
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txt.x = 59;
         txt.y = -35;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _updateSprite.addChild(txt);
 
         _btnMakeUpdate = new CButton();
         _btnMakeUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
         txt = new TextField(90, 50, "Увеличить");
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 18, Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         txt.x = 17;
         txt.y = -4;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btnMakeUpdate.addChild(txt);
         _btnMakeUpdate.x = 201;
         _btnMakeUpdate.y = 220;
         _updateSprite.addChild(_btnMakeUpdate);
-        _btnMakeUpdate.registerTextField(txt, ManagerFilters.TEXT_STROKE_BLUE);
+        _btnMakeUpdate.registerTextField(txt);
         _btnMakeUpdate.clickCallback = onUpdate;
 
         _updateSprite.x = - _updateSprite.width/2 - 10;

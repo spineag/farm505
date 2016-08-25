@@ -108,6 +108,7 @@ public class WOPapperItem {
         _txtCost.touchable = false;
         _txtCost.x = 53;
         _txtCost.y = 42;
+        ManagerFilters.setEmptyStyle(_txtCost);
         source.addChild(_txtCost);
 
         _txtCountResource = new TextField(84, 62, "");
@@ -117,6 +118,7 @@ public class WOPapperItem {
         _txtCountResource.format.leading = 10;
         _txtCountResource.x = 80;
         _txtCountResource.y = 70;
+        ManagerFilters.setEmptyStyle(_txtCountResource);
         source.addChild(_txtCountResource);
 
         _txtResourceName = new TextField(100, 30, "");
@@ -125,6 +127,7 @@ public class WOPapperItem {
         _txtResourceName.touchable = false;
         _txtResourceName.x = 70;
         _txtResourceName.y = 98;
+        ManagerFilters.setEmptyStyle(_txtResourceName);
         source.addChild(_txtResourceName);
 
         _txtUserName = new TextField(110, 50, "");
@@ -133,6 +136,7 @@ public class WOPapperItem {
         _txtUserName.touchable = false;
         _txtUserName.x = 58;
         _txtUserName.y = 8;
+        ManagerFilters.setEmptyStyle(_txtUserName);
         source.addChild(_txtUserName);
 
         source.visible = false;
@@ -200,7 +204,7 @@ public class WOPapperItem {
         txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         txt.x = 4;
         txt.y = -4;
-        txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnBuyBot.addChild(txt);
         source.addChild(_btnBuyBot);
         _btnBuyBot.x = 35;
@@ -268,13 +272,14 @@ public class WOPapperItem {
         txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = 80;
         txt.y = 10;
+        ManagerFilters.setEmptyStyle(txt);
         source.addChild(txt);
         _btnBuyBot = new CButton();
         _btnBuyBot.addButtonTexture(70, 30, CButton.GREEN, true);
         txt = new TextField(60, 30, 'продать');
         txt.format.setTo(g.allData.bFonts['BloggerBold18'], 15, Color.WHITE);
         txt.x = 4;
-        txt.filter = ManagerFilters.TEXT_STROKE_GREEN;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnBuyBot.addChild(txt);
         source.addChild(_btnBuyBot);
         _btnBuyBot.x = 95;
@@ -295,6 +300,7 @@ public class WOPapperItem {
         _txtSale.x = 48;
         _txtSale.y = 95;
         _txtSale.visible = false;
+        ManagerFilters.setEmptyStyle(_txtSale);
         source.addChild(_txtSale);
         if (!_data.visible) {
             _btnBuyBot.visible = false;

@@ -41,8 +41,8 @@ public class WOBuyCave extends WindowMain {
         _btn.addChild(im);
         _priceTxt = new TextField(217, 30, '');
         _priceTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _priceTxt.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _priceTxt.y = 5;
+        ManagerFilters.setStrokeStyle(_priceTxt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(_priceTxt);
         _source.addChild(_btn);
         _btn.clickCallback = onClickBuy;
@@ -51,6 +51,7 @@ public class WOBuyCave extends WindowMain {
         _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txt.x = -150;
         _txt.y = -20;
+        ManagerFilters.setEmptyStyle(_txt);
         _source.addChild(_txt);
     }
 

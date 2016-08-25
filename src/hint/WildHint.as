@@ -66,12 +66,12 @@ public class WildHint {
         _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
         _txtCount = new TextField(30,30,"");
         _txtCount.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
-        _txtCount.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BLUE_COLOR);
         _txtName = new TextField(100,50,"");
         _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtName.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName.x = -50;
         _txtName.y = -150;
+        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BLUE_COLOR);
         _circle.x = +_bgItem.width/2 -20;
         _circle.y = -_bgItem.height - 50;
         _source.addChild(_circle);

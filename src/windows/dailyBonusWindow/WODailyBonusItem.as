@@ -106,9 +106,9 @@ public class WODailyBonusItem {
         if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
             var txt:TextField = new TextField(60, 40, '+'+String(obj.count));
             txt.format.setTo(g.allData.bFonts['BloggerMedium24'], 20, Color.WHITE);
-            txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
             txt.x = -20;
             txt.y = -5;
+            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
             _source.addChild(txt);
         }
     }

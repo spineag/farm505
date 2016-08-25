@@ -69,9 +69,9 @@ public class WODailyBonusCraftItem {
 //        if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
             var txt:TextField = new TextField(80, 60, '+'+String(obj.count));
             txt.format.setTo(g.allData.bFonts['BloggerMedium30'], 30, Color.WHITE);
-            txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
             txt.x = 0;
             txt.y = 5;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
             _source.addChild(txt);
 //        }
 

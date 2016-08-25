@@ -52,14 +52,13 @@ public class WONoPlaces extends WindowMain {
         _btn.clickCallback = onClick;
         _txtName = new TextField(300,30,"НЕДОСТАТОЧНО МЕСТА!");
         _txtName.format.setTo(g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
-        _txtName.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName.x = -150;
         _txtName.y = -150;
+        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtName);
         _txtText = new TextField(350,70,"");
         _txtText.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
-        _txtText.filter = ManagerFilters.TEXT_STROKE_BLUE;
-
+        ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtText);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_medium"));
@@ -73,20 +72,20 @@ public class WONoPlaces extends WindowMain {
         im.y = -50;
         _txtCost = new TextField(200,50,"");
         _txtCost.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
-        _txtCost.filter = ManagerFilters.TEXT_STROKE_GREEN;
         _txtCost.x = -8;
         _txtCost.y = -3;
+        ManagerFilters.setStrokeStyle(_txtCost, ManagerFilters.TEXT_GREEN_COLOR);
         _btn.addChild(_txtCost);
         _source.addChild(im);
         _txtAdd = new TextField(100,100,"");
         _txtAdd.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
-        _txtAdd.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _last = false;
-
+        ManagerFilters.setStrokeStyle(_txtAdd, ManagerFilters.TEXT_BROWN_COLOR);
         _txtIcon = new TextField(80,200,"добавить ячейку очереди");
         _txtIcon.format.setTo(g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
         _txtIcon.x = -37;
         _txtIcon.y = -102;
+        ManagerFilters.setEmptyStyle(_txtIcon);
         _source.addChild(_txtIcon);
         _txtIcon.visible = false;
     }

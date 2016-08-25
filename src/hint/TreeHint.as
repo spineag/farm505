@@ -87,16 +87,17 @@ public class TreeHint {
 
         _txtItem = new TextField(50,50,"");
         _txtItem.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtItem.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtItem.x = 38;
         _txtItem.y = -117;
+        ManagerFilters.setStrokeStyle(_txtItem, ManagerFilters.TEXT_BLUE_COLOR);
         _txtName = new TextField(200,50,"");
         _txtName.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
-        _txtName.filter = ManagerFilters.TEXT_STROKE_BLUE;
         _txtName.x = -100;
         _txtName.y = -140;
+        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BLUE_COLOR);
         _txtText = new TextField(50,30,'УСКОРИТЬ');
         _txtText.format.setTo(g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BLUE_COLOR);
+        ManagerFilters.setEmptyStyle(_txtText);
 
         _contDelete.addDisplayObject(_imageBgItem);
         _contWatering.addDisplayObject(_imageBgItemHelp);

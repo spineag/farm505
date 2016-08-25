@@ -41,13 +41,13 @@ public class WOInviteFriends extends WindowMain {
         _txt.format.setTo(g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
         _txt.x = -150;
         _txt.y = -200;
-        _txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txt);
         _btn = new CButton();
         _btn.addButtonTexture(100, 34, CButton.BLUE, true);
         var txt:TextField = new TextField(100,30,'Пригласить');
         txt.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        txt.filter = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(txt);
         _btn.x = 0;
         _btn.y = 200;

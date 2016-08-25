@@ -63,6 +63,7 @@ public class FriendPanel {
         txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 30;
         txt.y = -23;
+        ManagerFilters.setEmptyStyle(txt);
         _source.addChild(txt);
 
         _mask = new Sprite();
@@ -173,6 +174,7 @@ public class FriendPanel {
             txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
+            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 237 + bt.width/2;
@@ -187,6 +189,7 @@ public class FriendPanel {
             txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
+            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 303 + bt.width/2;
@@ -201,6 +204,7 @@ public class FriendPanel {
             txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
+            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 369 + bt.width/2;
@@ -216,6 +220,7 @@ public class FriendPanel {
             txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
+            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 303 + bt.width/2;
@@ -230,6 +235,7 @@ public class FriendPanel {
             txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
+            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 369 + bt.width/2;
@@ -245,6 +251,7 @@ public class FriendPanel {
             txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
+            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 369 + bt.width/2;

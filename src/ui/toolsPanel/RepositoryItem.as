@@ -13,6 +13,7 @@ import mouse.ToolsModifier;
 
 import starling.display.Image;
 import starling.text.TextField;
+import starling.utils.Color;
 
 import tutorial.managerCutScenes.ManagerCutScenes;
 
@@ -57,9 +58,9 @@ public class RepositoryItem {
 
         _txtCount = new TextField(30,20,String(_count));
         _txtCount.format.setTo(g.allData.bFonts['BloggerMedium14'],14, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtCount.filter = ManagerFilters.TEXT_STROKE_WHITE;
         _txtCount.x = 30;
         _txtCount.y = 40;
+        ManagerFilters.setStrokeStyle(_txtCount, Color.WHITE);
         source.addChild(_txtCount);
         source.endClickCallback = onClick;
     }

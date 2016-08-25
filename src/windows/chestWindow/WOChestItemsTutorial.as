@@ -67,9 +67,9 @@ internal class ItemChest {
         source.addChild(im);
         _txt = new TextField(80, 60, '+'+String(_data.count));
         _txt.format.setTo(g.allData.bFonts['BloggerMedium30'], 26, Color.WHITE);
-        _txt.filter = ManagerFilters.TEXT_STROKE_BROWN;
         _txt.x = 0;
         _txt.y = 5;
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txt);
     }
 

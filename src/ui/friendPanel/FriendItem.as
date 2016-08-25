@@ -74,11 +74,11 @@ public class FriendItem {
 
         txtLvl = new TextField(34, 18, "");
         txtLvl.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        txtLvl.filter = ManagerFilters.TEXT_STROKE_BROWN;
         txtLvl.text = '1';
         txtLvl.text = String(_person.level);
         txtLvl.x = 32;
         txtLvl.y = 50;
+        ManagerFilters.setStrokeStyle(txtLvl, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(txtLvl);
         if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
         if (_person is NeighborBot) txtLvl.text = '10';
@@ -86,6 +86,7 @@ public class FriendItem {
         _txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, ManagerFilters.TEXT_BROWN_COLOR);
         _txt.y = -5;
         _txt.x = -1;
+        ManagerFilters.setEmptyStyle(_txt);
         if (_person.name) {
             setName(_person.name);
         } else {

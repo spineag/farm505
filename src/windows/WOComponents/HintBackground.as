@@ -253,6 +253,7 @@ public class HintBackground extends Sprite {
         _txt.format.setTo(g.allData.bFonts['BloggerBold'+s], size, ManagerFilters.TEXT_BLUE_COLOR);
         _txt.x = _bg.x + 5;
         _txt.y = _bg.y + 5;
+        ManagerFilters.setEmptyStyle(_txt);
         addChild(_txt);
     }
 
