@@ -18,6 +18,7 @@ import starling.display.Sprite;
 import starling.styles.DistanceFieldStyle;
 
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
 
 import utils.CButton;
@@ -62,19 +63,13 @@ public class SoftHardCurrency {
         };
         createPanel(true, _contSoft, onClickSoft);
         createPanel(false, _contHard, onClickHard);
-//        _txtSoft =  new TextField(122, 38, '000');
-        _txtSoft =  new TextField(500, 200, '07291');
-        _txtSoft.format.setTo(g.allData.bFonts['BloggerBold30'], 30, Color.WHITE);
-//        _txtSoft.filter = ManagerFilters.NEW_TEXT_STROKE_BROWN;
-        var style:DistanceFieldStyle = new DistanceFieldStyle(.5, .25);
-        style.setupOutline(.5, ManagerFilters.TEXT_BROWN_COLOR);
-//        style.setupDropShadow(5, 0, 0, ManagerFilters.TEXT_BROWN_COLOR, 1);
-//        style.setupGlow(5,ManagerFilters.TEXT_BROWN_COLOR, 1);
-        _txtSoft.style = style;
+        _txtSoft =  new TextField(122, 38, '00');
+        _txtSoft.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        ManagerFilters.setStrokeStyle(_txtSoft, ManagerFilters.TEXT_BROWN_COLOR);
         _contSoft.addChild(_txtSoft);
-        _txtHard =  new TextField(122, 38, '0');
+        _txtHard =  new TextField(122, 38, '00');
         _txtHard.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtHard.filter = ManagerFilters.TEXT_STROKE_BROWN;
+        ManagerFilters.setStrokeStyle(_txtHard, ManagerFilters.TEXT_BROWN_COLOR);
         _contHard.addChild(_txtHard);
 
         _source.addChild(_contSoft);
@@ -124,7 +119,7 @@ public class SoftHardCurrency {
     }
 
     public function checkSoft():void {
-//       _txtSoft.text =  String(g.user.softCurrencyCount);
+       _txtSoft.text =  String(g.user.softCurrencyCount);
     }
 
     public function checkHard():void {

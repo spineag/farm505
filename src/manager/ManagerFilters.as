@@ -6,6 +6,8 @@ package manager {
 import starling.filters.ColorMatrixFilter;
 import starling.filters.DropShadowFilter;
 import starling.filters.GlowFilter;
+import starling.styles.DistanceFieldStyle;
+import starling.text.TextField;
 import starling.utils.Color;
 
 public class ManagerFilters {
@@ -193,6 +195,25 @@ public class ManagerFilters {
 //        }
 //        return _BUILDING_HOVER_FILTER;
         return null;
+    }
+    
+    public static function setStrokeStyle(txt:TextField, color:uint):void {
+        var s:DistanceFieldStyle = new DistanceFieldStyle(.5, .25);
+        s.setupOutline(.5, color);
+        txt.style = s;
+        // fix x and y position for text with distance
+        txt.x -= 7;
+        txt.y -= 2;
+//        txt.border = true;
+    }
+
+    public static function setEmptyStyle(txt:TextField):void {
+        var s:DistanceFieldStyle = new DistanceFieldStyle(.5, .25);
+        txt.style = s;
+        // fix x and y position for text with distance
+        txt.x -= 7;
+        txt.y -= 2;
+//        txt.border = true;
     }
 }
 }

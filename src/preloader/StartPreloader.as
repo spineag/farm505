@@ -7,6 +7,8 @@ import dragonBones.animation.WorldClock;
 import dragonBones.starling.StarlingArmatureDisplay;
 
 import loaders.EmbedAssets;
+
+import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Quad;
@@ -66,6 +68,7 @@ public class StartPreloader {
         _source.addChild(_txt);
         _txt.x = _bg.width/2 - 42;
         _txt.y = _bg.height/2 + 185;
+        ManagerFilters.setEmptyStyle(_txt);
     }
 
     private function create():void {

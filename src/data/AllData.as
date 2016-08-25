@@ -5,7 +5,7 @@ package data {
 public class AllData {
     public var lockedLandData:Object;
     public var atlas:Object;
-    public var fonts:Object; 
+//    public var fonts:Object; 
     public var bFonts:Object; // bitmap fonts
     public var factory:Object;  // StarlingFactory
     public var factoryData:Object;  // StarlingFactory
@@ -13,7 +13,7 @@ public class AllData {
 
     public function AllData() {
         atlas = {};
-        fonts = {};
+//        fonts = {};
         bFonts = {};
         factory = {};
         factoryData = {};
