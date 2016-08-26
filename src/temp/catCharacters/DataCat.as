@@ -64,7 +64,6 @@ public class DataCat {
         obj.color = OrderCat.WHITE;
         obj.isWoman = true;
         obj.name = 'Синтетика';
-        obj.png = 'glas_1';
         _arrCats.push(obj);
 
 

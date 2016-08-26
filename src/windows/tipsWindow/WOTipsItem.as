@@ -40,7 +40,6 @@ public class WOTipsItem {
         _txtBtn.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         ManagerFilters.setStrokeStyle(_txtBtn, ManagerFilters.TEXT_GREEN_COLOR);
         _btn.addChild(_txtBtn);
-        _btn.registerTextField(_txtBtn);
         _btn.x = 365;
         _btn.y = 34;
         source.addChild(_btn);
@@ -143,7 +142,6 @@ public class WOTipsItem {
         _bg.deleteIt();
         _bg = null;
         source.removeChild(_btn);
-        _btn.deregisterTextField(_txtBtn);
         _btn.removeChild(_txtBtn);
         _txt.filter = null;
         _btn.deleteIt();

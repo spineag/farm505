@@ -33,7 +33,6 @@ public class WOBuyCurrency extends WindowMain {
     private var _cartonSoftTab:CartonBackground;
     private var _contItems:Sprite;
     private var _arrItems:Array;
-    private var SHADOW:DropShadowFilter;
     private var _defaultY:int;
 
     public function WOBuyCurrency() {
@@ -49,12 +48,11 @@ public class WOBuyCurrency extends WindowMain {
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
 
-        SHADOW = ManagerFilters.NEW_SHADOW;
         _cartonBG = new CartonBackground(618, 398);
         _cartonBG.x = -308;
         _cartonBG.y = -166;
         _contCarton.addChild(_cartonBG);
-        _contCarton.filter = SHADOW;
+        _contCarton.filter = ManagerFilters.SHADOW;
         _source.addChild(_contCarton);
 
         _contItems = new Sprite();
@@ -154,13 +152,13 @@ public class WOBuyCurrency extends WindowMain {
             _tabHard.isTouchable = false;
             _tabHard.y = _defaultY;
             _source.addChildAt(_tabSoft, _source.getChildIndex(_contCarton)-1);
-            _tabSoft.filter = SHADOW;
+            _tabSoft.filter = ManagerFilters.SHADOW;
             _tabSoft.isTouchable = true;
             _tabSoft.y = _defaultY + 10;
         } else {
             _source.addChildAt(_tabHard, _source.getChildIndex(_contCarton)-1);
             _tabHard.isTouchable = true;
-            _tabHard.filter = SHADOW;
+            _tabHard.filter = ManagerFilters.SHADOW;
             _tabHard.y = _defaultY + 10;
             _contCarton.addChild(_tabSoft);
             _tabSoft.isTouchable = false;
@@ -219,8 +217,6 @@ public class WOBuyCurrency extends WindowMain {
         _source.removeChild(_birka);
         _birka.deleteIt();
         _birka = null;
-        SHADOW.dispose();
-        SHADOW = null;
         super.deleteIt();
     }
 

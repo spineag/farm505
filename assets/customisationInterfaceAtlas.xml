@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:fce67ea4e2065cb9c54c1cf5812d6310:1bd441085669f10f845901742550598f:228c83197a1b7fb879a7b7e389d0e337$ -->
+<TextureAtlas imagePath="customisationInterfaceAtlas.png">
+    <SubTexture name="1_body_f" x="612" y="2" width="34" height="50"/>
+    <SubTexture name="1_head_f" x="2" y="2" width="69" height="90" frameX="0" frameY="0" frameWidth="70" frameHeight="90"/>
+    <SubTexture name="1_lhand_f" x="858" y="2" width="20" height="34" frameX="-1" frameY="0" frameWidth="21" frameHeight="34"/>
+    <SubTexture name="1_rhand_f" x="925" y="38" width="18" height="33" frameX="0" frameY="0" frameWidth="18" frameHeight="34"/>
+    <SubTexture name="2_body_f" x="648" y="2" width="34" height="50"/>
+    <SubTexture name="2_head_f" x="73" y="2" width="69" height="90" frameX="0" frameY="0" frameWidth="70" frameHeight="90"/>
+    <SubTexture name="2_lhand_f" x="880" y="2" width="20" height="34" frameX="-1" frameY="0" frameWidth="21" frameHeight="34"/>
+    <SubTexture name="2_rhand_f" x="940" y="73" width="18" height="33" frameX="0" frameY="0" frameWidth="18" frameHeight="34"/>
+    <SubTexture name="3_body_f" x="664" y="54" width="34" height="50"/>
+    <SubTexture name="3_head_f" x="144" y="2" width="69" height="90" frameX="0" frameY="0" frameWidth="70" frameHeight="90"/>
+    <SubTexture name="3_lhand_f" x="881" y="38" width="20" height="34" frameX="-1" frameY="0" frameWidth="21" frameHeight="34"/>
+    <SubTexture name="3_rhand_f" x="945" y="38" width="18" height="33" frameX="0" frameY="0" frameWidth="18" frameHeight="34"/>
+    <SubTexture name="4_body_f" x="684" y="2" width="34" height="50"/>
+    <SubTexture name="4_head_f" x="215" y="2" width="69" height="90" frameX="0" frameY="0" frameWidth="70" frameHeight="90"/>
+    <SubTexture name="4_lhand_f" x="902" y="2" width="20" height="34" frameX="-1" frameY="0" frameWidth="21" frameHeight="34"/>
+    <SubTexture name="4_rhand_f" x="960" y="73" width="18" height="33" frameX="0" frameY="0" frameWidth="18" frameHeight="34"/>
+    <SubTexture name="5_body_f" x="700" y="54" width="34" height="50"/>
+    <SubTexture name="5_head_f" x="286" y="2" width="69" height="90" frameX="0" frameY="0" frameWidth="70" frameHeight="90"/>
+    <SubTexture name="5_lhand_f" x="886" y="74" width="20" height="34" frameX="-1" frameY="0" frameWidth="21" frameHeight="34"/>
+    <SubTexture name="5_rhand_f" x="980" y="36" width="18" height="33" frameX="0" frameY="0" frameWidth="18" frameHeight="34"/>
+    <SubTexture name="6_body_f" x="720" y="2" width="34" height="50"/>
+    <SubTexture name="6_head_f" x="357" y="2" width="69" height="90" frameX="0" frameY="0" frameWidth="70" frameHeight="90"/>
+    <SubTexture name="6_lhand_f" x="903" y="38" width="20" height="34" frameX="-1" frameY="0" frameWidth="21" frameHeight="34"/>
+    <SubTexture name="6_rhand_f" x="980" y="71" width="18" height="33" frameX="0" frameY="0" frameWidth="18" frameHeight="34"/>
+    <SubTexture name="bant_1" x="498" y="2" width="55" height="53" frameX="-2" frameY="-7" frameWidth="60" frameHeight="62"/>
+    <SubTexture name="bant_2" x="498" y="57" width="55" height="53" frameX="-2" frameY="-7" frameWidth="60" frameHeight="62"/>
+    <SubTexture name="bant_3" x="555" y="2" width="55" height="53" frameX="-2" frameY="-7" frameWidth="60" frameHeight="62"/>
+    <SubTexture name="bant_4" x="609" y="57" width="53" height="50" frameX="-3" frameY="-8" frameWidth="60" frameHeight="62"/>
+    <SubTexture name="bant_5" x="555" y="57" width="52" height="51" frameX="-8" frameY="0" frameWidth="60" frameHeight="62"/>
+    <SubTexture name="bant_6" x="756" y="2" width="49" height="43" frameX="-7" frameY="-8" frameWidth="60" frameHeight="62"/>
+    <SubTexture name="bant_7" x="771" y="47" width="49" height="43" frameX="-7" frameY="-8" frameWidth="60" frameHeight="62"/>
+    <SubTexture name="bant_8" x="807" y="2" width="49" height="43" frameX="-7" frameY="-8" frameWidth="60" frameHeight="62"/>
+    <SubTexture name="br_body_f" x="736" y="54" width="33" height="50" frameX="0" frameY="0" frameWidth="34" frameHeight="50"/>
+    <SubTexture name="br_head_f" x="428" y="2" width="68" height="90" frameX="-1" frameY="0" frameWidth="70" frameHeight="90"/>
+    <SubTexture name="br_lhand_f" x="924" y="2" width="20" height="34" frameX="0" frameY="0" frameWidth="21" frameHeight="34"/>
+    <SubTexture name="br_rhand_f" x="946" y="2" width="17" height="32" frameX="-1" frameY="-1" frameWidth="18" frameHeight="34"/>
+    <SubTexture name="cepka" x="965" y="2" width="34" height="32"/>
+    <SubTexture name="galstuk" x="848" y="47" width="31" height="36"/>
+    <SubTexture name="glas_1" x="822" y="87" width="62" height="29" frameX="0" frameY="0" frameWidth="62" frameHeight="31"/>
+    <SubTexture name="lid_l_black" x="205" y="94" width="14" height="22"/>
+    <SubTexture name="lid_l_blue" x="221" y="94" width="14" height="22"/>
+    <SubTexture name="lid_l_brown" x="237" y="94" width="14" height="22"/>
+    <SubTexture name="lid_l_green" x="253" y="94" width="14" height="22"/>
+    <SubTexture name="lid_l_orange" x="269" y="94" width="14" height="22"/>
+    <SubTexture name="lid_l_pink" x="285" y="94" width="14" height="22"/>
+    <SubTexture name="lid_l_white" x="301" y="94" width="14" height="22"/>
+    <SubTexture name="lid_r_black" x="2" y="94" width="27" height="23"/>
+    <SubTexture name="lid_r_blue" x="31" y="94" width="27" height="23"/>
+    <SubTexture name="lid_r_brown" x="60" y="94" width="27" height="23"/>
+    <SubTexture name="lid_r_green" x="89" y="94" width="27" height="23"/>
+    <SubTexture name="lid_r_orange" x="118" y="94" width="27" height="23"/>
+    <SubTexture name="lid_r_pink" x="147" y="94" width="27" height="23"/>
+    <SubTexture name="lid_r_white" x="176" y="94" width="27" height="23"/>
+    <SubTexture name="necklace" x="908" y="74" width="30" height="33" frameX="-3" frameY="-2" frameWidth="36" frameHeight="36"/>
+    <SubTexture name="sharf" x="822" y="47" width="24" height="38"/>
+</TextureAtlas>

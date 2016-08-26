@@ -57,7 +57,6 @@ public class WOLockedLand extends WindowMain {
         txt.format.setTo(g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
         ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btnOpen.addChild(txt);
-        _btnOpen.registerTextField(txt);
         _btnOpen.x = 0;
         _btnOpen.y = -_woHeight/2 + 515;
         _source.addChild(_btnOpen);

@@ -521,8 +521,8 @@ import starling.rendering.Painter;
 
 
         // own adds by spineag
-        public function set deltaOwnX(v:int):void { _deltaOwnX = v; }
-        public function set deltaOwnY(v:int):void { _deltaOwnY = v; }
+        public function set deltaOwnX(v:int):void { _deltaOwnX = v; this.x = x}
+        public function set deltaOwnY(v:int):void { _deltaOwnY = v; this.y = y}
         override public function set x(value:Number):void {
             value += _deltaOwnX;
             super.x=value;

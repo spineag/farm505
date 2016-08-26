@@ -17,7 +17,6 @@ import windows.WOComponents.CartonBackground;
 
 public class ShopTabBtn {
     private var _source:CSprite;
-    private var _SHADOW:DropShadowFilter;
     private var _shopSprite:Sprite;
     private var _shopSource:Sprite;
     private var _defaultX:int;
@@ -28,8 +27,7 @@ public class ShopTabBtn {
     private var _type:int;
     private var g:Vars = Vars.getInstance();
 
-    public function ShopTabBtn(type:int, f:Function, shopSprite:Sprite, shopSource:Sprite, shadow:DropShadowFilter) {
-        _SHADOW = shadow;
+    public function ShopTabBtn(type:int, f:Function, shopSprite:Sprite, shopSource:Sprite) {
         _shopSprite = shopSprite;
         _shopSource = shopSource;
         _source = new CSprite();
@@ -138,7 +136,7 @@ public class ShopTabBtn {
         } else {
             if (_shopSprite.contains(_source)) _shopSprite.removeChild(_source);
             if (!_shopSource.contains(_source)) _shopSource.addChild(_source);
-            _source.filter = _SHADOW;
+            _source.filter = ManagerFilters.SHADOW;
             _shopSource.setChildIndex(_source, _shopSource.getChildIndex(_shopSprite));
             _source.x = _defaultX + _shopSprite.x;
             _source.y = _defaultY +_shopSprite.y + 10;
@@ -204,7 +202,6 @@ public class ShopTabBtn {
     }
 
     public function deleteIt():void {
-        _SHADOW = null;
         if (_shopSource.contains(_source)) _shopSource.removeChild(_source);
         if (_shopSprite.contains(_source)) _shopSprite.removeChild(_source);
         _source.removeChild(_bg);

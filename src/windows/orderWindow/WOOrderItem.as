@@ -395,9 +395,6 @@ public class WOOrderItem {
     }
 
     public function deleteIt():void {
-        _txtCoins.filter = null;
-        _txtName.filter = null;
-        _txtXP.filter = null;
         _starImage.filter = null;
         _coinsImage.filter = null;
         _order = null;
@@ -411,9 +408,6 @@ public class WOOrderItem {
         _bgCartonIn.deleteIt();
         _bgCarton = null;
         _clickCallback = null;
-        _txtName = null;
-        _txtXP = null;
-        _txtCoins = null;
         _starImage = null;
         _coinsImage = null;
         _delImage = null;

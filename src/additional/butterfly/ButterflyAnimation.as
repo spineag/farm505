@@ -37,26 +37,27 @@ public class ButterflyAnimation {
 
     private function changeTexture(type:int):void {
         if (type == Butterfly.TYPE_BLUE) {
-            changeBoneTexture("body", "blue2");
-            changeBoneTexture("wing1", "blue1");
-            changeBoneTexture("wing2", "blue1");
+            changeBoneTexture("body", "blue_2");
+            changeBoneTexture("wing1", "blue_1");
+            changeBoneTexture("wing2", "blue_1");
         } else {
-            changeBoneTexture("body", "yellow");
-            changeBoneTexture("wing1", "yellow1");
-            changeBoneTexture("wing2", "yellow1");
+            changeBoneTexture("body", "yellow_2");
+            changeBoneTexture("wing1", "yellow_1");
+            changeBoneTexture("wing2", "yellow_1");
         }
     }
 
     private function changeBoneTexture(oldName:String, newName:String):void {
-        var im:Image = g.allData.factory['bfly'].getTextureDisplay(newName) as Image;
+//        var im:Image = g.allData.factory['bfly'].getTextureDisplay(newName) as Image;
+        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture("butterfly_" + newName));
         var b:Slot = _armature.getSlot(oldName);
         if (im) {
-            im.x = b.display.x;
-            im.y = b.display.y;
-            im.scaleX = b.display.scaleX;
-            im.scaleY = b.display.scaleY;
-            im.rotation = b.display.rotation;
-            if (b.display) b.display.dispose();
+//            im.x = b.display.x;
+//            im.y = b.display.y;
+//            im.scaleX = b.display.scaleX;
+//            im.scaleY = b.display.scaleY;
+//            im.rotation = b.display.rotation;
+            b.displayList = null;
             b.display = im;
         }
     }

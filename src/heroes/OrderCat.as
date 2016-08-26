@@ -15,6 +15,8 @@ import dragonBones.starling.StarlingArmatureDisplay;
 
 import flash.geom.Point;
 import manager.Vars;
+
+import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -167,7 +169,7 @@ public class OrderCat {
         var st:String;
         var st2:String;
         switch (_catData.color) {
-            case BLACK:  st = '5';   st2 = '_black'; break;
+            case BLACK:  st = '5'; st2 = '_black'; break;
             case BLUE:   st = '4'; st2 = '_blue'; break;
             case GREEN:  st = '3'; st2 = '_green'; break;
             case BROWN:  st = 'br'; st2 = '_brown'; break;
@@ -186,7 +188,6 @@ public class OrderCat {
         } else changeBant(int(Math.random() * 8 + 1));
         var okuli:Slot = armature.getSlot('okuli');
         var sharf:Slot = armature.getSlot('sharf');
-        var b:Boolean = true;
         switch (_catData.type) {
             case DataCat.AKRIL:
                 okuli.displayList = null;
@@ -194,12 +195,10 @@ public class OrderCat {
             case DataCat.ASHUR:
                 okuli.displayList = null;
                 sharf.displayList = null;
-                b=false;
                 break;
             case DataCat.BULAVKA:
                 okuli.displayList = null;
                 sharf.displayList = null;
-                b=false;    
                 break;
             case DataCat.BUSINKA:
                 okuli.displayList = null;
@@ -207,12 +206,10 @@ public class OrderCat {
             case DataCat.IGOLOCHKA:
                 okuli.displayList = null;
                 sharf.displayList = null;
-                b=false;    
                 break;
             case DataCat.IRIS:
                 okuli.displayList = null;
                 sharf.displayList = null;
-                b = false;    
                 break;
             case DataCat.KRUCHOK:
                 okuli.displayList = null;
@@ -220,22 +217,18 @@ public class OrderCat {
             case DataCat.LENTOCHKA:
                 okuli.displayList = null;
                 sharf.displayList = null;
-                b=false;    
                 break;
             case DataCat.NAPERSTOK:
                 okuli.displayList = null;
                 sharf.displayList = null;
-                 b=false;   
                 break;
             case DataCat.PETELKA:
                 okuli.displayList = null;
                 sharf.displayList = null;
-                b=false;    
                 break;
             case DataCat.PRYAGA:
                 okuli.displayList = null;
                 sharf.displayList = null;
-                b=false;    
                 break;
             case DataCat.SINTETIKA:
                 sharf.displayList = null;
@@ -243,29 +236,42 @@ public class OrderCat {
             case DataCat.STESHOK:
                 okuli.displayList = null;
                 sharf.displayList = null;
-                b=false;    
                 break;
             case DataCat.YZELOK:
                 okuli.displayList = null;
                 break;
         }
-        if (b) {
+        if (_catData.png) {
 //            var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(_catData.png) as Image;
             var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(_catData.png));
-            if (!im)return;
+            var sp:Sprite = new Sprite();
+            if (sharf.displayList.length) {
+                var imOld:DisplayObject = sharf.displayList[0] as DisplayObject;
+                if (imOld) {
+                    im.x = imOld.x + imOld.width/2 - im.width/2;
+                }
+            }
+            sp.addChild(im);
             sharf.displayList = null;
-            sharf.display = im;
+            sharf.display = sp;
         }
     }
 
     private function changeBant(n:int):void {
-        var str:String = 'bant_'+ n;
         bant = n;
 //        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(str) as Image;
-        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(str));
+        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture('bant_'+ n));
         var b:Slot = armature.getSlot('bant');
+        var sp:Sprite = new Sprite();
+        if (b.displayList.length) {
+            var imOld:DisplayObject = b.displayList[0] as DisplayObject;
+            if (imOld) {
+               im.x = imOld.x + imOld.width/2 - im.width/2;
+            }
+        }
+        sp.addChild(im);
         b.displayList = null;
-        b.display = im;
+        b.display = sp;
     }
 
     private function releaseFrontTexture(st:String):void {

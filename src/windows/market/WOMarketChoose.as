@@ -39,7 +39,6 @@ public class WOMarketChoose extends WindowMain {
     private var booleanMinus:Boolean;
     private var _woBG:WindowBackground;
     private var _defaultY:int = -232;
-    private var _SHADOW:DropShadowFilter;
     private var _cartonAmbar:CartonBackground;
     private var _cartonSklad:CartonBackground;
     private var _carton:CartonBackground;
@@ -52,7 +51,6 @@ public class WOMarketChoose extends WindowMain {
         _woHeight = 570;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        _SHADOW = ManagerFilters.NEW_SHADOW;
         createExitButton(hideIt);
         booleanPlus = true;
         booleanMinus = true;
@@ -184,7 +182,7 @@ public class WOMarketChoose extends WindowMain {
         _mainSprite = new Sprite();
         _carton = new CartonBackground(454, 435);
         _mainSprite.addChild(_carton);
-        _mainSprite.filter = _SHADOW;
+        _mainSprite.filter = ManagerFilters.SHADOW;
         _mainSprite.x = -_woWidth/2 + 43;
         _mainSprite.y = -_woHeight/2 + 96;
 
@@ -214,7 +212,7 @@ public class WOMarketChoose extends WindowMain {
                 _tabSklad.x = -75;
                 _tabSklad.y = _defaultY + 10;
                 _tabSklad.isTouchable = true;
-                _tabSklad.filter = _SHADOW;
+                _tabSklad.filter = ManagerFilters.SHADOW;
                 _birka.updateText('Амбар');
                 break;
             case SKLAD:
@@ -226,7 +224,7 @@ public class WOMarketChoose extends WindowMain {
                 _tabAmbar.x = -205;
                 _tabAmbar.y = _defaultY + 10;
                 _tabAmbar.isTouchable = true;
-                _tabAmbar.filter = _SHADOW;
+                _tabAmbar.filter = ManagerFilters.SHADOW;
                 _birka.updateText('Склад');
                 break;
         }

@@ -63,7 +63,6 @@ public class WOMarket  extends WindowMain {
     private var _booleanPaper:Boolean;
     private var _callback:Function;
     private var _birka:Birka;
-    private var _SHADOW:DropShadowFilter;
     private var _timer:int;
 
     public function WOMarket() {
@@ -82,8 +81,7 @@ public class WOMarket  extends WindowMain {
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
         _source.addChild(_contItem);
-        _SHADOW = ManagerFilters.NEW_SHADOW;
-        _contItem.filter = _SHADOW;
+        _contItem.filter = ManagerFilters.SHADOW;
         _btnFriends = new CButton();
         _btnFriends.addButtonTexture(96, 40, CButton.GREEN, true);
         _btnFriends.x = _woWidth/2 - 97;
@@ -92,7 +90,7 @@ public class WOMarket  extends WindowMain {
         var c:CartonBackground = new CartonBackground(550, 445);
         c.x = -_woWidth/2 + 43;
         c.y = -_woHeight/2 + 40;
-        _cont.filter = _SHADOW;
+        _cont.filter = ManagerFilters.SHADOW;
         _cont.addChild(c);
         var txt:TextField = new TextField(80, 25, 'Все друзья');
         txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
@@ -879,8 +877,6 @@ public class WOMarket  extends WindowMain {
         _rightBtn = null;
         callbackState();
         super.deleteIt();
-        _SHADOW.dispose();
-        _SHADOW = null;
     }
 }
 }

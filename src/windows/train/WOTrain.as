@@ -82,7 +82,6 @@ public class WOTrain extends WindowMain {
         txt.y = -10;
         ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnSend.addChild(txt);
-        _btnSend.registerTextField(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
         im.y = -15;
         im.x = 88;

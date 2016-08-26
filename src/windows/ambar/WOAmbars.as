@@ -6,7 +6,6 @@ import com.junkbyte.console.Cc;
 import manager.ManagerFilters;
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.filters.DropShadowFilter;
 import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
@@ -46,7 +45,6 @@ public class WOAmbars extends WindowMain {
     private var _item3:UpdateItem;
     private var _btnMakeUpdate:CButton;
     private var _defaultY:int = -232;
-    private var _SHADOW:DropShadowFilter;
 
     public function WOAmbars() {
         super();
@@ -54,7 +52,6 @@ public class WOAmbars extends WindowMain {
         _woWidth = 538;
         _woHeight = 566;
         _arrCells = [];
-        _SHADOW = ManagerFilters.NEW_SHADOW;
 
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
@@ -150,7 +147,7 @@ public class WOAmbars extends WindowMain {
         _mainSprite = new Sprite();
         _cartonBG = new CartonBackground(454, 332);
         _mainSprite.addChild(_cartonBG);
-        _mainSprite.filter = _SHADOW;
+        _mainSprite.filter = ManagerFilters.SHADOW;
         _mainSprite.x = -_woWidth/2 + 43;
         _mainSprite.y = -_woHeight/2 + 96;
 
@@ -233,11 +230,11 @@ public class WOAmbars extends WindowMain {
         txt.x = 17;
         txt.y = -4;
         ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.autoScale = true;
         _btnMakeUpdate.addChild(txt);
         _btnMakeUpdate.x = 201;
         _btnMakeUpdate.y = 220;
         _updateSprite.addChild(_btnMakeUpdate);
-        _btnMakeUpdate.registerTextField(txt);
         _btnMakeUpdate.clickCallback = onUpdate;
 
         _updateSprite.x = - _updateSprite.width/2 - 10;
@@ -262,7 +259,7 @@ public class WOAmbars extends WindowMain {
                 _tabSklad.x = -75;
                 _tabSklad.y = _defaultY + 10;
                 _tabSklad.isTouchable = true;
-                _tabSklad.filter = _SHADOW;
+                _tabSklad.filter = ManagerFilters.SHADOW;
                 _birka.updateText('Амбар');
                 _txtBtnShowUpdate.text = 'Увеличить амбар';
                 break;
@@ -275,7 +272,7 @@ public class WOAmbars extends WindowMain {
                 _tabAmbar.x = -205;
                 _tabAmbar.y = _defaultY + 10;
                 _tabAmbar.isTouchable = true;
-                _tabAmbar.filter = _SHADOW;
+                _tabAmbar.filter = ManagerFilters.SHADOW;
                 _birka.updateText('Склад');
                 _txtBtnShowUpdate.text = 'Увеличить склад';
                 break;

@@ -48,8 +48,6 @@ public class WOShop extends WindowMain {
     private var _animal:Boolean;
     private var _birka:Birka;
     private var _shopCartonBackground:CartonBackground;
-    private var _SHADOW:DropShadowFilter;
-    private var _SHADOW2:DropShadowFilter;
     private var _pl1:HorizontalPlawka;
     private var _pl2:HorizontalPlawka;
     private var _pl3:HorizontalPlawka;
@@ -72,9 +70,7 @@ public class WOShop extends WindowMain {
         _shopSprite = new Sprite();
         _shopSprite.x = -_woWidth/2 + 41;
         _shopSprite.y = -_woHeight/2 + 141;
-        _SHADOW = ManagerFilters.NEW_SHADOW;
-        _SHADOW2 = ManagerFilters.NEW_SHADOW;
-        _shopSprite.filter = _SHADOW;
+        _shopSprite.filter = ManagerFilters.SHADOW;
         _source.addChild(_shopSprite);
         _contSprite = new Sprite();
         _contSprite.x = -_woWidth/2 + 41;
@@ -181,15 +177,15 @@ public class WOShop extends WindowMain {
         _shopCartonBackground = new CartonBackground(666, 320);
         _shopSprite.addChild(_shopCartonBackground);
         var b:Boolean = g.user.allNotification > 0 ;
-        _btnTab1 = new ShopTabBtn(VILLAGE, function():void {onTab(VILLAGE)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
+        _btnTab1 = new ShopTabBtn(VILLAGE, function():void {onTab(VILLAGE)}, _shopSprite, _shopTabBtnCont);
         _btnTab1.setPosition(7, -81);
-        _btnTab2 = new ShopTabBtn(ANIMAL, function():void {onTab(ANIMAL)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
+        _btnTab2 = new ShopTabBtn(ANIMAL, function():void {onTab(ANIMAL)}, _shopSprite, _shopTabBtnCont);
         _btnTab2.setPosition(7 + 133, -81);
-        _btnTab3 = new ShopTabBtn(FABRICA, function():void {onTab(FABRICA)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
+        _btnTab3 = new ShopTabBtn(FABRICA, function():void {onTab(FABRICA)}, _shopSprite, _shopTabBtnCont);
         _btnTab3.setPosition(7 + 133*2, -81);
-        _btnTab4 = new ShopTabBtn(PLANT, function():void {onTab(PLANT)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
+        _btnTab4 = new ShopTabBtn(PLANT, function():void {onTab(PLANT)}, _shopSprite, _shopTabBtnCont);
         _btnTab4.setPosition(7 + 133*3, -81);
-        _btnTab5 = new ShopTabBtn(DECOR, function():void {onTab(DECOR)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
+        _btnTab5 = new ShopTabBtn(DECOR, function():void {onTab(DECOR)}, _shopSprite, _shopTabBtnCont);
         _btnTab5.setPosition(7 + 133*4, -81);
     }
 
@@ -510,10 +506,6 @@ public class WOShop extends WindowMain {
         _woBG.deleteIt();
         _woBG = null;
         _txtBlueMoney = _txtGreenMoney = _txtHardMoney = _txtRedMoney = _txtSoftMoney = _txtYellowMoney = null;
-        _SHADOW.dispose();
-        _SHADOW = null;
-        _SHADOW2.dispose();
-        _SHADOW2 = null;
         _source.removeChild(_pl1);
         _pl1.deleteIt();
         _pl1 = null;

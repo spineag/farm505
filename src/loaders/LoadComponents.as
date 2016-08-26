@@ -33,6 +33,8 @@ public class LoadComponents {
         g.load.loadXML(st + 'interfaceAtlas.xml' + g.getVersion('interfaceAtlas'), onLoad);
         g.load.loadImage(st + 'resourceAtlas.png' + g.getVersion('resourceAtlas'), onLoad);
         g.load.loadXML(st + 'resourceAtlas.xml' + g.getVersion('resourceAtlas'), onLoad);
+        g.load.loadImage(st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas'), onLoad);
+        g.load.loadXML(st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas'), onLoad);
 
         g.load.loadImage(st + 'x1/buildAtlas.png' + g.getVersion('buildAtlas'), onLoad);
         g.load.loadXML(st + 'x1/buildAtlas.xml' + g.getVersion('buildAtlas'), onLoad);
@@ -49,7 +51,7 @@ public class LoadComponents {
     private function onLoad(smth:*=null):void {
         count++;
         g.startPreloader.setProgress(6 + 2*count);
-        if (count >=18) createAtlases();
+        if (count >=20) createAtlases();
     }
 
     private function createAtlases():void {
@@ -88,6 +90,10 @@ public class LoadComponents {
         g.allData.atlas['customisationAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/customisationAtlas.xml' + g.getVersion('customisationAtlas')]);
         delete  g.pBitmaps[st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas')];
         delete  g.pXMLs[st + 'x1/customisationAtlas.xml' + g.getVersion('customisationAtlas')];
+
+        g.allData.atlas['customisationInterfaceAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')].create() as Bitmap), g.pXMLs[st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas')]);
+        delete  g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')];
+        delete  g.pXMLs[st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas')];
 
         loadDBAnimations();
     }

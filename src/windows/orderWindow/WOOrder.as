@@ -11,19 +11,27 @@ import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
+import dragonBones.starling.StarlingFactory;
 
 import flash.geom.Point;
+
+import heroes.OrderCat;
 import heroes.OrderCat;
 import manager.ManagerFilters;
 import manager.ManagerOrder;
 import manager.ManagerOrderItem;
 import media.SoundConst;
 import resourceItem.DropItem;
+
+import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import temp.catCharacters.DataCat;
+
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
 import tutorial.TutorialTextBubble;
@@ -229,7 +237,6 @@ public class WOOrder extends WindowMain{
         txt.y = -10;
         ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnSell.addChild(txt);
-        _btnSell.registerTextField(txt);
         _btnSell.x = 547;
         _btnSell.y = 500;
         _rightBlock.addChild(_btnSell);
@@ -663,12 +670,6 @@ public class WOOrder extends WindowMain{
         if (!_source) return;
         _starSmall.filter = null;
         _coinSmall.filter = null;
-        if (_txtCoins) _txtCoins.filter = null;
-        if (_txtCoupone) _txtCoupone.filter = null;
-        if (_txtName) _txtName.filter = null;
-        if (_txtOrder) _txtOrder.filter = null;
-        if (_txtTimer) _txtTimer.filter = null;
-        if (_txtXP) _txtXP.filter = null;
         deleteBtnCellArrow();
         deleteCats();
         _activeOrderItem = null;
@@ -766,115 +767,138 @@ public class WOOrder extends WindowMain{
         var st:String;
         if (!_arrOrders[pos] || !_arrOrders[pos].cat) return;
         switch (_arrOrders[pos].catOb.color){
-            case OrderCat.BLUE:   st = '_bl'; break;
-            case OrderCat.GREEN:  st = '_gr'; break;
-            case OrderCat.BROWN:  st = '_br'; break;
-            case OrderCat.ORANGE: st = '_or'; break;
-            case OrderCat.PINK:   st = '_pk'; break;
-            case OrderCat.WHITE:  st = '_wh'; break;
-            case OrderCat.BLACK:  st = '';    break;
+            case OrderCat.BLACK:  st = '5'; break;
+            case OrderCat.BLUE:   st = '4'; break;
+            case OrderCat.GREEN:  st = '3'; break;
+            case OrderCat.BROWN:  st = 'br'; break;
+            case OrderCat.ORANGE: st = '1'; break;
+            case OrderCat.PINK:   st = '2'; break;
+            case OrderCat.WHITE:  st = '6'; break;
         }
 
         releaseFrontTexture(st);
         var b:Slot = _armatureCustomer.getSlot('bant');
         var viyi:Slot= _armatureCustomer.getSlot('viyi');
         if (!_arrOrders[pos].catOb.isWoman) {
-            if (b.display) b.display.visible = false;
-            if (viyi.display) viyi.display.visible = false;
-        }
-        else {
+            if (b.displayList.length) b.displayList[0].visible = false;
+            if (viyi.displayList.length) viyi.displayList[0].visible = false;
+        } else {
             changeBant(_arrOrders[pos].cat.bant, b);
-            if (viyi.display) viyi.display.visible = true;
+            if (viyi.displayList.length) viyi.displayList[0].visible = true;
         }
-        var okuli:Slot = _armatureCustomer.getSlot('okuli');
-        var sharf:Slot = _armatureCustomer.getSlot('sharf');
-        if (okuli.display) okuli.display.visible = false;
-        if (sharf.display) sharf.display.visible = false;
-//        switch (_arrOrders[pos].catOb.type) {
-//            case DataCat.AKRIL:
-//                okuli.visible = false;
-//                sharf.visible = true;
-//                break;
-//            case DataCat.ASHUR:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.BULAVKA:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.BUSINKA:
-//                okuli.visible = false;
-////                sharf.visible = false;
-//                sharf.visible = true;
-//                break;
-//            case DataCat.IGOLOCHKA:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.IRIS:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.KRUCHOK:
-//                okuli.visible = false;
-////                sharf.visible = false;
-//                sharf.visible = true;
-//                break;
-//            case DataCat.LENTOCHKA:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.NAPERSTOK:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.PETELKA:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.PRYAGA:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.SINTETIKA:
-//                okuli.visible = true;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.STESHOK:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.YZELOK:
-//                okuli.visible = false;
-////                sharf.visible = false;
-//                sharf.visible = true;
-//                break;
-//        }
-//        var im:Image = g.allData.factory['cat_queue1'].getTextureDisplay(_arrOrders[pos].catOb.png) as Image;
-//        if (!im)return;
-//        var cast:Bone = _armatureCustomer.getBone('sharf');
-//        cast.display.dispose();
-//        cast.display = im;
-
-//        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], _armatureCustomer, 'heads/head' + st ,isWoman);
+        var okuli:Image;
+        b = _armatureCustomer.getSlot('okuli') as Slot;
+        if (b && b.displayList.length) {
+            okuli = b.displayList[0] as Image;
+        }
+        var sharf:Image;
+        b = _armatureCustomer.getSlot('sharf') as Slot;
+        if (b && b.displayList.length) {
+            sharf = b.displayList[0] as Image;
+        }
+        if (okuli) okuli.visible = false;
+        if (sharf) sharf.visible = false;
+        switch (_arrOrders[pos].catOb.type) {
+            case DataCat.AKRIL:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = true;
+                break;
+            case DataCat.ASHUR:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.BULAVKA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.BUSINKA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = true;
+                break;
+            case DataCat.IGOLOCHKA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.IRIS:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.KRUCHOK:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = true;
+                break;
+            case DataCat.LENTOCHKA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.NAPERSTOK:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.PETELKA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.PRYAGA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.SINTETIKA:
+                if (okuli) okuli.visible = true;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.STESHOK:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.YZELOK:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = true;
+                break;
+        }
+        b = _armatureCustomer.getSlot('sharf');
+        if (_arrOrders[pos].catOb.png) {
+//            var im:Image = (g.allData.factory['order_window'] as StarlingFactory).getTextureDisplay(_arrOrders[pos].catOb.png, "clothTextureTemp") as Image;
+            var im:Image = new Image(g.allData.atlas['customisationInterfaceAtlas'].getTexture(_arrOrders[pos].catOb.png));
+            var sp:Sprite = new Sprite();
+            if (b.displayList.length) {
+                var imOld:Image;
+                if (b.displayList[0]) {
+                    if (b.displayList[0] is Sprite) {
+                        imOld = b.displayList[0].getChildAt(0) as Image;
+                    } else {
+                        imOld = b.displayList[0] as Image;
+                    }
+                    if (imOld) {
+                        im.x = imOld.x + imOld.width/2 - im.width/2;
+                    }
+                }
+            }
+            sp.addChild(im);
+            b.displayList = null;
+            b.display = sp;
+        } else {
+            (b.displayList[0] as DisplayObject).visible = false;
+        }
     }
 
     private function changeBant(n:int, b:Slot):void {
-        var str:String = 'bant_'+ String(n);
-        if (n == 1) str = 'bant';
-        var im:Image = g.allData.factory['order_window'].getTextureDisplay('bants/' + str) as Image;
+//        var im:Image = g.allData.factory['order_window'].getTextureDisplay('bants/' + str) as Image;
+        var im:Image = new Image(g.allData.atlas['customisationInterfaceAtlas'].getTexture('bant_'+ String(n)));
+        var sp:Sprite = new Sprite();
         if (b) {
-            if (b.display) b.display.visible = true;
-            if (b.display) {
-                if (im) {
-                    b.display.dispose();
-                    b.display = im;
-                } else {
-                    Cc.error('WOOrder changeBant:: no bant image for: ' + n);
+            if (im) {
+                if (b.displayList.length) {
+                    var imOld:DisplayObject = b.displayList[0] as DisplayObject;
+                    if (imOld) {
+                        im.x = imOld.x + imOld.width/2 - im.width/2;
+                    }
                 }
+                sp.addChild(im);
+                b.displayList = null;
+                b.display = sp;
             } else {
-                Cc.error('WOOrder changeBant:: bant.display == null');
+                Cc.error('WOOrder changeBant:: no bant image for: ' + n);
             }
         } else {
             Cc.error('WOOrder changeBant:: no bant bone');
@@ -882,29 +906,26 @@ public class WOOrder extends WindowMain{
     }
 
     private function releaseFrontTexture(st:String):void {
-        changeTexture("head", "heads/head" + st, _armatureCustomer);
-        changeTexture("body", "bodys/body" + st, _armatureCustomer);
-        changeTexture("handLeft", "left_hand/handLeft" + st, _armatureCustomer);
-        changeTexture("handRight", "right_hand/handRight" + st, _armatureCustomer);
-        changeTexture('handLeft copy', 'left_hand/handLeft' +st, _armatureCustomer);
+        changeTexture("head", st + "_head_f", _armatureCustomer);
+        changeTexture("body", st + "_body_f", _armatureCustomer);
+        changeTexture("handLeft", st + "_lhand_f", _armatureCustomer);
+        changeTexture("handRight", st + "_rhand_f", _armatureCustomer);
+        changeTexture('handLeft copy', st + '_rhand_f', _armatureCustomer);
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['order_window'].getTextureDisplay(newName) as Image;
+//        var im:Image = g.allData.factory['order_window'].getTextureDisplay(newName, "clothTextureTemp") as Image;
+        var im:Image = new Image(g.allData.atlas['customisationInterfaceAtlas'].getTexture(newName));
         var b:Slot = arma.getSlot(oldName);
         if (b) {
             if (im) {
-                if (b.display) {
-                    b.display.dispose();
-                } else {
-//                    Cc.error('WOOrder changeTexture:: no bone.display - ' + oldName);
-                }
+                b.displayList = null;
                 b.display = im;
             } else {
                 Cc.error('WOOrder changeTexture:: no such image - ' + newName);
             }
         } else {
-            Cc.error('WOOrder changeTexture:: no such bone - ' + oldName);
+            Cc.error('WOOrder changeTexture:: no such slot - ' + oldName);
         }
     }
     private function startAnimationCats():void {
