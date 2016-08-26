@@ -110,6 +110,7 @@ public class ManagerFilters {
     }
     
     public static function setStrokeStyle(txt:TextField, color:uint):void {
+//        if (!txt) return;
         var s:DistanceFieldStyle = new DistanceFieldStyle(.5, .25);
         s.setupOutline(.5, color);
         txt.style = s;
@@ -120,6 +121,7 @@ public class ManagerFilters {
     }
 
     public static function setEmptyStyle(txt:TextField):void {
+//        if (!txt) return;
         var s:DistanceFieldStyle = new DistanceFieldStyle(.5, .25);
         txt.style = s;
         // fix x and y position for text with distance

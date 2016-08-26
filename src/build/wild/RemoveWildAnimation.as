@@ -106,7 +106,7 @@ public class RemoveWildAnimation {
         if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
         WorldClock.clock.remove(_armature);
         _parent.removeChild(_armature.display as Sprite);
-        _armature.dispose();
+//        _armature.dispose();
         _armature = null;
     }
 }

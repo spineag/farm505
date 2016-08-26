@@ -168,7 +168,7 @@ public class Order extends WorldObject{
         _armature.removeEventListener(EventObject.COMPLETE, makeAnimation);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
         WorldClock.clock.remove(_armature);
-        _armature.dispose();
+//        _armature.dispose();
         super.clearIt();
     }
 

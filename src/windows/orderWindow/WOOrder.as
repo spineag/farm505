@@ -935,7 +935,7 @@ public class WOOrder extends WindowMain{
 //        animateSellerCat();
     }
 
-    private function animateCustomerCat(e:EventObject=null):void {
+    private function animateCustomerCat(e:Event=null):void {
         if (_armatureCustomer.hasEventListener(EventObject.COMPLETE)) _armatureCustomer.removeEventListener(EventObject.COMPLETE, animateCustomerCat);
         if (_armatureCustomer.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(EventObject.LOOP_COMPLETE, animateCustomerCat);
 
@@ -952,7 +952,7 @@ public class WOOrder extends WindowMain{
         }
     }
 
-    private function animateSellerCat(e:EventObject=null):void {
+    private function animateSellerCat(e:Event=null):void {
         if (_armatureSeller.hasEventListener(EventObject.COMPLETE)) _armatureSeller.removeEventListener(EventObject.COMPLETE, animateSellerCat);
         if (_armatureSeller.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureSeller.removeEventListener(EventObject.LOOP_COMPLETE, animateSellerCat);
 

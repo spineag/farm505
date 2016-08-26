@@ -288,9 +288,9 @@ public class HeroCat extends BasicCat{
         var viyi:Slot = _animation.catWorkerArmature.getSlot('viyi');
         if (_type == WOMAN) {
             releaseFrontWoman(_animation.catWorkerArmature);
-            if (viyi && viyi.display) viyi.display.visible = true;
+            if (viyi && viyi.displayList.length) viyi.displayList[0].visible = true;
         } else {
-            if (viyi && viyi.display) viyi.display.visible = false;
+            if (viyi && viyi.displayList.length) viyi.displayList[0].visible = false;
         }
         flipIt(isLeftForFeedAndWatering);
 

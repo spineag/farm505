@@ -579,7 +579,7 @@ public class Fabrica extends WorldObject {
         _source.touchable = false;
         _arrList.length = 0;
         _arrRecipes.length = 0;
-        if (_armature) _armature.dispose();
+//        if (_armature) _armature.dispose();
         super.clearIt();
     }
 

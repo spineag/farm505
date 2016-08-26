@@ -107,7 +107,7 @@ public class AnimalAnimation {
 
     public function deleteIt():void {
         _source.removeChild(_armature.display as Sprite);
-        _armature.dispose();
+//        _armature.dispose();
         _armature = null;
         _source.dispose();
         _source = null;
