@@ -5,6 +5,8 @@ package wallPost {
 import flash.display.Bitmap;
 
 import manager.Vars;
+
+import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
@@ -28,7 +30,7 @@ public class WALLDoneTrain {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_done_train.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
-        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
+        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Корзинка собрана и отправлена по Канатной дороге! Пора получить награду за выполнение заказа!'),bitMap,'interfaceAtlas');
     }
 }

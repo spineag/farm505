@@ -5,6 +5,8 @@ package windows.paperWindow {
 import flash.display.Bitmap;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -104,7 +106,7 @@ public class WOPapperPage {
     }
 
     public function get getScreenshot():Bitmap {
-        var b:Bitmap = DrawToBitmap.drawToBitmap(source);
+        var b:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, source);
         return b;
     }
 

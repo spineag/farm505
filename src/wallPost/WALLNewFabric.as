@@ -5,6 +5,8 @@ package wallPost {
 import flash.display.Bitmap;
 
 import manager.Vars;
+
+import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
@@ -40,7 +42,7 @@ public class WALLNewFabric {
         im.x = 200;
         im.y = 160;
         _source.addChild(im);
-        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
+        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Мы построили новую фабрику! Теперь в Долине Рукоделия еще больше прибыльного производства!'),bitMap,'interfaceAtlas');
     }
 }

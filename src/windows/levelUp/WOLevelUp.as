@@ -82,6 +82,7 @@ public class WOLevelUp extends WindowMain {
         ManagerFilters.setStrokeStyle(_txtNewObject, ManagerFilters.TEXT_BLUE_COLOR);
         _txtLevel = new TextField(300,100,"");
         _txtLevel.format.setTo(g.allData.bFonts['BloggerBold72'],51,Color.WHITE);
+        _txtLevel.touchable = false;
         ManagerFilters.setStrokeStyle(_txtLevel, ManagerFilters.TEXT_BROWN_COLOR);
         _txtContinue = new TextField(110,100,"РАССКАЗАТЬ");
         _txtContinue.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
@@ -152,7 +153,7 @@ public class WOLevelUp extends WindowMain {
         _txtNewObject.x = -108;
         _txtNewObject.y = 110;
         _txtLevel.x = -152;
-        _txtLevel.y = -120;
+        _txtLevel.y = -115;
         _callbackClickBG = null;
     }
 

@@ -6,6 +6,8 @@ import flash.display.Bitmap;
 
 import manager.Vars;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 
 import starling.display.Sprite;
@@ -29,7 +31,7 @@ public class WALLOpenTrain {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_open_train.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
-        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
+        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Канатная дорога открыта! Теперь, загружая корзинку и выполняя заказы, я буду получать еще больше опыта, монет и ваучеров!'),bitMap,'interfaceAtlas');
     }
 }

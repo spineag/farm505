@@ -7,6 +7,8 @@ import flash.geom.Point;
 import flash.ui.Mouse;
 import flash.ui.MouseCursorData;
 import manager.Vars;
+
+import starling.core.Starling;
 import starling.display.Image;
 import starling.textures.Texture;
 import utils.DrawToBitmap;
@@ -54,7 +56,7 @@ public class OwnMouse {
     private function makeCursorImages(st:String):Vector.<BitmapData> {
         var cursorData:Vector.<BitmapData> = new Vector.<BitmapData>();
         var texture:Texture = g.allData.atlas['interfaceAtlas'].getTexture(st);
-        var bitMapD:BitmapData = DrawToBitmap.copyToBitmapData(new Image(texture));
+        var bitMapD:BitmapData = DrawToBitmap.copyToBitmapData(Starling.current, new Image(texture));
         cursorData.push(bitMapD);
 
         return cursorData;

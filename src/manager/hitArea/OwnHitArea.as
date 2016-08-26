@@ -6,6 +6,8 @@ import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
@@ -34,7 +36,7 @@ public class OwnHitArea {
     }
 
     private function createBitmapData(sp:Sprite):void {
-        var bm:Bitmap = new Bitmap(DrawToBitmap.copyToBitmapData(sp));
+        var bm:Bitmap = new Bitmap(DrawToBitmap.copyToBitmapData(Starling.current, sp));
         _w = int(bm.width * bitmapScaling);
         _h = int(bm.height * bitmapScaling);
         _rect.x = int(_rect.x * bitmapScaling);

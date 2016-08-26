@@ -17,6 +17,8 @@ import manager.Vars;
 
 import social.vk.SN_Vkontakte;
 
+import starling.core.Starling;
+
 import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -54,7 +56,7 @@ public class WALLNewLevel {
         _txtLevel.y = 90;
         ManagerFilters.setStrokeStyle(_txtLevel, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtLevel);
-        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
+        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),bitMap,'interfaceAtlas');
         deleteIt();
     }

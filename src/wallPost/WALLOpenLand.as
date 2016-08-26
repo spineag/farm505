@@ -6,6 +6,8 @@ import flash.display.Bitmap;
 
 import manager.Vars;
 
+import starling.core.Starling;
+
 import starling.display.Image;
 
 import starling.display.Sprite;
@@ -30,7 +32,7 @@ public class WALLOpenLand {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_new_land.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
-        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
+        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Новая территория открыта! Теперь моя Долина Рукоделия в игре Умелые Лапки стала еще больше!'),bitMap,'interfaceAtlas');
         deleteIt();
     }

@@ -4,6 +4,8 @@ import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import manager.Vars;
+
+import starling.core.Starling;
 import starling.core.Starling;
 import starling.display.DisplayObject;
 import starling.display.Stage;
@@ -12,17 +14,16 @@ import starling.rendering.Painter;
 public class DrawToBitmap {
     private static var g:Vars = Vars.getInstance();
 
-    public static function drawToBitmap(displayObject:DisplayObject):Bitmap {
-        var resultBitmap:Bitmap = new Bitmap(copyToBitmapData(displayObject));
+    public static function drawToBitmap(starling:Starling, displayObject:DisplayObject):Bitmap {
+        var resultBitmap:Bitmap = new Bitmap(copyToBitmapData(starling, displayObject));
         return resultBitmap;
     }
 
-    public static function copyToBitmapData(disp:DisplayObject):BitmapData {
+    public static function copyToBitmapData(starling:Starling, disp:DisplayObject):BitmapData {
         var bounds:Rectangle = disp.getBounds(disp);
         var result:BitmapData = new BitmapData(bounds.width, bounds.height, true);
         var stage:Stage = g.mainStage;
-//        var painter:Painter = new Painter(g.starling.stage3D);
-        var painter:Painter = g.starling.painter;
+        var painter:Painter = starling.painter;
 
         painter.pushState();
         painter.state.renderTarget = null;
