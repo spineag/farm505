@@ -72,11 +72,11 @@ public class FriendItem {
         im.y = 41;
         source.addChild(im);
 
-        txtLvl = new TextField(34, 18, "");
+        txtLvl = new TextField(40, 18, "");
         txtLvl.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         txtLvl.text = '1';
         txtLvl.text = String(_person.level);
-        txtLvl.x = 32;
+        txtLvl.x = 29;
         txtLvl.y = 50;
         ManagerFilters.setStrokeStyle(txtLvl, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(txtLvl);

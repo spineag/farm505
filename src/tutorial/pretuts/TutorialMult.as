@@ -17,6 +17,8 @@ import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
 
+import utils.DrawToBitmap;
+
 public class TutorialMult {
     private var _isLoad:Boolean;
     private var _needStart:Boolean;
@@ -32,6 +34,7 @@ public class TutorialMult {
     private var _boneCats:Slot;
     private var _boneBlack:Slot;
     private var walls:Array;
+    private var wallImage:Image;
     private var g:Vars = Vars.getInstance();
 
     public function TutorialMult() {
@@ -60,6 +63,13 @@ public class TutorialMult {
         if (_startCallback != null) {
             _startCallback.apply();
         }
+        var bWall:Slot = _armature.getSlot('wall_temp');
+        if (bWall && bWall.displayList.length) {
+            wallImage = bWall.displayList[0] as Image;
+            bWall.display.visible = false;
+        } else {
+            //..
+        }
         _boneBlue = _armature.getSlot('blue');
         _boneBlueSprite = new Sprite();
         _tempBG = new Quad(g.stageWidth, g.stageHeight);
@@ -79,12 +89,14 @@ public class TutorialMult {
         walls = [];
         var sp:Sprite = new Sprite();
         var b:Slot = _armature.getSlot('wall');
-        var im:Image = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+//        var im:Image = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+        var im:Image = new Image(DrawToBitmap.getTextureFromImage(wallImage));
         sp.addChild(im);
         b.display = sp;
         walls.push(sp);
         b = _armature.getSlot('wall1');
-        im = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+//        im = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+        im = new Image(DrawToBitmap.getTextureFromImage(wallImage));
         sp = new Sprite();
         sp.addChild(im);
         b.display = sp;
@@ -114,13 +126,15 @@ public class TutorialMult {
 
         var sp:Sprite = new Sprite();
         var b:Slot = _armature.getSlot('wall2');
-        var im:Image = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+//        var im:Image = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+        var im:Image = new Image(DrawToBitmap.getTextureFromImage(wallImage));
         sp.addChild(im);
         b.display = sp;
         walls.push(sp);
         sp.alpha = 0;
         var b1:Slot = _armature.getSlot('wall3');
-        im = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+//        im = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
+        im = new Image(DrawToBitmap.getTextureFromImage(wallImage));
         sp = new Sprite();
         sp.addChild(im);
         b1.display = sp;

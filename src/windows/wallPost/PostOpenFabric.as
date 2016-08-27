@@ -104,8 +104,6 @@ public class PostOpenFabric  extends WindowMain {
             im.y = -75;
             im.x = -95;
         }
-
-
         _source.addChild(im);
         createExitButton(hideIt);
     }

@@ -75,7 +75,7 @@ public class FabricHint {
         _txtItem = new TextField(50, 40 ,'');
         _txtItem.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtItem.format.horizontalAlign = Align.LEFT;
-        _txtItem.x = 160;
+        _txtItem.x = 163;
         _txtItem.y = 150;
         ManagerFilters.setStrokeStyle(_txtItem, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _txtTime = new TextField(100, 40 ,'');
@@ -83,7 +83,7 @@ public class FabricHint {
         _txtItem.format.horizontalAlign = Align.LEFT;
         _txtTime.x = 20;
         _txtTime.y = 150;
-        ManagerFilters.setStrokeStyle(_txtTime, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+        ManagerFilters.setEmptyStyle(_txtTime);
         _source.addChild(_txtTimeCreate);
         _source.addChild(_txtOnSklad);
         _source.addChild(_txtItem);

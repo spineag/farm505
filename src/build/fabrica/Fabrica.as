@@ -5,6 +5,8 @@ package build.fabrica {
 import analytic.AnalyticManager;
 import build.WorldObject;
 import data.BuildType;
+import data.DataMoney;
+
 import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.Slot;
@@ -16,6 +18,8 @@ import flash.geom.Point;
 import heroes.BasicCat;
 import heroes.HeroCat;
 import manager.ManagerFilters;
+import manager.ManagerWallPost;
+
 import media.SoundConst;
 import resourceItem.CraftItem;
 import com.junkbyte.console.Cc;

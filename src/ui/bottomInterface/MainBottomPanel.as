@@ -441,7 +441,7 @@ public class MainBottomPanel {
         txt = new TextField(50,50,String(_person.level));
         txt.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         if (_person is NeighborBot) txt.text = '10';
-        txt.x = 57;
+        txt.x = 55;
         txt.y = 49;
         ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _friendBoard.addChild(txt);

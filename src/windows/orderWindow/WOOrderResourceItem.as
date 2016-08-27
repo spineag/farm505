@@ -39,14 +39,15 @@ public class WOOrderResourceItem {
         _countTxt = new TextField(80, 40, "10/10");
         _countTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _countTxt.format.horizontalAlign = Align.RIGHT;
-        ManagerFilters.setStrokeStyle(_countTxt, ManagerFilters.TEXT_BROWN_COLOR);
-
         _countTxt.y = 60;
+        _countTxt.x = -3;
+        ManagerFilters.setStrokeStyle(_countTxt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_countTxt);
         _countRed = new TextField(30, 30, "");
         _countRed.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
         _countRed.format.horizontalAlign = Align.RIGHT;
         _countRed.y = 65;
+        _countRed.x = -3;
         ManagerFilters.setStrokeStyle(_countRed, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_countRed);
         source.hoverCallback = onHover;

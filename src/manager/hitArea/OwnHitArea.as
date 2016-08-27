@@ -36,6 +36,7 @@ public class OwnHitArea {
     }
 
     private function createBitmapData(sp:Sprite):void {
+        // 1st way
         var bm:Bitmap = new Bitmap(DrawToBitmap.copyToBitmapData(Starling.current, sp));
         _w = int(bm.width * bitmapScaling);
         _h = int(bm.height * bitmapScaling);
@@ -46,6 +47,13 @@ public class OwnHitArea {
         bm.bitmapData.dispose();
         bm = null;
         createPixelArray(tempBitmapData);
+
+        
+        // 2nd way
+        
+        
+        
+        //use for test
 //        createTestSprite();
 //        bData = tempBitmapData;
 //        createTestSprite2();

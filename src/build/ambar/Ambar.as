@@ -5,6 +5,8 @@ package build.ambar {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 import manager.ManagerFilters;
+import manager.ManagerWallPost;
+
 import mouse.ToolsModifier;
 
 import starling.display.Image;

@@ -17,6 +17,9 @@ import manager.Vars;
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
 
+import starling.display.Image;
+import starling.textures.Texture;
+
 import tutorial.ManagerTutorial;
 
 import user.Friend;
@@ -628,6 +631,9 @@ public class SN_Vkontakte extends SocialNetwork {
 }
 }
 
+
+import starling.display.Image;
+import starling.textures.Texture;
 
 import utils.Multipart;
 

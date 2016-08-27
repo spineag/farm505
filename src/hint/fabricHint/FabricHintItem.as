@@ -31,8 +31,6 @@ public class FabricHintItem {
         _txtWhite = new TextField(50,50,String("/" + String(_needCount)));
         _txtWhite.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtWhite.format.horizontalAlign = Align.LEFT;
-//        _txtWhite.y = 55;
-//        _txtWhite.x = 43;
         ManagerFilters.setStrokeStyle(_txtWhite, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _txtOrange = new TextField(50,50,'');
         _txtOrange.format.setTo(g.allData.bFonts['BloggerBold14'],14,ManagerFilters.TEXT_ORANGE_COLOR);
@@ -51,7 +49,7 @@ public class FabricHintItem {
         }
         _txtOrange.x = 34;
         _txtOrange.y = 55;
-        _txtWhite.x = _txtOrange.x + _txtOrange.textBounds.width + 1;
+        _txtWhite.x = _txtOrange.x + _txtOrange.textBounds.width + 5;
         _txtWhite.y = 55;
         if (!g.dataResource.objectResources[obId]) {
             Cc.error('FabricHintItem error: g.dataResource.objectResources[obId] = null');

@@ -31,8 +31,9 @@ public class WALLOpenTrain {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_open_train.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
-        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
-        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Канатная дорога открыта! Теперь, загружая корзинку и выполняя заказы, я буду получать еще больше опыта, монет и ваучеров!'),bitMap,'interfaceAtlas');
+//        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
+        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Канатная дорога открыта! Теперь, загружая корзинку и выполняя заказы, я буду получать еще больше опыта, монет и ваучеров!'),bitmap,'interfaceAtlas');
+        delete g.pBitmaps[st + 'wall/wall_open_train.jpg'];
     }
 }
 }

@@ -53,13 +53,13 @@ public class CatPanel {
         if (g.managerCats.countFreeCats <= 0) {
             _txtZero.text = '0';
             _txtCount.text = String("/" + g.managerCats.curCountCats);
-            _txtCount.x = 28 - 7;
+            _txtCount.x = 28;
             _txtZero.x = 55 - _txtCount.textBounds.width - 7;
             _txtZero.visible = true;
         } else {
             _txtCount.text = String(g.managerCats.countFreeCats + "/" + g.managerCats.curCountCats);
             _txtZero.visible = false;
-            _txtCount.x = 20 - 7;
+            _txtCount.x = 20;
         }
     }
 

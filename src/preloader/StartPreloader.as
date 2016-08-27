@@ -66,8 +66,8 @@ public class StartPreloader {
         _txt = new TextField(75,50,'0');
         _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, 0x0659b6);
         _source.addChild(_txt);
-        _txt.x = _bg.width/2 - 42;
-        _txt.y = _bg.height/2 + 185;
+        _txt.x = _bg.width/2 - 44;
+        _txt.y = _bg.height/2 + 184;
         ManagerFilters.setEmptyStyle(_txt);
     }
 

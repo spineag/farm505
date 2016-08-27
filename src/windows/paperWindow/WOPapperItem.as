@@ -279,6 +279,7 @@ public class WOPapperItem {
         txt = new TextField(60, 30, 'продать');
         txt.format.setTo(g.allData.bFonts['BloggerBold18'], 15, Color.WHITE);
         txt.x = 4;
+        txt.autoScale = true;
         ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnBuyBot.addChild(txt);
         source.addChild(_btnBuyBot);

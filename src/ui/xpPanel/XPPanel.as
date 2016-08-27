@@ -57,7 +57,7 @@ public class XPPanel {
         _source.addChild(_imageStar);
         _txtLevel = new TextField(60, 60, '55');
         _txtLevel.format.setTo(g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
-        _txtLevel.x = -27;
+        _txtLevel.x = -31;
         _txtLevel.y = -12;
         ManagerFilters.setStrokeStyle(_txtLevel, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtLevel);

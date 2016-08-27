@@ -1,6 +1,7 @@
 package utils {
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import manager.Vars;
@@ -8,8 +9,11 @@ import manager.Vars;
 import starling.core.Starling;
 import starling.core.Starling;
 import starling.display.DisplayObject;
+import starling.display.Image;
 import starling.display.Stage;
 import starling.rendering.Painter;
+import starling.textures.RenderTexture;
+import starling.textures.Texture;
 
 public class DrawToBitmap {
     private static var g:Vars = Vars.getInstance();
@@ -38,7 +42,37 @@ public class DrawToBitmap {
 
         return result;
     }
+
+    public static function getTextureFromImage(disp:DisplayObject):Texture {
+        var texture:RenderTexture = new RenderTexture(disp.width, disp.height);
+        texture.draw(disp);
+        return texture;
+    }
+
+    public static function getBitmapFromTextureBitmapAndTextureXML(b:Bitmap, xml:XML, name:String):BitmapData {
+        var resultBD:BitmapData;
+        var xl:XML;
+        for each (var prop:XML in xml.SubTexture) {
+            if (prop.@name==name) {
+                xl = prop;
+                break;
+            }
+        }
+        if (xl) {
+            resultBD = new BitmapData(int(xl.@width), int(xl.@height));
+            var m:Matrix = new Matrix();
+            m.translate(-int(xl.@x), -int(xl.@y));
+            resultBD.draw(b, m);
+        }
+        return resultBD;
+    }
     
 }
 }
 
+
+//var texture:RenderTexture = new RenderTexture(100, 100);
+//texture.draw(sprite);
+//
+//var image:Image = new Image(texture);
+//addChild(image);

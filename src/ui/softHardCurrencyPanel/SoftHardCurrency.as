@@ -63,11 +63,11 @@ public class SoftHardCurrency {
         };
         createPanel(true, _contSoft, onClickSoft);
         createPanel(false, _contHard, onClickHard);
-        _txtSoft =  new TextField(122, 38, '00');
+        _txtSoft =  new TextField(120, 38, '00');
         _txtSoft.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         ManagerFilters.setStrokeStyle(_txtSoft, ManagerFilters.TEXT_BROWN_COLOR);
         _contSoft.addChild(_txtSoft);
-        _txtHard =  new TextField(122, 38, '00');
+        _txtHard =  new TextField(120, 38, '00');
         _txtHard.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         ManagerFilters.setStrokeStyle(_txtHard, ManagerFilters.TEXT_BROWN_COLOR);
         _contHard.addChild(_txtHard);
