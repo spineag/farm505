@@ -11,6 +11,7 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Align;
 import starling.utils.Color;
 import utils.CSprite;
@@ -105,8 +106,8 @@ public class WOPapperPage {
         }
     }
 
-    public function get getScreenshot():Bitmap {
-        var b:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, source);
+    public function get getScreenshot():Texture {
+        var b:Texture = DrawToBitmap.getTextureFromImage(source);
         return b;
     }
 

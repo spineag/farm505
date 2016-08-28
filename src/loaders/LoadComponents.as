@@ -99,7 +99,7 @@ public class LoadComponents {
     }
 
     private function loadDBAnimations():void {
-        g.startPreloader.setProgress(39);
+        g.startPreloader.setProgress(48);
         count = 0;
 
         g.loadAnimation.load('animations_json/arrow', 'arrow', onLoadDB);
@@ -112,14 +112,14 @@ public class LoadComponents {
 
     private function onLoadDB():void {
         count++;
-        g.startPreloader.setProgress(39 + count*2);
+        g.startPreloader.setProgress(48 + count*2);
         if (count >=6) {
             loadDBX();
         }
     }
 
     private function loadDBX():void {
-        g.startPreloader.setProgress(52);
+        g.startPreloader.setProgress(60);
         count = 0;
 
         g.loadAnimation.load('animations_json/x1/bfly', 'bfly', onLoadDB_X);
@@ -135,7 +135,7 @@ public class LoadComponents {
 
     private function onLoadDB_X():void {
         count++;
-        g.startPreloader.setProgress(52 + 2*count);
+        g.startPreloader.setProgress(60 + 2*count);
         if (count >=9) {
             if (_callback != null) _callback.apply();
         }

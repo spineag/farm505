@@ -17,11 +17,9 @@ public class WOPapperFlipPage extends Sprite3D{
     private var _top:Image;
     private var _back:Image;
 
-    public function WOPapperFlipPage(top:Bitmap, back:Bitmap, isNext:Boolean, callback:Function) {
-        var tex:Texture = Texture.fromBitmap(top);
-        _top = new Image(tex);
-        tex = Texture.fromBitmap(back);
-        _back = new Image(tex);
+    public function WOPapperFlipPage(top:Texture, back:Texture, isNext:Boolean, callback:Function) {
+        _top = new Image(top);
+        _back = new Image(back);
         _top.alignPivot();
         _back.alignPivot();
         if (isNext) {
@@ -40,8 +38,6 @@ public class WOPapperFlipPage extends Sprite3D{
             _back.dispose();
             removeChild(_top);
             removeChild(_back);
-            tex.dispose();
-            tex = null;
             _top = null;
             _back = null;
             if (callback != null) {

@@ -66,13 +66,13 @@ public class TutorialMult {
         var bWall:Slot = _armature.getSlot('wall_temp');
         if (bWall && bWall.displayList.length) {
             wallImage = bWall.displayList[0] as Image;
-            bWall.display.visible = false;
+//            bWall.display.visible = false;
         } else {
             //..
         }
         _boneBlue = _armature.getSlot('blue');
         _boneBlueSprite = new Sprite();
-        _tempBG = new Quad(g.stageWidth, g.stageHeight);
+        _tempBG = new Quad(g.stageWidth + 500, g.stageHeight + 500);
         _tempBG.setVertexColor(0, 0x7FAFB3);
         _tempBG.setVertexColor(1, 0x7FAFB3);
         _tempBG.setVertexColor(2, 0xA4C6C8);
@@ -91,8 +91,11 @@ public class TutorialMult {
         var b:Slot = _armature.getSlot('wall');
 //        var im:Image = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
         var im:Image = new Image(DrawToBitmap.getTextureFromImage(wallImage));
-        sp.addChild(im);
-        b.display = sp;
+        im.x = 200;
+        im.y = 200;
+        g.cont.mouseCont.addChild(im);
+//        sp.addChild(im);
+//        b.display = sp;
         walls.push(sp);
         b = _armature.getSlot('wall1');
 //        im = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;

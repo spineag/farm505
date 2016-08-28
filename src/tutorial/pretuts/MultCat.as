@@ -20,7 +20,8 @@ public class MultCat {
 
     public function MultCat(_x:int, _y:int, p:Sprite) {
         _source = new Sprite();
-        _armature = g.allData.factory['main_cat'].buildArmature('cat');
+        _armature = g.allData.factory['cat_main'].buildArmature('cat');
+        (_armature.display as StarlingArmatureDisplay).scale = 2;
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         _source.x = _x;
         _source.y = _y;
