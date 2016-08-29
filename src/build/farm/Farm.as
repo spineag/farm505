@@ -4,6 +4,10 @@
 package build.farm {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
+
+import dragonBones.Armature;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.geom.Point;
 import manager.ManagerFilters;
 
@@ -222,6 +226,14 @@ public class Farm extends WorldObject{
             }
             an.source.x = p.x;
             an.source.y = p.y;
+//            if (!g.managerTutorial.isTutorial) {
+//                var arm:Armature;
+//                arm = g.allData.factory['explode_an'].buildArmature("expl_fabric");
+//                (arm.display as StarlingArmatureDisplay).x = p.x;
+//                (arm.display as StarlingArmatureDisplay).y = p.y;
+//                _contAnimals.addChild(arm as StarlingArmatureDisplay);
+//                arm.animation.gotoAndPlayByFrame("idle");
+//            }
             _contAnimals.addChild(an.source);
             if (!isFromServer) {
                 g.directServer.addUserAnimal(an, _dbBuildingId, null);
