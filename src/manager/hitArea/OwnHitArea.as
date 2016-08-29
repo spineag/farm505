@@ -5,9 +5,9 @@ package manager.hitArea {
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
+import flash.geom.Point;
 
 import starling.core.Starling;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
@@ -37,21 +37,28 @@ public class OwnHitArea {
 
     private function createBitmapData(sp:Sprite):void {
         // 1st way
-        var bm:Bitmap = new Bitmap(DrawToBitmap.copyToBitmapData(Starling.current, sp));
-        _w = int(bm.width * bitmapScaling);
-        _h = int(bm.height * bitmapScaling);
-        _rect.x = int(_rect.x * bitmapScaling);
-        _rect.y = int(_rect.y * bitmapScaling);
-        var tempBitmapData:BitmapData = new BitmapData(bm.width, bm.height, true, 0x00000000);
-        bitmapScaling < 1 ? tempBitmapData.draw(bm.bitmapData, new Matrix(bitmapScaling, 0, 0, bitmapScaling, 0, 0)) : tempBitmapData = bm.bitmapData.clone();
-        bm.bitmapData.dispose();
-        bm = null;
-        createPixelArray(tempBitmapData);
+//        var bm:Bitmap = new Bitmap(DrawToBitmap.copyToBitmapData(Starling.current, sp));
+//        _w = int(bm.width * bitmapScaling);
+//        _h = int(bm.height * bitmapScaling);
+//        _rect.x = int(_rect.x * bitmapScaling);
+//        _rect.y = int(_rect.y * bitmapScaling);
+//        var tempBitmapData:BitmapData = new BitmapData(bm.width, bm.height, true, 0x00000000);
+//        bitmapScaling < 1 ? tempBitmapData.draw(bm.bitmapData, new Matrix(bitmapScaling, 0, 0, bitmapScaling, 0, 0)) : tempBitmapData = bm.bitmapData.clone();
+//        bm.bitmapData.dispose();
+//        bm = null;
+//        createPixelArray(tempBitmapData);
 
         
         // 2nd way
-        
-        
+        var tex:Texture = DrawToBitmap.getTextureFromStarlingDisplayObject(sp, bitmapScaling);
+        var im:Image = new Image(tex);
+        var sp:Sprite = new Sprite();
+        sp.addChild(im);
+        _w = int(sp.width);
+        _h = int(sp.height);
+        _rect.x = int(_rect.x * bitmapScaling);
+        _rect.y = int(_rect.y * bitmapScaling);
+        createPixelArrayFromSprite(sp);
         
         //use for test
 //        createTestSprite();
@@ -116,6 +123,25 @@ public class OwnHitArea {
                 color = bData.getPixel32(i, j);
                 if (Color.getAlpha(color) > 30) isFullPixel = 2;
                     else isFullPixel = 1;
+                pixels[j] = isFullPixel;
+            }
+            _pixelsArr[i] = pixels;
+        }
+    }
+
+    private function createPixelArrayFromSprite(sp:Sprite):void {
+        var j:int;
+        var pixels:Vector.<int>;
+        var isFullPixel:int;
+        var p:Point = new Point();
+        _pixelsArr = new Vector.<Vector.<int>>(_w);
+        for (var i:int=0; i<_w; i++) {
+            pixels = new Vector.<int>;
+            for (j=0; j<_h; j++) {
+                p.x = i;
+                p.y = j;
+                if (sp.hitTest(p)) isFullPixel = 2;
+                else isFullPixel = 1;
                 pixels[j] = isFullPixel;
             }
             _pixelsArr[i] = pixels;

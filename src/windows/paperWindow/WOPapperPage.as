@@ -107,7 +107,7 @@ public class WOPapperPage {
     }
 
     public function get getScreenshot():Texture {
-        var b:Texture = DrawToBitmap.getTextureFromImage(source);
+        var b:Texture = DrawToBitmap.getTextureFromStarlingDisplayObject(source);
         return b;
     }
 

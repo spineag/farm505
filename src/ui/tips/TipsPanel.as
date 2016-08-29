@@ -39,7 +39,7 @@ public class TipsPanel {
         _txt= new TextField(30,30,"");
         _txt.format.setTo(g.allData.bFonts['BloggerBold24'],20,Color.WHITE);
         _txt.x = 18;
-        _txt.y = 35;
+        _txt.y = 32;
         _txt.touchable = false;
         ManagerFilters.setEmptyStyle(_txt);
         _source.addChild(_txt);

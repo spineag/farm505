@@ -29,7 +29,7 @@ public class UseMoneyMessage {
         else st += 'монет';
 
         var txt:TextField = new TextField(150,50, st);
-        txt..format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         txt.x = -75;
         txt.y = -25;
         ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);

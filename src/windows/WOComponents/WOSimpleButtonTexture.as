@@ -90,7 +90,7 @@ public class WOSimpleButtonTexture  extends Sprite {
 
         arr.length = 0;
 //        im = new Image(Texture.fromBitmap(DrawToBitmap.drawToBitmap(Starling.current, _s)));
-        im = new Image(DrawToBitmap.getTextureFromImage(_s));
+        im = new Image(DrawToBitmap.getTextureFromStarlingDisplayObject(_s));
         im.height = int(h*1.2); // because we have shadow in pictures
         addChild(im);
         _s.dispose();

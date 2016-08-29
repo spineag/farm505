@@ -4,15 +4,11 @@
 package windows.levelUp {
 import data.BuildType;
 import data.DataMoney;
-
 import flash.display.StageDisplayState;
-
 import flash.geom.Rectangle;
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
-
 import media.SoundConst;
-
 import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Image;
@@ -22,7 +18,6 @@ import starling.text.TextField;
 import starling.utils.Color;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
-
 import utils.CButton;
 import utils.MCScaler;
 import windows.WOComponents.WindowBackground;
@@ -97,7 +92,8 @@ public class WOLevelUp extends WindowMain {
             _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
             _txtContinue.text = 'ПРОДОЛЖИТЬ';
             _txtContinue.y = -25;
-            _txtContinue.x = 30;
+            _txtContinue.x = 34;
+            ManagerFilters.setStrokeStyle(_txtContinue, ManagerFilters.TEXT_GREEN_COLOR);
             _contBtn.addChild(_txtContinue);
             _contBtn.y = _woHeight / 2;
             _contBtn.clickCallback = onClickNext;
