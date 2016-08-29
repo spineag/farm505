@@ -128,6 +128,7 @@ public class LoadComponents {
         g.loadAnimation.load('animations_json/x1/cat_feed', 'cat_feed', onLoadDB_X);
         g.loadAnimation.load('animations_json/x1/cat_queue', 'cat_queue', onLoadDB_X);
         g.loadAnimation.load('animations_json/x1/explode', 'explode', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/explode_an', 'explode_an', onLoadDB_X);
         g.loadAnimation.load('animations_json/x1/explode_gray', 'explode_gray', onLoadDB_X);
         g.loadAnimation.load('animations_json/x1/plant', 'plant', onLoadDB_X);
         g.loadAnimation.load('animations_json/x1/tools', 'tools', onLoadDB_X);
@@ -136,7 +137,7 @@ public class LoadComponents {
     private function onLoadDB_X():void {
         count++;
         g.startPreloader.setProgress(60 + 2*count);
-        if (count >=9) {
+        if (count >=10) {
             if (_callback != null) _callback.apply();
         }
     }

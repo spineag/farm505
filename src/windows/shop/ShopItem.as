@@ -833,6 +833,10 @@ public class ShopItem {
             }
             for (i = 0; i < arr.length; i++) {
                 if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
+//                    if (!g.managerTutorial.isTutorial) {
+//                        _wo.hideIt();
+//                        g.cont.moveCenterToPos(arr[i].posX, arr[i].posY, false, 2);
+//                    }
                     (arr[i] as Farm).addAnimal();
                     checkState();
                     g.bottomPanel.cancelBoolean(false);
