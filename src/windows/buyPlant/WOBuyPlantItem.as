@@ -4,24 +4,16 @@
 package windows.buyPlant {
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
-
-import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
 import starling.display.Image;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
-import starling.utils.HAlign;
-
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
-
 import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WindowsManager;
 
 public class WOBuyPlantItem {
@@ -49,9 +41,10 @@ public class WOBuyPlantItem {
         source.endClickCallback = onClick;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtNumber = new TextField(40,30,'',g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
-        _txtNumber.hAlign = HAlign.RIGHT;
-        _txtNumber.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtNumber = new TextField(40,30,'');
+        _txtNumber.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
+        _txtNumber.format.horizontalAlign = Align.RIGHT;
+        ManagerFilters.setStrokeStyle(_txtNumber, ManagerFilters.TEXT_BROWN_COLOR);
 
         _txtNumber.x = 52;
         _txtNumber.y = 68;
@@ -85,8 +78,8 @@ public class WOBuyPlantItem {
         }
         fillIcon(_dataPlant.imageShop);
         _countPlants = g.userInventory.getCountResourceById(_dataPlant.id);
-        if (_countPlants <= 0) _txtNumber.color = ManagerFilters.TEXT_ORANGE_COLOR;
-        else _txtNumber.color = Color.WHITE;
+        if (_countPlants <= 0) _txtNumber.format.color = ManagerFilters.TEXT_ORANGE_COLOR;
+        else _txtNumber.format.color = Color.WHITE;
         if (_maxAlpha == 1)_txtNumber.text = String(_countPlants);
         if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialResource(_dataPlant.id)) {
             addArrow();

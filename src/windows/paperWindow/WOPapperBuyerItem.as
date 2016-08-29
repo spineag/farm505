@@ -4,17 +4,14 @@
 package windows.paperWindow {
 import com.junkbyte.console.Cc;
 import data.BuildType;
-import flash.display.Bitmap;
-import flash.geom.Rectangle;
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
-import starling.textures.Texture;
+import starling.utils.Align;
 import starling.utils.Color;
-import starling.utils.HAlign;
 import user.Someone;
 import utils.CSprite;
 import utils.MCScaler;
@@ -68,7 +65,7 @@ public class WOPapperBuyerItem {
         _ava = new Sprite();
         _ava.x = 9;
         _ava.y = 7;
-        _ava.clipRect = new Rectangle(0, 0, 46, 46);
+        _ava.mask = new Quad(46, 46);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("birka_c"));
         im.x = -5;
         _ava.addChild(im);
@@ -91,32 +88,40 @@ public class WOPapperBuyerItem {
         im.y = 60;
         source.addChild(im);
 
-        _txtCost = new TextField(84, 62, "1500", g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtCost.hAlign = HAlign.RIGHT;
+        _txtCost = new TextField(84, 62, "1500");
+        _txtCost.format.setTo(g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCost.format.horizontalAlign = Align.RIGHT;
         _txtCost.touchable = false;
         _txtCost.x = 53;
         _txtCost.y = 42;
+        ManagerFilters.setEmptyStyle(_txtCost);
         source.addChild(_txtCost);
 
-        _txtCountResource = new TextField(84, 62, "10 шт.", g.allData.bFonts['BloggerMedium14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtCountResource.hAlign = HAlign.RIGHT;
+        _txtCountResource = new TextField(84, 62, "10 шт.");
+        _txtCountResource.format.setTo(g.allData.bFonts['BloggerMedium14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCountResource.format.horizontalAlign = Align.RIGHT;
         _txtCountResource.touchable = false;
         _txtCountResource.x = 80;
         _txtCountResource.y = 70;
+        ManagerFilters.setEmptyStyle(_txtCountResource);
         source.addChild(_txtCountResource);
 
-        _txtResourceName = new TextField(200, 30, "Смаженый кабаньчик", g.allData.bFonts['BloggerMedium14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtResourceName.hAlign = HAlign.RIGHT;
+        _txtResourceName = new TextField(200, 30, "Смаженый кабаньчик");
+        _txtResourceName.format.setTo(g.allData.bFonts['BloggerMedium14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtResourceName.format.horizontalAlign = Align.RIGHT;
         _txtResourceName.touchable = false;
         _txtResourceName.x = -38;
         _txtResourceName.y = 103;
+        ManagerFilters.setEmptyStyle(_txtResourceName);
         source.addChild(_txtResourceName);
 
-        _txtUserName = new TextField(120, 50, "Станислав Йованович", g.allData.bFonts['BloggerBold18'], 16, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtUserName.hAlign = HAlign.LEFT;
+        _txtUserName = new TextField(120, 50, "Станислав Йованович");
+        _txtUserName.format.setTo(g.allData.bFonts['BloggerBold18'], 16, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtUserName.format.horizontalAlign = Align.LEFT;
         _txtUserName.touchable = false;
         _txtUserName.x = 56;
         _txtUserName.y = 12;
+        ManagerFilters.setEmptyStyle(_txtUserName);
         source.addChild(_txtUserName);
 
         source.visible = false;

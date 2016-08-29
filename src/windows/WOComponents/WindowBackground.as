@@ -107,7 +107,6 @@ public class WindowBackground extends Sprite{
         }
 
         arr.length = 0;
-        flatten();
         filter = ManagerFilters.SHADOW;
     }
 

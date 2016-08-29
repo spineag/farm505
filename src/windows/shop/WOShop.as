@@ -8,6 +8,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.filters.BlurFilter;
+import starling.filters.DropShadowFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
@@ -47,8 +48,6 @@ public class WOShop extends WindowMain {
     private var _animal:Boolean;
     private var _birka:Birka;
     private var _shopCartonBackground:CartonBackground;
-    private var _SHADOW:BlurFilter;
-    private var _SHADOW2:BlurFilter;
     private var _pl1:HorizontalPlawka;
     private var _pl2:HorizontalPlawka;
     private var _pl3:HorizontalPlawka;
@@ -71,9 +70,7 @@ public class WOShop extends WindowMain {
         _shopSprite = new Sprite();
         _shopSprite.x = -_woWidth/2 + 41;
         _shopSprite.y = -_woHeight/2 + 141;
-        _SHADOW = ManagerFilters.NEW_SHADOW;
-        _SHADOW2 = ManagerFilters.NEW_SHADOW;
-        _shopSprite.filter = _SHADOW;
+        _shopSprite.filter = ManagerFilters.SHADOW;
         _source.addChild(_shopSprite);
         _contSprite = new Sprite();
         _contSprite.x = -_woWidth/2 + 41;
@@ -180,15 +177,15 @@ public class WOShop extends WindowMain {
         _shopCartonBackground = new CartonBackground(666, 320);
         _shopSprite.addChild(_shopCartonBackground);
         var b:Boolean = g.user.allNotification > 0 ;
-        _btnTab1 = new ShopTabBtn(VILLAGE, function():void {onTab(VILLAGE)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
+        _btnTab1 = new ShopTabBtn(VILLAGE, function():void {onTab(VILLAGE)}, _shopSprite, _shopTabBtnCont);
         _btnTab1.setPosition(7, -81);
-        _btnTab2 = new ShopTabBtn(ANIMAL, function():void {onTab(ANIMAL)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
+        _btnTab2 = new ShopTabBtn(ANIMAL, function():void {onTab(ANIMAL)}, _shopSprite, _shopTabBtnCont);
         _btnTab2.setPosition(7 + 133, -81);
-        _btnTab3 = new ShopTabBtn(FABRICA, function():void {onTab(FABRICA)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
+        _btnTab3 = new ShopTabBtn(FABRICA, function():void {onTab(FABRICA)}, _shopSprite, _shopTabBtnCont);
         _btnTab3.setPosition(7 + 133*2, -81);
-        _btnTab4 = new ShopTabBtn(PLANT, function():void {onTab(PLANT)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
+        _btnTab4 = new ShopTabBtn(PLANT, function():void {onTab(PLANT)}, _shopSprite, _shopTabBtnCont);
         _btnTab4.setPosition(7 + 133*3, -81);
-        _btnTab5 = new ShopTabBtn(DECOR, function():void {onTab(DECOR)}, _shopSprite, _shopTabBtnCont, _SHADOW2);
+        _btnTab5 = new ShopTabBtn(DECOR, function():void {onTab(DECOR)}, _shopSprite, _shopTabBtnCont);
         _btnTab5.setPosition(7 + 133*4, -81);
     }
 
@@ -295,10 +292,11 @@ public class WOShop extends WindowMain {
     }
 
     private function createMoneyBlock():void {
-        var txt:TextField = new TextField(250, 40, 'Ваши сбережения:', g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        var txt:TextField = new TextField(250, 40, 'Ваши сбережения:');
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
         txt.x = -_woWidth/2 + 238;
         txt.y = -_woHeight/2 + 461;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
 
         _pl1 = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
@@ -405,35 +403,41 @@ public class WOShop extends WindowMain {
         im.y = -_woHeight/2 + 505;
         _contCoupone.addChild(im);
 
-        _txtHardMoney = new TextField(63, 33, '88888', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        _txtHardMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtHardMoney = new TextField(63, 33, '88888');
+        _txtHardMoney.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         _txtHardMoney.x = -_woWidth/2 + 81;
         _txtHardMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtHardMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtHardMoney);
-        _txtSoftMoney = new TextField(63, 33, '88888', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        _txtSoftMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtSoftMoney = new TextField(63, 33, '88888');
+        _txtSoftMoney.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         _txtSoftMoney.x = -_woWidth/2 + 239;
         _txtSoftMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtSoftMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtSoftMoney);
-        _txtRedMoney = new TextField(39, 33, '888', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        _txtRedMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtRedMoney = new TextField(39, 33, '888');
+        _txtRedMoney.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         _txtRedMoney.x = -_woWidth/2 + 400;
         _txtRedMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtRedMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtRedMoney);
-        _txtYellowMoney = new TextField(39, 33, '888', g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        _txtYellowMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtYellowMoney = new TextField(39, 33, '888');
+        _txtYellowMoney.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         _txtYellowMoney.x = -_woWidth/2 + 475;
         _txtYellowMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtYellowMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtYellowMoney);
-        _txtGreenMoney = new TextField(39, 33, '888', g.allData.bFonts['BloggerBold18'], 14, Color.WHITE);
-        _txtGreenMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtGreenMoney = new TextField(39, 33, '888');
+        _txtGreenMoney.format.setTo(g.allData.bFonts['BloggerBold18'], 14, Color.WHITE);
         _txtGreenMoney.x = -_woWidth/2 + 550;
         _txtGreenMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtGreenMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtGreenMoney);
-        _txtBlueMoney = new TextField(39, 33, '888', g.allData.bFonts['BloggerBold18'], 14, Color.WHITE);
-        _txtBlueMoney.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtBlueMoney = new TextField(39, 33, '888');
+        _txtBlueMoney.format.setTo(g.allData.bFonts['BloggerBold18'], 14, Color.WHITE);
         _txtBlueMoney.x = -_woWidth/2 + 625;
         _txtBlueMoney.y = -_woHeight/2 + 512;
+        ManagerFilters.setStrokeStyle(_txtBlueMoney, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtBlueMoney);
     }
 
@@ -502,10 +506,6 @@ public class WOShop extends WindowMain {
         _woBG.deleteIt();
         _woBG = null;
         _txtBlueMoney = _txtGreenMoney = _txtHardMoney = _txtRedMoney = _txtSoftMoney = _txtYellowMoney = null;
-        _SHADOW.dispose();
-        _SHADOW = null;
-        _SHADOW2.dispose();
-        _SHADOW2 = null;
         _source.removeChild(_pl1);
         _pl1.deleteIt();
         _pl1 = null;

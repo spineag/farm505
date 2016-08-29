@@ -3,14 +3,14 @@ import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import dragonBones.Armature;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.display.Bitmap;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import manager.Vars;
 import manager.hitArea.OwnHitArea;
-
 import preloader.miniPreloader.FlashAnimatedPreloader;
-
 import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Quad;
@@ -21,7 +21,6 @@ import utils.SimpleArrow;
 import tutorial.TutorialAction;
 import utils.IsoUtils;
 import utils.Point3D;
-import utils.CSprite;
 import windows.WindowsManager;
 
 public class WorldObject {
@@ -281,14 +280,14 @@ public class WorldObject {
             createAnimBuild1(onCreate);
         } else {
             createIsoView();
-            g.loadAnimation.load('animations/x1/' + _dataBuild.url, _dataBuild.url, createAnimBuild1, onCreate);
+            g.loadAnimation.load('animations_json/x1/' + _dataBuild.url, _dataBuild.url, createAnimBuild1, onCreate);
         }
     }
 
     private function createAnimBuild1(onCreate:Function):void {
         deleteIsoView();
         _armature = g.allData.factory[_dataBuild.url].buildArmature(_dataBuild.image);
-        _build.addChild(_armature.display as Sprite);
+        _build.addChild(_armature.display as StarlingArmatureDisplay);
         _rect = _build.getBounds(_build);
         _source.addChild(_build);
         if (onCreate != null) onCreate.apply();
@@ -393,7 +392,7 @@ public class WorldObject {
             if (g.allData.factory['buildingBuild']) {
                 addDoneBuilding1();
             } else {
-                g.loadAnimation.load('animations/x1/building/', 'buildingBuild', addDoneBuilding1);
+                g.loadAnimation.load('animations_json/x1/building/', 'buildingBuild', addDoneBuilding1);
             }
         } else {
             Cc.error('_craftSprite == null  :(')
@@ -417,7 +416,7 @@ public class WorldObject {
             if (g.allData.factory['buildingBuild']) {
                 addFoundationBuilding1();
             } else {
-                g.loadAnimation.load('animations/x1/building/', 'buildingBuild', addFoundationBuilding1);
+                g.loadAnimation.load('animations_json/x1/building/', 'buildingBuild', addFoundationBuilding1);
             }
         } else {
             Cc.error('_craftSprite == null  :(')

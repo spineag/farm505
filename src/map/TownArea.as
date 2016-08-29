@@ -772,7 +772,7 @@ public class TownArea extends Sprite {
                 return;
             } else if (!g.userInventory.decorInventory[worldObject.dataBuild.id] && inventory) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
-                g.bottomPanel.cancelBoolean(false);
+//                g.bottomPanel.cancelBoolean(false);
                 g.buyHint.hideIt();
                 return;
             }

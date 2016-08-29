@@ -44,15 +44,17 @@ public class WONoResources extends WindowMain {
         _callbackClickBG = onClickExit;
         SOUND_OPEN = SoundConst.WO_AHTUNG;
 
-        _txtNoResource = new TextField(300, 30, "НЕДОСТАТОЧНО РЕСУРСОВ!", g.allData.bFonts['BloggerBold24'], 22, Color.WHITE);
-        _txtNoResource.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtNoResource = new TextField(300, 30, "НЕДОСТАТОЧНО РЕСУРСОВ!");
+        _txtNoResource.format.setTo(g.allData.bFonts['BloggerBold24'], 22, Color.WHITE);
         _txtNoResource.x = -150;
         _txtNoResource.y = -130;
+        ManagerFilters.setStrokeStyle(_txtNoResource, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtNoResource);
-        _text = new TextField(350, 75, "Не хватает ингредиентов. Вы можете купить их за рубины и начать производство немедленно.", g.allData.bFonts['BloggerMedium18'], 18, Color.WHITE);
-        _text.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _text = new TextField(350, 75, "Не хватает ингредиентов. Вы можете купить их за рубины и начать производство немедленно.");
+        _text.format.setTo(g.allData.bFonts['BloggerMedium18'], 18, Color.WHITE);
         _text.x = -175;
         _text.y = -100;
+        ManagerFilters.setStrokeStyle(_text, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_text);
 
         _btnBuy = new CButton();
@@ -60,8 +62,9 @@ public class WONoResources extends WindowMain {
         _btnBuy.x = 0;
         _btnBuy.y = 110;
         _source.addChild(_btnBuy);
-        _txtHardCost = new TextField(180, 34, "Купить ресурсы за 8888", g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        _txtHardCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _txtHardCost = new TextField(180, 34, "Купить ресурсы за 8888");
+        _txtHardCost.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
+        ManagerFilters.setStrokeStyle(_txtHardCost, ManagerFilters.TEXT_GREEN_COLOR);
         _btnBuy.addChild(_txtHardCost);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         MCScaler.scale(im, 25, 25);

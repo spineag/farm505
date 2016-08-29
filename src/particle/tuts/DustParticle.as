@@ -29,7 +29,6 @@ public class DustParticle {
         im.y = -im.height/2;
         sp.addChild(im);
         sp.touchable = false;
-        sp.flatten();
         return sp;
     }
 

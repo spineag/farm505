@@ -211,7 +211,7 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataAnimal: wrong JSON:' + String(response));
             return;
         }
-
+        var k:int = 0;
         if (d.id == 0) {
             Cc.ch('server', 'getDataAnimal OK', 5);
             var obj:Object;
@@ -231,6 +231,11 @@ public class DirectServer {
                 obj.idResource = int(d.message[i].craft_resource_id);
                 obj.idResourceRaw = int(d.message[i].raw_resource_id);
                 obj.costForceCraft = int(d.message[i].cost_force);
+                if (d.message[i].cost_new) {
+                    obj.costNew = String(d.message[i].cost_new).split('&');
+                    for (k = 0; k < obj.costNew.length; k++) obj.costNew[k] = int(obj.costNew[k]);
+                }
+
                 obj.buildType = BuildType.ANIMAL;
                 g.dataAnimal.objectAnimal[obj.id] = obj;
             }

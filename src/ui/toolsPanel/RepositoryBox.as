@@ -11,6 +11,7 @@ import data.OwnEvent;
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import utils.CButton;
 import utils.MCScaler;
@@ -38,7 +39,7 @@ public class RepositoryBox {
         source.addChild(pl);
         _contRect = new Sprite();
         source.addChild(_contRect);
-        _contRect.clipRect = new Rectangle(0, 0, 188, 62);
+        _contRect.mask = new Quad(188, 62);
         _contRect.y = 8;
         _contRect.x = 35;
         _cont = new Sprite();

@@ -3,25 +3,26 @@
  */
 package heroes {
 import build.TownAreaBuildSprite;
-
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import dragonBones.Armature;
 import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
 
 import flash.geom.Point;
 import manager.Vars;
+
+import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.events.Event;
 
 import temp.catCharacters.DataCat;
-
 import utils.IsoUtils;
-import utils.MCScaler;
 import utils.Point3D;
 
 public class OrderCat {
@@ -32,7 +33,6 @@ public class OrderCat {
     public static var PINK:int = 5;
     public static var WHITE:int = 6;
     public static var BROWN:int = 7;
-
     public static var ALL_CAT_COLORS:int = 7;
 
     public static var LONG_OUTTILE_WALKING:int=1;
@@ -72,8 +72,8 @@ public class OrderCat {
         _catBackImage = new Sprite();
         armature = g.allData.factory['cat_queue'].buildArmature("cat");
         armatureBack = g.allData.factory['cat_queue'].buildArmature("cat_back");
-        _catImage.addChild(armature.display as Sprite);
-        _catBackImage.addChild(armatureBack.display as Sprite);
+        _catImage.addChild(armature.display as StarlingArmatureDisplay);
+        _catBackImage.addChild(armatureBack.display as StarlingArmatureDisplay);
         WorldClock.clock.add(armature);
         WorldClock.clock.add(armatureBack);
         bant = 0;
@@ -156,10 +156,12 @@ public class OrderCat {
     public function showFront(v:Boolean):void {
         _catImage.visible = v;
         _catBackImage.visible = !v;
-        if (v) {
-            heroEyes.startAnimations();
-        } else {
-            heroEyes.stopAnimations();
+        if (heroEyes) {
+            if (v) {
+                heroEyes.startAnimations();
+            } else {
+                heroEyes.stopAnimations();
+            }
         }
     }
 
@@ -167,125 +169,137 @@ public class OrderCat {
         var st:String;
         var st2:String;
         switch (_catData.color) {
-            case BLACK:   st = '';   st2 = '_black'; break;
-            case BLUE:   st = '_bl'; st2 = '_blue'; break;
-            case GREEN:  st = '_gr'; st2 = '_green'; break;
-            case BROWN:  st = '_br'; st2 = '_brown'; break;
-            case ORANGE: st = '_or'; st2 = '_orange'; break;
-            case PINK:   st = '_pk'; st2 = '_pink'; break;
-            case WHITE:  st = '_wh'; st2 = '_white';break;
+            case BLACK:  st = '5'; st2 = '_black'; break;
+            case BLUE:   st = '4'; st2 = '_blue'; break;
+            case GREEN:  st = '3'; st2 = '_green'; break;
+            case BROWN:  st = 'br'; st2 = '_brown'; break;
+            case ORANGE: st = '1'; st2 = '_orange'; break;
+            case PINK:   st = '2'; st2 = '_pink'; break;
+            case WHITE:  st = '6'; st2 = '_white';break;
         }
 
         releaseFrontTexture(st);
         releaseBackTexture(st);
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, 'heads/head' + st, st2, _catData.isWoman);
-
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], armature, st+'_head_f', st2, _catData.isWoman);
 
         if (!_catData.isWoman) {
-            var b:Bone = armature.getBone('bant');
-            b.visible = false;
-
-        } else  changeBant(int(Math.random() * 8 + 1));
-        var okuli:Bone = armature.getBone('okuli');
-        var sharf:Bone = armature.getBone('sharf');
+            var sl:Slot = armature.getSlot('bant');
+            sl.displayList=null;
+        } else changeBant(int(Math.random() * 8 + 1));
+        var okuli:Slot = armature.getSlot('okuli');
+        var sharf:Slot = armature.getSlot('sharf');
         switch (_catData.type) {
             case DataCat.AKRIL:
-                okuli.visible = false;
+                okuli.displayList = null;
                 break;
             case DataCat.ASHUR:
-                okuli.visible = false;
-                sharf.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
                 break;
             case DataCat.BULAVKA:
-                okuli.visible = false;
-                sharf.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
                 break;
             case DataCat.BUSINKA:
-                okuli.visible = false;
-//                sharf.visible = false;
+                okuli.displayList = null;
                 break;
             case DataCat.IGOLOCHKA:
-                okuli.visible = false;
-                sharf.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
                 break;
             case DataCat.IRIS:
-                okuli.visible = false;
-                sharf.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
                 break;
             case DataCat.KRUCHOK:
-                okuli.visible = false;
-//                sharf.visible = false;
-
+                okuli.displayList = null;
                 break;
             case DataCat.LENTOCHKA:
-                okuli.visible = false;
-                sharf.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
                 break;
             case DataCat.NAPERSTOK:
-                okuli.visible = false;
-                sharf.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
                 break;
             case DataCat.PETELKA:
-                okuli.visible = false;
-                sharf.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
                 break;
             case DataCat.PRYAGA:
-                okuli.visible = false;
-                sharf.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
                 break;
             case DataCat.SINTETIKA:
-                sharf.visible = false;
+                sharf.displayList = null;
                 break;
             case DataCat.STESHOK:
-                okuli.visible = false;
-                sharf.visible = false;
+                okuli.displayList = null;
+                sharf.displayList = null;
                 break;
             case DataCat.YZELOK:
-                okuli.visible = false;
-//                sharf.visible = false;
+                okuli.displayList = null;
                 break;
         }
-        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(_catData.png) as Image;
-        if (!im)return;
-        var cast:Bone = armature.getBone('sharf');
-        cast.display.dispose();
-        cast.display = im;
+        if (_catData.png) {
+//            var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(_catData.png) as Image;
+            var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(_catData.png));
+            var sp:Sprite = new Sprite();
+            if (sharf.displayList.length) {
+                var imOld:DisplayObject = sharf.displayList[0] as DisplayObject;
+                if (imOld) {
+                    im.x = imOld.x + imOld.width/2 - im.width/2;
+                }
+            }
+            sp.addChild(im);
+            sharf.displayList = null;
+            sharf.display = sp;
+        }
     }
 
     private function changeBant(n:int):void {
-        var str:String = 'bant_'+ n;
         bant = n;
-        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(str) as Image;
-        var b:Bone = armature.getBone('bant');
-        b.display.dispose();
-        b.display = im;
+//        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(str) as Image;
+        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture('bant_'+ n));
+        var b:Slot = armature.getSlot('bant');
+        var sp:Sprite = new Sprite();
+        if (b.displayList.length) {
+            var imOld:DisplayObject = b.displayList[0] as DisplayObject;
+            if (imOld) {
+               im.x = imOld.x + imOld.width/2 - im.width/2;
+            }
+        }
+        sp.addChild(im);
+        b.displayList = null;
+        b.display = sp;
     }
 
     private function releaseFrontTexture(st:String):void {
-        changeTexture("head", "heads/head" + st, armature);
-        changeTexture("body", "bodys/body" + st, armature);
-        changeTexture("handLeft", "left_hand/handLeft" + st, armature);
-        changeTexture("handLeft 2copy", "left_hand/handLeft" + st, armature);
-        changeTexture("legLeft", "left_leg/legLeft" + st, armature);
-        changeTexture("handRight", "right_hand/handRight" + st, armature);
-        changeTexture("legRight", "right_leg/legRight" + st, armature);
-        changeTexture("tail", "tails/tail" + st, armature);
+        changeTexture("head", st + "_head_f", armature);
+        changeTexture("body", st + "_body_f", armature);
+        changeTexture("handLeft", st + '_lhand_f', armature);
+        changeTexture("handLeft 2copy", st + '_lhand_f', armature);
+        changeTexture("legLeft", st + '_lleg_f', armature);
+        changeTexture("handRight", st + '_rhand_f', armature);
+        changeTexture("legRight", st + '_rleg_f', armature);
+        changeTexture("tail", st + '_tail', armature);
     }
 
     private function releaseBackTexture(st:String):void {
-        changeTexture("head", "heads_b/head_b" + st, armatureBack);
-        changeTexture("body", "bodys_b/body_b" + st, armatureBack);
-        changeTexture("handLeft", "left_hand_b/handLeft_b" + st, armatureBack);
-        changeTexture("legLeft", "left_leg_b/legLeft_b" + st, armatureBack);
-        changeTexture("handRight", "right_hand_b/handRight_b" + st, armatureBack);
-        changeTexture("legRight", "right_leg_b/legRight_b" + st, armatureBack);
-        changeTexture("tail", "tails/tail" + st, armatureBack);
+        changeTexture("head", st + "_head_b", armatureBack);
+        changeTexture("body", st + "_body_b", armatureBack);
+        changeTexture("handLeft", st + '_lhand_b', armatureBack);
+        changeTexture("legLeft", st + '_lleg_b', armatureBack);
+        changeTexture("handRight", st + '_rhand_b', armatureBack);
+        changeTexture("legRight", st + '_rleg_b', armatureBack);
+        changeTexture("tail", st + '_tail', armatureBack);
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(newName) as Image;
-        var b:Bone = arma.getBone(oldName);
-        b.display.dispose();
+//        var im:Image = g.allData.factory['cat_queue'].getTextureDisplay(newName) as Image;
+        var b:Slot = arma.getSlot(oldName);
+        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
+        b.displayList = null;
         b.display = im;
     }
 
@@ -302,6 +316,10 @@ public class OrderCat {
         g.townArea.removeOrderCatFromCityObjects(this);
         g.townArea.removeOrderCatFromCont(this);
         forceStopAnimation();
+        if (heroEyes) {
+            heroEyes.stopAnimations();
+            heroEyes = null;
+        }
         WorldClock.clock.remove(armature);
         WorldClock.clock.remove(armatureBack);
         TweenMax.killTweensOf(_source);
@@ -339,69 +357,68 @@ public class OrderCat {
     public function idleFrontAnimation():void {
         var r:int = int(Math.random()*50);
         if (r != 10) {
-            armature.addEventListener(AnimationEvent.COMPLETE, onFinishIdle);
-            armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdle);
+            armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
+            armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
         }
         if (r > 10) {
-            armature.animation.gotoAndPlay("breath");
+            armature.animation.gotoAndPlayByFrame("breath");
         } else {
             switch (r) {
-                case 0: armature.animation.gotoAndPlay("idle1"); break;
-                case 1: armature.animation.gotoAndPlay("idle2"); break;
-                case 2: armature.animation.gotoAndPlay("idle3"); break;
-                case 3: armature.animation.gotoAndPlay("idle4"); break;
-                case 4: armature.animation.gotoAndPlay("idle5"); break;
-                case 5: armature.animation.gotoAndPlay("idle6"); break;
-                case 6: armature.animation.gotoAndPlay("idle7"); break;
-                case 7: armature.animation.gotoAndPlay("idle8"); break;
-                case 8: armature.animation.gotoAndPlay("idle9"); break;
+                case 0: armature.animation.gotoAndPlayByFrame("idle1"); break;
+                case 1: armature.animation.gotoAndPlayByFrame("idle2"); break;
+                case 2: armature.animation.gotoAndPlayByFrame("idle3"); break;
+                case 3: armature.animation.gotoAndPlayByFrame("idle4"); break;
+                case 4: armature.animation.gotoAndPlayByFrame("idle5"); break;
+                case 5: armature.animation.gotoAndPlayByFrame("idle6"); break;
+                case 6: armature.animation.gotoAndPlayByFrame("idle7"); break;
+                case 7: armature.animation.gotoAndPlayByFrame("idle8"); break;
+                case 8: armature.animation.gotoAndPlayByFrame("idle9"); break;
                 case 9: releaseBackIdle(); break;
                 case 10:
-                    armature.addEventListener(AnimationEvent.COMPLETE, onFinishIdle);
-                    armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdle);
+                    armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
+                    armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
                     switch (_catData.type) {
                     case DataCat.AKRIL:
-                        armature.animation.gotoAndPlay("akril");
+                        armature.animation.gotoAndPlayByFrame("akril");
                         break;
                     case DataCat.ASHUR:
-                        armature.animation.gotoAndPlay("agur");
+                        armature.animation.gotoAndPlayByFrame("agur");
                         break;
                     case DataCat.BULAVKA:
-                        armature.animation.gotoAndPlay("bulavka");
+                        armature.animation.gotoAndPlayByFrame("bulavka");
                         break;
                     case DataCat.BUSINKA:
-                        armature.animation.gotoAndPlay("businka");
-
+                        armature.animation.gotoAndPlayByFrame("businka");
                         break;
                     case DataCat.IGOLOCHKA:
-                        armature.animation.gotoAndPlay("igolochka");
+                        armature.animation.gotoAndPlayByFrame("igolochka");
                         break;
                     case DataCat.IRIS:
-                        armature.animation.gotoAndPlay("iris");
+                        armature.animation.gotoAndPlayByFrame("iris");
                         break;
                     case DataCat.KRUCHOK:
-                        armature.animation.gotoAndPlay("kruchek");
+                        armature.animation.gotoAndPlayByFrame("kruchek");
                         break;
                     case DataCat.LENTOCHKA:
-                        armature.animation.gotoAndPlay("lentochka");
+                        armature.animation.gotoAndPlayByFrame("lentochka");
                         break;
                     case DataCat.NAPERSTOK:
-                        armature.animation.gotoAndPlay("naperdstok");
+                        armature.animation.gotoAndPlayByFrame("naperdstok");
                         break;
                     case DataCat.PETELKA:
-                        armature.animation.gotoAndPlay("petelka");
+                        armature.animation.gotoAndPlayByFrame("petelka");
                         break;
                     case DataCat.PRYAGA:
-                        armature.animation.gotoAndPlay("pryaga");
+                        armature.animation.gotoAndPlayByFrame("pryaga");
                         break;
                     case DataCat.SINTETIKA:
-                        armature.animation.gotoAndPlay("sintetika");
+                        armature.animation.gotoAndPlayByFrame("sintetika");
                         break;
                     case DataCat.STESHOK:
-                        armature.animation.gotoAndPlay("stegok");
+                        armature.animation.gotoAndPlayByFrame("stegok");
                         break;
                     case DataCat.YZELOK:
-                        armature.animation.gotoAndPlay("uzelok");
+                        armature.animation.gotoAndPlayByFrame("uzelok");
                         break;
                 }
                     break;
@@ -409,28 +426,28 @@ public class OrderCat {
         }
     }
 
-    private function onFinishIdle(e:AnimationEvent):void {
-        armature.removeEventListener(AnimationEvent.COMPLETE, onFinishIdle);
-        armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdle);
+    private function onFinishIdle(e:Event=null):void {
+        armature.removeEventListener(EventObject.COMPLETE, onFinishIdle);
+        armature.removeEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
         idleFrontAnimation();
     }
 
     private function releaseBackIdle():void {
         showFront(false);
         count = 3;
-        armatureBack.addEventListener(AnimationEvent.COMPLETE, onFinishIdleBack);
-        armatureBack.addEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdleBack);
-        armatureBack.animation.gotoAndPlay("idle");
+        armatureBack.addEventListener(EventObject.COMPLETE, onFinishIdleBack);
+        armatureBack.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdleBack);
+        armatureBack.animation.gotoAndPlayByFrame("idle");
     }
 
-    private function onFinishIdleBack(e:AnimationEvent):void {
+    private function onFinishIdleBack(e:Event=null):void {
         count--;
-        armatureBack.removeEventListener(AnimationEvent.COMPLETE, onFinishIdleBack);
-        armatureBack.removeEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdleBack);
+        armatureBack.removeEventListener(EventObject.COMPLETE, onFinishIdleBack);
+        armatureBack.removeEventListener(EventObject.LOOP_COMPLETE, onFinishIdleBack);
         if (count > 0) {
-            armatureBack.addEventListener(AnimationEvent.COMPLETE, onFinishIdleBack);
-            armatureBack.addEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdleBack);
-            armatureBack.animation.gotoAndPlay("idle");
+            armatureBack.addEventListener(EventObject.COMPLETE, onFinishIdleBack);
+            armatureBack.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdleBack);
+            armatureBack.animation.gotoAndPlayByFrame("idle");
         } else {
             showFront(true);
             idleFrontAnimation();
@@ -439,12 +456,12 @@ public class OrderCat {
 
     public function stopAnimation():void {
         showFront(true);
-        if (armature) armature.animation.gotoAndStop('idle1', 0);
-        if (armatureBack) armatureBack.animation.gotoAndStop('idle', 0);
-        if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, onFinishIdle);
-        if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdle);
-        if (armatureBack.hasEventListener(AnimationEvent.COMPLETE)) armatureBack.removeEventListener(AnimationEvent.COMPLETE, onFinishIdleBack);
-        if (armatureBack.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armatureBack.removeEventListener(AnimationEvent.LOOP_COMPLETE, onFinishIdleBack);
+        if (armature) armature.animation.gotoAndStopByFrame('idle1');
+        if (armatureBack) armatureBack.animation.gotoAndStopByFrame('idle');
+        if (armature.hasEventListener(EventObject.COMPLETE)) armature.removeEventListener(EventObject.COMPLETE, onFinishIdle);
+        if (armature.hasEventListener(EventObject.LOOP_COMPLETE)) armature.removeEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
+        if (armatureBack.hasEventListener(EventObject.COMPLETE)) armatureBack.removeEventListener(EventObject.COMPLETE, onFinishIdleBack);
+        if (armatureBack.hasEventListener(EventObject.LOOP_COMPLETE)) armatureBack.removeEventListener(EventObject.LOOP_COMPLETE, onFinishIdleBack);
     }
 
     public function forceStopAnimation():void {
@@ -453,34 +470,34 @@ public class OrderCat {
     }
 
     public function walkAnimation():void {
-        heroEyes.startAnimations();
-        armature.animation.gotoAndPlay("walk");
-        armatureBack.animation.gotoAndPlay("walk");
+        if (heroEyes) heroEyes.startAnimations();
+        armature.animation.gotoAndPlayByFrame("walk");
+        armatureBack.animation.gotoAndPlayByFrame("walk");
     }
 
     public function walkPackAnimation():void {
-        heroEyes.startAnimations();
-        armature.animation.gotoAndPlay("walk_pack");
-        armatureBack.animation.gotoAndPlay("walk_pack");
+        if (heroEyes) heroEyes.startAnimations();
+        armature.animation.gotoAndPlayByFrame("walk_pack");
+        armatureBack.animation.gotoAndPlayByFrame("walk_pack");
     }
 
     public function runAnimation():void {
-        heroEyes.startAnimations();
-        armature.animation.gotoAndPlay("run");
-        armatureBack.animation.gotoAndPlay("run");
+        if (heroEyes) heroEyes.startAnimations();
+        armature.animation.gotoAndPlayByFrame("run");
+        armatureBack.animation.gotoAndPlayByFrame("run");
     }
 
     public function sayHIAnimation(callback:Function):void {
-        var onSayHI:Function = function():void {
-            if (armature.hasEventListener(AnimationEvent.COMPLETE)) armature.removeEventListener(AnimationEvent.COMPLETE, onSayHI);
-            if (armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onSayHI);
+        var onSayHI:Function = function(e:Event=null):void {
+            if (armature.hasEventListener(EventObject.COMPLETE)) armature.removeEventListener(EventObject.COMPLETE, onSayHI);
+            if (armature.hasEventListener(EventObject.LOOP_COMPLETE)) armature.removeEventListener(EventObject.LOOP_COMPLETE, onSayHI);
             if (callback != null) {
                 callback.apply();
             }
         };
-        armature.addEventListener(AnimationEvent.COMPLETE, onSayHI);
-        armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onSayHI);
-        armature.animation.gotoAndPlay('idle2');
+        armature.addEventListener(EventObject.COMPLETE, onSayHI);
+        armature.addEventListener(EventObject.LOOP_COMPLETE, onSayHI);
+        armature.animation.gotoAndPlayByFrame('idle2');
     }
 
 
@@ -558,7 +575,8 @@ public class OrderCat {
         if (g.managerTutorial.isTutorial) {
             new TweenMax(_source, koef/_speedRun, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
         } else {
-            new TweenMax(_source, koef/_speedWalk, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
+//            new TweenMax(_source, koef/_speedWalk, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
+            new TweenMax(_source, koef/_speedRun, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
         }
     }
 

@@ -10,6 +10,8 @@ import flash.geom.Point;
 import map.Containers;
 import manager.Vars;
 
+import starling.display.BlendMode;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
@@ -23,6 +25,7 @@ public class BackgroundArea {
     private var _cont:Sprite;
     private var _additionalCont:Sprite;
     private var _callback:Function;
+    private var _countLoaded:int;
 
     protected var g:Vars = Vars.getInstance();
 
@@ -67,6 +70,7 @@ public class BackgroundArea {
 
     private function loadBG():void {
         var st:String = g.dataPath.getGraphicsPath() + 'map/';
+        _countLoaded = 0;
         g.load.loadImage(st+'map_1.jpg', onLoadMap, st+'map_1.jpg', 0, 0);
         g.load.loadImage(st+'map_2.jpg', onLoadMap, st+'map_2.jpg', 2000, 0);
         g.load.loadImage(st+'map_3.jpg', onLoadMap, st+'map_3.jpg', 4000, 0);
@@ -104,9 +108,11 @@ public class BackgroundArea {
         var bg:Image = new Image(t);
         bg.x = _x * g.scaleFactor;
         bg.y = _y * g.scaleFactor;
+        bg.blendMode = BlendMode.NONE;
         _additionalCont.addChild(bg);
         g.pBitmaps[url].deleteIt();
         delete g.pBitmaps[url];
+        _countLoaded++;
     }
 }
 }

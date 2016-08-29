@@ -34,13 +34,14 @@ public class Hint {
 
     public function Hint() {
         source = new Sprite();
-        _txtHint = new TextField(150,20,"", g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtHint.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-        _txtHintTime = new TextField(150,20,"", g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtHintTime.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtHint = new TextField(150,20,"");
+        _txtHint.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, Color.WHITE);
+        _txtHintTime = new TextField(150,20,"");
+        _txtHintTime.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, Color.WHITE);
         source.touchable = false;
         _isShow = false;
-
+        ManagerFilters.setStrokeStyle(_txtHint, ManagerFilters.TEXT_BLUE_COLOR);
+        ManagerFilters.setStrokeStyle(_txtHintTime, ManagerFilters.TEXT_BLUE_COLOR);
     }
 
     public function showIt(st:String, type:String = 'none', newX:int = 0, time:int = 0):void {

@@ -45,7 +45,6 @@ public class EditorButtonInterface {
 
         MCScaler.scale(_iconEditor, 30, 30);
         source.addChild(_iconEditor);
-        source.flatten();
     }
 
     public function deleteIt():void {

@@ -1,65 +1,78 @@
 package utils {
-
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import starling.core.RenderSupport;
+import manager.Vars;
+
+import starling.core.Starling;
 import starling.core.Starling;
 import starling.display.DisplayObject;
+import starling.display.Image;
 import starling.display.Stage;
+import starling.rendering.Painter;
+import starling.textures.RenderTexture;
+import starling.textures.Texture;
 
 public class DrawToBitmap {
+    private static var g:Vars = Vars.getInstance();
 
-    public static function drawToBitmap(displayObject:DisplayObject):Bitmap {
-        var stageWidth:Number = Starling.current.stage.stageWidth;
-        var stageHeight:Number = Starling.current.stage.stageHeight;
-
-        var support:RenderSupport = new RenderSupport();
-        RenderSupport.clear();
-        support.setProjectionMatrix(0, 0, stageWidth, stageHeight);
-        support.applyBlendMode(true);
-
-        var stageBitmapData:BitmapData = new BitmapData(stageWidth, stageHeight, true, 0x0);
-        support.blendMode = displayObject.blendMode;
-        displayObject.render(support, 1.0);
-        support.finishQuadBatch();
-        Starling.context.drawToBitmapData(stageBitmapData);
-
-        var cropBounds:Rectangle = new Rectangle(0, 0, displayObject.width / displayObject.scaleX, displayObject.height / displayObject.scaleY);
-        var resultBitmapData:BitmapData = new BitmapData(cropBounds.width, cropBounds.height, true, 0x0);
-        resultBitmapData.copyPixels(stageBitmapData, cropBounds, new Point());
-
-        var resultBitmap:Bitmap = new Bitmap(resultBitmapData);
-        resultBitmap.scaleX = displayObject.scaleX;
-        resultBitmap.scaleY = displayObject.scaleY;
+    public static function drawToBitmap(starling:Starling, displayObject:DisplayObject):Bitmap {
+        var resultBitmap:Bitmap = new Bitmap(copyToBitmapData(starling, displayObject));
         return resultBitmap;
     }
 
-    public static function copyToBitmapScale(disp:DisplayObject, scl:Number=1.0):BitmapData {
-        var rc:Rectangle = new Rectangle();
-        disp.getBounds(disp, rc);
+    public static function copyToBitmapData(starling:Starling, disp:DisplayObject):BitmapData {
+        var bounds:Rectangle = disp.getBounds(disp);
+        var result:BitmapData = new BitmapData(bounds.width, bounds.height, true);
+        var stage:Stage = g.mainStage;
+        var painter:Painter = starling.painter;
 
-        var stage:Stage= Starling.current.stage;
-        var rs:RenderSupport = new RenderSupport();
+        painter.pushState();
+        painter.state.renderTarget = null;
+        painter.state.setProjectionMatrix(bounds.x, bounds.y, stage.stageWidth, stage.stageHeight, stage.stageWidth, stage.stageHeight, stage.cameraPosition);
+        painter.clear();
+        disp.setRequiresRedraw();
+        disp.render(painter);
+        painter.finishMeshBatch();
+        painter.context.drawToBitmapData(result);
+        painter.context.present();
+        painter.popState();
 
-        rs.clear();
-        rs.scaleMatrix(scl, scl);
-        rs.setProjectionMatrix(0, 0, stage.stageWidth, stage.stageHeight);
-        rs.translateMatrix(-rc.x, -rc.y); // move to 0,0
-        disp.render(rs, 1.0);
-        rs.finishQuadBatch();
+        return result;
+    }
 
-        var outBmp:BitmapData = new BitmapData(int(rc.width*scl), int(rc.height*scl), true);
-        Starling.context.drawToBitmapData(outBmp);
+    public static function getTextureFromImage(disp:DisplayObject):Texture {
+        var texture:RenderTexture = new RenderTexture(disp.width, disp.height);
+        texture.draw(disp);
+        return texture;
+    }
 
-        return outBmp;
+    public static function getBitmapFromTextureBitmapAndTextureXML(b:Bitmap, xml:XML, name:String):BitmapData {
+        var resultBD:BitmapData;
+        var xl:XML;
+        for each (var prop:XML in xml.SubTexture) {
+            if (prop.@name==name) {
+                xl = prop;
+                break;
+            }
+        }
+        if (xl) {
+            resultBD = new BitmapData(int(xl.@width), int(xl.@height));
+            var m:Matrix = new Matrix();
+            m.translate(-int(xl.@x), -int(xl.@y));
+            resultBD.draw(b, m);
+        }
+        return resultBD;
     }
     
-    public static function drawToBitmap2(displayObject:DisplayObject, scl:Number = 1.0):Bitmap {
-        var bData:BitmapData = copyToBitmapScale(displayObject, scl);
-        var b:Bitmap = new Bitmap(bData);
-        return b;
-    }
 }
 }
+
+
+//var texture:RenderTexture = new RenderTexture(100, 100);
+//texture.draw(sprite);
+//
+//var image:Image = new Image(texture);
+//addChild(image);

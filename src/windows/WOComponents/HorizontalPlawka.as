@@ -31,7 +31,6 @@ public class HorizontalPlawka extends Sprite{
         }
         imC.x = w - imR.width - (imC.width-1);
         addChild(imC);
-        flatten();
     }
 
     public function deleteIt():void {

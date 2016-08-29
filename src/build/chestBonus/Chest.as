@@ -71,7 +71,7 @@ public class Chest extends WorldObject{
         _timerAnimation --;
         if (_timerAnimation <=0) {
             if(_armature == null) return;
-            _armature.animation.gotoAndPlay('idle',0);
+            _armature.animation.gotoAndPlayByFrame('idle',0);
             g.gameDispatcher.removeFromTimer(timerAnimation);
             animation();
         }

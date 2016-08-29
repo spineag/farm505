@@ -70,10 +70,15 @@ public class MainStartWebStarling extends Sprite{
         function startLoading() : void {
             stage.removeEventListener(flash.events.Event.RESIZE, onStageResize);
             if (!stageReady) {
+                Starling.multitouchEnabled = false;
                 star = new Starling(MainStarling, stage);
                 star.showStats = false;
                 g.mainStage = star.stage;
                 g.starling = star;
+                star.simulateMultitouch = false;
+                star.enableErrorChecking = false;
+                star.skipUnchangedFrames = true;
+                star.antiAliasing = 0;
                 star.addEventListener(starling.events.Event.ROOT_CREATED, onRootCreated);
 //                stage.addEventListener(Event.DEACTIVATE, onStageDeactivate);
             }

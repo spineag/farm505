@@ -44,10 +44,11 @@ public class UpdateItem {
         _contImage.hoverCallback = onHover;
         _contImage.outCallback = onOut;
 
-        _txtCount = new TextField(80,40,'',g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
-        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtCount = new TextField(80,40,'');
+        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
         _txtCount.x = 40;
         _txtCount.y = 65;
+        ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txtCount);
 
         _btn = new CButton();
@@ -57,11 +58,12 @@ public class UpdateItem {
         source.addChild(_btn);
         _btn.clickCallback = onBuy;
 
-        _btnTxt = new TextField(50,20,'50',g.allData.bFonts['BloggerMedium18'],18, Color.WHITE);
-        _btnTxt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _btnTxt = new TextField(50,20,'50');
+        _btnTxt.format.setTo(g.allData.bFonts['BloggerMedium18'],18, Color.WHITE);
         _btnTxt.x = 16;
         _btnTxt.y = 10;
         _btn.addChild(_btnTxt);
+        ManagerFilters.setStrokeStyle(_btnTxt, ManagerFilters.TEXT_GREEN_COLOR);
 
         _rubinsSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         _rubinsSmall.x = 57;

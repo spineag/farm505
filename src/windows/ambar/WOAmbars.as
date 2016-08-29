@@ -6,10 +6,9 @@ import com.junkbyte.console.Cc;
 import manager.ManagerFilters;
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.filters.BlurFilter;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
-import starling.utils.HAlign;
 import utils.CButton;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import utils.CSprite;
@@ -46,7 +45,6 @@ public class WOAmbars extends WindowMain {
     private var _item3:UpdateItem;
     private var _btnMakeUpdate:CButton;
     private var _defaultY:int = -232;
-    private var _SHADOW:BlurFilter;
 
     public function WOAmbars() {
         super();
@@ -54,7 +52,6 @@ public class WOAmbars extends WindowMain {
         _woWidth = 538;
         _woHeight = 566;
         _arrCells = [];
-        _SHADOW = ManagerFilters.NEW_SHADOW;
 
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
@@ -88,14 +85,14 @@ public class WOAmbars extends WindowMain {
         im.x = 12;
         im.y = 1;
         _tabAmbar.addChild(im);
-        var txt:TextField = new TextField(90, 40, "Амбар", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var txt:TextField = new TextField(90, 40, "Амбар");
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         txt.x = 31;
         txt.y = 2;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _tabAmbar.addChild(txt);
         _tabAmbar.x = -205;
         _tabAmbar.y = _defaultY;
-        _tabAmbar.flatten();
         var fAmbar:Function = function():void {
            _type = AMBAR;
             updateItems();
@@ -121,14 +118,14 @@ public class WOAmbars extends WindowMain {
         im.x = 12;
         im.y = 2;
         _tabSklad.addChild(im);
-        txt = new TextField(90, 40, "Склад", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txt = new TextField(90, 40, "Склад");
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         txt.x = 34;
         txt.y = 2;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _tabSklad.addChild(txt);
         _tabSklad.x = -75;
         _tabSklad.y = _defaultY;
-        _tabSklad.flatten();
         var fSklad:Function = function():void {
             _type = SKLAD;
             updateItems();
@@ -150,7 +147,7 @@ public class WOAmbars extends WindowMain {
         _mainSprite = new Sprite();
         _cartonBG = new CartonBackground(454, 332);
         _mainSprite.addChild(_cartonBG);
-        _mainSprite.filter = _SHADOW;
+        _mainSprite.filter = ManagerFilters.SHADOW;
         _mainSprite.x = -_woWidth/2 + 43;
         _mainSprite.y = -_woHeight/2 + 96;
 
@@ -167,21 +164,23 @@ public class WOAmbars extends WindowMain {
         _progress.source.y = -_woHeight/2 + 458;
         _source.addChild(_progress.source);
 
-        _txtCount = new TextField(250, 67, "Вместимость: 888/8888", g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
-        _txtCount.hAlign = HAlign.LEFT;
-        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
+        _txtCount = new TextField(250, 67, "Вместимость: 0/0");
+        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtCount.format.horizontalAlign = Align.LEFT;
         _txtCount.x = -_woWidth/2 + 47;
         _txtCount.y = -_woHeight/2 + 473;
+        ManagerFilters.setStrokeStyle(_txtCount, Color.WHITE);
         _source.addChild(_txtCount);
 
         _btnShowUpdate = new CButton();
         _btnShowUpdate.addButtonTexture(120, 40, CButton.GREEN, true);
         _btnShowUpdate.x = -_woWidth/2 + 430;
         _btnShowUpdate.y = -_woHeight/2 + 514;
-        _txtBtnShowUpdate = new TextField(90, 50, "Увеличить склад", g.allData.bFonts['BloggerMedium14'], 14, Color.WHITE);
-        _txtBtnShowUpdate.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _txtBtnShowUpdate = new TextField(90, 50, "Увеличить склад");
+        _txtBtnShowUpdate.format.setTo(g.allData.bFonts['BloggerMedium14'], 14, Color.WHITE);
         _txtBtnShowUpdate.x = 18;
         _txtBtnShowUpdate.y = -5;
+        ManagerFilters.setStrokeStyle(_txtBtnShowUpdate, ManagerFilters.TEXT_GREEN_COLOR);
         _btnShowUpdate.addChild(_txtBtnShowUpdate);
         _source.addChild(_btnShowUpdate);
         _btnShowUpdate.clickCallback = showUpdateState;
@@ -190,10 +189,11 @@ public class WOAmbars extends WindowMain {
     private function createWOUpdateElements():void {
         _btnBackFromUpdate = new CButton();
         _btnBackFromUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
-        var txt:TextField = new TextField(90, 50, "Назад", g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        var txt:TextField = new TextField(90, 50, "Назад");
+        txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
         txt.x = 18;
         txt.y = -4;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btnBackFromUpdate.addChild(txt);
         _btnBackFromUpdate.x = -_woWidth/2 + 430;
         _btnBackFromUpdate.y = -_woHeight/2 + 514;
@@ -216,23 +216,25 @@ public class WOAmbars extends WindowMain {
         _updateSprite.addChild(_item1.source);
         _updateSprite.addChild(_item2.source);
         _updateSprite.addChild(_item3.source);
-        txt = new TextField(284,45,'Необходимые материалы',g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        txt = new TextField(284,45,'Необходимые материалы');
+        txt.format.setTo(g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
         txt.x = 59;
         txt.y = -35;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _updateSprite.addChild(txt);
 
         _btnMakeUpdate = new CButton();
         _btnMakeUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
-        txt = new TextField(90, 50, "Увеличить", g.allData.bFonts['BloggerMedium18'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt = new TextField(90, 50, "Увеличить");
+        txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 18, Color.WHITE);
         txt.x = 17;
         txt.y = -4;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.autoScale = true;
         _btnMakeUpdate.addChild(txt);
         _btnMakeUpdate.x = 201;
         _btnMakeUpdate.y = 220;
         _updateSprite.addChild(_btnMakeUpdate);
-        _btnMakeUpdate.registerTextField(txt, ManagerFilters.TEXT_STROKE_BLUE);
         _btnMakeUpdate.clickCallback = onUpdate;
 
         _updateSprite.x = - _updateSprite.width/2 - 10;
@@ -257,7 +259,7 @@ public class WOAmbars extends WindowMain {
                 _tabSklad.x = -75;
                 _tabSklad.y = _defaultY + 10;
                 _tabSklad.isTouchable = true;
-                _tabSklad.filter = _SHADOW;
+                _tabSklad.filter = ManagerFilters.SHADOW;
                 _birka.updateText('Амбар');
                 _txtBtnShowUpdate.text = 'Увеличить амбар';
                 break;
@@ -270,7 +272,7 @@ public class WOAmbars extends WindowMain {
                 _tabAmbar.x = -205;
                 _tabAmbar.y = _defaultY + 10;
                 _tabAmbar.isTouchable = true;
-                _tabAmbar.filter = _SHADOW;
+                _tabAmbar.filter = ManagerFilters.SHADOW;
                 _birka.updateText('Склад');
                 _txtBtnShowUpdate.text = 'Увеличить склад';
                 break;

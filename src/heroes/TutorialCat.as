@@ -2,6 +2,8 @@
  * Created by andy on 3/3/16.
  */
 package heroes {
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import tutorial.*;
 
 import build.TownAreaBuildSprite;
@@ -41,8 +43,8 @@ public class TutorialCat extends BasicCat {
         _animation = new HeroCatsAnimation();
         _animation.catArmature = g.allData.factory['tutorialCat'].buildArmature("cat");
         _animation.catBackArmature = g.allData.factory['cat_main'].buildArmature("cat_back");
-        _catImage.addChild(_animation.catArmature.display as Sprite);
-        _catBackImage.addChild(_animation.catBackArmature.display as Sprite);
+        _catImage.addChild(_animation.catArmature.display as StarlingArmatureDisplay);
+        _catBackImage.addChild(_animation.catBackArmature.display as StarlingArmatureDisplay);
 
 //        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], _animation.catArmature, 'heads/head', '', false);
         _source.addChild(_catImage);

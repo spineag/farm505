@@ -33,6 +33,8 @@ public class LoadComponents {
         g.load.loadXML(st + 'interfaceAtlas.xml' + g.getVersion('interfaceAtlas'), onLoad);
         g.load.loadImage(st + 'resourceAtlas.png' + g.getVersion('resourceAtlas'), onLoad);
         g.load.loadXML(st + 'resourceAtlas.xml' + g.getVersion('resourceAtlas'), onLoad);
+        g.load.loadImage(st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas'), onLoad);
+        g.load.loadXML(st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas'), onLoad);
 
         g.load.loadImage(st + 'x1/buildAtlas.png' + g.getVersion('buildAtlas'), onLoad);
         g.load.loadXML(st + 'x1/buildAtlas.xml' + g.getVersion('buildAtlas'), onLoad);
@@ -42,12 +44,14 @@ public class LoadComponents {
         g.load.loadXML(st + 'x1/farmAtlas.xml' + g.getVersion('farmAtlas'), onLoad);
         g.load.loadImage(st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas'), onLoad);
         g.load.loadXML(st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas'), onLoad);
+        g.load.loadImage(st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas'), onLoad);
+        g.load.loadXML(st + 'x1/customisationAtlas.xml' + g.getVersion('customisationAtlas'), onLoad);
     }
 
     private function onLoad(smth:*=null):void {
         count++;
         g.startPreloader.setProgress(6 + 2*count);
-        if (count >=16) createAtlases();
+        if (count >=20) createAtlases();
     }
 
     private function createAtlases():void {
@@ -83,47 +87,55 @@ public class LoadComponents {
         delete  g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')];
         delete  g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')];
 
+        g.allData.atlas['customisationAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/customisationAtlas.xml' + g.getVersion('customisationAtlas')]);
+        delete  g.pBitmaps[st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas')];
+        delete  g.pXMLs[st + 'x1/customisationAtlas.xml' + g.getVersion('customisationAtlas')];
+
+        g.allData.atlas['customisationInterfaceAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')].create() as Bitmap), g.pXMLs[st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas')]);
+        delete  g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')];
+        delete  g.pXMLs[st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas')];
+
         loadDBAnimations();
     }
 
     private function loadDBAnimations():void {
-        g.startPreloader.setProgress(39);
+        g.startPreloader.setProgress(48);
         count = 0;
 
-        g.loadAnimation.load('animations/arrow', 'arrow', onLoadDB);
-        g.loadAnimation.load('animations/chest_interface', 'chest_interface', onLoadDB);
-        g.loadAnimation.load('animations/order_window', 'order_window', onLoadDB);
-        g.loadAnimation.load('animations/plot_seller', 'plot_seller', onLoadDB);
-        g.loadAnimation.load('animations/preloader_2', 'preloader_2', onLoadDB);
-        g.loadAnimation.load('animations/visit_preloader', 'visit_preloader', onLoadDB);
+        g.loadAnimation.load('animations_json/arrow', 'arrow', onLoadDB);
+        g.loadAnimation.load('animations_json/chest_interface', 'chest_interface', onLoadDB);
+        g.loadAnimation.load('animations_json/order_window', 'order_window', onLoadDB);
+        g.loadAnimation.load('animations_json/plot_seller', 'plot_seller', onLoadDB);
+        g.loadAnimation.load('animations_json/preloader_2', 'preloader_2', onLoadDB);
+        g.loadAnimation.load('animations_json/visit_preloader', 'visit_preloader', onLoadDB);
     }
 
     private function onLoadDB():void {
         count++;
-        g.startPreloader.setProgress(39 + count*2);
+        g.startPreloader.setProgress(48 + count*2);
         if (count >=6) {
             loadDBX();
         }
     }
 
     private function loadDBX():void {
-        g.startPreloader.setProgress(52);
+        g.startPreloader.setProgress(60);
         count = 0;
 
-        g.loadAnimation.load('animations/x1/bfly', 'bfly', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_main', 'cat_main', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_watering_can', 'cat_watering_can', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_feed', 'cat_feed', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/cat_queue', 'cat_queue', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/explode', 'explode', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/explode_gray', 'explode_gray', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/plant', 'plant', onLoadDB_X);
-        g.loadAnimation.load('animations/x1/tools', 'tools', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/bfly', 'bfly', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/cat_main', 'cat_main', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/cat_watering_can', 'cat_watering_can', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/cat_feed', 'cat_feed', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/cat_queue', 'cat_queue', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/explode', 'explode', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/explode_gray', 'explode_gray', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/plant', 'plant', onLoadDB_X);
+        g.loadAnimation.load('animations_json/x1/tools', 'tools', onLoadDB_X);
     }
 
     private function onLoadDB_X():void {
         count++;
-        g.startPreloader.setProgress(52 + 2*count);
+        g.startPreloader.setProgress(60 + 2*count);
         if (count >=9) {
             if (_callback != null) _callback.apply();
         }

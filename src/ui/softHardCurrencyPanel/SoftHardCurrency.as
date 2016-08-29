@@ -15,8 +15,10 @@ import starling.animation.Tween;
 
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.styles.DistanceFieldStyle;
 
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
 
 import utils.CButton;
@@ -61,11 +63,13 @@ public class SoftHardCurrency {
         };
         createPanel(true, _contSoft, onClickSoft);
         createPanel(false, _contHard, onClickHard);
-        _txtSoft =  new TextField(122, 38, '88888', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtSoft.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtSoft =  new TextField(120, 38, '00');
+        _txtSoft.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        ManagerFilters.setStrokeStyle(_txtSoft, ManagerFilters.TEXT_BROWN_COLOR);
         _contSoft.addChild(_txtSoft);
-        _txtHard =  new TextField(122, 38, '88888', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtHard.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtHard =  new TextField(120, 38, '00');
+        _txtHard.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        ManagerFilters.setStrokeStyle(_txtHard, ManagerFilters.TEXT_BROWN_COLOR);
         _contHard.addChild(_txtHard);
 
         _source.addChild(_contSoft);

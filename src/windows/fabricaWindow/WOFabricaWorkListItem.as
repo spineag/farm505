@@ -40,7 +40,7 @@ public class WOFabricaWorkListItem {
     private var _skipCallback:Function;
     private var _rubinSmall:Image;
     private var _txt:TextField;
-
+    private var _priceSkip:int;
     private var g:Vars = Vars.getInstance();
 
     public function WOFabricaWorkListItem(type:String = 'small') {
@@ -49,20 +49,23 @@ public class WOFabricaWorkListItem {
         if (type == SMALL_CELL) {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
             MCScaler.scale(_bg, 50, 50);
-            _txtNumberCreate = new TextField(20,20,"",g.allData.bFonts['BloggerBold14'], 13,Color.WHITE);
-            _txtNumberCreate.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtNumberCreate = new TextField(20,20,"");
+            _txtNumberCreate.format.setTo(g.allData.bFonts['BloggerBold14'], 13,Color.WHITE);
         } else {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
-            _txtNumberCreate = new TextField(20,20,"",g.allData.bFonts['BloggerBold18'], 16,Color.WHITE);
-            _txtNumberCreate.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtNumberCreate = new TextField(20,20,"");
+            _txtNumberCreate.format.setTo(g.allData.bFonts['BloggerBold18'], 16,Color.WHITE);
         }
+        ManagerFilters.setStrokeStyle(_txtNumberCreate, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_bg);
 
         if (type == SMALL_CELL) {
             _source.visible = false;
-            _txt = new TextField(50, 30, 'пусто', g.allData.bFonts['BloggerBold18'], 15, ManagerFilters.TEXT_LIGHT_BROWN);
+            _txt = new TextField(50, 30, 'пусто');
+            _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 15, ManagerFilters.TEXT_LIGHT_BROWN);
             _txt.x = -1;
             _txt.y = 5;
+            ManagerFilters.setEmptyStyle(_txt);
             source.addChild(_txt);
         }
 
@@ -72,21 +75,26 @@ public class WOFabricaWorkListItem {
             im.x = 13;
             im.y = -20;
             _timerBlock.addChild(im);
-            _txtTimer = new TextField(78, 33, '', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+            _txtTimer = new TextField(78, 33, '');
+            _txtTimer.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
             _txtTimer.x = 13;
             _txtTimer.y = -20;
+            ManagerFilters.setEmptyStyle(_txtTimer);
             _timerBlock.addChild(_txtTimer);
             _source.addChild(_timerBlock);
             _timerBlock.visible = false;
-            _txt = new TextField(100, 90, 'загрузите ячейку очереди', g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_LIGHT_BROWN);
+            _txt = new TextField(100, 90, 'загрузите ячейку очереди');
+            _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_LIGHT_BROWN);
             _txt.x = 2;
             _txt.y = 5;
+            ManagerFilters.setEmptyStyle(_txt);
             _source.addChild(_txt);
             _btnSkip = new CButton();
             _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
-            _txtSkip = new TextField(100,35,"25",g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
-            _txtSkip.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            _txtSkip = new TextField(100,35,"25");
+            _txtSkip.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
             _txtSkip.y = 11;
+            ManagerFilters.setStrokeStyle(_txtSkip, ManagerFilters.TEXT_GREEN_COLOR);
             _btnSkip.addChild(_txtSkip);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             _rubinSmall.x = 78;
@@ -95,10 +103,11 @@ public class WOFabricaWorkListItem {
             _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _btnSkip.x = 52;
             _btnSkip.y = 117;
-            var txt:TextField = new TextField(65,35,"ускорить",g.allData.bFonts['BloggerBold14'], 14,Color.WHITE);
+            var txt:TextField = new TextField(65,35,"ускорить");
+            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14,Color.WHITE);
             txt.x = 10;
             txt.y = -8;
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btnSkip.addChild(txt);
             _source.addChild(_btnSkip);
             _btnSkip.visible = false;
@@ -121,7 +130,10 @@ public class WOFabricaWorkListItem {
         if (_type == BIG_CELL) {
             _btnSkip.visible = true;
             if (g.managerTutorial.isTutorial)  _txtSkip.text = String(0);
-            else _txtSkip.text = String(_resource.priceSkipHard);
+            else {
+                _txtSkip.text = String(g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard));
+                _priceSkip = g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard);
+            }
         }
         fillIcon(_resource.imageShop);
         _source.visible = true;
@@ -215,13 +227,15 @@ public class WOFabricaWorkListItem {
             _txt.visible = false;
             if (_proposeBtn) return;
             _proposeBtn = new CButton();
-            var txt:TextField = new TextField(46, 28, "+", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            var txt:TextField = new TextField(46, 28, "+");
+            txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
             _proposeBtn.addChild(txt);
-            txt = new TextField(46, 28, String(buyCount), g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            txt = new TextField(46, 28, String(buyCount));
+            txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
             txt.y = 20;
             txt.x = -10;
+            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
             _proposeBtn.addChild(txt);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(_rubinSmall, 20, 20);
@@ -229,7 +243,6 @@ public class WOFabricaWorkListItem {
             _rubinSmall.y = 23;
             _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _proposeBtn.addChild(_rubinSmall);
-            _proposeBtn.flatten();
             _source.addChild(_proposeBtn);
             var f1:Function = function ():void {
                 _proposeBtn.filter = null;
@@ -279,9 +292,9 @@ public class WOFabricaWorkListItem {
             }
             return;
         }
-        if (g.user.hardCurrency >= _resource.priceSkipHard) {
+        if (g.user.hardCurrency >= _priceSkip) {
             if (_skipCallback != null) {
-                g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_resource.priceSkipHard);
+                g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_priceSkip);
                 destroyTimer();
                 _btnSkip.visible = false;
                 _skipCallback.apply();

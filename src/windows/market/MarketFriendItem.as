@@ -58,9 +58,10 @@ public class MarketFriendItem {
                 g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
             }
         }
-        _txt = new TextField(100, 30, 'loading...', g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txt = new TextField(100, 30, 'loading...');
+        _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txt.y = 70;
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
         if (_person.name) _txt.text = _person.name;
         source.addChild(_txt);
         source.endClickCallback = chooseThis;
@@ -68,10 +69,11 @@ public class MarketFriendItem {
         source.outCallback = onOut;
         _visitBtn = new CButton();
         _visitBtn.addButtonTexture(70, 30, CButton.BLUE, true);
-        var txtBtn:TextField = new TextField(80, 25, "Посетить", g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        var txtBtn:TextField = new TextField(80, 25, "Посетить");
+        txtBtn.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
         txtBtn.x = -5;
         txtBtn.y = 3;
+        ManagerFilters.setStrokeStyle(txtBtn, ManagerFilters.TEXT_BLUE_COLOR);
         _visitBtn.addChild(txtBtn);
         _visitBtn.x = 55;
         _visitBtn.y = 3;

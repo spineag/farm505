@@ -4,21 +4,18 @@
 package build.orders {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
-import dragonBones.Armature;
-import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
-
 import media.SoundConst;
-
 import mouse.ToolsModifier;
 import starling.display.Sprite;
+import starling.events.Event;
 
 import tutorial.helpers.HelperReason;
-
 import windows.WindowsManager;
 import windows.orderWindow.WOOrder;
 
@@ -40,8 +37,8 @@ public class Order extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _armature.addEventListener(AnimationEvent.COMPLETE, makeAnimation);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, makeAnimation);
+        _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
         makeAnimation();
         if (!g.isAway) {
             _source.endClickCallback = onClick;
@@ -59,8 +56,8 @@ public class Order extends WorldObject{
             _smallHero = new SmallHeroAnimation(this);
             _smallHero.armature = g.allData.factory[_dataBuild.url].buildArmature('table');
         } else {
-            var b:Bone = _armature.getBone('table');
-            b.display.dispose();
+            var b:Slot = _armature.getSlot('table');
+            if (b.display) b.display.dispose();
             var s:Sprite = new Sprite();
             b.display = s;
         }
@@ -82,18 +79,18 @@ public class Order extends WorldObject{
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-            var fEndOver:Function = function():void {
-                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-                _armature.addEventListener(AnimationEvent.COMPLETE, makeAnimation);
-                _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, makeAnimation);
+            var fEndOver:Function = function(e:Event=null):void {
+                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
                 makeAnimation();
             };
-            _armature.removeEventListener(AnimationEvent.COMPLETE, makeAnimation);
-            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeAnimation);
-            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-            _armature.animation.gotoAndPlay('over');
+            _armature.removeEventListener(EventObject.COMPLETE, makeAnimation);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
+            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlayByFrame('over');
             g.hint.showIt(_dataBuild.name);
         }
         _isOnHover = true;
@@ -168,25 +165,25 @@ public class Order extends WorldObject{
             _smallHero = null;
         }
         _source.touchable = false;
-        _armature.removeEventListener(AnimationEvent.COMPLETE, makeAnimation);
-        _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeAnimation);
+        _armature.removeEventListener(EventObject.COMPLETE, makeAnimation);
+        _armature.removeEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
         WorldClock.clock.remove(_armature);
-        _armature.dispose();
+//        _armature.dispose();
         super.clearIt();
     }
 
-    private function makeAnimation(e:AnimationEvent=null):void {
+    private function makeAnimation(e:Event=null):void {
         var k:Number = Math.random();
         if (k < .2)
-            _armature.animation.gotoAndPlay('idle');
+            _armature.animation.gotoAndPlayByFrame('idle');
         else if (k < .4)
-           _armature.animation.gotoAndPlay('idle2');
+           _armature.animation.gotoAndPlayByFrame('idle2');
         else if (k < .6)
-            _armature.animation.gotoAndPlay('idle3');
+            _armature.animation.gotoAndPlayByFrame('idle3');
         else if (k < .8)
-            _armature.animation.gotoAndPlay('idle4');
+            _armature.animation.gotoAndPlayByFrame('idle4');
         else
-            _armature.animation.gotoAndPlay('idle5');
+            _armature.animation.gotoAndPlayByFrame('idle5');
     }
 }
 }

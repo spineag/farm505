@@ -88,7 +88,6 @@ public class WindowMine extends Sprite {
         }
 
         arr.length = 0;
-        flatten();
     }
 
     public function deleteIt():void {

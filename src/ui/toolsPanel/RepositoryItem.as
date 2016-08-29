@@ -13,6 +13,7 @@ import mouse.ToolsModifier;
 
 import starling.display.Image;
 import starling.text.TextField;
+import starling.utils.Color;
 
 import tutorial.managerCutScenes.ManagerCutScenes;
 
@@ -55,10 +56,11 @@ public class RepositoryItem {
         im.y = 30 - im.height/2;
         source.addChild(im);
 
-        _txtCount = new TextField(30,20,String(_count),g.allData.bFonts['BloggerMedium14'],14, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
+        _txtCount = new TextField(30,20,String(_count));
+        _txtCount.format.setTo(g.allData.bFonts['BloggerMedium14'],14, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCount.x = 30;
         _txtCount.y = 40;
+        ManagerFilters.setStrokeStyle(_txtCount, Color.WHITE);
         source.addChild(_txtCount);
         source.endClickCallback = onClick;
     }
@@ -76,6 +78,7 @@ public class RepositoryItem {
         if (g.selectedBuild) {
             g.toolsModifier.cancelMove();
         }
+        g.toolsModifier.modifierType = ToolsModifier.MOVE;
         var build:WorldObject = g.townArea.createNewBuild(_data, _arrDbIds[0]);
         g.selectedBuild = build;
         if (_data.buildType == BuildType.DECOR_TAIL) {

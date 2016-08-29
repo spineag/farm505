@@ -120,12 +120,14 @@ public class Vars {
     public var loadAnimation:LoadAnimationManager;
     public var pBitmaps:Object;
     public var pXMLs:Object;
+    public var pJSONs:Object;
     public var managerOrder:ManagerOrder;
     public var managerOrderCats:ManagerOrderCats;
     public var managerDailyBonus:ManagerDailyBonus;
     public var managerCutScenes:ManagerCutScenes;
     public var managerWallPost:ManagerWallPost;
     public var managerInviteFriend:ManagerInviteFriend;
+    public var managerTimerSkip:ManagerTimerSkip;
     public var cont:Containers;
     public var ownMouse:OwnMouse;
     public var toolsModifier:ToolsModifier;
@@ -235,6 +237,7 @@ public class Vars {
             managerCutScenes = new ManagerCutScenes();
             managerWallPost = new ManagerWallPost();
             managerInviteFriend = new ManagerInviteFriend();
+            managerTimerSkip = new ManagerTimerSkip();
 
             new ManagerFilters();
             ownMouse = new OwnMouse();

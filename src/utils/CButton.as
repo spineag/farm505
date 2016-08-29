@@ -20,6 +20,8 @@ import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import starling.filters.ColorMatrixFilter;
+import starling.filters.GlowFilter;
+import starling.styles.DistanceFieldStyle;
 import starling.text.TextField;
 import windows.WOComponents.WOSimpleButtonTexture;
 
@@ -36,23 +38,15 @@ public class CButton extends Sprite {
     private var _onMovedCallback:Function;
     private var _scale:Number;
     private var _bg:Sprite;
-    private var _arrTextFields:Array;
     private var _hitArea:OwnHitArea;
     private var _hitAreaState:int;
-    private var hoverFilter:ColorMatrixFilter;
-    private var disableFilter:ColorMatrixFilter;
-    private var clickFilter:ColorMatrixFilter;
     private var _isHover:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function CButton() {
         super();
         _scale = 1;
-        _arrTextFields = [];
         _bg = new Sprite();
-        hoverFilter = ManagerFilters.getButtonHoverFilter();
-        disableFilter = ManagerFilters.getButtonDisableFilter();
-        clickFilter = ManagerFilters.getButtonClickFilter();
         _isHover = false;
         this.addChild(_bg);
         this.addEventListener(TouchEvent.TOUCH, onTouch);
@@ -67,26 +61,10 @@ public class CButton extends Sprite {
         var t:Sprite = new WOSimpleButtonTexture(w, h, type);
         _bg.addChild(t);
         if (setP) setPivots();
-//        _bg.flatten();
     }
 
     public function addDisplayObject(d:DisplayObject):void {
-//        _bg.unflatten();
         _bg.addChild(d);
-//        _bg.flatten();
-    }
-
-    public function registerTextField(tx:TextField, strokeFilter:Array):void {
-        _arrTextFields.push({t:tx, c:strokeFilter});
-    }
-
-    public function deregisterTextField(tx:TextField):void {
-        for (var i:int=0; i<_arrTextFields.length; i++) {
-            if (_arrTextFields[i].t == tx) {
-                _arrTextFields.splice(i, 1);
-                return;
-            }
-        }
     }
 
     private function onTouch(te:TouchEvent):void {
@@ -182,18 +160,11 @@ public class CButton extends Sprite {
     }
 
     public function set setEnabled(v:Boolean):void {
-        var i:int;
         this.isTouchable = v;
         if (v) {
-            _bg.filter = null;
-            for (i=0; i<_arrTextFields.length; i++) {
-                _arrTextFields[i].t.nativeFilters = _arrTextFields[i].c;
-            }
+            this.filter = null;
         } else {
-            _bg.filter = disableFilter;
-            for (i=0; i<_arrTextFields.length; i++) {
-                _arrTextFields[i].t.nativeFilters = ManagerFilters.TEXT_STROKE_GRAY;
-            }
+            this.filter = ManagerFilters.getButtonDisableFilter();
         }
     }
 
@@ -204,11 +175,7 @@ public class CButton extends Sprite {
         if (this.hasEventListener(TouchEvent.TOUCH)) this.removeEventListener(TouchEvent.TOUCH, onTouch);
         _bg.dispose();
         _bg = null;
-        clickFilter.dispose();
-        hoverFilter.dispose();
-        disableFilter.dispose();
         dispose();
-        _arrTextFields.length = 0;
         _clickCallback = null;
         _hoverCallback = null;
         _outCallback = null;
@@ -217,7 +184,7 @@ public class CButton extends Sprite {
     }
 
     private function onBeganClickAnimation():void {
-        _bg.filter = clickFilter;
+        _bg.filter = ManagerFilters.getButtonClickFilter();
         this.scaleX = this.scaleY = _scale*.95;
     }
 
@@ -230,7 +197,7 @@ public class CButton extends Sprite {
     private function onHoverAnimation():void {
         if (_isHover) return;
         _isHover = true;
-        _bg.filter = hoverFilter;
+        _bg.filter = ManagerFilters.getButtonHoverFilter();
         g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
     }
 

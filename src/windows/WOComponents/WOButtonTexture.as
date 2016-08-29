@@ -4,6 +4,8 @@
 package windows.WOComponents {
 import manager.Vars;
 
+import starling.core.Starling;
+
 import starling.display.BlendMode;
 
 import starling.display.Image;
@@ -109,10 +111,10 @@ public class WOButtonTexture extends Sprite {
         }
 
         arr.length = 0;
-        im = new Image(Texture.fromBitmap(DrawToBitmap.drawToBitmap2(_s)));
+//        im = new Image(Texture.fromBitmap(DrawToBitmap.drawToBitmap(Starling.current, _s)));
+        im = new Image(DrawToBitmap.getTextureFromImage(_s));
         addChild(im);
         _s.dispose();
-        flatten();
     }
 
     public function deleteIt():void {

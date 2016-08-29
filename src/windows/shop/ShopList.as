@@ -6,11 +6,11 @@ import build.farm.Farm;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import flash.geom.Point;
-import flash.geom.Rectangle;
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.animation.Tween;
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -37,17 +37,21 @@ public class ShopList {
         _source = new Sprite();
         _source.x = 32;
         _source.y = 23;
-        _source.clipRect = new Rectangle(0, 0, 605, 600);
+        _source.mask = new Quad(605, 600);
         _parent = parent;
+        var quad:Quad = new Quad(670, 100,Color.WHITE);
+        quad.alpha = 0;
+        _parent.addChild(quad);
         _parent.addChild(_source);
         _itemsSprite = new Sprite();
         _source.addChild(_itemsSprite);
         addArrows(parent);
 
-        _txtPageNumber = new TextField(100, 40, '657', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtPageNumber.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtPageNumber = new TextField(100, 40, '657');
+        _txtPageNumber.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtPageNumber.x = 283;
         _txtPageNumber.y = 268;
+        ManagerFilters.setStrokeStyle(_txtPageNumber, ManagerFilters.TEXT_BROWN_COLOR);
         parent.addChild(_txtPageNumber);
     }
 

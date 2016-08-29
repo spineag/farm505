@@ -8,6 +8,7 @@ import manager.Vars;
 import starling.display.Image;
 
 import starling.text.TextField;
+import starling.utils.Color;
 
 import utils.CSprite;
 
@@ -23,12 +24,12 @@ public class WOFabricNumber {
         source.outCallback = onOut;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
         source.addChild(im);
-        txt = new TextField(32, 32, String(n), g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_BLUE_COLOR);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_WHITE;
+        txt = new TextField(32, 32, String(n));
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_BLUE_COLOR);
         txt.y = 20;
         txt.x = 2;
+        ManagerFilters.setStrokeStyle(txt, Color.WHITE);
         source.addChild(txt);
-        source.flatten();
     }
 
     private function onHover():void {

@@ -3,15 +3,14 @@
  */
 package build.tree {
 import analytic.AnalyticManager;
-
 import build.WorldObject;
 import build.wild.RemoveWildAnimation;
 import com.greensock.TweenMax;
 import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
 import flash.geom.Point;
-
 import hint.FlyMessage;
 import hint.MouseHint;
 import manager.ManagerFilters;
@@ -21,8 +20,9 @@ import resourceItem.ResourceItem;
 import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
-import ui.xpPanel.XPStar;
+import starling.events.Event;
 
+import ui.xpPanel.XPStar;
 import utils.CSprite;
 import utils.MCScaler;
 import windows.WindowsManager;
@@ -92,12 +92,12 @@ public class Tree extends WorldObject {
 
     public function showShopView():void {
         _needShopView = true;
-        if (_armature) _armature.animation.gotoAndStop("small", 0);
+        if (_armature) _armature.animation.gotoAndStopByFrame("small");
     }
 
     public function removeShopView():void {
         _needShopView = false;
-        if (_armature) _armature.animation.gotoAndStop("small", 0);
+        if (_armature) _armature.animation.gotoAndStopByFrame("small");
     }
 
     public function releaseTreeFromServer(ob:Object):void {
@@ -175,46 +175,46 @@ public class Tree extends WorldObject {
     private function setBuildImage():void {
         switch (_state) {
             case GROW1:
-                _armature.animation.gotoAndStop("small", 0);
+                _armature.animation.gotoAndStopByFrame("small");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER1:
-                _armature.animation.gotoAndStop("small_flower", 0);
+                _armature.animation.gotoAndStopByFrame("small_flower");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED1:
-                _armature.animation.gotoAndStop("small_fruits", 0);
+                _armature.animation.gotoAndStopByFrame("small_fruits");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 2;
                 break;
             case GROW2:
-                _armature.animation.gotoAndStop("middle", 0);
+                _armature.animation.gotoAndStopByFrame("middle");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER2:
-                _armature.animation.gotoAndStop("middle_flower", 0);
+                _armature.animation.gotoAndStopByFrame("middle_flower");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED2:
                 _armature.addBone(_fruits1);
                 _armature.addBone(_fruits2);
-               _armature.animation.gotoAndStop("middle_fruits", 0);
+               _armature.animation.gotoAndStopByFrame("middle_fruits");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 3;
                 break;
             case GROW3:
-                _armature.animation.gotoAndStop("big", 0);
+                _armature.animation.gotoAndStopByFrame("big");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER3:
-                _armature.animation.gotoAndStop("big_flower", 0);
+                _armature.animation.gotoAndStopByFrame("big_flower");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
@@ -222,38 +222,38 @@ public class Tree extends WorldObject {
                 _armature.addBone(_fruits1);
                 _armature.addBone(_fruits2);
                 _armature.addBone(_fruits3);
-                _armature.animation.gotoAndStop("big_fruits", 0);
+                _armature.animation.gotoAndStopByFrame("big_fruits");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 4;
                 break;
             case DEAD:
-                _armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStopByFrame("dead");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case FULL_DEAD:
-                _armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStopByFrame("dead");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case ASK_FIX:
-                _armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStopByFrame("dead");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case FIXED:
-                _armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStopByFrame("dead");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FIXED:
-                _armature.animation.gotoAndStop("big", 0);
+                _armature.animation.gotoAndStopByFrame("big");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FIXED_FLOWER:
-                _armature.animation.gotoAndStop("big_flower", 0);
+                _armature.animation.gotoAndStopByFrame("big_flower");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 break;
@@ -262,7 +262,7 @@ public class Tree extends WorldObject {
                 _armature.addBone(_fruits2);
                 _armature.addBone(_fruits3);
                 _armature.addBone(_fruits4);
-                _armature.animation.gotoAndStop("big_fruits", 0);
+                _armature.animation.gotoAndStopByFrame("big_fruits");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big');
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 4;
@@ -282,16 +282,16 @@ public class Tree extends WorldObject {
 
     private function rechekFruits():void {
         var st:String;
-        var b:Bone;
+        var b:Slot;
         var item:CraftItem = new CraftItem(0, 0, _resourceItem, _source, 1);
         item.flyIt();
         st = 'fruit' + _countCrafted;
-        b = _armature.getBone(st);
-        if (b)_armature.removeBone(b, true);
+        b = _armature.getSlot(st);
+        if (b)_armature.removeSlot(b);
         else {
             st = 'fruit' + (_countCrafted+1);
-            b = _armature.getBone(st);
-            _armature.removeBone(b, true);
+            b = _armature.getSlot(st);
+            _armature.removeSlot(b);
         }
         _countCrafted--;
         if (_countCrafted == 0) {
@@ -304,58 +304,58 @@ public class Tree extends WorldObject {
     private function quickCheckState(server:Boolean = false):void {
         switch (_state) {
             case GROW1:
-                _armature.animation.gotoAndStop("small", 0);
+                _armature.animation.gotoAndStopByFrame("small");
                 break;
             case GROW_FLOWER1:
-                _armature.animation.gotoAndStop("small_flower", 0);
+                _armature.animation.gotoAndStopByFrame("small_flower");
                 break;
             case GROWED1:
                 if (server) _countCrafted = 2;
-                _armature.animation.gotoAndStop("small_fruits", 0);
+                _armature.animation.gotoAndStopByFrame("small_fruits");
                 break;
             case GROW2:
-                _armature.animation.gotoAndStop("middle", 0);
+                _armature.animation.gotoAndStopByFrame("middle");
                 break;
             case GROW_FLOWER2:
-                _armature.animation.gotoAndStop("middle_flower", 0);
+                _armature.animation.gotoAndStopByFrame("middle_flower");
                 break;
             case GROWED2:
                 if (server) _countCrafted = 3;
-                _armature.animation.gotoAndStop("middle_fruits", 0);
+                _armature.animation.gotoAndStopByFrame("middle_fruits");
                 break;
             case GROW3:
-                _armature.animation.gotoAndStop("big", 0);
+                _armature.animation.gotoAndStopByFrame("big");
                 break;
             case GROW_FLOWER3:
-                _armature.animation.gotoAndStop("big_flower", 0);
+                _armature.animation.gotoAndStopByFrame("big_flower");
                 break;
             case GROWED3:
                 if (server) _countCrafted = 4;
-                _armature.animation.gotoAndStop("big_fruits", 0);
+                _armature.animation.gotoAndStopByFrame("big_fruits");
                 break;
             case DEAD:
-                _armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStopByFrame("dead");
                 break;
             case FULL_DEAD:
-                _armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStopByFrame("dead");
                 break;
             case ASK_FIX:
-                _armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStopByFrame("dead");
                 makeWateringIcon();
                 break;
             case FIXED:
-                _armature.animation.gotoAndStop("dead", 0);
+                _armature.animation.gotoAndStopByFrame("dead");
                 makeWateringIcon();
                 break;
             case GROW_FIXED:
-                _armature.animation.gotoAndStop("big", 0);
+                _armature.animation.gotoAndStopByFrame("big");
                 break;
             case GROW_FIXED_FLOWER:
-                _armature.animation.gotoAndStop("big_flower", 0);
+                _armature.animation.gotoAndStopByFrame("big_flower");
                 break;
             case GROWED_FIXED:
                 if (server) _countCrafted = 4;
-                _armature.animation.gotoAndStop("big_fruits", 0);
+                _armature.animation.gotoAndStopByFrame("big_fruits");
                 break;
             default:
                 Cc.error('tree state is WRONG');
@@ -363,15 +363,14 @@ public class Tree extends WorldObject {
 
         if (server) {
             var st:String;
-            var b:Bone;
+            var b:Slot;
             if (_countCrafted > _craftedCountFromServer) {
                 var c:int = _countCrafted - _craftedCountFromServer;
                 var arma:int = _countCrafted;
                 for (var i:int = 0; i < c; i++) {
-//                    if (_countCrafted == i)st = 'fruit2';
                     st = 'fruit' + (arma - i);
-                    b = _armature.getBone(st);
-                    _armature.removeBone(b, true);
+                    b = _armature.getSlot(st);
+                    _armature.removeSlot(b);
                     _countCrafted--;
                 }
             }
@@ -399,62 +398,62 @@ public class Tree extends WorldObject {
             else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
                     _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) g.mouseHint.showMouseHint(MouseHint.CLOCK);
         }
-        var fEndOver:Function = function():void {
-            _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+        var fEndOver:Function = function(e:Event=null):void {
+            _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
             quickCheckState();
         };
-        _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+        _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
 
         switch (_state) {
             case GROW1:
-                _armature.animation.gotoAndPlay('over_s');
+                _armature.animation.gotoAndPlayByFrame('over_s');
                 break;
             case GROW_FLOWER1:
-                _armature.animation.gotoAndPlay('over_sfl');
+                _armature.animation.gotoAndPlayByFrame('over_sfl');
                 break;
             case GROWED1:
-                _armature.animation.gotoAndPlay('over_sfr');
+                _armature.animation.gotoAndPlayByFrame('over_sfr');
                 break;
             case GROW2:
-                _armature.animation.gotoAndPlay('over_m');
+                _armature.animation.gotoAndPlayByFrame('over_m');
                 break;
             case GROW_FLOWER2:
-                _armature.animation.gotoAndPlay('over_mfl');
+                _armature.animation.gotoAndPlayByFrame('over_mfl');
                 break;
             case GROWED2:
-                _armature.animation.gotoAndPlay('over_mfr');
+                _armature.animation.gotoAndPlayByFrame('over_mfr');
                 break;
             case GROW3:
-                _armature.animation.gotoAndPlay('over_b');
+                _armature.animation.gotoAndPlayByFrame('over_b');
                 break;
             case GROW_FLOWER3:
-                _armature.animation.gotoAndPlay('over_bfl');
+                _armature.animation.gotoAndPlayByFrame('over_bfl');
                 break;
             case GROWED3:
-                _armature.animation.gotoAndPlay('over_bfr');
+                _armature.animation.gotoAndPlayByFrame('over_bfr');
                 break;
             case DEAD:
-                _armature.animation.gotoAndPlay('over_d');
+                _armature.animation.gotoAndPlayByFrame('over_d');
                 break;
             case FULL_DEAD:
-                _armature.animation.gotoAndPlay('over_d');
+                _armature.animation.gotoAndPlayByFrame('over_d');
                 break;
             case ASK_FIX:
-                _armature.animation.gotoAndPlay('over_d');
+                _armature.animation.gotoAndPlayByFrame('over_d');
                 break;
             case FIXED:
-                _armature.animation.gotoAndPlay('over_d');
+                _armature.animation.gotoAndPlayByFrame('over_d');
                 break;
             case GROW_FIXED:
-                _armature.animation.gotoAndPlay('over_b');
+                _armature.animation.gotoAndPlayByFrame('over_b');
                 break;
             case GROW_FIXED_FLOWER:
-                _armature.animation.gotoAndPlay('over_bfl');
+                _armature.animation.gotoAndPlayByFrame('over_bfl');
                 break;
             case GROWED_FIXED:
-                _armature.animation.gotoAndPlay('over_bfr');
+                _armature.animation.gotoAndPlayByFrame('over_bfr');
                 break;
             default:
                 Cc.error('tree state is WRONG');
@@ -592,7 +591,7 @@ public class Tree extends WorldObject {
                     g.wildHint.onDelete = deleteTree;
                     g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut,_dataBuild.buildType);
                 } else {
-                    g.timerHint.showIt(_source.height, newX, newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+                    g.timerHint.showIt(_source.height, newX, newY, _dataBuild.buildTime, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                 }
                 _isClick = true;
             } else if (_state == FIXED) {
@@ -662,7 +661,7 @@ public class Tree extends WorldObject {
                 g.wildHint.onDelete = deleteTree;
                 g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut);
             } else {
-                g.timerHint.showIt(_source.height, newX, newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+                g.timerHint.showIt(_source.height, newX, newY, _dataBuild.buildTime, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
             }
             _isClick = true;
         } else if (_state == FIXED) {

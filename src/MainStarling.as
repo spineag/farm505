@@ -29,6 +29,7 @@ public class MainStarling extends Sprite {
         g.load = LoaderManager.getInstance();
         g.pBitmaps = {};
         g.pXMLs = {};
+        g.pJSONs = {};
         g.loadAnimation = new LoadAnimationManager();
 
         sAssets = new AssetManager();

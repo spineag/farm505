@@ -9,6 +9,8 @@ import build.ridge.Ridge;
 import com.greensock.TweenMax;
 import dragonBones.Armature;
 import dragonBones.Bone;
+import dragonBones.Slot;
+import dragonBones.starling.StarlingArmatureDisplay;
 
 import flash.geom.Point;
 
@@ -45,8 +47,8 @@ public class HeroCat extends BasicCat{
         _animation = new HeroCatsAnimation();
         _animation.catArmature = g.allData.factory['cat_main'].buildArmature("cat");
         _animation.catBackArmature = g.allData.factory['cat_main'].buildArmature("cat_back");
-        _catImage.addChild(_animation.catArmature.display as Sprite);
-        _catBackImage.addChild(_animation.catBackArmature.display as Sprite);
+        _catImage.addChild(_animation.catArmature.display as StarlingArmatureDisplay);
+        _catBackImage.addChild(_animation.catBackArmature.display as StarlingArmatureDisplay);
 
         if (_type == WOMAN) {
             releaseFrontWoman(_animation.catArmature);
@@ -54,7 +56,7 @@ public class HeroCat extends BasicCat{
         }
         var st2:String = '';
         if (_type == WOMAN) st2 = '_w';
-        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_main'], _animation.catArmature, 'heads/head' + st2, st2, _type == WOMAN);
+        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_main'], _animation.catArmature, 'head' + st2, st2, _type == WOMAN);
         _source.addChild(_catImage);
         _source.addChild(_catWateringAndFeed);
         _source.addChild(_catBackImage);
@@ -80,8 +82,10 @@ public class HeroCat extends BasicCat{
 
     override public function showFront(v:Boolean):void {
         _animation.showFront(v);
-        if (v) heroEyes.startAnimations();
+        if (heroEyes) {
+            if (v) heroEyes.startAnimations();
             else heroEyes.stopAnimations();
+        }
     }
 
     override public function set visible(value:Boolean):void {
@@ -118,22 +122,22 @@ public class HeroCat extends BasicCat{
     }
 
     override public function walkAnimation():void {
-        heroEyes.startAnimations();
+        if (heroEyes) heroEyes.startAnimations();
         _animation.playIt('walk');
         super.walkAnimation();
     }
     override public function walkIdleAnimation():void {
-        heroEyes.startAnimations();
+        if (heroEyes) heroEyes.startAnimations();
         _animation.playIt('walk');
         super.walkIdleAnimation();
     }
     override public function runAnimation():void {
-        heroEyes.startAnimations();
+        if (heroEyes) heroEyes.startAnimations();
         _animation.playIt('run');
         super.runAnimation();
     }
     override public function stopAnimation():void {
-        heroEyes.stopAnimations();
+        if (heroEyes) heroEyes.stopAnimations();
         _animation.stopIt();
         super.stopAnimation();
     }
@@ -143,7 +147,7 @@ public class HeroCat extends BasicCat{
         } else {
             showFront(false);
         }
-        heroEyes.startAnimations();
+        if (heroEyes) heroEyes.startAnimations();
         _animation.playIt('idle');
         super.idleAnimation();
     }
@@ -152,36 +156,37 @@ public class HeroCat extends BasicCat{
 //    public function get armatureCatBack():Armature {  return armatureBack; }
 
     private function releaseFrontWoman(arma:Armature):void {
-        changeTexture("head", "heads/head_w", arma);
-        changeTexture("body", "bodys/body_w", arma);
-        changeTexture("handLeft", "left_hand/handLeft_w", arma);
-        changeTexture("legLeft", "left_leg/legLeft_w", arma);
-        changeTexture("handRight", "right_hand/handRight_w", arma);
-        changeTexture("legRight", "right_leg/legRight_w", arma);
-        changeTexture("tail", "tails/tail_w", arma);
+        changeTexture("head", "head_w", arma);
+        changeTexture("body", "body_w", arma);
+        changeTexture("handLeft", "hand_w_l", arma);
+        changeTexture("legLeft", "leg_w_l", arma);
+        changeTexture("handRight", "hand_w_r", arma);
+        changeTexture("legRight", "leg_w_r", arma);
+        changeTexture("tail", "tail_w", arma);
     }
 
     private function releaseBackWoman(arma:Armature):void {
-        changeTexture("head", "heads_b/head_w_b", arma);
-        changeTexture("body", "bodys_b/body_w_b", arma);
-        changeTexture("handLeft", "left_hand_b/handLeft_w_b", arma);
-        changeTexture("legLeft", "left_leg_b/legLeft_w_b", arma);
-        changeTexture("handRight", "right_hand_b/handRight_w_b", arma);
-        changeTexture("legRight", "right_leg_b/legRight_w_b", arma);
-        changeTexture("tail11", "tails/tail_w", arma);
+        changeTexture("head", "head_w_b", arma);
+        changeTexture("body", "body_w_b", arma);
+        changeTexture("handLeft", "hand_w_l_b", arma);
+        changeTexture("legLeft", "leg_w_l_b", arma);
+        changeTexture("handRight", "hand_w_r_b", arma);
+        changeTexture("legRight", "leg_w_r_b", arma);
+        changeTexture("tail11", "tail_w", arma);
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['cat_main'].getTextureDisplay(newName) as Image;
-        var b:Bone = arma.getBone(oldName);
-        b.display.dispose();
+//        var im:Image = g.allData.factory['cat_main'].getTextureDisplay('clothTextureTemp', newName) as Image;
+        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
+        var b:Slot = arma.getSlot(oldName);
+        b.displayList = null;
         b.display = im;
     }
 
 // play Direct label
     public function playDirectLabel(label:String, playOnce:Boolean, callback:Function):void {
         showFront(true);
-        heroEyes.startAnimations();
+        if (heroEyes) heroEyes.startAnimations();
         _animation.playIt(label, playOnce, callback);
     }
 
@@ -228,12 +233,12 @@ public class HeroCat extends BasicCat{
     public function  workWithPlant(callback:Function):void {
         _animation.deleteWorker();
         _animation.catWorkerArmature = g.allData.factory['cat_watering_can'].buildArmature("cat");
-        var viyi:Bone = _animation.catWorkerArmature.getBone('viyi');
+        var viyi:Slot = _animation.catWorkerArmature.getSlot('viyi');
         if (_type == WOMAN) {
             releaseFrontWoman(_animation.catWorkerArmature);
-            if (viyi) viyi.visible = true;
+            if (viyi && viyi.display) viyi.display.visible = true;
         } else {
-            if (viyi) viyi.visible = false;
+            if (viyi && viyi.display) viyi.display.visible = false;
         }
         flipIt(isLeftForFeedAndWatering);
         _animation.playIt('open', true, makeWatering, callback);
@@ -280,12 +285,12 @@ public class HeroCat extends BasicCat{
     public function workWithFarm(callback:Function):void {
         _animation.deleteWorker();
         _animation.catWorkerArmature = g.allData.factory['cat_feed'].buildArmature("cat");
-        var viyi:Bone = _animation.catWorkerArmature.getBone('viyi');
+        var viyi:Slot = _animation.catWorkerArmature.getSlot('viyi');
         if (_type == WOMAN) {
             releaseFrontWoman(_animation.catWorkerArmature);
-            if (viyi) viyi.visible = true;
+            if (viyi && viyi.displayList.length) viyi.displayList[0].visible = true;
         } else {
-            if (viyi) viyi.visible = false;
+            if (viyi && viyi.displayList.length) viyi.displayList[0].visible = false;
         }
         flipIt(isLeftForFeedAndWatering);
 

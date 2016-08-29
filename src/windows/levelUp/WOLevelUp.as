@@ -16,6 +16,7 @@ import media.SoundConst;
 import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -68,28 +69,33 @@ public class WOLevelUp extends WindowMain {
         _arrCells = [];
         _arrItems = [];
         _source.addChild(_contClipRect);
-        _contClipRect.clipRect = new Rectangle(0,0,440,280);
+        _contClipRect.mask = new Quad(440,280);
         _contClipRect.x = -_woWidth/2 + 55;
         _contClipRect.y = 55;
-        _txtNewLvl = new TextField(120,100,"НОВЫЙ УРОВЕНЬ", g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtNewLvl.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtNewLvl = new TextField(120,100,"НОВЫЙ УРОВЕНЬ");
+        _txtNewLvl.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtNewLvl.touchable = false;
-        _txtNewObject = new TextField(215,100,"ДОСТУПНЫ НОВЫЕ ОБЪЕКТЫ", g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtNewObject.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(_txtNewLvl, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtNewObject = new TextField(215,100,"ДОСТУПНЫ НОВЫЕ ОБЪЕКТЫ");
+        _txtNewObject.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtNewObject.touchable = false;
-        _txtLevel = new TextField(300,100,"",g.allData.bFonts['BloggerBold72'],51,Color.WHITE);
-        _txtLevel.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        ManagerFilters.setStrokeStyle(_txtNewObject, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtLevel = new TextField(300,100,"");
+        _txtLevel.format.setTo(g.allData.bFonts['BloggerBold72'],51,Color.WHITE);
         _txtLevel.touchable = false;
-        _txtContinue = new TextField(110,100,"РАССКАЗАТЬ", g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
+        ManagerFilters.setStrokeStyle(_txtLevel, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtContinue = new TextField(110,100,"РАССКАЗАТЬ");
+        _txtContinue.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtContinue.touchable = false;
-        _txtHard = new TextField(50,50,'+'+String(_count), g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtHard.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setEmptyStyle(_txtContinue);
+        _txtHard = new TextField(50,50,'+'+String(_count));
+        _txtHard.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtHard.touchable = false;
+        ManagerFilters.setStrokeStyle(_txtHard, ManagerFilters.TEXT_BLUE_COLOR);
         if (g.user.level <= 4) {
             _contBtn = new CButton();
             _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
             _txtContinue.text = 'ПРОДОЛЖИТЬ';
-            _txtContinue.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
             _txtContinue.y = -25;
             _txtContinue.x = 30;
             _contBtn.addChild(_txtContinue);
@@ -101,7 +107,6 @@ public class WOLevelUp extends WindowMain {
             _contBtn.addButtonTexture(172, 45, CButton.BLUE, true);
             _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
             MCScaler.scale(_imageHard, 25, 25);
-            _txtContinue.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
 
             _txtContinue.y = -25;
             _txtHard.x = 100;
@@ -148,7 +153,7 @@ public class WOLevelUp extends WindowMain {
         _txtNewObject.x = -108;
         _txtNewObject.y = 110;
         _txtLevel.x = -152;
-        _txtLevel.y = -120;
+        _txtLevel.y = -115;
         _callbackClickBG = null;
     }
 

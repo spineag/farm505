@@ -4,20 +4,18 @@
 package windows.chestWindow {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
 
 import manager.ManagerChest;
 import manager.ManagerFilters;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CButton;
 import utils.MCScaler;
-
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -33,9 +31,9 @@ public class WOChest  extends WindowMain{
         _woWidth = 400;
         _woHeight = 340;
         _armature = g.allData.factory['chest_interface'].buildArmature("box");
-        _source.addChild(_armature.display as Sprite);
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
         WorldClock.clock.add(_armature);
-        _armature.display.scaleX =_armature.display.scaleY = .6;
+        (_armature.display as Sprite).scale = .6;
     }
 
     private function onClickExit(e:Event=null):void {
@@ -48,15 +46,15 @@ public class WOChest  extends WindowMain{
         _callback = callback;
         if (g.managerChest.getCount + 1 <= 2) {
             var fEndOver:Function = function():void {
-                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-                _armature.animation.gotoAndStop('idle_2', 0);
+                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndStopByFrame('idle_2');
                 if (g.managerTutorial.isTutorial) _woChestItemsTutorial = new WOChestItemsTutorial(_source, closeAnimation);
                 else  _woChestItem = new WOChestItem(g.managerChest.dataPriseChest, _source, closeAnimation);
             };
-            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-            _armature.animation.gotoAndPlay('idle_1');
+            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlayByFrame('idle_1');
         } else {
             _btnOpen = new CButton();
             _btnOpen.addButtonTexture(160, 40, CButton.GREEN, true);
@@ -65,30 +63,31 @@ public class WOChest  extends WindowMain{
             im.x = 120;
             im.y = 4;
             _btnOpen.addChild(im);
-            var txt:TextField = new TextField(150,30,'Открыть за ' + ManagerChest.COST_OPEN, g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+            var txt:TextField = new TextField(150,30,'Открыть за ' + ManagerChest.COST_OPEN);
+            txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
             txt.text = 'Открыть за ' + String(ManagerChest.COST_OPEN);
             txt.x = - 10;
             txt.y = 5;
-            txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btnOpen.addChild(txt);
             _btnOpen.clickCallback = onClickOpen;
             _source.addChild(_btnOpen);
             _btnOpen.y = 190;
-            _armature.animation.gotoAndPlay('idle_4');
+            _armature.animation.gotoAndPlayByFrame('idle_4');
             createExitButton(onClickExit);
         }
     }
 
     private function closeAnimation():void {
-            var fEndOver:Function = function():void {
-                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+            var fEndOver:Function = function(e:Event=null):void {
+                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                 if (g.managerTutorial.isTutorial) hideItTutorial();
                 else hideIt();
             };
-            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-            _armature.animation.gotoAndPlay('idle_3');
+            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlayByFrame('idle_3');
     }
 
     override public function hideIt():void {
@@ -116,17 +115,17 @@ public class WOChest  extends WindowMain{
         }
         hideExitButton();
         var fEndOver:Function = function():void {
-            _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
+            _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
             _woChestItem = new WOChestItem(g.managerChest.dataPriseChest, _source, hideIt);
             if (_callback != null) {
                 _callback.apply(null,[]);
             }
         };
         g.userInventory.addMoney(1,-ManagerChest.COST_OPEN);
-        _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-        _armature.animation.gotoAndPlay('idle_5');
+        _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+        _armature.animation.gotoAndPlayByFrame('idle_5');
         _btnOpen.visible = false;
 
     }

@@ -1,9 +1,0 @@
-<TextureAtlas name="sheep" imagePath="texture.png">
- <SubTexture name="shad" x="53" y="0" width="57" height="31"/>
- <SubTexture name="leg" x="112" y="14" width="4" height="13"/>
- <SubTexture name="body" x="0" y="0" width="51" height="52"/>
- <SubTexture name="body_hungry" x="53" y="33" width="44" height="36"/>
- <SubTexture name="head" x="0" y="54" width="36" height="39"/>
- <SubTexture name="head1" x="38" y="71" width="31" height="34"/>
- <SubTexture name="zzz" x="112" y="0" width="10" height="12"/>
-</TextureAtlas>

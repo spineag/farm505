@@ -31,7 +31,6 @@ public class ArrivedLenta {
         _imLeft.pivotY = _imLeft.height/2;
         _imLeft.x = _x2;
         _imLeft.y = _y2;
-        _imLeft.flatten();
         _parent.addChild(_imLeft);
 
         im = new Image(g.allData.atlas['buildAtlas'].getTexture('rope'));
@@ -41,7 +40,6 @@ public class ArrivedLenta {
         _imRight.pivotY = _imRight.height/2;
         _imRight.x = _x1;
         _imRight.y = _y1;
-        _imRight.flatten();
         _parent.addChild(_imRight);
 
         im = new Image(g.allData.atlas['buildAtlas'].getTexture('busket_2'));

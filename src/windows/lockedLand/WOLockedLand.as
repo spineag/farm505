@@ -6,11 +6,12 @@ import build.lockedLand.LockedLand;
 import com.junkbyte.console.Cc;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
-import manager.ManagerFilters;
-import manager.ManagerWallPost;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
 
+import manager.ManagerFilters;
 import starling.display.Sprite;
+import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
@@ -52,10 +53,10 @@ public class WOLockedLand extends WindowMain {
 
         _btnOpen = new CButton();
         _btnOpen.addButtonTexture(158, 46, CButton.BLUE, true);
-        var txt:TextField = new TextField(158,46,'Открыть участок',g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        var txt:TextField = new TextField(158,46,'Открыть участок');
+        txt.format.setTo(g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btnOpen.addChild(txt);
-        _btnOpen.registerTextField(txt, ManagerFilters.TEXT_STROKE_BLUE);
         _btnOpen.x = 0;
         _btnOpen.y = -_woHeight/2 + 515;
         _source.addChild(_btnOpen);
@@ -65,7 +66,9 @@ public class WOLockedLand extends WindowMain {
         _pl.y = -_woHeight/2 + 109;
         _pl.addShadow();
         _source.addChild(_pl);
-        txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок',g.allData.bFonts['BloggerMedium18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+        txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок');
+        txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+        ManagerFilters.setEmptyStyle(txt);
         _pl.inSprite.addChild(txt);
         addAnimation();
     }
@@ -148,26 +151,26 @@ public class WOLockedLand extends WindowMain {
 
     private function addAnimation():void {
         _armature = g.allData.factory['plot_seller'].buildArmature("cat_customer");
-        _armature.display.x = -150;
-        _armature.display.y = -150;
-        _armature.display.scaleX = -1;
-        _source.addChild(_armature.display as Sprite);
+        (_armature.display as StarlingArmatureDisplay).x = -150;
+        (_armature.display as StarlingArmatureDisplay).y = -150;
+        (_armature.display as StarlingArmatureDisplay).scaleX = -1;
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
     }
 
-    private function showAnimation(e:AnimationEvent = null):void {
+    private function showAnimation(e:Event=null):void {
         if(!_armature) return;
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, showAnimation);
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
+        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, showAnimation);
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, showAnimation);
 
-        _armature.addEventListener(AnimationEvent.COMPLETE, showAnimation);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
+        _armature.addEventListener(EventObject.COMPLETE, showAnimation);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, showAnimation);
         var l:int = int(Math.random()*5);
         switch (l) {
-            case 0: _armature.animation.gotoAndPlay('idle1'); break;
-            case 1: _armature.animation.gotoAndPlay('idle1'); break;
-            case 2: _armature.animation.gotoAndPlay('hi'); break;
-            case 3: _armature.animation.gotoAndPlay('idle_2'); break;
-            case 4: _armature.animation.gotoAndPlay('idle_3'); break;
+            case 0: _armature.animation.gotoAndPlayByFrame('idle1'); break;
+            case 1: _armature.animation.gotoAndPlayByFrame('idle1'); break;
+            case 2: _armature.animation.gotoAndPlayByFrame('hi'); break;
+            case 3: _armature.animation.gotoAndPlayByFrame('idle_2'); break;
+            case 4: _armature.animation.gotoAndPlayByFrame('idle_3'); break;
         }
     }
 
@@ -178,8 +181,8 @@ public class WOLockedLand extends WindowMain {
         }
         _arrItems.length = 0;
         WorldClock.clock.remove(_armature);
-        if (_armature) if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, showAnimation);
-        if (_armature) if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, showAnimation);
+        if (_armature) if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, showAnimation);
+        if (_armature) if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, showAnimation);
         if (_armature) _source.removeChild(_armature.display as Sprite);
         if (_armature) _armature.dispose();
         if (_armature) _armature = null;

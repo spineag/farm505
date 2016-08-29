@@ -65,10 +65,11 @@ public class WOChestItem {
         im.y = -im.height/2;
         _source = new Sprite();
         _source.addChild(im);
-        var txt:TextField = new TextField(80, 60, '+'+String(obj.count), g.allData.bFonts['BloggerMedium30'], 30, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var txt:TextField = new TextField(80, 60, '+'+String(obj.count));
+        txt.format.setTo(g.allData.bFonts['BloggerMedium30'], 30, Color.WHITE);
         txt.x = 0;
         txt.y = 5;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(txt);
         _parent.addChild(_source);
         showIt();
@@ -82,7 +83,6 @@ public class WOChestItem {
         im.y = -im.height/2;
         _particle.addChild(im);
         _source.addChildAt(_particle, 0);
-        _particle.flatten();
         _particle.touchable = false;
         new TweenMax(_particle, .3, {scaleX:g.scaleFactor*4, scaleY:g.scaleFactor*4, ease:Linear.easeIn, onComplete: makeTweenParticle});
     }

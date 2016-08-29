@@ -51,22 +51,26 @@ public class TimerHint {
         _source.addChild(_bg);
         _btn = new CButton();
         _btn.addButtonTexture(78, 46, CButton.GREEN, true);
-        _txtCost = new TextField(50,50,"",g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
-        _txtCost.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _txtCost = new TextField(50,50,"");
+        _txtCost.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         _txtCost.x = 5;
         _txtCost.y = 6;
-        _txtTimer = new TextField(80,30,"",g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(_txtCost, ManagerFilters.TEXT_GREEN_COLOR);
+        _txtTimer = new TextField(80,30,"");
+        _txtTimer.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtTimer.x = -85;
         _txtTimer.y = -58;
-        _txtName = new TextField(176,50,"",g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
-        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(_txtTimer, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtName = new TextField(176,50,"");
+        _txtName.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         _txtName.x = -88;
         _txtName.y = -130;
-        _txtText = new TextField(65,50,'ускорить',g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtText = new TextField(65,50,'ускорить');
+        _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtText.x = 7;
         _txtText.y = -15;
+        ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_GREEN_COLOR);
         _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("order_window_del_clock"));
         _imageClock.y = -93;
         _imageClock.x = -63;
@@ -108,24 +112,24 @@ public class TimerHint {
         _canHide = v;
     }
 
-    public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String, f:Function, out:Function, ridge:Boolean = false, animal:Boolean = false):void {
+    public function showIt(height:int,x:int, y:int, timeAll:int, timer:int, cost:int, name:String, f:Function, out:Function, ridge:Boolean = false, animal:Boolean = false):void {
         if(_isShow) return;
         if (timer <=0) return;
         _onOutCallback = out;
         var quad:Quad;
         if (ridge) {
-            _quad = new Quad(_bg.width, _bg.height,Color.WHITE ,false);
-            quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN ,false);
+            _quad = new Quad(_bg.width, _bg.height,Color.WHITE);
+            quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN);
             quad.pivotX = quad.width/2;
             _source.addChildAt(quad,0);
             quad.alpha = 0;
         } else if (animal) {
-            _quad = new Quad(_bg.width, _bg.height,Color.WHITE ,false);
-            quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN ,false);
+            _quad = new Quad(_bg.width, _bg.height,Color.WHITE);
+            quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN);
             quad.pivotX = quad.width/2;
             _source.addChildAt(quad,0);
             quad.alpha = 0;
-        } else _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE ,false);
+        } else _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE);
         _quad.alpha = 0;
         _quad.x = -_bg.width/2;
         _quad.y = -_bg.height;
@@ -147,7 +151,7 @@ public class TimerHint {
         _timer = timer;
         _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
         if (g.managerTutorial.isTutorial) _txtCost.text = String(0);
-        else _txtCost.text = String(cost);
+        else _txtCost.text = String(g.managerTimerSkip.newCount(timeAll,timer,cost));
         _txtName.text = name;
 //        _txtText.text = 'ускорить';
         g.cont.hintContUnder.addChild(_source);

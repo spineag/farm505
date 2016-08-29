@@ -3,23 +3,14 @@
  */
 package windows.orderWindow {
 import data.BuildType;
-
-import flash.filters.GlowFilter;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
 import starling.display.Image;
-import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
-import starling.utils.HAlign;
-
 import utils.CSprite;
-
 import utils.MCScaler;
-
 import windows.WOComponents.CartonBackgroundIn;
 
 public class WOOrderResourceItem {
@@ -45,16 +36,19 @@ public class WOOrderResourceItem {
         source.addChild(_check);
         _check.visible = false;
 
-        _countTxt = new TextField(80, 40, "10/10", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _countTxt.hAlign = HAlign.RIGHT;
-        _countTxt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
-
+        _countTxt = new TextField(80, 40, "10/10");
+        _countTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _countTxt.format.horizontalAlign = Align.RIGHT;
         _countTxt.y = 60;
+        _countTxt.x = -3;
+        ManagerFilters.setStrokeStyle(_countTxt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_countTxt);
-        _countRed = new TextField(30, 30, "", g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
-        _countRed.hAlign = HAlign.RIGHT;
-        _countRed.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _countRed = new TextField(30, 30, "");
+        _countRed.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
+        _countRed.format.horizontalAlign = Align.RIGHT;
         _countRed.y = 65;
+        _countRed.x = -3;
+        ManagerFilters.setStrokeStyle(_countRed, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_countRed);
         source.hoverCallback = onHover;
         source.outCallback = outCallback;
@@ -93,9 +87,9 @@ public class WOOrderResourceItem {
             _check.visible = true;
 //            _countTxt.text = String(curCount) + '/' + String(count);
 //            _countTxt.x = 12;
-            _countRed.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
+            _countRed.format.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
         } else {
-            _countRed.color = ManagerFilters.TEXT_ORANGE_COLOR;
+            _countRed.format.color = ManagerFilters.TEXT_ORANGE_COLOR;
         }
 
         source.visible = true;

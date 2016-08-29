@@ -34,8 +34,9 @@ public class DecorShopFilterItem {
         _source = new CSprite();
         _bg = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), _width);
-        _txt = new TextField(_width, 35, '', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txt = new TextField(_width, 35, '');
+        _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_bg);
         _source.addChild(_txt);
         _source.y = pos * 33;

@@ -6,18 +6,19 @@ import com.junkbyte.console.Cc;
 import data.DataMoney;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
-import manager.ManagerWallPost;
-
 import media.SoundConst;
-
 import mouse.ToolsModifier;
 import resourceItem.CraftItem;
 import resourceItem.ResourceItem;
 import starling.display.Sprite;
+import starling.events.Event;
+
 import ui.xpPanel.XPStar;
 import windows.WindowsManager;
 
@@ -112,12 +113,12 @@ public class Cave extends WorldObject{
                 }
                 if (!ob) {
                     _stateBuild = STATE_UNACTIVE;
-                    _armature.animation.gotoAndStop('close', 0);
+                    _armature.animation.gotoAndStopByFrame('close');
                     return;
                 }
                 if (ob.isOpen) {        // уже построенно и открыто
                     _stateBuild = STATE_ACTIVE;
-                    _armature.animation.gotoAndStop('open', 0);
+                    _armature.animation.gotoAndStopByFrame('open');
                 } else if (ob.isBuilded) {
                     _leftBuildTime = Number(ob.timeBuildBuilding);  // сколько времени уже строится
                     _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
@@ -132,13 +133,13 @@ public class Cave extends WorldObject{
                     }
                 } else {
                     _stateBuild = STATE_UNACTIVE;
-                    _armature.animation.gotoAndStop('close', 0);
+                    _armature.animation.gotoAndStopByFrame('close');
                 }
             } else {
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
                         _stateBuild = STATE_ACTIVE;
-                        _armature.animation.gotoAndStop('open', 0);
+                        _armature.animation.gotoAndStopByFrame('open');
                         g.directServer.getUserCave(fillFromServer);
                     } else {
                         _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
@@ -156,7 +157,7 @@ public class Cave extends WorldObject{
                     }
                 } else {
                     _stateBuild = STATE_UNACTIVE;
-                    _armature.animation.gotoAndStop('close', 0);
+                    _armature.animation.gotoAndStopByFrame('close');
                 }
             }
 //        } catch (e:Error) {
@@ -201,26 +202,26 @@ public class Cave extends WorldObject{
         if (_isAnimate) return;
         if (_stateBuild == STATE_ACTIVE) {
             if (!_isOnHover && !_isAnimate) {
-                var fEndOver2:Function = function():void {
-                    _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver2);
-                    _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver2);
-                    _armature.animation.gotoAndStop('open', 0);
+                var fEndOver2:Function = function(e:Event=null):void {
+                    _armature.removeEventListener(EventObject.COMPLETE, fEndOver2);
+                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver2);
+                    _armature.animation.gotoAndStopByFrame('open');
                 };
-                _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver2);
-                _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver2);
-                _armature.animation.gotoAndPlay('over2');
+                _armature.addEventListener(EventObject.COMPLETE, fEndOver2);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver2);
+                _armature.animation.gotoAndPlayByFrame('over2');
                 _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
             if (!_isOnHover) {
-                var fEndOver:Function = function():void {
-                    _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-                    _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-                    _armature.animation.gotoAndStop('close', 0);
+                var fEndOver:Function = function(e:Event=null):void {
+                    _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                    _armature.animation.gotoAndStopByFrame('close');
                 };
-                _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-                _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-                _armature.animation.gotoAndPlay('over');
+                _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndPlayByFrame('over');
                 _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             }
         } else if (_stateBuild == STATE_BUILD) {
@@ -294,7 +295,7 @@ public class Cave extends WorldObject{
                 g.treeHint.managerHide(openHint);
                 return;
             }
-            g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
+            g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,_dataBuild.buildTime, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
             g.hint.hideIt();
         }
         if (_stateBuild == STATE_ACTIVE) {
@@ -318,7 +319,7 @@ public class Cave extends WorldObject{
 
 //                        g.directServer.craftUserCave();
                         if (!_arrCrafted.length) {
-                            _armature.animation.gotoAndStop('open', 0);
+                            _armature.animation.gotoAndStopByFrame('open');
                         }
                     } else {
                         onOut();
@@ -342,7 +343,7 @@ public class Cave extends WorldObject{
             onOut();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (_source.wasGameContMoved) return;
-            _armature.animation.gotoAndStop('open', 0);
+            _armature.animation.gotoAndStopByFrame('open');
             g.directServer.openBuildedBuilding(this, onOpenBuilded);
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));
@@ -360,7 +361,7 @@ public class Cave extends WorldObject{
     }
 
     private function openHint():void {
-        g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
+        g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,_dataBuild.buildTime, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
         g.hint.hideIt();
     }
 
@@ -387,10 +388,10 @@ public class Cave extends WorldObject{
     private function onStartBuildingResponse(value:Boolean):void {}
 
     private function onItemClick(id:int):void {
-        var fOut:Function = function():void {
-            _armature.removeEventListener(AnimationEvent.COMPLETE, fOut);
-            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fOut);
-            _armature.animation.gotoAndStop('crafting', 0);
+        var fOut:Function = function(e:Event=null):void {
+            _armature.removeEventListener(EventObject.COMPLETE, fOut);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fOut);
+            _armature.animation.gotoAndStopByFrame('crafting');
             g.userInventory.addResource(id, -1);
             var v:Number = _dataBuild.variaty[_dataBuild.idResourceRaw.indexOf(id)];
             var c:int = 2 + int(Math.random() * 3);
@@ -464,18 +465,18 @@ public class Cave extends WorldObject{
             _isAnimate = false;
         };
 
-        var fIn:Function = function():void {
-            _armature.removeEventListener(AnimationEvent.COMPLETE, fIn);
-            _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fIn);
-            _armature.addEventListener(AnimationEvent.COMPLETE, fOut);
-            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fOut);
-            _armature.animation.gotoAndPlay("out");
+        var fIn:Function = function(e:Event=null):void {
+            _armature.removeEventListener(EventObject.COMPLETE, fIn);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fIn);
+            _armature.addEventListener(EventObject.COMPLETE, fOut);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fOut);
+            _armature.animation.gotoAndPlayByFrame("out");
         };
 
         _isAnimate = true;
-        _armature.addEventListener(AnimationEvent.COMPLETE, fIn);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fIn);
-        _armature.animation.gotoAndPlay("in");
+        _armature.addEventListener(EventObject.COMPLETE, fIn);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, fIn);
+        _armature.animation.gotoAndPlayByFrame("in");
 
     }
 
@@ -488,16 +489,16 @@ public class Cave extends WorldObject{
 
     private function showBoom():void {
         _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
-        _source.addChild(_armatureOpen.display as Sprite);
+        _source.addChild(_armatureOpen.display as StarlingArmatureDisplay);
         WorldClock.clock.add(_armatureOpen);
-        _armatureOpen.addEventListener(AnimationEvent.COMPLETE, onBoom);
-        _armatureOpen.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
-        _armatureOpen.animation.gotoAndPlay("start");
+        _armatureOpen.addEventListener(EventObject.COMPLETE, onBoom);
+        _armatureOpen.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
+        _armatureOpen.animation.gotoAndPlayByFrame("start");
     }
 
-    private function onBoom(e:AnimationEvent=null):void {
-        if (_armatureOpen.hasEventListener(AnimationEvent.COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.COMPLETE, onBoom);
-        if (_armatureOpen.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureOpen.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+    private function onBoom(e:Event=null):void {
+        if (_armatureOpen.hasEventListener(EventObject.COMPLETE)) _armatureOpen.removeEventListener(EventObject.COMPLETE, onBoom);
+        if (_armatureOpen.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpen.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
         WorldClock.clock.remove(_armatureOpen);
         _source.removeChild(_armatureOpen.display as Sprite);
         _armatureOpen.dispose();

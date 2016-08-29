@@ -7,18 +7,23 @@ import data.BuildType;
 import data.DataMoney;
 import dragonBones.Armature;
 import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+import dragonBones.starling.StarlingFactory;
+
 import flash.geom.Point;
-import heroes.HeroEyesAnimation;
+
+import heroes.OrderCat;
 import heroes.OrderCat;
 import manager.ManagerFilters;
 import manager.ManagerOrder;
 import manager.ManagerOrderItem;
-
 import media.SoundConst;
-
 import resourceItem.DropItem;
+
+import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -28,12 +33,10 @@ import starling.utils.Color;
 import temp.catCharacters.DataCat;
 
 import utils.SimpleArrow;
-
 import tutorial.TutorialAction;
 import tutorial.TutorialTextBubble;
 import ui.xpPanel.XPStar;
 import utils.CButton;
-import utils.CSprite;
 import utils.MCScaler;
 import utils.TimeUtils;
 import windows.WOComponents.Birka;
@@ -140,10 +143,11 @@ public class WOOrder extends WindowMain{
         _rightBlockBG.filter = ManagerFilters.SHADOW_LIGHT;
         _rightBlock.addChild(_rightBlockBG);
 
-        _txtName = new TextField(320, 35, "Самбука заказывает", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtName = new TextField(320, 35, "Самбука заказывает");
+        _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtName.x = 407;
         _txtName.y = 175;
+        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlock.addChild(_txtName);
 
         var item:WOOrderResourceItem;
@@ -156,20 +160,22 @@ public class WOOrder extends WindowMain{
             _arrResourceItems.push(item);
         }
 
-        var txt:TextField = new TextField(90, 30, "Награда:", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var txt:TextField = new TextField(90, 30, "Награда:");
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         txt.x = 411;
         txt.y = 418;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlock.addChild(txt);
         _starSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
         _starSmall.x = 501;
         _starSmall.y = 417;
         _starSmall.filter = ManagerFilters.SHADOW_TINY;
         _rightBlock.addChild(_starSmall);
-        _txtXP = new TextField(52, 30, "8888", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtXP.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtXP = new TextField(52, 30, "8888");
+        _txtXP.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtXP.x = 523;
         _txtXP.y = 418;
+        ManagerFilters.setStrokeStyle(_txtXP, ManagerFilters.TEXT_BLUE_COLOR);
         _rightBlock.addChild(_txtXP);
         _coinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         _coinSmall.x = 570;
@@ -181,16 +187,18 @@ public class WOOrder extends WindowMain{
         _imCoup.y = 422;
         _imCoup.visible = false;
         _rightBlock.addChild(_imCoup);
-        _txtCoupone = new TextField(30, 30, "1", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtCoupone.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtCoupone = new TextField(30, 30, "1");
+        _txtCoupone.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtCoupone.x = 650;
         _txtCoupone.y = 418;
         _txtCoupone.visible = false;
+        ManagerFilters.setStrokeStyle(_txtCoupone, ManagerFilters.TEXT_BLUE_COLOR);
         _rightBlock.addChild(_txtCoupone);
-        _txtCoins = new TextField(52, 30, "8888", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtCoins.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtCoins = new TextField(52, 30, "8888");
+        _txtCoins.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtCoins.x = 590;
         _txtCoins.y = 418;
+        ManagerFilters.setStrokeStyle(_txtCoins, ManagerFilters.TEXT_BLUE_COLOR);
         _rightBlock.addChild(_txtCoins);
         _btnDeleteOrder = new CButton();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
@@ -224,11 +232,11 @@ public class WOOrder extends WindowMain{
         im.x = 98;
         im.y = -15;
         _btnSell.addDisplayObject(im);
-        var txt:TextField = new TextField(110, 60, "Продать", g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
+        var txt:TextField = new TextField(110, 60, "Продать");
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
         txt.y = -10;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnSell.addChild(txt);
-        _btnSell.registerTextField(txt, ManagerFilters.TEXT_STROKE_GREEN);
         _btnSell.x = 547;
         _btnSell.y = 500;
         _rightBlock.addChild(_btnSell);
@@ -243,17 +251,19 @@ public class WOOrder extends WindowMain{
         im.x = 98;
         im.y = 15;
         _btnSkipDelete.addDisplayObject(im);
-        var txt:TextField = new TextField(80, 50, "Получить сейчас", g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        var txt:TextField = new TextField(80, 50, "Получить сейчас");
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnSkipDelete.addChild(txt);
-        txt = new TextField(20, 50, '', g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        txt = new TextField(20, 50, '');
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         if (g.user.level <= 6) txt.text = String(ManagerOrder.COST_FIRST_SKIP_WAIT);
         else if (g.user.level <= 9) txt.text = String(ManagerOrder.COST_SECOND_SKIP_WAIT);
         else if (g.user.level <= 15) txt.text = String(ManagerOrder.COST_THIRD_SKIP_WAIT);
         else if (g.user.level <= 19) txt.text = String(ManagerOrder.COST_FOURTH_SKIP_WAIT);
         else if (g.user.level >= 20) txt.text = String(ManagerOrder.COST_FIFTH_SKIP_WAIT);
         txt.x = 80;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnSkipDelete.addChild(txt);
         _btnSkipDelete.x = 160;
         _btnSkipDelete.y = 220;
@@ -591,16 +601,18 @@ public class WOOrder extends WindowMain{
         bgIn.y = 32;
         _rightBlockTimer.addChild(bgIn);
 
-        _txtOrder = new TextField(280, 30, "", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtOrder = new TextField(280, 30, "");
+        _txtOrder.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txtOrder.x = 14;
         _txtOrder.y = 40;
-        _txtOrder.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        ManagerFilters.setStrokeStyle(_txtOrder, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlockTimer.addChild(_txtOrder);
 
-        var t:TextField = new TextField(280, 30, "следующий поступит через:", g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
+        var t:TextField = new TextField(280, 30, "следующий поступит через:");
+        t.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
         t.x = 14;
         t.y = 65;
-        t.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        ManagerFilters.setStrokeStyle(t, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlockTimer.addChild(t);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
@@ -608,10 +620,11 @@ public class WOOrder extends WindowMain{
         im.y = 110;
         _rightBlockTimer.addChild(im);
 
-        _txtTimer = new TextField(165, 50, "", g.allData.bFonts['BloggerBold30'], 30, Color.WHITE);
+        _txtTimer = new TextField(165, 50, "");
+        _txtTimer.format.setTo(g.allData.bFonts['BloggerBold30'], 30, Color.WHITE);
         _txtTimer.x = 101;
         _txtTimer.y = 102;
-        _txtTimer.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        ManagerFilters.setStrokeStyle(_txtTimer, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlockTimer.addChild(_txtTimer);
     }
 
@@ -657,12 +670,6 @@ public class WOOrder extends WindowMain{
         if (!_source) return;
         _starSmall.filter = null;
         _coinSmall.filter = null;
-        if (_txtCoins) _txtCoins.nativeFilters = [];
-        if (_txtCoupone) _txtCoupone.nativeFilters = [];
-        if (_txtName) _txtName.nativeFilters = [];
-        if (_txtOrder) _txtOrder.nativeFilters = [];
-        if (_txtTimer) _txtTimer.nativeFilters = [];
-        if (_txtXP) _txtXP.nativeFilters = [];
         deleteBtnCellArrow();
         deleteCats();
         _activeOrderItem = null;
@@ -738,18 +745,18 @@ public class WOOrder extends WindowMain{
     private function createTopCats():void {
         _armatureCustomer = g.allData.factory['order_window'].buildArmature("cat_customer");
         _armatureSeller = g.allData.factory['order_window'].buildArmature("cat_seller");
-        _armatureCustomer.display.x = 110;
-        _armatureCustomer.display.y = -170;
-        _armatureSeller.display.x = -110;
-        _armatureSeller.display.y = -170;
-        _source.addChild(_armatureCustomer.display as Sprite);
-        _source.addChild(_armatureSeller.display as Sprite);
-        var viyi:Bone = _armatureSeller.getBone('viyi');
-        if (viyi) {
-            viyi.visible = false;
+        (_armatureCustomer.display as StarlingArmatureDisplay).x = 110;
+        (_armatureCustomer.display as StarlingArmatureDisplay).y = -170;
+        (_armatureSeller.display as StarlingArmatureDisplay).x = -110;
+        (_armatureSeller.display as StarlingArmatureDisplay).y = -170;
+        _source.addChild(_armatureCustomer.display as StarlingArmatureDisplay);
+        _source.addChild(_armatureSeller.display as StarlingArmatureDisplay);
+        var viyi:Slot = _armatureSeller.getSlot('viyi');
+        if (viyi && viyi.display) {
+            viyi.display.visible = false;
         }
-        var bant:Bone = _armatureCustomer.getBone('bant');
-        if (bant) bant.visible = false;
+        var bant:Slot = _armatureCustomer.getSlot('bant');
+        if (bant && bant.display) bant.display.visible = false;
 
     }
 
@@ -760,115 +767,138 @@ public class WOOrder extends WindowMain{
         var st:String;
         if (!_arrOrders[pos] || !_arrOrders[pos].cat) return;
         switch (_arrOrders[pos].catOb.color){
-            case OrderCat.BLUE:   st = '_bl'; break;
-            case OrderCat.GREEN:  st = '_gr'; break;
-            case OrderCat.BROWN:  st = '_br'; break;
-            case OrderCat.ORANGE: st = '_or'; break;
-            case OrderCat.PINK:   st = '_pk'; break;
-            case OrderCat.WHITE:  st = '_wh'; break;
-            case OrderCat.BLACK:  st = '';    break;
+            case OrderCat.BLACK:  st = '5'; break;
+            case OrderCat.BLUE:   st = '4'; break;
+            case OrderCat.GREEN:  st = '3'; break;
+            case OrderCat.BROWN:  st = 'br'; break;
+            case OrderCat.ORANGE: st = '1'; break;
+            case OrderCat.PINK:   st = '2'; break;
+            case OrderCat.WHITE:  st = '6'; break;
         }
 
         releaseFrontTexture(st);
-        var b:Bone = _armatureCustomer.getBone('bant');
-        var viyi:Bone = _armatureCustomer.getBone('viyi');
+        var b:Slot = _armatureCustomer.getSlot('bant');
+        var viyi:Slot= _armatureCustomer.getSlot('viyi');
         if (!_arrOrders[pos].catOb.isWoman) {
-            b.visible = false;
-            viyi.visible = false;
-        }
-        else {
+            if (b.displayList.length) b.displayList[0].visible = false;
+            if (viyi.displayList.length) viyi.displayList[0].visible = false;
+        } else {
             changeBant(_arrOrders[pos].cat.bant, b);
-            viyi.visible = true;
+            if (viyi.displayList.length) viyi.displayList[0].visible = true;
         }
-        var okuli:Bone = _armatureCustomer.getBone('okuli');
-        var sharf:Bone = _armatureCustomer.getBone('sharf');
-        okuli.visible = false;
-        sharf.visible = false;
-//        switch (_arrOrders[pos].catOb.type) {
-//            case DataCat.AKRIL:
-//                okuli.visible = false;
-//                sharf.visible = true;
-//                break;
-//            case DataCat.ASHUR:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.BULAVKA:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.BUSINKA:
-//                okuli.visible = false;
-////                sharf.visible = false;
-//                sharf.visible = true;
-//                break;
-//            case DataCat.IGOLOCHKA:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.IRIS:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.KRUCHOK:
-//                okuli.visible = false;
-////                sharf.visible = false;
-//                sharf.visible = true;
-//                break;
-//            case DataCat.LENTOCHKA:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.NAPERSTOK:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.PETELKA:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.PRYAGA:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.SINTETIKA:
-//                okuli.visible = true;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.STESHOK:
-//                okuli.visible = false;
-//                sharf.visible = false;
-//                break;
-//            case DataCat.YZELOK:
-//                okuli.visible = false;
-////                sharf.visible = false;
-//                sharf.visible = true;
-//                break;
-//        }
-//        var im:Image = g.allData.factory['cat_queue1'].getTextureDisplay(_arrOrders[pos].catOb.png) as Image;
-//        if (!im)return;
-//        var cast:Bone = _armatureCustomer.getBone('sharf');
-//        cast.display.dispose();
-//        cast.display = im;
-
-//        heroEyes = new HeroEyesAnimation(g.allData.factory['cat_queue'], _armatureCustomer, 'heads/head' + st ,isWoman);
+        var okuli:Image;
+        b = _armatureCustomer.getSlot('okuli') as Slot;
+        if (b && b.displayList.length) {
+            okuli = b.displayList[0] as Image;
+        }
+        var sharf:Image;
+        b = _armatureCustomer.getSlot('sharf') as Slot;
+        if (b && b.displayList.length) {
+            sharf = b.displayList[0] as Image;
+        }
+        if (okuli) okuli.visible = false;
+        if (sharf) sharf.visible = false;
+        switch (_arrOrders[pos].catOb.type) {
+            case DataCat.AKRIL:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = true;
+                break;
+            case DataCat.ASHUR:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.BULAVKA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.BUSINKA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = true;
+                break;
+            case DataCat.IGOLOCHKA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.IRIS:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.KRUCHOK:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = true;
+                break;
+            case DataCat.LENTOCHKA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.NAPERSTOK:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.PETELKA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.PRYAGA:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.SINTETIKA:
+                if (okuli) okuli.visible = true;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.STESHOK:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = false;
+                break;
+            case DataCat.YZELOK:
+                if (okuli) okuli.visible = false;
+                if (sharf) sharf.visible = true;
+                break;
+        }
+        b = _armatureCustomer.getSlot('sharf');
+        if (_arrOrders[pos].catOb.png) {
+//            var im:Image = (g.allData.factory['order_window'] as StarlingFactory).getTextureDisplay(_arrOrders[pos].catOb.png, "clothTextureTemp") as Image;
+            var im:Image = new Image(g.allData.atlas['customisationInterfaceAtlas'].getTexture(_arrOrders[pos].catOb.png));
+            var sp:Sprite = new Sprite();
+            if (b.displayList.length) {
+                var imOld:Image;
+                if (b.displayList[0]) {
+                    if (b.displayList[0] is Sprite) {
+                        imOld = b.displayList[0].getChildAt(0) as Image;
+                    } else {
+                        imOld = b.displayList[0] as Image;
+                    }
+                    if (imOld) {
+                        im.x = imOld.x + imOld.width/2 - im.width/2;
+                    }
+                }
+            }
+            sp.addChild(im);
+            b.displayList = null;
+            b.display = sp;
+        } else {
+            (b.displayList[0] as DisplayObject).visible = false;
+        }
     }
 
-    private function changeBant(n:int, b:Bone):void {
-        var str:String = 'bant_'+ String(n);
-        if (n == 1) str = 'bant';
-        var im:Image = g.allData.factory['order_window'].getTextureDisplay('bants/' + str) as Image;
+    private function changeBant(n:int, b:Slot):void {
+//        var im:Image = g.allData.factory['order_window'].getTextureDisplay('bants/' + str) as Image;
+        var im:Image = new Image(g.allData.atlas['customisationInterfaceAtlas'].getTexture('bant_'+ String(n)));
+        var sp:Sprite = new Sprite();
         if (b) {
-            b.visible = true;
-            if (b.display) {
-                if (im) {
-                    b.display.dispose();
-                    b.display = im;
-                } else {
-                    Cc.error('WOOrder changeBant:: no bant image for: ' + n);
+            if (im) {
+                if (b.displayList.length) {
+                    var imOld:DisplayObject = b.displayList[0] as DisplayObject;
+                    if (imOld) {
+                        im.x = imOld.x + imOld.width/2 - im.width/2;
+                    }
                 }
+                sp.addChild(im);
+                b.displayList = null;
+                b.display = sp;
             } else {
-                Cc.error('WOOrder changeBant:: bant.display == null');
+                Cc.error('WOOrder changeBant:: no bant image for: ' + n);
             }
         } else {
             Cc.error('WOOrder changeBant:: no bant bone');
@@ -876,29 +906,26 @@ public class WOOrder extends WindowMain{
     }
 
     private function releaseFrontTexture(st:String):void {
-        changeTexture("head", "heads/head" + st, _armatureCustomer);
-        changeTexture("body", "bodys/body" + st, _armatureCustomer);
-        changeTexture("handLeft", "left_hand/handLeft" + st, _armatureCustomer);
-        changeTexture("handRight", "right_hand/handRight" + st, _armatureCustomer);
-        changeTexture('handLeft copy', 'left_hand/handLeft' +st, _armatureCustomer);
+        changeTexture("head", st + "_head_f", _armatureCustomer);
+        changeTexture("body", st + "_body_f", _armatureCustomer);
+        changeTexture("handLeft", st + "_lhand_f", _armatureCustomer);
+        changeTexture("handRight", st + "_rhand_f", _armatureCustomer);
+        changeTexture('handLeft copy', st + '_rhand_f', _armatureCustomer);
     }
 
     private function changeTexture(oldName:String, newName:String, arma:Armature):void {
-        var im:Image = g.allData.factory['order_window'].getTextureDisplay(newName) as Image;
-        var b:Bone = arma.getBone(oldName);
+//        var im:Image = g.allData.factory['order_window'].getTextureDisplay(newName, "clothTextureTemp") as Image;
+        var im:Image = new Image(g.allData.atlas['customisationInterfaceAtlas'].getTexture(newName));
+        var b:Slot = arma.getSlot(oldName);
         if (b) {
             if (im) {
-                if (b.display) {
-                    b.display.dispose();
-                    b.display = im;
-                } else {
-                    Cc.error('WOOrder changeTexture:: no bone.display - ' + oldName);
-                }
+                b.displayList = null;
+                b.display = im;
             } else {
                 Cc.error('WOOrder changeTexture:: no such image - ' + newName);
             }
         } else {
-            Cc.error('WOOrder changeTexture:: no such bone - ' + oldName);
+            Cc.error('WOOrder changeTexture:: no such slot - ' + oldName);
         }
     }
     private function startAnimationCats():void {
@@ -908,37 +935,37 @@ public class WOOrder extends WindowMain{
 //        animateSellerCat();
     }
 
-    private function animateCustomerCat(e:AnimationEvent=null):void {
-        if (_armatureCustomer.hasEventListener(AnimationEvent.COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
-        if (_armatureCustomer.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+    private function animateCustomerCat(e:Event=null):void {
+        if (_armatureCustomer.hasEventListener(EventObject.COMPLETE)) _armatureCustomer.removeEventListener(EventObject.COMPLETE, animateCustomerCat);
+        if (_armatureCustomer.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(EventObject.LOOP_COMPLETE, animateCustomerCat);
 
-        _armatureCustomer.addEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
-        _armatureCustomer.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+        _armatureCustomer.addEventListener(EventObject.COMPLETE, animateCustomerCat);
+        _armatureCustomer.addEventListener(EventObject.LOOP_COMPLETE, animateCustomerCat);
         var l:int = int(Math.random()*6);
         switch (l) {
-            case 0: _armatureCustomer.animation.gotoAndPlay('idle1'); break;
-            case 1: _armatureCustomer.animation.gotoAndPlay('idle_4'); break;
-            case 2: _armatureCustomer.animation.gotoAndPlay('speak'); break;
-            case 3: _armatureCustomer.animation.gotoAndPlay('idle_3'); break;
-            case 4: _armatureCustomer.animation.gotoAndPlay('idle_2'); break;
-            case 5: _armatureCustomer.animation.gotoAndPlay('speak_2'); break;
+            case 0: _armatureCustomer.animation.gotoAndPlayByFrame('idle1'); break;
+            case 1: _armatureCustomer.animation.gotoAndPlayByFrame('idle_4'); break;
+            case 2: _armatureCustomer.animation.gotoAndPlayByFrame('speak'); break;
+            case 3: _armatureCustomer.animation.gotoAndPlayByFrame('idle_3'); break;
+            case 4: _armatureCustomer.animation.gotoAndPlayByFrame('idle_2'); break;
+            case 5: _armatureCustomer.animation.gotoAndPlayByFrame('speak_2'); break;
         }
     }
 
-    private function animateSellerCat(e:AnimationEvent=null):void {
-        if (_armatureSeller.hasEventListener(AnimationEvent.COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.COMPLETE, animateSellerCat);
-        if (_armatureSeller.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
+    private function animateSellerCat(e:Event=null):void {
+        if (_armatureSeller.hasEventListener(EventObject.COMPLETE)) _armatureSeller.removeEventListener(EventObject.COMPLETE, animateSellerCat);
+        if (_armatureSeller.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureSeller.removeEventListener(EventObject.LOOP_COMPLETE, animateSellerCat);
 
-        _armatureSeller.addEventListener(AnimationEvent.COMPLETE, animateSellerCat);
-        _armatureSeller.addEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
+        _armatureSeller.addEventListener(EventObject.COMPLETE, animateSellerCat);
+        _armatureSeller.addEventListener(EventObject.LOOP_COMPLETE, animateSellerCat);
         var l:int = int(Math.random()*6);
         switch (l) {
-            case 0: _armatureSeller.animation.gotoAndPlay('idle1'); break;
-            case 1: _armatureSeller.animation.gotoAndPlay('speak_5'); break;
-            case 2: _armatureSeller.animation.gotoAndPlay('speak_4'); break;
-            case 3: _armatureSeller.animation.gotoAndPlay('speak'); break;
-            case 4: _armatureSeller.animation.gotoAndPlay('speak_3'); break;
-            case 5: _armatureSeller.animation.gotoAndPlay('speak_2'); break;
+            case 0: _armatureSeller.animation.gotoAndPlayByFrame('idle1'); break;
+            case 1: _armatureSeller.animation.gotoAndPlayByFrame('speak_5'); break;
+            case 2: _armatureSeller.animation.gotoAndPlayByFrame('speak_4'); break;
+            case 3: _armatureSeller.animation.gotoAndPlayByFrame('speak'); break;
+            case 4: _armatureSeller.animation.gotoAndPlayByFrame('speak_3'); break;
+            case 5: _armatureSeller.animation.gotoAndPlayByFrame('speak_2'); break;
         }
     }
 
@@ -958,37 +985,37 @@ public class WOOrder extends WindowMain{
         if (!_armatureCustomer || !_armatureSeller) {
             return;
         }
-        _armatureCustomer.animation.gotoAndStop('idle1', 0);
-        _armatureSeller.animation.gotoAndStop('idle1', 0);
-        if (_armatureSeller.hasEventListener(AnimationEvent.COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.COMPLETE, animateSellerCat);
-        if (_armatureSeller.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureSeller.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
-        if (_armatureCustomer.hasEventListener(AnimationEvent.COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
-        if (_armatureCustomer.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+        _armatureCustomer.animation.gotoAndStopByFrame('idle1');
+        _armatureSeller.animation.gotoAndStopByFrame('idle1');
+        if (_armatureSeller.hasEventListener(EventObject.COMPLETE)) _armatureSeller.removeEventListener(EventObject.COMPLETE, animateSellerCat);
+        if (_armatureSeller.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureSeller.removeEventListener(EventObject.LOOP_COMPLETE, animateSellerCat);
+        if (_armatureCustomer.hasEventListener(EventObject.COMPLETE)) _armatureCustomer.removeEventListener(EventObject.COMPLETE, animateCustomerCat);
+        if (_armatureCustomer.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureCustomer.removeEventListener(EventObject.LOOP_COMPLETE, animateCustomerCat);
     }
 
     private function animateCatsOnSell():void {
         stopCatsAnimations();
         if (_armatureSeller) {
-            _armatureSeller.addEventListener(AnimationEvent.COMPLETE, animateSellerOnSell);
-            _armatureSeller.addEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerOnSell);
-            _armatureSeller.animation.gotoAndPlay('coin');
+            _armatureSeller.addEventListener(EventObject.COMPLETE, animateSellerOnSell);
+            _armatureSeller.addEventListener(EventObject.LOOP_COMPLETE, animateSellerOnSell);
+            _armatureSeller.animation.gotoAndPlayByFrame('coin');
         }
         if (_armatureCustomer) {
-            _armatureCustomer.addEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
-            _armatureCustomer.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
-            _armatureCustomer.animation.gotoAndPlay('love');
+            _armatureCustomer.addEventListener(EventObject.COMPLETE, animateCustomerOnSell);
+            _armatureCustomer.addEventListener(EventObject.LOOP_COMPLETE, animateCustomerOnSell);
+            _armatureCustomer.animation.gotoAndPlayByFrame('love');
         }
     }
 
-    private function animateSellerOnSell(e:AnimationEvent):void {
-        _armatureSeller.removeEventListener(AnimationEvent.COMPLETE, animateSellerOnSell);
-        _armatureSeller.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerOnSell);
+    private function animateSellerOnSell(e:Event=null):void {
+        _armatureSeller.removeEventListener(EventObject.COMPLETE, animateSellerOnSell);
+        _armatureSeller.removeEventListener(EventObject.LOOP_COMPLETE, animateSellerOnSell);
         animateSellerCat();
     }
 
-    private function animateCustomerOnSell(e:AnimationEvent):void {
-        _armatureCustomer.removeEventListener(AnimationEvent.COMPLETE, animateCustomerOnSell);
-        _armatureCustomer.removeEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerOnSell);
+    private function animateCustomerOnSell(e:Event=null):void {
+        _armatureCustomer.removeEventListener(EventObject.COMPLETE, animateCustomerOnSell);
+        _armatureCustomer.removeEventListener(EventObject.LOOP_COMPLETE, animateCustomerOnSell);
 
         emptyCarCustomer();
 //      changeCatTexture(_activeOrderItem.position);
@@ -1027,24 +1054,24 @@ public class WOOrder extends WindowMain{
     }
 
     private function helloStart():void {
-        _armatureSeller.addEventListener(AnimationEvent.COMPLETE, animateSellerCat);
-        _armatureSeller.addEventListener(AnimationEvent.LOOP_COMPLETE, animateSellerCat);
+        _armatureSeller.addEventListener(EventObject.COMPLETE, animateSellerCat);
+        _armatureSeller.addEventListener(EventObject.LOOP_COMPLETE, animateSellerCat);
         var l:int = int(Math.random()*2);
         switch (l) {
-            case 0: _armatureSeller.animation.gotoAndPlay('hi'); break;
-            case 1: _armatureSeller.animation.gotoAndPlay('hi2'); break;
+            case 0: _armatureSeller.animation.gotoAndPlayByFrame('hi'); break;
+            case 1: _armatureSeller.animation.gotoAndPlayByFrame('hi2'); break;
         }
-        _armatureCustomer.addEventListener(AnimationEvent.COMPLETE, animateCustomerCat);
-        _armatureCustomer.addEventListener(AnimationEvent.LOOP_COMPLETE, animateCustomerCat);
+        _armatureCustomer.addEventListener(EventObject.COMPLETE, animateCustomerCat);
+        _armatureCustomer.addEventListener(EventObject.LOOP_COMPLETE, animateCustomerCat);
          l = int(Math.random()*2);
         switch (l) {
-            case 0: _armatureCustomer.animation.gotoAndPlay('hi'); break;
-            case 1: _armatureCustomer.animation.gotoAndPlay('hi2'); break;
+            case 0: _armatureCustomer.animation.gotoAndPlayByFrame('hi'); break;
+            case 1: _armatureCustomer.animation.gotoAndPlayByFrame('hi2'); break;
         }
     }
 
     private function emptyCarCustomer():void {
-        _armatureCustomer.animation.gotoAndPlay('empty');
+        _armatureCustomer.animation.gotoAndPlayByFrame('empty');
     }
 }
 }

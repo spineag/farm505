@@ -124,12 +124,10 @@ public class MatrixGrid {
                 }
             }
         }
-        g.cont.gridDebugCont.flatten();
     }
 
     public function drawDebugPartGrid(posX:int, posY:int, width:int, height:int):void {
         createGridTexture();
-        g.cont.gridDebugCont.unflatten();
 
         for (var i:int = posY; i < posY + height; i++) {
             for (var j:int = posX; j < posX + width; j++) {
@@ -138,11 +136,9 @@ public class MatrixGrid {
                 }
             }
         }
-        g.cont.gridDebugCont.flatten();
     }
 
     public function deleteDebugGrid():void {
-        g.cont.gridDebugCont.unflatten();
         while (g.cont.gridDebugCont.numChildren) {
             g.cont.gridDebugCont.removeChildAt(0);
         }

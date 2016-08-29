@@ -3,18 +3,15 @@
  */
 package build.farm {
 import com.junkbyte.console.Cc;
-
 import dragonBones.Armature;
-import dragonBones.Bone;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
 
-import starling.display.DisplayObject;
-
-import starling.display.DisplayObjectContainer;
 import starling.display.Image;
-
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class AnimalAnimation {
     private var _source:Sprite;
@@ -34,21 +31,21 @@ public class AnimalAnimation {
             return;
         }
         _armature = a;
-        _source.addChild(_armature.display as Sprite);
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
         if (id!=6) tryUnTouchableZZZ();
     }
 
     private function tryUnTouchableZZZ():void {
         try {
-            var b:Bone = _armature.getBone('zzz');
+            var b:Slot = _armature.getSlot('zzz');
             if (b && b.display is Image) {
                 (b.display as Image).touchable = false;
             }
-            b = _armature.getBone('zzz copy');
+            b = _armature.getSlot('zzz copy');
             if (b && b.display is Image) {
                 (b.display as Image).touchable = false;
             }
-            b = _armature.getBone('zzz copy 2');
+            b = _armature.getSlot('zzz copy 2');
             if (b && b.display is Image) {
                 (b.display as Image).touchable = false;
             }
@@ -71,26 +68,26 @@ public class AnimalAnimation {
     public function stopItAtLabel(label:String):void {
         _label = label;
         if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndStop(_label, 0);
+        _armature.animation.gotoAndStopByFrame(_label);
     }
 
     private function startAnimation():void {
         if (!WorldClock.clock.contains(_armature)) WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlay(_label);
+        _armature.animation.gotoAndPlayByFrame(_label);
     }
 
     private function addListener():void {
-        if (_armature && !_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.addEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
-        if (_armature && !_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onCompleteAnimation);
+        if (_armature && !_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, onCompleteAnimation);
+        if (_armature && !_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
     }
 
     private function removeListener():void {
-        if (_armature && _armature.hasEventListener(AnimationEvent.COMPLETE)) {
-            _armature.removeEventListener(AnimationEvent.COMPLETE, onCompleteAnimation);
+        if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) {
+            _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
         }
     }
 
-    private function onCompleteAnimation(e:AnimationEvent):void {
+    private function onCompleteAnimation(e:Event=null):void {
         if (_playOnce) {
             stopIt();
             if (_callback != null) {
@@ -110,7 +107,7 @@ public class AnimalAnimation {
 
     public function deleteIt():void {
         _source.removeChild(_armature.display as Sprite);
-        _armature.dispose();
+//        _armature.dispose();
         _armature = null;
         _source.dispose();
         _source = null;

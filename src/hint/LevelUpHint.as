@@ -81,58 +81,65 @@ public class LevelUpHint {
 
 
         if (_dataId == -1) {
-            _txtName = new TextField(200, 30,'Помощник', g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200, 30,'Помощник');
+            _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 25;
-            _txtText = new TextField(200,100,'Работает на ферме', g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            ManagerFilters.setEmptyStyle(_txtName);
+            _txtText = new TextField(200,100,'Работает на ферме');
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
             _txtText.x = -100;
             _txtText.y = 10;
+            ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
             wName = _txtText.textBounds.width + 40;
             bg = new HintBackground(wName, 70, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
         if (_dataId == -2) {
-            _txtName = new TextField(200, 30,'Грядка', g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200, 30,'Грядка');
+            _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 25;
-            _txtText = new TextField(200,100,'На ней растут растения', g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            ManagerFilters.setEmptyStyle(_txtName);
+            _txtText = new TextField(200,100,'На ней растут растения');
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
             _txtText.x = -100;
             _txtText.y = 10;
+            ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
             wName = _txtText.textBounds.width + 40;
             bg = new HintBackground(wName, 70, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
         if (animal) {
-            _txtName = new TextField(200, 30,String(g.dataAnimal.objectAnimal[_dataId].name), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200, 30,String(g.dataAnimal.objectAnimal[_dataId].name));
+            _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 25;
-            _txtText = new TextField(200,100,'Производит: ' + g.dataResource.objectResources[g.dataAnimal.objectAnimal[_dataId].idResource].name, g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            ManagerFilters.setEmptyStyle(_txtName);
+            _txtText = new TextField(200,100,'Производит: ' + g.dataResource.objectResources[g.dataAnimal.objectAnimal[_dataId].idResource].name);
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
             _txtText.x = -100;
             _txtText.y = 10;
-            _txtTime = new TextField(200,100,'Место жительства: ' + g.dataBuilding.objectBuilding[g.dataAnimal.objectAnimal[_dataId].buildId].name, g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-            _txtTime.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtTime = new TextField(200,100,'Место жительства: ' + g.dataBuilding.objectBuilding[g.dataAnimal.objectAnimal[_dataId].buildId].name);
+            _txtTime.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
             _txtTime.x = -100;
             _txtTime.y = 30;
+            ManagerFilters.setStrokeStyle(_txtTime, ManagerFilters.TEXT_BLUE_COLOR);
             wName = _txtTime.textBounds.width + 40;
             bg = new HintBackground(wName, 90, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
             _source.addChild(_txtTime);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
@@ -142,28 +149,29 @@ public class LevelUpHint {
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_TAIL || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.MARKET
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.ORDER || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DAILY_BONUS
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.CAVE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.PAPER || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.TRAIN) {
-                _txtName = new TextField(200, 30, String(g.dataBuilding.objectBuilding[_dataId].name), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+                _txtName = new TextField(200, 30, String(g.dataBuilding.objectBuilding[_dataId].name));
+                _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
                 _txtName.x = -100;
                 _txtName.y = 25;
+                ManagerFilters.setEmptyStyle(_txtName);
                 wName = _txtName.textBounds.width + 40;
                 bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _source.addChild(bg);
                 _source.addChild(_txtName);
-                _source.flatten();
                 g.cont.hintCont.addChild(_source);
                 return;
             }
         }
         if (g.dataResource.objectResources[_dataId].blockByLevel > g.user.level) {
-            _txtText = new TextField(200,100,"Будет доступно на: " + g.dataResource.objectResources[_dataId].blockByLevel + ' уровне', g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            _txtText = new TextField(200,100,"Будет доступно на: " + g.dataResource.objectResources[_dataId].blockByLevel + ' уровне');
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
             _txtText.x = -100;
             _txtText.y = -5;
+            ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
             wName = _txtText.textBounds.width + 40;
             bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtText);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             _source.x = start.x;
             _source.y = start.y;
@@ -173,21 +181,25 @@ public class LevelUpHint {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -40;
-            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name));
+            _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime = new TextField(80, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            ManagerFilters.setEmptyStyle(_txtName);
+            _txtTime = new TextField(80, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime));
+            _txtTime.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             if (_txtTime.textBounds.width >= 50) {
                 _txtTime.x = -20;
             } else {
                 _txtTime.x = -30;
             }
             _txtTime.y = 60;
-            _txtText = new TextField(200,100,'',g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            ManagerFilters.setEmptyStyle(_txtTime);
+            _txtText = new TextField(200,100,'Растет на грядке');
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
             _txtText.x = -100;
             _txtText.y = 5;
-            _txtText.text = "Растет на грядке";
+            ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
             _source.x = start.x + source.width/2;
             _source.y = start.y + source.height + 5;
             wText = _txtText.textBounds.width + 20;
@@ -199,18 +211,20 @@ public class LevelUpHint {
             _source.addChild(_txtText);
             _source.addChild(_txtTime);
             _source.addChild(_imageClock);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
         if (g.dataResource.objectResources[_dataId].buildType == BuildType.INSTRUMENT) {
-            _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name));
+            _txtName.format.setTo(g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtText = new TextField(200,100,String(g.dataResource.objectResources[_dataId].opys),g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            ManagerFilters.setEmptyStyle(_txtName);
+            _txtText = new TextField(200,100,String(g.dataResource.objectResources[_dataId].opys));
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
             _txtText.x = -100;
             _txtText.y = 15;
+            ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
             if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -218,7 +232,6 @@ public class LevelUpHint {
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
@@ -227,16 +240,21 @@ public class LevelUpHint {
             if (_dataId == objTrees[i].craftIdResource) {
                 _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
                 _imageClock.y = 70;
-                _txtName = new TextField(150,30,String(g.dataResource.objectResources[_dataId].name), g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
+                _txtName = new TextField(150,30,String(g.dataResource.objectResources[_dataId].name));
+                _txtName.format.setTo(g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 _txtName.x = -75;
                 _txtName.y = 20;
-                _txtTime = new TextField(50,50,TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime),g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
+                ManagerFilters.setEmptyStyle(_txtName);
+                _txtTime = new TextField(50,50,TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime));
+                _txtTime.format.setTo(g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 _txtTime.x = -10;
                 _txtTime.y = 60;
-                _txtText = new TextField(200,100,"Растет на: " + objTrees[i].name,g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-                _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+                ManagerFilters.setEmptyStyle(_txtTime);
+                _txtText = new TextField(200,100,"Растет на: " + objTrees[i].name);
+                _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
                 _txtText.x = -100;
                 _txtText.y = 5;
+                ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
                 if (_txtTime.textBounds.width >= 40) {
                     _imageClock.x = -35;
                 }else {
@@ -251,7 +269,6 @@ public class LevelUpHint {
                 _source.addChild(_txtText);
                 _source.addChild(_txtTime);
                 _source.addChild(_imageClock);
-                _source.flatten();
                 g.cont.hintCont.addChild(_source);
                 return;
             }
@@ -259,14 +276,16 @@ public class LevelUpHint {
 
         for (i=0; i<objCave.length; i++) {
             if (_dataId == int(objCave[i])) {
-                _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name), g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
+                _txtName = new TextField(200,30,String(g.dataResource.objectResources[_dataId].name));
+                _txtName.format.setTo(g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
                 _txtName.x = -100;
                 _txtName.y = 20;
-                _txtText = new TextField(200,100,"Место производства: Пещера",g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
-                _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+                ManagerFilters.setEmptyStyle(_txtName);
+                _txtText = new TextField(200,100,"Место производства: Пещера");
+                _txtText.format.setTo(g.allData.bFonts['BloggerBold14'],12,Color.WHITE);
                 _txtText.x = -100;
                 _txtText.y = 5;
-
+                ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
                 wText = _txtText.textBounds.width + 20;
                 wName = _txtName.textBounds.width + 40;
                 if (wText > wName) bg = new HintBackground(wText, 65, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -274,7 +293,6 @@ public class LevelUpHint {
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
-                _source.flatten();
                 g.cont.hintCont.addChild(_source);
                 return;
             }
@@ -284,17 +302,21 @@ public class LevelUpHint {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -30;
-            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name));
+            _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime = new TextField(50, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            ManagerFilters.setEmptyStyle(_txtName);
+            _txtTime = new TextField(50, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime));
+            _txtTime.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtTime.x = -10;
             _txtTime.y = 60;
-            _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_dataId].buildingId].name, g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            ManagerFilters.setEmptyStyle(_txtTime);
+            _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_dataId].buildingId].name);
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
             _txtText.x = -100;
             _txtText.y = 5;
-
+            ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
             if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -304,7 +326,6 @@ public class LevelUpHint {
             _source.addChild(_txtText);
             _source.addChild(_txtTime);
             _source.addChild(_imageClock);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
@@ -313,17 +334,21 @@ public class LevelUpHint {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -30;
-            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtName = new TextField(200, 30, String(g.dataResource.objectResources[_dataId].name));
+            _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime = new TextField(50, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime), g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
+            ManagerFilters.setEmptyStyle(_txtName);
+            _txtTime = new TextField(50, 50, TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime));
+            _txtTime.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
             _txtTime.x = -10;
             _txtTime.y = 60;
-            _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_dataId].buildId].name, g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
-            _txtText.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+            ManagerFilters.setEmptyStyle(_txtTime);
+            _txtText = new TextField(200, 100, "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_dataId].buildId].name);
+            _txtText.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
             _txtText.x = -100;
             _txtText.y = 5;
-
+            ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
             if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -333,7 +358,6 @@ public class LevelUpHint {
             _source.addChild(_txtText);
             _source.addChild(_txtTime);
             _source.addChild(_imageClock);
-            _source.flatten();
             g.cont.hintCont.addChild(_source);
             return;
         }
@@ -342,7 +366,6 @@ public class LevelUpHint {
     }
 
     public function hideIt():void {
-        _source.unflatten();
         if (bg) bg.deleteIt();
         while (_source.numChildren) {
             _source.removeChildAt(0);

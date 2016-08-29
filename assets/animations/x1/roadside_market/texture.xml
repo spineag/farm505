@@ -1,7 +1,0 @@
-<TextureAtlas name="roadside_market" imagePath="texture.png">
- <SubTexture name="shop" x="0" y="0" width="173" height="203"/>
- <SubTexture name="fruits1" x="175" y="109" width="65" height="50"/>
- <SubTexture name="fruits2" x="175" y="56" width="65" height="51"/>
- <SubTexture name="coins" x="175" y="161" width="53" height="37"/>
- <SubTexture name="top" x="175" y="0" width="75" height="54"/>
-</TextureAtlas>

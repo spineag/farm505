@@ -6,6 +6,7 @@ import manager.ManagerFilters;
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.Image;
+import starling.styles.DistanceFieldStyle;
 import starling.text.TextField;
 import utils.CSprite;
 import windows.WOComponents.HorizontalPlawka;
@@ -31,8 +32,12 @@ public class CatPanel {
         im.x = -19;
         im.y = -5;
         _source.addChild(im);
-        _txtCount = new TextField(77, 40, '55', g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtZero = new TextField(30, 40, '', g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtCount = new TextField(77, 40, '55');
+        _txtCount.format.setTo(g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_BROWN_COLOR);
+        ManagerFilters.setEmptyStyle(_txtCount);
+        _txtZero = new TextField(30, 40, '23');
+        _txtZero.format.setTo(g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_ORANGE_COLOR);
+        ManagerFilters.setEmptyStyle(_txtZero);
         _source.addChild(_txtCount);
         _source.addChild(_txtZero);
 
@@ -49,7 +54,7 @@ public class CatPanel {
             _txtZero.text = '0';
             _txtCount.text = String("/" + g.managerCats.curCountCats);
             _txtCount.x = 28;
-            _txtZero.x = 55 - _txtCount.textBounds.width;
+            _txtZero.x = 55 - _txtCount.textBounds.width - 7;
             _txtZero.visible = true;
         } else {
             _txtCount.text = String(g.managerCats.countFreeCats + "/" + g.managerCats.curCountCats);

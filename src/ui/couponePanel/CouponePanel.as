@@ -80,25 +80,29 @@ public class CouponePanel {
         _imRed.x = 145;
         _imRed.y += 5;
         _contCoupone.addChild(_imRed);
-        _txtGreen = new TextField(50,50,"", g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtGreen.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtGreen = new TextField(50,50,"");
+        _txtGreen.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtGreen.x = 55;
         _txtGreen.y = 20;
+        ManagerFilters.setStrokeStyle(_txtGreen, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtGreen);
-        _txtBlue = new TextField(50,50,"", g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtBlue.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtBlue = new TextField(50,50,"");
+        _txtBlue.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtBlue.x = 80;
         _txtBlue.y = 20;
+        ManagerFilters.setStrokeStyle(_txtBlue, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtBlue);
-        _txtYellow = new TextField(50,50,"", g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtYellow.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtYellow = new TextField(50,50,"");
+        _txtYellow.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtYellow.x = 105;
         _txtYellow.y = 20;
+        ManagerFilters.setStrokeStyle(_txtYellow, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtYellow);
-        _txtRed = new TextField(50,50,"", g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        _txtRed.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        _txtRed = new TextField(50,50,"");
+        _txtRed.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
         _txtRed.x = 130;
         _txtRed.y = 20;
+        ManagerFilters.setStrokeStyle(_txtRed, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtRed);
         _source.x = 20;
         _source.y = 120;
@@ -112,7 +116,7 @@ public class CouponePanel {
     private function onHover():void {
         g.managerHelpers.onUserAction();
         _contCoupone.visible = true;
-        var quad:Quad = new Quad(_imCoupone.width, _imCoupone.height,Color.WHITE ,false);
+        var quad:Quad = new Quad(_imCoupone.width, _imCoupone.height,Color.WHITE);
         quad.alpha = 0;
         _source.addChildAt(quad,0);
         _txtGreen.text = String(g.user.greenCouponCount);
@@ -120,8 +124,9 @@ public class CouponePanel {
         _txtRed.text = String(g.user.redCouponCount);
         _txtYellow.text = String(g.user.yellowCouponCount);
         g.hint.showIt("Ваучеры",'none',1);
-       _contClipRect.clipRect = new Rectangle(15,0,400,400);
-
+        _contClipRect.mask = new Quad(400, 400);
+        _contClipRect.mask.x = 15;
+        
         var tween:Tween = new Tween(_contCoupone, 0.2);
         tween.moveTo(10,0);
         tween.onComplete = function ():void {

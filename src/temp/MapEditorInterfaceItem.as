@@ -8,8 +8,6 @@ import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.text.TextField;
 import starling.text.TextFieldAutoSize;
-import starling.utils.HAlign;
-import starling.utils.VAlign;
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -23,10 +21,9 @@ public class MapEditorInterfaceItem {
     public function MapEditorInterfaceItem(ob:Object) {
         _data = ob;
         source = new CSprite();
-       _txt = new TextField(100, 10, _data.name, "Arial", 12, 0xffffff);
+       _txt = new TextField(100, 10, _data.name);
+        _txt.format.setTo("Arial", 12, 0xffffff);
         _txt.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
-        _txt.hAlign = HAlign.CENTER;
-        _txt.vAlign = VAlign.CENTER;
         _txt.x = 45 - _txt.width/2;
         _txt.y = 5;
         source.addChild(_txt);
@@ -37,7 +34,6 @@ public class MapEditorInterfaceItem {
         _image.x = 45;
         _image.y = 50;
         source.addChild(_image);
-        source.flatten();
 
         source.endClickCallback = onEndClick;
     }

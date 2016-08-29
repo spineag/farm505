@@ -48,43 +48,49 @@ public class WOTrainOrder extends WindowMain{
         im.y = 10;
         im.x = 35;
         _btn.addDisplayObject(im);
-        txt = new TextField(100,50,"привезти сейчас",g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+        txt = new TextField(100,50,"привезти сейчас");
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
         txt.x = 60;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(txt);
-        txt = new TextField(50,50,"30",g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+        txt = new TextField(50,50,"30");
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
         txt.x = -5;
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(txt);
         _btn.y = 110;
         _btn.clickCallback = onClickBtn;
         _source.addChild(_btn);
 
-        txt = new TextField(300,50,"ПРИБЫТИЕ КОРЗИНКИ ",g.allData.bFonts['BloggerBold24'],24,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt = new TextField(300,50,"ПРИБЫТИЕ КОРЗИНКИ ");
+        txt.format.setTo(g.allData.bFonts['BloggerBold24'],24,Color.WHITE);
         txt.x = -150;
         txt.y = -145;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
 
-        txt = new TextField(150,50,"Следующий заказ:","Arial",14,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt = new TextField(150,50,"Следующий заказ:");
+        txt.format.setTo(g.allData.bFonts['bloggerBold14'],14,Color.WHITE);
         txt.x = -80;
         txt.y = -60;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
 
-        txt = new TextField(300,50,"Корзина прибудет к станции через:",g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        txt = new TextField(300,50,"Корзина прибудет к станции через:");
+        txt.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         txt.x = -150;
         txt.y = -120;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
         im.x = -55;
         im.y = -80;
         _source.addChild(im);
-        _txtTime = new TextField(80,50,"",g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
+        _txtTime = new TextField(80,50,"");
+        _txtTime.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         _txtTime.x = -20;
         _txtTime.y = -85;
-        _txtTime.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(_txtTime, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtTime);
     }
 

@@ -1,7 +1,8 @@
 package loaders {
+import com.deadreckoned.assetmanager.Asset;
+
 import manager.*;
 
-import com.deadreckoned.assetmanager.Asset;
 import com.deadreckoned.assetmanager.AssetManager;
 import com.deadreckoned.assetmanager.AssetQueue;
 import com.junkbyte.console.Cc;
@@ -120,6 +121,43 @@ public class LoaderManager {
         Cc.ch('load', 'on load xml: ' + url);
 
         g.pXMLs[url] = xml;
+        if (callback != null) {
+            callback.apply(null, callbackParams);
+        }
+
+        if (additionalQueue[url] && additionalQueue[url].length) {
+            for (var i:int = 0; i < additionalQueue[url].length; i++) {
+                if (additionalQueue[url][i].callback != null) {
+                    additionalQueue[url][i].callback.apply(null, additionalQueue[url][i].callbackParams);
+                }
+            }
+        }
+
+        if (additionalQueue[url]) additionalQueue[url] = null;
+    }
+
+    public function loadJSON(url:String, callback:Function = null, ...callbackParams):void {
+        if (url == '') return;
+
+        Cc.ch('load', 'try to load json: ' + url);
+        if (g.pXMLs[url]) {
+            setCallback(url, callback, callbackParams);
+            getCallback(url);
+            return;
+        }
+
+        if (!additionalQueue[url]) {
+            additionalQueue[url] = new Array();  // первый элемент пропускаем, чтобы не было двойного колбека на него
+        } else {
+            additionalQueue[url].push({callback: callback, callbackParams: callbackParams});
+        }
+
+        _loaderQueue.add(url, {type: AssetManager.TYPE_JSON, priority: 8, onComplete: loadedJSON, onCompleteParams: [url, callback, callbackParams], onError: errorHandler, onErrorParams: [url]});
+    }
+
+    private function loadedJSON(url:String, callback:Function, callbackParams:Array):void {
+        Cc.ch('load', 'on load json: ' + url);
+        g.pJSONs[url] = _loader.get(url).asset;
         if (callback != null) {
             callback.apply(null, callbackParams);
         }

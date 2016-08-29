@@ -41,10 +41,11 @@ public class CaveItem {
         source.outCallback = function():void {source.filter = null;};
 //        source.hoverCallback = onHover;
 //        source.outCallback = onOut;
-        _txtCount = new TextField(40,30,'',g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
-        _txtCount.nativeFilters =  ManagerFilters.TEXT_STROKE_BROWN;
+        _txtCount = new TextField(40,30,'');
+        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
         _txtCount.x = 60;
         _txtCount.y = 68;
+        ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txtCount);
     }
 

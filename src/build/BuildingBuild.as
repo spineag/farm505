@@ -4,19 +4,18 @@
 package build {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
-import dragonBones.factories.StarlingFactory;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
 
-import flash.events.Event;
-import loaders.EmbedAssets;
 import manager.Vars;
 
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class BuildingBuild {
     public var source:Sprite;
     private var armature:Armature;
-    private var armatureClip:Sprite;
+    private var armatureClip:StarlingArmatureDisplay;
     private var g:Vars = Vars.getInstance();
     private var _isOverAnim:Boolean;
 
@@ -24,7 +23,7 @@ public class BuildingBuild {
         _isOverAnim = false;
         source = new Sprite();
         armature = g.allData.factory['buildingBuild'].buildArmature("building");
-        armatureClip = armature.display as Sprite;
+        armatureClip = armature.display as StarlingArmatureDisplay;
         source.addChild(armatureClip);
         WorldClock.clock.add(armature);
         if (st == 'work') {
@@ -35,11 +34,11 @@ public class BuildingBuild {
     }
 
     public function workAnimation():void {
-        armature.animation.gotoAndPlay("work");
+        armature.animation.gotoAndPlayByFrame("work");
     }
 
     public function doneAnimation():void {
-        armature.animation.gotoAndStop("done", 0);
+        armature.animation.stop("done");
     }
 
     public function deleteIt():void {
@@ -55,15 +54,15 @@ public class BuildingBuild {
     public function overItFoundation():void {
         if (armature && !_isOverAnim) {
             _isOverAnim = true;
-            armature.addEventListener(AnimationEvent.COMPLETE, onOverFoundation);
-            armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onOverFoundation);
-            armature.animation.gotoAndPlay('over2');
+            armature.addEventListener(EventObject.COMPLETE, onOverFoundation);
+            armature.addEventListener(EventObject.LOOP_COMPLETE, onOverFoundation);
+            armature.animation.gotoAndPlayByFrame('over2');
         }
     }
 
-    private function onOverFoundation(e:AnimationEvent):void {
-        armature.removeEventListener(AnimationEvent.COMPLETE, onOverFoundation);
-        armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onOverFoundation);
+    private function onOverFoundation(e:Event=null):void {
+        armature.removeEventListener(EventObject.COMPLETE, onOverFoundation);
+        armature.removeEventListener(EventObject.LOOP_COMPLETE, onOverFoundation);
         _isOverAnim = false;
         workAnimation();
     }
@@ -71,15 +70,15 @@ public class BuildingBuild {
     public function overItDone():void {
         if (armature && !_isOverAnim) {
             _isOverAnim = true;
-            armature.addEventListener(AnimationEvent.COMPLETE, onOverDone);
-            armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onOverDone);
-            armature.animation.gotoAndPlay('over');
+            armature.addEventListener(EventObject.COMPLETE, onOverDone);
+            armature.addEventListener(EventObject.LOOP_COMPLETE, onOverDone);
+            armature.animation.gotoAndPlayByFrame('over');
         }
     }
 
-    private function onOverDone(e:AnimationEvent):void {
-        armature.removeEventListener(AnimationEvent.COMPLETE, onOverDone);
-        armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onOverDone);
+    private function onOverDone(e:Event=null):void {
+        armature.removeEventListener(EventObject.COMPLETE, onOverDone);
+        armature.removeEventListener(EventObject.LOOP_COMPLETE, onOverDone);
         _isOverAnim = false;
         doneAnimation();
     }

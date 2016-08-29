@@ -4,6 +4,7 @@
 package preloader {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
+import dragonBones.starling.StarlingArmatureDisplay;
 
 import manager.Vars;
 
@@ -29,7 +30,7 @@ public class AwayPreloader {
         _source = new Sprite();
         _armature = g.allData.factory['visit_preloader'].buildArmature("cat");
         _armatureSprite = new Sprite();
-        _armatureSprite.addChild(_armature.display as Sprite);
+        _armatureSprite.addChild(_armature.display as StarlingArmatureDisplay);
         _source.addChild(_armatureSprite);
     }
 
@@ -45,7 +46,7 @@ public class AwayPreloader {
             _armatureSprite.scaleX = 1;
         }
         WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlay('run');
+        _armature.animation.gotoAndPlayByFrame('run');
 
         _source.x = Starling.current.nativeStage.stageWidth/2;
         _source.y = Starling.current.nativeStage.stageHeight/2;

@@ -85,15 +85,19 @@ public class TreeHint {
         _imageCircle.x = 45;
         _imageCircle.y = -110;
 
-        _txtItem = new TextField(50,50,"",g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
-        _txtItem.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        _txtItem = new TextField(50,50,"");
+        _txtItem.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
         _txtItem.x = 38;
         _txtItem.y = -117;
-        _txtName = new TextField(200,50,"",g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
-        _txtName.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        ManagerFilters.setStrokeStyle(_txtItem, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtName = new TextField(200,50,"");
+        _txtName.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         _txtName.x = -100;
         _txtName.y = -140;
-        _txtText = new TextField(50,30,'УСКОРИТЬ',g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BLUE_COLOR);
+        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtText = new TextField(50,30,'УСКОРИТЬ');
+        _txtText.format.setTo(g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BLUE_COLOR);
+        ManagerFilters.setEmptyStyle(_txtText);
 
         _contDelete.addDisplayObject(_imageBgItem);
         _contWatering.addDisplayObject(_imageBgItemHelp);
@@ -127,7 +131,7 @@ public class TreeHint {
             return;
         }
         _onOutCallback = out;
-        _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE ,false);
+        _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE);
         _quad.alpha = 0;
         _quad.x = -_bg.width/2;
         _quad.y = -_bg.height;
@@ -152,6 +156,10 @@ public class TreeHint {
 
         };
         g.starling.juggler.add(tween);
+        if (_imageItem) {
+            _contDelete.removeChild(_imageItem);
+            _imageItem = null;
+        }
         _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[data.removeByResourceId].imageShop));
         if (!_imageItem) {
             Cc.error('TreeHint showIt:: no such image: ' + g.dataResource.objectResources[data.removeByResourceId].imageShop);
@@ -199,6 +207,7 @@ public class TreeHint {
                 if (g.cont.hintCont.contains(_source)) {
                     g.cont.hintCont.removeChild(_source);
                     _contDelete.removeChild(_imageItem);
+                    _imageItem = null;
                 }
                 if (callback != null) {
                     callback.apply();
@@ -222,6 +231,7 @@ public class TreeHint {
                     if (g.cont.hintCont.contains(_source)) {
                         g.cont.hintCont.removeChild(_source);
                         _contDelete.removeChild(_imageItem);
+                        _imageItem = null;
                     }
                 };
                 g.starling.juggler.add(tween);

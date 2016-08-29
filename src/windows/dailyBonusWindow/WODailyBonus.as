@@ -82,16 +82,18 @@ public class WODailyBonus extends WindowMain {
 
         _btnFree = new CButton();
         _btnFree.addButtonTexture(146, 40, CButton.BLUE, true);
-        var txt:TextField  = new TextField(146, 40, 'Вращать колесо', g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        var txt:TextField  = new TextField(146, 40, 'Вращать колесо');
+        txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btnFree.addChild(txt);
         _btnFree.y = 260;
         _source.addChild(_btnFree);
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(200, 40, CButton.GREEN, true);
-        _txtBtnBuy = new TextField(170, 40, 'Вращать колесо за 10', g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        _txtBtnBuy.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _txtBtnBuy = new TextField(170, 40, 'Вращать колесо за 10');
+        _txtBtnBuy.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
+        ManagerFilters.setStrokeStyle(_txtBtnBuy, ManagerFilters.TEXT_GREEN_COLOR);
         _btnBuy.addChild(_txtBtnBuy);
         _btnBuy.y = 260;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
@@ -110,11 +112,9 @@ public class WODailyBonus extends WindowMain {
             item = new WODailyBonusItem(arr[i], i, _koleso);
             _arrItems.push(item);
         }
-        _koleso.flatten();
     }
 
     private function clearItems():void {
-        _koleso.unflatten();
         for (var i:int=0; i< _arrItems.length; i++) {
             _arrItems[i].deleteIt();
         }

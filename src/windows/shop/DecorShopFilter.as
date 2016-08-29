@@ -43,7 +43,8 @@ public class DecorShopFilter {
         _itemsSprite.y = 5;
         _itemsSpriteMain.addChild(_itemsSprite);
         _source.addChild(_itemsSpriteMain);
-        _itemsSpriteMain.clipRect = new flash.geom.Rectangle(0, -200, 200, 200);
+        _itemsSpriteMain.mask = new Quad(200, 200);
+        _itemsSpriteMain.mask.y = -200;
         _arrItems = [];
         _isShow = false;
         createItems();

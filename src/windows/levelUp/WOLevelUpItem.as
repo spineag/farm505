@@ -40,14 +40,16 @@ public class WOLevelUpItem {
         _bolAnimal = false;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtNew = new TextField(80,20,'',g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
-        _txtNew.nativeFilters = ManagerFilters.TEXT_STROKE_RED;
+        _txtNew = new TextField(80,20,'');
+        _txtNew.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
         _txtNew.y = 65;
         _txtNew.x = -5;
-        _txtCount = new TextField(80,20,'',g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
-        _txtCount.nativeFilters = ManagerFilters.TEXT_STROKE_RED;
+        ManagerFilters.setStrokeStyle(_txtNew, Color.RED);
+        _txtCount = new TextField(80,20,'');
+        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
         _txtCount.x = 15;
         _txtCount.y = 10;
+        ManagerFilters.setStrokeStyle(_txtCount, Color.RED);
         try {
             _txtNew.text = 'НОВОЕ!';
             if (ob.coins) {

@@ -5,6 +5,7 @@ package windows.WOComponents {
 
 import flash.geom.Rectangle;
 import starling.display.BlendMode;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.textures.Texture;
 
@@ -32,7 +33,7 @@ public class DefaultVerticalScrollSprite {
         _source = new Sprite();
         _scrolledSprite = new Sprite();
         _source.addChild(_scrolledSprite);
-        _source.clipRect = new Rectangle(0, 0, _width*2, _height); // умножили ширину на 2, так как иначе не будет видно полосу прокрутки
+        _source.mask = new Quad(_width*2, _height); // умножили ширину на 2, так как иначе не будет видно полосу прокрутки
     }
 
     public function createScoll(x:int, y:int, h:int, lineTexture:Texture, boxTexture:Texture):void {

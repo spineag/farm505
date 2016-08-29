@@ -4,11 +4,12 @@
 package build.wild {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
 
 import manager.Vars;
-
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class RemoveWildAnimation {
     private var _parent:Sprite;
@@ -37,7 +38,7 @@ public class RemoveWildAnimation {
                 _y = -43 * g.scaleFactor;
                 _countPlay = 3;
                 _armature = g.allData.factory['tools'].buildArmature("axe");
-                (_armature.display as Sprite).rotation = -Math.PI/2;
+                (_armature.display as StarlingArmatureDisplay).rotation = -Math.PI/2;
                 break;
             case 125: // shovel
                 _x = 38 * g.scaleFactor;
@@ -59,15 +60,15 @@ public class RemoveWildAnimation {
                 break;
         }
         WorldClock.clock.add(_armature);
-        _armature.display.x = _x;
-        _armature.display.y = _y;
-        _parent.addChild(_armature.display as Sprite);
+        (_armature.display as StarlingArmatureDisplay).x = _x;
+        (_armature.display as StarlingArmatureDisplay).y = _y;
+        _parent.addChild(_armature.display as StarlingArmatureDisplay);
         playIt();
     }
 
-    private function playIt(e:AnimationEvent=null):void {
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, playIt);
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, playIt);
+    private function playIt(e:Event=null):void {
+        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, playIt);
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, playIt);
 
         _countPlay--;
         if (_countPlay < 0) {
@@ -81,31 +82,31 @@ public class RemoveWildAnimation {
             }
             showBoom();
         } else {
-            _armature.addEventListener(AnimationEvent.COMPLETE, playIt);
-            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, playIt);
-            _armature.animation.gotoAndPlay("work");
+            _armature.addEventListener(EventObject.COMPLETE, playIt);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, playIt);
+            _armature.animation.gotoAndPlayByFrame("work");
         }
     }
 
     private function showBoom():void {
         _armature = g.allData.factory['explode_gray'].buildArmature("expl");
-        _parent.addChild(_armature.display as Sprite);
+        _parent.addChild(_armature.display as StarlingArmatureDisplay);
         WorldClock.clock.add(_armature);
-        _armature.addEventListener(AnimationEvent.COMPLETE, onBoom);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
-        _armature.animation.gotoAndPlay("start");
+        _armature.addEventListener(EventObject.COMPLETE, onBoom);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
+        _armature.animation.gotoAndPlayByFrame("start");
     }
 
-    private function onBoom(e:AnimationEvent=null):void {
+    private function onBoom(e:Event=null):void {
         if (_callbackTotal != null) {
             _callbackTotal.apply();
             _callbackTotal = null;
         }
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, onBoom);
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, onBoom);
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
         WorldClock.clock.remove(_armature);
         _parent.removeChild(_armature.display as Sprite);
-        _armature.dispose();
+//        _armature.dispose();
         _armature = null;
     }
 }

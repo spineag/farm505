@@ -2,6 +2,8 @@
  * Created by andy on 8/12/15.
  */
 package windows.reloadPage {
+import manager.ManagerFilters;
+
 import media.SoundConst;
 
 import starling.text.TextField;
@@ -21,9 +23,11 @@ public class WOReloadGame extends WindowMain{
         _woHeight = 300;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        var txt:TextField = new TextField(400,300,"Перегрузите игру", g.allData.bFonts['BloggerBold30'],30,Color.WHITE);
+        var txt:TextField = new TextField(400,300,"Перегрузите игру");
+        txt.format.setTo(g.allData.bFonts['BloggerBold30'],30,Color.WHITE);
         txt.x = -200;
         txt.y = -150;
+        ManagerFilters.setEmptyStyle(txt);
         _source.addChild(txt);
         SOUND_OPEN = SoundConst.WO_AHTUNG;
     }

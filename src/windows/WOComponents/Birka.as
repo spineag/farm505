@@ -7,8 +7,8 @@ import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
-import starling.utils.HAlign;
 
 public class Birka extends Sprite{
     private var _source:Sprite;
@@ -21,15 +21,15 @@ public class Birka extends Sprite{
     public function Birka(text:String, parent:Sprite, w:int, h:int) {
         _parent = parent;
         _source = new Sprite();
-        _txt = new TextField(300, 70, text, g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
-        _txt.hAlign =  HAlign.LEFT;
-        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_LIGHT_BLUE;
+        _txt = new TextField(300, 70, text);
+        _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
+        _txt.format.horizontalAlign = Align.LEFT;
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _bg = new Sprite();
 
         createAll();
 
         _source.touchable = false;
-        _source.flatten();
         _source.y = -h/2 + _curH/2 + 180;
         _source.x = -w/2 + 14;
         _parent.addChild(_source);
@@ -85,11 +85,9 @@ public class Birka extends Sprite{
 
     public function updateText(st:String):void {
         _txt.text = st;
-        _source.unflatten();
         while (_bg.numChildren) _bg.removeChildAt(0);
         while (_source.numChildren) _source.removeChildAt(0);
         createAll();
-        _source.flatten();
     }
 
     public function flipIt():void {
@@ -98,7 +96,6 @@ public class Birka extends Sprite{
     }
 
     public function deleteIt():void {
-        _txt.nativeFilters = [];
         if (_parent.contains(_source)) _parent.removeChild(_source);
         _source.dispose();
         _source = null;

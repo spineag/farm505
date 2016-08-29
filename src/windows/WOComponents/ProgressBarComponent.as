@@ -27,9 +27,6 @@ public class ProgressBarComponent extends Sprite {
         addChild(_left);
         addChild(_center);
         addChild(_right);
-        _left.flatten();
-        _center.flatten();
-        _right.flatten();
     }
 
     public function set progress(percent:Number):void {
@@ -50,14 +47,12 @@ public class ProgressBarComponent extends Sprite {
 
     private function setCenterWidth(w:int):void {
         var im:Image;
-        _center.unflatten();
         while (_center.numChildren) _center.removeChildAt(0);
         for (var i:int=0; i<=w+1; i++) {
             im = new Image(_ct);
             im.x = i-1;
             _center.addChild(im);
         }
-        _center.flatten();
     }
 
     public function deleteIt():void {

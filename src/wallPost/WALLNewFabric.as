@@ -3,45 +3,69 @@
  */
 package wallPost {
 import flash.display.Bitmap;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
 
 import manager.Vars;
+
+import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
+import starling.utils.Color;
 
 import utils.DrawToBitmap;
 
 public class WALLNewFabric {
     protected var g:Vars = Vars.getInstance();
-    private var _source:Sprite;
     private var _data:Object;
+    private var _loaderCounter:int;
 
-    public function WALLNewFabric() {
-        _source = new Sprite();
-    }
+    public function WALLNewFabric() {}
 
     public function showItParams(callback:Function, params:Object):void {
         var st:String = g.dataPath.getGraphicsPath();
-        g.load.loadImage(st + 'wall/wall_new_fabric.jpg',onLoad);
         _data = params;
+        _loaderCounter = 3;
+        g.load.loadImage(st + 'wall/wall_new_fabric.jpg',onLoad);
+        g.load.loadImage(st + 'iconAtlas.png' + g.getVersion('iconAtlas'), onLoad);
+        g.load.loadXML(st + 'iconAtlas.xml' + g.getVersion('iconAtlas'), onLoad);
     }
 
-    private function onLoad(bitmap:Bitmap):void {
+    private function onLoad(smth:*=null):void {
+        _loaderCounter--;
+        if (_loaderCounter <= 0) onLoadTotal();
+    }
+
+    private function onLoadTotal():void {
         var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'wall/wall_new_fabric.jpg'].create() as Bitmap;
-        _source.addChild(Image.fromBitmap(bitmap));
-        if (_data.image) {
-            var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
-            if (!texture) {
-                texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
+        var bitmap:Bitmap = g.pBitmaps[st + 'wall/wall_new_fabric.jpg'].create() as Bitmap;
+        var sp:flash.display.Sprite = new flash.display.Sprite();
+        sp.addChild(bitmap);
+
+        var bd:BitmapData = DrawToBitmap.getBitmapFromTextureBitmapAndTextureXML(g.pBitmaps[st + 'iconAtlas.png' + g.getVersion('iconAtlas')].create() as Bitmap,
+                g.pXMLs[st + 'iconAtlas.xml' + g.getVersion('iconAtlas')], _data.url + '_icon');
+        var j:int;
+        for (var i:int=0; i<bd.width; i++) {
+            for (j=0; j<bd.height; j++) {
+                if (bd.getPixel(i, j) == Color.WHITE){
+                    bd.setPixel32(i, j, 0x00ffffff);
+                }
             }
         }
-        var im:Image = new Image(texture);
-        im.x = 200;
-        im.y = 160;
-        _source.addChild(im);
-        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(_source);
-        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Мы построили новую фабрику! Теперь в Долине Рукоделия еще больше прибыльного производства!'),bitMap,'interfaceAtlas');
+        if (bd) {
+            var b:Bitmap = new Bitmap(bd);
+            b.x = 307 - b.width/2;
+            b.y = 215 - b.height/2;
+            sp.addChild(b);
+        }
+        var rbd:BitmapData = new BitmapData(sp.width, sp.height);
+        rbd.draw(sp);
+        var rb:Bitmap = new Bitmap(rbd);
+        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Мы построили новую фабрику! Теперь в Долине Рукоделия еще больше прибыльного производства!'),rb,'interfaceAtlas');
+        delete  g.pBitmaps[st + 'iconAtlas.png' + g.getVersion('iconAtlas')];
+        delete  g.pXMLs[st + 'iconAtlas.xml' + g.getVersion('iconAtlas')];
+        delete g.pBitmaps[st + 'wall/wall_new_fabric.jpg'];
     }
 }
 }

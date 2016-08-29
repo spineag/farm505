@@ -87,10 +87,11 @@ public class DropItem {
             return;
         }
         MCScaler.scale(_image, fromSize, fromSize);
-        var txt:TextField = new TextField(70,30,'+' + String(prise.count),g.allData.bFonts['BloggerBold18'], int(18*fromSize/50) , Color.WHITE);
-        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BROWN;
+        var txt:TextField = new TextField(70,30,'+' + String(prise.count));
+        txt.format.setTo(g.allData.bFonts['BloggerBold18'], int(18*fromSize/50) , Color.WHITE);
         txt.x = -15;
         txt.y = _image.height - 5;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_image);
         _source.pivotX = _source.width / 2;
         _source.pivotY = _source.height / 2;

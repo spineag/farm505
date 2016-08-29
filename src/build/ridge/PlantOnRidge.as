@@ -7,6 +7,8 @@ import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import manager.Vars;
 import mouse.ToolsModifier;
 import starling.display.Sprite;
@@ -36,7 +38,7 @@ public class PlantOnRidge {
         _source = new Sprite();
         _ridge.addChildPlant(_source);
         armature = g.allData.factory[_data.url].buildArmature(_data.imageShop);
-        _source.addChild(armature.display as Sprite);
+        _source.addChild(armature.display as StarlingArmatureDisplay);
         WorldClock.clock.add(armature);
         _source.y = 35 * g.scaleFactor;
         _data.timeToGrow2 = _data.timeToGrow3 = int(_data.buildTime/3);
@@ -61,22 +63,22 @@ public class PlantOnRidge {
                 return;
 
             case Ridge.GROW1:
-                armature.animation.gotoAndStop("state1", 0);
+                armature.animation.gotoAndStopByFrame("state1");
                 _ridge.checkBuildRect(false);
                 if (needSetTimer) _timeToEndState = _data.timeToGrow2;
                 break;
             case Ridge.GROW2:
-                armature.animation.gotoAndStop("state2", 0);
+                armature.animation.gotoAndStopByFrame("state2");
                 _ridge.checkBuildRect(false);
                 if (needSetTimer) _timeToEndState = _data.timeToGrow3;
                 break;
             case Ridge.GROW3:
-                armature.animation.gotoAndStop("state3", 0);
+                armature.animation.gotoAndStopByFrame("state3");
                 _ridge.checkBuildRect(false);
                 if (needSetTimer) _timeToEndState = _data.timeToStateGwoned;
                 break;
             case Ridge.GROWED:
-                armature.animation.gotoAndStop("state4", 0);
+                armature.animation.gotoAndStopByFrame("state4");
                 _ridge.checkBuildRect(false);
 //                animateEndState(); !!!
 //                addParticles();
@@ -93,7 +95,7 @@ public class PlantOnRidge {
         _timerAnimationGrowed --;
         if (_timerAnimationGrowed <=0) {
             if (armature == null) return;
-            armature.animation.gotoAndPlay('state4',0);
+            armature.animation.gotoAndPlayByFrame('state4',0);
             g.gameDispatcher.removeFromTimer(timerAnimation);
             growedAnimation();
         }
@@ -186,7 +188,7 @@ public class PlantOnRidge {
     }
 
     public function hoverGrowed():void {
-        armature.animation.gotoAndPlay('state4',0);
+        armature.animation.gotoAndPlayByFrame('state4',0);
     }
 }
 }

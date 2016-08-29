@@ -7,6 +7,7 @@ import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.filters.BlurFilter;
+import starling.filters.DropShadowFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
@@ -16,7 +17,6 @@ import windows.WOComponents.CartonBackground;
 
 public class ShopTabBtn {
     private var _source:CSprite;
-    private var _SHADOW:BlurFilter;
     private var _shopSprite:Sprite;
     private var _shopSource:Sprite;
     private var _defaultX:int;
@@ -27,17 +27,17 @@ public class ShopTabBtn {
     private var _type:int;
     private var g:Vars = Vars.getInstance();
 
-    public function ShopTabBtn(type:int, f:Function, shopSprite:Sprite, shopSource:Sprite, shadow:BlurFilter) {
-        _SHADOW = shadow;
+    public function ShopTabBtn(type:int, f:Function, shopSprite:Sprite, shopSource:Sprite) {
         _shopSprite = shopSprite;
         _shopSource = shopSource;
         _source = new CSprite();
         _type = type;
         _bg = new CartonBackground(123, 100);
         _source.addChild(_bg);
-        var _txt:TextField = new TextField(123, 100, '', g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
-        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        var _txt:TextField = new TextField(123, 100, '');
+        _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
         _txt.y = 10;
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BLUE_COLOR);
         var f1:Function = function():void {
             if (g.managerCutScenes.isCutScene) return;
             if (g.managerTutorial.isTutorial) return;
@@ -58,7 +58,8 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.villageNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.villageNotification));
+                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);
@@ -77,7 +78,8 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.fabricaNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.fabricaNotification));
+                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);
@@ -92,7 +94,8 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.plantNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.plantNotification));
+                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);
@@ -107,18 +110,19 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.decorNotification), g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+                    _txtNotification = new TextField(30, 30, String(g.user.decorNotification));
+                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
                     _txtNotification.x = 98;
                     _txtNotification.y = -7;
                     _source.addChild(_txtNotification);
                 }
                 break;
         }
+        ManagerFilters.setEmptyStyle(_txtNotification);
         im.x = 62 - im.width/2;
         im.y = 38 - im.height/2;
         _source.addChild(im);
         _source.addChild(_txt);
-        _source.flatten();
     }
 
     public function activateIt(value:Boolean):void {
@@ -132,7 +136,7 @@ public class ShopTabBtn {
         } else {
             if (_shopSprite.contains(_source)) _shopSprite.removeChild(_source);
             if (!_shopSource.contains(_source)) _shopSource.addChild(_source);
-            _source.filter = _SHADOW;
+            _source.filter = ManagerFilters.SHADOW;
             _shopSource.setChildIndex(_source, _shopSource.getChildIndex(_shopSprite));
             _source.x = _defaultX + _shopSprite.x;
             _source.y = _defaultY +_shopSprite.y + 10;
@@ -198,7 +202,6 @@ public class ShopTabBtn {
     }
 
     public function deleteIt():void {
-        _SHADOW = null;
         if (_shopSource.contains(_source)) _shopSource.removeChild(_source);
         if (_shopSprite.contains(_source)) _shopSprite.removeChild(_source);
         _source.removeChild(_bg);

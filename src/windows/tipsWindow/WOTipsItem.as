@@ -36,18 +36,19 @@ public class WOTipsItem {
         source.addChild(_bg);
         _btn = new CButton();
         _btn.addButtonTexture(95, 34, CButton.GREEN, true);
-        _txtBtn = new TextField(95, 34, "Показать", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txtBtn.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _txtBtn = new TextField(95, 34, "Показать");
+        _txtBtn.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        ManagerFilters.setStrokeStyle(_txtBtn, ManagerFilters.TEXT_GREEN_COLOR);
         _btn.addChild(_txtBtn);
-        _btn.registerTextField(_txtBtn, ManagerFilters.TEXT_STROKE_GREEN);
         _btn.x = 365;
         _btn.y = 34;
         source.addChild(_btn);
-        _txt = new TextField(230, 40, "", g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        _txt.nativeFilters = ManagerFilters.TEXT_STROKE_GREEN;
+        _txt = new TextField(230, 40, "");
+        _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
         _txt.autoScale = true;
         _txt.x = 75;
         _txt.y = 14;
+        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_GREEN_COLOR);
         source.addChild(_txt);
     }
 
@@ -141,9 +142,8 @@ public class WOTipsItem {
         _bg.deleteIt();
         _bg = null;
         source.removeChild(_btn);
-        _btn.deregisterTextField(_txtBtn);
         _btn.removeChild(_txtBtn);
-        _txt.nativeFilters = [];
+        _txt.filter = null;
         _btn.deleteIt();
         _btn = null;
         _txtBtn.dispose();

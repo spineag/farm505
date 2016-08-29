@@ -1,23 +1,23 @@
 package build.train {
 import analytic.AnalyticManager;
-
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 import data.DataMoney;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
-import dragonBones.events.AnimationEvent;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
-import manager.ManagerWallPost;
-
 import media.SoundConst;
-
 import mouse.ToolsModifier;
 import resourceItem.DropItem;
 import starling.core.Starling;
 import starling.display.Sprite;
+import starling.events.Event;
+
 import temp.DropResourceVariaty;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import ui.xpPanel.XPStar;
@@ -107,17 +107,17 @@ public class Train extends WorldObject{
     }
 
     private function arriveTrain():void {
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, makeIdleAnimation);
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeIdleAnimation);
-        _armature.animation.gotoAndPlay('work');
+        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, makeIdleAnimation);
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, makeIdleAnimation);
+        _armature.animation.gotoAndPlayByFrame('work');
         _arriveAnim.makeArriveKorzina(afterWork);
         _bolAnimation = true;
     }
 
     private function leaveTrain():void {
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, makeIdleAnimation);
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeIdleAnimation);
-        _armature.animation.gotoAndPlay('work');
+        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, makeIdleAnimation);
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, makeIdleAnimation);
+        _armature.animation.gotoAndPlayByFrame('work');
         _arriveAnim.makeAwayKorzina(afterWork);
         _bolAnimation = true;
     }
@@ -126,21 +126,21 @@ public class Train extends WorldObject{
         makeIdleAnimation();
     }
 
-    private function makeIdleAnimation(e:AnimationEvent=null):void {
+    private function makeIdleAnimation(e:Event=null):void {
         _bolAnimation = false;
-        if (_armature.hasEventListener(AnimationEvent.COMPLETE)) _armature.removeEventListener(AnimationEvent.COMPLETE, makeIdleAnimation);
-        if (_armature.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, makeIdleAnimation);
-        _armature.addEventListener(AnimationEvent.COMPLETE, makeIdleAnimation);
-        _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, makeIdleAnimation);
+        if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, makeIdleAnimation);
+        if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, makeIdleAnimation);
+        _armature.addEventListener(EventObject.COMPLETE, makeIdleAnimation);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, makeIdleAnimation);
         var n:Number = Math.random();
         if (n < .55) {
-            _armature.animation.gotoAndPlay('idle_1');
+            _armature.animation.gotoAndPlayByFrame('idle_1');
         } else if (n < .7) {
-            _armature.animation.gotoAndPlay('idle_2');
+            _armature.animation.gotoAndPlayByFrame('idle_2');
         } else if (n < .85) {
-            _armature.animation.gotoAndPlay('idle_3');
+            _armature.animation.gotoAndPlayByFrame('idle_3');
         } else {
-            _armature.animation.gotoAndPlay('idle_4');
+            _armature.animation.gotoAndPlayByFrame('idle_4');
         }
     }
 
@@ -225,7 +225,7 @@ public class Train extends WorldObject{
 
     private function createBrokenTrain():void {
         _build.visible = true;
-        if (_armature) _armature.animation.gotoAndStop('close', 0);
+        if (_armature) _armature.animation.gotoAndStopByFrame('close');
     }
 
     protected function renderBuildTrainProgress():void {
@@ -244,14 +244,14 @@ public class Train extends WorldObject{
         if (_isOnHover) return;
         _build.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         if (_stateBuild == STATE_UNACTIVE) {
-            var fEndOver:Function = function():void {
-                _armature.removeEventListener(AnimationEvent.COMPLETE, fEndOver);
-                _armature.removeEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-                _armature.animation.gotoAndStop('close', 0);
+            var fEndOver:Function = function(e:Event=null):void {
+                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndStopByFrame('close');
             };
-            _armature.addEventListener(AnimationEvent.COMPLETE, fEndOver);
-            _armature.addEventListener(AnimationEvent.LOOP_COMPLETE, fEndOver);
-            _armature.animation.gotoAndPlay('over');
+            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlayByFrame('over');
         } else if (_stateBuild == STATE_BUILD) {
             _buildingBuildSprite.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             buildingBuildFoundationOver();
@@ -334,7 +334,7 @@ public class Train extends WorldObject{
                 g.treeHint.managerHide(openHint);
                 return;
             }
-            g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/9) * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
+            g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/9) * g.currentGameScale,_dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
             g.hint.hideIt();
         }
         if (_stateBuild == STATE_ACTIVE || _stateBuild == STATE_READY || _stateBuild == STATE_WAIT_BACK) {
@@ -415,7 +415,7 @@ public class Train extends WorldObject{
     }
 
     private function openHint():void {
-        g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/9) * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
+        g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/9) * g.currentGameScale, _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
         g.hint.hideIt();
     }
 
@@ -425,7 +425,7 @@ public class Train extends WorldObject{
         _arriveAnim.visible = true;
         _arriveAnim.makeArriveKorzina(onArrivedKorzina);
         WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlay('work');
+        _armature.animation.gotoAndPlayByFrame('work');
         _bolAnimation = true;
     }
 
@@ -602,16 +602,16 @@ public class Train extends WorldObject{
 
     private function showBoom():void {
         _armatureOpenBoom = g.allData.factory['explode'].buildArmature("expl");
-        _source.addChild(_armatureOpenBoom.display as Sprite);
+        _source.addChild(_armatureOpenBoom.display as StarlingArmatureDisplay);
         WorldClock.clock.add(_armatureOpenBoom);
-        _armatureOpenBoom.addEventListener(AnimationEvent.COMPLETE, onBoom);
-        _armatureOpenBoom.addEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
-        _armatureOpenBoom.animation.gotoAndPlay("start");
+        _armatureOpenBoom.addEventListener(EventObject.COMPLETE, onBoom);
+        _armatureOpenBoom.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
+        _armatureOpenBoom.animation.gotoAndPlayByFrame("start");
     }
 
-    private function onBoom(e:AnimationEvent=null):void {
-        if (_armatureOpenBoom.hasEventListener(AnimationEvent.COMPLETE)) _armatureOpenBoom.removeEventListener(AnimationEvent.COMPLETE, onBoom);
-        if (_armatureOpenBoom.hasEventListener(AnimationEvent.LOOP_COMPLETE)) _armatureOpenBoom.removeEventListener(AnimationEvent.LOOP_COMPLETE, onBoom);
+    private function onBoom(e:Event=null):void {
+        if (_armatureOpenBoom.hasEventListener(EventObject.COMPLETE)) _armatureOpenBoom.removeEventListener(EventObject.COMPLETE, onBoom);
+        if (_armatureOpenBoom.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpenBoom.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
         WorldClock.clock.remove(_armatureOpenBoom);
         _source.removeChild(_armatureOpenBoom.display as Sprite);
         _armatureOpenBoom.dispose();

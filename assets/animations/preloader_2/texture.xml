@@ -1,3 +1,0 @@
-<TextureAtlas name="preloader_2" imagePath="texture.png">
- <SubTexture name="buble" x="0" y="0" width="43" height="43"/>
-</TextureAtlas>
