@@ -251,14 +251,14 @@ public class WOMarket  extends WindowMain {
             checkPapperTimer();
             choosePerson(params[0]);
         }
-        _timer = 5;
+        _timer = 15;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
         super.showIt();
     }
 
     private function onClickExit(e:Event=null):void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
-        _timer = 5;
+        _timer = 15;
         g.gameDispatcher.removeFromTimer(refreshMarketTemp);
         super.hideIt();
     }
@@ -645,7 +645,7 @@ public class WOMarket  extends WindowMain {
         new TweenMax(_contItemCell, .5, {x: -_shift * 125, ease: Linear.easeNone});
         _countPage = 1;
         _curUser = _person;
-        _timer = 5;
+        _timer = 15;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
         if (_curUser.marketCell < 0 || _curUser != g.user) {
             if (_curUser is NeighborBot) {
@@ -810,7 +810,7 @@ public class WOMarket  extends WindowMain {
 
     private function refreshMarketTemp():void {
         if (_curUser is NeighborBot) {
-            _timer = 5;
+            _timer = 15;
             g.gameDispatcher.removeFromTimer(refreshMarketTemp);
             return;
         }
@@ -849,7 +849,7 @@ public class WOMarket  extends WindowMain {
                 fillItems();
             }
         }
-        _timer = 5;
+        _timer = 15;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
     }
 

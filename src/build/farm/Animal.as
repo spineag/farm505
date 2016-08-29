@@ -359,7 +359,7 @@ public function onEndClick(last:Boolean = false):void {
                     var p1:Point = new Point(0, _rect.y);
                     p1 = source.localToGlobal(p1);
                     if (_data.id == 1 || _data.id == 3) p1.y += 25;
-                    g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut, false, true);
+                    g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _data.timeCraft, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut, false, true);
                     stopAnimation();
                     idleAnimation();
                 } else {
@@ -382,7 +382,7 @@ public function onEndClick(last:Boolean = false):void {
             var p1:Point = new Point(0, _rect.y);
             p1 = source.localToGlobal(p1);
             if (_data.id == 1 || _data.id == 3) p1.y += 25;
-            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut,false,true);
+            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _data.timeCraft_da, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut,false,true);
             stopAnimation();
             idleAnimation();
         }

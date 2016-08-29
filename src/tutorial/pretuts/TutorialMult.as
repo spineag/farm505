@@ -5,12 +5,10 @@ package tutorial.pretuts {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import dragonBones.Armature;
-import dragonBones.Bone;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Quad;
@@ -77,8 +75,8 @@ public class TutorialMult {
         _tempBG.setVertexColor(1, 0x7FAFB3);
         _tempBG.setVertexColor(2, 0xA4C6C8);
         _tempBG.setVertexColor(3, 0xA4C6C8);
-        _tempBG.x = -g.stageWidth/2;
-        _tempBG.y = -g.stageHeight/2;
+        _tempBG.x = -_tempBG.width/2;
+        _tempBG.y = -_tempBG.height/2;
         _boneBlueSprite.addChild(_tempBG);
         _boneBlue.display = _boneBlueSprite;
         createCatSprite();
@@ -239,6 +237,7 @@ public class TutorialMult {
     }
 
     public function deleteIt():void {
+        WorldClock.clock.remove(_armature);
         g.cont.popupCont.removeChild(_armature.display as Sprite);
         delete g.allData.factory['tutorial_mult'];
         _catsSprite.dispose();

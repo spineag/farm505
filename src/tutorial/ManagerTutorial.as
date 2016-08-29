@@ -615,9 +615,9 @@ public class ManagerTutorial {
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
-            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
             _tutorialCallback = subStep7_4;
         } else {
             Cc.error('wo_SHOP is not opened');
@@ -705,9 +705,9 @@ public class ManagerTutorial {
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
-            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
             _tutorialCallback = subStep8_3;
         } else {
             Cc.error('wo_SHOP is not opened');
@@ -870,9 +870,9 @@ public class ManagerTutorial {
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
-            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
             var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
             for (var i:int=0; i<arr.length; i++) {
                 if (arr[i].posY == 35) {
@@ -1236,9 +1236,9 @@ public class ManagerTutorial {
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
-            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
             _tutorialCallback = subStep13_3;
         } else {
             Cc.error('wo_SHOP is not opened');
@@ -1779,9 +1779,9 @@ public class ManagerTutorial {
             (g.windowsManager.currentWindow as WOShop).openOnResource(_tutorialResourceIDs[0]);
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
-            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
             _tutorialCallback = subStep22_4;
         } else {
             Cc.error('wo_SHOP is not opened');
@@ -2161,9 +2161,9 @@ public class ManagerTutorial {
                     if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
                         ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
                         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
                         _arrow.scaleIt(.7);
-                        _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
+                        _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y + ob.height - 15);
                     } else {
                         Cc.error('Tuts:: WO_Shop is not opened on resize');
                     }
@@ -2196,9 +2196,9 @@ public class ManagerTutorial {
                     if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
                         ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
                         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
                         _arrow.scaleIt(.7);
-                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
                     } else {
                         Cc.error('wo_SHOP is not opened on resize');
                     }
@@ -2241,9 +2241,9 @@ public class ManagerTutorial {
                     if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
                         ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
                         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
                         _arrow.scaleIt(.7);
-                        _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
+                        _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y + ob.height - 15);
                     } else {
                         Cc.error('wo_SHOP is not opened on resize');
                     }
@@ -2332,9 +2332,9 @@ public class ManagerTutorial {
                     if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
                         ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
                         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
                         _arrow.scaleIt(.7);
-                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
                     } else {
                         Cc.error('wo_shop is not opened on resize');
                     }
@@ -2401,9 +2401,9 @@ public class ManagerTutorial {
                     if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
                         ob = (g.windowsManager.currentWindow as WOShop).getShopDirectItemProperties(1);
                         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
                         _arrow.scaleIt(.7);
-                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
                     } else {
                         Cc.error('wo_shop is not opened on resize');
                     }
@@ -2433,9 +2433,9 @@ public class ManagerTutorial {
                     if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
                         ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0], true);
                         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
                         _arrow.scaleIt(.7);
-                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
                     } else {
                         Cc.error('wo_shop is not opened on resize');
                     }
@@ -2469,9 +2469,9 @@ public class ManagerTutorial {
                         }
                         ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
                         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-                        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
                         _arrow.scaleIt(.7);
-                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
                     } else {
                         Cc.error('wo_SHOP is not opened on resize');
                     }

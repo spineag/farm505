@@ -591,7 +591,7 @@ public class Tree extends WorldObject {
                     g.wildHint.onDelete = deleteTree;
                     g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut,_dataBuild.buildType);
                 } else {
-                    g.timerHint.showIt(_source.height, newX, newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+                    g.timerHint.showIt(_source.height, newX, newY, _dataBuild.buildTime, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                 }
                 _isClick = true;
             } else if (_state == FIXED) {
@@ -661,7 +661,7 @@ public class Tree extends WorldObject {
                 g.wildHint.onDelete = deleteTree;
                 g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut);
             } else {
-                g.timerHint.showIt(_source.height, newX, newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+                g.timerHint.showIt(_source.height, newX, newY, _dataBuild.buildTime, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
             }
             _isClick = true;
         } else if (_state == FIXED) {

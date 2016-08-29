@@ -48,7 +48,7 @@ public class WALLNewFabric {
         var j:int;
         for (var i:int=0; i<bd.width; i++) {
             for (j=0; j<bd.height; j++) {
-                if (bd.getPixel(i, j) == Color.WHITE ){
+                if (bd.getPixel(i, j) == Color.WHITE){
                     bd.setPixel32(i, j, 0x00ffffff);
                 }
             }

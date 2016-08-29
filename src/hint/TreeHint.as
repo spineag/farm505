@@ -156,6 +156,10 @@ public class TreeHint {
 
         };
         g.starling.juggler.add(tween);
+        if (_imageItem) {
+            _contDelete.removeChild(_imageItem);
+            _imageItem = null;
+        }
         _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[data.removeByResourceId].imageShop));
         if (!_imageItem) {
             Cc.error('TreeHint showIt:: no such image: ' + g.dataResource.objectResources[data.removeByResourceId].imageShop);
@@ -203,6 +207,7 @@ public class TreeHint {
                 if (g.cont.hintCont.contains(_source)) {
                     g.cont.hintCont.removeChild(_source);
                     _contDelete.removeChild(_imageItem);
+                    _imageItem = null;
                 }
                 if (callback != null) {
                     callback.apply();
@@ -226,6 +231,7 @@ public class TreeHint {
                     if (g.cont.hintCont.contains(_source)) {
                         g.cont.hintCont.removeChild(_source);
                         _contDelete.removeChild(_imageItem);
+                        _imageItem = null;
                     }
                 };
                 g.starling.juggler.add(tween);

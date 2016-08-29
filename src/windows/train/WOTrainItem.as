@@ -211,6 +211,7 @@ public class WOTrainItem {
         if (_info) {
             if (!_galo4ka.visible) {
                 var curCount:int = g.userInventory.getCountResourceById(_info.id);
+                _txtRed.text = String(g.userInventory.getCountResourceById(_info.id));
 //                if (curCount >= _info.count) {
 //                    _txtWhite.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
 //                    _txtWhite.x = 23;

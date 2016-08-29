@@ -6,7 +6,6 @@ import build.farm.Farm;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import flash.geom.Point;
-import flash.geom.Rectangle;
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.animation.Tween;
@@ -40,6 +39,9 @@ public class ShopList {
         _source.y = 23;
         _source.mask = new Quad(605, 600);
         _parent = parent;
+        var quad:Quad = new Quad(670, 100,Color.WHITE);
+        quad.alpha = 0;
+        _parent.addChild(quad);
         _parent.addChild(_source);
         _itemsSprite = new Sprite();
         _source.addChild(_itemsSprite);

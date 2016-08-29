@@ -40,7 +40,7 @@ public class WOFabricaWorkListItem {
     private var _skipCallback:Function;
     private var _rubinSmall:Image;
     private var _txt:TextField;
-
+    private var _priceSkip:int;
     private var g:Vars = Vars.getInstance();
 
     public function WOFabricaWorkListItem(type:String = 'small') {
@@ -130,7 +130,10 @@ public class WOFabricaWorkListItem {
         if (_type == BIG_CELL) {
             _btnSkip.visible = true;
             if (g.managerTutorial.isTutorial)  _txtSkip.text = String(0);
-            else _txtSkip.text = String(_resource.priceSkipHard);
+            else {
+                _txtSkip.text = String(g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard));
+                _priceSkip = g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard);
+            }
         }
         fillIcon(_resource.imageShop);
         _source.visible = true;
@@ -289,9 +292,9 @@ public class WOFabricaWorkListItem {
             }
             return;
         }
-        if (g.user.hardCurrency >= _resource.priceSkipHard) {
+        if (g.user.hardCurrency >= _priceSkip) {
             if (_skipCallback != null) {
-                g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_resource.priceSkipHard);
+                g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_priceSkip);
                 destroyTimer();
                 _btnSkip.visible = false;
                 _skipCallback.apply();

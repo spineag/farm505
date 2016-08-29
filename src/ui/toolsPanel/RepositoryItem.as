@@ -78,6 +78,7 @@ public class RepositoryItem {
         if (g.selectedBuild) {
             g.toolsModifier.cancelMove();
         }
+        g.toolsModifier.modifierType = ToolsModifier.MOVE;
         var build:WorldObject = g.townArea.createNewBuild(_data, _arrDbIds[0]);
         g.selectedBuild = build;
         if (_data.buildType == BuildType.DECOR_TAIL) {

@@ -275,7 +275,7 @@ public class Ridge extends WorldObject{
 
                 if (!_lastBuyResource) {
                     if (g.timerHint.isShow) g.timerHint.managerHide(onClickCallbackWhenWork);
-                     else g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
+                     else g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale,_dataPlant.buildTime, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
                 }
                 _lastBuyResource = false;
             }
@@ -292,7 +292,7 @@ public class Ridge extends WorldObject{
     }
 
     private function onClickCallbackWhenWork():void {
-        g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
+        g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale,_dataPlant.buildTime, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
     }
 
     public function checkBuildRect(isEmpty:Boolean):void {
@@ -350,7 +350,7 @@ public class Ridge extends WorldObject{
                 g.directServer.rawPlantOnRidge(_dataPlant.id, _dbBuildingId, f1);
                 var p:Point = new Point(_source.x, _source.y);
                 p = _source.parent.localToGlobal(p);
-//                var rawItem:RawItem = new RawItem(p, g.allData.atlas['resourceAtlas'].getTexture(_dataPlant.imageShop + '_icon'), 1, 0);
+                new RawItem(p, g.allData.atlas['resourceAtlas'].getTexture(_dataPlant.imageShop + '_icon'), 1, 0);
             }
             updateRidgeHitArea();
         } catch (e:Error) {

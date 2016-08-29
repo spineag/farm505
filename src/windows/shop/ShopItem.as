@@ -504,13 +504,16 @@ public class ShopItem {
                         _nameTxt.text = _data.name;
                         _countTxt.visible = true;
                         _countTxt.text = String(curCount) + '/' + String(maxCount);
-                        if (curCount < dataFarm.maxAnimalsCount) {
-                            _txtBtnBuyBlue.text = _data.cost;
-                        } else if (curCount < 2*dataFarm.maxAnimalsCount) {
-                            _txtBtnBuyBlue.text = _data.cost2;
-                        } else {
-                            _txtBtnBuyBlue.text = _data.cost3;
-                        }
+                        if (curCount == 0) _txtBtnBuyBlue.text = _data.costNew[0];
+                        else _txtBtnBuyBlue.text = _data.costNew[curCount];
+                        _countCost = int(_txtBtnBuyBlue.text);
+//                        if (curCount < dataFarm.maxAnimalsCount) {
+//                            _txtBtnBuyBlue.text = _data.cost;
+//                        } else if (curCount < 2*dataFarm.maxAnimalsCount) {
+//                            _txtBtnBuyBlue.text = _data.cost2;
+//                        } else {
+//                            _txtBtnBuyBlue.text = _data.cost3;
+//                        }
                     }
                 }
             }
@@ -811,15 +814,22 @@ public class ShopItem {
             for (i=0; i<arrPat.length; i++) {
                 curCount += (arrPat[i] as Farm).arrAnimals.length;
             }
-            if (curCount < dataFarm.maxAnimalsCount) {
-                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost));
-                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost));
-            } else if (curCount < 2*dataFarm.maxAnimalsCount) {
-                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost2));
-                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost2));
+//            if (curCount < dataFarm.maxAnimalsCount) {
+//                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost));
+//                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost));
+//            } else if (curCount < 2*dataFarm.maxAnimalsCount) {
+//                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost2));
+//                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost2));
+//            } else {
+//                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost3));
+//                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost3));
+//            }
+            if (curCount == 0) {
+                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.costNew[0]));
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.costNew[0]));
             } else {
-                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost3));
-                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.cost3));
+                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.costNew[curCount]));
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.costNew[curCount]));
             }
             for (i = 0; i < arr.length; i++) {
                 if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
@@ -920,15 +930,22 @@ public class ShopItem {
             for (var i:int = 0; i < arrPat.length; i++) {
                 curCount += (arrPat[i] as Farm).arrAnimals.length;
             }
-            if (curCount < dataFarm.maxAnimalsCount) {
-                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost));
-                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost));
-            } else if (curCount < 2 * dataFarm.maxAnimalsCount) {
-                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost2));
-                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost2));
+//            if (curCount < dataFarm.maxAnimalsCount) {
+//                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost));
+//                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost));
+//            } else if (curCount < 2 * dataFarm.maxAnimalsCount) {
+//                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost2));
+//                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost2));
+//            } else {
+//                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost3));
+//                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost3));
+//            }
+            if (curCount == 0) {
+                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(objectCallback.costNew[0]));
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(objectCallback.costNew[0]));
             } else {
-                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost3));
-                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost3));
+                showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(objectCallback.costNew[curCount]));
+                g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(objectCallback.costNew[curCount]));
             }
             for (i = 0; i < arr.length; i++) {
                 if (arr[i] is Farm && arr[i].dataBuild.id == objectCallback.buildId && !arr[i].isFull) {

@@ -112,14 +112,14 @@ public class TimerHint {
         _canHide = v;
     }
 
-    public function showIt(height:int,x:int, y:int, timer:int, cost:int, name:String, f:Function, out:Function, ridge:Boolean = false, animal:Boolean = false):void {
+    public function showIt(height:int,x:int, y:int, timeAll:int, timer:int, cost:int, name:String, f:Function, out:Function, ridge:Boolean = false, animal:Boolean = false):void {
         if(_isShow) return;
         if (timer <=0) return;
         _onOutCallback = out;
         var quad:Quad;
         if (ridge) {
             _quad = new Quad(_bg.width, _bg.height,Color.WHITE);
-            quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN );
+            quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN);
             quad.pivotX = quad.width/2;
             _source.addChildAt(quad,0);
             quad.alpha = 0;
@@ -151,7 +151,7 @@ public class TimerHint {
         _timer = timer;
         _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
         if (g.managerTutorial.isTutorial) _txtCost.text = String(0);
-        else _txtCost.text = String(cost);
+        else _txtCost.text = String(g.managerTimerSkip.newCount(timeAll,timer,cost));
         _txtName.text = name;
 //        _txtText.text = 'ускорить';
         g.cont.hintContUnder.addChild(_source);
