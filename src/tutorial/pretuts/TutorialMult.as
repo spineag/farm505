@@ -9,11 +9,15 @@ import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
+
+import flash.display.Bitmap;
+
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
+import starling.textures.Texture;
 
 import utils.DrawToBitmap;
 
@@ -39,6 +43,7 @@ public class TutorialMult {
         _isLoad = false;
         _needStart = false;
         g.loadAnimation.load('animations_json/tuts/box_mult_m/', 'tutorial_mult', onLoad);
+
     }
 
     private function onLoad():void {
@@ -88,12 +93,13 @@ public class TutorialMult {
         var sp:Sprite = new Sprite();
         var b:Slot = _armature.getSlot('wall');
 //        var im:Image = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
-        var im:Image = new Image(DrawToBitmap.getTextureFromImage(wallImage));
+//        var im:Image = new Image(DrawToBitmap.getTextureFromImage(wallImage));
+        var im:Image = new Image(Texture.fromBitmap(g.pBitmaps['tutorial_mult_map'].create() as Bitmap));
         sp.addChild(im);
         b.display = sp;
         walls.push(sp);
         b = _armature.getSlot('wall1');
-        im = new Image(DrawToBitmap.getTextureFromImage(wallImage));
+        im = new Image(Texture.fromBitmap(g.pBitmaps['tutorial_mult_map'].create() as Bitmap));
         sp = new Sprite();
         sp.addChild(im);
         b.display = sp;
@@ -124,14 +130,14 @@ public class TutorialMult {
         var sp:Sprite = new Sprite();
         var b:Slot = _armature.getSlot('wall2');
 //        var im:Image = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
-        var im:Image = new Image(DrawToBitmap.getTextureFromImage(wallImage));
+        var im:Image = new Image(Texture.fromBitmap(g.pBitmaps['tutorial_mult_map'].create() as Bitmap));
         sp.addChild(im);
         b.display = sp;
         walls.push(sp);
         sp.alpha = 0;
         var b1:Slot = _armature.getSlot('wall3');
 //        im = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
-        im = new Image(DrawToBitmap.getTextureFromImage(wallImage));
+        im = new Image(Texture.fromBitmap(g.pBitmaps['tutorial_mult_map'].create() as Bitmap));
         sp = new Sprite();
         sp.addChild(im);
         b1.display = sp;
@@ -167,9 +173,9 @@ public class TutorialMult {
         _armature.addEventListener(EventObject.COMPLETE, onIdle5);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onIdle5);
         _armature.animation.gotoAndPlayByFrame('idle5');
-        _tempBG = new Quad(g.stageWidth, g.stageHeight, 0xF5F3E4);
-        _tempBG.x = -g.stageWidth/2;
-        _tempBG.y = -g.stageHeight/2;
+        _tempBG = new Quad(g.stageWidth + 500, g.stageHeight + 500, 0xF5F3E4);
+        _tempBG.x = -_tempBG.width/2;
+        _tempBG.y = -_tempBG.height/2;
         _tempBlack.addChild(_tempBG);
         _tempBlack.alpha = 0;
         TweenMax.to(_tempBlack, 10, {alpha:1, ease:Linear.easeNone, useFrames:true, delay: 21});
@@ -240,6 +246,7 @@ public class TutorialMult {
         WorldClock.clock.remove(_armature);
         g.cont.popupCont.removeChild(_armature.display as Sprite);
         delete g.allData.factory['tutorial_mult'];
+        delete g.pBitmaps['tutorial_mult_map'];
         _catsSprite.dispose();
         _tempBG.dispose();
         _boneBlueSprite.dispose();

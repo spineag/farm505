@@ -3,9 +3,15 @@
  */
 package loaders {
 import dragonBones.starling.StarlingFactory;
+
+import flash.display.BitmapData;
+import flash.geom.Matrix;
+
 import manager.*;
 import dragonBones.objects.DragonBonesData;
 import flash.display.Bitmap;
+
+import starling.display.Image;
 import starling.textures.Texture;
 
 public class LoadAnimation {
@@ -31,6 +37,15 @@ public class LoadAnimation {
     private function onLoad(smth:*=null):void {
         _count--;
         if (_count <=0) {
+            if (_name == 'tutorial_mult') {
+                var bd:BitmapData = new BitmapData(149, 149);
+                var m:Matrix = new Matrix();
+                m.translate(-637, -720);
+                var b:Bitmap = g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)].create() as Bitmap;
+                bd.draw(b, m);
+                g.pBitmaps['tutorial_mult_map'] = new PBitmap(new Bitmap(bd));
+            }
+
             var factory:StarlingFactory = new StarlingFactory();
             var dragonBonesData:DragonBonesData = factory.parseDragonBonesData(g.pJSONs[_url + '/skeleton.json' + g.getVersion(_name)]);
             factory.parseTextureAtlasData(g.pJSONs[_url + '/texture.json' + g.getVersion(_name)], Texture.fromBitmap(g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)].create() as Bitmap));
@@ -45,6 +60,7 @@ public class LoadAnimation {
 
             g.allData.factory[_name] = factory;
             g.allData.factoryData[_name] = dragonBonesData;
+
             delete g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)];
             delete g.pJSONs[_url + '/texture.json' + g.getVersion(_name)];
             delete g.pJSONs[_url + '/skeleton.json' + g.getVersion(_name)];
