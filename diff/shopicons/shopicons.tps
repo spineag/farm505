@@ -224,12 +224,6 @@
             <filename>farm_sheep_icon.png</filename>
             <filename>farming_table_icon.png</filename>
             <filename>feed_mill_icon.png</filename>
-            <filename>fence_brick_2_icon.png</filename>
-            <filename>fence_brick_3_icon.png</filename>
-            <filename>fence_brick_4_icon.png</filename>
-            <filename>fence_unique_2_icon.png</filename>
-            <filename>fence_unique_3_icon.png</filename>
-            <filename>fence_unique_4_icon.png</filename>
             <filename>fir_1_icon.png</filename>
             <filename>fir_2_icon.png</filename>
             <filename>gate_alive_closed_icon.png</filename>
@@ -254,9 +248,6 @@
             <filename>arbor_icon.png</filename>
             <filename>arch_alive_icon.png</filename>
             <filename>arch_blue_icon.png</filename>
-            <filename>arch_leaf_green_2_icon.png</filename>
-            <filename>arch_leaf_green_3_icon.png</filename>
-            <filename>arch_leaf_green_4_icon.png</filename>
             <filename>arch_pink_icon.png</filename>
             <filename>arch_white_icon.png</filename>
             <filename>bakery_icon.png</filename>
@@ -268,9 +259,6 @@
             <filename>blue_fence_icon.png</filename>
             <filename>blueberry_icon.png</filename>
             <filename>bridge_icon.png</filename>
-            <filename>fence_polka_dot_3_icon.png</filename>
-            <filename>fence_polka_dot_4_icon.png</filename>
-            <filename>fence_polka_dot_5_icon.png</filename>
             <filename>loom_icon.png</filename>
             <filename>fryer_icon.png</filename>
             <filename>track_blue_icon.png</filename>
