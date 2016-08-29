@@ -229,11 +229,11 @@
             <filename>trees_5.png</filename>
             <filename>trees_6.png</filename>
             <filename>trees_7.png</filename>
-            <filename>fence</filename>
             <filename>track_pink.png</filename>
             <filename>track_white.png</filename>
             <filename>track_yellow.png</filename>
             <filename>track_blue.png</filename>
+            <filename>fence</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
