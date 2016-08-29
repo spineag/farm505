@@ -43,8 +43,8 @@ public class DrawToBitmap {
         return result;
     }
 
-    public static function getTextureFromImage(disp:DisplayObject):Texture {
-        var texture:RenderTexture = new RenderTexture(disp.width, disp.height);
+    public static function getTextureFromStarlingDisplayObject(disp:DisplayObject, scale:Number=1):Texture {
+        var texture:RenderTexture = new RenderTexture(disp.width, disp.height, true, scale);
         texture.draw(disp);
         return texture;
     }

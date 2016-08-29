@@ -171,7 +171,7 @@ public class Farm extends WorldObject{
                     checkForCraft();
                 }
             } else {
-                if (!isFull) {
+                if (!isFull && !g.managerTutorial.isTutorial) {
                     g.user.animalIdArrow = _dataAnimal.id;
                     g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
                 }
