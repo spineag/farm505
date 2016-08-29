@@ -163,6 +163,7 @@ public class HeroCat extends BasicCat{
         changeTexture("handRight", "hand_w_r", arma);
         changeTexture("legRight", "leg_w_r", arma);
         changeTexture("tail", "tail_w", arma);
+        changeTexture("handRight copy", "hand_w_r", arma);
     }
 
     private function releaseBackWoman(arma:Armature):void {
@@ -179,8 +180,10 @@ public class HeroCat extends BasicCat{
 //        var im:Image = g.allData.factory['cat_main'].getTextureDisplay('clothTextureTemp', newName) as Image;
         var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
         var b:Slot = arma.getSlot(oldName);
-        b.displayList = null;
-        b.display = im;
+        if (b && im) {
+            b.displayList = null;
+            b.display = im;
+        }
     }
 
 // play Direct label

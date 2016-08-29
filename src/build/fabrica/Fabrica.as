@@ -649,15 +649,15 @@ public class Fabrica extends WorldObject {
 
     private function releaseManFrontTexture():void {
         if (!_armature) return;
-        changeTexture("head", "heads/head");
-        changeTexture("body", "bodys/body");
-        changeTexture("handLeft", "left_hand/handLeft");
-        changeTexture("legLeft", "left_leg/legLeft");
-        changeTexture("handRight", "right_hand/handRight");
-        changeTexture("legRight", "right_leg/legRight");
-        changeTexture("tail", "tails/tail");
+        changeTexture("head", "head");
+        changeTexture("body", "body");
+        changeTexture("handLeft", "hand_l");
+        changeTexture("legLeft", "leg_l");
+        changeTexture("handRight", "hand_r");
+        changeTexture("legRight", "leg_r");
+        changeTexture("tail", "tail");
         if (_dataBuild.id == 10) {
-            changeTexture("handRight2", "right_hand/handRight");
+            changeTexture("handRight2", "hand_r");
         }
         var viyi:Bone = _armature.getBone('viyi'); {
             if (viyi) {
@@ -667,26 +667,29 @@ public class Fabrica extends WorldObject {
     }
 
     private function releaseManBackTexture():void {
-        changeTexture("head", "heads_b/head_b");
-        changeTexture("body", "bodys_b/body_b");
-        changeTexture("handLeft", "left_hand_b/handLeft_b");
-        changeTexture("legLeft", "left_leg_b/legLeft_b");
-        changeTexture("handRight", "right_hand_b/handRight_b");
-        changeTexture("legRight", "right_leg_b/legRight_b");
-        changeTexture("tail", "tails/tail");
+        changeTexture("head", "head_b");
+        changeTexture("body", "body_b");
+        changeTexture("handLeft", "hand_l_b");
+        changeTexture("legLeft", "leg_l_b");
+        changeTexture("handRight", "hand_r_b");
+        changeTexture("legRight", "leg_r_b");
+        changeTexture("tail", "tail");
+        if (_dataBuild.id == 10) {
+            changeTexture("handRight2", "hand_r_b");
+        }
     }
 
     private function releaseWomanFrontTexture():void {
         if (!_armature) return;
-        changeTexture("head", "heads/head_w");
-        changeTexture("body", "bodys/body_w");
-        changeTexture("handLeft", "left_hand/handLeft_w");
-        changeTexture("legLeft", "left_leg/legLeft_w");
-        changeTexture("handRight", "right_hand/handRight_w");
-        changeTexture("legRight", "right_leg/legRight_w");
-        changeTexture("tail", "tails/tail_w");
+        changeTexture("head", "head_w");
+        changeTexture("body", "body_w");
+        changeTexture("handLeft", "hand_w_l");
+        changeTexture("legLeft", "leg_w_r");
+        changeTexture("handRight", "hand_w_r");
+        changeTexture("legRight", "leg_w_r");
+        changeTexture("tail", "tail_w");
         if (_dataBuild.id == 10) {
-            changeTexture("handRight2", "right_hand/handRight_w");
+            changeTexture("handRight2", "hand_w_r");
         }
         var viyi:Bone = _armature.getBone('viyi'); {
             if (viyi) {
@@ -696,24 +699,23 @@ public class Fabrica extends WorldObject {
     }
 
     private function releaseWomanBackTexture():void {
-        changeTexture("head", "heads_b/head_w_b");
-        changeTexture("body", "bodys_b/body_w_b");
-        changeTexture("handLeft", "left_hand_b/handLeft_w_b");
-        changeTexture("legLeft", "left_leg_b/legLeft_w_b");
-        changeTexture("handRight", "right_hand_b/handRight_w_b");
-        changeTexture("legRight", "right_leg_b/legRight_w_b");
-        changeTexture("tail", "tails/tail_w");
+        changeTexture("head", "head_w_b");
+        changeTexture("body", "body_w_b");
+        changeTexture("handLeft", "hand_w_l_b");
+        changeTexture("legLeft", "leg_w_l_b");
+        changeTexture("handRight", "hand_w_r_b");
+        changeTexture("legRight", "leg_w_r_b");
+        changeTexture("tail", "tail_w");
     }
 
     private function changeTexture(oldName:String, newName:String):void {
-        var im:Image = g.allData.factory['cat_main'].getTextureDisplay(newName) as Image;
+//        var im:Image = g.allData.factory['cat_main'].getTextureDisplay(newName) as Image;
+        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
         if (_armature) var b:Slot = _armature.getSlot(oldName);
-        if (b) {
-            if (b.display) {
-                im.pivotX = b.display.pivotX;
-                im.pivotY = b.display.pivotY;
-                b.display.dispose();
-            }
+        if (im) {
+//            im.pivotX = b.display.pivotX;
+//            im.pivotY = b.display.pivotY;
+            b.displayList = null;
             b.display = im;
         } else {
             Cc.error('Fabrica changeTexture:: null Bone for oldName= '+oldName + ' for fabricaId= '+String(_dataBuild.id));
