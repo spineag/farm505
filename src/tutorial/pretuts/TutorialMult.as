@@ -91,14 +91,10 @@ public class TutorialMult {
         var b:Slot = _armature.getSlot('wall');
 //        var im:Image = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
         var im:Image = new Image(DrawToBitmap.getTextureFromImage(wallImage));
-        im.x = 200;
-        im.y = 200;
-        g.cont.mouseCont.addChild(im);
-//        sp.addChild(im);
-//        b.display = sp;
+        sp.addChild(im);
+        b.display = sp;
         walls.push(sp);
         b = _armature.getSlot('wall1');
-//        im = g.allData.factory['tutorial_mult'].getTextureDisplay('wall_back') as Image;
         im = new Image(DrawToBitmap.getTextureFromImage(wallImage));
         sp = new Sprite();
         sp.addChild(im);
