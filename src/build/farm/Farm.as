@@ -6,6 +6,8 @@ import build.WorldObject;
 import com.junkbyte.console.Cc;
 
 import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
 
 import flash.geom.Point;
@@ -16,6 +18,8 @@ import mouse.ToolsModifier;
 import particle.FarmFeedParticles;
 import resourceItem.CraftItem;
 import resourceItem.ResourceItem;
+
+import starling.animation.Tween;
 import starling.display.Image;
 import starling.display.Sprite;
 import tutorial.TutorialAction;
@@ -226,21 +230,40 @@ public class Farm extends WorldObject{
             }
             an.source.x = p.x;
             an.source.y = p.y;
-//            if (!g.managerTutorial.isTutorial) {
-//                var arm:Armature;
-//                arm = g.allData.factory['explode_an'].buildArmature("expl_fabric");
-//                (arm.display as StarlingArmatureDisplay).x = p.x;
-//                (arm.display as StarlingArmatureDisplay).y = p.y;
-//                _contAnimals.addChild(arm as StarlingArmatureDisplay);
-//                arm.animation.gotoAndPlayByFrame("idle");
-//            }
-            _contAnimals.addChild(an.source);
+
+            var onFinish:Function = function():void {
+                var arm:Armature;
+                arm = g.allData.factory['explode_an'].buildArmature("expl_fabric");
+                (arm.display as StarlingArmatureDisplay).x = p.x;
+                (arm.display as StarlingArmatureDisplay).y = p.y - 10;
+                WorldClock.clock.add(arm);
+                _contAnimals.addChild(arm.display as StarlingArmatureDisplay);
+                arm.animation.gotoAndPlayByFrame("idle");
+            };
+
+            if (!g.managerTutorial.isTutorial && !isFromServer) {
+                g.windowsManager.closeAllWindows();
+                g.cont.moveCenterToPos(posX, posY, false, .5, onFinish);
+                _contAnimals.addChild(an.source);
+
+                an.source.scale = 0;
+                var tween:Tween = new Tween(an.source, 1.6);
+                tween.scaleTo(1);
+                tween.onComplete = function ():void {
+                    g.starling.juggler.remove(tween);
+
+                };
+                g.starling.juggler.add(tween);
+            }
+
             if (!isFromServer) {
                 g.directServer.addUserAnimal(an, _dbBuildingId, null);
             } else {
                 an.fillItFromServer(ob);
+                _contAnimals.addChild(an.source);
             }
             an.addRenderAnimation();
+
 //            if (_dataAnimal.id != 6) {
 //                sortAnimals();
 //            }
@@ -248,6 +271,10 @@ public class Farm extends WorldObject{
 //            Cc.error('farm addAnimal: ' + e.errorID + ' - ' + e.message);
 //            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'farm add animal');
 //        }
+    }
+
+    private function test():void {
+
     }
 
     public function get isFull():Boolean {
@@ -285,6 +312,7 @@ public class Farm extends WorldObject{
             if (arr.length > 1) {
                 arr.sortOn('depth', Array.NUMERIC);
                 for (var i:int = 0; i < arr.length; i++) {
+//                    _contAnimals.setChildIndex(arr[i].source, i);
                     _contAnimals.setChildIndex(arr[i].source, i);
                 }
             }
