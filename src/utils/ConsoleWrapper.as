@@ -96,7 +96,7 @@ public class ConsoleWrapper {
     private function deleteUser():void {
         if (g.user.isTester || g.isDebug) {
             var f2:Function = function ():void {
-                g.windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME);
+                if(g.windowsManager) g.windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME);
             };
             g.directServer.deleteUser(f2);
         }

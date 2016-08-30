@@ -4,6 +4,12 @@
 package windows.fabricaWindow {
 import com.junkbyte.console.Cc;
 import data.DataMoney;
+
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.geom.Point;
 import manager.ManagerFilters;
 import resourceItem.RawItem;
@@ -120,7 +126,7 @@ public class WOFabricaWorkListItem {
         return _source;
     }
 
-    public function fillData(resource:ResourceItem):void {
+    public function fillData(resource:ResourceItem, buy:Boolean = false):void {
         _resource = resource;
         if (!_resource) {
             Cc.error('WOFabricaWorkListItem fillData:: _resource == null');
@@ -135,20 +141,38 @@ public class WOFabricaWorkListItem {
                 _priceSkip = g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard);
             }
         }
-        fillIcon(_resource.imageShop);
+        fillIcon(_resource.imageShop, buy);
         _source.visible = true;
     }
 
-    private function fillIcon(s:String):void {
+    private function fillIcon(s:String, buy:Boolean = false):void {
         if (_icon) {
             _source.removeChild(_icon);
             _icon = null;
         }
+
+        var onFinish:Function = function():void {
+            WorldClock.clock.remove(arm);
+            arm.removeEventListener(EventObject.COMPLETE, onFinish);
+            arm.removeEventListener(EventObject.LOOP_COMPLETE, onFinish);
+        };
+
         _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s));
         if (_type == BIG_CELL) {
             MCScaler.scale(_icon, 85, 100);
             _icon.x = 53 - _icon.width/2;
             _icon.y = 53 - _icon.height/2;
+            if (buy) {
+                var arm:Armature;
+                arm = g.allData.factory['explode_gray_fabric'].buildArmature("expl_fabric");
+                (arm.display as StarlingArmatureDisplay).x = _bg.width / 2;
+                (arm.display as StarlingArmatureDisplay).y = _bg.height;
+                WorldClock.clock.add(arm);
+                _source.addChild(arm.display as StarlingArmatureDisplay);
+                arm.addEventListener(EventObject.COMPLETE, onFinish);
+                arm.addEventListener(EventObject.LOOP_COMPLETE, onFinish);
+                arm.animation.gotoAndPlayByFrame("idle");
+            }
         } else {
             MCScaler.scale(_icon, 44, 44);
             _icon.x = 23 - _icon.width/2;

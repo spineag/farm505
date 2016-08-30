@@ -94,8 +94,8 @@ public class WOFabricaWorkList {
         return 6 + (maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
     }
 
-    public function addResource(resource:ResourceItem):void {
-        _arrItems[arrRecipes.length].fillData(resource);
+    public function addResource(resource:ResourceItem, buy:Boolean = false):void {
+        _arrItems[arrRecipes.length].fillData(resource, buy);
         arrRecipes.push(resource);
         if (arrRecipes.length == 1) {
             activateTimer();
