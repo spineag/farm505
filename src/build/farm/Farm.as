@@ -254,13 +254,14 @@ public class Farm extends WorldObject{
 
                 };
                 g.starling.juggler.add(tween);
+            } else {
+                _contAnimals.addChild(an.source);
             }
 
             if (!isFromServer) {
                 g.directServer.addUserAnimal(an, _dbBuildingId, null);
             } else {
                 an.fillItFromServer(ob);
-                _contAnimals.addChild(an.source);
             }
             an.addRenderAnimation();
 

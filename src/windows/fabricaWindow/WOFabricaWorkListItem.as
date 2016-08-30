@@ -155,6 +155,10 @@ public class WOFabricaWorkListItem {
             WorldClock.clock.remove(arm);
             arm.removeEventListener(EventObject.COMPLETE, onFinish);
             arm.removeEventListener(EventObject.LOOP_COMPLETE, onFinish);
+            if (g.managerTutorial) {
+//                removeArrow();
+                g.managerTutorial.checkTutorialCallback();
+            }
         };
 
         _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s));
