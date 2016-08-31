@@ -9,6 +9,7 @@ import loaders.LoadAnimationManager;
 import loaders.LoadComponents;
 import loaders.LoaderManager;
 import manager.Vars;
+import manager.hitArea.ManagerHitArea;
 
 import server.DirectServer;
 
@@ -31,6 +32,7 @@ public class MainStarling extends Sprite {
         g.pXMLs = {};
         g.pJSONs = {};
         g.loadAnimation = new LoadAnimationManager();
+        g.managerHitArea = new ManagerHitArea();
 
         sAssets = new AssetManager();
         sAssets.verbose = true;

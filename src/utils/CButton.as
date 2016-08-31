@@ -10,6 +10,7 @@ import manager.ManagerFilters;
 import manager.ManagerFilters;
 import manager.ManagerFilters;
 import manager.Vars;
+import manager.hitArea.ManagerHitArea;
 import manager.hitArea.OwnHitArea;
 
 import media.SoundConst;
@@ -208,8 +209,7 @@ public class CButton extends Sprite {
     }
 
     public function createHitArea(name:String):void {
-        _hitArea = g.managerHitArea.getHitArea(this, name);
-//        _hitArea.createTestSprite();
+        _hitArea = g.managerHitArea.getHitArea(this, name, ManagerHitArea.TYPE_CREATE);
     }
 
 }

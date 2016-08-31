@@ -6,6 +6,9 @@ import build.WorldObject;
 import com.junkbyte.console.Cc;
 import manager.ManagerFilters;
 import data.OwnEvent;
+
+import manager.hitArea.ManagerHitArea;
+
 import mouse.ToolsModifier;
 
 import starling.display.Image;
@@ -24,7 +27,7 @@ public class DecorTail extends WorldObject{
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
-        _hitArea = g.managerHitArea.getHitArea(_source, 'decorTail' + _dataBuild.sizeX + '_' + _dataBuild.sizeY);
+        _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image, ManagerHitArea.TYPE_FROM_ATLAS);
         _source.registerHitArea(_hitArea);
     }
 

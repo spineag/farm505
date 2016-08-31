@@ -9,6 +9,7 @@ import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
+import manager.hitArea.ManagerHitArea;
 
 import media.SoundConst;
 
@@ -363,9 +364,9 @@ public class Ridge extends WorldObject{
 
     public function updateRidgeHitArea():void {
         if (_stateRidge == EMPTY) {
-            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild');
+            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild', ManagerHitArea.TYPE_RIDGE);
         } else {
-            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild_' + String(_dataPlant.id) + '_' + String(_stateRidge));
+            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild_' + String(_dataPlant.id) + '_' + String(_stateRidge), ManagerHitArea.TYPE_RIDGE, 2, 2, _plantSprite);
         }
         _source.registerHitArea(_hitArea);
     }

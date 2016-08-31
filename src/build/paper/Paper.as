@@ -8,6 +8,8 @@ import dragonBones.animation.WorldClock;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+import manager.hitArea.ManagerHitArea;
+
 import media.SoundConst;
 import mouse.ToolsModifier;
 import windows.WindowsManager;
@@ -34,7 +36,7 @@ public class Paper extends WorldObject{
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
-        _hitArea = g.managerHitArea.getHitArea(_source, 'paperBuild');
+        _hitArea = g.managerHitArea.getHitArea(_source, 'newspaper', ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
     }
 

@@ -9,6 +9,8 @@ import dragonBones.events.EventObject;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+import manager.hitArea.ManagerHitArea;
+
 import media.SoundConst;
 import mouse.ToolsModifier;
 
@@ -49,7 +51,7 @@ public class Market extends WorldObject{
         _source.releaseContDrag = true;
         _arrItem = [];
         marketState();
-        _hitArea = g.managerHitArea.getHitArea(_source, 'marketBuild');
+        _hitArea = g.managerHitArea.getHitArea(_source, 'market', ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
         _timer = 60;
         g.gameDispatcher.addToTimer(refreshMarketTemp);

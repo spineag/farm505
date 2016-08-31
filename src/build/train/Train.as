@@ -11,6 +11,8 @@ import dragonBones.starling.StarlingArmatureDisplay;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+import manager.hitArea.ManagerHitArea;
+
 import media.SoundConst;
 import mouse.ToolsModifier;
 import resourceItem.DropItem;
@@ -189,7 +191,7 @@ public class Train extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _hitArea = g.managerHitArea.getHitArea(_build, 'trainBuild');
+        _hitArea = g.managerHitArea.getHitArea(_source, 'aerial_tram', ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
         if (g.isAway) {
             _arriveAnim = new ArrivedAnimation(_source);

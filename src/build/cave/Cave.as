@@ -12,6 +12,8 @@ import dragonBones.starling.StarlingArmatureDisplay;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+import manager.hitArea.ManagerHitArea;
+
 import media.SoundConst;
 import mouse.ToolsModifier;
 import resourceItem.CraftItem;
@@ -80,7 +82,7 @@ public class Cave extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _hitArea = g.managerHitArea.getHitArea(_source, 'caveBuild');
+        _hitArea = g.managerHitArea.getHitArea(_source, 'mine', ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
     }
 

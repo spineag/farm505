@@ -7,6 +7,8 @@ import com.junkbyte.console.Cc;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import manager.ManagerFilters;
+import manager.hitArea.ManagerHitArea;
+
 import mouse.ToolsModifier;
 
 import starling.events.Event;
@@ -32,7 +34,7 @@ public class Sklad extends WorldObject{
     private function onCreateBuild():void {
         if (!g.isAway) {
             _source.endClickCallback = onClick;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'skladBuild');
+            _hitArea = g.managerHitArea.getHitArea(_source, 'sklad', ManagerHitArea.TYPE_LOADED);
             _source.registerHitArea(_hitArea);
             WorldClock.clock.add(_armature);
         }

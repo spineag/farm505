@@ -2,6 +2,8 @@
  * Created by andy on 5/17/16.
  */
 package loaders {
+import flash.system.ApplicationDomain;
+
 import manager.*;
 
 import flash.display.Bitmap;
@@ -76,6 +78,7 @@ public class LoadComponents {
         delete  g.pXMLs[st + 'x1/buildAtlas.xml' + g.getVersion('buildAtlas')];
 
         g.allData.atlas['decorAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/decorAtlas.xml' + g.getVersion('decorAtlas')]);
+        g.managerHitArea.registerFromAtlas(g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')].create() as Bitmap, g.pXMLs[st + 'x1/decorAtlas.xml' + g.getVersion('decorAtlas')]);
         delete  g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')];
         delete  g.pXMLs[st + 'x1/decorAtlas.xml' + g.getVersion('decorAtlas')];
 
@@ -84,6 +87,7 @@ public class LoadComponents {
         delete  g.pXMLs[st + 'x1/farmAtlas.xml' + g.getVersion('farmAtlas')];
 
         g.allData.atlas['wildAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')]);
+        g.managerHitArea.registerFromAtlas(g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')].create() as Bitmap, g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')]);
         delete  g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')];
         delete  g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')];
 
@@ -138,8 +142,21 @@ public class LoadComponents {
         count++;
         g.startPreloader.setProgress(60 + 2*count);
         if (count >=10) {
-            if (_callback != null) _callback.apply();
+            loadHitArea();
         }
     }
+
+    private function loadHitArea():void {
+        var url:String = g.dataPath.getGraphicsPath() + 'hitArea.swf';
+        g.load.loadSWFModule(url, loadedHitArea);
+    }
+
+    private function loadedHitArea(response:ApplicationDomain):void {
+        g.startPreloader.setProgress(81);
+        g.managerHitArea.registerLoadedHitArea(response);
+        if (_callback != null) _callback.apply();
+    }
+
+
 }
 }

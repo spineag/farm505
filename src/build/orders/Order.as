@@ -10,6 +10,8 @@ import dragonBones.events.EventObject;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+import manager.hitArea.ManagerHitArea;
+
 import media.SoundConst;
 import mouse.ToolsModifier;
 import starling.display.Sprite;
@@ -42,7 +44,7 @@ public class Order extends WorldObject{
         makeAnimation();
         if (!g.isAway) {
             _source.endClickCallback = onClick;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'orderBuild');
+            _hitArea = g.managerHitArea.getHitArea(_source, 'order_area', ManagerHitArea.TYPE_LOADED);
             _source.registerHitArea(_hitArea);
         }
         createSmallHero();

@@ -8,6 +8,9 @@ import build.WorldObject;
 import com.junkbyte.console.Cc;
 import manager.ManagerFilters;
 import data.OwnEvent;
+
+import manager.hitArea.ManagerHitArea;
+
 import mouse.ToolsModifier;
 
 import starling.display.Image;
@@ -27,7 +30,7 @@ public class Decor extends WorldObject{
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'decor' + _dataBuild.image);
+            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image, ManagerHitArea.TYPE_FROM_ATLAS);
             _source.registerHitArea(_hitArea);
         }
     }

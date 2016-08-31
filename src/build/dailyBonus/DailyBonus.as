@@ -9,6 +9,8 @@ import dragonBones.events.EventObject;
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
+import manager.hitArea.ManagerHitArea;
+
 import media.SoundConst;
 import mouse.ToolsModifier;
 
@@ -37,7 +39,7 @@ public class DailyBonus extends WorldObject{
         _armature.animation.gotoAndStopByFrame('idle');
         if (!g.isAway) {
             _source.endClickCallback = onClick;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'dailyBonusBuild');
+            _hitArea = g.managerHitArea.getHitArea(_source, 'daily_bonus', ManagerHitArea.TYPE_LOADED);
             _source.registerHitArea(_hitArea);
         }
         _source.hoverCallback = onHover;

@@ -97,7 +97,6 @@ public class DecorShopFilterItem {
         _bg.filter = null;
         _bg.deleteIt();
         _source.removeChild(_txt);
-        _txt.filter = null;
         _txt.dispose();
         _parent = null;
         _callback = null;

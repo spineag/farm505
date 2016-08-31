@@ -8,6 +8,7 @@ import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import manager.ManagerFilters;
+import manager.hitArea.ManagerHitArea;
 
 import media.SoundConst;
 
@@ -62,7 +63,7 @@ public class Wild extends WorldObject{
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'wild' + _dataBuild.image);
+            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image, ManagerHitArea.TYPE_FROM_ATLAS);
             _source.registerHitArea(_hitArea);
         }
     }

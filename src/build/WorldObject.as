@@ -9,6 +9,7 @@ import flash.display.Bitmap;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import manager.Vars;
+import manager.hitArea.ManagerHitArea;
 import manager.hitArea.OwnHitArea;
 import preloader.miniPreloader.FlashAnimatedPreloader;
 import starling.display.DisplayObject;
@@ -407,7 +408,7 @@ public class WorldObject {
         }
         _buildingBuildSprite.addChild(_buildingBuild.source);
         _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
-        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
+        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild', ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
     }
 
@@ -432,9 +433,9 @@ public class WorldObject {
         _buildingBuildSprite.addChild(_buildingBuild.source);
         _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
         var isVisible:Boolean = _buildingBuildSprite.visible;
-        _buildingBuildSprite.visible = true;
-        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
-        _buildingBuildSprite.visible = isVisible;
+//        _buildingBuildSprite.visible = true;
+        _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild', ManagerHitArea.TYPE_LOADED);
+//        _buildingBuildSprite.visible = isVisible;
         _source.registerHitArea(_hitArea);
     }
 

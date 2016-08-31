@@ -43,6 +43,16 @@ public class DrawToBitmap {
         return result;
     }
 
+    public static function copyToBitmapDataFromFlashSprite(fsp:flash.display.Sprite, s:Number = 1):BitmapData {
+        var m:Matrix = new Matrix();
+        var bounds:Rectangle = fsp.getBounds(fsp);
+        m.translate(-bounds.x, -bounds.y);
+        if (s!=1) m.scale(s, s);
+        var bd:BitmapData = new BitmapData(bounds.width*s, bounds.height*s);
+        bd.draw(fsp, m);
+        return bd;
+    }
+
     public static function getTextureFromStarlingDisplayObject(disp:DisplayObject, scale:Number=1):Texture {
         var texture:RenderTexture = new RenderTexture(disp.width, disp.height, true, scale);
         texture.draw(disp);

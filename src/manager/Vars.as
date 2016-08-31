@@ -233,7 +233,6 @@ public class Vars {
             farmGrid = new FarmGrid();
             managerDailyBonus = new ManagerDailyBonus();
             managerTutorial = new ManagerTutorial();
-            managerHitArea = new ManagerHitArea();
             managerCutScenes = new ManagerCutScenes();
             managerWallPost = new ManagerWallPost();
             managerInviteFriend = new ManagerInviteFriend();

@@ -19,6 +19,7 @@ import heroes.BasicCat;
 import heroes.HeroCat;
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
+import manager.hitArea.ManagerHitArea;
 
 import media.SoundConst;
 import resourceItem.CraftItem;
@@ -115,7 +116,7 @@ public class Fabrica extends WorldObject {
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
         stopAnimation();
-        _hitArea = g.managerHitArea.getHitArea(_source, 'fabrica' + _dataBuild.image);
+        _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
         if (!g.isAway) onHeroAnimation();
     }
