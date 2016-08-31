@@ -155,6 +155,7 @@ public class WOFabricaWorkListItem {
             WorldClock.clock.remove(arm);
             arm.removeEventListener(EventObject.COMPLETE, onFinish);
             arm.removeEventListener(EventObject.LOOP_COMPLETE, onFinish);
+            _source.removeChild(arm.display as StarlingArmatureDisplay);
             if (g.managerTutorial) {
 //                removeArrow();
                 g.managerTutorial.checkTutorialCallback();

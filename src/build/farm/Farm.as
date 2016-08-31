@@ -231,17 +231,26 @@ public class Farm extends WorldObject{
             an.source.x = p.x;
             an.source.y = p.y;
 
+            var f1:Function = function():void {
+                WorldClock.clock.remove(arm);
+                arm.removeEventListener(EventObject.COMPLETE, onFinish);
+                arm.removeEventListener(EventObject.LOOP_COMPLETE, onFinish);
+                _contAnimals.removeChild(arm.display as StarlingArmatureDisplay)
+            };
+
             var onFinish:Function = function():void {
+                arm.addEventListener(EventObject.COMPLETE, f1);
+                arm.addEventListener(EventObject.LOOP_COMPLETE, f1);
+                arm.animation.gotoAndPlayByFrame("idle");
+            };
+
+            if (!g.managerTutorial.isTutorial && !isFromServer) {
                 var arm:Armature;
                 arm = g.allData.factory['explode_an'].buildArmature("expl_fabric");
                 (arm.display as StarlingArmatureDisplay).x = p.x;
                 (arm.display as StarlingArmatureDisplay).y = p.y - 10;
                 WorldClock.clock.add(arm);
                 _contAnimals.addChild(arm.display as StarlingArmatureDisplay);
-                arm.animation.gotoAndPlayByFrame("idle");
-            };
-
-            if (!g.managerTutorial.isTutorial && !isFromServer) {
                 g.windowsManager.closeAllWindows();
                 g.cont.moveCenterToPos(posX, posY, false, .5, onFinish);
                 _contAnimals.addChild(an.source);

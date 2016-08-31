@@ -88,7 +88,7 @@ public class WOBuyPlantItem {
 
     private function fillIcon(s:String):void {
         if (_icon) {
-            source.removeChild(_icon);
+            if (source) source.removeChild(_icon);
             _icon.dispose();
             _icon = null;
         }
