@@ -71,7 +71,7 @@ public class WOBuyCave extends WindowMain {
         super.showIt();
     }
 
-    private function onClickBuy():void {
+    private function onClickBuy(callob:Object = null, cost:int = 0):void {
         if (g.user.softCurrencyCount < _dataObject.cost) {
             var ob:Object = {};
             ob.currency = 2;

@@ -201,7 +201,7 @@ public class Containers {
             gameCont.x = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s;
     }
 
-    public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false, time:Number = .5):void {  // (_x, _y) - координати в загальній системі gameCont
+    public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false, time:Number = .5, callback:Function = null):void {  // (_x, _y) - координати в загальній системі gameCont
         //переміщаємо ігрову область так, щоб вказана точка була по центру екрана
         var newX:int;
         var newY:int;
@@ -216,23 +216,28 @@ public class Containers {
             newX =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s;
         if (newX < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s)
             newX = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s;
-
+        var f1:Function = function():void {
+            if (callback != null) {
+                callback.apply();
+            }
+        };
         if (needQuick) {
             gameCont.x = newX;
             gameCont.y = newY;
         } else {
-            new TweenMax(gameCont, time, {x:newX, y:newY, ease:Linear.easeOut});
+            new TweenMax(gameCont, time, {x:newX, y:newY, ease:Linear.easeOut,onComplete: f1});
         }
+
     }
 
     public function killMoveCenterToPoint():void {
         TweenMax.killTweensOf(gameCont);
     }
 
-    public function moveCenterToPos(posX:int, posY:int, needQuick:Boolean = false, time:Number = .5):void {
+    public function moveCenterToPos(posX:int, posY:int, needQuick:Boolean = false, time:Number = .5, callback:Function = null):void {
         var p:Point = new Point(posX, posY);
         p = g.matrixGrid.getXYFromIndex(p);
-        moveCenterToXY(p.x, p.y, needQuick, time);
+        moveCenterToXY(p.x, p.y, needQuick, time, callback);
     }
 
     public function deltaMoveGameCont(deltaX:int, deltaY:int, time:Number = .5):void {

@@ -192,7 +192,7 @@ public class WOFabrica extends WindowMain {
         }
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(g.dataResource.objectResources[dataRecipe.idResource]);
-        _list.addResource(resource);
+        _list.addResource(resource, true);
         g.fabricHint.updateItem();
         if (_callbackOnClick != null) {
             _callbackOnClick.apply(null, [resource, dataRecipe]);

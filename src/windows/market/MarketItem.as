@@ -364,7 +364,7 @@ public class MarketItem {
         _imCheck.visible = false;
         _inPapper = false;
         g.userInventory.addMoney(1,-1);
-        g.userInventory.addResource(_data.id, _data.count);
+        g.userInventory.addResource(_data.id, _countResource);
         g.gameDispatcher.removeFromTimer(onEnterFrame);
         g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
         for (var i:int = 0; i < g.user.marketItems.length; i++) {

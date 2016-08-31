@@ -523,10 +523,12 @@ public class Train extends WorldObject{
     private function onReleasePack():void {
         _stateBuild = STATE_WAIT_BACK;
         g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
+
         _counter = TIME_WAIT;
         leaveTrain();
-        list = [];
-        g.directServer.getUserTrain(null);
+//        list = [];
+//        g.directServer.getUserTrain(null);
+        g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
         _fullTrain = false;
     }
 
