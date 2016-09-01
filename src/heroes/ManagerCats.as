@@ -186,23 +186,24 @@ public class ManagerCats {
     }
 
     public function onBuyCatFromShop():void {
-        var cat:HeroCat = new HeroCat(int(Math.random()*2) + 1);
-        _catsArray.push(cat);
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
-            cat.setPosition(new Point(31, 28));
-        } else {
-            cat.setPosition(g.townArea.getRandomFreeCell());
-        }
-        cat.addToMap();
-        g.user.countCats++;
-        g.directServer.buyHeroCat(null);
-        g.catPanel.checkCat();
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
-            cat.playDirectLabel('idle', true, cat.makeFreeCatIdle);
-        } else {
-            cat.makeFreeCatIdle();
-        }
+        addNewHeroFromShop();
 
+//        var cat:HeroCat = new HeroCat(int(Math.random()*2) + 1);
+//        _catsArray.push(cat);
+//        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
+//            cat.setPosition(new Point(31, 28));
+//        } else {
+//            cat.setPosition(g.townArea.getRandomFreeCell());
+//        }
+//        cat.addToMap();
+//        g.user.countCats++;
+//        g.directServer.buyHeroCat(null);
+//        g.catPanel.checkCat();
+//        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
+//            cat.playDirectLabel('idle', true, cat.makeFreeCatIdle);
+//        } else {
+//            cat.makeFreeCatIdle();
+//        }
     }
 
     public function getFreeCat():HeroCat {
@@ -312,5 +313,44 @@ public class ManagerCats {
         p = g.matrixGrid.getXYFromIndex(p);
         cat.goCatToXYPoint(p, 1, callback);
     }
+
+    public function addNewHeroFromShop():void {
+        if (g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
+                g.managerTutorial.checkTutorialCallback();
+            }
+        }
+        g.cont.moveCenterToPos(31, 33, false, .5, addNewHeroFromShop1);
+        if (g.windowsManager.currentWindow) g.windowsManager.currentWindow.hideIt();
+    }
+
+    private function addNewHeroFromShop1():void {
+        var newHero:AddNewHero = new AddNewHero();
+        var isWoman:int = int(Math.random()*2) + 1;
+        newHero.addHero(isWoman, onAdd);
+    }
+    
+    private function onAdd(isWoman:int):void {
+        var cat:HeroCat = new HeroCat(isWoman);
+        _catsArray.push(cat);
+        cat.setPosition(new Point(31, 30));
+        cat.addToMap();
+        g.user.countCats++;
+        g.directServer.buyHeroCat(null);
+        g.catPanel.checkCat();
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
+            g.managerTutorial.checkTutorialCallback();
+        }
+        goIdleCatToPoint(cat, new Point(31, 33), onEndAdd, cat);
+    }
+
+    private function onEndAdd(cat:HeroCat):void {
+        cat.stopAnimation();
+        cat.makeFreeCatIdle();
+    }
+
+
+    
+    
 }
 }

@@ -26,6 +26,8 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
+
+import heroes.AddNewHero;
 import heroes.BasicCat;
 import heroes.OrderCat;
 
@@ -118,6 +120,14 @@ public class TownArea extends Sprite {
         return _objAwayBuildingsDiagonals;
     }
 
+    public function addNonWorldObjectToCityObjects(c:*):void {
+        if (_cityObjects.indexOf(c) == -1) _cityObjects.push(c);
+    }
+
+    public function removeNonWorldObjectToCityObjects(c:*):void {
+        if (_cityObjects.indexOf(c) != -1) _cityObjects.removeAt(_cityObjects.indexOf(c));
+    }
+
     public function getCityObjectsByType(buildType:int):Array {
         var ar:Array = [];
         try {
@@ -137,7 +147,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero) continue;
                 if (_cityObjects[i].dataBuild.id == id)
                     ar.push(_cityObjects[i]);
             }
@@ -153,7 +163,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero) continue;
                 if (_cityObjects[i] is Tree) {
                     if (checkLastState) {
                         if (_cityObjects[i].dataBuild.id == id && (_cityObjects[i] as Tree).stateTree != Tree.FULL_DEAD)

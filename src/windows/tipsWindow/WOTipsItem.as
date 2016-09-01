@@ -143,7 +143,6 @@ public class WOTipsItem {
         _bg = null;
         source.removeChild(_btn);
         _btn.removeChild(_txtBtn);
-        _txt.filter = null;
         _btn.deleteIt();
         _btn = null;
         _txtBtn.dispose();

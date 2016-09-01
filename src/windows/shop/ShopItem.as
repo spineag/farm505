@@ -756,15 +756,10 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.CAT) {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_CAT) return;
-            g.managerCats.onBuyCatFromShop();
             updateItem();
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(_data.cost));
-            showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost));
-            if (g.managerTutorial.isTutorial) {
-                if (g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
-                    g.managerTutorial.checkTutorialCallback();
-                }
-            }
+//            showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost));
+            g.managerCats.onBuyCatFromShop();
             if (g.managerTips) g.managerTips.calculateAvailableTips();
         } else if (_data.buildType != BuildType.ANIMAL) {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_FABRICA && g.managerTutorial.currentAction != TutorialAction.BUY_FARM) return;
@@ -891,11 +886,6 @@ public class ShopItem {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_CAT) return;
             g.managerCats.onBuyCatFromShop();
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(objectCallback.cost));
-            if (g.managerTutorial.isTutorial) {
-                if (g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
-                    g.managerTutorial.checkTutorialCallback();
-                }
-            }
         } else if (objectCallback.buildType != BuildType.ANIMAL) {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_FABRICA && g.managerTutorial.currentAction != TutorialAction.BUY_FARM) return;
             build = g.townArea.createNewBuild(objectCallback);

@@ -10,6 +10,8 @@ import build.lockedLand.LockedLand;
 import build.ridge.Ridge;
 
 import flash.geom.Point;
+
+import heroes.AddNewHero;
 import heroes.BasicCat;
 import heroes.OrderCat;
 import manager.Vars;
@@ -223,7 +225,7 @@ public class TownAreaTouchManager {
         var ar:Array = [];
         for (i=0; i< l; i++) {
             if (_arrTown[i] == _curBuild) continue;
-            if (_arrTown[i] is BasicCat || _arrTown[i] is OrderCat || _arrTown[i] is DecorFence || _arrTown[i] is DecorPostFence || _arrTown[i] is LockedLand) continue;
+            if (_arrTown[i] is BasicCat || _arrTown[i] is OrderCat || _arrTown[i] is DecorFence || _arrTown[i] is DecorPostFence || _arrTown[i] is LockedLand || _arrTown[i] is AddNewHero) continue;
             if (!(_arrTown[i] as WorldObject).useIsometricOnly) continue;
             if ((_arrTown[i] as WorldObject).depth > _curBuild.depth) continue;
             if (containsPoint((_arrTown[i] as WorldObject).source as Sprite, (_arrTown[i] as WorldObject).rect, p)) ar.push(_arrTown[i]);
@@ -278,7 +280,9 @@ public class TownAreaTouchManager {
         }
     }
 
-    public function checkForTailTouches():void {
+import flash.geom.Point;
+
+public function checkForTailTouches():void {
         if (g.isAway) return;
         _arrTown = g.townArea.cityTailObjects;
         var i:int;

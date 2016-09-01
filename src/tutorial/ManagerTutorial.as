@@ -1621,14 +1621,19 @@ public class ManagerTutorial {
             _arrow.deleteIt();
             _arrow = null;
         }
-        _currentAction = TutorialAction.NONE;
+        _tutorialCallback = subStep20_4;
+    }
+
+
+    private function subStep20_4():void {
+        _subStep = 4;
         _tutorialCallback = null;
         g.user.tutorialStep = 21;
         updateTutorialStep();
-        createDelay(2, subStep20_4);
+        createDelay(2, subStep20_5);
     }
 
-    private function subStep20_4():void {
+    private function subStep20_5():void {
         _subStep = 4;
         initScenes();
     }
@@ -1658,7 +1663,7 @@ public class ManagerTutorial {
 
     private function subStep21_1a():void {
         _subStep = 1;
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep]);
+        cutScene.showIt(texts[g.user.tutorialStep][0]);
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         g.bottomPanel.addArrow('shop');
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);

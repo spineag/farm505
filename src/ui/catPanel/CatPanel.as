@@ -35,7 +35,7 @@ public class CatPanel {
         _txtCount = new TextField(77, 40, '55');
         _txtCount.format.setTo(g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_BROWN_COLOR);
         ManagerFilters.setEmptyStyle(_txtCount);
-        _txtZero = new TextField(30, 40, '23');
+        _txtZero = new TextField(40, 40, '23');
         _txtZero.format.setTo(g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_ORANGE_COLOR);
         ManagerFilters.setEmptyStyle(_txtZero);
         _source.addChild(_txtCount);
