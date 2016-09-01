@@ -16,6 +16,7 @@ public class ManagerFilters {
     public static var TEXT_LIGHT_GREEN_COLOR:int = 0x40f61c;  
     public static var TEXT_GREEN_COLOR:int = 0x10650a;
     public static var TEXT_YELLOW_COLOR:int = 0xa37b01;
+    public static var LIGHT_YELLOW_COLOR:int = 0xeffd98;
     public static var TEXT_LIGHT_BLUE_COLOR:int = 0x1377ab;
     public static var TEXT_GRAY_HARD_COLOR:int = 0x444444;
     public static var TEXT_BLUE_COLOR:int = 0x0968b1;
@@ -40,19 +41,19 @@ public class ManagerFilters {
     }
 
     public static function get RED_STROKE():GlowFilter {
-        return new GlowFilter(Color.RED, 4, 2, 1);
+        return new GlowFilter(Color.RED);
     }
 
     public static function get YELLOW_STROKE():GlowFilter {
-        return new GlowFilter(Color.YELLOW, 4, 2, 1);
+        return new GlowFilter(Color.YELLOW);
     }
 
     public static function get WHITE_STROKE():GlowFilter {
-        return new GlowFilter(Color.WHITE, 4, 2, 1);
+        return new GlowFilter(Color.WHITE);
     }
 
     public static function get BUILD_STROKE():GlowFilter {
-        return new GlowFilter(0xeffd98, 4, 2, 1);
+        return new GlowFilter(LIGHT_YELLOW_COLOR);
     }
 
     public static function getButtonClickFilter():ColorMatrixFilter {

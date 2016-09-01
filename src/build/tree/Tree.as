@@ -897,18 +897,6 @@ public class Tree extends WorldObject {
     public function get stateTree():int {
         return _state;
     }
-    private function hov():void {
-        if (_isOnHover || _isOnHoverWatter) return;
-        _isOnHover = true;
-        _source.filter = ManagerFilters.BUILD_STROKE;
-//
-    }
-
-    private function ouu():void {
-        _isOnHover = false;
-        _isOnHoverWatter = false;
-        _source.filter = null;
-    }
 
     private function makeWateringIcon(ask:Boolean = false):void {
         if (_wateringIcon) {
@@ -921,8 +909,6 @@ public class Tree extends WorldObject {
             if (_state == ASK_FIX || _state == FIXED) {
                 _wateringIcon = new CSprite();
                 _wateringIcon.endClickCallback = onClickWatering;
-                _wateringIcon.hoverCallback = hov;
-                _wateringIcon.outCallback = ouu;
                 var im:Image;
                 var watering:Image;
                 if (_dataBuild.width == 2) {
