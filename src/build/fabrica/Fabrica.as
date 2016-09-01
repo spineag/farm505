@@ -713,7 +713,7 @@ public class Fabrica extends WorldObject {
 //        var im:Image = g.allData.factory['cat_main'].getTextureDisplay(newName) as Image;
         var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
         if (_armature) var b:Slot = _armature.getSlot(oldName);
-        if (im) {
+        if (im && b) {
 //            im.pivotX = b.display.pivotX;
 //            im.pivotY = b.display.pivotY;
             b.displayList = null;
