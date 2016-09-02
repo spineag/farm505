@@ -51,7 +51,7 @@ public class WOBuyCouponeItem {
             _btn = new CButton();
             _btn.addButtonTexture(80, 50, CButton.GREEN, true);
             var txt:TextField = new TextField(50,50,'+' + String(_cost));
-            txt..format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+            txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
 //            txt.x = 5;
             ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btn.addChild(txt);

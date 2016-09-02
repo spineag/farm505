@@ -352,7 +352,7 @@ public class MarketItem {
     }
 
     private function onDelete():void {
-        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene || isFill == 2) return;
         g.windowsManager.cashWindow = _wo;
         _wo.hideIt();
         g.marketHint.hideIt();
