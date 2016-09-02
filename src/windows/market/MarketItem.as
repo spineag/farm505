@@ -352,11 +352,16 @@ public class MarketItem {
     }
 
     private function onDelete():void {
-        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene || isFill == 2) return;
-        g.windowsManager.cashWindow = _wo;
-        _wo.hideIt();
-        g.marketHint.hideIt();
-        g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, _data, _countResource);
+        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+
+        var f1:Function = function():void {
+            if (isFill == 2) return;
+            g.windowsManager.cashWindow = _wo;
+            _wo.hideIt();
+            g.marketHint.hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_MARKET_DELETE_ITEM, deleteCallback, _data, _countResource);
+        };
+        g.directServer.getUserMarketItem(g.user.userSocialId, f1);
     }
 
     private function deleteCallback():void {

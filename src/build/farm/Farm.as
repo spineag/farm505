@@ -239,10 +239,6 @@ public class Farm extends WorldObject{
             };
 
             var f1:Function = function():void {
-//                WorldClock.clock.remove(arm);
-//                arm.removeEventListener(EventObject.COMPLETE, onFinish);
-//                arm.removeEventListener(EventObject.LOOP_COMPLETE, onFinish);
-//                _contAnimals.removeChild(arm.display as StarlingArmatureDisplay);
                 TweenMax.to(an.source, .3, {scaleY:1.3, onComplete:f2});
             };
 
@@ -251,17 +247,16 @@ public class Farm extends WorldObject{
                 arm.removeEventListener(EventObject.COMPLETE,null);
                 arm.removeEventListener(EventObject.LOOP_COMPLETE, null);
                 _contAnimals.removeChild(arm.display as StarlingArmatureDisplay);
-
             };
 
-
             var onAnimation1:Function = function():void {
-                _contAnimals.addChildAt(arm.display as StarlingArmatureDisplay,0);
+                _contAnimals.addChild(arm.display as StarlingArmatureDisplay);
                 arm.addEventListener(EventObject.COMPLETE, cancelAnimation);
                 arm.addEventListener(EventObject.LOOP_COMPLETE, cancelAnimation);
                 arm.animation.gotoAndPlayByFrame("idle");
                TweenMax.to(an.source, .3, {scaleY:.7, onComplete:f1});
             };
+
             var onFinish:Function = function():void {
                 var tween:Tween = new Tween(an.source, .4);
                 tween.fadeTo(1);
@@ -276,31 +271,20 @@ public class Farm extends WorldObject{
                 var arm:Armature;
                 arm = g.allData.factory['explode_an'].buildArmature("expl_fabric");
                 (arm.display as StarlingArmatureDisplay).x = p.x;
-                (arm.display as StarlingArmatureDisplay).y = p.y - 15;
+                (arm.display as StarlingArmatureDisplay).y = p.y - 20;
                 WorldClock.clock.add(arm);
                 g.windowsManager.closeAllWindows();
                 g.cont.moveCenterToPos(posX, posY, false, .5, onFinish);
                 an.source.alpha = 0;
                 an.source.y = p.y - 60;
-                try {
-                    _contAnimals.addChildAt(an.source,1);
-                } catch (e:Error) {
-                    _contAnimals.addChild(an.source);
-
-                }
-
-//                TweenMax.to (an.source, 1, {alpha: 1, ease: Expo.easeIn});
-//                TweenMax.to(an.source, 3, {alpha:.2});
-
-
-
+                _contAnimals.addChild(an.source);
 
             } else {
                 _contAnimals.addChild(an.source);
             }
 
             if (!isFromServer) {
-//                g.directServer.addUserAnimal(an, _dbBuildingId, null);
+                g.directServer.addUserAnimal(an, _dbBuildingId, null);
             } else {
                 an.fillItFromServer(ob);
             }
@@ -314,31 +298,6 @@ public class Farm extends WorldObject{
 //            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'farm add animal');
 //        }
     }
-
-//    private function test():void {
-//        if (_source) TweenMax.to(_source, .3, {y:_sY-40, onComplete:onAnimation1, delay: delay});
-//    }
-//
-//    private function onAnimation1():void {
-//        if (_imageSprite) TweenMax.to(_imageSprite, .2, {scaleX:1.2, scaleY:.8, onComplete:onAnimation2});
-//    }
-//
-//    private function onAnimation2():void {
-//        if (_imageSprite) TweenMax.to(_imageSprite, .2, {scaleX:.8, scaleY:1.2, onComplete:onAnimation3});
-//    }
-//
-//    private function onAnimation3():void {
-//        if (_imageSprite) TweenMax.to(_imageSprite, .2, {scaleX:1, scaleY:1});
-//        if (_source) TweenMax.to(_source, .3, {y:_sY, onComplete:animIt});
-//    }
-//
-//    public function removeAnimIt():void {
-//        if (_source) {
-//            TweenMax.killTweensOf(_source);
-//            _source.y = _sY;
-//        }
-//        if (_imageSprite) _imageSprite.scaleX = _imageSprite.scaleY = 1;
-//    }
 
     public function get isFull():Boolean {
         return _arrAnimals.length >= _dataBuild.maxAnimalsCount;
