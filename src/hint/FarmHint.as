@@ -15,6 +15,7 @@ import starling.textures.Texture;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WindowsManager;
@@ -24,8 +25,8 @@ public class FarmHint {
     private var _isOnHover:Boolean;
     private var _textureHint:Image;
     private var _animal:Image;
-    private var _countTxt:TextField;
-    private var _nameTxt:TextField;
+    private var _countTxt:CTextField;
+    private var _nameTxt:CTextField;
     private var _callback:Function;
     private var g:Vars = Vars.getInstance();
 
@@ -44,18 +45,16 @@ public class FarmHint {
         source.outCallback = outHover;
         source.endClickCallback = onClick;
 
-        _countTxt = new TextField(50,30," ");
-        _countTxt.format.setTo(g.allData.bFonts['BloggerRegular18'], 18, Color.WHITE);
-        _nameTxt = new TextField(70,30," ");
-        _nameTxt.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, Color.BLACK);
+        _countTxt = new CTextField(50,30," ");
+        _countTxt.setFormat(CTextField.REGULAR18, 18, Color.WHITE);
+        _nameTxt = new CTextField(70,30," ");
+        _nameTxt.setFormat(CTextField.REGULAR14, 14, Color.WHITE);
         _nameTxt.x = 10;
         _nameTxt.y = 65;
         source.addChild(_nameTxt);
         _countTxt.x = 85;
         _countTxt.y = 50;
         source.addChild(_countTxt);
-        ManagerFilters.setEmptyStyle(_countTxt);
-        ManagerFilters.setEmptyStyle(_nameTxt);
     }
 
     public function showIt(x:int, y:int, dataAnimal:Object, f:Function):void {

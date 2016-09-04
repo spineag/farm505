@@ -12,6 +12,7 @@ import starling.utils.Color;
 
 import utils.CButton;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WOComponents.HorizontalPlawka;
@@ -22,7 +23,7 @@ public class DecorShopFilterItem {
     private var _typeFilter:int;
     private var g:Vars = Vars.getInstance();
     private var _width:int = 150;
-    private var _txt:TextField;
+    private var _txt:CTextField;
     private var _callback:Function;
     private var _parent:Sprite;
     private var _btn:CButton;
@@ -34,9 +35,8 @@ public class DecorShopFilterItem {
         _source = new CSprite();
         _bg = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), _width);
-        _txt = new TextField(_width, 35, '');
-        _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
+        _txt = new CTextField(_width, 35, '');
+        _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_bg);
         _source.addChild(_txt);
         _source.y = pos * 33;

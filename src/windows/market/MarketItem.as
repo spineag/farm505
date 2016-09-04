@@ -27,6 +27,7 @@ import user.NeighborBot;
 import user.Someone;
 import utils.CButton;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WindowsManager;
@@ -34,10 +35,10 @@ import windows.WindowsManager;
 public class MarketItem {
     public var source:CSprite;
     public var buyCont:Sprite;
-    private var _costTxt:TextField;
-    private var _countTxt:TextField;
-    private var _txtPlawka:TextField;
-    private var _txtAdditem:TextField;
+    private var _costTxt:CTextField;
+    private var _countTxt:CTextField;
+    private var _txtPlawka:CTextField;
+    private var _txtAdditem:CTextField;
     private var _bg:CartonBackgroundIn;
     private var quad:Quad;
     private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная  , 3 - недоступна по лвлу
@@ -90,25 +91,22 @@ public class MarketItem {
         isFill = 0;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtAdditem = new TextField(70,70,'');
-        _txtAdditem.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        _txtAdditem = new CTextField(70,70,'');
+        _txtAdditem.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtAdditem.x = 20;
         _txtAdditem.y = 30;
-        ManagerFilters.setStrokeStyle(_txtAdditem, ManagerFilters.TEXT_BLUE_COLOR);
         source.addChild(_txtAdditem);
 
-        _costTxt = new TextField(122, 30, '');
-        _costTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 15, Color.WHITE);
+        _costTxt = new CTextField(122, 30, '');
+        _costTxt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _costTxt.y = 101;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2 - 5;
-        ManagerFilters.setStrokeStyle(_costTxt, ManagerFilters.TEXT_BROWN_COLOR);
 
-        _countTxt = new TextField(30, 30, '');
-        _countTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _countTxt = new CTextField(30, 30, '');
+        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _countTxt.x = 77;
         _countTxt.y = 7;
-        ManagerFilters.setStrokeStyle(_countTxt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_countTxt);
 
         _imageCont = new Sprite();
@@ -128,11 +126,10 @@ public class MarketItem {
 
         _plawkaLvl.visible = false;
 
-        _txtPlawka = new TextField(90,60, 'Продано');
-        _txtPlawka.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        _txtPlawka = new CTextField(90,60, 'Продано');
+        _txtPlawka.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtPlawka.x = 10;
         _txtPlawka.y = 85;
-        ManagerFilters.setStrokeStyle(_txtPlawka, ManagerFilters.TEXT_BROWN_COLOR);
         _txtPlawka.visible = false;
         source.addChild(_txtPlawka);
 
@@ -195,18 +192,16 @@ public class MarketItem {
             if (numberCell == 5) _countBuyCell = 5;
             else _countBuyCell = (numberCell - 5) * 2 + 5;
             source.addChild(buyCont);
-            var txt:TextField = new TextField(100,90,'Докупить торговое место');
-            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+            var txt:CTextField = new CTextField(100,90,'Докупить торговое место');
+            txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = 5;
             txt.y = 20;
-            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
             buyCont.addChild(txt);
             var _btnBuyCont:CButton = new CButton();
             _btnBuyCont.addButtonTexture(90,30,CButton.GREEN, true);
-            txt = new TextField(30,30,String(String(_countBuyCell)));
-            txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+            txt = new CTextField(30,30,String(String(_countBuyCell)));
+            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
             txt.x = 10;
-            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btnBuyCont.addChild(txt);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             im.x = 55;
@@ -734,11 +729,10 @@ public class MarketItem {
 
         _btnGoAwaySaleItem = new CButton();
         _btnGoAwaySaleItem.addButtonTexture(70, 24, CButton.BLUE, true);
-        var txt:TextField = new TextField(60, 30, 'посетить');
-        txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        var txt:CTextField = new CTextField(60, 30, 'посетить');
+        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = 4;
         txt.y = -4;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btnGoAwaySaleItem.addChild(txt);
         source.addChild(_btnGoAwaySaleItem);
 

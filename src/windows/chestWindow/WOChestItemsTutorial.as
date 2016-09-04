@@ -46,12 +46,14 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 import temp.DropResourceVariaty;
+
+import utils.CTextField;
 import utils.MCScaler;
 
 internal class ItemChest {
     public var source:Sprite;
     private var _data:Object;
-    private var _txt:TextField;
+    private var _txt:CTextField;
     private var _countUpdate:int;
     private var _countPerUpdate:int;
     private var _callback:Function;
@@ -65,11 +67,10 @@ internal class ItemChest {
         source = new Sprite();
         var im:Image = createImage();
         source.addChild(im);
-        _txt = new TextField(80, 60, '+'+String(_data.count));
-        _txt.format.setTo(g.allData.bFonts['BloggerMedium30'], 26, Color.WHITE);
+        _txt = new CTextField(80, 60, '+'+String(_data.count));
+        _txt.setFormat(CTextField.MEDIUM30, 26, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txt.x = 0;
         _txt.y = 5;
-        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txt);
     }
 

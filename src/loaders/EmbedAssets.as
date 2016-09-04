@@ -52,9 +52,9 @@ public class EmbedAssets {
     private const BitmapBloggerBoldWhite18png:Class;
     [Embed(source="../../assets/fonts/bitmap/bold18.fnt", mimeType="application/octet-stream")]
     private const BitmapBloggerBoldWhite18xml:Class;
-    [Embed(source="../../assets/fonts/bitmap/bold14.png")]
+    [Embed(source="../../assets/fonts/bitmap/font2.png")]
     private const BitmapBloggerBoldWhite14png:Class;
-    [Embed(source="../../assets/fonts/bitmap/bold14.fnt", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/fonts/bitmap/font2.fnt", mimeType="application/octet-stream")]
     private const BitmapBloggerBoldWhite14xml:Class;
     [Embed(source="../../assets/fonts/bitmap/medium30.png")]
     private const BitmapBloggerMediumWhite30png:Class;

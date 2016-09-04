@@ -13,12 +13,14 @@ import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CTextField;
+
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOServerCrack  extends WindowMain {
-    private var _txtError:TextField;
+    private var _txtError:CTextField;
     private var _woBG:WindowBackground;
     private var _b:CButton;
 
@@ -29,28 +31,25 @@ public class WOServerCrack  extends WindowMain {
         _woHeight = 340;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        var txt:TextField = new TextField(420,80,'Не правильные данные');
-        txt.format.setTo(g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
+        var txt:CTextField = new CTextField(420,80,'Не правильные данные');
+        txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.autoScale = true;
         txt.x = -210;
         txt.y = -130;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         txt.touchable = false;
         _source.addChild(txt);
-        _txtError = new TextField(340,100,'Ошибка данных');
-        _txtError.format.setTo(g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
+        _txtError = new CTextField(340,100,'Ошибка данных');
+        _txtError.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtError.x = -170;
         _txtError.y = -170;
-        ManagerFilters.setStrokeStyle(_txtError, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtError);
         _txtError.touchable = false;
         _b = new CButton();
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        txt = new TextField(200, 34, "Перезагрузить");
-        txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
+        txt = new CTextField(200, 34, "Перезагрузить");
+        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         _b.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;

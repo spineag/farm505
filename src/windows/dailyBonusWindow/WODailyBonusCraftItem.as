@@ -25,6 +25,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 import utils.MCScaler;
 
 public class WODailyBonusCraftItem {
@@ -66,15 +68,11 @@ public class WODailyBonusCraftItem {
         im.y = -im.height/2;
         _source = new Sprite();
         _source.addChild(im);
-//        if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
-            var txt:TextField = new TextField(80, 60, '+'+String(obj.count));
-            txt.format.setTo(g.allData.bFonts['BloggerMedium30'], 30, Color.WHITE);
-            txt.x = 0;
-            txt.y = 5;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
-            _source.addChild(txt);
-//        }
-
+        var txt:CTextField = new CTextField(80, 60, '+'+String(obj.count));
+        txt.setFormat(CTextField.MEDIUM30, 30, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.x = 0;
+        txt.y = 5;
+        _source.addChild(txt);
         _parent.addChild(_source);
         showIt();
     }

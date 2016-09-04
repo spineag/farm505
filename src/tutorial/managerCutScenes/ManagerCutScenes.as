@@ -691,7 +691,7 @@ public class ManagerCutScenes {
         }
         g.user.cutScenes[7] = 1;
         isCutScene = false;
-//        saveUserCutScenesData();
+        saveUserCutScenesData();
     }
 
     private function releaseAddToPapper(it:MarketItem):void {

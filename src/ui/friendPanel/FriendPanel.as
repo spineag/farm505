@@ -31,6 +31,7 @@ import user.Someone;
 import utils.CButton;
 
 import utils.CSprite;
+import utils.CTextField;
 
 import windows.WOComponents.HorizontalPlawka;
 
@@ -59,11 +60,10 @@ public class FriendPanel {
         im.x = 20;
         im.y = -23;
         _source.addChild(im);
-        var txt:TextField = new TextField(106, 27, "Мои друзья");
-        txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, ManagerFilters.TEXT_BROWN_COLOR);
+        var txt:CTextField = new CTextField(106, 27, "Мои друзья");
+        txt.setFormat(CTextField.BOLD14, 14, ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 30;
         txt.y = -23;
-        ManagerFilters.setEmptyStyle(txt);
         _source.addChild(txt);
 
         _mask = new Sprite();
@@ -165,16 +165,15 @@ public class FriendPanel {
         }
         var bt:CButton;
         var im:Image;
-        var txt:TextField;
+        var txt:CTextField;
         if (_arrFriends.length == 0 ) {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга");
-            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new CTextField(64, 50,"Добавить друга");
+            txt.setFormat(CTextField.BOLD14, 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
-            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 237 + bt.width/2;
@@ -185,11 +184,10 @@ public class FriendPanel {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга");
-            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new CTextField(64, 50,"Добавить друга");
+            txt.setFormat(CTextField.BOLD14, 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
-            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 303 + bt.width/2;
@@ -200,27 +198,24 @@ public class FriendPanel {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга");
-            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new CTextField(64, 50,"Добавить друга");
+            txt.setFormat(CTextField.BOLD14, 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
-            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 369 + bt.width/2;
             bt.y = 6 + bt.height/2;
             _source.addChild(bt);
             bt.clickCallback = inviteFriends;
-
         } else if (_arrFriends.length == 1) {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга");
-            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new CTextField(64, 50,"Добавить друга");
+            txt.setFormat(CTextField.BOLD14, 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
-            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 303 + bt.width/2;
@@ -231,11 +226,10 @@ public class FriendPanel {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга");
-            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new CTextField(64, 50,"Добавить друга");
+            txt.setFormat(CTextField.BOLD14, 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
-            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 369 + bt.width/2;
@@ -247,11 +241,10 @@ public class FriendPanel {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
             bt.addDisplayObject(im);
-            txt = new TextField(64, 50,"Добавить друга");
-            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, ManagerFilters.TEXT_BROWN_COLOR);
+            txt = new CTextField(64, 50,"Добавить друга");
+            txt.setFormat(CTextField.BOLD14, 12, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -1;
             txt.y = 12;
-            ManagerFilters.setEmptyStyle(txt);
             bt.addChild(txt);
             bt.setPivots();
             bt.x = 369 + bt.width/2;

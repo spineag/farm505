@@ -32,6 +32,7 @@ import ui.xpPanel.XPStar;
 import utils.CButton;
 
 import utils.CSprite;
+import utils.CTextField;
 
 import utils.MCScaler;
 
@@ -44,14 +45,14 @@ public class TreeHint {
     private var _contWatering:CButton;
     private var _isOnHover:Boolean;
     private var _isShowed:Boolean;
-    private var _txtText:TextField;
+    private var _txtText:CTextField;
     private var _imageCircle:Image;
     private var _imageBgItem:Image;
     private var _imageBgItemHelp:Image;
     private var _imageItem:Image;
     private var _imageHelp:Image;
-    private var _txtItem:TextField;
-    private var _txtName:TextField;
+    private var _txtItem:CTextField;
+    private var _txtName:CTextField;
     private var _worldObject:WorldObject;
     private var _data:Object;
     private var _deleteCallback:Function;
@@ -85,19 +86,16 @@ public class TreeHint {
         _imageCircle.x = 45;
         _imageCircle.y = -110;
 
-        _txtItem = new TextField(50,50,"");
-        _txtItem.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
+        _txtItem = new CTextField(50,50,"");
+        _txtItem.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtItem.x = 38;
         _txtItem.y = -117;
-        ManagerFilters.setStrokeStyle(_txtItem, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtName = new TextField(200,50,"");
-        _txtName.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
+        _txtName = new CTextField(200,50,"");
+        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtName.x = -100;
         _txtName.y = -140;
-        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtText = new TextField(50,30,'УСКОРИТЬ');
-        _txtText.format.setTo(g.allData.bFonts['BloggerBold18'],16,ManagerFilters.TEXT_BLUE_COLOR);
-        ManagerFilters.setEmptyStyle(_txtText);
+        _txtText = new CTextField(50,30,'УСКОРИТЬ');
+        _txtText.setFormat(CTextField.BOLD18, 16, ManagerFilters.TEXT_BLUE_COLOR);
 
         _contDelete.addDisplayObject(_imageBgItem);
         _contWatering.addDisplayObject(_imageBgItemHelp);

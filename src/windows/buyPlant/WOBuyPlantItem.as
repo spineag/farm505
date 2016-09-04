@@ -10,6 +10,8 @@ import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
+
+import utils.CTextField;
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
 import utils.CSprite;
@@ -22,7 +24,7 @@ public class WOBuyPlantItem {
     private var _icon:Image;
     private var _dataPlant:Object;
     private var _clickCallback:Function;
-    private var _txtNumber:TextField;
+    private var _txtNumber:CTextField;
     private var _countPlants:int;
     private var _arrow:SimpleArrow;
     private var _defaultY:int;
@@ -41,10 +43,9 @@ public class WOBuyPlantItem {
         source.endClickCallback = onClick;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtNumber = new TextField(40,30,'');
-        _txtNumber.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
+        _txtNumber = new CTextField(40,30,'');
+        _txtNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtNumber.format.horizontalAlign = Align.RIGHT;
-        ManagerFilters.setStrokeStyle(_txtNumber, ManagerFilters.TEXT_BROWN_COLOR);
 
         _txtNumber.x = 52;
         _txtNumber.y = 68;

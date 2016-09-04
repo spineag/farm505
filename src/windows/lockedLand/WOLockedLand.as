@@ -15,6 +15,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CTextField;
+
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.HintBackground;
@@ -53,9 +55,8 @@ public class WOLockedLand extends WindowMain {
 
         _btnOpen = new CButton();
         _btnOpen.addButtonTexture(158, 46, CButton.BLUE, true);
-        var txt:TextField = new TextField(158,46,'Открыть участок');
-        txt.format.setTo(g.allData.bFonts['BloggerMedium18'],18,Color.WHITE);
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
+        var txt:CTextField = new CTextField(158,46,'Открыть участок');
+        txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _btnOpen.addChild(txt);
         _btnOpen.x = 0;
         _btnOpen.y = -_woHeight/2 + 515;
@@ -66,9 +67,8 @@ public class WOLockedLand extends WindowMain {
         _pl.y = -_woHeight/2 + 109;
         _pl.addShadow();
         _source.addChild(_pl);
-        txt = new TextField(310,97,'Выполните следующие задания, чтобы открыть этот участок');
-        txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 18, ManagerFilters.TEXT_BLUE_COLOR);
-        ManagerFilters.setEmptyStyle(txt);
+        txt = new CTextField(310,97,'Выполните следующие задания, чтобы открыть этот участок');
+        txt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.TEXT_BLUE_COLOR);
         _pl.inSprite.addChild(txt);
         addAnimation();
     }

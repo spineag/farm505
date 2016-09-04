@@ -9,13 +9,15 @@ import starling.display.Image;
 import starling.styles.DistanceFieldStyle;
 import starling.text.TextField;
 import utils.CSprite;
+import utils.CTextField;
+
 import windows.WOComponents.HorizontalPlawka;
 import windows.WindowsManager;
 
 public class CatPanel {
     private var _source:CSprite;
-    private var _txtCount:TextField;
-    private var _txtZero:TextField;
+    private var _txtCount:CTextField;
+    private var _txtZero:CTextField;
 
     private var g:Vars = Vars.getInstance();
     public function CatPanel() {
@@ -32,12 +34,10 @@ public class CatPanel {
         im.x = -19;
         im.y = -5;
         _source.addChild(im);
-        _txtCount = new TextField(77, 40, '55');
-        _txtCount.format.setTo(g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_BROWN_COLOR);
-        ManagerFilters.setEmptyStyle(_txtCount);
-        _txtZero = new TextField(40, 40, '23');
-        _txtZero.format.setTo(g.allData.bFonts['BloggerBold24'], 22, ManagerFilters.TEXT_ORANGE_COLOR);
-        ManagerFilters.setEmptyStyle(_txtZero);
+        _txtCount = new CTextField(77, 40, '55');
+        _txtCount.setFormat(CTextField.BOLD24, 22, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtZero = new CTextField(40, 40, '23');
+        _txtZero.setFormat(CTextField.BOLD24, 22, ManagerFilters.TEXT_ORANGE_COLOR);
         _source.addChild(_txtCount);
         _source.addChild(_txtZero);
 

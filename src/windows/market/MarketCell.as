@@ -11,6 +11,7 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WindowsManager;
@@ -21,7 +22,7 @@ public class MarketCell {
     private var _info:Object; // id & count
     private var _data:Object;
     private var _image:Image;
-    private var _countTxt:TextField;
+    private var _countTxt:CTextField;
     private var g:Vars = Vars.getInstance();
     private var _clickCallback:Function;
     private var _carton:CartonBackgroundIn;
@@ -63,11 +64,10 @@ public class MarketCell {
             return;
         }
 
-        _countTxt = new TextField(60,20,String(g.userInventory.getCountResourceById(_data.id)));
-        _countTxt.format.setTo(g.allData.bFonts['BloggerBold18'],16, Color.WHITE);
+        _countTxt = new CTextField(60,20,String(g.userInventory.getCountResourceById(_data.id)));
+        _countTxt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _countTxt.x = 50;
         _countTxt.y = 77;
-        ManagerFilters.setStrokeStyle(_countTxt, ManagerFilters.TEXT_BROWN_COLOR);
         _cont.addChild(_countTxt);
         _cont.x += 2;
         _cont.y += 2;

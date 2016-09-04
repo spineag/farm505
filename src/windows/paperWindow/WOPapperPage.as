@@ -15,6 +15,7 @@ import starling.textures.Texture;
 import starling.utils.Align;
 import starling.utils.Color;
 import utils.CSprite;
+import utils.CTextField;
 import utils.DrawToBitmap;
 import utils.MCScaler;
 
@@ -60,19 +61,17 @@ public class WOPapperPage {
         q.x = 70;
         q.y = 38;
         _bg.addChild(q);
-        var txt:TextField = new TextField(300, 100, "НьюсМяу");
-        txt.format.setTo(g.allData.bFonts['BloggerBold30'], 26, ManagerFilters.TEXT_BLUE_COLOR);
+        var txt:CTextField = new CTextField(300, 100, "НьюсМяу");
+        txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.TEXT_BLUE_COLOR);
         txt.format.horizontalAlign = Align.LEFT;
         txt.x = 66;
         txt.y = -23;
-        ManagerFilters.setEmptyStyle(txt);
         _bg.addChild(txt);
-        txt = new TextField(100, 100, String(n) + '/' + String(nMax));
-        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BROWN_COLOR);
+        txt = new CTextField(100, 100, String(n) + '/' + String(nMax));
+        txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.TEXT_BROWN_COLOR);
         if (n > nMax) txt.text = '';
         txt.x = 170;
         txt.y = 460;
-        ManagerFilters.setEmptyStyle(txt);
         _bg.addChild(txt);
         source.addChild(_bg);
     }

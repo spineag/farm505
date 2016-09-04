@@ -2,6 +2,7 @@
  * Created by user on 5/5/16.
  */
 package windows.market {
+import manager.ManagerFabricaRecipe;
 import manager.ManagerFilters;
 
 import starling.display.Image;
@@ -10,6 +11,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CButton;
+import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WOComponents.WindowBackground;
@@ -31,19 +33,17 @@ public class WOMarketDeleteItem extends WindowMain{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        var txt:TextField = new TextField(300,30,'Этот продукт будет возвращен в хранилище.');
-        txt.format.setTo(g.allData.bFonts['BloggerMedium24'],20,Color.WHITE);
+        var txt:CTextField = new CTextField(300,30,'Этот продукт будет возвращен в хранилище.');
+        txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.autoScale = true;
         txt.x = -150;
         txt.y = -20;
         txt.touchable = false;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
-        txt = new TextField(300,30,'УБРАТЬ ТОВАР С ПРИЛАВКА?');
-        txt.format.setTo(g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
+        txt = new CTextField(300,30,'УБРАТЬ ТОВАР С ПРИЛАВКА?');
+        txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = -157;
         txt.y = -60;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         txt.touchable = false;
         _source.addChild(txt);
         _callbackClickBG = onClickExit;
@@ -51,9 +51,8 @@ public class WOMarketDeleteItem extends WindowMain{
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        txt = new TextField(200, 34, "Убрать за 1");
-        txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
+        txt = new CTextField(200, 34, "Убрать за 1");
+        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         _b.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         im.x = 150;

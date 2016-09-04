@@ -5,6 +5,8 @@ package ui.couponePanel {
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import manager.ManagerFabricaRecipe;
+
 import manager.ManagerFilters;
 
 import manager.Vars;
@@ -20,6 +22,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WindowsManager;
@@ -35,10 +38,10 @@ public class CouponePanel {
     private var _imGreen:Image;
     private var _count:int;
 
-    private var _txtYellow:TextField;
-    private var _txtRed:TextField;
-    private var _txtBlue:TextField;
-    private var _txtGreen:TextField;
+    private var _txtYellow:CTextField;
+    private var _txtRed:CTextField;
+    private var _txtBlue:CTextField;
+    private var _txtGreen:CTextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -80,29 +83,25 @@ public class CouponePanel {
         _imRed.x = 145;
         _imRed.y += 5;
         _contCoupone.addChild(_imRed);
-        _txtGreen = new TextField(50,50,"");
-        _txtGreen.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtGreen = new CTextField(50,50,"");
+        _txtGreen.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtGreen.x = 55;
         _txtGreen.y = 20;
-        ManagerFilters.setStrokeStyle(_txtGreen, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtGreen);
-        _txtBlue = new TextField(50,50,"");
-        _txtBlue.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtBlue = new CTextField(50,50,"");
+        _txtBlue.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtBlue.x = 80;
         _txtBlue.y = 20;
-        ManagerFilters.setStrokeStyle(_txtBlue, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtBlue);
-        _txtYellow = new TextField(50,50,"");
-        _txtYellow.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtYellow = new CTextField(50,50,"");
+        _txtYellow.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtYellow.x = 105;
         _txtYellow.y = 20;
-        ManagerFilters.setStrokeStyle(_txtYellow, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtYellow);
-        _txtRed = new TextField(50,50,"");
-        _txtRed.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtRed = new CTextField(50,50,"");
+        _txtRed.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtRed.x = 130;
         _txtRed.y = 20;
-        ManagerFilters.setStrokeStyle(_txtRed, ManagerFilters.TEXT_BROWN_COLOR);
         _contCoupone.addChild(_txtRed);
         _source.x = 20;
         _source.y = 120;

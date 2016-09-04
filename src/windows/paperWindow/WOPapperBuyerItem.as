@@ -14,6 +14,7 @@ import starling.utils.Align;
 import starling.utils.Color;
 import user.Someone;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
 
@@ -21,16 +22,16 @@ public class WOPapperBuyerItem {
     public var source:CSprite;
 
     private var _imageItem:Image;
-    private var _txtCountResource:TextField;
-    private var _txtCost:TextField;
+    private var _txtCountResource:CTextField;
+    private var _txtCost:CTextField;
     private var _data:Object;
     private var _dataResource:Object;
     private var _bg:Sprite;
     private var _plawkaSold:Image;
     private var _ava:Sprite;
     private var _userAvatar:Image;
-    private var _txtUserName:TextField;
-    private var _txtResourceName:TextField;
+    private var _txtUserName:CTextField;
+    private var _txtResourceName:CTextField;
     private var _p:Someone;
     private var _wo:WOPapper;
     private var number:int;
@@ -88,40 +89,36 @@ public class WOPapperBuyerItem {
         im.y = 60;
         source.addChild(im);
 
-        _txtCost = new TextField(84, 62, "1500");
-        _txtCost.format.setTo(g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCost = new CTextField(84, 62, "1500");
+        _txtCost.setFormat(CTextField.BOLD24, 20, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCost.format.horizontalAlign = Align.RIGHT;
         _txtCost.touchable = false;
         _txtCost.x = 53;
         _txtCost.y = 42;
-        ManagerFilters.setEmptyStyle(_txtCost);
         source.addChild(_txtCost);
 
-        _txtCountResource = new TextField(84, 62, "10 шт.");
-        _txtCountResource.format.setTo(g.allData.bFonts['BloggerMedium14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCountResource = new CTextField(84, 62, "10 шт.");
+        _txtCountResource.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCountResource.format.horizontalAlign = Align.RIGHT;
         _txtCountResource.touchable = false;
         _txtCountResource.x = 80;
         _txtCountResource.y = 70;
-        ManagerFilters.setEmptyStyle(_txtCountResource);
         source.addChild(_txtCountResource);
 
-        _txtResourceName = new TextField(200, 30, "Смаженый кабаньчик");
-        _txtResourceName.format.setTo(g.allData.bFonts['BloggerMedium14'], 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtResourceName = new CTextField(200, 30, "Смаженый кабаньчик");
+        _txtResourceName.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.TEXT_BLUE_COLOR);
         _txtResourceName.format.horizontalAlign = Align.RIGHT;
         _txtResourceName.touchable = false;
         _txtResourceName.x = -38;
         _txtResourceName.y = 103;
-        ManagerFilters.setEmptyStyle(_txtResourceName);
         source.addChild(_txtResourceName);
 
-        _txtUserName = new TextField(120, 50, "Станислав Йованович");
-        _txtUserName.format.setTo(g.allData.bFonts['BloggerBold18'], 16, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtUserName = new CTextField(120, 50, "Станислав Йованович");
+        _txtUserName.setFormat(CTextField.BOLD18, 16, ManagerFilters.TEXT_BLUE_COLOR);
         _txtUserName.format.horizontalAlign = Align.LEFT;
         _txtUserName.touchable = false;
         _txtUserName.x = 56;
         _txtUserName.y = 12;
-        ManagerFilters.setEmptyStyle(_txtUserName);
         source.addChild(_txtUserName);
 
         source.visible = false;

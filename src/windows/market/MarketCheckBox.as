@@ -11,11 +11,12 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 
 public class MarketCheckBox {
     public var source:Sprite;
-    private var _txt:TextField;
+    private var _txt:CTextField;
     private var _bg:CSprite;
     private var _galo4ka:Image;
     private var _stateChecked:Boolean;
@@ -25,9 +26,8 @@ public class MarketCheckBox {
     public function MarketCheckBox() {
         source = new Sprite();
         _stateChecked = true;
-        _txt = new TextField(250, 40, 'Обьявление в газету на 4 часа');
-        _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
+        _txt = new CTextField(250, 40, 'Обьявление в газету на 4 часа');
+        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         im.scaleY = .8;

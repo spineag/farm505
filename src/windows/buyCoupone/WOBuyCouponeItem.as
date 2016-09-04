@@ -22,6 +22,7 @@ import starling.utils.Color;
 import utils.CButton;
 
 import utils.CSprite;
+import utils.CTextField;
 
 import utils.MCScaler;
 
@@ -35,7 +36,7 @@ public class WOBuyCouponeItem {
     private var _count:int;
     private var _imageCoupone:Image;
     private var _btn:CButton;
-    private var _txtCount:TextField;
+    private var _txtCount:CTextField;
     private var _type:int;
     private var g:Vars = Vars.getInstance();
 
@@ -50,10 +51,9 @@ public class WOBuyCouponeItem {
             source.addChild(_carton);
             _btn = new CButton();
             _btn.addButtonTexture(80, 50, CButton.GREEN, true);
-            var txt:TextField = new TextField(50,50,'+' + String(_cost));
-            txt..format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+            var txt:CTextField = new CTextField(50,50,'+' + String(_cost));
+            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
 //            txt.x = 5;
-            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btn.addChild(txt);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
 //            MCScaler.scale(im,30,30);
@@ -68,11 +68,10 @@ public class WOBuyCouponeItem {
             _imageCoupone.x = 30;
             _imageCoupone.y = 20;
             source.addChild(_imageCoupone);
-            _txtCount = new TextField(50,50,String(_count));
-            _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+            _txtCount = new CTextField(50,50,String(_count));
+            _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
             _txtCount.x = 23;
             _txtCount.y = 50;
-            ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BLUE_COLOR);
             source.addChild(_txtCount);
         } catch (e:Error) {
             Cc.error('WOBuyCouponeItem error: ' + e.errorID + ' - ' + e.message);

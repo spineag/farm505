@@ -14,6 +14,7 @@ import starling.utils.Color;
 
 import utils.CButton;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 
 public class CountBlock {
@@ -21,7 +22,7 @@ public class CountBlock {
     public var _btnMinus:CButton;
     public var _btnPlus:CButton;
     private var _plawkaBg:Image;
-    private var _txt:TextField;
+    private var _txt:CTextField;
     private var _curCount:int;
     private var _max:int;
     private var _min:int;
@@ -53,9 +54,8 @@ public class CountBlock {
         im.x = 6;
         im.y = 6;
         _btnPlus.addDisplayObject(im);
-        _txt = new TextField(50, 30, '0');
-        _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
+        _txt = new CTextField(50, 30, '0');
+        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _plawkaBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         _btnPlus.startClickCallback = onStartPlus;
         _btnPlus.clickCallback = onEndPlus;

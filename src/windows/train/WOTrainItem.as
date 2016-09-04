@@ -12,6 +12,7 @@ import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
 
@@ -19,8 +20,8 @@ public class WOTrainItem {
     public var source:CSprite;
     private var _im:Image;
     private var _info:TrainCell;
-    private var _txtWhite:TextField;
-    private var _txtRed:TextField;
+    private var _txtWhite:CTextField;
+    private var _txtRed:CTextField;
     private var _index:int;
     private var _f:Function;
     private var _galo4ka:Image;
@@ -32,17 +33,15 @@ public class WOTrainItem {
     public function WOTrainItem() {
         _index = -1;
         source = new CSprite();
-        _txtWhite = new TextField(60,30,'-3');
-        _txtWhite.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtWhite = new CTextField(60,30,'-3');
+        _txtWhite.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtWhite.format.horizontalAlign = Align.RIGHT;
         _txtWhite.x = 23;
         _txtWhite.y = 60;
-        ManagerFilters.setStrokeStyle(_txtWhite, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtRed = new TextField(30,30,'');
-        _txtRed.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtRed = new CTextField(30,30,'');
+        _txtRed.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_ORANGE_COLOR, ManagerFilters.TEXT_BROWN_COLOR);
         _txtRed.format.horizontalAlign = Align.RIGHT;
         _txtRed.y = 60;
-        ManagerFilters.setStrokeStyle(_txtRed, ManagerFilters.TEXT_BROWN_COLOR);
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, 30, 30);
         _galo4ka.x = 65;

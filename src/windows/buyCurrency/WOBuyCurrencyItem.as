@@ -23,6 +23,7 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WindowsManager;
@@ -70,18 +71,16 @@ public class WOBuyCurrencyItem {
         _im.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_im);
 
-        var txt:TextField = new TextField(135, 52, String(count));
-        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
+        var txt:CTextField = new CTextField(135, 52, String(count));
+        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = 70;
         txt.y = 4;
-        ManagerFilters.setStrokeStyle(txt, Color.WHITE);
         source.addChild(txt);
 
         _btn = new CButton();
         _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-        txt = new TextField(120, 38, String(cost) + ' голосов');
-        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 18, Color.WHITE);
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
+        txt = new CTextField(120, 38, String(cost) + ' голосов');
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         _btn.addChild(txt);
         _btn.x = 493;
         _btn.y = 31;

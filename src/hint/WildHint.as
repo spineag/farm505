@@ -25,6 +25,7 @@ import ui.xpPanel.XPStar;
 import utils.CButton;
 
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WOComponents.HintBackground;
@@ -38,8 +39,8 @@ public class WildHint {
     private var _circle:Image;
     private var _bgItem:Image;
     private var _iconResource:Image;
-    private var _txtCount:TextField;
-    private var _txtName:TextField;
+    private var _txtCount:CTextField;
+    private var _txtName:CTextField;
     private var _deleteCallback:Function;
     private var _id:int;
     private var _height:int;
@@ -64,14 +65,12 @@ public class WildHint {
 //        _bgItem.y = -_bgItem.height - 35;
         _btn.addDisplayObject(_bgItem);
         _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
-        _txtCount = new TextField(30,30,"");
-        _txtCount.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.WHITE);
-        ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtName = new TextField(100,50,"");
-        _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtCount = new CTextField(30,30,"");
+        _txtCount.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtName = new CTextField(100,50,"");
+        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtName.x = -50;
         _txtName.y = -150;
-        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BLUE_COLOR);
         _circle.x = +_bgItem.width/2 -20;
         _circle.y = -_bgItem.height - 50;
         _source.addChild(_circle);

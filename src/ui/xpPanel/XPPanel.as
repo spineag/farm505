@@ -20,6 +20,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WOComponents.HorizontalPlawka;
@@ -30,8 +31,8 @@ public class XPPanel {
     private var _source:CSprite;
     private var _maxXP:int;
     private var _bar:ProgressBarComponent;
-    private var _txtLevel:TextField;
-    private var _txtXPCount:TextField;
+    private var _txtLevel:CTextField;
+    private var _txtXPCount:CTextField;
     public var _imageStar:Image;
     private var _count:int;
     private var g:Vars = Vars.getInstance();
@@ -55,17 +56,15 @@ public class XPPanel {
         _imageStar.pivotX = _imageStar.width/2;
         _imageStar.pivotY = _imageStar.height/2;
         _source.addChild(_imageStar);
-        _txtLevel = new TextField(60, 60, '55');
-        _txtLevel.format.setTo(g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
+        _txtLevel = new CTextField(60, 60, '55');
+        _txtLevel.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtLevel.x = -31;
         _txtLevel.y = -12;
-        ManagerFilters.setStrokeStyle(_txtLevel, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtLevel);
-        _txtXPCount = new TextField(123, 30, '0');
-        _txtXPCount.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtXPCount = new CTextField(123, 30, '0');
+        _txtXPCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtXPCount.x = 35;
         _txtXPCount.y = 4;
-        ManagerFilters.setStrokeStyle(_txtXPCount, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtXPCount);
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;

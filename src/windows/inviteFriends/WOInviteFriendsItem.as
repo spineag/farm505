@@ -16,6 +16,7 @@ import starling.textures.Texture;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 
 public class WOInviteFriendsItem {
@@ -34,10 +35,9 @@ public class WOInviteFriendsItem {
         _ava.y = 2;
         source.addChild(_ava);
         g.load.loadImage(data.photo, onLoadPhoto);
-        var txt:TextField = new TextField(100,100,data.name + ' ' + data.lastName);
-        txt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.BLACK);
+        var txt:CTextField = new CTextField(100,100,data.name + ' ' + data.lastName);
+        txt.setFormat(CTextField.BOLD14, 12, Color.BLACK);
         txt.y = 20;
-        ManagerFilters.setEmptyStyle(txt);
         source.addChild(txt);
         check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         source.addChild(check);

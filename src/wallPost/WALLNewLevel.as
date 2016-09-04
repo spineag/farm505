@@ -8,6 +8,8 @@ import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 
+import manager.ManagerFabricaRecipe;
+
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
@@ -16,10 +18,12 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 public class WALLNewLevel {
     protected var g:Vars = Vars.getInstance();
     private var _source:starling.display.Sprite;
-    private var _txtLevel:starling.text.TextField;
+    private var _txtLevel:CTextField;
 
     public function WALLNewLevel() {
         _source = new starling.display.Sprite();
@@ -34,14 +38,12 @@ public class WALLNewLevel {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_new_level.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
-        _txtLevel = new starling.text.TextField(500,200,String(g.user.level));
-        _txtLevel.format.setTo(g.allData.bFonts['BloggerBold72'],83,Color.WHITE);
+        _txtLevel = new CTextField(500,200,String(g.user.level));
+        _txtLevel.setFormat(CTextField.BOLD72, 83, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtLevel.x = 60;
         _txtLevel.y = 90;
-        ManagerFilters.setStrokeStyle(_txtLevel, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtLevel);
 
-//        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         var sp:flash.display.Sprite = new flash.display.Sprite();
         var t:flash.text.TextField = new flash.text.TextField();
         sp.addChild(t);
@@ -49,7 +51,6 @@ public class WALLNewLevel {
         myFormat.size = 90;
         myFormat.bold = true;
         myFormat.align = TextFormatAlign.CENTER;
-//        myFormat.font = 'Arial';
         t.defaultTextFormat = myFormat;
         t.textColor = Color.WHITE;
         t.text = String(g.user.level);

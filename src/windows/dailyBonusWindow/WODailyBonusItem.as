@@ -12,6 +12,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 import utils.MCScaler;
 
 public class WODailyBonusItem {
@@ -104,11 +106,10 @@ public class WODailyBonusItem {
         _source.rotation = (Math.PI/6)*index;
         _parent.addChild(_source);
         if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
-            var txt:TextField = new TextField(60, 40, '+'+String(obj.count));
-            txt.format.setTo(g.allData.bFonts['BloggerMedium24'], 20, Color.WHITE);
+            var txt:CTextField = new CTextField(60, 40, '+'+String(obj.count));
+            txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
             txt.x = -20;
             txt.y = -5;
-            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
             _source.addChild(txt);
         }
     }

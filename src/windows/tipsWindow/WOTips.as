@@ -6,6 +6,8 @@ import manager.ManagerFilters;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.DefaultVerticalScrollSprite;
@@ -33,13 +35,10 @@ public class WOTips  extends WindowMain {
         _carton.x = -232;
         _carton.y = -221;
         _source.addChild(_carton);
-        var txt:TextField = new TextField(420,80,'Список действий');
-        txt.format.setTo(g.allData.bFonts['BloggerBold30'],30,Color.WHITE);
-        txt.autoScale = true;
+        var txt:CTextField = new CTextField(420,80,'Список действий');
+        txt.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = -210;
         txt.y = -240;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
-        txt.touchable = false;
         _source.addChild(txt);
 
         _scrollSprite = new DefaultVerticalScrollSprite(425, 408, 422, 68);

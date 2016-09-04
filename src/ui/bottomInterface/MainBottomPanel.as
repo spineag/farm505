@@ -20,6 +20,8 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
 import tutorial.helpers.HelperReason;
@@ -53,7 +55,7 @@ public class MainBottomPanel {
     private var _tutorialCallback:Function;
     private var _arrow:SimpleArrow;
     private var _imNotification:Image;
-    private var _txtNotification:TextField;
+    private var _txtNotification:CTextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -74,11 +76,10 @@ public class MainBottomPanel {
         _imNotification.x = 40;
         _imNotification.y = -5;
         _shopBtn.addChild(_imNotification);
-        _txtNotification = new TextField(30,30,'');
-        _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
+        _txtNotification = new CTextField(30,30,'');
+        _txtNotification.setFormat(CTextField.BOLD18, 18, Color.WHITE);
         _txtNotification.x = 38;
         _txtNotification.y = -7;
-        ManagerFilters.setEmptyStyle(_txtNotification);
         _shopBtn.addChild(_txtNotification);
         _imNotification.visible = false;
         _txtNotification.visible = false;
@@ -183,10 +184,9 @@ public class MainBottomPanel {
         im.x = 60;
         im.y = 6;
         _homeBtn.addDisplayObject(im);
-        var txt:TextField = new TextField(100, 70, "Домой");
-        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
+        var txt:CTextField = new CTextField(100, 70, "Домой");
+        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_ORANGE_COLOR);
         txt.x = 105;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_ORANGE_COLOR);
         _homeBtn.addChild(txt);
         _homeBtn.x = 0 + _homeBtn.width/2;
         _homeBtn.y = 2 + _homeBtn.height/2;
@@ -412,7 +412,7 @@ public class MainBottomPanel {
 
     private function friendBoard():void {
         var im:Image;
-        var txt:TextField;
+        var txt:CTextField;
         _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
         MCScaler.scale(_ava, 71, 71);
         _ava.x = 9;
@@ -427,23 +427,21 @@ public class MainBottomPanel {
     }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_board'));
         _friendBoard.addChild(im);
-        txt = new TextField(150,40,_person.name);
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BROWN_COLOR);
+        txt = new CTextField(150,40,_person.name);
+        txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 90;
         txt.y = 20;
-        ManagerFilters.setEmptyStyle(txt);
         _friendBoard.addChild(txt);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
         im.x = 60;
         im.y = 50;
         MCScaler.scale(im,45,45);
         _friendBoard.addChild(im);
-        txt = new TextField(50,50,String(_person.level));
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
+        txt = new CTextField(50,50,String(_person.level));
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         if (_person is NeighborBot) txt.text = '10';
         txt.x = 55;
         txt.y = 49;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _friendBoard.addChild(txt);
     }
 

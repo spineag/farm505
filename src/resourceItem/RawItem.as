@@ -17,6 +17,8 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 import utils.MCScaler;
 
 import windows.WindowsManager;
@@ -42,11 +44,10 @@ public class RawItem {
         _source.y = endPoint.y - 100;
         g.cont.animationsResourceCont.addChild(_source);
 
-        var _countTxt:TextField = new TextField(50,30,'-' + String(count));
-        _countTxt.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
+        var _countTxt:CTextField = new CTextField(50,30,'-' + String(count));
+        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _countTxt.x = im.width - 30;
         _countTxt.y = im.height - 15;
-        ManagerFilters.setStrokeStyle(_countTxt, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_countTxt);
 
         var tween:Tween = new Tween(_source, .4);

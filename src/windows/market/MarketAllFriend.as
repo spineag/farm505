@@ -12,6 +12,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.CTextField;
 
 import windows.WOComponents.CartonBackground;
 
@@ -66,11 +67,10 @@ public class MarketAllFriend {
             _scrollSprite.addNewCell(item.source);
         }
         source.addChild(_scrollSprite.source);
-        var txtPanel:TextField = new TextField(220, 25, 'Быстрый доступ к друзьям:');
-        txtPanel.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        var txtPanel:CTextField = new CTextField(220, 25, 'Быстрый доступ к друзьям:');
+        txtPanel.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         txtPanel.x = 80;
-        txtPanel.y = 16
-        ManagerFilters.setStrokeStyle(txtPanel, ManagerFilters.TEXT_BROWN_COLOR);
+        txtPanel.y = 16;
         source.addChild(txtPanel);
         source.visible = false;
     }

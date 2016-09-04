@@ -15,6 +15,7 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CTextField;
 
 public class ShopList {
     private var _currentShopArr:Array;
@@ -25,7 +26,7 @@ public class ShopList {
     private var _shift:int;
     private var _source:Sprite;
     private var _itemsSprite:Sprite;
-    private var _txtPageNumber:TextField;
+    private var _txtPageNumber:CTextField;
     private var _wo:WOShop;
     private var _parent:Sprite;
 
@@ -47,11 +48,10 @@ public class ShopList {
         _source.addChild(_itemsSprite);
         addArrows(parent);
 
-        _txtPageNumber = new TextField(100, 40, '657');
-        _txtPageNumber.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtPageNumber = new CTextField(100, 40, '657');
+        _txtPageNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtPageNumber.x = 283;
         _txtPageNumber.y = 268;
-        ManagerFilters.setStrokeStyle(_txtPageNumber, ManagerFilters.TEXT_BROWN_COLOR);
         parent.addChild(_txtPageNumber);
     }
 

@@ -19,6 +19,7 @@ import starling.textures.Texture;
 import starling.utils.Color;
 
 import utils.CButton;
+import utils.CTextField;
 
 public class AfterTutorialWindow {
     protected var g:Vars = Vars.getInstance();
@@ -59,11 +60,10 @@ public class AfterTutorialWindow {
         _btn.clickCallback = onClick;
         g.cont.popupCont.addChild(_source);
         _source.addChild(_btn);
-        var txt:TextField = new TextField(110,100,"Дальше");
-        txt.format.setTo(g.allData.bFonts['BloggerBold24'],20,Color.WHITE);
+        var txt:CTextField = new CTextField(110,100,"Дальше");
+        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.y = -25;
         txt.x = 30;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(txt);
     }
 

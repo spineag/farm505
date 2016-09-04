@@ -12,12 +12,13 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CTextField;
 
 public class TutorialCloud {
     private var _source:Sprite;
     private var _bg:Image;
-    private var _txt:TextField;
-    private var _txtPage:TextField;
+    private var _txt:CTextField;
+    private var _txtPage:CTextField;
     private var _txtSp:Sprite;
     private var _callback:Function;
     private var _btn:CButton;
@@ -36,9 +37,8 @@ public class TutorialCloud {
         _source = new Sprite();
         _source.addChild(_bg);
         _txtSp = new Sprite();
-        _txt = new TextField(680, 340, '');
-        _txt.format.setTo(g.allData.bFonts['BloggerBold30'], 30, ManagerFilters.TEXT_BLUE_COLOR);
-        ManagerFilters.setEmptyStyle(_txt);
+        _txt = new CTextField(680, 340, '');
+        _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.TEXT_BLUE_COLOR);
         _txtSp.addChild(_txt);
         _txtSp.x = 177;
         _txtSp.y = 128;
@@ -49,17 +49,15 @@ public class TutorialCloud {
         _btn.addButtonTexture(120, 40, CButton.BLUE, true);
         _btn.x = 500;
         _btn.y = 520;
-        var btnTxt:TextField = new TextField(120, 40, 'Далее');
-        btnTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        ManagerFilters.setStrokeStyle(btnTxt, ManagerFilters.TEXT_BLUE_COLOR);
+        var btnTxt:CTextField = new CTextField(120, 40, 'Далее');
+        btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(btnTxt);
         _btn.clickCallback = onClick;
         _source.addChild(_btn);
-        _txtPage = new TextField(100, 30, '');
-        _txtPage.format.setTo(g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtPage = new CTextField(100, 30, '');
+        _txtPage.setFormat(CTextField.BOLD24, 20, ManagerFilters.TEXT_BLUE_COLOR);
         _txtPage.x = 450;
         _txtPage.y = 460;
-        ManagerFilters.setEmptyStyle(_txtPage);
         _source.addChild(_txtPage);
         applyCallback();
     }

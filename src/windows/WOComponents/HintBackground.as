@@ -15,6 +15,8 @@ import starling.text.TextField;
 import starling.textures.TextureAtlas;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 public class HintBackground extends Sprite {
     public static const NONE_TRIANGLE:int = 1;
     public static const SMALL_TRIANGLE:int = 2;
@@ -38,7 +40,7 @@ public class HintBackground extends Sprite {
     public static const BOTTOM_CENTER:int = 15;
     public static const BOTTOM_RIGHT:int = 16;
 
-    private var _txt:TextField;
+    private var _txt:CTextField;
     private var _width:int;
     private var _height:int;
     private var _bg:Sprite;
@@ -246,14 +248,13 @@ public class HintBackground extends Sprite {
     public function addTextField(size:int):void {
         deleteTextField();
         var s:String;
-        if (size >= 20) s = '24';
-        else if (size > 14) s = '18';
-        else s = '14';
-        _txt = new TextField(_width - 10, _height - 20,'');
-        _txt.format.setTo(g.allData.bFonts['BloggerBold'+s], size, ManagerFilters.TEXT_BLUE_COLOR);
+        if (size >= 20) s = CTextField.BOLD24;
+        else if (size > 14) s = CTextField.BOLD18;
+        else s = CTextField.BOLD14;
+        _txt = new CTextField(_width - 10, _height - 20,'');
+        _txt.setFormat(s, size, ManagerFilters.TEXT_BLUE_COLOR);
         _txt.x = _bg.x + 5;
         _txt.y = _bg.y + 5;
-        ManagerFilters.setEmptyStyle(_txt);
         addChild(_txt);
     }
 

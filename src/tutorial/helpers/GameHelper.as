@@ -16,6 +16,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import utils.CTextField;
 import utils.SimpleArrow;
 import utils.CButton;
 import utils.CSprite;
@@ -23,7 +25,7 @@ import utils.CSprite;
 public class GameHelper {
     private var _source:Sprite;
     private var _bg:Image;
-    private var _txt:TextField;
+    private var _txt:CTextField;
     private var _catHead:Sprite;
     private var _onCallback:Function;
     private var _reason:Object;
@@ -45,12 +47,11 @@ public class GameHelper {
         _bg.x = -208;
         _bg.y = -81;
         _source.addChild(_bg);
-        _txt = new TextField(220, 90, "");
-        _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
+        _txt = new CTextField(220, 90, "");
+        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.TEXT_BLUE_COLOR);
         _txt.x = -100;
         _txt.y = -60;
         _txt.autoScale = true;
-        ManagerFilters.setEmptyStyle(_txt);
         _source.addChild(_txt);
         _isUnderBuild = false;
         createCatHead();
@@ -97,9 +98,8 @@ public class GameHelper {
     private function createShowButton():void {
         _btnShow = new CButton();
         _btnShow.addButtonTexture(126, 40, CButton.YELLOW, true);
-        var txt:TextField = new TextField(125, 40, 'ПОКАЗАТЬ');
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_YELLOW_COLOR);
+        var txt:CTextField = new CTextField(125, 40, 'ПОКАЗАТЬ');
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_YELLOW_COLOR);
         _btnShow.addChild(txt);
         _btnShow.x = 4;
         _btnShow.y = 52;

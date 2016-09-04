@@ -16,6 +16,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 public class UseMoneyMessage {
     private var source:Sprite;
     private var g:Vars = Vars.getInstance();
@@ -28,11 +30,10 @@ public class UseMoneyMessage {
         else if (typeMoney == DataMoney.BLUE_COUPONE || typeMoney == DataMoney.GREEN_COUPONE || typeMoney == DataMoney.RED_COUPONE || typeMoney == DataMoney.YELLOW_COUPONE) st += 'ваучера';
         else st += 'монет';
 
-        var txt:TextField = new TextField(150,50, st);
-        txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        var txt:CTextField = new CTextField(150,50, st);
+        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = -75;
         txt.y = -25;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(txt);
         source.x = p.x;
         source.y = p.y;

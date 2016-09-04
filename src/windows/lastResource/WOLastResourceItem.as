@@ -15,6 +15,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 import utils.MCScaler;
 
 import windows.WindowsManager;
@@ -22,7 +24,7 @@ import windows.WindowsManager;
 public class WOLastResourceItem {
     public var source:Sprite;
     private var _image:Image;
-    private var _txtCount:TextField;
+    private var _txtCount:CTextField;
     private var g:Vars = Vars.getInstance();
 
     public function WOLastResourceItem() {
@@ -79,11 +81,10 @@ public class WOLastResourceItem {
             source.addChild(_image);
         }
 
-        _txtCount = new TextField(50,50,String(g.userInventory.getCountResourceById(id)));
-        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
+        _txtCount = new CTextField(50,50,String(g.userInventory.getCountResourceById(id)));
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCount.x = 25;
         _txtCount.y = 30;
-            ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txtCount);
     }
 

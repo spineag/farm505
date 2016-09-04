@@ -11,6 +11,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WindowsManager;
@@ -21,9 +22,9 @@ public class UpdateItem {
     private var _resourceId:int;
     private var _bg:Sprite;
     private var _btn:CButton;
-    private var _btnTxt:TextField;
+    private var _btnTxt:CTextField;
     private var _imGalo4ka:Image;
-    private var _txtCount:TextField;
+    private var _txtCount:CTextField;
     private var _isAmbarItem:Boolean;
     private var _buyCallback:Function;
     private var _countForBuy:int;
@@ -44,11 +45,10 @@ public class UpdateItem {
         _contImage.hoverCallback = onHover;
         _contImage.outCallback = onOut;
 
-        _txtCount = new TextField(80,40,'');
-        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
+        _txtCount = new CTextField(80,40,'');
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCount.x = 40;
         _txtCount.y = 65;
-        ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txtCount);
 
         _btn = new CButton();
@@ -58,12 +58,11 @@ public class UpdateItem {
         source.addChild(_btn);
         _btn.clickCallback = onBuy;
 
-        _btnTxt = new TextField(50,20,'50');
-        _btnTxt.format.setTo(g.allData.bFonts['BloggerMedium18'],18, Color.WHITE);
+        _btnTxt = new CTextField(50,20,'50');
+        _btnTxt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         _btnTxt.x = 16;
         _btnTxt.y = 10;
         _btn.addChild(_btnTxt);
-        ManagerFilters.setStrokeStyle(_btnTxt, ManagerFilters.TEXT_GREEN_COLOR);
 
         _rubinsSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         _rubinsSmall.x = 57;
