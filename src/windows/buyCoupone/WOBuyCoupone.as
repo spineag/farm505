@@ -29,6 +29,7 @@ public class WOBuyCoupone extends WindowMain{
         var txt:CTextField = new CTextField(400,100,'Собирай ваучеры, выполняя заказы, загружая корзину, и приобретайте на них особые товары');
         txt.x = -200;
         txt.y = -130;
+        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
     }
 

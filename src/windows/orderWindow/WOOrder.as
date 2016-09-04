@@ -510,7 +510,7 @@ public class WOOrder extends WindowMain{
             }
             if (order.placeNumber > -1) {
                 _arrItems[i].fillIt(order, order.placeNumber, onItemClick, b,order.cat,true);
-                _arrItems[i].animation(delay);
+//                _arrItems[i].animation(delay);
                 delay += .1;
 
             }

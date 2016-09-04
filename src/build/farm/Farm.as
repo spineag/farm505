@@ -3,6 +3,9 @@
  */
 package build.farm {
 import build.WorldObject;
+
+import com.greensock.TweenMax;
+import com.greensock.easing.Expo;
 import com.junkbyte.console.Cc;
 
 import dragonBones.Armature;
@@ -231,39 +234,51 @@ public class Farm extends WorldObject{
             }
             an.source.x = p.x;
             an.source.y = p.y;
+            var f2:Function = function():void {
+                TweenMax.to(an.source, .5, {scaleY:1});
+            };
 
             var f1:Function = function():void {
+                TweenMax.to(an.source, .3, {scaleY:1.3, onComplete:f2});
+            };
+
+            var cancelAnimation:Function = function():void {
                 WorldClock.clock.remove(arm);
-                arm.removeEventListener(EventObject.COMPLETE, onFinish);
-                arm.removeEventListener(EventObject.LOOP_COMPLETE, onFinish);
-                _contAnimals.removeChild(arm.display as StarlingArmatureDisplay)
+                arm.removeEventListener(EventObject.COMPLETE,null);
+                arm.removeEventListener(EventObject.LOOP_COMPLETE, null);
+                _contAnimals.removeChild(arm.display as StarlingArmatureDisplay);
+            };
+
+            var onAnimation1:Function = function():void {
+                _contAnimals.addChild(arm.display as StarlingArmatureDisplay);
+                arm.addEventListener(EventObject.COMPLETE, cancelAnimation);
+                arm.addEventListener(EventObject.LOOP_COMPLETE, cancelAnimation);
+                arm.animation.gotoAndPlayByFrame("idle");
+               TweenMax.to(an.source, .3, {scaleY:.7, onComplete:f1});
             };
 
             var onFinish:Function = function():void {
-                arm.addEventListener(EventObject.COMPLETE, f1);
-                arm.addEventListener(EventObject.LOOP_COMPLETE, f1);
-                arm.animation.gotoAndPlayByFrame("idle");
+                var tween:Tween = new Tween(an.source, .4);
+                tween.fadeTo(1);
+                tween.onComplete = function ():void {
+                    g.starling.juggler.remove(tween);
+                    TweenMax.to(an.source, .3, {y:p.y, onComplete:onAnimation1});
+                };
+                g.starling.juggler.add(tween);
             };
 
             if (!g.managerTutorial.isTutorial && !isFromServer) {
                 var arm:Armature;
                 arm = g.allData.factory['explode_an'].buildArmature("expl_fabric");
                 (arm.display as StarlingArmatureDisplay).x = p.x;
-                (arm.display as StarlingArmatureDisplay).y = p.y - 10;
+                (arm.display as StarlingArmatureDisplay).y = p.y - 20;
                 WorldClock.clock.add(arm);
-                _contAnimals.addChild(arm.display as StarlingArmatureDisplay);
                 g.windowsManager.closeAllWindows();
                 g.cont.moveCenterToPos(posX, posY, false, .5, onFinish);
+                an.source.alpha = 0;
+                an.source.y = p.y - 60;
                 _contAnimals.addChild(an.source);
 
-                an.source.scale = 0;
-                var tween:Tween = new Tween(an.source, 1.6);
-                tween.scaleTo(1);
-                tween.onComplete = function ():void {
-                    g.starling.juggler.remove(tween);
-
-                };
-                g.starling.juggler.add(tween);
             } else {
                 _contAnimals.addChild(an.source);
             }
@@ -282,10 +297,6 @@ public class Farm extends WorldObject{
 //            Cc.error('farm addAnimal: ' + e.errorID + ' - ' + e.message);
 //            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'farm add animal');
 //        }
-    }
-
-    private function test():void {
-
     }
 
     public function get isFull():Boolean {

@@ -505,15 +505,15 @@ public class OrderCat {
 
     // --------------- WALKING --------------
 
-    public function goWithPath(arr:Array, callbackOnWalking:Function):void {
+    public function goWithPath(arr:Array, callbackOnWalking:Function, catGoAway:Boolean = false):void {
         _currentPath = arr;
         if (_currentPath.length) {
             _currentPath.shift(); // first element is that point, where we are now
-            gotoPoint(_currentPath.shift(), callbackOnWalking);
+            gotoPoint(_currentPath.shift(), callbackOnWalking, catGoAway);
         }
     }
 
-    private function gotoPoint(p:Point, callbackOnWalking:Function):void {
+    private function gotoPoint(p:Point, callbackOnWalking:Function, catGoAway:Boolean = false):void {
         var koef:Number = 1;
         var pXY:Point = g.matrixGrid.getXYFromIndex(p);
         var f1:Function = function(callbackOnWalking:Function):void {
@@ -521,7 +521,7 @@ public class OrderCat {
             _posY = p.y;
             g.townArea.zSort();
             if (_currentPath.length) {
-                gotoPoint(_currentPath.shift(), callbackOnWalking);
+                gotoPoint(_currentPath.shift(), callbackOnWalking,catGoAway);
             } else {
                 if (callbackOnWalking != null) {
                     callbackOnWalking.apply();
@@ -575,8 +575,8 @@ public class OrderCat {
         if (g.managerTutorial.isTutorial) {
             new TweenMax(_source, koef/_speedRun, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
         } else {
-//            new TweenMax(_source, koef/_speedWalk, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
-            new TweenMax(_source, koef/_speedRun, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
+            if (catGoAway) new TweenMax(_source, koef/_speedWalk, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
+            else new TweenMax(_source, koef/_speedRun, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
         }
     }
 

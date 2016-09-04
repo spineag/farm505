@@ -68,7 +68,7 @@ public class ManagerOrderCats {
             } else {
                 cat.walkAnimation();
             }
-            goCatToPoint(cat, new Point(cat.posX + 1, cat.posY), goAwayPart1, cat);
+            goCatToPoint(cat, new Point(cat.posX + 1, cat.posY), goAwayPart1,true, cat );
         } else {
 
             var onFinishArrive:Function = function():void {
@@ -110,7 +110,7 @@ public class ManagerOrderCats {
     private function moveQueue(cat:OrderCat):void {
         cat.forceStopAnimation();
         cat.walkAnimation();
-        goCatToPoint(cat, new Point(cat.posX, cat.posY+2), afterMoveQueue, cat);
+        goCatToPoint(cat, new Point(cat.posX, cat.posY+2), afterMoveQueue,true, cat );
     }
 
     private function afterMoveQueue(cat:OrderCat):void {
@@ -120,7 +120,7 @@ public class ManagerOrderCats {
     }
 
     private function goAwayPart1(cat:OrderCat):void {
-        goCatToPoint(cat, new Point(cat.posX, 0), goAwayPart2, cat);
+        goCatToPoint(cat, new Point(cat.posX, 0), goAwayPart2,true, cat);
     }
 
     private function goAwayPart2(cat:OrderCat):void {
@@ -139,7 +139,7 @@ public class ManagerOrderCats {
         cat = null;
     }
 
-    public function goCatToPoint(cat:OrderCat, p:Point, callback:Function = null, ...callbackParams):void {
+    public function goCatToPoint(cat:OrderCat, p:Point, callback:Function = null, goAway:Boolean = false, ...callbackParams):void {
         var f2:Function = function ():void {
             try {
                 if (callback != null) {
@@ -151,9 +151,9 @@ public class ManagerOrderCats {
             }
         };
 
-        var f1:Function = function (arr:Array):void {
+        var f1:Function = function (arr:Array, goAway:Boolean):void {
             try {
-                cat.goWithPath(arr, f2);
+                cat.goWithPath(arr, f2, goAway);
             } catch (e:Error) {
                 Cc.error('ManagerOrderCats goCatToPoint f1 error: ' + e.errorID + ' - ' + e.message);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerOrderCats goCatToPoint1');
@@ -170,7 +170,7 @@ public class ManagerOrderCats {
         
         //new variant without astar
         var arrPath:Array = DirectWay.getDirectXYWay(cat.posX, cat.posY, p.x, p.y);
-        f1(arrPath);
+        f1(arrPath, goAway);
     }
 
 
@@ -249,6 +249,7 @@ public class ManagerOrderCats {
         } else {
 //            cat.walkAnimation();
             cat.runAnimation();
+//            cat.goCatToXYPoint(p, 2, arrivePart2);
             cat.goCatToXYPoint(p, 1, arrivePart2);
         }
     }
@@ -256,12 +257,12 @@ public class ManagerOrderCats {
     private function arrivePart2(cat:OrderCat):void {
         cat.setTailPositions(30, 0);
         cat.walkPosition = OrderCat.TILE_WALKING;
-        goCatToPoint(cat, new Point(30, 25 - cat.queuePosition*2), afterArrive, cat);
+        goCatToPoint(cat, new Point(30, 25 - cat.queuePosition*2), afterArrive, false, cat);
     }
 
     private function afterArrive(cat:OrderCat):void {
         if (cat.posY != 25 - cat.queuePosition*2) {
-            goCatToPoint(cat, new Point(30, 25 - cat.queuePosition*2), afterArrive, cat);
+            goCatToPoint(cat, new Point(30, 25 - cat.queuePosition*2), afterArrive, false, cat);
         } else {
             var onFinishArrive:Function = function():void {
                 cat.forceStopAnimation();

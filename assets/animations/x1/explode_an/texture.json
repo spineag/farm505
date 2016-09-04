@@ -1,1 +1,1 @@
-{"SubTexture":[{"x":0,"width":47,"height":45,"name":"sm","y":0},{"x":49,"width":3,"height":3,"name":"star","y":0}],"name":"explode_an","imagePath":"texture.png"}
+{"name":"explode_an","imagePath":"texture.png","SubTexture":[{"name":"sm","x":161,"height":45,"width":47,"y":0},{"name":"star","x":210,"height":3,"width":3,"y":0},{"name":"stars","x":0,"height":150,"width":159,"y":0}]}

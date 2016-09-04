@@ -155,23 +155,26 @@ public class WOFabricaWorkListItem {
                 g.managerTutorial.checkTutorialCallback();
             }
         };
+        if (buy) {
+            var arm:Armature;
+            arm = g.allData.factory['explode_gray_fabric'].buildArmature("expl_fabric");
+            (arm.display as StarlingArmatureDisplay).x = _bg.width / 2;
+            (arm.display as StarlingArmatureDisplay).y = _bg.height;
+            if (_type == SMALL_CELL) {
+                (arm.display as StarlingArmatureDisplay).scale = .5;
+            }
+            WorldClock.clock.add(arm);
+            _source.addChild(arm.display as StarlingArmatureDisplay);
+            arm.addEventListener(EventObject.COMPLETE, onFinish);
+            arm.addEventListener(EventObject.LOOP_COMPLETE, onFinish);
+            arm.animation.gotoAndPlayByFrame("idle");
+        }
 
         _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s));
         if (_type == BIG_CELL) {
             MCScaler.scale(_icon, 85, 100);
             _icon.x = 53 - _icon.width/2;
             _icon.y = 53 - _icon.height/2;
-            if (buy) {
-                var arm:Armature;
-                arm = g.allData.factory['explode_gray_fabric'].buildArmature("expl_fabric");
-                (arm.display as StarlingArmatureDisplay).x = _bg.width / 2;
-                (arm.display as StarlingArmatureDisplay).y = _bg.height;
-                WorldClock.clock.add(arm);
-                _source.addChild(arm.display as StarlingArmatureDisplay);
-                arm.addEventListener(EventObject.COMPLETE, onFinish);
-                arm.addEventListener(EventObject.LOOP_COMPLETE, onFinish);
-                arm.animation.gotoAndPlayByFrame("idle");
-            }
         } else {
             MCScaler.scale(_icon, 44, 44);
             _icon.x = 23 - _icon.width/2;
@@ -240,9 +243,7 @@ public class WOFabricaWorkListItem {
             _txtTimer.text = TimeUtils.convertSecondsToStringClassic(_resource.leftTime);
         }
     }
-//    public function get leftTime():int {
-//        return _resource.leftTime;
-//    }
+
     public function showBuyPropose(buyCount:int, callback:Function):void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_type == SMALL_CELL) {

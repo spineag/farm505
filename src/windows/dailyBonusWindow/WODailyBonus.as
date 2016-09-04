@@ -129,10 +129,10 @@ public class WODailyBonus extends WindowMain {
             _btnFree.visible = true;
             _btnFree.clickCallback = rotateKoleso;
         } else {
-            _btnBuy.visible = true;
-            _btnFree.visible = false;
-            _btnBuy.clickCallback = rotateKoleso;
-            _txtBtnBuy.text = 'Вращать колесо за ' + String(g.managerDailyBonus.count);
+            if (_btnBuy) _btnBuy.visible = true;
+            if (_btnFree) _btnFree.visible = false;
+            if (_btnBuy) _btnBuy.clickCallback = rotateKoleso;
+            if (_txtBtnBuy) _txtBtnBuy.text = 'Вращать колесо за ' + String(g.managerDailyBonus.count);
         }
     }
 
