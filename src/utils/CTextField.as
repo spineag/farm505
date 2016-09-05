@@ -5,6 +5,8 @@ package utils {
 import manager.ManagerFilters;
 import manager.Vars;
 
+import starling.filters.DropShadowFilter;
+
 import starling.filters.FragmentFilter;
 import starling.filters.GlowFilter;
 
@@ -29,7 +31,7 @@ public class CTextField extends TextField {
 
     private var _deltaOwnX:int = 0;
     private var _deltaOwnY:int = 0;
-    private var _useBitmapFont:Boolean = false;
+    private var _useBitmapFont:Boolean = true;
     private var g:Vars = Vars.getInstance();
 
     public function CTextField(width:int, height:int, text:String="", format:TextFormat=null) {
@@ -64,8 +66,9 @@ public class CTextField extends TextField {
             var formatT:TextFormat = new TextFormat(fontName, size, color);
             super.format = formatT;
             if (colorStroke != 0xabcdef) {
-                super.filter = new GlowFilter(colorStroke, 1, 3, 1);
-                super.filter.cache();
+//                super.filter = new GlowFilter(colorStroke, 5, 1, .5);
+//                super.filter = new DropShadowFilter(0, 0, colorStroke, 3, 1, .5);
+//                super.filter.cache();
             }
         }
     }
