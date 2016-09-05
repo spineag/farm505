@@ -8,6 +8,7 @@ import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.WindowMine;
 import windows.WindowMain;
@@ -15,8 +16,8 @@ import windows.WindowsManager;
 
 public class WOBuyCave extends WindowMain {
     private var _btn:CButton;
-    private var _txt:TextField;
-    private var _priceTxt:TextField;
+    private var _txt:CTextField;
+    private var _priceTxt:CTextField;
     private var _callback:Function;
     private var _dataObject:Object;
     private var _woBG:WindowMine;
@@ -39,19 +40,17 @@ public class WOBuyCave extends WindowMain {
         im.x = 215;
         im.y = 7;
         _btn.addChild(im);
-        _priceTxt = new TextField(217, 30, '');
-        _priceTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _priceTxt = new CTextField(217, 30, '');
+        _priceTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _priceTxt.y = 5;
-        ManagerFilters.setStrokeStyle(_priceTxt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(_priceTxt);
         _source.addChild(_btn);
         _btn.clickCallback = onClickBuy;
 
-        _txt = new TextField(300, 30, '');
-        _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txt = new CTextField(300, 30, '');
+        _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE);
         _txt.x = -150;
         _txt.y = -20;
-        ManagerFilters.setEmptyStyle(_txt);
         _source.addChild(_txt);
     }
 

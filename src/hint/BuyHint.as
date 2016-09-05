@@ -5,29 +5,24 @@ package hint {
 import manager.ManagerFilters;
 import manager.Vars;
 import flash.geom.Rectangle;
-
 import starling.core.Starling;
 import starling.display.Image;
-
 import starling.display.Sprite;
-import starling.text.TextField;
 import starling.utils.Color;
-
+import utils.CTextField;
 import utils.MCScaler;
-
 import windows.WOComponents.HintBackground;
 
 public class BuyHint {
     public var _source:Sprite;
     private var _imCoins:Image;
-    private var _txtHint:TextField;
+    private var _txtHint:CTextField;
     private var g:Vars = Vars.getInstance();
     private var _open:Boolean;
     public function BuyHint() {
         _source = new Sprite();
-        _txtHint = new TextField(100,50,"");
-        _txtHint.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
-        ManagerFilters.setStrokeStyle(_txtHint, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtHint = new CTextField(100,50,"");
+        _txtHint.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _source.touchable = false;
         _open = false;
     }

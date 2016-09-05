@@ -17,6 +17,8 @@ import flash.geom.Point;
 
 import heroes.OrderCat;
 import heroes.OrderCat;
+
+import manager.ManagerFabricaRecipe;
 import manager.ManagerFilters;
 import manager.ManagerOrder;
 import manager.ManagerOrderItem;
@@ -31,6 +33,8 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import temp.catCharacters.DataCat;
+
+import utils.CTextField;
 
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
@@ -52,23 +56,23 @@ public class WOOrder extends WindowMain{
     private var _arrResourceItems:Array;
     private var _btnSell:CButton;
     private var _btnDeleteOrder:CButton;
-    private var _txtXP:TextField;
-    private var _txtCoins:TextField;
-    private var _txtName:TextField;
+    private var _txtXP:CTextField;
+    private var _txtCoins:CTextField;
+    private var _txtName:CTextField;
     private var _arrOrders:Array;
     private var _rightBlock:Sprite;
     private var _rightBlockTimer:Sprite;
     private var _activeOrderItem:WOOrderItem;
-    private var _txtTimer:TextField;
+    private var _txtTimer:CTextField;
     private var _waitForAnswer:Boolean;
     private var _btnSkipDelete:CButton;
     private var _armatureCustomer:Armature;
     private var _armatureSeller:Armature;
     private var _imCoup:Image;
-    private var _txtCoupone:TextField;
+    private var _txtCoupone:CTextField;
     private var _bubble:TutorialTextBubble;
     private var _birka:Birka;
-    private var _txtOrder:TextField;
+    private var _txtOrder:CTextField;
     private var _arrowBtnCell:SimpleArrow;
     private var _rightBlockBG:CartonBackground;
     private var _rightBlockTimerBG:CartonBackground;
@@ -143,11 +147,10 @@ public class WOOrder extends WindowMain{
         _rightBlockBG.filter = ManagerFilters.SHADOW_LIGHT;
         _rightBlock.addChild(_rightBlockBG);
 
-        _txtName = new TextField(320, 35, "Самбука заказывает");
-        _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtName = new CTextField(320, 35, "Самбука заказывает");
+        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtName.x = 407;
         _txtName.y = 175;
-        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlock.addChild(_txtName);
 
         var item:WOOrderResourceItem;
@@ -160,22 +163,20 @@ public class WOOrder extends WindowMain{
             _arrResourceItems.push(item);
         }
 
-        var txt:TextField = new TextField(90, 30, "Награда:");
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        var txt:CTextField = new CTextField(90, 30, "Награда:");
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 411;
         txt.y = 418;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlock.addChild(txt);
         _starSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
         _starSmall.x = 501;
         _starSmall.y = 417;
         _starSmall.filter = ManagerFilters.SHADOW_TINY;
         _rightBlock.addChild(_starSmall);
-        _txtXP = new TextField(52, 30, "8888");
-        _txtXP.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtXP = new CTextField(52, 30, "8888");
+        _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtXP.x = 523;
         _txtXP.y = 418;
-        ManagerFilters.setStrokeStyle(_txtXP, ManagerFilters.TEXT_BLUE_COLOR);
         _rightBlock.addChild(_txtXP);
         _coinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         _coinSmall.x = 570;
@@ -187,18 +188,16 @@ public class WOOrder extends WindowMain{
         _imCoup.y = 422;
         _imCoup.visible = false;
         _rightBlock.addChild(_imCoup);
-        _txtCoupone = new TextField(30, 30, "1");
-        _txtCoupone.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtCoupone = new CTextField(30, 30, "1");
+        _txtCoupone.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCoupone.x = 650;
         _txtCoupone.y = 418;
         _txtCoupone.visible = false;
-        ManagerFilters.setStrokeStyle(_txtCoupone, ManagerFilters.TEXT_BLUE_COLOR);
         _rightBlock.addChild(_txtCoupone);
-        _txtCoins = new TextField(52, 30, "8888");
-        _txtCoins.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtCoins = new CTextField(52, 30, "8888");
+        _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCoins.x = 590;
         _txtCoins.y = 418;
-        ManagerFilters.setStrokeStyle(_txtCoins, ManagerFilters.TEXT_BLUE_COLOR);
         _rightBlock.addChild(_txtCoins);
         _btnDeleteOrder = new CButton();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_decline'));
@@ -232,10 +231,9 @@ public class WOOrder extends WindowMain{
         im.x = 98;
         im.y = -15;
         _btnSell.addDisplayObject(im);
-        var txt:TextField = new TextField(110, 60, "Продать");
-        txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
+        var txt:CTextField = new CTextField(110, 60, "Продать");
+        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         txt.y = -10;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnSell.addChild(txt);
         _btnSell.x = 547;
         _btnSell.y = 500;
@@ -251,19 +249,17 @@ public class WOOrder extends WindowMain{
         im.x = 98;
         im.y = 15;
         _btnSkipDelete.addDisplayObject(im);
-        var txt:TextField = new TextField(80, 50, "Получить сейчас");
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
+        var txt:CTextField = new CTextField(80, 50, "Получить сейчас");
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         _btnSkipDelete.addChild(txt);
-        txt = new TextField(20, 50, '');
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        txt = new CTextField(20, 50, '');
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         if (g.user.level <= 6) txt.text = String(ManagerOrder.COST_FIRST_SKIP_WAIT);
         else if (g.user.level <= 9) txt.text = String(ManagerOrder.COST_SECOND_SKIP_WAIT);
         else if (g.user.level <= 15) txt.text = String(ManagerOrder.COST_THIRD_SKIP_WAIT);
         else if (g.user.level <= 19) txt.text = String(ManagerOrder.COST_FOURTH_SKIP_WAIT);
         else if (g.user.level >= 20) txt.text = String(ManagerOrder.COST_FIFTH_SKIP_WAIT);
         txt.x = 80;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnSkipDelete.addChild(txt);
         _btnSkipDelete.x = 160;
         _btnSkipDelete.y = 220;
@@ -601,18 +597,16 @@ public class WOOrder extends WindowMain{
         bgIn.y = 32;
         _rightBlockTimer.addChild(bgIn);
 
-        _txtOrder = new TextField(280, 30, "");
-        _txtOrder.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtOrder = new CTextField(280, 30, "");
+        _txtOrder.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtOrder.x = 14;
         _txtOrder.y = 40;
-        ManagerFilters.setStrokeStyle(_txtOrder, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlockTimer.addChild(_txtOrder);
 
-        var t:TextField = new TextField(280, 30, "следующий поступит через:");
-        t.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
+        var t:CTextField = new CTextField(280, 30, "следующий поступит через:");
+        t.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         t.x = 14;
         t.y = 65;
-        ManagerFilters.setStrokeStyle(t, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlockTimer.addChild(t);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
@@ -620,11 +614,10 @@ public class WOOrder extends WindowMain{
         im.y = 110;
         _rightBlockTimer.addChild(im);
 
-        _txtTimer = new TextField(165, 50, "");
-        _txtTimer.format.setTo(g.allData.bFonts['BloggerBold30'], 30, Color.WHITE);
+        _txtTimer = new CTextField(165, 50, "");
+        _txtTimer.setFormat(CTextField.BOLD30, 30, ManagerFilters.TEXT_BROWN_COLOR);
         _txtTimer.x = 101;
         _txtTimer.y = 102;
-        ManagerFilters.setStrokeStyle(_txtTimer, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlockTimer.addChild(_txtTimer);
     }
 

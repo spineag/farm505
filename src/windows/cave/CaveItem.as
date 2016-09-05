@@ -11,6 +11,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WindowsManager;
@@ -21,7 +22,7 @@ public class CaveItem {
     private var _icon:Image;
     private var _data:Object;
     private var _clickCallback:Function;
-    private var _txtCount:TextField;
+    private var _txtCount:CTextField;
     private var _countResource:int;
     private var _defaultY:int;
     private var _maxAlpha:Number = 1;
@@ -41,11 +42,10 @@ public class CaveItem {
         source.outCallback = function():void {source.filter = null;};
 //        source.hoverCallback = onHover;
 //        source.outCallback = onOut;
-        _txtCount = new TextField(40,30,'');
-        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+        _txtCount = new CTextField(40,30,'');
+        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCount.x = 60;
         _txtCount.y = 68;
-        ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txtCount);
     }
 

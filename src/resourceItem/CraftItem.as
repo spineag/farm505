@@ -31,6 +31,8 @@ import starling.filters.BlurFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
 
@@ -48,7 +50,7 @@ public class CraftItem {
     private var _imageSprite:Sprite;
     private var _callback:Function;
     public  var count:int;
-    private var _txtNumber:TextField;
+    private var _txtNumber:CTextField;
     private var _particle:CraftItemParticle;
     private var _arrow:SimpleArrow;
     private var _tutorialCallback:Function;
@@ -93,11 +95,10 @@ public class CraftItem {
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
         }
-        _txtNumber = new TextField(50,50,'');
-        _txtNumber.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
+        _txtNumber = new CTextField(50,50,'');
+        _txtNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
 //        _txtNumber.x = -5;
         _txtNumber.y = 10;
-        ManagerFilters.setStrokeStyle(_txtNumber, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtNumber);
     }
     

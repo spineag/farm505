@@ -10,6 +10,7 @@ import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
 
@@ -17,8 +18,8 @@ public class WOOrderResourceItem {
     public var source:CSprite;
     private var _bg:CartonBackgroundIn;
     private var _check:Image;
-    private var _countTxt:TextField;
-    private var _countRed:TextField;
+    private var _countTxt:CTextField;
+    private var _countRed:CTextField;
     private var _image:Image;
     private var _id:int;
     private var _onHover:Boolean;
@@ -36,19 +37,17 @@ public class WOOrderResourceItem {
         source.addChild(_check);
         _check.visible = false;
 
-        _countTxt = new TextField(80, 40, "10/10");
-        _countTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _countTxt = new CTextField(80, 40, "10/10");
+        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _countTxt.format.horizontalAlign = Align.RIGHT;
         _countTxt.y = 60;
         _countTxt.x = -3;
-        ManagerFilters.setStrokeStyle(_countTxt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_countTxt);
-        _countRed = new TextField(30, 30, "");
-        _countRed.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_ORANGE_COLOR);
+        _countRed = new CTextField(30, 30, "");
+        _countRed.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_ORANGE_COLOR, ManagerFilters.TEXT_BROWN_COLOR);
         _countRed.format.horizontalAlign = Align.RIGHT;
         _countRed.y = 65;
         _countRed.x = -3;
-        ManagerFilters.setStrokeStyle(_countRed, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_countRed);
         source.hoverCallback = onHover;
         source.outCallback = outCallback;

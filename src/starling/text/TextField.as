@@ -97,10 +97,6 @@ import starling.rendering.Painter;
         private var _border:DisplayObjectContainer;
         private var _meshBatch:MeshBatch;
         private var _style:MeshStyle;
-        
-        //own by spineag
-        private var _deltaOwnX:int = 0;
-        private var _deltaOwnY:int = 0;
 
         // helper objects
         private static var sMatrix:Matrix = new Matrix();
@@ -518,23 +514,5 @@ import starling.rendering.Painter;
             }
             return result;
         }
-
-
-        // own adds by spineag
-        public function set deltaOwnX(v:int):void { _deltaOwnX = v; this.x = x}
-        public function set deltaOwnY(v:int):void { _deltaOwnY = v; this.y = y}
-        override public function set x(value:Number):void {
-            value += _deltaOwnX;
-            super.x=value;
-        }
-        override public function set y(value:Number):void {
-            value += _deltaOwnY;
-            super.y=value;
-        }
-
-        override public function set filter(value:FragmentFilter):void {
-            super.filter = value;
-        }
-        
     }
 }

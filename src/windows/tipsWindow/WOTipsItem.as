@@ -11,14 +11,15 @@ import starling.text.TextField;
 import starling.utils.Color;
 import tutorial.tips.ManagerTips;
 import utils.CButton;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
 
 public class WOTipsItem {
     public var source:Sprite;
     private var _bg:CartonBackgroundIn;
-    private var _txtBtn:TextField;
-    private var _txt:TextField;
+    private var _txtBtn:CTextField;
+    private var _txt:CTextField;
     private var _btn:CButton;
     private var _data:Object;
     private var _callback:Function;
@@ -36,19 +37,17 @@ public class WOTipsItem {
         source.addChild(_bg);
         _btn = new CButton();
         _btn.addButtonTexture(95, 34, CButton.GREEN, true);
-        _txtBtn = new TextField(95, 34, "Показать");
-        _txtBtn.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        ManagerFilters.setStrokeStyle(_txtBtn, ManagerFilters.TEXT_GREEN_COLOR);
+        _txtBtn = new CTextField(95, 34, "Показать");
+        _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         _btn.addChild(_txtBtn);
         _btn.x = 365;
         _btn.y = 34;
         source.addChild(_btn);
-        _txt = new TextField(230, 40, "");
-        _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txt = new CTextField(230, 40, "");
+        _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         _txt.autoScale = true;
         _txt.x = 75;
         _txt.y = 14;
-        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_GREEN_COLOR);
         source.addChild(_txt);
     }
 

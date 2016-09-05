@@ -19,6 +19,8 @@ import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
 
@@ -51,7 +53,7 @@ public class ToolsModifier {
     private var _mouseCont:Sprite;
     private var _plantId:int;
     private var _ridgeId:int;
-    private var _txtCount:TextField;
+    private var _txtCount:CTextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -63,11 +65,10 @@ public class ToolsModifier {
         _modifierType = NONE;
         _mouseIcon = new Sprite();
         _plantId = -1;
-        _txtCount = new TextField(50,40,"");
-        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
+        _txtCount = new CTextField(50,40,"");
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE);
         _txtCount.x = 18;
         _txtCount.y = 29;
-        ManagerFilters.setEmptyStyle(_txtCount);
     }
 
     public function setTownArray():void {

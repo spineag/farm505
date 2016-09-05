@@ -18,6 +18,7 @@ import starling.utils.Color;
 
 import utils.CButton;
 import utils.CSprite;
+import utils.CTextField;
 import utils.SimpleArrow;
 
 import windows.WOComponents.HintBackground;
@@ -26,9 +27,9 @@ public class AirTextBubble {
     private var _source:Sprite;
     private var _bg:Image;
     private var _parent:Sprite;
-    private var _txt:TextField;
+    private var _txt:CTextField;
     private var _btn:CButton;
-    private var _btnTxt:TextField;
+    private var _btnTxt:CTextField;
     private var _catHead:Sprite;
     private var _dust:DustRectangle;
     private var _arrow:SimpleArrow;
@@ -42,21 +43,19 @@ public class AirTextBubble {
         _bg.scaleX = -1;
         _bg.x = _bg.width;
         _source.addChild(_bg);
-        _txt = new TextField(260, 90, "");
-        _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, ManagerFilters.TEXT_BLUE_COLOR);
+        _txt = new CTextField(260, 90, "");
+        _txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.TEXT_BLUE_COLOR);
         _txt.x = 36;
         _txt.y = 32;
         _txt.autoScale = true;
-        ManagerFilters.setEmptyStyle(_txt);
         _source.addChild(_txt);
         _btn = new CButton();
         _btn.addButtonTexture(120, 40, CButton.BLUE, true);
         _btn.x = 180;
         _btn.y = 140;
-        _btnTxt = new TextField(120, 38, 'Далее');
-        _btnTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _btnTxt = new CTextField(120, 38, 'Далее');
+        _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(_btnTxt);
-        ManagerFilters.setStrokeStyle(_btnTxt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_btn);
         createCatHead();
     }

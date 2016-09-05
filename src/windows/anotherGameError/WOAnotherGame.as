@@ -12,6 +12,8 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CTextField;
+
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -26,12 +28,11 @@ public class WOAnotherGame extends WindowMain {
         _woHeight = 360;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        var txt:TextField = new TextField(420,130,'Игра уже запущена в другом окне');
-        txt.format.setTo(g.allData.bFonts['BloggerMedium24'],24,Color.WHITE);
+        var txt:CTextField = new CTextField(420,130,'Игра уже запущена в другом окне');
+        txt.setFormat(CTextField.MEDIUM24, 24, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.autoScale = true;
         txt.x = -210;
         txt.y = -130;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         txt.touchable = false;
         _source.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));

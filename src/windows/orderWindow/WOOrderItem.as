@@ -17,6 +17,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.CartonBackgroundIn;
@@ -25,9 +26,9 @@ public class WOOrderItem {
     public var source:CSprite;
     private var _bgCarton:CartonBackground;
     private var _bgCartonIn:CartonBackgroundIn;
-    private var _txtName:TextField;
-    private var _txtXP:TextField;
-    private var _txtCoins:TextField;
+    private var _txtName:CTextField;
+    private var _txtXP:CTextField;
+    private var _txtCoins:CTextField;
     private var _order:ManagerOrderItem;
     private var _leftSeconds:int;
     private var _starImage:Image;
@@ -71,9 +72,8 @@ public class WOOrderItem {
         _delImage.y = 10;
         source.addChild(_delImage);
 
-        _txtName = new TextField(112, 20, "Васько");
-        _txtName.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
-        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtName = new CTextField(112, 20, "Васько");
+        _txtName.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txtName);
 
         _starImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
@@ -82,11 +82,10 @@ public class WOOrderItem {
 //        MCScaler.scale(_starImage, 31, 31);
         _starImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_starImage);
-        _txtXP = new TextField(52, 30, "8888");
-        _txtXP.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtXP = new CTextField(52, 30, "8888");
+        _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtXP.x = 48;
         _txtXP.y = 26;
-        ManagerFilters.setStrokeStyle(_txtXP, ManagerFilters.TEXT_BLUE_COLOR);
         source.addChild(_txtXP);
 
         _coinsImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
@@ -95,11 +94,10 @@ public class WOOrderItem {
 //        MCScaler.scale(_coinsImage, 31, 31);
         _coinsImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_coinsImage);
-        _txtCoins = new TextField(52, 30, "8888");
-        _txtCoins.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtCoins = new CTextField(52, 30, "8888");
+        _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCoins.x = 48;
         _txtCoins.y = 55;
-        ManagerFilters.setStrokeStyle(_txtCoins, ManagerFilters.TEXT_BLUE_COLOR);
         source.addChild(_txtCoins);
         _act = false;
 

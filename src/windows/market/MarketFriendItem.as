@@ -15,6 +15,7 @@ import user.NeighborBot;
 import user.Someone;
 import utils.CButton;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
 
@@ -22,7 +23,7 @@ public class MarketFriendItem {
     private var _person:Someone;
     public var source:CSprite;
     private var _ava:Image;
-    private var _txt:TextField;
+    private var _txt:CTextField;
     private var _wo:WOMarket;
     public var _visitBtn:CButton;
     private var _shiftFriend:int;
@@ -58,10 +59,9 @@ public class MarketFriendItem {
                 g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
             }
         }
-        _txt = new TextField(100, 30, 'loading...');
-        _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txt = new CTextField(100, 30, 'loading...');
+        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txt.y = 70;
-        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
         if (_person.name) _txt.text = _person.name;
         source.addChild(_txt);
         source.endClickCallback = chooseThis;
@@ -69,11 +69,10 @@ public class MarketFriendItem {
         source.outCallback = onOut;
         _visitBtn = new CButton();
         _visitBtn.addButtonTexture(70, 30, CButton.BLUE, true);
-        var txtBtn:TextField = new TextField(80, 25, "Посетить");
-        txtBtn.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        var txtBtn:CTextField = new CTextField(80, 25, "Посетить");
+        txtBtn.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txtBtn.x = -5;
         txtBtn.y = 3;
-        ManagerFilters.setStrokeStyle(txtBtn, ManagerFilters.TEXT_BLUE_COLOR);
         _visitBtn.addChild(txtBtn);
         _visitBtn.x = 55;
         _visitBtn.y = 3;

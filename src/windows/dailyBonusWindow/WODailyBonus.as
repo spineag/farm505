@@ -11,6 +11,7 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -20,7 +21,7 @@ public class WODailyBonus extends WindowMain {
     private var _arrItems:Array;
     private var _btnFree:CButton;
     private var _btnBuy:CButton;
-    private var _txtBtnBuy:TextField;
+    private var _txtBtnBuy:CTextField;
     private var _isAnimate:Boolean;
     private var _curActivePosition:int;
 
@@ -82,18 +83,16 @@ public class WODailyBonus extends WindowMain {
 
         _btnFree = new CButton();
         _btnFree.addButtonTexture(146, 40, CButton.BLUE, true);
-        var txt:TextField  = new TextField(146, 40, 'Вращать колесо');
-        txt.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
+        var txt:CTextField  = new CTextField(146, 40, 'Вращать колесо');
+        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _btnFree.addChild(txt);
         _btnFree.y = 260;
         _source.addChild(_btnFree);
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(200, 40, CButton.GREEN, true);
-        _txtBtnBuy = new TextField(170, 40, 'Вращать колесо за 10');
-        _txtBtnBuy.format.setTo(g.allData.bFonts['BloggerMedium18'], 16, Color.WHITE);
-        ManagerFilters.setStrokeStyle(_txtBtnBuy, ManagerFilters.TEXT_GREEN_COLOR);
+        _txtBtnBuy = new CTextField(170, 40, 'Вращать колесо за 10');
+        _txtBtnBuy.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         _btnBuy.addChild(_txtBtnBuy);
         _btnBuy.y = 260;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

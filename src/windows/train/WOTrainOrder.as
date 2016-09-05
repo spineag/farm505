@@ -12,6 +12,7 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
 import windows.WOComponents.WindowBackground;
@@ -21,7 +22,7 @@ import windows.WindowsManager;
 public class WOTrainOrder extends WindowMain{
     private var _btn:CButton;
     private var _contItem:Sprite;
-    private var _txtTime:TextField;
+    private var _txtTime:CTextField;
     private var _timer:int;
     private var _woBG:WindowBackground;
     private var _callback:Function;
@@ -33,7 +34,7 @@ public class WOTrainOrder extends WindowMain{
     public function WOTrainOrder() {
         super ();
         _windowType = WindowsManager.WO_TRAIN_ORDER;
-        var txt:TextField;
+        var txt:CTextField;
         var im:Image;
         _contItem = new Sprite();
         _woWidth = 500;
@@ -48,49 +49,43 @@ public class WOTrainOrder extends WindowMain{
         im.y = 10;
         im.x = 35;
         _btn.addDisplayObject(im);
-        txt = new TextField(100,50,"привезти сейчас");
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+        txt = new CTextField(100,50,"привезти сейчас");
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = 60;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(txt);
-        txt = new TextField(50,50,"30");
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+        txt = new CTextField(50,50,"30");
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = -5;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _btn.addChild(txt);
         _btn.y = 110;
         _btn.clickCallback = onClickBtn;
         _source.addChild(_btn);
 
-        txt = new TextField(300,50,"ПРИБЫТИЕ КОРЗИНКИ ");
-        txt.format.setTo(g.allData.bFonts['BloggerBold24'],24,Color.WHITE);
+        txt = new CTextField(300,50,"ПРИБЫТИЕ КОРЗИНКИ ");
+        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = -150;
         txt.y = -145;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
 
-        txt = new TextField(150,50,"Следующий заказ:");
-        txt.format.setTo(g.allData.bFonts['bloggerBold14'],14,Color.WHITE);
+        txt = new CTextField(150,50,"Следующий заказ:");
+        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = -80;
         txt.y = -60;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
 
-        txt = new TextField(300,50,"Корзина прибудет к станции через:");
-        txt.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
+        txt = new CTextField(300,50,"Корзина прибудет к станции через:");
+        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = -150;
         txt.y = -120;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
         im.x = -55;
         im.y = -80;
         _source.addChild(im);
-        _txtTime = new TextField(80,50,"");
-        _txtTime.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
+        _txtTime = new CTextField(80,50,"");
+        _txtTime.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtTime.x = -20;
         _txtTime.y = -85;
-        ManagerFilters.setStrokeStyle(_txtTime, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtTime);
     }
 

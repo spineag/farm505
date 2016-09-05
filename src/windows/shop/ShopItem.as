@@ -25,6 +25,8 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
@@ -38,9 +40,9 @@ public class ShopItem {
     public var source:CSprite;
     private var _im:Image;
     private var _imCont:Sprite;
-    private var _nameTxt:TextField;
-    private var _countTxt:TextField;
-    private var _countBoxTxt:TextField;
+    private var _nameTxt:CTextField;
+    private var _countTxt:CTextField;
+    private var _countBoxTxt:CTextField;
     private var _data:Object;
     private var _lockedSprite:Sprite;
     private var _countCost:int;
@@ -51,9 +53,9 @@ public class ShopItem {
     private var _btnBuyBlue:CButton;
     private var _btnBuyCoupone:CButton;
     private var _btnActivationYellow:CButton;
-    private var _txtBtnBuyBlue:TextField;
-    private var _txtBtnBuyGreen:TextField;
-    private var _txtAvailable:TextField;
+    private var _txtBtnBuyBlue:CTextField;
+    private var _txtBtnBuyGreen:CTextField;
+    private var _txtAvailable:CTextField;
     private var _shopLimitSprite:Sprite;
     private var _wo:WOShop;
     private var _bg:CartonBackgroundIn;
@@ -76,33 +78,29 @@ public class ShopItem {
         _bg = new CartonBackgroundIn(145, 221);
         source.addChild(_bg);
 
-        _nameTxt = new TextField(145, 60, '');
-        _nameTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        ManagerFilters.setStrokeStyle(_nameTxt, ManagerFilters.TEXT_BROWN_COLOR);
+        _nameTxt = new CTextField(145, 60, '');
+        _nameTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_nameTxt);
         _nameTxt.touchable = false;
 
-        _countTxt = new TextField(145, 60, '');
-        _countTxt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _countTxt = new CTextField(145, 60, '');
+        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _countTxt.y = 120;
-        ManagerFilters.setStrokeStyle(_countTxt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_countTxt);
         _countTxt.visible = false;
         _countTxt.touchable = false;
 
-        _countBoxTxt = new TextField(100, 30, '');
-        _countBoxTxt.format.setTo(g.allData.bFonts['BloggerBold14'], 12, Color.YELLOW);
+        _countBoxTxt = new CTextField(100, 30, '');
+        _countBoxTxt.setFormat(CTextField.BOLD14, 12, Color.YELLOW, ManagerFilters.TEXT_BROWN_COLOR);
         _countBoxTxt.y = 130;
         _countBoxTxt.x = 20;
-        ManagerFilters.setStrokeStyle(_countBoxTxt, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_countBoxTxt);
         _countBoxTxt.visible = false;
         _countBoxTxt.touchable = false;
 
-        _txtAvailable = new TextField(145, 80, '');
-        _txtAvailable.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtAvailable = new CTextField(145, 80, '');
+        _txtAvailable.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtAvailable.y = 145;
-        ManagerFilters.setStrokeStyle(_txtAvailable, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txtAvailable);
         _txtAvailable.visible = false;
         _txtAvailable.touchable = false;
@@ -133,10 +131,9 @@ public class ShopItem {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_limit'));
         im.x = -7;
         _shopLimitSprite.addChild(im);
-        var txt:TextField = new TextField(145, 26, 'Достигнут лимит');
-        txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, Color.WHITE);
+        var txt:CTextField = new CTextField(145, 26, 'Достигнут лимит');
+        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         txt.y = 33;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _shopLimitSprite.addChild(txt);
         _shopLimitSprite.y = 150;
         source.addChild(_shopLimitSprite);
@@ -156,9 +153,8 @@ public class ShopItem {
                 _btnBuyBlue.addChild(im);
                 im.filter = ManagerFilters.SHADOW_TINY;
                 _arrImages.push(im);
-                _txtBtnBuyBlue = new TextField(85, 40, '');
-                _txtBtnBuyBlue.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-                ManagerFilters.setStrokeStyle(_txtBtnBuyBlue, ManagerFilters.TEXT_BLUE_COLOR);
+                _txtBtnBuyBlue = new CTextField(85, 40, '');
+                _txtBtnBuyBlue.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
                 _btnBuyBlue.addChild(_txtBtnBuyBlue);
                 _btnBuyBlue.x = 74;
                 _btnBuyBlue.y = 190;
@@ -176,9 +172,8 @@ public class ShopItem {
                 _btnBuyGreen.addChild(im);
                 im.filter = ManagerFilters.SHADOW_TINY;
                 _arrImages.push(im);    
-                _txtBtnBuyGreen = new TextField(85, 40, '');
-                _txtBtnBuyGreen.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);    
-                ManagerFilters.setStrokeStyle(_txtBtnBuyGreen, ManagerFilters.TEXT_GREEN_COLOR);
+                _txtBtnBuyGreen = new CTextField(85, 40, '');
+                _txtBtnBuyGreen.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);    
                 _btnBuyGreen.addChild(_txtBtnBuyGreen);
                 _btnBuyGreen.x = 74;
                 _btnBuyGreen.y = 190;
@@ -189,9 +184,8 @@ public class ShopItem {
                 if (_btnActivationYellow) return;
                 _btnActivationYellow = new CButton();
                 _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
-                var txt:TextField = new TextField(125, 40, 'УСТАНОВИТЬ');
-                txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-                ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_YELLOW_COLOR);
+                var txt:CTextField = new CTextField(125, 40, 'УСТАНОВИТЬ');
+                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_YELLOW_COLOR);
                 _btnActivationYellow.addChild(txt);
                 _btnActivationYellow.x = 74;
                 _btnActivationYellow.y = 190;
@@ -202,7 +196,7 @@ public class ShopItem {
     }
 
     private function createCouponeButtons():void {
-        var txt:TextField;
+        var txt:CTextField;
         var im:Image;
         var i:int;
         _btnBuyCoupone = new CButton();
@@ -212,6 +206,8 @@ public class ShopItem {
             _btnBuyCoupone.addButtonTexture(126, 40, CButton.GREEN, true);
         }
         for (i = 0; i <_data.currency.length; i++) {
+            txt = new CTextField(85, 40, String(_data.cost[i]));
+            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
             switch (_data.currency[i]) {
                 case DataMoney.BLUE_COUPONE:
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));
@@ -219,9 +215,6 @@ public class ShopItem {
                     im.filter = ManagerFilters.SHADOW_TINY;
                     _arrImages.push(im);    
                     _btnBuyCoupone.addChild(im);
-                    txt = new TextField(85, 40, String(_data.cost[i]));
-                    txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-                    ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
                     _btnBuyCoupone.addChild(txt);
                     break;
                 case DataMoney.GREEN_COUPONE:
@@ -230,9 +223,6 @@ public class ShopItem {
                     im.filter = ManagerFilters.SHADOW_TINY;
                     _arrImages.push(im);    
                     _btnBuyCoupone.addChild(im);
-                    txt = new TextField(85, 40, String(_data.cost[i]));
-                    txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);    
-                    ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
                     _btnBuyCoupone.addChild(txt);
                     break;
                 case DataMoney.RED_COUPONE:
@@ -241,9 +231,6 @@ public class ShopItem {
                     im.filter = ManagerFilters.SHADOW_TINY;
                     _arrImages.push(im);    
                     _btnBuyCoupone.addChild(im);
-                    txt = new TextField(85, 40, String(_data.cost[i]));
-                    txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);    
-                    ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
                     _btnBuyCoupone.addChild(txt);
                     break;
                 case DataMoney.YELLOW_COUPONE:
@@ -252,9 +239,6 @@ public class ShopItem {
                     im.filter = ManagerFilters.SHADOW_TINY;
                     _arrImages.push(im);    
                     _btnBuyCoupone.addChild(im);
-                    txt = new TextField(85, 40, String(_data.cost[i]));
-                    txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);    
-                    ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
                     _btnBuyCoupone.addChild(txt);
                     break;
             }

@@ -6,6 +6,9 @@ import data.DataMoney;
 import manager.ManagerFilters;
 import starling.text.TextField;
 import starling.utils.Color;
+
+import utils.CTextField;
+
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 
@@ -23,11 +26,10 @@ public class WOBuyCoupone extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-        var txt:TextField = new TextField(400,100,'Собирай ваучеры, выполняя заказы, загружая корзину, и приобретайте на них особые товары');
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
+        var txt:CTextField = new CTextField(400,100,'Собирай ваучеры, выполняя заказы, загружая корзину, и приобретайте на них особые товары');
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         txt.x = -200;
         txt.y = -130;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(txt);
     }
 

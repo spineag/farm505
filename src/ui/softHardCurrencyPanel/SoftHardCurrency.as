@@ -24,6 +24,7 @@ import starling.utils.Color;
 import utils.CButton;
 
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WOComponents.HorizontalPlawka;
@@ -33,8 +34,8 @@ public class SoftHardCurrency {
     private var _source:Sprite;
     private var _contSoft:CSprite;
     private var _contHard:CSprite;
-    private var _txtSoft:TextField;
-    private var _txtHard:TextField;
+    private var _txtSoft:CTextField;
+    private var _txtHard:CTextField;
     private var _imCoin:Image;
     private var _imHard:Image;
     private var _count:int;
@@ -63,13 +64,11 @@ public class SoftHardCurrency {
         };
         createPanel(true, _contSoft, onClickSoft);
         createPanel(false, _contHard, onClickHard);
-        _txtSoft =  new TextField(120, 38, '00');
-        _txtSoft.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        ManagerFilters.setStrokeStyle(_txtSoft, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtSoft =  new CTextField(120, 38, '00');
+        _txtSoft.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _contSoft.addChild(_txtSoft);
-        _txtHard =  new TextField(120, 38, '00');
-        _txtHard.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-        ManagerFilters.setStrokeStyle(_txtHard, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtHard =  new CTextField(120, 38, '00');
+        _txtHard.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _contHard.addChild(_txtHard);
 
         _source.addChild(_contSoft);

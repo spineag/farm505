@@ -11,6 +11,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
+
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
 
@@ -18,8 +20,8 @@ public class FabricHintItem {
     public var source:Sprite;
     private var _image:Image;
     private var _imageBg:Image;
-    private var _txtOrange:TextField;
-    private var _txtWhite:TextField;
+    private var _txtOrange:CTextField;
+    private var _txtWhite:CTextField;
     private var _needCount:int;
     private var _id:int;
     private var g:Vars = Vars.getInstance();
@@ -28,14 +30,12 @@ public class FabricHintItem {
         source = new Sprite();
         _needCount = needCount;
         _id = obId;
-        _txtWhite = new TextField(50,50,String("/" + String(_needCount)));
-        _txtWhite.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
+        _txtWhite = new CTextField(50,50,String("/" + String(_needCount)));
+        _txtWhite.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _txtWhite.format.horizontalAlign = Align.LEFT;
-        ManagerFilters.setStrokeStyle(_txtWhite, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
-        _txtOrange = new TextField(50,50,'');
-        _txtOrange.format.setTo(g.allData.bFonts['BloggerBold14'],14,ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtOrange = new CTextField(50,50,'');
+        _txtOrange.setFormat(CTextField.BOLD14, 14, ManagerFilters.TEXT_ORANGE_COLOR);
         _txtOrange.format.horizontalAlign = Align.LEFT;
-        ManagerFilters.setStrokeStyle(_txtOrange, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
 //        _txtOrange.y = 55;
 //        _txtOrange.x = 34;
         source.addChild(_txtWhite);

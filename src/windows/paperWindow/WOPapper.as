@@ -14,6 +14,7 @@ import starling.utils.Color;
 import user.Someone;
 import utils.CButton;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
 import windows.WindowMain;
@@ -34,7 +35,7 @@ public class WOPapper extends WindowMain {
     private var _tempRightPage:WOPapperPage;
     private var _flipPage:WOPapperFlipPage;
     private var _timer:int;
-    private var _txtTimer:TextField;
+    private var _txtTimer:CTextField;
     private var _rubinsSmall:Image;
     private var _preloader:Boolean;
 
@@ -48,10 +49,9 @@ public class WOPapper extends WindowMain {
         _source.addChild(_contSprite);
         _btnRefreshGreen = new CButton();
         _btnRefreshGreen.addButtonTexture(130, 40, CButton.GREEN, true);
-        var txt:TextField = new TextField(100, 40, "Обновить 1");
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        var txt:CTextField = new CTextField(100, 40, "Обновить 1");
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         txt.x = 2;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnRefreshGreen.addChild(txt);
         _rubinsSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         MCScaler.scale(_rubinsSmall, 25, 25);
@@ -72,10 +72,9 @@ public class WOPapper extends WindowMain {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('refresh_icon'));
         im.x = 5;
         im.y = 5;
-        _txtTimer = new TextField(100,30,'');
-        _txtTimer.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtTimer = new CTextField(100,30,'');
+        _txtTimer.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtTimer.y = 5;
-        ManagerFilters.setStrokeStyle(_txtTimer, ManagerFilters.TEXT_BLUE_COLOR);
         _btnRefreshBlue.addChild(im);
         _btnRefreshBlue.addChild(_txtTimer);
         _btnRefreshBlue.x = 220;

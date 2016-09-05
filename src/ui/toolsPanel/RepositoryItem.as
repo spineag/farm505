@@ -18,6 +18,7 @@ import starling.utils.Color;
 import tutorial.managerCutScenes.ManagerCutScenes;
 
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
 
@@ -25,7 +26,7 @@ public class RepositoryItem {
     public var source:CSprite;
     private var _data:Object;
     private var _count:int;
-    private var _txtCount:TextField;
+    private var _txtCount:CTextField;
     private var _box:RepositoryBox;
     private var _arrDbIds:Array;
     private var _countCell:int;
@@ -56,11 +57,10 @@ public class RepositoryItem {
         im.y = 30 - im.height/2;
         source.addChild(im);
 
-        _txtCount = new TextField(30,20,String(_count));
-        _txtCount.format.setTo(g.allData.bFonts['BloggerMedium14'],14, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtCount = new CTextField(30,20,String(_count));
+        _txtCount.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.TEXT_BROWN_COLOR, Color.WHITE);
         _txtCount.x = 30;
         _txtCount.y = 40;
-        ManagerFilters.setStrokeStyle(_txtCount, Color.WHITE);
         source.addChild(_txtCount);
         source.endClickCallback = onClick;
     }

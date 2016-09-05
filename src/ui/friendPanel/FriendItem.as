@@ -17,6 +17,7 @@ import tutorial.TutorialAction;
 import user.NeighborBot;
 import user.Someone;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
 
@@ -24,8 +25,8 @@ public class FriendItem {
     private var _person:Someone;
     public var source:CSprite;
     private var _ava:Image;
-    private var _txt:TextField;
-    public var txtLvl:TextField;
+    private var _txt:CTextField;
+    public var txtLvl:CTextField;
     private var _preloader:FlashAnimatedPreloader;
     private var _timer:int;
     private var _positionInList:int;
@@ -72,21 +73,19 @@ public class FriendItem {
         im.y = 41;
         source.addChild(im);
 
-        txtLvl = new TextField(40, 18, "");
-        txtLvl.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        txtLvl = new CTextField(40, 18, "");
+        txtLvl.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         txtLvl.text = '1';
         txtLvl.text = String(_person.level);
         txtLvl.x = 29;
         txtLvl.y = 50;
-        ManagerFilters.setStrokeStyle(txtLvl, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(txtLvl);
         if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
         if (_person is NeighborBot) txtLvl.text = '10';
-        _txt = new TextField(64, 30, "");
-        _txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14, ManagerFilters.TEXT_BROWN_COLOR);
+        _txt = new CTextField(64, 30, "");
+        _txt.setFormat(CTextField.BOLD14, 14, ManagerFilters.TEXT_BROWN_COLOR);
         _txt.y = -5;
         _txt.x = -1;
-        ManagerFilters.setEmptyStyle(_txt);
         if (_person.name) {
             setName(_person.name);
         } else {

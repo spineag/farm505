@@ -22,6 +22,7 @@ import starling.utils.Color;
 import tutorial.TutorialAction;
 import utils.CButton;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
 
@@ -35,43 +36,40 @@ public class WOFabricaWorkListItem {
     private var _bg:Image;
     private var _icon:Image;
     private var _resource:ResourceItem;
-    private var _txtTimer:TextField;
+    private var _txtTimer:CTextField;
     private var _timerFinishCallback:Function;
-    private var _txtNumberCreate:TextField;
+    private var _txtNumberCreate:CTextField;
     private var _type:String;
     private var _timerBlock:Sprite;
     private var _btnSkip:CButton;
-    private var _txtSkip:TextField;
+    private var _txtSkip:CTextField;
     private var _proposeBtn:CButton;
     private var _skipCallback:Function;
     private var _rubinSmall:Image;
-    private var _txt:TextField;
+    private var _txt:CTextField;
     private var _priceSkip:int;
     private var g:Vars = Vars.getInstance();
 
     public function WOFabricaWorkListItem(type:String = 'small') {
         _type = type;
         _source = new CSprite();
+        _txtNumberCreate = new CTextField(20,20,"");
         if (type == SMALL_CELL) {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
             MCScaler.scale(_bg, 50, 50);
-            _txtNumberCreate = new TextField(20,20,"");
-            _txtNumberCreate.format.setTo(g.allData.bFonts['BloggerBold14'], 13,Color.WHITE);
+            _txtNumberCreate.setFormat(CTextField.BOLD14, 13, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         } else {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
-            _txtNumberCreate = new TextField(20,20,"");
-            _txtNumberCreate.format.setTo(g.allData.bFonts['BloggerBold18'], 16,Color.WHITE);
+            _txtNumberCreate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         }
-        ManagerFilters.setStrokeStyle(_txtNumberCreate, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_bg);
 
         if (type == SMALL_CELL) {
             _source.visible = false;
-            _txt = new TextField(50, 30, 'пусто');
-            _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 15, ManagerFilters.TEXT_LIGHT_BROWN);
+            _txt = new CTextField(50, 30, 'пусто');
+            _txt.setFormat(CTextField.BOLD18, 15, ManagerFilters.TEXT_LIGHT_BROWN);
             _txt.x = -1;
             _txt.y = 5;
-            ManagerFilters.setEmptyStyle(_txt);
             source.addChild(_txt);
         }
 
@@ -81,26 +79,23 @@ public class WOFabricaWorkListItem {
             im.x = 13;
             im.y = -20;
             _timerBlock.addChild(im);
-            _txtTimer = new TextField(78, 33, '');
-            _txtTimer.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+            _txtTimer = new CTextField(78, 33, '');
+            _txtTimer.setFormat(CTextField.BOLD18, 18, Color.WHITE);
             _txtTimer.x = 13;
             _txtTimer.y = -20;
-            ManagerFilters.setEmptyStyle(_txtTimer);
             _timerBlock.addChild(_txtTimer);
             _source.addChild(_timerBlock);
             _timerBlock.visible = false;
-            _txt = new TextField(100, 90, 'загрузите ячейку очереди');
-            _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, ManagerFilters.TEXT_LIGHT_BROWN);
+            _txt = new CTextField(100, 90, 'загрузите ячейку очереди');
+            _txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_LIGHT_BROWN);
             _txt.x = 2;
             _txt.y = 5;
-            ManagerFilters.setEmptyStyle(_txt);
             _source.addChild(_txt);
             _btnSkip = new CButton();
             _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
-            _txtSkip = new TextField(100,35,"25");
-            _txtSkip.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
+            _txtSkip = new CTextField(100,35,"25");
+            _txtSkip.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
             _txtSkip.y = 11;
-            ManagerFilters.setStrokeStyle(_txtSkip, ManagerFilters.TEXT_GREEN_COLOR);
             _btnSkip.addChild(_txtSkip);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             _rubinSmall.x = 78;
@@ -109,11 +104,10 @@ public class WOFabricaWorkListItem {
             _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _btnSkip.x = 52;
             _btnSkip.y = 117;
-            var txt:TextField = new TextField(65,35,"ускорить");
-            txt.format.setTo(g.allData.bFonts['BloggerBold14'], 14,Color.WHITE);
+            var txt:CTextField = new CTextField(65,35,"ускорить");
+            txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
             txt.x = 10;
             txt.y = -8;
-            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btnSkip.addChild(txt);
             _source.addChild(_btnSkip);
             _btnSkip.visible = false;
@@ -257,15 +251,13 @@ public class WOFabricaWorkListItem {
             _txt.visible = false;
             if (_proposeBtn) return;
             _proposeBtn = new CButton();
-            var txt:TextField = new TextField(46, 28, "+");
-            txt.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
+            var txt:CTextField = new CTextField(46, 28, "+");
+            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
             _proposeBtn.addChild(txt);
-            txt = new TextField(46, 28, String(buyCount));
-            txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+            txt = new CTextField(46, 28, String(buyCount));
+            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
             txt.y = 20;
             txt.x = -10;
-            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BLUE_COLOR);
             _proposeBtn.addChild(txt);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(_rubinSmall, 20, 20);

@@ -110,45 +110,5 @@ public class ManagerFilters {
         return f;
     }
     
-    public static function setStrokeStyle(txt:TextField, color:uint):void {
-        if (!txt) return;
-        var s:DistanceFieldStyle = new DistanceFieldStyle(.5, .25);
-        s.setupOutline(.5, color);
-        txt.style = s;
-        // fix x and y position for text with distance
-        if (txt.format.size < 18) {
-            txt.deltaOwnX = -7;
-            txt.deltaOwnY = -2;
-        } else if (txt.format.size < 22) {
-            txt.deltaOwnX = -5;
-            txt.deltaOwnY = -2;
-        } else if (txt.format.size < 32) {
-            txt.deltaOwnX = -4;
-            txt.deltaOwnY = -3;
-        } else {
-            txt.deltaOwnX = -2;
-        }
-//        txt.border = true;
-    }
-
-    public static function setEmptyStyle(txt:TextField):void {
-        if (!txt) return;
-        var s:DistanceFieldStyle = new DistanceFieldStyle(.5, .25);
-        txt.style = s;
-        // fix x and y position for text with distance
-        if (txt.format.size < 18) {
-            txt.deltaOwnX = -7;
-            txt.deltaOwnY = -2;
-        } else if (txt.format.size < 22) {
-            txt.deltaOwnX = -5;
-            txt.deltaOwnY = -2;
-        } else if (txt.format.size < 32) {
-            txt.deltaOwnX = -4;
-            txt.deltaOwnY = -3;
-        } else {
-            txt.deltaOwnX = -2;
-        }
-//        txt.border = true;
-    }
 }
 }

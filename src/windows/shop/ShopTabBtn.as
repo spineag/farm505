@@ -11,6 +11,7 @@ import starling.filters.DropShadowFilter;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WOComponents.CartonBackground;
@@ -23,7 +24,7 @@ public class ShopTabBtn {
     private var _defaultY:int;
     private var _bg:CartonBackground;
     private var _imNotification:Image;
-    private var _txtNotification:TextField;
+    private var _txtNotification:CTextField;
     private var _type:int;
     private var g:Vars = Vars.getInstance();
 
@@ -34,10 +35,9 @@ public class ShopTabBtn {
         _type = type;
         _bg = new CartonBackground(123, 100);
         _source.addChild(_bg);
-        var _txt:TextField = new TextField(123, 100, '');
-        _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 20, Color.WHITE);
+        var _txt:CTextField = new CTextField(123, 100, '');
+        _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txt.y = 10;
-        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BLUE_COLOR);
         var f1:Function = function():void {
             if (g.managerCutScenes.isCutScene) return;
             if (g.managerTutorial.isTutorial) return;
@@ -58,11 +58,6 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.villageNotification));
-                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-                    _txtNotification.x = 98;
-                    _txtNotification.y = -7;
-                    _source.addChild(_txtNotification);
                 }
                 break;
             case WOShop.ANIMAL:
@@ -78,11 +73,6 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.fabricaNotification));
-                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-                    _txtNotification.x = 98;
-                    _txtNotification.y = -7;
-                    _source.addChild(_txtNotification);
                 }
                 break;
             case WOShop.PLANT:
@@ -94,11 +84,6 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.plantNotification));
-                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-                    _txtNotification.x = 98;
-                    _txtNotification.y = -7;
-                    _source.addChild(_txtNotification);
                 }
                 break;
             case WOShop.DECOR:
@@ -110,15 +95,14 @@ public class ShopTabBtn {
                     _imNotification.x = 100;
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
-                    _txtNotification = new TextField(30, 30, String(g.user.decorNotification));
-                    _txtNotification.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
-                    _txtNotification.x = 98;
-                    _txtNotification.y = -7;
-                    _source.addChild(_txtNotification);
                 }
                 break;
         }
-        ManagerFilters.setEmptyStyle(_txtNotification);
+        _txtNotification = new CTextField(30, 30, String(g.user.decorNotification));
+        _txtNotification.setFormat(CTextField.BOLD18, 18, Color.WHITE);
+        _txtNotification.x = 98;
+        _txtNotification.y = -7;
+        _source.addChild(_txtNotification);
         im.x = 62 - im.width/2;
         im.y = 38 - im.height/2;
         _source.addChild(im);

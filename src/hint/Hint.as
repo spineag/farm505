@@ -16,14 +16,16 @@ import starling.utils.Color;
 
 import tutorial.TutorialAction;
 
+import utils.CTextField;
+
 import utils.TimeUtils;
 
 import windows.WOComponents.HintBackground;
 
 public class Hint {
     public var source:Sprite;
-    private var _txtHint:TextField;
-    private var _txtHintTime:TextField;
+    private var _txtHint:CTextField;
+    private var _txtHintTime:CTextField;
     private var _isShow:Boolean;
     private var _newX:int;
     private var _catXp:Boolean;
@@ -34,14 +36,12 @@ public class Hint {
 
     public function Hint() {
         source = new Sprite();
-        _txtHint = new TextField(150,20,"");
-        _txtHint.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, Color.WHITE);
-        _txtHintTime = new TextField(150,20,"");
-        _txtHintTime.format.setTo(g.allData.bFonts['BloggerRegular14'], 14, Color.WHITE);
+        _txtHint = new CTextField(150,20,"");
+        _txtHint.setFormat(CTextField.REGULAR14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtHintTime = new CTextField(150,20,"");
+        _txtHintTime.setFormat(CTextField.REGULAR14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         source.touchable = false;
         _isShow = false;
-        ManagerFilters.setStrokeStyle(_txtHint, ManagerFilters.TEXT_BLUE_COLOR);
-        ManagerFilters.setStrokeStyle(_txtHintTime, ManagerFilters.TEXT_BLUE_COLOR);
     }
 
     public function showIt(st:String, type:String = 'none', newX:int = 0, time:int = 0):void {

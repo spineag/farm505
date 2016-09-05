@@ -12,6 +12,7 @@ import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
@@ -20,10 +21,10 @@ import windows.WindowsManager;
 public class WONoPlaces extends WindowMain {
 
     private var _btn:CButton;
-    private var _txtName:TextField;
-    private var _txtText:TextField;
-    private var _txtCost:TextField;
-    private var _txtAdd:TextField;
+    private var _txtName:CTextField;
+    private var _txtText:CTextField;
+    private var _txtCost:CTextField;
+    private var _txtAdd:CTextField;
 //    private var _txtButton:TextField;
     private var _woBG:WindowBackground;
     private var _price:int;
@@ -32,7 +33,7 @@ public class WONoPlaces extends WindowMain {
     private var _exitCallback:Function;
     private var _imageItem:Image;
     private var _last:Boolean;
-    private var _txtIcon:TextField;
+    private var _txtIcon:CTextField;
 
     public function WONoPlaces() {
         super();
@@ -50,15 +51,13 @@ public class WONoPlaces extends WindowMain {
         _btn.y = 120;
         _source.addChild(_btn);
         _btn.clickCallback = onClick;
-        _txtName = new TextField(300,30,"НЕДОСТАТОЧНО МЕСТА!");
-        _txtName.format.setTo(g.allData.bFonts['BloggerBold24'],22,Color.WHITE);
+        _txtName = new CTextField(300,30,"НЕДОСТАТОЧНО МЕСТА!");
+        _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtName.x = -150;
         _txtName.y = -150;
-        ManagerFilters.setStrokeStyle(_txtName, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtName);
-        _txtText = new TextField(350,70,"");
-        _txtText.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
-        ManagerFilters.setStrokeStyle(_txtText, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtText = new CTextField(350,70,"");
+        _txtText.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtText);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_medium"));
@@ -70,22 +69,19 @@ public class WONoPlaces extends WindowMain {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
         im.x = -50;
         im.y = -50;
-        _txtCost = new TextField(200,50,"");
-        _txtCost.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+        _txtCost = new CTextField(200,50,"");
+        _txtCost.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         _txtCost.x = -8;
         _txtCost.y = -3;
-        ManagerFilters.setStrokeStyle(_txtCost, ManagerFilters.TEXT_GREEN_COLOR);
         _btn.addChild(_txtCost);
         _source.addChild(im);
-        _txtAdd = new TextField(100,100,"");
-        _txtAdd.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+        _txtAdd = new CTextField(100,100,"");
+        _txtAdd.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _last = false;
-        ManagerFilters.setStrokeStyle(_txtAdd, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtIcon = new TextField(80,200,"добавить ячейку очереди");
-        _txtIcon.format.setTo(g.allData.bFonts['BloggerBold18'],18,ManagerFilters.TEXT_BLUE_COLOR);
+        _txtIcon = new CTextField(80,200,"добавить ячейку очереди");
+        _txtIcon.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_BLUE_COLOR);
         _txtIcon.x = -37;
         _txtIcon.y = -102;
-        ManagerFilters.setEmptyStyle(_txtIcon);
         _source.addChild(_txtIcon);
         _txtIcon.visible = false;
     }

@@ -11,17 +11,18 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 public class FlyMessage {
     private var _source:Sprite;
-    private var _txtMessage:TextField;
+    private var _txtMessage:CTextField;
     private var g:Vars = Vars.getInstance();
 
     public function FlyMessage(p:Point, text:String) {
         _source = new Sprite();
-        _txtMessage = new TextField(300,30,text);
-        _txtMessage.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtMessage = new CTextField(300,30,text);
+        _txtMessage.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtMessage.x = -150;
-        ManagerFilters.setStrokeStyle(_txtMessage, ManagerFilters.TEXT_BROWN_COLOR);
         _source.x = p.x;
         _source.y = p.y;
         _source.addChild(_txtMessage);

@@ -16,6 +16,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 import utils.MCScaler;
 
 public class MouseHint {
@@ -33,7 +35,7 @@ public class MouseHint {
     private var _imageBg:Image;
     private var _image:Image;
 //    private var _imageCircle:Image;
-    private var _txtCount:TextField;
+    private var _txtCount:CTextField;
     private var _imageCont:Sprite;
     private var _isShowed:Boolean;
 
@@ -50,11 +52,10 @@ public class MouseHint {
 //        _imageCircle.x = _source.width - 27;
 //        _imageCircle.y = _source.height - 23;
 //        _source.addChild(_imageCircle);
-        _txtCount = new TextField(30,30,"");
-        _txtCount.format.setTo(g.allData.bFonts['BloggerBold14'],14,Color.WHITE);
+        _txtCount = new CTextField(30,30,"");
+        _txtCount.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtCount.x = 29;
         _txtCount.y = 39;
-        ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BLUE_COLOR);
         _source.addChild(_txtCount);
     }
 

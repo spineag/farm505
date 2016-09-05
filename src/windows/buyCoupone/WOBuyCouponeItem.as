@@ -22,6 +22,7 @@ import starling.utils.Color;
 import utils.CButton;
 
 import utils.CSprite;
+import utils.CTextField;
 
 import utils.MCScaler;
 
@@ -35,7 +36,7 @@ public class WOBuyCouponeItem {
     private var _count:int;
     private var _imageCoupone:Image;
     private var _btn:CButton;
-    private var _txtCount:TextField;
+    private var _txtCount:CTextField;
     private var _type:int;
     private var g:Vars = Vars.getInstance();
 
@@ -50,8 +51,8 @@ public class WOBuyCouponeItem {
             source.addChild(_carton);
             _btn = new CButton();
             _btn.addButtonTexture(80, 50, CButton.GREEN, true);
-            var txt:TextField = new TextField(50,50,'+' + String(_cost));
-            txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+            var txt:CTextField = new CTextField(50,50,'+' + String(_cost));
+            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
 //            txt.x = 5;
             ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btn.addChild(txt);

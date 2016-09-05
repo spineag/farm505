@@ -16,6 +16,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
+
+import utils.CTextField;
 import utils.FarmDispatcher;
 
 public class StartPreloader {
@@ -33,7 +35,7 @@ public class StartPreloader {
     private var _preloaderAtlas:TextureAtlas;
     private var _armature:Armature;
     private var _quad:Quad;
-    private var _txt:TextField;
+    private var _txt:CTextField;
 
 
     private var g:Vars = Vars.getInstance();
@@ -63,12 +65,11 @@ public class StartPreloader {
 //        _preloaderSprite.x = _source.width/2 - _preloaderBG.width/2;
 //        _preloaderSprite.y = 600;
 //        _source.addChild(_preloaderSprite);
-        _txt = new TextField(75,50,'0');
-        _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, 0x0659b6);
+        _txt = new CTextField(75,50,'0');
+        _txt.setFormat(CTextField.BOLD24, 24, 0x0659b6);
         _source.addChild(_txt);
         _txt.x = _bg.width/2 - 44;
         _txt.y = _bg.height/2 + 184;
-        ManagerFilters.setEmptyStyle(_txt);
     }
 
     private function create():void {

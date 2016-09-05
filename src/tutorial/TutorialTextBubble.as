@@ -8,6 +8,8 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 
+import utils.CTextField;
+
 public class TutorialTextBubble {
     public static var SMALL:int = 1;
     public static var MIDDLE:int = 2;
@@ -19,7 +21,7 @@ public class TutorialTextBubble {
     private var _isFlip:Boolean;
     private var _type:int;
     private var _im:Image;
-    private var _txt:TextField;
+    private var _txt:CTextField;
 
     public function TutorialTextBubble(p:Sprite) {
         _parent = p;
@@ -40,11 +42,11 @@ public class TutorialTextBubble {
     }
 
     private function createBubble(st:String):void {
+        _txt = new CTextField(278, 180, st);
+        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.TEXT_BLUE_COLOR);
         switch (_type) {
             case BIG:
                 _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));
-                _txt = new TextField(278, 180, st);
-                _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);    
                 if (_isFlip) {
                     _im.x = -12;
                     _im.y = -210;
@@ -60,9 +62,7 @@ public class TutorialTextBubble {
                 break;
             case MIDDLE:
                 _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_2'));
-                _txt = new TextField(270, 134, st);
-                _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);
-//                    txt.border = 10;
+                _txt.height = 134;
                 if (_isFlip) {
                     _im.x = -12;
                     _im.y = -169;
@@ -78,9 +78,7 @@ public class TutorialTextBubble {
                 break;
             case SMALL:
                 _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
-                _txt = new TextField(270, 90, st);
-                _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, ManagerFilters.TEXT_BLUE_COLOR);    
-//                _txt.border = 10;
+                _txt.height = 90;
                 if (_isFlip) {
                     _im.x = -15;
                     _im.y = -116;
@@ -95,7 +93,6 @@ public class TutorialTextBubble {
                 }
                 break;
         }
-        ManagerFilters.setEmptyStyle(_txt);
         _source.addChild(_im);
         _txt.autoScale = true;
         _source.addChild(_txt);

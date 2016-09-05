@@ -10,9 +10,11 @@ import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 public class Birka extends Sprite{
     private var _source:Sprite;
-    private var _txt:TextField;
+    private var _txt:CTextField;
     private var g:Vars = Vars.getInstance();
     private var _curH:int;
     private var _bg:Sprite;
@@ -21,10 +23,9 @@ public class Birka extends Sprite{
     public function Birka(text:String, parent:Sprite, w:int, h:int) {
         _parent = parent;
         _source = new Sprite();
-        _txt = new TextField(300, 70, text);
-        _txt.format.setTo(g.allData.bFonts['BloggerBold24'], 24, Color.WHITE);
+        _txt = new CTextField(300, 70, text);
+        _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _txt.format.horizontalAlign = Align.LEFT;
-        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
         _bg = new Sprite();
 
         createAll();

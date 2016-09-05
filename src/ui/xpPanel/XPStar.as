@@ -22,6 +22,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import utils.CTextField;
+
 import utils.MCScaler;
 
 public class XPStar {
@@ -29,18 +31,17 @@ public class XPStar {
     private var _source:Sprite;
     private var _image:Image;
     private var _xp:int;
-    private var _txtStar:TextField;
+    private var _txtStar:CTextField;
 
     private var g:Vars = Vars.getInstance();
 
     public function XPStar(_x:int, _y:int,xp:int) {
         _source = new Sprite();
         _source.touchable = false;
-        _txtStar = new TextField(80,50,'');
-        _txtStar.format.setTo(g.allData.bFonts['BloggerBold18'],18, Color.WHITE);
+        _txtStar = new CTextField(80,50,'');
+        _txtStar.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtStar.x = -15;
         _txtStar.y = 25;
-        ManagerFilters.setStrokeStyle(_txtStar, ManagerFilters.TEXT_BROWN_COLOR);
         _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
         _xp = xp;
         g.cont.animationsResourceCont.addChild(_source);

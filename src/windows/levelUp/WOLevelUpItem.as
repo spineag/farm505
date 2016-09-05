@@ -11,13 +11,14 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 import utils.CSprite;
+import utils.CTextField;
 import utils.MCScaler;
 import windows.WindowsManager;
 
 public class WOLevelUpItem {
     public var source:CSprite;
-    private var _txtNew:TextField;
-    private var _txtCount:TextField;
+    private var _txtNew:CTextField;
+    private var _txtCount:CTextField;
     private var _image:Image;
     private var _imageBg:Image;
     private var _data:Object;
@@ -40,16 +41,14 @@ public class WOLevelUpItem {
         _bolAnimal = false;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtNew = new TextField(80,20,'');
-        _txtNew.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+        _txtNew = new CTextField(80,20,'');
+        _txtNew.setFormat(CTextField.BOLD18, 16, Color.WHITE, Color.RED);
         _txtNew.y = 65;
         _txtNew.x = -3;
-        ManagerFilters.setStrokeStyle(_txtNew, Color.RED);
-        _txtCount = new TextField(80,20,'');
-        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],18,Color.WHITE);
+        _txtCount = new CTextField(80,20,'');
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, Color.RED);
         _txtCount.x = 15;
         _txtCount.y = 10;
-        ManagerFilters.setStrokeStyle(_txtCount, Color.RED);
         try {
             _txtNew.text = 'НОВОЕ!';
             if (ob.coins) {

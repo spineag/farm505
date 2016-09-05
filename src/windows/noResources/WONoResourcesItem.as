@@ -17,6 +17,7 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 import utils.CSprite;
+import utils.CTextField;
 
 import utils.MCScaler;
 
@@ -27,7 +28,7 @@ import windows.WindowsManager;
 public class WONoResourcesItem {
     public var source:CSprite;
     private var _image:Image;
-    private var _txtCount:TextField;
+    private var _txtCount:CTextField;
     private var _inHover:Boolean;
     private var _money:Boolean;
     private var _dataId:int;
@@ -95,15 +96,11 @@ public class WONoResourcesItem {
             source.addChild(_image);
         }
 
-        _txtCount = new TextField(66, 20, String(count));
-        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtCount = new CTextField(66, 20, String(count));
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCount.y = 40;
         _txtCount.x = 20;
-        ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txtCount);
-//        var quad:Quad = new Quad(source.width,source.height,Color.GREEN,false);
-//        quad.y = 100;
-//        source.addChild(quad);
     }
 
     public function fillWithMoney(count:int):void {
@@ -113,10 +110,9 @@ public class WONoResourcesItem {
         _image.y = 33 - _image.height / 2;
         source.addChild(_image);
 
-        _txtCount = new TextField(66, 20, String(count));
-        _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtCount = new CTextField(66, 20, String(count));
+        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCount.y = 45;
-        ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BROWN_COLOR);
         source.addChild(_txtCount);
         _money = true;
     }

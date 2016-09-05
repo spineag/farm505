@@ -5,6 +5,8 @@ package windows.train {
 import build.train.Train;
 import data.BuildType;
 import flash.geom.Point;
+
+import manager.ManagerFabricaRecipe;
 import manager.ManagerFilters;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -13,6 +15,7 @@ import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
 import windows.WOComponents.Birka;
@@ -37,17 +40,17 @@ public class WOTrain extends WindowMain {
 //    private var _btnHelp:CButton;
     private var _activeItemIndex: int;
     private var _build:Train;
-    private var _txt:TextField;
-    private var _txtCounter:TextField;
+    private var _txt:CTextField;
+    private var _txtCounter:CTextField;
 //    private var _txtHelp:TextField;
-    private var _txtLoad:TextField;
+    private var _txtLoad:CTextField;
     private var _counter:int;
     private var _idFree:int;
     private var _countFree:int;
-    private var _txtCostItem:TextField;
-    private var _txtXpItem:TextField;
-    private var _txtCostAll:TextField;
-    private var _txtXpAll:TextField;
+    private var _txtCostItem:CTextField;
+    private var _txtXpItem:CTextField;
+    private var _txtCostAll:CTextField;
+    private var _txtXpAll:CTextField;
     public var _imageItem:Image;
     private var _lock:int;
     private var _isBigCount:Boolean;
@@ -76,11 +79,10 @@ public class WOTrain extends WindowMain {
         _btnSend.addButtonTexture(120, 40, CButton.GREEN, true);
         _btnSend.x = _woWidth/2 - 180;
         _btnSend.y = 205;
-        var txt:TextField = new TextField(89,62,"Отправить");
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+        var txt:CTextField = new CTextField(89,62,"Отправить");
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         txt.x = 5;
         txt.y = -10;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
         _btnSend.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
         im.y = -15;
@@ -89,17 +91,15 @@ public class WOTrain extends WindowMain {
         _source.addChild(_btnSend);
         _btnSend.setEnabled = false;
 
-        _txt = new TextField(150, 40, '');
-        _txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txt = new CTextField(150, 40, '');
+        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txt.x = 120;
         _txt.y = 110;
-        ManagerFilters.setStrokeStyle(_txt, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txt);
-        _txtCounter = new TextField(150, 40, '');
-        _txtCounter.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtCounter = new CTextField(150, 40, '');
+        _txtCounter.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCounter.x = 110;
         _txtCounter.y = 130;
-        ManagerFilters.setStrokeStyle(_txtCounter, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_txtCounter);
         _callbackClickBG = hideIt;
         _birka = new Birka('Корзинка', _source, _woWidth, _woHeight);
@@ -111,7 +111,7 @@ public class WOTrain extends WindowMain {
     }
 
     private function createRightBlock():void {
-        var txt:TextField;
+        var txt:CTextField;
         var im:Image;
         _rightBlock = new Sprite();
         _rightBlock.y = -205;
@@ -121,12 +121,10 @@ public class WOTrain extends WindowMain {
         _rightBlockBG.filter = ManagerFilters.SHADOW;
         _rightBlock.addChild(_rightBlockBG);
 
-        _txtLoad = new TextField(240, 50, '');
-        _txtLoad.format.setTo(g.allData.bFonts['BloggerBold18'], 18, Color.WHITE);
+        _txtLoad = new CTextField(240, 50, '');
+        _txtLoad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtLoad.x = 25;
         _txtLoad.y = 5;
-        _txtLoad.touchable = false;
-        ManagerFilters.setStrokeStyle(_txtLoad, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlock.addChild(_txtLoad);
         _rightBlockCarton = new CartonBackgroundIn(267, 68);
         _rightBlockCarton.y = 250;
@@ -140,11 +138,10 @@ public class WOTrain extends WindowMain {
 
         _btnLoad = new CButton();
         _btnLoad.addButtonTexture(130, 36, CButton.YELLOW, true);
-        txt = new TextField(80,30,'Загрузить');
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        txt = new CTextField(80,30,'Загрузить');
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 25;
         txt.y = 3;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _btnLoad.addChild(txt);
         _btnLoad.x = 200;
         _btnLoad.y = 150;
@@ -167,38 +164,32 @@ public class WOTrain extends WindowMain {
 //        _txtHelp.x = 50;
 //        _btnHelp.addChild(_txtHelp);
 
-        txt = new TextField(240,50,'Награда за полную загрузку:');
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 15, Color.WHITE);
+        txt = new CTextField(240,50,'Награда за полную загрузку:');
+        txt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         txt.y = 240;
         txt.x = 23;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
-        txt.touchable = false;
         _rightBlock.addChild(txt);
 
-        _txtCostItem = new TextField(40,30,'-3');
-        _txtCostItem.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtCostItem = new CTextField(40,30,'-3');
+        _txtCostItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCostItem.x = 226;
         _txtCostItem.y = 80;
         _txtCostItem.format.horizontalAlign = Align.LEFT;
-        ManagerFilters.setStrokeStyle(_txtCostItem, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtXpItem = new TextField(40,30,'-3');
-        _txtXpItem.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtXpItem = new CTextField(40,30,'-3');
+        _txtXpItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtXpItem.x = 155;
         _txtXpItem.y = 80;
         _txtXpItem.format.horizontalAlign = Align.LEFT;
-        ManagerFilters.setStrokeStyle(_txtXpItem, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtCostAll = new TextField(40,30,'-5');
-        _txtCostAll.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtCostAll = new CTextField(40,30,'-5');
+        _txtCostAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCostAll.x = 160;
         _txtCostAll.y = 280;
         _txtCostAll.format.horizontalAlign = Align.LEFT;
-        ManagerFilters.setStrokeStyle(_txtCostAll, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtXpAll = new TextField(40,30,'-5');
-        _txtXpAll.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        _txtXpAll = new CTextField(40,30,'-5');
+        _txtXpAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtXpAll.x = 75;
         _txtXpAll.y = 280;
         _txtXpAll.format.horizontalAlign = Align.LEFT;
-        ManagerFilters.setStrokeStyle(_txtXpAll, ManagerFilters.TEXT_BROWN_COLOR);
 
         _rightBlock.addChild(_txtCostItem);
         _rightBlock.addChild(_txtXpItem);
@@ -229,11 +220,10 @@ public class WOTrain extends WindowMain {
         im.y = 80;
 //        MCScaler.scale(im,30,30);
         _rightBlock.addChild(im);
-        txt = new TextField(20,20,'1');
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 16, Color.WHITE);
+        txt = new CTextField(20,20,'1');
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = 225;
         txt.y = 283;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _rightBlock.addChild(txt);
 
         _rightBlockCarton2 = new CartonBackgroundIn(90, 90);
@@ -250,11 +240,10 @@ public class WOTrain extends WindowMain {
         _leftBlock.y = -205;
         _leftBlock.x = -_woWidth/2 + 40;
         _source.addChild(_leftBlock);
-        var txt:TextField = new TextField(200,30,'Требуются продукты:');
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'], 19, Color.WHITE);
+        var txt:CTextField = new CTextField(200,30,'Требуются продукты:');
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         txt.y = 15;
         txt.x = 60;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _leftBlock.addChild(txt);
     }
 

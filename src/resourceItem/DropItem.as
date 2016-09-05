@@ -28,6 +28,8 @@ import starling.utils.Color;
 
 import temp.DropResourceVariaty;
 
+import utils.CTextField;
+
 import utils.MCScaler;
 
 import windows.WindowsManager;
@@ -87,11 +89,10 @@ public class DropItem {
             return;
         }
         MCScaler.scale(_image, fromSize, fromSize);
-        var txt:TextField = new TextField(70,30,'+' + String(prise.count));
-        txt.format.setTo(g.allData.bFonts['BloggerBold18'], int(18*fromSize/50) , Color.WHITE);
+        var txt:CTextField = new CTextField(70,30,'+' + String(prise.count));
+        txt.setFormat(CTextField.BOLD18, int(18*fromSize/50), Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         txt.x = -15;
         txt.y = _image.height - 5;
-        ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_BROWN_COLOR);
         _source.addChild(_image);
         _source.pivotX = _source.width / 2;
         _source.pivotY = _source.height / 2;
