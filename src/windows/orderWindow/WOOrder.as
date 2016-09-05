@@ -685,7 +685,6 @@ public class WOOrder extends WindowMain{
         _arrResourceItems.length = 0;
         _txtName = null;
         _txtXP = null;
-        _txtCoins.text = null;
         if (_woBG) {
             _source.removeChild(_woBG);
             _woBG.deleteIt();

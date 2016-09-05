@@ -165,7 +165,7 @@ public class WOAmbars extends WindowMain {
         _source.addChild(_progress.source);
 
         _txtCount = new CTextField(250, 67, "Вместимость: 0/0");
-        _txtCount.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtCount.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_ORANGE_COLOR, Color.WHITE);
         _txtCount.format.horizontalAlign = Align.LEFT;
         _txtCount.x = -_woWidth/2 + 47;
         _txtCount.y = -_woHeight/2 + 473;

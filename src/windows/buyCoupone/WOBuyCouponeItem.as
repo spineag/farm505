@@ -54,7 +54,6 @@ public class WOBuyCouponeItem {
             var txt:CTextField = new CTextField(50,50,'+' + String(_cost));
             txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
 //            txt.x = 5;
-//            ManagerFilters.setStrokeStyle(txt, ManagerFilters.TEXT_GREEN_COLOR);
             _btn.addChild(txt);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
 //            MCScaler.scale(im,30,30);
@@ -73,7 +72,6 @@ public class WOBuyCouponeItem {
             _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
             _txtCount.x = 23;
             _txtCount.y = 50;
-//            ManagerFilters.setStrokeStyle(_txtCount, ManagerFilters.TEXT_BLUE_COLOR);
             source.addChild(_txtCount);
         } catch (e:Error) {
             Cc.error('WOBuyCouponeItem error: ' + e.errorID + ' - ' + e.message);

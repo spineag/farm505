@@ -6,6 +6,7 @@ import manager.ManagerFilters;
 import manager.Vars;
 
 import starling.filters.FragmentFilter;
+import starling.filters.GlowFilter;
 
 import starling.styles.DistanceFieldStyle;
 import starling.text.TextField;
@@ -28,6 +29,7 @@ public class CTextField extends TextField {
 
     private var _deltaOwnX:int = 0;
     private var _deltaOwnY:int = 0;
+    private var _useBitmapFont:Boolean = false;
     private var g:Vars = Vars.getInstance();
 
     public function CTextField(width:int, height:int, text:String="", format:TextFormat=null) {
@@ -36,13 +38,35 @@ public class CTextField extends TextField {
         super.autoScale = true;
     }
 
+    override public function set text(s:String):void {
+        if (!s) return;
+        super.batchable = false;
+        super.text = s;
+        if (s.length < 20) super.batchable = true;
+    }
+
     public function setFormat(type:String, size:int, color:uint, colorStroke:uint = 0xabcdef):void {
-        if (!g.allData.bFonts[type]) type = 'BloggerBold24';
-        super.format.setTo(g.allData.bFonts[type], size, color);
-        if (colorStroke == 0xabcdef) {
-            setEmptyStyle();
+        if (_useBitmapFont) {
+            if (!g.allData.bFonts[type]) type = 'BloggerBold24';
+            super.format.setTo(g.allData.bFonts[type], size, color);
+            if (colorStroke == 0xabcdef) {
+                setEmptyStyle();
+            } else {
+                setStrokeStyle(colorStroke);
+            }
         } else {
-            setStrokeStyle(colorStroke);
+            var fontName:String;
+            if (type == BOLD14 || type == BOLD18 || type == BOLD24 || type == BOLD30 || type == BOLD72) {
+                fontName = 'BloggerBold';
+            } else if (type == MEDIUM14 || type == MEDIUM18 || type == MEDIUM24 || type == MEDIUM30) {
+                fontName = 'BloggerMedium';
+            } else fontName = 'BloggerRegular';
+            var formatT:TextFormat = new TextFormat(fontName, size, color);
+            super.format = formatT;
+            if (colorStroke != 0xabcdef) {
+                super.filter = new GlowFilter(colorStroke, 1, 3, 1);
+                super.filter.cache();
+            }
         }
     }
 

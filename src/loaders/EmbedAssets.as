@@ -27,16 +27,16 @@ public class EmbedAssets {
 //    [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
 //    private const InstrumentTextureXML:Class;
 
-//    [Embed(source="../../assets/fonts/BloggerSansBold.otf", embedAsCFF="false", fontName="BloggerBold")]
-//    private const BloggerBold:Class;
+    [Embed(source="../../assets/fonts/BloggerSansBold.otf", embedAsCFF="false", fontName="BloggerBold")]
+    private const BloggerBold:Class;
 //    [Embed(source="../../assets/fonts/BloggerSansItalic.otf", embedAsCFF="false", fontName="BloggerItalic")]
 //    private const BloggerItalic:Class;
 //    [Embed(source="../../assets/fonts/BloggerSansLightRegular.otf", embedAsCFF="false", fontName="BloggerLight")]
 //    private const BloggerLight:Class;
-//    [Embed(source="../../assets/fonts/BloggerSansMediumRegular.otf", embedAsCFF="false", fontName="BloggerMedium")]
-//    private const BloggerMedium:Class;
-//    [Embed(source="../../assets/fonts/BloggerSansRegular.otf", embedAsCFF="false", fontName="BloggerRegular")]
-//    private const BloggerRegular:Class;
+    [Embed(source="../../assets/fonts/BloggerSansMediumRegular.otf", embedAsCFF="false", fontName="BloggerMedium")]
+    private const BloggerMedium:Class;
+    [Embed(source="../../assets/fonts/BloggerSansRegular.otf", embedAsCFF="false", fontName="BloggerRegular")]
+    private const BloggerRegular:Class;
 //    [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
 //    private const HouschkaBold:Class;
 
@@ -52,9 +52,9 @@ public class EmbedAssets {
     private const BitmapBloggerBoldWhite18png:Class;
     [Embed(source="../../assets/fonts/bitmap/bold18.fnt", mimeType="application/octet-stream")]
     private const BitmapBloggerBoldWhite18xml:Class;
-    [Embed(source="../../assets/fonts/bitmap/font2.png")]
+    [Embed(source="../../assets/fonts/bitmap/font.png")]
     private const BitmapBloggerBoldWhite14png:Class;
-    [Embed(source="../../assets/fonts/bitmap/font2.fnt", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/fonts/bitmap/font.fnt", mimeType="application/octet-stream")]
     private const BitmapBloggerBoldWhite14xml:Class;
     [Embed(source="../../assets/fonts/bitmap/medium30.png")]
     private const BitmapBloggerMediumWhite30png:Class;
@@ -109,7 +109,6 @@ public class EmbedAssets {
         var texture:Texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite30png);
         var xml:XML = XML(new BitmapBloggerBoldWhite30xml());
         var bFont:BitmapFont = new BitmapFont(texture, xml);
-//        bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerBold30'] = TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite24png);
@@ -125,6 +124,7 @@ public class EmbedAssets {
         texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite14png);
         xml = XML(new BitmapBloggerBoldWhite14xml());
         bFont = new BitmapFont(texture, xml);
+//bFont.smoothing = TextureSmoothing.TRILINEAR;
         g.allData.bFonts['BloggerBold14'] = TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerMediumWhite30png);
@@ -183,11 +183,11 @@ public class EmbedAssets {
 //        xml= XML(new BuildTextureXML());
 //        g.allData.atlas['buildAtlas'] = new TextureAtlas(texture, xml);
 
-//        g.allData.fonts['BloggerBold'] = (new BloggerBold() as Font).fontName;
+        g.allData.fonts['BloggerBold'] = (new BloggerBold() as Font).fontName;
 //        g.allData.fonts['BloggerItalic'] = (new BloggerItalic() as Font).fontName;
 //        g.allData.fonts['BloggerLight'] = (new BloggerLight() as Font).fontName;
-//        g.allData.fonts['BloggerRegular'] = (new BloggerRegular() as Font).fontName;
-//        g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
+        g.allData.fonts['BloggerRegular'] = (new BloggerRegular() as Font).fontName;
+        g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
 //        g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
         var count:int = 2;
