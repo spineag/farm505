@@ -324,7 +324,6 @@ public class WOOrder extends WindowMain{
         };
         _arrOrders[_activeOrderItem.position] = null;
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
-        g.managerOrder.checkForFullOrder();
         animateCatsOnSell();
         g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
@@ -483,7 +482,6 @@ public class WOOrder extends WindowMain{
 //                newPlaceNumber();
             };
             g.managerOrder.deleteOrder(_activeOrderItem.getOrder(), f);
-            g.managerOrder.checkForFullOrder();
         }
     }
 

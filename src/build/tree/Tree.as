@@ -60,10 +60,10 @@ public class Tree extends WorldObject {
     private var _needShopView:Boolean;
     private var _deleteTree:Boolean;
     private var _isOnHoverWatter:Boolean;
-    private var _fruits1:Bone;
-    private var _fruits2:Bone;
-    private var _fruits3:Bone;
-    private var _fruits4:Bone;
+    private var _fruit1:Bone;
+    private var _fruit2:Bone;
+    private var _fruit3:Bone;
+    private var _fruit4:Bone;
 
     public function Tree(_data:Object) {
         super(_data);
@@ -84,10 +84,10 @@ public class Tree extends WorldObject {
         _source.outCallback = onOut;
         _source.endClickCallback = onClick;
         WorldClock.clock.add(_armature);
-        _fruits1 = _armature.getBone('fruit1');
-        _fruits2 = _armature.getBone('fruit2');
-        _fruits3 = _armature.getBone('fruit3');
-        _fruits4 = _armature.getBone('fruit4');
+        _fruit1 = _armature.getBone('fruit1');
+        _fruit2 = _armature.getBone('fruit2');
+        _fruit3 = _armature.getBone('fruit3');
+        _fruit4 = _armature.getBone('fruit4');
         setBuildImage();
         if (_needShopView) showShopView();
     }
@@ -203,9 +203,11 @@ public class Tree extends WorldObject {
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED2:
-                _armature.addBone(_fruits1);
-                _armature.addBone(_fruits2);
-               _armature.animation.gotoAndStopByFrame("middle_fruits");
+                _armature.addBone(_fruit1);
+                _fruit1.visible = true;
+                _armature.addBone(_fruit2);
+                _fruit2.visible = true;
+                _armature.animation.gotoAndStopByFrame("middle_fruits");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 3;
@@ -221,9 +223,12 @@ public class Tree extends WorldObject {
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED3:
-                _armature.addBone(_fruits1);
-                _armature.addBone(_fruits2);
-                _armature.addBone(_fruits3);
+                _armature.addBone(_fruit1);
+                _fruit1.visible = true;
+                _armature.addBone(_fruit2);
+                _fruit2.visible = true;
+                _armature.addBone(_fruit3);
+                _fruit3.visible = true;
                 _armature.animation.gotoAndStopByFrame("big_fruits");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
@@ -260,10 +265,14 @@ public class Tree extends WorldObject {
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED_FIXED:
-                _armature.addBone(_fruits1);
-                _armature.addBone(_fruits2);
-                _armature.addBone(_fruits3);
-                _armature.addBone(_fruits4);
+                _armature.addBone(_fruit1);
+                _fruit1.visible = true;
+                _armature.addBone(_fruit2);
+                _fruit2.visible = true;
+                _armature.addBone(_fruit3);
+                _fruit3.visible = true;
+                _armature.addBone(_fruit4);
+                _fruit4.visible = true;
                 _armature.animation.gotoAndStopByFrame("big_fruits");
                 _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
@@ -284,16 +293,23 @@ public class Tree extends WorldObject {
 
     private function rechekFruits():void {
         var st:String;
-        var b:Slot;
+        var b:Bone;
+//        _armature.ad
         var item:CraftItem = new CraftItem(0, 0, _resourceItem, _source, 1);
         item.flyIt();
         st = 'fruit' + _countCrafted;
-        b = _armature.getSlot(st);
-        if (b)_armature.removeSlot(b);
+        b = _armature.getBone(st);
+//        if (b)_armature.removeBone(b);
+//        else {
+//            st = 'fruit' + (_countCrafted+1);
+//            b = _armature.getBone(st);
+//            _armature.removeBone(b);
+//        }
+        if (b)b.visible = false;
         else {
             st = 'fruit' + (_countCrafted+1);
-            b = _armature.getSlot(st);
-            _armature.removeSlot(b);
+            b = _armature.getBone(st);
+           b.visible = false;
         }
         _countCrafted--;
         if (_countCrafted == 0) {
@@ -365,14 +381,14 @@ public class Tree extends WorldObject {
 
         if (server) {
             var st:String;
-            var b:Slot;
+            var b:Bone;
             if (_countCrafted > _craftedCountFromServer) {
                 var c:int = _countCrafted - _craftedCountFromServer;
                 var arma:int = _countCrafted;
                 for (var i:int = 0; i < c; i++) {
                     st = 'fruit' + (arma - i);
-                    b = _armature.getSlot(st);
-                    _armature.removeSlot(b);
+                    b = _armature.getBone(st);
+                    _armature.removeBone(b);
                     _countCrafted--;
                 }
             }

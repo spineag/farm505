@@ -2014,11 +2014,19 @@ public class ManagerTutorial {
         if (cutScene) cutScene.hideIt(deleteCutScene);
         g.user.tutorialStep = 26;
         updateTutorialStep();
-
+        var timer:int;
+        var onFinish:Function = function():void {
+            timer --;
+            if (timer <= 0) {
+                _afterTutorialWindow.showIt(subStep25_2);
+                var ob:Object = _afterTutorialWindow.btnNext();
+                _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                g.gameDispatcher.removeEnterFrame(onFinish)
+            }
+        };
         if (_afterTutorialWindow) {
-            _afterTutorialWindow.showIt(subStep25_2);
-            var ob:Object = _afterTutorialWindow.btnNext();
-            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+            timer = 5;
+            g.gameDispatcher.addEnterFrame(onFinish)
         }
         else {
             subStep25_2();
