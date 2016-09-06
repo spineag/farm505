@@ -290,7 +290,6 @@ public class FriendPanel {
         for (var i:int=0; i<newCount; i++) {
             item = new FriendItem(_arrFriends[_shift + i],_shift + i);
 //            if(_arrFriends[_shift+i] is NeighborBot){
-//                trace('true');
 //            }
             _arrItems.unshift(item);
             item.source.x = 66 * (_shift + i);
@@ -330,7 +329,6 @@ public class FriendPanel {
                 item = _arrItems.shift();
                 _cont.removeChild(item.source);
                 item.deleteIt();
-                trace(i);
             }
         };
         animList(f);

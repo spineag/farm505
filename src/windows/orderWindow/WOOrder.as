@@ -325,6 +325,7 @@ public class WOOrder extends WindowMain{
         _arrOrders[_activeOrderItem.position] = null;
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
         animateCatsOnSell();
+        g.managerOrder.cancelAnimateSmallHero();
         g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
             g.managerTutorial.checkTutorialCallback();

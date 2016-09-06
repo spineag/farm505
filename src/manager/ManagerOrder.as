@@ -1063,6 +1063,11 @@ public class ManagerOrder {
         }
     }
 
+    public function cancelAnimateSmallHero():void {
+        g.bottomPanel.onFullOrder(false);
+        _orderBuilding.animateSmallHero(false);
+    }
+
     public function onSkipTimer(order:ManagerOrderItem):void {
         g.directServer.skipOrderTimer(order.dbId, null);
         var pl:int = order.placeNumber;

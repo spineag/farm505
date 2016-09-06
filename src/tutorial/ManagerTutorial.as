@@ -2021,12 +2021,12 @@ public class ManagerTutorial {
                 _afterTutorialWindow.showIt(subStep25_2);
                 var ob:Object = _afterTutorialWindow.btnNext();
                 _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-                g.gameDispatcher.removeEnterFrame(onFinish)
+                g.gameDispatcher.removeFromTimer(onFinish)
             }
         };
         if (_afterTutorialWindow) {
-            timer = 5;
-            g.gameDispatcher.addEnterFrame(onFinish)
+            timer = 2;
+            g.gameDispatcher.addToTimer(onFinish)
         }
         else {
             subStep25_2();
