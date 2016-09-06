@@ -70,6 +70,7 @@ public class MouseHint {
             _imageBg.dispose();
             _imageBg = null;
         }
+        _txtCount.text = '';
         if (g.cont.hintContUnder.contains(_source)) g.cont.hintContUnder.removeChild(_source);
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
     }

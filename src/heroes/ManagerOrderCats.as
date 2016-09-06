@@ -271,6 +271,9 @@ public class ManagerOrderCats {
             };
             cat.sayHIAnimation(onFinishArrive);
             cat.checkArriveCallback();
+//            cat.forceStopAnimation();
+//            cat.idleFrontAnimation();
+//            cat.walkPosition = OrderCat.STAY_IN_QUEUE;
         }
     }
 

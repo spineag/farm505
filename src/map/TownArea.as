@@ -368,6 +368,7 @@ public class TownArea extends Sprite {
                     if (sizeX > 1 && sizeY > 1) {
                         if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
                             _townMatrix[i][j].isWall = true;
+
                     }
                 }
             }

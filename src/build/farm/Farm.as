@@ -180,6 +180,8 @@ public class Farm extends WorldObject{
                 }
             } else {
                 if (!isFull && !g.managerTutorial.isTutorial) {
+                    g.user.decorShiftShop = 0;
+                    g.user.decorShop = false;
                     g.user.animalIdArrow = _dataAnimal.id;
                     g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
                 }

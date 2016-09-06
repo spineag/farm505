@@ -85,7 +85,7 @@ public class CatPanel {
 //        g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe: wrong JSON:');
 //        g.directServer.addUserXP(1,null);
 ////
-        if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096) {
+        if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096 || int(g.user.userSocialId) == 202427318) {
             g.user.level++;
             g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
         }

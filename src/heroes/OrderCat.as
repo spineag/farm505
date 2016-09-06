@@ -57,6 +57,7 @@ public class OrderCat {
     public var walkPosition:int;
     public var bant:int;
     private var _arriveCallback:Function;
+    private var _callbackHi:Function;
     private var _catData:Object;
 
     private var _isWoman:Boolean;
@@ -465,6 +466,7 @@ public class OrderCat {
     }
 
     public function forceStopAnimation():void {
+        if (_callbackHi != null) _callbackHi = null;
         stopAnimation();
         TweenMax.killTweensOf(_source);
     }
@@ -488,11 +490,12 @@ public class OrderCat {
     }
 
     public function sayHIAnimation(callback:Function):void {
+        _callbackHi= callback;
         var onSayHI:Function = function(e:Event=null):void {
             if (armature.hasEventListener(EventObject.COMPLETE)) armature.removeEventListener(EventObject.COMPLETE, onSayHI);
             if (armature.hasEventListener(EventObject.LOOP_COMPLETE)) armature.removeEventListener(EventObject.LOOP_COMPLETE, onSayHI);
-            if (callback != null) {
-                callback.apply();
+            if (_callbackHi != null) {
+                _callbackHi.apply();
             }
         };
         armature.addEventListener(EventObject.COMPLETE, onSayHI);

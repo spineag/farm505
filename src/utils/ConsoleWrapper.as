@@ -4,6 +4,7 @@ import com.junkbyte.console.KeyBind;
 import com.junkbyte.console.addons.htmlexport.ConsoleHtmlExportAddon;
 
 import flash.display.Sprite;
+import flash.ui.Keyboard;
 
 import flash.ui.Keyboard;
 
@@ -47,6 +48,7 @@ public class ConsoleWrapper {
         Cc.bindKey(new KeyBind(Keyboard.R, true, false, true, true), deleteUser);
         Cc.bindKey(new KeyBind(Keyboard.F, true, false, true, true), makeFullscreen);
         Cc.bindKey(new KeyBind(Keyboard.I, true, false, true, true), showStats);
+        Cc.bindKey(new KeyBind(Keyboard.T, true,false,true,true), makeTester);
 
         Cc.bindKey(new KeyBind(Keyboard.G, true, false, true, true), forOptimisation);
         Cc.bindKey(new KeyBind(Keyboard.H, true, false, true, true), forOptimisation2);
@@ -65,6 +67,7 @@ public class ConsoleWrapper {
                 "      0 - open/close console\n" +
                 "      alt + L - save log\n" +
                 "      alt + R - reset user Data\n" +
+                "      alt + T - In - Out User Tester\n" +
                 "      alt + F - set fullscreen\n" +
                 "      /g - command for monitoring Objects class\n" +
                 "");
@@ -108,6 +111,13 @@ public class ConsoleWrapper {
 //            g.optionPanel.makeResizeForGame();
 //            if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
         }
+    }
+
+    private function makeTester():void {
+        if (g.user.isTester) g.user.isTester = false;
+        else g.user.isTester = true;
+        g.directServer.updateUserTester(null);
+        Cc.info("Your isTester = " + g.user.isTester);
     }
 
     private function forOptimisation():void {                                       // G

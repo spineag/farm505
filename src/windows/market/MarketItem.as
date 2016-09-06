@@ -350,7 +350,15 @@ public class MarketItem {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
 
         var f1:Function = function():void {
-            if (isFill == 2) return;
+            for (var i:int = 0; i < g.user.marketItems.length; i++) {
+                if (g.user.marketItems[i].numberCell == number) {
+                    if (g.user.marketItems[0].buyerId > 0) {
+                        _wo.refreshItemWhenYouBuy();
+                        return;
+                    }
+                    else break;
+                }
+            }
             g.windowsManager.cashWindow = _wo;
             _wo.hideIt();
             g.marketHint.hideIt();

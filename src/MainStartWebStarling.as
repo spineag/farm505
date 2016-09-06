@@ -2,9 +2,13 @@
  * Created by ndy on 16.03.2014.
  */
 package {
+
 import com.junkbyte.console.Cc;
 
+
 import flash.display.Sprite;
+
+
 import flash.display.StageAlign;
 import flash.display.StageQuality;
 import flash.display.StageScaleMode;
@@ -32,7 +36,7 @@ import utils.ConsoleWrapper;
 //[SWF (frameRate='30', backgroundColor='#709e1d', width = '1000', height = '640')]
 [SWF (frameRate='30', backgroundColor='#000000', width = '1000', height = '640')]
 
-public class MainStartWebStarling extends Sprite{
+public class MainStartWebStarling extends flash.display.Sprite{
     private var star:Starling;
     private var stageReady:Boolean = false;
     private var stageReadyInterval:int;

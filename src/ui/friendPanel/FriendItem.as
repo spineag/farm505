@@ -192,7 +192,6 @@ public class FriendItem {
     private function onTimer():void {
         _timer--;
         if (_timer <= 0) {
-//            trace(_person.name);
             g.gameDispatcher.removeFromTimer(onTimer);
             if (_preloader) {
                 source.removeChild(_preloader.source);
@@ -204,7 +203,6 @@ public class FriendItem {
 
 //    public function newLevel():void {
 //        txtLvl.text = String(_person.level);
-////        trace(_person.level);
 //        txtLvl.x = 36;
 //        txtLvl.y = 50;
 //        source.addChild(txtLvl);

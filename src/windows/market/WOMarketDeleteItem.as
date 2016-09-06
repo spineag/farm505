@@ -78,7 +78,7 @@ public class WOMarketDeleteItem extends WindowMain{
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
         if (g.user.hardCurrency < 1) {
-            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+            g.windowsManager.closeAllWindows();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
