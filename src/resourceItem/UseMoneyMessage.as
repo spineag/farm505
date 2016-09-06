@@ -30,9 +30,9 @@ public class UseMoneyMessage {
         else if (typeMoney == DataMoney.BLUE_COUPONE || typeMoney == DataMoney.GREEN_COUPONE || typeMoney == DataMoney.RED_COUPONE || typeMoney == DataMoney.YELLOW_COUPONE) st += 'ваучера';
         else st += 'монет';
 
-        var txt:CTextField = new CTextField(150,50, st);
-        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        txt.x = -75;
+        var txt:CTextField = new CTextField(200,50, st);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        txt.x = -100;
         txt.y = -25;
         source.addChild(txt);
         source.x = p.x;

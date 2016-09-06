@@ -44,7 +44,7 @@ public class WOBuyPlantItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _txtNumber = new CTextField(40,30,'');
-        _txtNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtNumber.alignH = Align.RIGHT;
 
         _txtNumber.x = 52;
@@ -79,7 +79,7 @@ public class WOBuyPlantItem {
         }
         fillIcon(_dataPlant.imageShop);
         _countPlants = g.userInventory.getCountResourceById(_dataPlant.id);
-        if (_countPlants <= 0) _txtNumber.changeTextColor = ManagerFilters.TEXT_ORANGE_COLOR;
+        if (_countPlants <= 0) _txtNumber.changeTextColor = ManagerFilters.ORANGE_COLOR;
         else _txtNumber.changeTextColor = Color.WHITE;
         if (_maxAlpha == 1)_txtNumber.text = String(_countPlants);
         if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialResource(_dataPlant.id)) {

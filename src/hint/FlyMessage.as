@@ -21,7 +21,7 @@ public class FlyMessage {
     public function FlyMessage(p:Point, text:String) {
         _source = new Sprite();
         _txtMessage = new CTextField(300,40,text);
-        _txtMessage.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtMessage.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtMessage.x = -150;
         _source.x = p.x;
         _source.y = p.y;

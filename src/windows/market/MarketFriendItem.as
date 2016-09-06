@@ -60,7 +60,7 @@ public class MarketFriendItem {
             }
         }
         _txt = new CTextField(100, 30, 'loading...');
-        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txt.y = 70;
         if (_person.name) _txt.text = _person.name;
         source.addChild(_txt);
@@ -70,7 +70,7 @@ public class MarketFriendItem {
         _visitBtn = new CButton();
         _visitBtn.addButtonTexture(70, 30, CButton.BLUE, true);
         var txtBtn:CTextField = new CTextField(80, 25, "Посетить");
-        txtBtn.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txtBtn.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txtBtn.x = -5;
         txtBtn.y = 3;
         _visitBtn.addChild(txtBtn);

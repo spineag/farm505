@@ -76,12 +76,12 @@ public class WOMarketChoose extends WindowMain {
         _source.addChild(_countResourceBlock.source);
 
         var t:CTextField = new CTextField(100, 30, 'Количество:');
-        t.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        t.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         t.x = -190;
         t.y = 145;
         _source.addChild(t);
         t = new CTextField(150, 30, 'Цена продажи:');
-        t.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        t.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         t.x = -55;
         t.y = 145;
         _source.addChild(t);
@@ -92,7 +92,7 @@ public class WOMarketChoose extends WindowMain {
         im.x = 10;
         _btnSell.addChild(im);
         t = new CTextField(100, 50, 'Выставить на продажу');
-        t.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        t.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         t.y = 45;
         _btnSell.addChild(t);
         _btnSell.x = 160;
@@ -122,7 +122,7 @@ public class WOMarketChoose extends WindowMain {
         im.y = 1;
         _tabAmbar.addChild(im);
         var txt:CTextField = new CTextField(90, 40, "Амбар");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 31;
         txt.y = 2;
         _tabAmbar.addChild(txt);
@@ -153,7 +153,7 @@ public class WOMarketChoose extends WindowMain {
         im.y = 2;
         _tabSklad.addChild(im);
         txt = new CTextField(90, 40, "Склад");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 34;
         txt.y = 2;
         _tabSklad.addChild(txt);

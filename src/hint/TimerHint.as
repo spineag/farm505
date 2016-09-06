@@ -58,12 +58,12 @@ public class TimerHint {
         _txtCost.x = 5;
         _txtCost.y = 6;
         _txtTimer = new CTextField(80,30,"");
-        _txtTimer.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtTimer.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtTimer.cacheIt = false;
         _txtTimer.x = -85;
         _txtTimer.y = -58;
         _txtName = new CTextField(176,50,"");
-        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -88;
         _txtName.y = -130;
         _txtText = new CTextField(78,50,'ускорить');

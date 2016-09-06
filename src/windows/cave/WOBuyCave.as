@@ -41,7 +41,7 @@ public class WOBuyCave extends WindowMain {
         im.y = 7;
         _btn.addChild(im);
         _priceTxt = new CTextField(217, 30, '');
-        _priceTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _priceTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _priceTxt.y = 5;
         _btn.addChild(_priceTxt);
         _source.addChild(_btn);

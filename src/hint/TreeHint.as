@@ -90,7 +90,7 @@ public class TreeHint {
         _txtItem.x = 37;
         _txtItem.y = -117;
         _txtName = new CTextField(200,50,"");
-        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -100;
         _txtName.y = -140;
 

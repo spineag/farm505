@@ -294,7 +294,7 @@ public class WOShop extends WindowMain {
 
     private function createMoneyBlock():void {
         var txt:CTextField = new CTextField(250, 40, 'Ваши сбережения:');
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -_woWidth/2 + 238;
         txt.y = -_woHeight/2 + 461;
         _source.addChild(txt);
@@ -404,32 +404,32 @@ public class WOShop extends WindowMain {
         _contCoupone.addChild(im);
 
         _txtHardMoney = new CTextField(63, 33, '88888');
-        _txtHardMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtHardMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtHardMoney.x = -_woWidth/2 + 81;
         _txtHardMoney.y = -_woHeight/2 + 512;
         _source.addChild(_txtHardMoney);
         _txtSoftMoney = new CTextField(63, 33, '88888');
-        _txtSoftMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtSoftMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtSoftMoney.x = -_woWidth/2 + 239;
         _txtSoftMoney.y = -_woHeight/2 + 512;
         _source.addChild(_txtSoftMoney);
         _txtRedMoney = new CTextField(39, 33, '888');
-        _txtRedMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtRedMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtRedMoney.x = -_woWidth/2 + 400;
         _txtRedMoney.y = -_woHeight/2 + 512;
         _contCoupone.addChild(_txtRedMoney);
         _txtYellowMoney = new CTextField(39, 33, '888');
-        _txtYellowMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtYellowMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtYellowMoney.x = -_woWidth/2 + 475;
         _txtYellowMoney.y = -_woHeight/2 + 512;
         _contCoupone.addChild(_txtYellowMoney);
         _txtGreenMoney = new CTextField(39, 33, '888');
-        _txtGreenMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtGreenMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtGreenMoney.x = -_woWidth/2 + 550;
         _txtGreenMoney.y = -_woHeight/2 + 512;
         _contCoupone.addChild(_txtGreenMoney);
         _txtBlueMoney = new CTextField(39, 33, '888');
-        _txtBlueMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtBlueMoney.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtBlueMoney.x = -_woWidth/2 + 625;
         _txtBlueMoney.y = -_woHeight/2 + 512;
         _contCoupone.addChild(_txtBlueMoney);

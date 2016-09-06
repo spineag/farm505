@@ -34,14 +34,14 @@ public class WOMarketDeleteItem extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(onClickExit);
         var txt:CTextField = new CTextField(300,30,'Этот продукт будет возвращен в хранилище.');
-        txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.autoScale = true;
         txt.x = -150;
         txt.y = -20;
         txt.touchable = false;
         _source.addChild(txt);
         txt = new CTextField(300,30,'УБРАТЬ ТОВАР С ПРИЛАВКА?');
-        txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -157;
         txt.y = -60;
         txt.touchable = false;
@@ -52,7 +52,7 @@ public class WOMarketDeleteItem extends WindowMain{
         _b.y = 120;
         _source.addChild(_b);
         txt = new CTextField(200, 34, "Убрать за 1");
-        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _b.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         im.x = 150;

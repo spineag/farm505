@@ -107,7 +107,7 @@ public class WODailyBonusItem {
         _parent.addChild(_source);
         if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
             var txt:CTextField = new CTextField(60, 40, '+'+String(obj.count));
-            txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+            txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
             txt.x = -20;
             txt.y = -5;
             _source.addChild(txt);

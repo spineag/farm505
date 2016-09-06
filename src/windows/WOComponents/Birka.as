@@ -24,7 +24,7 @@ public class Birka extends Sprite{
         _parent = parent;
         _source = new Sprite();
         _txt = new CTextField(300, 70, text);
-        _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+        _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.LIGHT_BLUE_COLOR);
         _txt.alignH = Align.LEFT;
         _bg = new Sprite();
 

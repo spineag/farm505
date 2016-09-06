@@ -45,7 +45,7 @@ public class WOAmbarFilled extends WindowMain {
         _btn.clickCallback = onClick;
         _btn.addButtonTexture(130, 40, CButton.YELLOW, true);
         _txtBtn = new CTextField(150,50,"");
-        _txtBtn.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.TEXT_YELLOW_COLOR);
+        _txtBtn.setFormat(CTextField.BOLD14, 14, ManagerFilters.DARK_YELLOW_COLOR);
         _txtBtn.y = -5;
         _txtBtn.x = -10;
         _txtBtn.touchable = false;
@@ -58,15 +58,15 @@ public class WOAmbarFilled extends WindowMain {
         _imageAmbar.touchable = false;
         MCScaler.scale(_imageAmbar,49,320);
         _txtAmbarFilled = new CTextField(200,50,"");
-        _txtAmbarFilled.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtAmbarFilled.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtAmbarFilled.x = -100;
         _txtAmbarFilled.y = -125;
         _txtAmbarFilled.touchable = false;
         _source.addChild(_txtAmbarFilled);
         _txtCount = new CTextField(200,50,"");
-        _txtCount.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCount.x = -95;
-        _txtCount.y = 20;
+        _txtCount.y = 16;
         _txtCount.touchable = false;
         _source.addChild(_txtCount);
         _source.addChild(_imageAmbar);
@@ -104,7 +104,14 @@ public class WOAmbarFilled extends WindowMain {
         _imAmbarSklad.x = -_imAmbarSklad.width/2;
         _imAmbarSklad.y = _imageAmbar.y - 60;
         _source.addChild(_imAmbarSklad);
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+    
+    private function onShow():void {
+        _txtAmbarFilled.updateIt();
+        _txtBtn.updateIt();
+        _txtCount.updateIt();
     }
 
     override protected function deleteIt():void {

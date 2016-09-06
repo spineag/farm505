@@ -39,7 +39,7 @@ public class XPStar {
         _source = new Sprite();
         _source.touchable = false;
         _txtStar = new CTextField(80,50,'');
-        _txtStar.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtStar.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtStar.x = -15;
         _txtStar.y = 25;
         _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));

@@ -52,7 +52,7 @@ public class WOBuyCouponeItem {
             _btn = new CButton();
             _btn.addButtonTexture(80, 50, CButton.GREEN, true);
             var txt:CTextField = new CTextField(50,50,'+' + String(_cost));
-            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
 //            txt.x = 5;
             _btn.addChild(txt);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

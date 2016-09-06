@@ -152,7 +152,7 @@ public class WOMarket  extends WindowMain {
         im.y = 165;
         _source.addChild(im);
         _txtNumberPage = new CTextField(50, 50, '');
-        _txtNumberPage.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtNumberPage.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtNumberPage.x = -253;
         _txtNumberPage.y = 153;
         _source.addChild(_txtNumberPage);
@@ -176,7 +176,7 @@ public class WOMarket  extends WindowMain {
         im.x = 35;
         _btnPaper.addChild(im);
         txt = new CTextField(30,30,'1');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         txt.x = 10;
         _btnPaper.addChild(txt);
         _btnPaper.x = 153;
@@ -191,13 +191,13 @@ public class WOMarket  extends WindowMain {
 //        _imCheck.visible = false;
 
         txt = new CTextField(200,30,'Выставить в газету:');
-        txt.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 8;
         txt.y = 135;
         _contPaper.addChild(txt);
 
         _txtTimerPaper = new CTextField(80,30,'');
-        _txtTimerPaper.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtTimerPaper.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtTimerPaper.x = 46;
         _txtTimerPaper.y = 165;
         _contPaper.addChild(_txtTimerPaper);
@@ -217,7 +217,7 @@ public class WOMarket  extends WindowMain {
         _arrFriends.unshift(g.user.neighbor);
         _arrFriends.unshift(g.user);
         _txtName = new CTextField(300, 30, '');
-        _txtName.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtName.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtName.y = -200;
         _txtName.x = -195;
         _ma = new MarketAllFriend(_arrFriends, this, btnFriend);

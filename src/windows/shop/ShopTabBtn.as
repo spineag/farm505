@@ -36,7 +36,7 @@ public class ShopTabBtn {
         _bg = new CartonBackground(123, 100);
         _source.addChild(_bg);
         var _txt:CTextField = new CTextField(123, 100, '');
-        _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.y = 10;
         var f1:Function = function():void {
             if (g.managerCutScenes.isCutScene) return;

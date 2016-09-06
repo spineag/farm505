@@ -61,7 +61,7 @@ public class AfterTutorialWindow {
         g.cont.popupCont.addChild(_source);
         _source.addChild(_btn);
         var txt:CTextField = new CTextField(110,100,"Дальше");
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.y = -25;
         txt.x = 30;
         _btn.addChild(txt);

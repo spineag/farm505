@@ -71,7 +71,7 @@ public class WOBuyCurrency extends WindowMain {
         _tabHard.addChild(_cartonHardTab);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
         var txt:CTextField = new CTextField(160, 67, 'Рубины');
-        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 85;
         _tabHard.addChild(txt);
         _tabHard.x = -289;
@@ -90,7 +90,7 @@ public class WOBuyCurrency extends WindowMain {
         _tabSoft.addChild(_cartonSoftTab);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
         txt= new CTextField(160, 67, 'Монеты');
-        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 85;
         txt.touchable = false;
         _tabSoft.addChild(txt);

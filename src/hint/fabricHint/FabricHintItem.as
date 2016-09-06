@@ -31,10 +31,10 @@ public class FabricHintItem {
         _needCount = needCount;
         _id = obId;
         _txtWhite = new CTextField(50,50,String("/" + String(_needCount)));
-        _txtWhite.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+        _txtWhite.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.LIGHT_BLUE_COLOR);
         _txtWhite.alignH = Align.LEFT;
         _txtOrange = new CTextField(50,50,'');
-        _txtOrange.setFormat(CTextField.BOLD14, 16, ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtOrange.setFormat(CTextField.BOLD14, 16, ManagerFilters.ORANGE_COLOR);
         _txtOrange.alignH = Align.LEFT;
 //        _txtOrange.y = 55;
 //        _txtOrange.x = 34;
@@ -43,9 +43,9 @@ public class FabricHintItem {
         var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[obId].id);
         _txtOrange.text = String(userCount);
         if (userCount >= needCount) {
-            _txtOrange.changeTextColor = ManagerFilters.TEXT_USUAL_GREEN_COLOR;
+            _txtOrange.changeTextColor = ManagerFilters.USUAL_GREEN_COLOR;
         } else {
-            _txtOrange.changeTextColor = ManagerFilters.TEXT_ORANGE_COLOR;
+            _txtOrange.changeTextColor = ManagerFilters.ORANGE_COLOR;
         }
         _txtOrange.x = 34;
         _txtOrange.y = 55;
@@ -81,9 +81,9 @@ public class FabricHintItem {
         var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[_id].id);
         userCount -= _needCount;
         if (userCount >= _needCount) {
-            _txtOrange.changeTextColor = ManagerFilters.TEXT_USUAL_GREEN_COLOR;
+            _txtOrange.changeTextColor = ManagerFilters.USUAL_GREEN_COLOR;
         } else {
-            _txtOrange.changeTextColor = ManagerFilters.TEXT_ORANGE_COLOR;
+            _txtOrange.changeTextColor = ManagerFilters.ORANGE_COLOR;
         }
     }
 

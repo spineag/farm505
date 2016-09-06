@@ -44,7 +44,7 @@ public class AirTextBubble {
         _bg.x = _bg.width;
         _source.addChild(_bg);
         _txt = new CTextField(260, 90, "");
-        _txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.TEXT_BLUE_COLOR);
+        _txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
         _txt.x = 36;
         _txt.y = 32;
         _txt.autoScale = true;
@@ -54,7 +54,7 @@ public class AirTextBubble {
         _btn.x = 180;
         _btn.y = 140;
         _btnTxt = new CTextField(120, 38, 'Далее');
-        _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btn.addChild(_btnTxt);
         _source.addChild(_btn);
         createCatHead();

@@ -252,7 +252,7 @@ public class HintBackground extends Sprite {
         else if (size > 14) s = CTextField.BOLD18;
         else s = CTextField.BOLD14;
         _txt = new CTextField(_width - 10, _height - 20,'');
-        _txt.setFormat(s, size, ManagerFilters.TEXT_BLUE_COLOR);
+        _txt.setFormat(s, size, ManagerFilters.BLUE_COLOR);
         _txt.x = _bg.x + 5;
         _txt.y = _bg.y + 5;
         addChild(_txt);

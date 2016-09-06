@@ -65,10 +65,10 @@ public class SoftHardCurrency {
         createPanel(true, _contSoft, onClickSoft);
         createPanel(false, _contHard, onClickHard);
         _txtSoft =  new CTextField(120, 38, '00');
-        _txtSoft.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtSoft.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _contSoft.addChild(_txtSoft);
         _txtHard =  new CTextField(120, 38, '00');
-        _txtHard.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtHard.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _contHard.addChild(_txtHard);
 
         _source.addChild(_contSoft);

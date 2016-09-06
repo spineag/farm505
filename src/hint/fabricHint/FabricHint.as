@@ -50,31 +50,31 @@ public class FabricHint {
         _source.addChild(im);
 
         _txtName = new CTextField(240,70,'');
-        _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+        _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.LIGHT_BLUE_COLOR);
         _txtName.y = 5;
         _txtName.x = -20;
         _source.addChild(_txtName);
 
         _txtCreate = new CTextField(200, 30 ,'Для изготовления требуется:');
-        _txtCreate.setFormat(CTextField.REGULAR14, 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCreate.setFormat(CTextField.REGULAR14, 14, ManagerFilters.BLUE_COLOR);
         _txtCreate.y = 50;
         _source.addChild(_txtCreate);
 
         _txtTimeCreate = new CTextField(50, 30 ,'Время:');
-        _txtTimeCreate.setFormat(CTextField.REGULAR14, 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtTimeCreate.setFormat(CTextField.REGULAR14, 14, ManagerFilters.BLUE_COLOR);
         _txtTimeCreate.x = 20;
         _txtTimeCreate.y = 130;
         _txtOnSklad = new CTextField(100, 30 ,'На складе:');
-        _txtOnSklad.setFormat(CTextField.REGULAR14, 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtOnSklad.setFormat(CTextField.REGULAR14, 14, ManagerFilters.BLUE_COLOR);
         _txtOnSklad.x = 100;
         _txtOnSklad.y = 130;
         _txtItem = new CTextField(50, 40 ,'');
-        _txtItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+        _txtItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.LIGHT_BLUE_COLOR);
         _txtItem.alignH = Align.LEFT;
         _txtItem.x = 163;
         _txtItem.y = 150;
         _txtTime = new CTextField(100, 40 ,'');
-        _txtTime.setFormat(CTextField.BOLD18, 16, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtTime.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
         _txtTime.alignH = Align.LEFT;
         _txtTime.x = 50;
         _txtTime.y = 150;

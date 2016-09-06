@@ -95,7 +95,7 @@ public class CTextField extends DisplayObjectContainer {
         _format = new TextFormat();
         if (_useBitmapFont) {
             if (!g.allData.bFonts[type]) type = 'BloggerBold24';
-            if (size <18) {
+            if (size <17) {
                 color = colorStroke;
                 colorStroke = 0xabcdef;
                 size += 2;
@@ -116,7 +116,7 @@ public class CTextField extends DisplayObjectContainer {
             } else if (type == MEDIUM14 || type == MEDIUM18 || type == MEDIUM24 || type == MEDIUM30) {
                 fontName = 'BloggerMedium';
             } else fontName = 'BloggerRegular';
-            if (size <18 && colorStroke != 0xabcdef) {
+            if (size <17 && colorStroke != 0xabcdef) {
                 color = colorStroke;
                 colorStroke = 0xabcdef;
                 size += 2;
@@ -138,7 +138,7 @@ public class CTextField extends DisplayObjectContainer {
         _style.setupOutline(.5, color);
         _txt.style = _style;
         // fix x and y position for text with distance
-        if (_format.size < 18) {
+        if (_format.size < 17) {
             deltaOwnX = -7;
             deltaOwnY = -2;
         } else if (_format.size < 22) {
@@ -156,7 +156,7 @@ public class CTextField extends DisplayObjectContainer {
         _style = new DistanceFieldStyle(.5, .25);
         _txt.style = _style;
         // fix x and y position for text with distance
-        if (_format.size < 18) {
+        if (_format.size < 17) {
             deltaOwnX = -7;
             deltaOwnY = -2;
         } else if (_format.size < 22) {

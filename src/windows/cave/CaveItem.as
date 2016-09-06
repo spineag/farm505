@@ -43,7 +43,7 @@ public class CaveItem {
 //        source.hoverCallback = onHover;
 //        source.outCallback = onOut;
         _txtCount = new CTextField(40,30,'');
-        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCount.x = 60;
         _txtCount.y = 68;
         source.addChild(_txtCount);

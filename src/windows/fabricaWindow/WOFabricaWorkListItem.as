@@ -57,17 +57,17 @@ public class WOFabricaWorkListItem {
         if (type == SMALL_CELL) {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
             MCScaler.scale(_bg, 50, 50);
-            _txtNumberCreate.setFormat(CTextField.BOLD14, 13, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtNumberCreate.setFormat(CTextField.BOLD14, 13, Color.WHITE, ManagerFilters.BLUE_COLOR);
         } else {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
-            _txtNumberCreate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+            _txtNumberCreate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         }
         _source.addChild(_bg);
 
         if (type == SMALL_CELL) {
             _source.visible = false;
             _txt = new CTextField(50, 30, 'пусто');
-            _txt.setFormat(CTextField.BOLD18, 15, ManagerFilters.TEXT_LIGHT_BROWN);
+            _txt.setFormat(CTextField.BOLD18, 15, ManagerFilters.LIGHT_BROWN);
             _txt.x = -1;
             _txt.y = 5;
             source.addChild(_txt);
@@ -87,14 +87,14 @@ public class WOFabricaWorkListItem {
             _source.addChild(_timerBlock);
             _timerBlock.visible = false;
             _txt = new CTextField(100, 90, 'загрузите ячейку очереди');
-            _txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_LIGHT_BROWN);
+            _txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.LIGHT_BROWN);
             _txt.x = 2;
             _txt.y = 5;
             _source.addChild(_txt);
             _btnSkip = new CButton();
             _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
             _txtSkip = new CTextField(100,35,"25");
-            _txtSkip.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+            _txtSkip.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GREEN_COLOR);
             _txtSkip.y = 11;
             _btnSkip.addChild(_txtSkip);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
@@ -105,7 +105,7 @@ public class WOFabricaWorkListItem {
             _btnSkip.x = 52;
             _btnSkip.y = 117;
             var txt:CTextField = new CTextField(65,35,"ускорить");
-            txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+            txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.GREEN_COLOR);
             txt.x = 10;
             txt.y = -8;
             _btnSkip.addChild(txt);
@@ -252,10 +252,10 @@ public class WOFabricaWorkListItem {
             if (_proposeBtn) return;
             _proposeBtn = new CButton();
             var txt:CTextField = new CTextField(46, 28, "+");
-            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
             _proposeBtn.addChild(txt);
             txt = new CTextField(46, 28, String(buyCount));
-            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
             txt.y = 20;
             txt.x = -10;
             _proposeBtn.addChild(txt);

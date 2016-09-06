@@ -29,7 +29,7 @@ public class WOAnotherGame extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         var txt:CTextField = new CTextField(420,130,'Игра уже запущена в другом окне');
-        txt.setFormat(CTextField.MEDIUM24, 24, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.MEDIUM24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.autoScale = true;
         txt.x = -210;
         txt.y = -130;

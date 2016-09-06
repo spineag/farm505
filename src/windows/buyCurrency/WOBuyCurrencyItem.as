@@ -72,7 +72,7 @@ public class WOBuyCurrencyItem {
         source.addChild(_im);
 
         var txt:CTextField = new CTextField(135, 52, String(count));
-        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         txt.x = 70;
         txt.y = 4;
         source.addChild(txt);
@@ -80,7 +80,7 @@ public class WOBuyCurrencyItem {
         _btn = new CButton();
         _btn.addButtonTexture(120, 40, CButton.GREEN, true);
         txt = new CTextField(120, 38, String(cost) + ' голосов');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btn.addChild(txt);
         _btn.x = 493;
         _btn.y = 31;

@@ -11,17 +11,18 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 public class ManagerFilters {
-    public static var TEXT_BROWN_COLOR:int = 0x593b02;
-    public static var TEXT_ORANGE_COLOR:int = 0xd06d0a; 
-    public static var TEXT_LIGHT_GREEN_COLOR:int = 0x40f61c;  
-    public static var TEXT_GREEN_COLOR:int = 0x10650a;
-    public static var TEXT_USUAL_GREEN_COLOR:int = 0x367f30;
-    public static var TEXT_YELLOW_COLOR:int = 0xa37b01;
+    public static var BROWN_COLOR:int = 0x593b02;
+    public static var ORANGE_COLOR:int = 0xd06d0a; 
+    public static var LIGHT_GREEN_COLOR:int = 0x40f61c;  
+    public static var GREEN_COLOR:int = 0x10650a;
+    public static var USUAL_GREEN_COLOR:int = 0x367f30;
+    public static var YELLOW_COLOR:int = 0xa37b01;
+    public static var DARK_YELLOW_COLOR:int = 0x72590c;
     public static var LIGHT_YELLOW_COLOR:int = 0xeffd98;
-    public static var TEXT_LIGHT_BLUE_COLOR:int = 0x1377ab;
-    public static var TEXT_GRAY_HARD_COLOR:int = 0x444444;
-    public static var TEXT_BLUE_COLOR:int = 0x0968b1;
-    public static var TEXT_LIGHT_BROWN:int = 0xa57728;
+    public static var LIGHT_BLUE_COLOR:int = 0x1377ab;
+    public static var GRAY_HARD_COLOR:int = 0x444444;
+    public static var BLUE_COLOR:int = 0x0968b1;
+    public static var LIGHT_BROWN:int = 0xa57728;
 
     public function ManagerFilters() {}
 
@@ -46,7 +47,7 @@ public class ManagerFilters {
     }
 
     public static function get YELLOW_STROKE():GlowFilter {
-        return new GlowFilter(Color.YELLOW);
+        return new GlowFilter(Color.YELLOW, 5);
     }
 
     public static function get WHITE_STROKE():GlowFilter {

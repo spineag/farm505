@@ -35,9 +35,9 @@ public class CatPanel {
         im.y = -5;
         _source.addChild(im);
         _txtCount = new CTextField(77, 40, '55');
-        _txtCount.setFormat(CTextField.BOLD24, 22, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtCount.setFormat(CTextField.BOLD24, 22, ManagerFilters.BROWN_COLOR);
         _txtZero = new CTextField(40, 40, '23');
-        _txtZero.setFormat(CTextField.BOLD24, 22, ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtZero.setFormat(CTextField.BOLD24, 22, ManagerFilters.ORANGE_COLOR);
         _source.addChild(_txtCount);
         _source.addChild(_txtZero);
 
@@ -85,14 +85,16 @@ public class CatPanel {
 //        g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe: wrong JSON:');
 //        g.directServer.addUserXP(1,null);
 ////
-        if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096 || int(g.user.userSocialId) == 202427318) {
-            g.user.level++;
-            g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-        }
+//        if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096 || int(g.user.userSocialId) == 202427318) {
+//            g.user.level++;
+//            g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+//        }
 //        g.directServer.addUserXP(1,null);
 //        var _dataBuild:Object = g.dataBuilding.objectBuilding[1];
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_CAVE,null);
+
+        g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
     }
 }
 }

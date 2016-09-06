@@ -73,7 +73,7 @@ public class WOOrderItem {
         source.addChild(_delImage);
 
         _txtName = new CTextField(112, 20, "Васько");
-        _txtName.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtName.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         source.addChild(_txtName);
 
         _starImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
@@ -82,7 +82,7 @@ public class WOOrderItem {
         _starImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_starImage);
         _txtXP = new CTextField(52, 30, "8888");
-        _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXP.x = 48;
         _txtXP.y = 26;
         source.addChild(_txtXP);
@@ -93,7 +93,7 @@ public class WOOrderItem {
         _coinsImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_coinsImage);
         _txtCoins = new CTextField(52, 30, "8888");
-        _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCoins.x = 48;
         _txtCoins.y = 55;
         source.addChild(_txtCoins);

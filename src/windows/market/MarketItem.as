@@ -92,19 +92,19 @@ public class MarketItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _txtAdditem = new CTextField(70,70,'');
-        _txtAdditem.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtAdditem.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtAdditem.x = 20;
         _txtAdditem.y = 30;
         source.addChild(_txtAdditem);
 
         _costTxt = new CTextField(122, 30, '');
-        _costTxt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _costTxt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _costTxt.y = 101;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2 - 5;
 
         _countTxt = new CTextField(30, 30, '');
-        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _countTxt.x = 77;
         _countTxt.y = 7;
         source.addChild(_countTxt);
@@ -127,7 +127,7 @@ public class MarketItem {
         _plawkaLvl.visible = false;
 
         _txtPlawka = new CTextField(90,60, 'Продано');
-        _txtPlawka.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtPlawka.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtPlawka.x = 10;
         _txtPlawka.y = 85;
         _txtPlawka.visible = false;
@@ -193,14 +193,14 @@ public class MarketItem {
             else _countBuyCell = (numberCell - 5) * 2 + 5;
             source.addChild(buyCont);
             var txt:CTextField = new CTextField(100,90,'Докупить торговое место');
-            txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+            txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
             txt.x = 5;
             txt.y = 20;
             buyCont.addChild(txt);
             var _btnBuyCont:CButton = new CButton();
             _btnBuyCont.addButtonTexture(90,30,CButton.GREEN, true);
             txt = new CTextField(30,30,String(String(_countBuyCell)));
-            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
             txt.x = 10;
             _btnBuyCont.addChild(txt);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
@@ -743,7 +743,7 @@ public class MarketItem {
         _btnGoAwaySaleItem = new CButton();
         _btnGoAwaySaleItem.addButtonTexture(70, 24, CButton.BLUE, true);
         var txt:CTextField = new CTextField(60, 30, 'посетить');
-        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = 4;
         txt.y = -4;
         _btnGoAwaySaleItem.addChild(txt);

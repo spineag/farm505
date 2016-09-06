@@ -34,13 +34,13 @@ public class WONoFreeCats extends WindowMain {
         _callbackClickBG = hideIt;
         createExitButton(hideIt);
         var txt:CTextField = new CTextField(400,100,"НЕТ СВОБОДНЫХ ПОМОЩНИКОВ!");
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -200;
         txt.y = -155;
         txt.touchable = false;
         _source.addChild(txt);
         txt = new CTextField(400,100,'Подождите окончания производства или купите еще одного!');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -200;
         txt.y = -120;
         txt.touchable = false;
@@ -51,7 +51,7 @@ public class WONoFreeCats extends WindowMain {
         _btn.y = 100;
         _source.addChild(_btn);
         txt = new CTextField(130, 40, "КУПИТЬ");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         txt.touchable = false;
         _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));

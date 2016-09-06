@@ -80,7 +80,7 @@ public class WOTrain extends WindowMain {
         _btnSend.x = _woWidth/2 - 180;
         _btnSend.y = 205;
         var txt:CTextField = new CTextField(89,62,"Отправить");
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
         txt.x = 5;
         txt.y = -10;
         _btnSend.addChild(txt);
@@ -92,12 +92,12 @@ public class WOTrain extends WindowMain {
         _btnSend.setEnabled = false;
 
         _txt = new CTextField(150, 40, '');
-        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txt.x = 120;
         _txt.y = 110;
         _source.addChild(_txt);
         _txtCounter = new CTextField(150, 40, '');
-        _txtCounter.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtCounter.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCounter.x = 110;
         _txtCounter.y = 130;
         _source.addChild(_txtCounter);
@@ -122,7 +122,7 @@ public class WOTrain extends WindowMain {
         _rightBlock.addChild(_rightBlockBG);
 
         _txtLoad = new CTextField(240, 50, '');
-        _txtLoad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtLoad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtLoad.x = 25;
         _txtLoad.y = 5;
         _rightBlock.addChild(_txtLoad);
@@ -139,7 +139,7 @@ public class WOTrain extends WindowMain {
         _btnLoad = new CButton();
         _btnLoad.addButtonTexture(130, 36, CButton.YELLOW, true);
         txt = new CTextField(80,30,'Загрузить');
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 25;
         txt.y = 3;
         _btnLoad.addChild(txt);
@@ -165,28 +165,28 @@ public class WOTrain extends WindowMain {
 //        _btnHelp.addChild(_txtHelp);
 
         txt = new CTextField(240,50,'Награда за полную загрузку:');
-        txt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.y = 240;
         txt.x = 23;
         _rightBlock.addChild(txt);
 
         _txtCostItem = new CTextField(40,30,'-3');
-        _txtCostItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtCostItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCostItem.x = 226;
         _txtCostItem.y = 80;
         _txtCostItem.alignH = Align.LEFT;
         _txtXpItem = new CTextField(40,30,'-3');
-        _txtXpItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtXpItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtXpItem.x = 155;
         _txtXpItem.y = 80;
         _txtXpItem.alignH = Align.LEFT;
         _txtCostAll = new CTextField(40,30,'-5');
-        _txtCostAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtCostAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCostAll.x = 160;
         _txtCostAll.y = 280;
         _txtCostAll.alignH = Align.LEFT;
         _txtXpAll = new CTextField(40,30,'-5');
-        _txtXpAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtXpAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtXpAll.x = 75;
         _txtXpAll.y = 280;
         _txtXpAll.alignH = Align.LEFT;
@@ -221,7 +221,7 @@ public class WOTrain extends WindowMain {
 //        MCScaler.scale(im,30,30);
         _rightBlock.addChild(im);
         txt = new CTextField(20,20,'1');
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 225;
         txt.y = 283;
         _rightBlock.addChild(txt);
@@ -241,7 +241,7 @@ public class WOTrain extends WindowMain {
         _leftBlock.x = -_woWidth/2 + 40;
         _source.addChild(_leftBlock);
         var txt:CTextField = new CTextField(200,30,'Требуются продукты:');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.y = 15;
         txt.x = 60;
         _leftBlock.addChild(txt);

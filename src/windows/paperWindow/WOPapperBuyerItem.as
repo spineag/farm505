@@ -90,7 +90,7 @@ public class WOPapperBuyerItem {
         source.addChild(im);
 
         _txtCost = new CTextField(84, 62, "1500");
-        _txtCost.setFormat(CTextField.BOLD24, 20, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCost.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
         _txtCost.format.horizontalAlign = Align.RIGHT;
         _txtCost.touchable = false;
         _txtCost.x = 53;
@@ -98,7 +98,7 @@ public class WOPapperBuyerItem {
         source.addChild(_txtCost);
 
         _txtCountResource = new CTextField(84, 62, "10 шт.");
-        _txtCountResource.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCountResource.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.BLUE_COLOR);
         _txtCountResource.format.horizontalAlign = Align.RIGHT;
         _txtCountResource.touchable = false;
         _txtCountResource.x = 80;
@@ -106,7 +106,7 @@ public class WOPapperBuyerItem {
         source.addChild(_txtCountResource);
 
         _txtResourceName = new CTextField(200, 30, "Смаженый кабаньчик");
-        _txtResourceName.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtResourceName.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.BLUE_COLOR);
         _txtResourceName.format.horizontalAlign = Align.RIGHT;
         _txtResourceName.touchable = false;
         _txtResourceName.x = -38;
@@ -114,7 +114,7 @@ public class WOPapperBuyerItem {
         source.addChild(_txtResourceName);
 
         _txtUserName = new CTextField(120, 50, "Станислав Йованович");
-        _txtUserName.setFormat(CTextField.BOLD18, 16, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtUserName.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
         _txtUserName.format.horizontalAlign = Align.LEFT;
         _txtUserName.touchable = false;
         _txtUserName.x = 56;

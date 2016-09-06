@@ -27,7 +27,7 @@ public class MarketCheckBox {
         source = new Sprite();
         _stateChecked = true;
         _txt = new CTextField(250, 40, 'Обьявление в газету на 4 часа');
-        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         source.addChild(_txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));
         im.scaleY = .8;
