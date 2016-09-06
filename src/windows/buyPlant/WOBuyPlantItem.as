@@ -46,7 +46,6 @@ public class WOBuyPlantItem {
         _txtNumber = new CTextField(40,30,'');
         _txtNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtNumber.alignH = Align.RIGHT;
-
         _txtNumber.x = 52;
         _txtNumber.y = 68;
         source.addChild(_txtNumber);
@@ -59,6 +58,10 @@ public class WOBuyPlantItem {
         _defaultY = _y;
         source.x = _x;
         source.y = _y;
+    }
+    
+    public function updateTextField():void {
+        _txtNumber.updateIt();
     }
 
     public function fillData(ob:Object, f:Function):void {
@@ -130,7 +133,7 @@ public class WOBuyPlantItem {
             source.isTouchable = false;
             source.visible = false;
         }
-        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay});
+        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay, onComplete: updateTextField});
     }
 
     public function showChangeAnimate(d:Number, ob:Object, f:Function):void {
@@ -156,7 +159,7 @@ public class WOBuyPlantItem {
                 source.isTouchable = false;
                 source.visible = false;
             }
-            TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:d});
+            TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:d, onComplete: updateTextField});
         } else {
             source.isTouchable = false;
             source.visible = false;

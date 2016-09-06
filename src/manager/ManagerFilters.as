@@ -43,19 +43,19 @@ public class ManagerFilters {
     }
 
     public static function get RED_STROKE():GlowFilter {
-        return new GlowFilter(Color.RED);
+        return new GlowFilter(Color.RED, 3);
     }
 
     public static function get YELLOW_STROKE():GlowFilter {
-        return new GlowFilter(Color.YELLOW, 5);
+        return new GlowFilter(Color.YELLOW, 3);
     }
 
     public static function get WHITE_STROKE():GlowFilter {
-        return new GlowFilter(Color.WHITE);
+        return new GlowFilter(Color.WHITE, 3);
     }
 
     public static function get BUILD_STROKE():GlowFilter {
-        return new GlowFilter(LIGHT_YELLOW_COLOR);
+        return new GlowFilter(LIGHT_YELLOW_COLOR, 3);
     }
 
     public static function getButtonClickFilter():ColorMatrixFilter {

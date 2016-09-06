@@ -32,6 +32,8 @@ public class WOBuyCurrencyItem {
     public var source:Sprite;
     private var _bg:Sprite;
     private var _btn:CButton;
+    private var _txtBtn:CTextField;
+    private var _txtCount:CTextField;
     private var _im:Image;
     private var _currency:int;
     private var _costRealMoney:int;
@@ -71,21 +73,26 @@ public class WOBuyCurrencyItem {
         _im.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_im);
 
-        var txt:CTextField = new CTextField(135, 52, String(count));
-        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
-        txt.x = 70;
-        txt.y = 4;
-        source.addChild(txt);
+        _txtCount = new CTextField(135, 52, String(count));
+        _txtCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
+        _txtCount.x = 70;
+        _txtCount.y = 4;
+        source.addChild(_txtCount);
 
         _btn = new CButton();
         _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-        txt = new CTextField(120, 38, String(cost) + ' голосов');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btn.addChild(txt);
+        _txtBtn = new CTextField(120, 38, String(cost) + ' голосов');
+        _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _btn.addChild(_txtBtn);
         _btn.x = 493;
         _btn.y = 31;
         source.addChild(_btn);
         _btn.clickCallback = onClick;
+    }
+
+    public function updateTextField():void {
+        _txtBtn.updateIt();
+        _txtCount.updateIt();
     }
 
     public function deleteIt():void {
