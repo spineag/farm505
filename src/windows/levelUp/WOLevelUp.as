@@ -78,7 +78,7 @@ public class WOLevelUp extends WindowMain {
         _txtContinue.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
         _txtHard = new CTextField(50,50,'+'+String(_count));
         _txtHard.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
-        if (g.user.level <= 4) {
+        if (g.user.level <= 5) {
             _contBtn = new CButton();
             _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
             _txtContinue.text = 'ПРОДОЛЖИТЬ';
