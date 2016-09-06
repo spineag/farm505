@@ -38,8 +38,8 @@ public class SocialNetworkSwitch {
                 if (isDebug) {
                     flashVars["api_id"] = "5448769";
                     flashVars["viewer_id"] = "168207096";
-                    flashVars["sid"] = "edf0987132bd77f9aff3449a017e0f05cb04ea2dd5bfad999d8da285582a7ccacda880b3756b6e674d9de";
-                    flashVars["secret"] = "f5b0594d40";
+                    flashVars["sid"] = "6145272723e7a5342b25007e21b3309a95bf10cc38ad845d90f151cde1839878200104af354b6ca1b59f9";
+                    flashVars["secret"] = "d15d9e549c";
                 }
 
                 flashVars["access_key"] = MD5.hash(flashVars["api_id"] + flashVars["viewer_id"] + SECRET_KEY);

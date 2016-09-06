@@ -34,8 +34,9 @@ public class TutorialPlace extends WorldObject{
             showArrow();
         } else {
             hideArrow();
-            g.townArea.deleteBuild(this);
-            clearIt();
+//            g.townArea.deleteBuild(this);
+//            clearIt();
+            deletePlaceBuild();
         }
     }
 
@@ -66,5 +67,12 @@ public class TutorialPlace extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'TutorialPlace createPlaceBuild ');
         }
     }
+
+    private function deletePlaceBuild():void {
+        while (_source.numChildren) {
+            _source.removeChildAt(0);
+        }
+    }
 }
+
 }

@@ -117,6 +117,7 @@ public class ConsoleWrapper {
         if (g.user.isTester) g.user.isTester = false;
         else g.user.isTester = true;
         g.directServer.updateUserTester(null);
+        Cc.info("Your isTester = " + g.user.isTester);
     }
 
     private function forOptimisation():void {                                       // G

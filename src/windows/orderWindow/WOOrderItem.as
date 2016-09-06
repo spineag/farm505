@@ -79,7 +79,6 @@ public class WOOrderItem {
         _starImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
         _starImage.x = 17;
         _starImage.y = 24;
-//        MCScaler.scale(_starImage, 31, 31);
         _starImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_starImage);
         _txtXP = new CTextField(52, 30, "8888");
@@ -91,7 +90,6 @@ public class WOOrderItem {
         _coinsImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         _coinsImage.x = 17;
         _coinsImage.y = 55;
-//        MCScaler.scale(_coinsImage, 31, 31);
         _coinsImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_coinsImage);
         _txtCoins = new CTextField(52, 30, "8888");
@@ -277,8 +275,6 @@ public class WOOrderItem {
                 }
                 _check.visible = b;
             }
-//            if(_txtName)_wo.timerSkip(_order);
-//            else g.userTimer.newCatOrder();
         }
     }
 
@@ -308,8 +304,6 @@ public class WOOrderItem {
                 }
                 _check.visible = b;
             }
-//            if(_txtName)_wo.timerSkip(_order);
-//            else g.userTimer.newCatOrder();
         }
     }
 
@@ -326,20 +320,11 @@ public class WOOrderItem {
         _check.visible = false;
         _delImage.visible = false;
         _clockImage.visible = true;
-//        if (g.user.level <= 6) _order.startTime -= 2* ManagerOrder.TIME_FIRST_DELAY;
-//        else if (g.user.level <= 9) _order.startTime -= 2*  ManagerOrder.TIME_SECOND_DELAY;
-//        else if (g.user.level <= 15) _order.startTime -= 2* ManagerOrder.TIME_THIRD_DELAY;
-//        else if (g.user.level <= 19) _order.startTime -= 2* ManagerOrder.TIME_FOURTH_DELAY;
-//        else if (g.user.level >= 20) _order.startTime -= 2* ManagerOrder.TIME_FIFTH_DELAY;
         _order.startTime = int(new Date().getTime()/1000) + 23;
     }
 
     public function getOrder():ManagerOrderItem {
         return _order;
-    }
-
-    public function setOrder(ord:ManagerOrderItem):void {
-
     }
 
     private function onHover():void {

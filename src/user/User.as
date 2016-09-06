@@ -145,6 +145,28 @@ public class User extends Someone {
         }
     }
 
+    public function fillYoursMarketItems(arr:Array, cell:int):void {
+        var i:int;
+        var obj:Object;
+        marketCell = cell;
+        marketItems = [];
+        for (i=0; i<arr.length; i++) {
+            obj = {};
+            obj.id = int(arr[i].id);
+            obj.buyerId = arr[i].buyer_id;
+            arr[i].buyer_social_id ? obj.buyerSocialId = arr[i].buyer_social_id : obj.buyerSocialId = '0';
+            obj.cost = int(arr[i].cost);
+            obj.inPapper = Boolean(arr[i].in_papper == '1');
+            obj.resourceCount = int(arr[i].resource_count);
+            obj.resourceId = int(arr[i].resource_id);
+            obj.timeSold = arr[i].time_sold;
+            obj.timeStart = arr[i].time_start;
+            obj.numberCell = int(arr[i].number_cell);
+            obj.timeInPapper = int(arr[i].time_in_papper);
+            marketItems.push(obj);
+        }
+    }
+
     public function fillNeighborMarketItems(ob:Object):void {
         var i:int;
         var obj:Object;
