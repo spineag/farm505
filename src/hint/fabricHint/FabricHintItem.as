@@ -32,10 +32,10 @@ public class FabricHintItem {
         _id = obId;
         _txtWhite = new CTextField(50,50,String("/" + String(_needCount)));
         _txtWhite.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
-        _txtWhite.format.horizontalAlign = Align.LEFT;
+        _txtWhite.alignH = Align.LEFT;
         _txtOrange = new CTextField(50,50,'');
-        _txtOrange.setFormat(CTextField.BOLD14, 14, ManagerFilters.TEXT_ORANGE_COLOR);
-        _txtOrange.format.horizontalAlign = Align.LEFT;
+        _txtOrange.setFormat(CTextField.BOLD14, 16, ManagerFilters.TEXT_ORANGE_COLOR);
+        _txtOrange.alignH = Align.LEFT;
 //        _txtOrange.y = 55;
 //        _txtOrange.x = 34;
         source.addChild(_txtWhite);
@@ -43,13 +43,13 @@ public class FabricHintItem {
         var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[obId].id);
         _txtOrange.text = String(userCount);
         if (userCount >= needCount) {
-            _txtOrange.format.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
+            _txtOrange.changeTextColor = ManagerFilters.TEXT_USUAL_GREEN_COLOR;
         } else {
-            _txtOrange.format.color = ManagerFilters.TEXT_ORANGE_COLOR;
+            _txtOrange.changeTextColor = ManagerFilters.TEXT_ORANGE_COLOR;
         }
         _txtOrange.x = 34;
         _txtOrange.y = 55;
-        _txtWhite.x = _txtOrange.x + _txtOrange.textBounds.width + 5;
+        _txtWhite.x = _txtOrange.x + _txtOrange.textBounds.width - 2;
         _txtWhite.y = 55;
         if (!g.dataResource.objectResources[obId]) {
             Cc.error('FabricHintItem error: g.dataResource.objectResources[obId] = null');
@@ -81,10 +81,15 @@ public class FabricHintItem {
         var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[_id].id);
         userCount -= _needCount;
         if (userCount >= _needCount) {
-            _txtOrange.format.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
+            _txtOrange.changeTextColor = ManagerFilters.TEXT_USUAL_GREEN_COLOR;
         } else {
-            _txtOrange.format.color = ManagerFilters.TEXT_ORANGE_COLOR;
+            _txtOrange.changeTextColor = ManagerFilters.TEXT_ORANGE_COLOR;
         }
+    }
+
+    public function updateTextField():void {
+        _txtOrange.updateIt();
+        _txtWhite.updateIt();
     }
 }
 }

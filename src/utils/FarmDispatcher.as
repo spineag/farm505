@@ -14,12 +14,14 @@ import starling.events.Event;
 public class FarmDispatcher {
     private var _enterFrameListeners:Vector.<Function>;
     private var _timerListeners:Vector.<Function>;
+    private var _nextFrameFunctions:Vector.<Function>;
     private var _timerListenersWithParams:Dictionary;
     private var timer:Timer;
 
     public function FarmDispatcher(stage:Stage) {
         _enterFrameListeners = new Vector.<Function>;
         _timerListeners = new Vector.<Function>;
+        _nextFrameFunctions = new Vector.<Function>;
         _timerListenersWithParams = new Dictionary();
 
         timer = new Timer(1000);
@@ -32,6 +34,10 @@ public class FarmDispatcher {
         if (!hasListener(listener, _enterFrameListeners)) {
             _enterFrameListeners.push(listener);
         }
+    }
+    
+    public function addNextFrameFunction(f:Function):void {
+        _nextFrameFunctions.push(f);
     }
 
     public function removeEnterFrame(listener:Function):void {
@@ -52,6 +58,12 @@ public class FarmDispatcher {
         for (var i:int = 0; i < _enterFrameListeners.length; i++) {
             (_enterFrameListeners[i] as Function).apply();
         }
+//        if (_nextFrameFunctions.length) {
+//            for (i = 0; i < _nextFrameFunctions.length; i++) {
+//                (_nextFrameFunctions[i] as Function).apply();
+//            }
+//            _nextFrameFunctions.length = 0;
+//        }
     }
 
     private function timerTimerHandler(e:TimerEvent):void {

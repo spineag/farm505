@@ -45,6 +45,8 @@ public class WOAmbars extends WindowMain {
     private var _item3:UpdateItem;
     private var _btnMakeUpdate:CButton;
     private var _defaultY:int = -232;
+    private var _txtAmbar:CTextField;
+    private var _txtSklad:CTextField;
 
     public function WOAmbars() {
         super();
@@ -73,7 +75,19 @@ public class WOAmbars extends WindowMain {
         if (params[1]) { // if params[1] exist - its mean show updateState
             showUpdateState();
         }
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+
+    private function onShow():void {
+        _txtAmbar.updateIt();
+        _txtSklad.updateIt();
+        _txtCount.updateIt();
+        _txtBtnShowUpdate.updateIt();
+        _birka.updateTextField();
+        for (var i:int=0; i<_arrCells.length; i++) {
+            (_arrCells[i] as AmbarCell).updateText();
+        }
     }
 
     private function createWOElements():void {
@@ -85,12 +99,12 @@ public class WOAmbars extends WindowMain {
         im.x = 12;
         im.y = 1;
         _tabAmbar.addChild(im);
-        var txt:CTextField = new CTextField(90, 40, "Амбар");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        txt.x = 31;
-        txt.y = 2;
-        txt.touchable = true;
-        _tabAmbar.addChild(txt);
+        _txtAmbar = new CTextField(90, 40, "Амбар");
+        _txtAmbar.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtAmbar.x = 31;
+        _txtAmbar.y = 2;
+        _txtAmbar.touchable = true;
+        _tabAmbar.addChild(_txtAmbar);
         _tabAmbar.x = -205;
         _tabAmbar.y = _defaultY;
         var fAmbar:Function = function():void {
@@ -118,12 +132,12 @@ public class WOAmbars extends WindowMain {
         im.x = 12;
         im.y = 2;
         _tabSklad.addChild(im);
-        txt = new CTextField(90, 40, "Склад");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        txt.x = 34;
-        txt.y = 2;
-        txt.touchable = true;
-        _tabSklad.addChild(txt);
+        _txtSklad = new CTextField(90, 40, "Склад");
+        _txtSklad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtSklad.x = 34;
+        _txtSklad.y = 2;
+        _txtSklad.touchable = true;
+        _tabSklad.addChild(_txtSklad);
         _tabSklad.x = -75;
         _tabSklad.y = _defaultY;
         var fSklad:Function = function():void {
@@ -166,7 +180,7 @@ public class WOAmbars extends WindowMain {
 
         _txtCount = new CTextField(250, 67, "Вместимость: 0/0");
         _txtCount.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_ORANGE_COLOR, Color.WHITE);
-        _txtCount.format.horizontalAlign = Align.LEFT;
+        _txtCount.alignH = Align.LEFT;
         _txtCount.x = -_woWidth/2 + 47;
         _txtCount.y = -_woHeight/2 + 473;
         _source.addChild(_txtCount);

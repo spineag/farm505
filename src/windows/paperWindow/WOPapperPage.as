@@ -63,7 +63,7 @@ public class WOPapperPage {
         _bg.addChild(q);
         var txt:CTextField = new CTextField(300, 100, "НьюсМяу");
         txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.TEXT_BLUE_COLOR);
-        txt.format.horizontalAlign = Align.LEFT;
+        txt.alignH = Align.LEFT;
         txt.x = 66;
         txt.y = -23;
         _bg.addChild(txt);

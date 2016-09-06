@@ -70,11 +70,16 @@ public class AmbarCell {
             source.addChild(_image);
         }
 
-        _countTxt = new CTextField(60,20,String(g.userInventory.getCountResourceById(_data.id)));
-        _countTxt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        _countTxt.x = 50;
-        _countTxt.y = 77;
+        _countTxt = new CTextField(80,30,'');
+        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _countTxt.x = 40;
+        _countTxt.y = 72;
+        _countTxt.text = String(g.userInventory.getCountResourceById(_data.id));
         source.addChild(_countTxt);
+    }
+
+    public function updateText():void {
+        _countTxt.updateIt();
     }
 
     public function deleteIt():void {

@@ -86,9 +86,12 @@ public class LevelUpHint {
         _txtName = new CTextField(200, 30, '');
         _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_BLUE_COLOR);
         _txtText = new CTextField(200, 100, '');
-        _txtText.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+//        _txtText.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtText.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtText.leading = -5;
         _txtTime = new CTextField(200,100,'');
-        _txtTime.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+//        _txtTime.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtTime.setFormat(CTextField.BOLD18, 16, ManagerFilters.TEXT_BLUE_COLOR);
 
         if (_dataId == -1) {
             _txtName.text = 'Помощник';
@@ -127,6 +130,7 @@ public class LevelUpHint {
             _txtText.text = 'Производит: ' + g.dataResource.objectResources[g.dataAnimal.objectAnimal[_dataId].idResource].name;
             _txtText.x = -100;
             _txtText.y = 10;
+            _txtTime.leading = -5;
             _txtTime.text = 'Место жительства: ' + String(g.dataBuilding.objectBuilding[g.dataAnimal.objectAnimal[_dataId].buildId].name);
             _txtTime.x = -100;
             _txtTime.y = 30;
@@ -178,11 +182,11 @@ public class LevelUpHint {
             _txtName.y = 20;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime);
             if (_txtTime.textBounds.width >= 50) {
-                _txtTime.x = -20;
+                _txtTime.x = -80;
             } else {
-                _txtTime.x = -30;
+                _txtTime.x = -90;
             }
-            _txtTime.y = 60;
+            _txtTime.y = 33;
             _txtText.text = 'Растет на грядке';
             _txtText.x = -100;
             _txtText.y = 5;
@@ -278,8 +282,12 @@ public class LevelUpHint {
             _txtName.x = -100;
             _txtName.y = 20;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime);
-            _txtTime.x = -10;
-            _txtTime.y = 60;
+            if (_txtTime.textBounds.width >= 50) {
+                _txtTime.x = -70;
+            } else {
+                _txtTime.x = -80;
+            }
+            _txtTime.y = 33;
             _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_dataId].buildingId].name;
             _txtText.x = -100;
             _txtText.y = 5;

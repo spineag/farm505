@@ -66,7 +66,7 @@ public class WildHint {
         _btn.addDisplayObject(_bgItem);
         _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
         _txtCount = new CTextField(30,30,"");
-        _txtCount.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCount.setFormat(CTextField.BOLD14, 12, Color.WHITE);
         _txtName = new CTextField(100,50,"");
         _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtName.x = -50;
@@ -125,9 +125,14 @@ public class WildHint {
         tween.scaleTo(1);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
-
+            updateTextField();
         };
         g.starling.juggler.add(tween);
+    }
+
+    private function updateTextField():void {
+        _txtCount.updateIt();
+        _txtName.updateIt();
     }
 
     public function hideIt():void {

@@ -31,6 +31,8 @@ public class FarmHint {
     private var g:Vars = Vars.getInstance();
 
     public function FarmHint() {
+        // ne pravilsia tekst, nyjno pravit esli ispolzovat etot hint
+        
         _isOnHover = false;
         source = new CSprite();
         source.nameIt = 'farmHint';

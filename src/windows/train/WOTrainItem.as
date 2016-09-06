@@ -35,12 +35,12 @@ public class WOTrainItem {
         source = new CSprite();
         _txtWhite = new CTextField(60,30,'-3');
         _txtWhite.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtWhite.format.horizontalAlign = Align.RIGHT;
+        _txtWhite.alignH = Align.RIGHT;
         _txtWhite.x = 23;
         _txtWhite.y = 60;
         _txtRed = new CTextField(30,30,'');
         _txtRed.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_ORANGE_COLOR, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtRed.format.horizontalAlign = Align.RIGHT;
+        _txtRed.alignH = Align.RIGHT;
         _txtRed.y = 60;
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, 30, 30);
@@ -87,9 +87,9 @@ public class WOTrainItem {
         }
         var curCount:int = g.userInventory.getCountResourceById(_info.id);
         if (curCount >= _info.count) {
-           _txtRed.format.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
+           _txtRed.changeTextColor = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
         } else {
-            _txtRed.format.color = ManagerFilters.TEXT_ORANGE_COLOR;
+            _txtRed.changeTextColor = ManagerFilters.TEXT_ORANGE_COLOR;
         }
         _txtRed.text = String(curCount);
         _txtWhite.text = '/' + String(_info.count);
@@ -222,9 +222,9 @@ public class WOTrainItem {
 //                    _txtRed.x = 50 -_txtWhite.textBounds.width ;
 //                }
                 if (curCount >= _info.count) {
-                    _txtRed.format.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
+                    _txtRed.changeTextColor = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
                 } else {
-                    _txtRed.format.color = ManagerFilters.TEXT_ORANGE_COLOR;
+                    _txtRed.changeTextColor = ManagerFilters.TEXT_ORANGE_COLOR;
                 }
             }
         }

@@ -25,7 +25,7 @@ public class Birka extends Sprite{
         _source = new Sprite();
         _txt = new CTextField(300, 70, text);
         _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
-        _txt.format.horizontalAlign = Align.LEFT;
+        _txt.alignH = Align.LEFT;
         _bg = new Sprite();
 
         createAll();
@@ -89,6 +89,10 @@ public class Birka extends Sprite{
         while (_bg.numChildren) _bg.removeChildAt(0);
         while (_source.numChildren) _source.removeChildAt(0);
         createAll();
+    }
+    
+    public function updateTextField():void {
+        _txt.updateIt();
     }
 
     public function flipIt():void {

@@ -54,21 +54,22 @@ public class TimerHint {
         _btn = new CButton();
         _btn.addButtonTexture(78, 46, CButton.GREEN, true);
         _txtCost = new CTextField(50,50,"");
-        _txtCost.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        _txtCost.setFormat(CTextField.BOLD18, 18, Color.WHITE);
         _txtCost.x = 5;
         _txtCost.y = 6;
         _txtTimer = new CTextField(80,30,"");
         _txtTimer.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtTimer.cacheIt = false;
         _txtTimer.x = -85;
         _txtTimer.y = -58;
         _txtName = new CTextField(176,50,"");
         _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtName.x = -88;
         _txtName.y = -130;
-        _txtText = new CTextField(65,50,'ускорить');
-        _txtText.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
-        _txtText.x = 7;
-        _txtText.y = -15;
+        _txtText = new CTextField(78,50,'ускорить');
+        _txtText.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+//        _txtText.x = 13;
+        _txtText.y = -17;
         _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("order_window_del_clock"));
         _imageClock.y = -93;
         _imageClock.x = -63;
@@ -137,6 +138,7 @@ public class TimerHint {
         tween.scaleTo(1);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
+            updateTextField();
 
         };
         g.starling.juggler.add(tween);
@@ -167,6 +169,13 @@ public class TimerHint {
             }
             _needMoveCenter = false;
         }
+    }
+
+    private function updateTextField():void {
+        _txtCost.updateIt();
+        _txtName.updateIt();
+        _txtText.updateIt();
+        _txtTimer.updateIt();
     }
 
     public function hideIt(force:Boolean = false):void {

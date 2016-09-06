@@ -69,7 +69,7 @@ public class WOBuyCouponeItem {
             _imageCoupone.y = 20;
             source.addChild(_imageCoupone);
             _txtCount = new CTextField(50,50,String(_count));
-            _txtCount.format.setTo(g.allData.bFonts['BloggerBold18'],16,Color.WHITE);
+            _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE);
             _txtCount.x = 23;
             _txtCount.y = 50;
             source.addChild(_txtCount);

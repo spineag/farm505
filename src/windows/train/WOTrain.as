@@ -174,22 +174,22 @@ public class WOTrain extends WindowMain {
         _txtCostItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCostItem.x = 226;
         _txtCostItem.y = 80;
-        _txtCostItem.format.horizontalAlign = Align.LEFT;
+        _txtCostItem.alignH = Align.LEFT;
         _txtXpItem = new CTextField(40,30,'-3');
         _txtXpItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtXpItem.x = 155;
         _txtXpItem.y = 80;
-        _txtXpItem.format.horizontalAlign = Align.LEFT;
+        _txtXpItem.alignH = Align.LEFT;
         _txtCostAll = new CTextField(40,30,'-5');
         _txtCostAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtCostAll.x = 160;
         _txtCostAll.y = 280;
-        _txtCostAll.format.horizontalAlign = Align.LEFT;
+        _txtCostAll.alignH = Align.LEFT;
         _txtXpAll = new CTextField(40,30,'-5');
         _txtXpAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
         _txtXpAll.x = 75;
         _txtXpAll.y = 280;
-        _txtXpAll.format.horizontalAlign = Align.LEFT;
+        _txtXpAll.alignH = Align.LEFT;
 
         _rightBlock.addChild(_txtCostItem);
         _rightBlock.addChild(_txtXpItem);

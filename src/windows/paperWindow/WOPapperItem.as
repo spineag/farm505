@@ -105,29 +105,29 @@ public class WOPapperItem {
 
         _txtCost = new CTextField(84, 62, "");
         _txtCost.setFormat(CTextField.BOLD24, 20, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtCost.format.horizontalAlign = Align.RIGHT;
+        _txtCost.alignH = Align.RIGHT;
         _txtCost.x = 53;
         _txtCost.y = 42;
         source.addChild(_txtCost);
 
         _txtCountResource = new CTextField(84, 62, "");
         _txtCountResource.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtCountResource.format.horizontalAlign = Align.RIGHT;
-        _txtCountResource.format.leading = 10;
+        _txtCountResource.alignH = Align.RIGHT;
+        _txtCountResource.leading = 10;
         _txtCountResource.x = 80;
         _txtCountResource.y = 70;
         source.addChild(_txtCountResource);
 
         _txtResourceName = new CTextField(100, 30, "");
         _txtResourceName.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtResourceName.format.horizontalAlign = Align.RIGHT;
+        _txtResourceName.alignH= Align.RIGHT;
         _txtResourceName.x = 70;
         _txtResourceName.y = 98;
         source.addChild(_txtResourceName);
 
         _txtUserName = new CTextField(110, 50, "");
         _txtUserName.setFormat(CTextField.BOLD18, 16, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtUserName.format.horizontalAlign = Align.LEFT;
+        _txtUserName.alignH = Align.LEFT;
         _txtUserName.touchable = false;
         _txtUserName.x = 58;
         _txtUserName.y = 8;
@@ -224,7 +224,7 @@ public class WOPapperItem {
         _dataResource = g.dataResource.objectResources[_data.resourceId];
         _txtResourceName.text = _dataResource.name;
 
-        _txtResourceName.format.horizontalAlign = Align.LEFT;
+        _txtResourceName.alignH = Align.LEFT;
         _txtResourceName.x = 8;
         _txtResourceName.y = 45;
         _txtUserName.text = '';

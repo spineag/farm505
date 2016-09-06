@@ -153,7 +153,7 @@ public class FriendItem {
 
     private function setName(st:String):void {
         if (st.length > 8) {
-            _txt.format.size = 11;
+            _txt.changeSize = 11;
         }
         _txt.text = st;
     }

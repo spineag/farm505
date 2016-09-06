@@ -39,13 +39,13 @@ public class WOOrderResourceItem {
 
         _countTxt = new CTextField(80, 40, "10/10");
         _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        _countTxt.format.horizontalAlign = Align.RIGHT;
+        _countTxt.alignH = Align.RIGHT;
         _countTxt.y = 60;
         _countTxt.x = -3;
         source.addChild(_countTxt);
         _countRed = new CTextField(30, 30, "");
         _countRed.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_ORANGE_COLOR, ManagerFilters.TEXT_BROWN_COLOR);
-        _countRed.format.horizontalAlign = Align.RIGHT;
+        _countRed.alignH = Align.RIGHT;
         _countRed.y = 65;
         _countRed.x = -3;
         source.addChild(_countRed);
@@ -86,9 +86,9 @@ public class WOOrderResourceItem {
             _check.visible = true;
 //            _countTxt.text = String(curCount) + '/' + String(count);
 //            _countTxt.x = 12;
-            _countRed.format.color = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
+            _countRed.changeTextColor = ManagerFilters.TEXT_LIGHT_GREEN_COLOR;
         } else {
-            _countRed.format.color = ManagerFilters.TEXT_ORANGE_COLOR;
+            _countRed.changeTextColor = ManagerFilters.TEXT_ORANGE_COLOR;
         }
 
         source.visible = true;

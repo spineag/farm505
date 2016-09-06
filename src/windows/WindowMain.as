@@ -30,6 +30,7 @@ public class WindowMain {
     protected var _windowType:String;
     protected var _isShowed:Boolean = false;
     protected var SOUND_OPEN:int = 0;
+    protected var onWoShowCallback:Function;
     public var isCashed:Boolean = false;
 
     public function WindowMain() {
@@ -63,6 +64,10 @@ public class WindowMain {
     }
 
     private function onShowingWindow():void {
+        if (onWoShowCallback != null) {
+            onWoShowCallback.apply();
+            onWoShowCallback = null;
+        } 
         if (g.managerTutorial.isTutorial) g.managerTutorial.checkTutorialCallbackOnShowWindow();
         if (g.managerCutScenes.isCutScene) {
             if ((g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_MARKET) && _windowType == WindowsManager.WO_MARKET) ||

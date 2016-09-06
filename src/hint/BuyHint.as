@@ -23,7 +23,6 @@ public class BuyHint {
         _source = new Sprite();
         _txtHint = new CTextField(100,50,"");
         _txtHint.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
-        _source.touchable = false;
         _open = false;
     }
 
@@ -32,7 +31,7 @@ public class BuyHint {
         var rectangle:Rectangle = _txtHint.textBounds;
         _imCoins = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(_imCoins,20,20);
-        _imCoins.y = 5;
+        _imCoins.y = 6;
         _txtHint.width = rectangle.width + 20;
         _txtHint.height = rectangle.height + 10;
 //        _txtHint.x = -10;

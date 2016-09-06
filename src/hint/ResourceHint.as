@@ -102,7 +102,7 @@ public class ResourceHint {
         g.starling.juggler.add(tween);
 
         _txtText = new CTextField(200,100,'');
-        _txtText.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtText.setFormat(CTextField.MEDIUM14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
         _txtName = new CTextField(200, 30, '');
         _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_BLUE_COLOR);
         _txtTime = new CTextField(80, 50, '');
@@ -174,6 +174,7 @@ public class ResourceHint {
             _txtName.text = String(g.dataResource.objectResources[_id].name);
             _txtName.x = -100;
             _txtName.y = 20;
+            _txtName.leading = -5;
             _txtText.text = String(g.dataResource.objectResources[_id].opys);
             _txtText.x = -100;
             _txtText.y = 15;
