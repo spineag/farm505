@@ -199,7 +199,7 @@ public class WOAmbars extends WindowMain {
         _btnShowUpdate.x = -_woWidth/2 + 430;
         _btnShowUpdate.y = -_woHeight/2 + 514;
         _txtBtnShowUpdate = new CTextField(90, 50, "Увеличить склад");
-        _txtBtnShowUpdate.setFormat(CTextField.MEDIUM18, 17, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _txtBtnShowUpdate.setFormat(CTextField.MEDIUM18, 17, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtBtnShowUpdate.leading = -5;
         _txtBtnShowUpdate.x = 18;
         _txtBtnShowUpdate.y = -5;

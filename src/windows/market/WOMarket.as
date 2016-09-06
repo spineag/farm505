@@ -176,7 +176,7 @@ public class WOMarket  extends WindowMain {
         im.x = 35;
         _btnPaper.addChild(im);
         txt = new CTextField(30,30,'1');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = 10;
         _btnPaper.addChild(txt);
         _btnPaper.x = 153;

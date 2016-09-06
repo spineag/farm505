@@ -94,7 +94,7 @@ public class WOFabricaWorkListItem {
             _btnSkip = new CButton();
             _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
             _txtSkip = new CTextField(100,35,"25");
-            _txtSkip.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GREEN_COLOR);
+            _txtSkip.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _txtSkip.y = 11;
             _btnSkip.addChild(_txtSkip);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
@@ -105,7 +105,7 @@ public class WOFabricaWorkListItem {
             _btnSkip.x = 52;
             _btnSkip.y = 117;
             var txt:CTextField = new CTextField(65,35,"ускорить");
-            txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.GREEN_COLOR);
+            txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             txt.x = 10;
             txt.y = -8;
             _btnSkip.addChild(txt);

@@ -43,7 +43,7 @@ public class FabricHintItem {
         var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[obId].id);
         _txtOrange.text = String(userCount);
         if (userCount >= needCount) {
-            _txtOrange.changeTextColor = ManagerFilters.USUAL_GREEN_COLOR;
+            _txtOrange.changeTextColor = ManagerFilters.GREEN_COLOR;
         } else {
             _txtOrange.changeTextColor = ManagerFilters.ORANGE_COLOR;
         }
@@ -81,7 +81,7 @@ public class FabricHintItem {
         var userCount:int = g.userInventory.getCountResourceById(g.dataResource.objectResources[_id].id);
         userCount -= _needCount;
         if (userCount >= _needCount) {
-            _txtOrange.changeTextColor = ManagerFilters.USUAL_GREEN_COLOR;
+            _txtOrange.changeTextColor = ManagerFilters.GREEN_COLOR;
         } else {
             _txtOrange.changeTextColor = ManagerFilters.ORANGE_COLOR;
         }

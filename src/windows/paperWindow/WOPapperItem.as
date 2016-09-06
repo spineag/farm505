@@ -195,7 +195,7 @@ public class WOPapperItem {
         _btnBuyBot = new CButton();
         _btnBuyBot.addButtonTexture(70, 24, CButton.GREEN, true);
         var txt:CTextField = new CTextField(60, 30, 'купить');
-        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = 4;
         txt.y = -4;
         _btnBuyBot.addChild(txt);
@@ -269,7 +269,7 @@ public class WOPapperItem {
         _btnBuyBot = new CButton();
         _btnBuyBot.addButtonTexture(70, 30, CButton.GREEN, true);
         txt = new CTextField(60, 30, 'продать');
-        txt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = 4;
         txt.autoScale = true;
         _btnBuyBot.addChild(txt);

@@ -75,7 +75,7 @@ public class WOLevelUp extends WindowMain {
         _txtLevel = new CTextField(300,100,"");
         _txtLevel.setFormat(CTextField.BOLD72, 51, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtContinue = new CTextField(110,100,"РАССКАЗАТЬ");
-        _txtContinue.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _txtContinue.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtHard = new CTextField(50,50,'+'+String(_count));
         _txtHard.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         if (g.user.level <= 5) {

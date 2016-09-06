@@ -45,7 +45,7 @@ public class WOLastResource extends WindowMain {
         _source.addChild(txt);
         _btnYes = new CButton();
         txt = new CTextField(50, 50, "ДА");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = 15;
         txt.y = -5;
         _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);

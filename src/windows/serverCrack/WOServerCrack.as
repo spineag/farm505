@@ -49,7 +49,7 @@ public class WOServerCrack  extends WindowMain {
         _b.y = 120;
         _source.addChild(_b);
         txt = new CTextField(200, 34, "Перезагрузить");
-        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _b.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;

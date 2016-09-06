@@ -200,7 +200,7 @@ public class MarketItem {
             var _btnBuyCont:CButton = new CButton();
             _btnBuyCont.addButtonTexture(90,30,CButton.GREEN, true);
             txt = new CTextField(30,30,String(String(_countBuyCell)));
-            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             txt.x = 10;
             _btnBuyCont.addChild(txt);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

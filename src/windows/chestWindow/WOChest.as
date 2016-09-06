@@ -65,7 +65,7 @@ public class WOChest  extends WindowMain{
             im.y = 4;
             _btnOpen.addChild(im);
             var txt:CTextField = new CTextField(150,30,'Открыть за ' + ManagerChest.COST_OPEN);
-            txt.setFormat(CTextField.BOLD18, 18 , Color.WHITE, ManagerFilters.GREEN_COLOR);
+            txt.setFormat(CTextField.BOLD18, 18 , Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             txt.text = 'Открыть за ' + String(ManagerChest.COST_OPEN);
             txt.x = - 10;
             txt.y = 5;

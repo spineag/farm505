@@ -35,7 +35,7 @@ public class WOBuyForHardCurrency extends WindowMain {
         _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);
         var txt:CTextField;
         txt = new CTextField(50,50,"Да");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = 15;
         txt.y = -5;
         _btnYes.addChild(txt);

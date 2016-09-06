@@ -48,7 +48,7 @@ public class WOWaitFreeCats extends WindowMain{
         _btn.y = 100;
         _source.addChild(_btn);
         txt = new CTextField(130, 40, "ОК");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
         im.x = -40;

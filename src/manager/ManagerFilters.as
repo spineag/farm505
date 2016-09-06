@@ -14,10 +14,10 @@ public class ManagerFilters {
     public static var BROWN_COLOR:int = 0x593b02;
     public static var ORANGE_COLOR:int = 0xd06d0a; 
     public static var LIGHT_GREEN_COLOR:int = 0x40f61c;  
-    public static var GREEN_COLOR:int = 0x10650a;
-    public static var USUAL_GREEN_COLOR:int = 0x367f30;
+    public static var HARD_GREEN_COLOR:int = 0x10650a;
+    public static var GREEN_COLOR:int = 0x367f30;
     public static var YELLOW_COLOR:int = 0xa37b01;
-    public static var DARK_YELLOW_COLOR:int = 0x72590c;
+    public static var HARD_YELLOW_COLOR:int = 0x72590c;
     public static var LIGHT_YELLOW_COLOR:int = 0xeffd98;
     public static var LIGHT_BLUE_COLOR:int = 0x1377ab;
     public static var GRAY_HARD_COLOR:int = 0x444444;

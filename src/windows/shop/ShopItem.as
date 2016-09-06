@@ -173,7 +173,7 @@ public class ShopItem {
                 im.filter = ManagerFilters.SHADOW_TINY;
                 _arrImages.push(im);    
                 _txtBtnBuyGreen = new CTextField(85, 40, '');
-                _txtBtnBuyGreen.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);    
+                _txtBtnBuyGreen.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);    
                 _btnBuyGreen.addChild(_txtBtnBuyGreen);
                 _btnBuyGreen.x = 74;
                 _btnBuyGreen.y = 190;
@@ -207,7 +207,7 @@ public class ShopItem {
         }
         for (i = 0; i <_data.currency.length; i++) {
             txt = new CTextField(85, 40, String(_data.cost[i]));
-            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             switch (_data.currency[i]) {
                 case DataMoney.BLUE_COUPONE:
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));

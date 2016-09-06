@@ -232,7 +232,7 @@ public class WOOrder extends WindowMain{
         im.y = -15;
         _btnSell.addDisplayObject(im);
         var txt:CTextField = new CTextField(110, 60, "Продать");
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.y = -10;
         _btnSell.addChild(txt);
         _btnSell.x = 547;
@@ -250,10 +250,10 @@ public class WOOrder extends WindowMain{
         im.y = 15;
         _btnSkipDelete.addDisplayObject(im);
         var txt:CTextField = new CTextField(80, 50, "Получить сейчас");
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnSkipDelete.addChild(txt);
         txt = new CTextField(20, 50, '');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         if (g.user.level <= 6) txt.text = String(ManagerOrder.COST_FIRST_SKIP_WAIT);
         else if (g.user.level <= 9) txt.text = String(ManagerOrder.COST_SECOND_SKIP_WAIT);
         else if (g.user.level <= 15) txt.text = String(ManagerOrder.COST_THIRD_SKIP_WAIT);

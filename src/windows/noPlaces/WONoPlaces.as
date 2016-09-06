@@ -70,7 +70,7 @@ public class WONoPlaces extends WindowMain {
         im.x = -50;
         im.y = -50;
         _txtCost = new CTextField(200,50,"");
-        _txtCost.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _txtCost.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtCost.x = -8;
         _txtCost.y = -3;
         _btn.addChild(_txtCost);

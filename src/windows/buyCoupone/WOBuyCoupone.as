@@ -18,6 +18,7 @@ public class WOBuyCoupone extends WindowMain{
     private var _Red:WOBuyCouponeItem;
     private var _Yellow:WOBuyCouponeItem;
     private var _woBG:WindowBackground;
+    private var _txt:CTextField;
 
     public function WOBuyCoupone() {
         _woWidth = 500;
@@ -26,11 +27,11 @@ public class WOBuyCoupone extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-        var txt:CTextField = new CTextField(400,100,'Собирай ваучеры, выполняя заказы, загружая корзину, и приобретайте на них особые товары');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -200;
-        txt.y = -130;
-        _source.addChild(txt);
+        _txt = new CTextField(400,100,'Собирай ваучеры, выполняя заказы, загружая корзину, и приобретайте на них особые товары');
+        _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt.x = -200;
+        _txt.y = -135;
+        _source.addChild(_txt);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -50,7 +51,16 @@ public class WOBuyCoupone extends WindowMain{
         _Red.source.x = 115;
         _Red.source.y = -20;
         _source.addChild(_Red.source);
-        showIt();
+        onWoShowCallback = onShow;
+        super.showIt();
+    }
+    
+    private function onShow():void {
+        _txt.updateIt();
+        _Blue.updateTextField();
+        _Yellow.updateTextField();
+        _Red.updateTextField();
+        _Green.updateTextField();
     }
 
     override protected function deleteIt():void {

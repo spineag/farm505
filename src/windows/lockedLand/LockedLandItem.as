@@ -71,7 +71,7 @@ public class LockedLandItem {
             _btn= new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
             txt = new CTextField(120,30,'Купить');
-            txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+            txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _btn.addChild(txt);
             _btn.x = 362;
             _btn.y = 50;
@@ -129,7 +129,7 @@ public class LockedLandItem {
             _btn = new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
             txt = new CTextField(120,30,'Купить ' + String(g.dataResource.objectResources[id].priceHard *(count - g.userInventory.getCountResourceById(id))));
-            txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+            txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             txt.x = -15;
             _btn.addChild(txt);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

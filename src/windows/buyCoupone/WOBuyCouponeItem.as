@@ -37,6 +37,7 @@ public class WOBuyCouponeItem {
     private var _imageCoupone:Image;
     private var _btn:CButton;
     private var _txtCount:CTextField;
+    private var _txtBtn:CTextField;
     private var _type:int;
     private var g:Vars = Vars.getInstance();
 
@@ -51,10 +52,10 @@ public class WOBuyCouponeItem {
             source.addChild(_carton);
             _btn = new CButton();
             _btn.addButtonTexture(80, 50, CButton.GREEN, true);
-            var txt:CTextField = new CTextField(50,50,'+' + String(_cost));
-            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+            _txtBtn = new CTextField(50,50,'+' + String(_cost));
+            _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
 //            txt.x = 5;
-            _btn.addChild(txt);
+            _btn.addChild(_txtBtn);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
 //            MCScaler.scale(im,30,30);
             im.x = 45;
@@ -66,17 +67,22 @@ public class WOBuyCouponeItem {
             _btn.y = 115;
             _imageCoupone = new Image(g.allData.atlas['interfaceAtlas'].getTexture(imageCopone));
             _imageCoupone.x = 30;
-            _imageCoupone.y = 20;
+            _imageCoupone.y = 10;
             source.addChild(_imageCoupone);
             _txtCount = new CTextField(50,50,String(_count));
-            _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+            _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
             _txtCount.x = 23;
-            _txtCount.y = 50;
+            _txtCount.y = 45;
             source.addChild(_txtCount);
         } catch (e:Error) {
             Cc.error('WOBuyCouponeItem error: ' + e.errorID + ' - ' + e.message);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'buyCoupone');
         }
+    }
+
+    public function updateTextField():void {
+        _txtBtn.updateIt();
+        _txtCount.updateIt();
     }
 
     private function onClick():void {

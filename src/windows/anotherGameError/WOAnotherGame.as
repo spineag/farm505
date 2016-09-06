@@ -20,6 +20,7 @@ import windows.WindowsManager;
 
 public class WOAnotherGame extends WindowMain {
     private var _woBG:WindowBackground;
+    private var txt:CTextField;
 
     public function WOAnotherGame() {
         super();
@@ -28,22 +29,27 @@ public class WOAnotherGame extends WindowMain {
         _woHeight = 360;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        var txt:CTextField = new CTextField(420,130,'Игра уже запущена в другом окне');
+        txt = new CTextField(420,130,'Игра уже запущена в другом окне');
         txt.setFormat(CTextField.MEDIUM24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.autoScale = true;
         txt.x = -210;
-        txt.y = -130;
+        txt.y = -150;
         txt.touchable = false;
         _source.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;
-        im.y = -10;
+        im.y = -30;
         _source.addChild(im);
         SOUND_OPEN = SoundConst.WO_AHTUNG;
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        showIt();
+        onWoShowCallback = onShow;
+        super.showIt();
+    }
+
+    private function onShow():void {
+        txt.updateIt();
     }
 
 

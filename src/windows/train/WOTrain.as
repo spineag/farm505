@@ -80,7 +80,7 @@ public class WOTrain extends WindowMain {
         _btnSend.x = _woWidth/2 - 180;
         _btnSend.y = 205;
         var txt:CTextField = new CTextField(89,62,"Отправить");
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = 5;
         txt.y = -10;
         _btnSend.addChild(txt);
