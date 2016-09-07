@@ -313,7 +313,7 @@ public class WOOrderItem {
 
     public function onSkipTimer():void {
         g.gameDispatcher.removeFromTimer(renderLeftTime);
-        _leftSeconds = 15;
+        _leftSeconds = 5;
         g.gameDispatcher.addToTimer(renderLeftTimeOrder);
         g.managerOrder.onSkipTimer(_order);
         _order.delOb = false;
