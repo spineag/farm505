@@ -55,6 +55,7 @@ public class WOShop extends WindowMain {
     private var _shopTabBtnCont:Sprite;
     private var _decorFilter:DecorShopFilter;
     private var _idArrowAnimal:int;
+    private var _txtR:CTextField;
 
     public function WOShop() {
         super();
@@ -126,7 +127,25 @@ public class WOShop extends WindowMain {
             onTab(VILLAGE);
         }
         g.user.buyShopTab = 0;
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+
+    private function onShow():void {
+        _txtBlueMoney.updateIt();
+        _txtGreenMoney.updateIt();
+        _txtHardMoney.updateIt();
+        _txtR.updateIt();
+        _txtRedMoney.updateIt();
+        _txtSoftMoney.updateIt();
+        _txtYellowMoney.updateIt();
+        _birka.updateTextField();
+        _btnTab1.updateTextField();
+        _btnTab2.updateTextField();
+        _btnTab3.updateTextField();
+        _btnTab4.updateTextField();
+        _btnTab5.updateTextField();
+        _shopList.updateTextField();
     }
 
     private function activateTabBtn():void {
@@ -177,7 +196,6 @@ public class WOShop extends WindowMain {
     public function createShopTabBtns():void {
         _shopCartonBackground = new CartonBackground(666, 320);
         _shopSprite.addChild(_shopCartonBackground);
-        var b:Boolean = g.user.allNotification > 0 ;
         _btnTab1 = new ShopTabBtn(VILLAGE, function():void {onTab(VILLAGE)}, _shopSprite, _shopTabBtnCont);
         _btnTab1.setPosition(7, -81);
         _btnTab2 = new ShopTabBtn(ANIMAL, function():void {onTab(ANIMAL)}, _shopSprite, _shopTabBtnCont);
@@ -293,11 +311,11 @@ public class WOShop extends WindowMain {
     }
 
     private function createMoneyBlock():void {
-        var txt:CTextField = new CTextField(250, 40, 'Ваши сбережения:');
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -_woWidth/2 + 238;
-        txt.y = -_woHeight/2 + 461;
-        _source.addChild(txt);
+        _txtR = new CTextField(250, 40, 'Ваши сбережения:');
+        _txtR.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtR.x = -_woWidth/2 + 238;
+        _txtR.y = -_woHeight/2 + 461;
+        _source.addChild(_txtR);
 
         _pl1 = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_l'), g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_c'),
             g.allData.atlas['interfaceAtlas'].getTexture('shop_window_line_r'), 104);

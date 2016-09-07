@@ -73,6 +73,7 @@ public class AmbarCell {
 
         _countTxt = new CTextField(80,30,'');
         _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _countTxt.cacheIt = false;
         _countTxt.alignH = Align.RIGHT;
         _countTxt.x = 17;
         _countTxt.y = 72;

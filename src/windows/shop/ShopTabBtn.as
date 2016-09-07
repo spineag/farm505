@@ -25,6 +25,7 @@ public class ShopTabBtn {
     private var _bg:CartonBackground;
     private var _imNotification:Image;
     private var _txtNotification:CTextField;
+    private var _txtTabName:CTextField;
     private var _type:int;
     private var g:Vars = Vars.getInstance();
 
@@ -35,9 +36,9 @@ public class ShopTabBtn {
         _type = type;
         _bg = new CartonBackground(123, 100);
         _source.addChild(_bg);
-        var _txt:CTextField = new CTextField(123, 100, '');
-        _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txt.y = 10;
+        _txtTabName = new CTextField(123, 100, '');
+        _txtTabName.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtTabName.y = 10;
         var f1:Function = function():void {
             if (g.managerCutScenes.isCutScene) return;
             if (g.managerTutorial.isTutorial) return;
@@ -55,7 +56,7 @@ public class ShopTabBtn {
         _txtNotification.visible = false;
         switch (type) {
             case WOShop.VILLAGE:
-                _txt.text = 'Двор';
+                _txtTabName.text = 'Двор';
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_court'));
                 if (g.user.villageNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
@@ -67,11 +68,11 @@ public class ShopTabBtn {
                 }
                 break;
             case WOShop.ANIMAL:
-                _txt.text = 'Животные';
+                _txtTabName.text = 'Животные';
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_animals'));
                 break;
             case WOShop.FABRICA:
-                _txt.text = 'Фабрики';
+                _txtTabName.text = 'Фабрики';
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_fabric'));
                 if (g.user.fabricaNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
@@ -83,7 +84,7 @@ public class ShopTabBtn {
                 }
                 break;
             case WOShop.PLANT:
-                _txt.text = 'Растения';
+                _txtTabName.text = 'Растения';
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_plants'));
                 if (g.user.plantNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
@@ -95,7 +96,7 @@ public class ShopTabBtn {
                 }
                 break;
             case WOShop.DECOR:
-                _txt.text = 'Декор';
+                _txtTabName.text = 'Декор';
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_decor'));
                 if (g.user.decorNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
@@ -111,7 +112,12 @@ public class ShopTabBtn {
         im.x = 62 - im.width/2;
         im.y = 38 - im.height/2;
         _source.addChild(im);
-        _source.addChild(_txt);
+        _source.addChild(_txtTabName);
+    }
+    
+    public function updateTextField():void {
+        _txtTabName.updateIt();
+        _txtNotification.updateIt();
     }
 
     public function activateIt(value:Boolean):void {

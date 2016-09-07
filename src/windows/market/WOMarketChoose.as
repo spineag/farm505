@@ -44,6 +44,11 @@ public class WOMarketChoose extends WindowMain {
     private var _cartonSklad:CartonBackground;
     private var _carton:CartonBackground;
     private var _activetedItem:MarketItem;
+    private var _txtCount:CTextField;
+    private var _txtPrice:CTextField;
+    private var _txtSellBtn:CTextField;
+    private var _txtAmbar:CTextField;
+    private var _txtSklad:CTextField;
 
     public function WOMarketChoose() {
         super();
@@ -75,26 +80,27 @@ public class WOMarketChoose extends WindowMain {
         _source.addChild(_countMoneyBlock.source);
         _source.addChild(_countResourceBlock.source);
 
-        var t:CTextField = new CTextField(100, 30, 'Количество:');
-        t.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        t.x = -190;
-        t.y = 145;
-        _source.addChild(t);
-        t = new CTextField(150, 30, 'Цена продажи:');
-        t.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        t.x = -55;
-        t.y = 145;
-        _source.addChild(t);
+        _txtCount = new CTextField(100, 30, 'Количество:');
+        _txtCount.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCount.x = -190;
+        _txtCount.y = 145;
+        _source.addChild(_txtCount);
+        _txtPrice = new CTextField(150, 30, 'Цена продажи:');
+        _txtPrice.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtPrice.x = -55;
+        _txtPrice.y = 145;
+        _source.addChild(_txtPrice);
 
         _btnSell = new CButton();
         _btnSell.addButtonTexture(108, 96, CButton.GREEN, true);
         var im:Image  = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_market'));
         im.x = 10;
         _btnSell.addChild(im);
-        t = new CTextField(100, 50, 'Выставить на продажу');
-        t.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        t.y = 45;
-        _btnSell.addChild(t);
+        _txtSellBtn = new CTextField(100, 50, 'Выставить на продажу');
+        _txtSellBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtSellBtn.y = 45;
+        _txtSellBtn.x = 2;
+        _btnSell.addChild(_txtSellBtn);
         _btnSell.x = 160;
         _btnSell.y = 190;
         _source.addChild(_btnSell);
@@ -109,7 +115,22 @@ public class WOMarketChoose extends WindowMain {
         else _type = SKLAD;
         checkTypes();
         fillItems();
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+
+    private function onShow():void {
+        _birka.updateTextField();
+        _txtAmbar.updateIt();
+        _txtCount.updateIt();
+        _txtPrice.updateIt();
+        _txtSellBtn.updateIt();
+        _txtSklad.updateIt();
+        _countMoneyBlock.updateTextField();
+        _countResourceBlock.updateTextField();
+        for (var i:int=0; i<_arrCells.length; i++) {
+            _arrCells[i].updateTextField();
+        }
     }
 
     private function createWOElements():void {
@@ -121,12 +142,11 @@ public class WOMarketChoose extends WindowMain {
         im.x = 12;
         im.y = 1;
         _tabAmbar.addChild(im);
-        var txt:CTextField = new CTextField(90, 40, "Амбар");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.x = 31;
-        txt.y = 2;
-        txt.touchable = true;
-        _tabAmbar.addChild(txt);
+        _txtAmbar = new CTextField(90, 40, "Амбар");
+        _txtAmbar.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtAmbar.x = 31;
+        _txtAmbar.y = 2;
+        _tabAmbar.addChild(_txtAmbar);
         _tabAmbar.x = -205;
         _tabAmbar.y = _defaultY;
         var fAmbar:Function = function():void {
@@ -153,12 +173,11 @@ public class WOMarketChoose extends WindowMain {
         im.x = 12;
         im.y = 2;
         _tabSklad.addChild(im);
-        txt = new CTextField(90, 40, "Склад");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.x = 34;
-        txt.y = 2;
-        txt.touchable = true;
-        _tabSklad.addChild(txt);
+        _txtSklad = new CTextField(90, 40, "Склад");
+        _txtSklad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtSklad.x = 34;
+        _txtSklad.y = 2;
+        _tabSklad.addChild(_txtSklad);
         _tabSklad.x = -75;
         _tabSklad.y = _defaultY;
         var fSklad:Function = function():void {

@@ -43,6 +43,8 @@ public class ShopItem {
     private var _nameTxt:CTextField;
     private var _countTxt:CTextField;
     private var _countBoxTxt:CTextField;
+    private var _txtBtnYellow:CTextField;
+    private var _txtLimit:CTextField;
     private var _data:Object;
     private var _lockedSprite:Sprite;
     private var _countCost:int;
@@ -80,33 +82,44 @@ public class ShopItem {
 
         _nameTxt = new CTextField(145, 60, '');
         _nameTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _nameTxt.cacheIt = false;
         source.addChild(_nameTxt);
-        _nameTxt.touchable = false;
 
         _countTxt = new CTextField(145, 60, '');
         _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _countTxt.cacheIt = false;
         _countTxt.y = 120;
         source.addChild(_countTxt);
         _countTxt.visible = false;
-        _countTxt.touchable = false;
 
         _countBoxTxt = new CTextField(100, 30, '');
         _countBoxTxt.setFormat(CTextField.BOLD14, 12, Color.YELLOW, ManagerFilters.BROWN_COLOR);
+        _countBoxTxt.cacheIt = false;
         _countBoxTxt.y = 130;
         _countBoxTxt.x = 20;
         source.addChild(_countBoxTxt);
         _countBoxTxt.visible = false;
-        _countBoxTxt.touchable = false;
 
         _txtAvailable = new CTextField(145, 80, '');
         _txtAvailable.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtAvailable.cacheIt = false;
         _txtAvailable.y = 145;
         source.addChild(_txtAvailable);
         _txtAvailable.visible = false;
-        _txtAvailable.touchable = false;
 
         source.endClickCallback = onClick;
         setInfo();
+    }
+    
+    public function updateTextField():void {
+        if (_txtAvailable) _txtAvailable.updateIt();
+        if (_txtBtnBuyBlue) _txtBtnBuyBlue.updateIt();
+        if (_txtBtnBuyGreen) _txtBtnBuyGreen.updateIt();
+        if (_txtLimit) _txtLimit.updateIt();
+        if (_countTxt) _countTxt.updateIt();
+        if (_nameTxt) _nameTxt.updateIt();
+        if (_countBoxTxt) _countBoxTxt.updateIt();
+        if (_txtBtnYellow) _txtBtnYellow.updateIt();
     }
 
     public function get position():int {
@@ -131,10 +144,11 @@ public class ShopItem {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_limit'));
         im.x = -7;
         _shopLimitSprite.addChild(im);
-        var txt:CTextField = new CTextField(145, 26, 'Достигнут лимит');
-        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.y = 33;
-        _shopLimitSprite.addChild(txt);
+        _txtLimit = new CTextField(145, 26, 'Достигнут лимит');
+        _txtLimit.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtLimit.cacheIt = false;
+        _txtLimit.y = 33;
+        _shopLimitSprite.addChild(_txtLimit);
         _shopLimitSprite.y = 150;
         source.addChild(_shopLimitSprite);
     }
@@ -155,6 +169,7 @@ public class ShopItem {
                 _arrImages.push(im);
                 _txtBtnBuyBlue = new CTextField(85, 40, '');
                 _txtBtnBuyBlue.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+                _txtBtnBuyBlue.cacheIt = false;    
                 _btnBuyBlue.addChild(_txtBtnBuyBlue);
                 _btnBuyBlue.x = 74;
                 _btnBuyBlue.y = 190;
@@ -173,7 +188,8 @@ public class ShopItem {
                 im.filter = ManagerFilters.SHADOW_TINY;
                 _arrImages.push(im);    
                 _txtBtnBuyGreen = new CTextField(85, 40, '');
-                _txtBtnBuyGreen.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);    
+                _txtBtnBuyGreen.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR); 
+                _txtBtnBuyGreen.cacheIt = false;    
                 _btnBuyGreen.addChild(_txtBtnBuyGreen);
                 _btnBuyGreen.x = 74;
                 _btnBuyGreen.y = 190;
@@ -184,9 +200,10 @@ public class ShopItem {
                 if (_btnActivationYellow) return;
                 _btnActivationYellow = new CButton();
                 _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
-                var txt:CTextField = new CTextField(125, 40, 'УСТАНОВИТЬ');
-                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
-                _btnActivationYellow.addChild(txt);
+                _txtBtnYellow = new CTextField(125, 40, 'УСТАНОВИТЬ');
+                _txtBtnYellow.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
+                _txtBtnYellow.cacheIt = false;    
+                _btnActivationYellow.addChild(_txtBtnYellow);
                 _btnActivationYellow.x = 74;
                 _btnActivationYellow.y = 190;
                 _btnActivationYellow.clickCallback = onClick;
@@ -207,7 +224,8 @@ public class ShopItem {
         }
         for (i = 0; i <_data.currency.length; i++) {
             txt = new CTextField(85, 40, String(_data.cost[i]));
-            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            txt.cacheIt = false;
+            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE);
             switch (_data.currency[i]) {
                 case DataMoney.BLUE_COUPONE:
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));

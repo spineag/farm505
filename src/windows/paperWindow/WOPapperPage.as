@@ -29,6 +29,8 @@ public class WOPapperPage {
     private var _side:String;
     private var _quad:Quad;
     private var _wo:WOPapper;
+    private var _txtPage:CTextField;
+    private var _txtTitle:CTextField;
     private var g:Vars = Vars.getInstance();
 
     public function WOPapperPage(numberPage:int, maxNumberPage:int, side:String, wo:WOPapper) {
@@ -37,6 +39,14 @@ public class WOPapperPage {
         _side = side;
         createBG(numberPage, maxNumberPage);
         createItems();
+    }
+
+    public function updateTextField():void {
+        _txtPage.updateIt();
+        _txtTitle.updateIt();
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].updateTextField();       
+        }
     }
 
     private function createBG(n:int, nMax:int):void {
@@ -61,18 +71,18 @@ public class WOPapperPage {
         q.x = 70;
         q.y = 38;
         _bg.addChild(q);
-        var txt:CTextField = new CTextField(300, 100, "НьюсМяу");
-        txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
-        txt.alignH = Align.LEFT;
-        txt.x = 66;
-        txt.y = -23;
-        _bg.addChild(txt);
-        txt = new CTextField(100, 100, String(n) + '/' + String(nMax));
-        txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.BROWN_COLOR);
-        if (n > nMax) txt.text = '';
-        txt.x = 170;
-        txt.y = 460;
-        _bg.addChild(txt);
+        _txtTitle = new CTextField(300, 100, "НьюсМяу");
+        _txtTitle.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
+        _txtTitle.alignH = Align.LEFT;
+        _txtTitle.x = 66;
+        _txtTitle.y = -23;
+        _bg.addChild(_txtTitle);
+        _txtPage = new CTextField(100, 100, String(n) + '/' + String(nMax));
+        _txtPage.setFormat(CTextField.BOLD24, 20, ManagerFilters.BROWN_COLOR);
+        if (n > nMax) _txtPage.text = '';
+        _txtPage.x = 170;
+        _txtPage.y = 460;
+        _bg.addChild(_txtPage);
         source.addChild(_bg);
     }
 

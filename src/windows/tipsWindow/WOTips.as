@@ -21,6 +21,7 @@ public class WOTips  extends WindowMain {
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _arrTips:Array;
     private var _birka:Birka;
+    private var _txtList:CTextField;
 
     public function WOTips() {
         super();
@@ -35,11 +36,11 @@ public class WOTips  extends WindowMain {
         _carton.x = -232;
         _carton.y = -221;
         _source.addChild(_carton);
-        var txt:CTextField = new CTextField(420,80,'Список действий');
-        txt.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -210;
-        txt.y = -240;
-        _source.addChild(txt);
+        _txtList = new CTextField(420,80,'Список действий');
+        _txtList.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtList.x = -210;
+        _txtList.y = -240;
+        _source.addChild(_txtList);
 
         _scrollSprite = new DefaultVerticalScrollSprite(425, 408, 422, 68);
         _scrollSprite.source.x = -228;
@@ -53,7 +54,16 @@ public class WOTips  extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         createTips();
         fillTips();
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+    
+    private function onShow():void {
+        _txtList.updateIt();
+        _birka.updateTextField();
+        for (var i:int=0; i<_arrTips.length; i++) {
+            _arrTips[i].updateTextField();
+        }
     }
     
     private function createTips():void {

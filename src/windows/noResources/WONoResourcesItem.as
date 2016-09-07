@@ -46,6 +46,10 @@ public class WONoResourcesItem {
         _inHover = false;
         _money = false;
     }
+    
+    public function updateTextField():void {
+        _txtCount.updateIt();
+    }
 
     public function fillWithResource(id:int, count:int):void {
         var ob:Object = g.dataResource.objectResources[id];

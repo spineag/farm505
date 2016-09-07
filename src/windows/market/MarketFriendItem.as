@@ -27,7 +27,7 @@ public class MarketFriendItem {
     private var _wo:WOMarket;
     public var _visitBtn:CButton;
     private var _shiftFriend:int;
-
+    private var _txtBtn:CTextField;
     private var g:Vars = Vars.getInstance();
 
     public function MarketFriendItem(f:Someone, wo:WOMarket, _shift:int) {
@@ -60,7 +60,7 @@ public class MarketFriendItem {
             }
         }
         _txt = new CTextField(100, 30, 'loading...');
-        _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txt.y = 70;
         if (_person.name) _txt.text = _person.name;
         source.addChild(_txt);
@@ -69,11 +69,11 @@ public class MarketFriendItem {
         source.outCallback = onOut;
         _visitBtn = new CButton();
         _visitBtn.addButtonTexture(70, 30, CButton.BLUE, true);
-        var txtBtn:CTextField = new CTextField(80, 25, "Посетить");
-        txtBtn.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txtBtn.x = -5;
-        txtBtn.y = 3;
-        _visitBtn.addChild(txtBtn);
+        _txtBtn = new CTextField(80, 25, "Посетить");
+        _txtBtn.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtBtn.x = -5;
+        _txtBtn.y = 3;
+        _visitBtn.addChild(_txtBtn);
         _visitBtn.x = 55;
         _visitBtn.y = 3;
         source.addChild(_visitBtn);
@@ -82,6 +82,11 @@ public class MarketFriendItem {
             _visitBtn.visible = false;
         }
         _visitBtn.visible = false;
+    }
+    
+    public function updateTextField():void {
+        _txt.updateIt();
+        _txtBtn.updateIt();
     }
 
     private function visitPerson():void {

@@ -23,6 +23,8 @@ public class WOServerCrack  extends WindowMain {
     private var _txtError:CTextField;
     private var _woBG:WindowBackground;
     private var _b:CButton;
+    private var txt:CTextField;
+    private var txt2:CTextField;
 
     public function WOServerCrack() {
         super();
@@ -31,12 +33,10 @@ public class WOServerCrack  extends WindowMain {
         _woHeight = 340;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        var txt:CTextField = new CTextField(420,80,'Не правильные данные');
+        txt = new CTextField(420,80,'Не правильные данные');
         txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.autoScale = true;
         txt.x = -210;
         txt.y = -130;
-        txt.touchable = false;
         _source.addChild(txt);
         _txtError = new CTextField(340,100,'Ошибка данных');
         _txtError.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -48,9 +48,9 @@ public class WOServerCrack  extends WindowMain {
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        txt = new CTextField(200, 34, "Перезагрузить");
-        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _b.addChild(txt);
+        txt2 = new CTextField(200, 34, "Перезагрузить");
+        txt2.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
+        _b.addChild(txt2);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;
         im.y = -65;
@@ -60,12 +60,19 @@ public class WOServerCrack  extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        showIt();
+        onWoShowCallback = onShow;
+        super.showIt();
 
         if (params[0]) {
             _txtError.text = 'Ошибка данных ' + String(params[0]);
             Cc.error('WOServerCrack: status=' + params[0]);
         }
+    }
+    
+    private function onShow():void {
+        txt.updateIt();
+        txt2.updateIt();
+        _txtError.updateIt();
     }
 
     private function onClick():void {

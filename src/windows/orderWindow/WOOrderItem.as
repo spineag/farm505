@@ -73,7 +73,7 @@ public class WOOrderItem {
         source.addChild(_delImage);
 
         _txtName = new CTextField(112, 20, "Васько");
-        _txtName.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         source.addChild(_txtName);
 
         _starImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
@@ -108,6 +108,12 @@ public class WOOrderItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _isHover = false;
+    }
+    
+    public function updateTextField():void {
+        _txtCoins.updateIt();
+        _txtName.updateIt();
+        _txtXP.updateIt();
     }
 
     public function activateIt(v:Boolean):void {
