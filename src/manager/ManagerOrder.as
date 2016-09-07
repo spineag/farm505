@@ -193,8 +193,7 @@ public class ManagerOrder {
                     arr = g.userInventory.getResourcesForAmbarAndSklad();
                     if (arr.length >= 1) {
                         for (i = 0; i < arr.length; i++) {
-                            if (g.dataResource[arr[i].id].orderType == 0) {
-                                arr.splice(i, 1);
+                            if (g.dataResource.objectResources[arr[i].id].orderType == 0) {
                                 arr.splice(i, 1);
                             }
                         }
