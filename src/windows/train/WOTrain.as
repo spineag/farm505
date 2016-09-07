@@ -51,6 +51,11 @@ public class WOTrain extends WindowMain {
     private var _txtXpItem:CTextField;
     private var _txtCostAll:CTextField;
     private var _txtXpAll:CTextField;
+    private var _txtSend:CTextField;
+    private var _txtPrise:CTextField;
+    private var _txtLoad2:CTextField;
+    private var _txtC:CTextField;
+    private var _txtNeed:CTextField;
     public var _imageItem:Image;
     private var _lock:int;
     private var _isBigCount:Boolean;
@@ -79,11 +84,11 @@ public class WOTrain extends WindowMain {
         _btnSend.addButtonTexture(120, 40, CButton.GREEN, true);
         _btnSend.x = _woWidth/2 - 180;
         _btnSend.y = 205;
-        var txt:CTextField = new CTextField(89,62,"Отправить");
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        txt.x = 5;
-        txt.y = -10;
-        _btnSend.addChild(txt);
+        _txtSend = new CTextField(89,62,"Отправить");
+        _txtSend.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtSend.x = 5;
+        _txtSend.y = -10;
+        _btnSend.addChild(_txtSend);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
         im.y = -15;
         im.x = 88;
@@ -111,7 +116,6 @@ public class WOTrain extends WindowMain {
     }
 
     private function createRightBlock():void {
-        var txt:CTextField;
         var im:Image;
         _rightBlock = new Sprite();
         _rightBlock.y = -205;
@@ -138,11 +142,11 @@ public class WOTrain extends WindowMain {
 
         _btnLoad = new CButton();
         _btnLoad.addButtonTexture(130, 36, CButton.YELLOW, true);
-        txt = new CTextField(80,30,'Загрузить');
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.x = 25;
-        txt.y = 3;
-        _btnLoad.addChild(txt);
+        _txtLoad2 = new CTextField(80,30,'Загрузить');
+        _txtLoad2.setFormat(CTextField.BOLD18, 16, ManagerFilters.HARD_YELLOW_COLOR);
+        _txtLoad2.x = 25;
+        _txtLoad2.y = 3;
+        _btnLoad.addChild(_txtLoad2);
         _btnLoad.x = 200;
         _btnLoad.y = 150;
         _rightBlock.addChild(_btnLoad);
@@ -164,20 +168,20 @@ public class WOTrain extends WindowMain {
 //        _txtHelp.x = 50;
 //        _btnHelp.addChild(_txtHelp);
 
-        txt = new CTextField(240,50,'Награда за полную загрузку:');
-        txt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.y = 240;
-        txt.x = 23;
-        _rightBlock.addChild(txt);
+        _txtPrise = new CTextField(240,50,'Награда за полную загрузку:');
+        _txtPrise.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtPrise.y = 240;
+        _txtPrise.x = 23;
+        _rightBlock.addChild(_txtPrise);
 
         _txtCostItem = new CTextField(40,30,'-3');
         _txtCostItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtCostItem.x = 226;
+        _txtCostItem.x = 236;
         _txtCostItem.y = 80;
         _txtCostItem.alignH = Align.LEFT;
         _txtXpItem = new CTextField(40,30,'-3');
         _txtXpItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtXpItem.x = 155;
+        _txtXpItem.x = 165;
         _txtXpItem.y = 80;
         _txtXpItem.alignH = Align.LEFT;
         _txtCostAll = new CTextField(40,30,'-5');
@@ -220,11 +224,11 @@ public class WOTrain extends WindowMain {
         im.y = 80;
 //        MCScaler.scale(im,30,30);
         _rightBlock.addChild(im);
-        txt = new CTextField(20,20,'1');
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.x = 225;
-        txt.y = 283;
-        _rightBlock.addChild(txt);
+        _txtC = new CTextField(20,20,'1');
+        _txtC.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtC.x = 225;
+        _txtC.y = 283;
+        _rightBlock.addChild(_txtC);
 
         _rightBlockCarton2 = new CartonBackgroundIn(90, 90);
         _rightBlockCarton2.x = 20;
@@ -240,11 +244,11 @@ public class WOTrain extends WindowMain {
         _leftBlock.y = -205;
         _leftBlock.x = -_woWidth/2 + 40;
         _source.addChild(_leftBlock);
-        var txt:CTextField = new CTextField(200,30,'Требуются продукты:');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.y = 15;
-        txt.x = 60;
-        _leftBlock.addChild(txt);
+        _txtNeed = new CTextField(200,30,'Требуются продукты:');
+        _txtNeed.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtNeed.y = 15;
+        _txtNeed.x = 60;
+        _leftBlock.addChild(_txtNeed);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -280,7 +284,27 @@ public class WOTrain extends WindowMain {
         checkBtn();
         _txtCounter.text = TimeUtils.convertSecondsForHint(_counter);
         g.gameDispatcher.addToTimer(checkCounter);
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+    
+    private function onShow():void {
+        _txt.updateIt();
+        _txtC.updateIt();
+        _txtCostAll.updateIt();
+        _txtCostItem.updateIt();
+        _txtCounter.updateIt();
+        _txtLoad.updateIt();
+        _txtLoad2.updateIt();
+        _txtNeed.updateIt();
+        _txtPrise.updateIt();
+        _txtSend.updateIt();
+        _txtXpAll.updateIt();
+        _txtXpItem.updateIt();
+        _birka.updateTextField();
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].updateTextField();
+        }
     }
 
     private function checkCounter():void {
@@ -453,7 +477,6 @@ public class WOTrain extends WindowMain {
         _leftBlockBG = null;
         _arrItems.length = 0;
         _build = null;
-        _txt = _txtCostAll = _txtCostItem = _txtCounter =  _txtXpAll = _txtXpItem = null;//_txtHelp = _txtXpAll = _txtXpItem = null;
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;

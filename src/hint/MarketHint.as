@@ -121,7 +121,7 @@ public class MarketHint {
             _txtName.y = 20;
             _txtText.text = 'Растет на грядке';
             _txtText.x = -100;
-            _txtText.y = 15;
+            _txtText.y = 5;
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
             _txtCount.x = 30;
             _txtCount.y = 70;

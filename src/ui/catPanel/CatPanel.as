@@ -82,8 +82,6 @@ public class CatPanel {
     }
 
     private function onClick():void {
-//        g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addFabricaRecipe: wrong JSON:');
-//        g.directServer.addUserXP(1,null);
         if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096 || int(g.user.userSocialId) == 202427318) {
             g.user.level++;
             g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
@@ -92,8 +90,6 @@ public class CatPanel {
 //        var _dataBuild:Object = g.dataBuilding.objectBuilding[1];
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_CAVE,null);
-
-        g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
     }
 }
 }

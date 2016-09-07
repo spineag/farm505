@@ -55,7 +55,7 @@ public class WOTrainOrderItem {
         _im.y = 45 - _im.height/2;
         source.addChild(_im);
     }
-
+    
     private function onHover():void {
         if (_onHover) return;
         _onHover = true;

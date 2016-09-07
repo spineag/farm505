@@ -25,6 +25,8 @@ import windows.WindowMain;
 public class PostDoneOrder extends WindowMain {
     private var _btn:CButton;
     private var _image:Image;
+    private var txt:CTextField;
+    
     public function PostDoneOrder() {
         super();
         _woHeight = 430;
@@ -51,7 +53,7 @@ public class PostDoneOrder extends WindowMain {
         _btn = new CButton();
         _btn.addButtonTexture(176, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
-        var txt:CTextField = new CTextField(100,30,'Рассказать');
+        txt = new CTextField(100,30,'Рассказать');
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = 5;
         txt.y = 7;

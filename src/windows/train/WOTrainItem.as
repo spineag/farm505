@@ -51,6 +51,11 @@ public class WOTrainItem {
         _isHover = false;
     }
 
+    public function updateTextField():void {
+        _txtRed.updateIt();
+        _txtWhite.updateIt();
+    }
+
     public function fillIt(t:TrainCell, i:int, type:int):void {
         _index = i;
         if (_bg) {

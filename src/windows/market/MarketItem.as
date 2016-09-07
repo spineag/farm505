@@ -133,7 +133,7 @@ public class MarketItem {
         _plawkaLvl.visible = false;
 
         _txtPlawka = new CTextField(90,60, 'Продано');
-        _txtPlawka.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtPlawka.setFormat(CTextField.BOLD14, 14, Color.WHITE);
         _txtPlawka.cacheIt = false;
         _txtPlawka.x = 10;
         _txtPlawka.y = 85;
@@ -211,6 +211,7 @@ public class MarketItem {
             _txtBuyCell.setFormat(CTextField.BOLD18, 16, Color.WHITE);
             _txtBuyCell.cacheIt = false;
             _txtBuyCell.x = 15;
+            _txtBuyCell.y = 3;
             _btnBuyCont.addChild(_txtBuyCell);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             im.x = 55;
@@ -762,7 +763,7 @@ public class MarketItem {
         _btnGoAwaySaleItem = new CButton();
         _btnGoAwaySaleItem.addButtonTexture(70, 24, CButton.BLUE, true);
         _txtGo = new CTextField(60, 30, 'посетить');
-        _txtGo.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtGo.setFormat(CTextField.BOLD14, 14, Color.WHITE);
         _txtGo.x = 4;
         _txtGo.y = -4;
         _btnGoAwaySaleItem.addChild(_txtGo);

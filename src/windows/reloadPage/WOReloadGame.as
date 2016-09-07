@@ -26,7 +26,7 @@ public class WOReloadGame extends WindowMain{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         var txt:CTextField = new CTextField(400,300,"Перегрузите игру");
-        txt.setFormat(CTextField.BOLD30, 30, Color.WHITE);
+        txt.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -200;
         txt.y = -150;
         _source.addChild(txt);

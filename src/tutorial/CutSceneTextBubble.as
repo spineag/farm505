@@ -22,6 +22,7 @@ public class CutSceneTextBubble {
     private var _source:Sprite;
     private var _parent:Sprite;
     private var _btn:CButton;
+    private var _btnTxt:CTextField;
     private var _btnExit:CButton;
     private var _type:int;
     private var _innerImage:Image;
@@ -46,7 +47,12 @@ public class CutSceneTextBubble {
         if (callbackNo != null) addNoButton(callbackNo);
         createBubble(st);
         _source.scaleX = _source.scaleY = .3;
-        TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, onComplete:addParticles});
+        TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, onComplete:onCompleteShow});
+    }
+    
+    private function onCompleteShow():void {
+        addParticles();
+        if (_btnTxt) _btnTxt.updateIt();
     }
 
     public function set startClick(f:Function):void {
@@ -60,7 +66,7 @@ public class CutSceneTextBubble {
         _btn.addButtonTexture(200, 30, CButton.BLUE, true);
         _btn.clickCallback = callback;
         _btn.startClickCallback = startClick;
-        var _btnTxt:CTextField = new CTextField(200, 30, btnSt);
+        _btnTxt = new CTextField(200, 30, btnSt);
         _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btn.addChild(_btnTxt);
     }

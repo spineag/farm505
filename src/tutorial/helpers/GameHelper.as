@@ -26,6 +26,7 @@ public class GameHelper {
     private var _source:Sprite;
     private var _bg:Image;
     private var _txt:CTextField;
+    private var _txtBtnShow:CTextField;
     private var _catHead:Sprite;
     private var _onCallback:Function;
     private var _reason:Object;
@@ -98,9 +99,9 @@ public class GameHelper {
     private function createShowButton():void {
         _btnShow = new CButton();
         _btnShow.addButtonTexture(126, 40, CButton.YELLOW, true);
-        var txt:CTextField = new CTextField(125, 40, 'ПОКАЗАТЬ');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
-        _btnShow.addChild(txt);
+        _txtBtnShow = new CTextField(125, 40, 'ПОКАЗАТЬ');
+        _txtBtnShow.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
+        _btnShow.addChild(_txtBtnShow);
         _btnShow.x = 4;
         _btnShow.y = 52;
         _btnShow.clickCallback = onClickShow;

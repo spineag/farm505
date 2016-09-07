@@ -23,6 +23,11 @@ public class WOTrainOrder extends WindowMain{
     private var _btn:CButton;
     private var _contItem:Sprite;
     private var _txtTime:CTextField;
+    private var _txtNow:CTextField;
+    private var _txtCost:CTextField;
+    private var _txtArrive:CTextField;
+    private var _txtTime2:CTextField;
+    private var _txtNext:CTextField;
     private var _timer:int;
     private var _woBG:WindowBackground;
     private var _callback:Function;
@@ -34,7 +39,6 @@ public class WOTrainOrder extends WindowMain{
     public function WOTrainOrder() {
         super ();
         _windowType = WindowsManager.WO_TRAIN_ORDER;
-        var txt:CTextField;
         var im:Image;
         _contItem = new Sprite();
         _woWidth = 500;
@@ -49,35 +53,36 @@ public class WOTrainOrder extends WindowMain{
         im.y = 10;
         im.x = 35;
         _btn.addDisplayObject(im);
-        txt = new CTextField(100,50,"привезти сейчас");
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = 60;
-        _btn.addChild(txt);
-        txt = new CTextField(50,50,"30");
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -5;
-        _btn.addChild(txt);
+        _txtNow = new CTextField(100,50,"привезти сейчас");
+        _txtNow.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtNow.x = 60;
+        _btn.addChild(_txtNow);
+        _txtCost = new CTextField(50,50,"30");
+        _txtCost.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCost.x = -5;
+        _btn.addChild(_txtCost);
         _btn.y = 110;
         _btn.clickCallback = onClickBtn;
         _source.addChild(_btn);
 
-        txt = new CTextField(300,50,"ПРИБЫТИЕ КОРЗИНКИ ");
-        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -150;
-        txt.y = -145;
-        _source.addChild(txt);
+        _txtArrive = new CTextField(300,50,"ПРИБЫТИЕ КОРЗИНКИ ");
+        _txtArrive.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtArrive.x = -150;
+        _txtArrive.y = -145;
+        _source.addChild(_txtArrive);
 
-        txt = new CTextField(150,50,"Следующий заказ:");
-        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -80;
-        txt.y = -60;
-        _source.addChild(txt);
+        _txtNext = new CTextField(150,50,"Следующий заказ:");
+        _txtNext.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtNext.x = -80;
+        _txtNext.y = -60;
+        _source.addChild(_txtNext);
 
-        txt = new CTextField(300,50,"Корзина прибудет к станции через:");
-        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -150;
-        txt.y = -120;
-        _source.addChild(txt);
+        _txtTime2 = new CTextField(300,50,"Корзина прибудет к станции через:");
+        _txtTime2 .setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtTime2.cacheIt = false;
+        _txtTime2 .x = -150;
+        _txtTime2 .y = -120;
+        _source.addChild(_txtTime2);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
         im.x = -55;
         im.y = -80;
@@ -119,7 +124,17 @@ public class WOTrainOrder extends WindowMain{
         _txtTime.text = TimeUtils.convertSecondsForHint(_timer);
         g.gameDispatcher.addToTimer(timerCheck);
         fillList(params[0]);
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+    
+    private function onShow():void {
+        _txtArrive.updateIt();
+        _txtCost.updateIt();
+        _txtNext.updateIt();
+        _txtNow.updateIt();
+        _txtTime.updateIt();
+        _txtTime2.updateIt();
     }
 
     private function fillList(list:Array):void {

@@ -41,7 +41,7 @@ public class WOServerError extends WindowMain {
         txt.touchable = false;
         _source.addChild(txt);
         _txtError = new CTextField(340,100,'Ошибка Сервера');
-        _txtError.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtError.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtError.x = -170;
         _txtError.y = -170;
         _source.addChild(_txtError);
@@ -57,7 +57,7 @@ public class WOServerError extends WindowMain {
         _b.y = 120;
         _source.addChild(_b);
         txt2 = new CTextField(200, 34, "Перезагрузить");
-        txt2.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
+        txt2.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _b.addChild(txt2);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;

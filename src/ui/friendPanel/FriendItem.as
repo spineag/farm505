@@ -74,11 +74,11 @@ public class FriendItem {
         source.addChild(im);
 
         txtLvl = new CTextField(40, 18, "");
-        txtLvl.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        txtLvl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txtLvl.text = '1';
         txtLvl.text = String(_person.level);
         txtLvl.x = 29;
-        txtLvl.y = 50;
+        txtLvl.y = 47;
         source.addChild(txtLvl);
         if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
         if (_person is NeighborBot) txtLvl.text = '10';
