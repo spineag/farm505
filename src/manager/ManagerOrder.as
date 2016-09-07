@@ -8,6 +8,8 @@ import com.junkbyte.console.Cc;
 
 import data.BuildType;
 
+import dragonBones.Bone;
+
 import flash.utils.getTimer;
 
 import tutorial.TutorialAction;
@@ -45,7 +47,7 @@ public class ManagerOrder {
         _countCellOnLevel = [
             {level: 1, count: 0},
             {level: 2, count: 1},
-            {level: 5, count: 2},
+            {level: 4, count: 2},
             {level: 6, count: 3},
             {level: 7, count: 4},
             {level: 8, count: 5},
@@ -120,6 +122,7 @@ public class ManagerOrder {
         order.addCoupone = ob.add_coupone == '1';
         order.startTime = int(ob.start_time) || 0;
         order.placeNumber = int(ob.place);
+        order.fasterBuy = Boolean(ob.faster_buyer);
         if (order.startTime - int(new Date().getTime()/1000) > 0 ) order.delOb = true;
         Utils.intArray(order.resourceCounts);
         Utils.intArray(order.resourceIds);
@@ -172,51 +175,69 @@ public class ManagerOrder {
         var k:int;
         var i:int=0;
         var id:String;
-
-        if (i < n && g.user.level <= 4 && !g.managerTutorial.isTutorial ) {
-            order = new ManagerOrderItem();
-            order.resourceIds = [];
-            order.resourceCounts = [];
-            order.addCoupone = false;
-            for(id in g.dataResource.objectResources) {
-                if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {
-                    if (g.dataResource.objectResources[id].orderType == 1) {
-                        arrOrderType1.push(int(id));
-                    } else if (g.dataResource.objectResources[id].orderType == 3) {
-                        if (int(id) != 18) arrOrderType3.push(int(id));
+        var level:int = g.user.level;
+        var countFastBuyer:int = 0;
+        for (i = 0; i < n; i++) {
+            if (_arrOrders && !g.managerTutorial.isTutorial && level < 10 && _arrOrders.length > 0) {
+                order = new ManagerOrderItem();
+                order.resourceIds = [];
+                order.resourceCounts = [];
+                order.addCoupone = false;
+                for (i = 0; i < _arrOrders.length; i++) {
+                    if (_arrOrders[i].fasterBuy == true) {
+                        countFastBuyer++;
                     }
                 }
-            }
-            var ids:int = 0;
-            var count:int = 0;
-            if (Math.random() < .6) {
-                ids = ( arrOrderType1[int(Math.random()*arrOrderType1.length)] );
-                count = ( int(Math.random()*2) + 2 );
-                if (count > g.userInventory.getCountResourceById(ids)) {
-                    order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
-                    order.resourceCounts.push( int(Math.random()*4) + 4 );
-                } else {
-                    order.resourceIds.push(ids);
-                    order.resourceCounts.push(count);
-                }
+            } else countFastBuyer = 1;
+                if (countFastBuyer == 0) {
+                    arr = g.userInventory.getResourcesForAmbarAndSklad();
+                    if (arr.length >= 1) {
+                        for (i = 0; i < arr.length; i++) {
+                            if (g.dataResource[arr[i].id].orderType == 0) {
+                                arr.splice(i, 1);
+                                arr.splice(i, 1);
+                            }
+                        }
+                        if (arr.length >= 1) {
+                            if (arr.length == 1) {
+                                order.resourceIds.push(arr[0].id);
+                                order.resourceCounts.push(int(arr[0].count / 2 + 1));
+                            } else {
+                                arr.sortOn('count', Array.DESCENDING | Array.NUMERIC);
+                                if (Math.random() < .5) {
+                                    order.resourceIds.push(arr[0].id);
+                                    order.resourceCounts.push(int(arr[0].count / 2 + 1));
+                                } else {
+                                    order.resourceIds.push(arr[1].id);
+                                    order.resourceCounts.push(int(arr[1].count / 2 + 1));
+                                }
+                            }
+                        } else {
+                            for (id in g.dataResource.objectResources) if (g.dataResource.objectResources[id].blockByLevel <= level) if (g.dataResource.objectResources[id].orderType == 1) arrOrderType1.push(int(id));
+                            order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
+                            order.resourceCounts.push(int(Math.random() * 10) + 1);
+                        }
+                    } else {
+                        for (id in g.dataResource.objectResources) if (g.dataResource.objectResources[id].blockByLevel <= level) if (g.dataResource.objectResources[id].orderType == 1) arrOrderType1.push(int(id));
+                        order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
+                        order.resourceCounts.push(int(Math.random() * 10) + 1);
+                    }
+                    order.fasterBuy = true;
+
             } else {
-                order.resourceIds.push( arrOrderType3[int(Math.random()*arrOrderType3.length)] );
-                order.resourceCounts.push( int(Math.random()*4) + 4 );
-            }
-        } else {
-            for (id in g.dataResource.objectResources) {
-                if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {
-                    if (g.dataResource.objectResources[id].orderType == 1) {
-                        arrOrderType1.push(int(id));
-                    } else if (g.dataResource.objectResources[id].orderType == 2) {
-                        arrOrderType2.push(int(id));
-                    } else if (g.dataResource.objectResources[id].orderType == 3) {
-                        arrOrderType3.push(int(id));
+                for (id in g.dataResource.objectResources) {
+                    if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {
+                        if (g.dataResource.objectResources[id].orderType == 1) {
+                            arrOrderType1.push(int(id));
+                        } else if (g.dataResource.objectResources[id].orderType == 2) {
+                            arrOrderType2.push(int(id));
+                        } else if (g.dataResource.objectResources[id].orderType == 3) {
+                            arrOrderType3.push(int(id));
+                        }
                     }
                 }
-            }
 
-            for (i = 0; i < n; i++) {
+
                 order = new ManagerOrderItem();
                 order.resourceIds = [];
                 order.resourceCounts = [];
@@ -259,7 +280,7 @@ public class ManagerOrder {
                     countResources = int(Math.random() * _curMaxCountResoureAtOrder) + 1;
                     switch (countResources) {
                         case 1:
-                            if (g.user.level <= 4) {
+                            if (level <= 4) {
                                 if (Math.random() < .6) {
                                     order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
                                     order.resourceCounts.push(int(Math.random() * 2) + 2);
@@ -267,7 +288,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
                                     order.resourceCounts.push(int(Math.random() * 4) + 4);
                                 }
-                            } else if (g.user.level == 5) {
+                            } else if (level == 5) {
                                 if (Math.random() < .6) {
                                     order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
                                     order.resourceCounts.push(int(Math.random() * 2) + 2);
@@ -275,7 +296,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
                                     order.resourceCounts.push(int(Math.random() * 6) + 4);
                                 }
-                            } else if (g.user.level == 6) {
+                            } else if (level == 6) {
                                 if (Math.random() < .6) {
                                     order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
                                     order.resourceCounts.push(int(Math.random() * 2) + 2);
@@ -283,7 +304,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
                                     order.resourceCounts.push(int(Math.random() * 5) + 6);
                                 }
-                            } else if (g.user.level == 7) {
+                            } else if (level == 7) {
                                 if (Math.random() < .6) {
                                     order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
                                     order.resourceCounts.push(int(Math.random() * 2) + 2);
@@ -291,7 +312,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
                                     order.resourceCounts.push(int(Math.random() * 7) + 6);
                                 }
-                            } else if (g.user.level == 8) {
+                            } else if (level == 8) {
                                 if (Math.random() < .6) {
                                     order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
                                     order.resourceCounts.push(int(Math.random() * 3) + 2);
@@ -299,7 +320,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
                                     order.resourceCounts.push(int(Math.random() * 12) + 6);
                                 }
-                            } else if (g.user.level == 9) {
+                            } else if (level == 9) {
                                 if (Math.random() < .6) {
                                     order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
                                     order.resourceCounts.push(int(Math.random() * 3) + 2);
@@ -307,7 +328,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
                                     order.resourceCounts.push(int(Math.random() * 13) + 7);
                                 }
-                            } else if (g.user.level == 10) {
+                            } else if (level == 10) {
                                 if (Math.random() < .6) {
                                     order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
                                     order.resourceCounts.push(int(Math.random() * 4) + 2);
@@ -315,7 +336,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
                                     order.resourceCounts.push(int(Math.random() * 13) + 7);
                                 }
-                            } else if (g.user.level == 11) {
+                            } else if (level == 11) {
                                 if (Math.random() < .6) {
                                     order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
                                     order.resourceCounts.push(int(Math.random() * 4) + 2);
@@ -335,7 +356,7 @@ public class ManagerOrder {
                             break;
                         case 2:
                             k = Math.random();
-                            if (g.user.level <= 4) {
+                            if (level <= 4) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -360,7 +381,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arr[k]);
                                     order.resourceCounts.push(int(Math.random() * 3) + 2);
                                 }
-                            } else if (g.user.level <= 5) {
+                            } else if (level <= 5) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -385,7 +406,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arr[k]);
                                     order.resourceCounts.push(int(Math.random() * 5) + 2);
                                 }
-                            } else if (g.user.level <= 6) {
+                            } else if (level <= 6) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -410,7 +431,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arr[k]);
                                     order.resourceCounts.push(int(Math.random() * 5) + 3);
                                 }
-                            } else if (g.user.level <= 7) {
+                            } else if (level <= 7) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -435,7 +456,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arr[k]);
                                     order.resourceCounts.push(int(Math.random() * 6) + 4);
                                 }
-                            } else if (g.user.level <= 8) {
+                            } else if (level <= 8) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -460,7 +481,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arr[k]);
                                     order.resourceCounts.push(int(Math.random() * 5) + 6);
                                 }
-                            } else if (g.user.level <= 9) {
+                            } else if (level <= 9) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -485,7 +506,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arr[k]);
                                     order.resourceCounts.push(int(Math.random() * 5) + 6);
                                 }
-                            } else if (g.user.level <= 10) {
+                            } else if (level <= 10) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -510,7 +531,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arr[k]);
                                     order.resourceCounts.push(int(Math.random() * 9) + 7);
                                 }
-                            } else if (g.user.level <= 11) {
+                            } else if (level <= 11) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -564,7 +585,7 @@ public class ManagerOrder {
                             break;
                         case 3:
                             k = Math.random();
-                            if (g.user.level == 6) {
+                            if (level == 6) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -601,7 +622,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arr[k]);
                                     order.resourceCounts.push(int(Math.random() * 5) + 3);
                                 }
-                            } else if (g.user.level == 7) {
+                            } else if (level == 7) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -638,7 +659,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arr[k]);
                                     order.resourceCounts.push(int(Math.random() * 5) + 3);
                                 }
-                            } else if (g.user.level == 8) {
+                            } else if (level == 8) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -675,7 +696,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arr[k]);
                                     order.resourceCounts.push(int(Math.random() * 6) + 3);
                                 }
-                            } else if (g.user.level == 9) {
+                            } else if (level == 9) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -712,7 +733,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arr[k]);
                                     order.resourceCounts.push(int(Math.random() * 6) + 3);
                                 }
-                            } else if (g.user.level == 10) {
+                            } else if (level == 10) {
                                 if (k > .5) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -790,7 +811,7 @@ public class ManagerOrder {
                             break;
                         case 4:
                             k = Math.random();
-                            if (g.user.level == 8) {
+                            if (level == 8) {
                                 if (k < .7) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -824,7 +845,7 @@ public class ManagerOrder {
                                     order.resourceIds.push(arrOrderType3[int(Math.random() * arrOrderType3.length)]);
                                     order.resourceCounts.push(int(Math.random() * 5) + 3);
                                 }
-                            } else if (g.user.level == 9) {
+                            } else if (level == 9) {
                                 if (k < .7) {
                                     arr = arrOrderType1.slice();
                                     k = int(Math.random() * arr.length);
@@ -919,16 +940,16 @@ public class ManagerOrder {
                     }
                 }
             }
-        }
+
 //             order.catName = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)].name;
-            order.catOb = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
+            order.catOb = g.dataOrderCats.arrCats[int(Math.random() * g.dataOrderCats.arrCats.length)];
             order.coins = 0;
             order.xp = 0;
-            for (k=0; k<order.resourceIds.length; k++) {
+            for (k = 0; k < order.resourceIds.length; k++) {
                 order.coins += g.dataResource.objectResources[order.resourceIds[k]].orderPrice * order.resourceCounts[k];
                 order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
             }
-            order.startTime = int(new Date().getTime()/1000);
+            order.startTime = int(new Date().getTime() / 1000);
             if (place == -1) {
                 order.placeNumber = getFreePlace();
             } else {
@@ -938,7 +959,7 @@ public class ManagerOrder {
             _arrOrders.push(order);
             _arrOrders.sortOn('placeNumber', Array.NUMERIC);
             g.directServer.addUserOrder(order, delay, f);
-
+        }
     }
 
     private function addNewTutorialOrder():void {

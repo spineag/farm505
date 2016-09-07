@@ -320,7 +320,7 @@ public class WOOrderItem {
         _check.visible = false;
         _delImage.visible = false;
         _clockImage.visible = true;
-        _order.startTime = int(new Date().getTime()/1000) + 23;
+        _order.startTime = int(new Date().getTime()/1000) + 5;
     }
 
     public function getOrder():ManagerOrderItem {

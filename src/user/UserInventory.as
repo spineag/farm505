@@ -118,7 +118,7 @@ public class UserInventory {
         return arr;
     }
 
-    public function gerResourcesForAmbarAndSklad():Array {
+    public function getResourcesForAmbarAndSklad():Array {
         var obj:Object;
         var arr:Array;
         var res:Object = g.dataResource.objectResources;

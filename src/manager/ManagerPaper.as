@@ -74,7 +74,7 @@ public class ManagerPaper {
                     arrMin.push(obData[id]);
                 }
             }
-            arr = g.userInventory.gerResourcesForAmbarAndSklad();
+            arr = g.userInventory.getResourcesForAmbarAndSklad();
             arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
             for (i = 0; i < arr.length; i++) {
                 if (arrMax.length >= 3) break;
@@ -130,7 +130,7 @@ public class ManagerPaper {
                 ob.isBotBuy = true;
                 ob.visible = true;
             } else {
-                arr = g.userInventory.gerResourcesForAmbarAndSklad();
+                arr = g.userInventory.getResourcesForAmbarAndSklad();
                 arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
                 for (i = 0; i < arr.length; i++) {
                     if (arrMax.length >= 3) break;

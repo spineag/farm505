@@ -17,5 +17,6 @@ public class ManagerOrderItem {
     public var cat:OrderCat;
     public var catOb:Object;
     public var delOb:Boolean = false;
+    public var fasterBuy:Boolean = false;
 }
 }

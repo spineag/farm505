@@ -4504,6 +4504,7 @@ public class DirectServer {
         variables.addCoupone = int(order.addCoupone);
         variables.delay = delay;
         variables.place = order.placeNumber;
+        variables.fasterBuyer = order.fasterBuy;
         variables.hash = MD5.hash(String(g.user.userId)+String(variables.ids)+String(variables.counts)+String(variables.xp)+String(variables.coins)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
