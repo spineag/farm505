@@ -413,7 +413,7 @@ public class WOOrder extends WindowMain{
             _rightBlock.visible = false;
             _rightBlockTimer.visible = true;
             _btnSkipDelete.visible = true;
-            if (_activeOrderItem.leftSeconds <= 15) _btnSkipDelete.visible = false;
+            if (_activeOrderItem.leftSeconds <= 5) _btnSkipDelete.visible = false;
             if (!item.getOrder().delOb) {
                 if (open) {
                     stopCatsAnimations();
