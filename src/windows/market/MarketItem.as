@@ -91,7 +91,7 @@ public class MarketItem {
         isFill = 0;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtAdditem = new CTextField(70,70,'');
+        _txtAdditem = new CTextField(75,70,'');
         _txtAdditem.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtAdditem.x = 20;
         _txtAdditem.y = 30;
@@ -550,12 +550,12 @@ public class MarketItem {
 //        isFill = 0;
         _countMoney = 0;
         _countResource = 0;
-        _costTxt.text = '';
-        _countTxt.text = '';
-        if (_isUser)_txtAdditem.text = 'Добавить товар';
+        if (_costTxt) _costTxt.text = '';
+        if(_countTxt) _countTxt.text = '';
+        if (_isUser) _txtAdditem.text = 'Добавить товар';
         else _txtAdditem.text = '';
-        _data = null;
-        _personBuyerTemp = null;
+        if (_data) _data = null;
+        if (_personBuyerTemp) _personBuyerTemp = null;
         if (_btnGoAwaySaleItem) {
             source.removeChild(_btnGoAwaySaleItem);
             _btnGoAwaySaleItem.deleteIt();
@@ -572,12 +572,12 @@ public class MarketItem {
 //            _ava = null;
 //        }
 //        source.removeChild(_ava);
-        _plawkabuy.visible = true;
-        _plawkaCoins.visible = false;
-        _plawkaSold.visible = false;
-        _plawkaLvl.visible = false;
-        _txtPlawka.visible = false;
-        _delete.visible = false;
+        if (_plawkabuy) _plawkabuy.visible = true;
+        if (_plawkaCoins) _plawkaCoins.visible = false;
+        if (_plawkaSold) _plawkaSold.visible = false;
+        if (_plawkaLvl) _plawkaLvl.visible = false;
+        if (_txtPlawka) _txtPlawka.visible = false;
+        if (_delete) _delete.visible = false;
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
         g.marketHint.hideIt();
     }
@@ -940,6 +940,10 @@ public class MarketItem {
                 break;
         }
         return obj;
+    }
+
+    public function get woMarket():WOMarket {
+        return _wo;
     }
 }
 }

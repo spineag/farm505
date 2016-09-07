@@ -125,6 +125,7 @@ public class WOMarketChoose extends WindowMain {
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 31;
         txt.y = 2;
+        txt.touchable = true;
         _tabAmbar.addChild(txt);
         _tabAmbar.x = -205;
         _tabAmbar.y = _defaultY;
@@ -156,6 +157,7 @@ public class WOMarketChoose extends WindowMain {
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 34;
         txt.y = 2;
+        txt.touchable = true;
         _tabSklad.addChild(txt);
         _tabSklad.x = -75;
         _tabSklad.y = _defaultY;
@@ -399,6 +401,7 @@ public class WOMarketChoose extends WindowMain {
         if (_curResourceId > 0) {
             if (!last) {
                 if (g.dataResource.objectResources[_curResourceId].buildType == BuildType.PLANT && _countResourceBlock.count == g.userInventory.getCountResourceById(_curResourceId) && !g.userInventory.checkLastResource(_curResourceId)) {
+//                    g.windowsManager.secondCashWindow = _activetedItem.woMarket;
                     g.windowsManager.secondCashWindow = this;
                     super.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBtnSell, {id: _curResourceId}, 'market');
@@ -410,7 +413,7 @@ public class WOMarketChoose extends WindowMain {
                 _callback = null;
             }
             if (isCashed) g.windowsManager.secondCashWindow = null;
-            else super.hideIt();
+            super.hideIt();
         }
     }
 

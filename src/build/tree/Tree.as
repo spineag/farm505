@@ -577,19 +577,19 @@ public class Tree extends WorldObject {
                 if (_dataBuild.id == 25) { //Яблоня
                     if (_state == ASK_FIX) makeWateringIcon(true);
                     newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 2.4) * g.currentGameScale;
                 } else if (_dataBuild.id == 26) { // Вишня
                     if (_state == ASK_FIX) makeWateringIcon(true);
-                    newX = g.cont.gameCont.x + (_source.x + _source.width / 12) * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+                    newX = g.cont.gameCont.x + (_source.x + _source.width / 19) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 3.3) * g.currentGameScale;
                 } else if (_dataBuild.id == 41) { //Малина
                     if (_state == ASK_FIX) makeWateringIcon(true);
                     if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
                         newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
                         newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
                     } else {
-                        newX = g.cont.gameCont.x + (_source.x + _source.width / 5) * g.currentGameScale;
-                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
+                        newX = g.cont.gameCont.x + (_source.x + _source.width / 9) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 14) * g.currentGameScale;
                     }
                 } else if (_dataBuild.id == 42) { //Черника
                     if (_state == ASK_FIX) makeWateringIcon(true);
@@ -647,19 +647,19 @@ public class Tree extends WorldObject {
             if (_dataBuild.id == 25) { //Яблоня
                 if (_state == ASK_FIX) makeWateringIcon(true);
                 newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-                newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+                newY = g.cont.gameCont.y + (_source.y - _source.height / 2.4) * g.currentGameScale;
             } else if (_dataBuild.id == 26) { // Вишня
                 if (_state == ASK_FIX) makeWateringIcon(true);
-                newX = g.cont.gameCont.x + (_source.x + _source.width / 12) * g.currentGameScale;
-                newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
+                newX = g.cont.gameCont.x + (_source.x + _source.width / 19) * g.currentGameScale;
+                newY = g.cont.gameCont.y + (_source.y - _source.height / 3.3) * g.currentGameScale;
             } else if (_dataBuild.id == 41) { //Малина
                 if (_state == ASK_FIX) makeWateringIcon(true);
                 if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
                     newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
                 } else {
-                    newX = g.cont.gameCont.x + (_source.x + _source.width / 5) * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
+                    newX = g.cont.gameCont.x + (_source.x + _source.width / 9) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 14) * g.currentGameScale;
                 }
             } else if (_dataBuild.id == 42) { //Черника
                 if (_state == ASK_FIX) makeWateringIcon(true);
@@ -1003,18 +1003,21 @@ public class Tree extends WorldObject {
                     }
                 }
 
-
-                if (_dataBuild.id == 41) { //Малина
-
-                } else if (_dataBuild.id == 42) { //Черника
-
-                    }
                 _build.addChild(_wateringIcon);
                 if (_flip) {
                     _wateringIcon.scaleX = -1;
                     _wateringIcon.x = _wateringIcon.x + 10;
                 } else
                     _wateringIcon.scaleX = 1;
+            }
+            if (_dataBuild.id == 25) { //Яблоня
+                _wateringIcon.y = 45;
+            } else if (_dataBuild.id == 26) { // Вишня
+                _wateringIcon.y = 120
+            } else if (_dataBuild.id == 41) { //Малина
+                _wateringIcon.y = 64;
+            } else if (_dataBuild.id == 42) { //Черника
+                _wateringIcon.y = 24;
             }
         }
     }
