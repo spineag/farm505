@@ -97,12 +97,12 @@ public class DropResourceVariaty {
         obj.id = 125;
         resources.push(obj);
 
-        obj = {};
-        obj.type = DROP_TYPE_MONEY;
-        obj.count = 1;
-        obj.variaty = 1;
-        obj.id = DataMoney.HARD_CURRENCY;
-        resources.push(obj);
+//        obj = {};
+//        obj.type = DROP_TYPE_MONEY;
+//        obj.count = 1;
+//        obj.variaty = 1;
+//        obj.id = DataMoney.HARD_CURRENCY;
+//        resources.push(obj);
 
         obj = {};
         obj.type = DROP_TYPE_MONEY;

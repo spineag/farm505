@@ -26,6 +26,7 @@ public class WOLastResource extends WindowMain {
     private var _txt:CTextField;
     private var _txtYes:CTextField;
     private var _txtNo:CTextField;
+    private var _window:String;
 
     public function WOLastResource() {
         super();
@@ -83,6 +84,7 @@ public class WOLastResource extends WindowMain {
         }
         var item:WOLastResourceItem;
         var i:int;
+        _window = params[1];
         switch (params[1]) {
             case 'order':
                 for (i=0; i < _dataResource.resourceIds.length; i++) {
@@ -240,8 +242,10 @@ public class WOLastResource extends WindowMain {
     }
 
     private function onClickNo():void {
-        g.windowsManager.uncasheWindow();
-        g.windowsManager.uncasheSecondWindow();
+        if (_window != 'market') {
+            g.windowsManager.uncasheWindow();
+            g.windowsManager.uncasheSecondWindow();
+        }
         super.hideIt();
     }
 
