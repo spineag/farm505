@@ -96,18 +96,21 @@ public class MarketItem {
         source.outCallback = onOut;
         _txtAdditem = new CTextField(80,70,'');
         _txtAdditem.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtAdditem.cacheIt = false;
         _txtAdditem.x = 15;
         _txtAdditem.y = 30;
         source.addChild(_txtAdditem);
 
         _costTxt = new CTextField(122, 30, '');
         _costTxt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _costTxt.cacheIt = false;
         _costTxt.y = 101;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2 - 5;
 
         _countTxt = new CTextField(30, 30, '');
         _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _costTxt.cacheIt = false;
         _countTxt.x = 77;
         _countTxt.y = 7;
         source.addChild(_countTxt);
@@ -131,6 +134,7 @@ public class MarketItem {
 
         _txtPlawka = new CTextField(90,60, 'Продано');
         _txtPlawka.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtPlawka.cacheIt = false;
         _txtPlawka.x = 10;
         _txtPlawka.y = 85;
         _txtPlawka.visible = false;
@@ -197,6 +201,7 @@ public class MarketItem {
             source.addChild(buyCont);
             _txtBuyNewPlace = new CTextField(100,90,'Докупить торговое место');
             _txtBuyNewPlace.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+            _txtBuyNewPlace.cacheIt = false;
             _txtBuyNewPlace.x = 5;
             _txtBuyNewPlace.y = 0;
             buyCont.addChild(_txtBuyNewPlace);
@@ -204,6 +209,7 @@ public class MarketItem {
             _btnBuyCont.addButtonTexture(90,34,CButton.GREEN, true);
             _txtBuyCell = new CTextField(30,30,String(String(_countBuyCell)));
             _txtBuyCell.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+            _txtBuyCell.cacheIt = false;
             _txtBuyCell.x = 15;
             _btnBuyCont.addChild(_txtBuyCell);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

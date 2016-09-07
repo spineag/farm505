@@ -67,6 +67,7 @@ public class MarketCell {
 
         _countTxt = new CTextField(80,20,String(g.userInventory.getCountResourceById(_data.id)));
         _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _countTxt.cacheIt = false;
         _countTxt.alignH = Align.RIGHT;
         _countTxt.x = 17;
         _countTxt.y = 77;

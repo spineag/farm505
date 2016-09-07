@@ -43,10 +43,12 @@ public class WOLevelUpItem {
         source.outCallback = onOut;
         _txtNew = new CTextField(80,20,'');
         _txtNew.setFormat(CTextField.BOLD18, 16, Color.WHITE, Color.RED);
+        _txtNew.cacheIt = false;
         _txtNew.y = 65;
         _txtNew.x = -3;
         _txtCount = new CTextField(80,20,'');
         _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, Color.RED);
+        _txtCount.cacheIt = false;
         _txtCount.x = 15;
         _txtCount.y = 10;
         try {

@@ -39,16 +39,23 @@ public class WOTipsItem {
         _btn.addButtonTexture(95, 34, CButton.GREEN, true);
         _txtBtn = new CTextField(95, 34, "Показать");
         _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtBtn.cacheIt = false;
         _btn.addChild(_txtBtn);
         _btn.x = 365;
         _btn.y = 34;
         source.addChild(_btn);
         _txt = new CTextField(230, 40, "");
         _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _txt.autoScale = true;
+        _txt.cacheIt = false;
         _txt.x = 75;
         _txt.y = 14;
         source.addChild(_txt);
+    }
+    
+    public function updateTextField():void {
+        _txt.updateIt();
+        _txtBtn.updateIt();
+        
     }
 
     public function fillIt(ob:Object):void {

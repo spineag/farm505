@@ -55,6 +55,13 @@ public class ShopList {
         parent.addChild(_txtPageNumber);
     }
 
+    public function updateTextField():void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].updateTextField();
+        }
+        _txtPageNumber.updateIt();
+    }
+
     private function addArrows(parent:Sprite):void {
         var im:Image;
 
