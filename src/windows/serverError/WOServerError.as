@@ -23,6 +23,8 @@ public class WOServerError extends WindowMain {
     private var _txtErrorNew:CTextField;
     private var _woBG:WindowBackground;
     private var _b:CButton;
+    private var txt:CTextField;
+    private var txt2:CTextField;
 
     public function WOServerError() {
         super();
@@ -31,7 +33,7 @@ public class WOServerError extends WindowMain {
         _woHeight = 320;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        var txt:CTextField = new CTextField(420,80,'Произошла ошибка в игре. Если подобное происходит часто, обратитесь в службу поддержки.');
+        txt = new CTextField(420,80,'Произошла ошибка в игре. Если подобное происходит часто, обратитесь в службу поддержки.');
         txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.autoScale = true;
         txt.x = -210;
@@ -54,9 +56,9 @@ public class WOServerError extends WindowMain {
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        txt = new CTextField(200, 34, "Перезагрузить");
-        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _b.addChild(txt);
+        txt2 = new CTextField(200, 34, "Перезагрузить");
+        txt2.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
+        _b.addChild(txt2);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;
         im.y = -50;
@@ -67,7 +69,15 @@ public class WOServerError extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         _txtError.text = "Ошибка сервера " + params[0];
-        showIt();
+        onWoShowCallback = onShow;
+        super.showIt();
+    }
+    
+    private function onShow():void {
+        txt.updateIt();
+        txt2.updateIt();
+        _txtError.updateIt();
+        _txtErrorNew.updateIt();
     }
 
     private function onClick():void {

@@ -20,6 +20,9 @@ public class WOWaitFreeCats extends WindowMain{
 
     private var _btn:CButton;
     private var _woBG:WindowBackground;
+    private var txt1:CTextField;
+    private var txt2:CTextField;
+    private var txt3:CTextField;
 
     public function WOWaitFreeCats() {
         super();
@@ -30,26 +33,26 @@ public class WOWaitFreeCats extends WindowMain{
         _source.addChild(_woBG);
         _callbackClickBG = hideIt;
         createExitButton(hideIt);
-        var txt:CTextField = new CTextField(400,100,"НЕТ СВОБОДНЫХ ПОМОЩНИКОВ!");
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.touchable = false;
-        txt.x = -200;
-        txt.y = -155;
-        _source.addChild(txt);
-        txt = new CTextField(400,100,'Все помощники сейчас заняты! Подождите окончания другого производства!');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -200;
-        txt.y = -120;
-        txt.touchable = false;
-        _source.addChild(txt);
+        txt1 = new CTextField(400,100,"НЕТ СВОБОДНЫХ ПОМОЩНИКОВ!");
+        txt1.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt1.touchable = false;
+        txt1.x = -200;
+        txt1.y = -155;
+        _source.addChild(txt1);
+        txt2 = new CTextField(400,100,'Все помощники сейчас заняты! Подождите окончания другого производства!');
+        txt2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt2.x = -200;
+        txt2.y = -120;
+        txt2.touchable = false;
+        _source.addChild(txt2);
         _btn = new CButton();
         _btn.addButtonTexture(130,40,CButton.GREEN, true);
         _btn.clickCallback = hideIt;
         _btn.y = 100;
         _source.addChild(_btn);
-        txt = new CTextField(130, 40, "ОК");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btn.addChild(txt);
+        txt3 = new CTextField(130, 40, "ОК");
+        txt3.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _btn.addChild(txt3);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
         im.x = -40;
         im.y = -55;
@@ -58,7 +61,14 @@ public class WOWaitFreeCats extends WindowMain{
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        showIt();
+        onWoShowCallback = onShow;
+        super.showIt();
+    }
+    
+    private function onShow():void {
+        txt1.updateIt();
+        txt2.updateIt();
+        txt3.updateIt();
     }
 
     override protected function deleteIt():void {

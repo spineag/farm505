@@ -132,9 +132,15 @@ public class WOPapperItem {
         _txtUserName.x = 58;
         _txtUserName.y = 8;
         source.addChild(_txtUserName);
-
         source.visible = false;
+    }
 
+    public function updateTextField():void {
+        _txtCost.updateIt();
+        _txtCountResource.updateIt();
+        _txtResourceName.updateIt();
+        _txtSale.updateIt();
+        _txtUserName.updateIt();
     }
 
     public function updateAvatar():void {

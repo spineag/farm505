@@ -54,6 +54,11 @@ public class WOOrderResourceItem {
         source.visible = false;
     }
 
+    public function updateTextField():void {
+        _countTxt.updateIt();
+        _countRed.updateIt();
+    }
+
     public function clearIt():void {
         _check.visible = false;
         source.visible = false;

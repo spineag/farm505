@@ -75,6 +75,7 @@ public class MarketItem {
     private var _btnGoAwaySaleItem:CButton;
     private var _txtBuyNewPlace:CTextField;
     private var _txtBuyCell:CTextField;
+    private var _txtGo:CTextField;
     private var g:Vars = Vars.getInstance();
 
     public function MarketItem(numberCell:int, close:Boolean, wo:WOMarket) {
@@ -226,6 +227,8 @@ public class MarketItem {
         if (_txtBuyNewPlace) _txtBuyNewPlace.updateIt();
         if (_txtPlawka) _txtPlawka.updateIt();
         if (_costTxt) _costTxt.updateIt();
+        if (_txtGo) _txtGo.updateIt();
+        if (_countTxt) _countTxt.updateIt();
     }
 
     private function fillIt(data:Object, count:int,cost:int):void {
@@ -752,11 +755,11 @@ public class MarketItem {
 
         _btnGoAwaySaleItem = new CButton();
         _btnGoAwaySaleItem.addButtonTexture(70, 24, CButton.BLUE, true);
-        var txt:CTextField = new CTextField(60, 30, 'посетить');
-        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = 4;
-        txt.y = -4;
-        _btnGoAwaySaleItem.addChild(txt);
+        _txtGo = new CTextField(60, 30, 'посетить');
+        _txtGo.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtGo.x = 4;
+        _txtGo.y = -4;
+        _btnGoAwaySaleItem.addChild(_txtGo);
         source.addChild(_btnGoAwaySaleItem);
 
 //

@@ -20,6 +20,8 @@ import windows.WindowsManager;
 
 public class WOSeverNoWork  extends WindowMain {
     private var _txtError:CTextField;
+    private var _txtInfo:CTextField;
+    private var _txtBtn:CTextField;
     private var _woBG:WindowBackground;
     private var _b:CButton;
 
@@ -30,13 +32,11 @@ public class WOSeverNoWork  extends WindowMain {
         _woHeight = 340;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        var txt:CTextField = new CTextField(420,80,'Не удалось получить ответ от сервера!');
-        txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.autoScale = true;
-        txt.x = -210;
-        txt.y = -130;
-        txt.touchable = false;
-        _source.addChild(txt);
+        _txtInfo = new CTextField(420,80,'Не удалось получить ответ от сервера!');
+        _txtInfo.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtInfo.x = -210;
+        _txtInfo.y = -130;
+        _source.addChild(_txtInfo);
         _txtError = new CTextField(340,100,'Ошибка соединения!');
         _txtError.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtError.x = -170;
@@ -47,9 +47,9 @@ public class WOSeverNoWork  extends WindowMain {
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        txt = new CTextField(200, 34, "Перезагрузить");
-        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _b.addChild(txt);
+        _txtBtn = new CTextField(200, 34, "Перезагрузить");
+        _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
+        _b.addChild(_txtBtn);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;
         im.y = -65;
@@ -59,7 +59,14 @@ public class WOSeverNoWork  extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        showIt();
+        onWoShowCallback = onShow;
+        super.showIt();
+    }
+    
+    private function onShow():void {
+        _txtBtn.updateIt();
+        _txtError.updateIt();
+        _txtInfo.updateIt();
     }
 
     private function onClick():void {

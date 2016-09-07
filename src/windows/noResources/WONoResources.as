@@ -62,7 +62,7 @@ public class WONoResources extends WindowMain {
         _btnBuy.y = 110;
         _source.addChild(_btnBuy);
         _txtHardCost = new CTextField(180, 34, "Купить ресурсы за 8888");
-        _txtHardCost.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtHardCost.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
         _btnBuy.addChild(_txtHardCost);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         MCScaler.scale(im, 25, 25);
@@ -180,7 +180,17 @@ public class WONoResources extends WindowMain {
                 _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
                 _btnBuy.clickCallback = onClickTrain;
         }
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+
+    private function onShow():void {
+        _txtHardCost.updateIt();
+        _txtNoResource.updateIt();
+        _text.updateIt();
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].updateTextField();
+        }
     }
 
     private function createList(_data:Object):void {

@@ -78,6 +78,10 @@ public class WOOrder extends WindowMain{
     private var _rightBlockTimerBG:CartonBackground;
     private var _starSmall:Image;
     private var _coinSmall:Image;
+    private var _txtBtnSkip:CTextField;
+    private var _txtBtnSkip2:CTextField;
+    private var _txtNagrada:CTextField;
+    private var _txtBtnBuy:CTextField;
 
     public function WOOrder() {
         super();
@@ -128,7 +132,28 @@ public class WOOrder extends WindowMain{
         if (g.user.level == 4 && !g.managerTutorial.isTutorial) {
             if (g.managerOrder.checkIsAnyFullOrder()) showBtnSellArrow();
         }
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+
+    private function onShow():void {
+        if (_txtBtnSkip) _txtBtnSkip.updateIt();
+        if (_txtBtnSkip2) _txtBtnSkip2.updateIt();
+        if (_txtCoins) _txtCoins.updateIt();
+        if (_txtCoupone) _txtCoupone.updateIt();
+        if (_txtNagrada) _txtNagrada.updateIt();
+        if (_txtName) _txtName.updateIt();
+        if (_txtOrder) _txtOrder.updateIt();
+        if (_txtTimer) _txtTimer.updateIt();
+        if (_txtXP) _txtXP.updateIt();
+        if (_txtBtnBuy) _txtBtnBuy.updateIt();
+        _birka.updateTextField();
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].updateTextField();
+        }
+        for (i=0; i<_arrResourceItems.length; i++) {
+            _arrResourceItems[i].updateTextField();
+        }
     }
 
     private function onClickExit(e:Event=null):void {
@@ -163,11 +188,11 @@ public class WOOrder extends WindowMain{
             _arrResourceItems.push(item);
         }
 
-        var txt:CTextField = new CTextField(90, 30, "Награда:");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.x = 411;
-        txt.y = 418;
-        _rightBlock.addChild(txt);
+        _txtNagrada = new CTextField(90, 30, "Награда:");
+        _txtNagrada.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtNagrada.x = 411;
+        _txtNagrada.y = 418;
+        _rightBlock.addChild(_txtNagrada);
         _starSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
         _starSmall.x = 501;
         _starSmall.y = 417;
@@ -231,10 +256,10 @@ public class WOOrder extends WindowMain{
         im.x = 98;
         im.y = -15;
         _btnSell.addDisplayObject(im);
-        var txt:CTextField = new CTextField(110, 60, "Продать");
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        txt.y = -10;
-        _btnSell.addChild(txt);
+        _txtBtnBuy = new CTextField(110, 60, "Продать");
+        _txtBtnBuy.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtBtnBuy.y = -10;
+        _btnSell.addChild(_txtBtnBuy);
         _btnSell.x = 547;
         _btnSell.y = 500;
         _rightBlock.addChild(_btnSell);
@@ -249,18 +274,18 @@ public class WOOrder extends WindowMain{
         im.x = 98;
         im.y = 15;
         _btnSkipDelete.addDisplayObject(im);
-        var txt:CTextField = new CTextField(80, 50, "Получить сейчас");
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btnSkipDelete.addChild(txt);
-        txt = new CTextField(20, 50, '');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        if (g.user.level <= 6) txt.text = String(ManagerOrder.COST_FIRST_SKIP_WAIT);
-        else if (g.user.level <= 9) txt.text = String(ManagerOrder.COST_SECOND_SKIP_WAIT);
-        else if (g.user.level <= 15) txt.text = String(ManagerOrder.COST_THIRD_SKIP_WAIT);
-        else if (g.user.level <= 19) txt.text = String(ManagerOrder.COST_FOURTH_SKIP_WAIT);
-        else if (g.user.level >= 20) txt.text = String(ManagerOrder.COST_FIFTH_SKIP_WAIT);
-        txt.x = 80;
-        _btnSkipDelete.addChild(txt);
+        _txtBtnSkip = new CTextField(80, 50, "Получить сейчас");
+        _txtBtnSkip.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _btnSkipDelete.addChild(_txtBtnSkip);
+        _txtBtnSkip2 = new CTextField(20, 50, '');
+        _txtBtnSkip2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        if (g.user.level <= 6) _txtBtnSkip2.text = String(ManagerOrder.COST_FIRST_SKIP_WAIT);
+        else if (g.user.level <= 9) _txtBtnSkip2.text = String(ManagerOrder.COST_SECOND_SKIP_WAIT);
+        else if (g.user.level <= 15) _txtBtnSkip2.text = String(ManagerOrder.COST_THIRD_SKIP_WAIT);
+        else if (g.user.level <= 19) _txtBtnSkip2.text = String(ManagerOrder.COST_FOURTH_SKIP_WAIT);
+        else if (g.user.level >= 20) _txtBtnSkip2.text = String(ManagerOrder.COST_FIFTH_SKIP_WAIT);
+        _txtBtnSkip2.x = 80;
+        _btnSkipDelete.addChild(_txtBtnSkip2);
         _btnSkipDelete.x = 160;
         _btnSkipDelete.y = 220;
         _rightBlockTimer.addChild(_btnSkipDelete);

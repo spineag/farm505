@@ -36,6 +36,7 @@ public class WOPapper extends WindowMain {
     private var _flipPage:WOPapperFlipPage;
     private var _timer:int;
     private var _txtTimer:CTextField;
+    private var _txtBtn:CTextField;
     private var _rubinsSmall:Image;
     private var _preloader:Boolean;
 
@@ -49,10 +50,10 @@ public class WOPapper extends WindowMain {
         _source.addChild(_contSprite);
         _btnRefreshGreen = new CButton();
         _btnRefreshGreen.addButtonTexture(130, 40, CButton.GREEN, true);
-        var txt:CTextField = new CTextField(100, 40, "Обновить 1");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        txt.x = 2;
-        _btnRefreshGreen.addChild(txt);
+        _txtBtn = new CTextField(100, 40, "Обновить 1");
+        _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtBtn.x = 2;
+        _btnRefreshGreen.addChild(_txtBtn);
         _rubinsSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         MCScaler.scale(_rubinsSmall, 25, 25);
         _rubinsSmall.x = 100;
@@ -74,6 +75,7 @@ public class WOPapper extends WindowMain {
         im.y = 5;
         _txtTimer = new CTextField(100,30,'');
         _txtTimer.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtTimer.cacheIt = false;
         _txtTimer.y = 5;
         _btnRefreshBlue.addChild(im);
         _btnRefreshBlue.addChild(_txtTimer);
@@ -133,7 +135,13 @@ public class WOPapper extends WindowMain {
         if (g.user.paperShift > 1) {
             moveNext();
         }
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+
+    private function onShow():void {
+        _txtBtn.updateIt();
+        _txtTimer.updateIt();
     }
 
     private function createPages():void {
