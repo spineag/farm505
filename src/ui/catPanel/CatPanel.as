@@ -94,7 +94,7 @@ public class CatPanel {
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_CAVE,null);
 
-        g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP);
     }
 }
 }

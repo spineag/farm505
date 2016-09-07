@@ -43,6 +43,9 @@ public class WOFabricaWorkListItem {
     private var _timerBlock:Sprite;
     private var _btnSkip:CButton;
     private var _txtSkip:CTextField;
+    private var _txtForce:CTextField;
+    private var txtPropose:CTextField;
+    private var txtPropose2:CTextField;
     private var _proposeBtn:CButton;
     private var _skipCallback:Function;
     private var _rubinSmall:Image;
@@ -81,6 +84,7 @@ public class WOFabricaWorkListItem {
             _timerBlock.addChild(im);
             _txtTimer = new CTextField(78, 33, '');
             _txtTimer.setFormat(CTextField.BOLD18, 18, Color.WHITE);
+            _txtTimer.cacheIt = false;
             _txtTimer.x = 13;
             _txtTimer.y = -20;
             _timerBlock.addChild(_txtTimer);
@@ -104,16 +108,26 @@ public class WOFabricaWorkListItem {
             _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _btnSkip.x = 52;
             _btnSkip.y = 117;
-            var txt:CTextField = new CTextField(65,35,"ускорить");
-            txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-            txt.x = 10;
-            txt.y = -8;
-            _btnSkip.addChild(txt);
+            _txtForce = new CTextField(65,35,"ускорить");
+            _txtForce.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _txtForce.x = 10;
+            _txtForce.y = -8;
+            _btnSkip.addChild(_txtForce);
             _source.addChild(_btnSkip);
             _btnSkip.visible = false;
             _btnSkip.clickCallback = makeSkip;
         }
         _txt.alpha = .5;
+    }
+
+    public function updateTextField():void {
+        if (_txt) _txt.updateIt();
+        if (_txtForce) _txtForce.updateIt();
+        if (_txtNumberCreate) _txtNumberCreate.updateIt();
+        if (_txtSkip) _txtSkip.updateIt();
+        if (_txtTimer) _txtTimer.updateIt();
+        if (txtPropose) txtPropose.updateIt();
+        if (txtPropose2) txtPropose2.updateIt();
     }
 
     public function get source():Sprite {
@@ -251,14 +265,14 @@ public class WOFabricaWorkListItem {
             _txt.visible = false;
             if (_proposeBtn) return;
             _proposeBtn = new CButton();
-            var txt:CTextField = new CTextField(46, 28, "+");
-            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            _proposeBtn.addChild(txt);
-            txt = new CTextField(46, 28, String(buyCount));
-            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            txt.y = 20;
-            txt.x = -10;
-            _proposeBtn.addChild(txt);
+            txtPropose = new CTextField(46, 28, "+");
+            txtPropose.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _proposeBtn.addChild(txtPropose);
+            txtPropose2 = new CTextField(46, 28, String(buyCount));
+            txtPropose2.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
+            txtPropose2.y = 20;
+            txtPropose2.x = -10;
+            _proposeBtn.addChild(txtPropose2);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(_rubinSmall, 20, 20);
             _rubinSmall.x = 23;

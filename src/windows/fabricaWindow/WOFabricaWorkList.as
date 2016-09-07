@@ -61,6 +61,12 @@ public class WOFabricaWorkList {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woFabricaWorkList');
         }
     }
+    
+    public function updateTextField():void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+            (_arrItems[i] as WOFabricaWorkListItem).updateTextField();
+        }
+    }
 
     public function butNewCellFromWO():void {
         _arrItems[maxCount].removePropose();
