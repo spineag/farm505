@@ -43,7 +43,7 @@ public class TutorialTextBubble {
 
     private function createBubble(st:String):void {
         _txt = new CTextField(278, 180, st);
-        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.TEXT_BLUE_COLOR);
+        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         switch (_type) {
             case BIG:
                 _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));

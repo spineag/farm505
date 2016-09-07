@@ -45,6 +45,11 @@ public class WOAmbars extends WindowMain {
     private var _item3:UpdateItem;
     private var _btnMakeUpdate:CButton;
     private var _defaultY:int = -232;
+    private var _txtAmbar:CTextField;
+    private var _txtSklad:CTextField;
+    private var _txtNeed:CTextField;
+    private var _txtBtnBack:CTextField;
+    private var _txtBtnUpdate:CTextField;
 
     public function WOAmbars() {
         super();
@@ -73,7 +78,25 @@ public class WOAmbars extends WindowMain {
         if (params[1]) { // if params[1] exist - its mean show updateState
             showUpdateState();
         }
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+
+    private function onShow():void {
+        _txtAmbar.updateIt();
+        _txtSklad.updateIt();
+        _txtCount.updateIt();
+        _txtBtnShowUpdate.updateIt();
+        _txtBtnBack.updateIt();
+        _txtNeed.updateIt();
+        _txtBtnUpdate.updateIt();
+        _birka.updateTextField();
+        for (var i:int=0; i<_arrCells.length; i++) {
+            (_arrCells[i] as AmbarCell).updateText();
+        }
+        _item1.updateTextField();
+        _item2.updateTextField();
+        _item3.updateTextField();
     }
 
     private function createWOElements():void {
@@ -85,12 +108,12 @@ public class WOAmbars extends WindowMain {
         im.x = 12;
         im.y = 1;
         _tabAmbar.addChild(im);
-        var txt:CTextField = new CTextField(90, 40, "Амбар");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        txt.x = 31;
-        txt.y = 2;
-        txt.touchable = true;
-        _tabAmbar.addChild(txt);
+        _txtAmbar = new CTextField(90, 40, "Амбар");
+        _txtAmbar.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtAmbar.x = 31;
+        _txtAmbar.y = 2;
+        _txtAmbar.touchable = true;
+        _tabAmbar.addChild(_txtAmbar);
         _tabAmbar.x = -205;
         _tabAmbar.y = _defaultY;
         var fAmbar:Function = function():void {
@@ -118,12 +141,12 @@ public class WOAmbars extends WindowMain {
         im.x = 12;
         im.y = 2;
         _tabSklad.addChild(im);
-        txt = new CTextField(90, 40, "Склад");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        txt.x = 34;
-        txt.y = 2;
-        txt.touchable = true;
-        _tabSklad.addChild(txt);
+        _txtSklad = new CTextField(90, 40, "Склад");
+        _txtSklad.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtSklad.x = 37;
+        _txtSklad.y = 2;
+        _txtSklad.touchable = true;
+        _tabSklad.addChild(_txtSklad);
         _tabSklad.x = -75;
         _tabSklad.y = _defaultY;
         var fSklad:Function = function():void {
@@ -165,8 +188,8 @@ public class WOAmbars extends WindowMain {
         _source.addChild(_progress.source);
 
         _txtCount = new CTextField(250, 67, "Вместимость: 0/0");
-        _txtCount.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_ORANGE_COLOR, Color.WHITE);
-        _txtCount.format.horizontalAlign = Align.LEFT;
+        _txtCount.setFormat(CTextField.BOLD24, 20, ManagerFilters.ORANGE_COLOR, Color.WHITE);
+        _txtCount.alignH = Align.LEFT;
         _txtCount.x = -_woWidth/2 + 47;
         _txtCount.y = -_woHeight/2 + 473;
         _source.addChild(_txtCount);
@@ -176,7 +199,8 @@ public class WOAmbars extends WindowMain {
         _btnShowUpdate.x = -_woWidth/2 + 430;
         _btnShowUpdate.y = -_woHeight/2 + 514;
         _txtBtnShowUpdate = new CTextField(90, 50, "Увеличить склад");
-        _txtBtnShowUpdate.setFormat(CTextField.MEDIUM14, 14, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        _txtBtnShowUpdate.setFormat(CTextField.MEDIUM18, 17, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtBtnShowUpdate.leading = -5;
         _txtBtnShowUpdate.x = 18;
         _txtBtnShowUpdate.y = -5;
         _btnShowUpdate.addChild(_txtBtnShowUpdate);
@@ -187,11 +211,11 @@ public class WOAmbars extends WindowMain {
     private function createWOUpdateElements():void {
         _btnBackFromUpdate = new CButton();
         _btnBackFromUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
-        var txt:CTextField = new CTextField(90, 50, "Назад");
-        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
-        txt.x = 18;
-        txt.y = -4;
-        _btnBackFromUpdate.addChild(txt);
+        _txtBtnBack = new CTextField(90, 50, "Назад");
+        _txtBtnBack.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtBtnBack.x = 18;
+        _txtBtnBack.y = -4;
+        _btnBackFromUpdate.addChild(_txtBtnBack);
         _btnBackFromUpdate.x = -_woWidth/2 + 430;
         _btnBackFromUpdate.y = -_woHeight/2 + 514;
         _source.addChild(_btnBackFromUpdate);
@@ -213,20 +237,20 @@ public class WOAmbars extends WindowMain {
         _updateSprite.addChild(_item1.source);
         _updateSprite.addChild(_item2.source);
         _updateSprite.addChild(_item3.source);
-        txt = new CTextField(284,45,'Необходимые материалы');
-        txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        txt.x = 59;
-        txt.y = -35;
-        _updateSprite.addChild(txt);
+        _txtNeed = new CTextField(284,45,'Необходимые материалы');
+        _txtNeed.setFormat(CTextField.MEDIUM24, 22, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtNeed.x = 59;
+        _txtNeed.y = -35;
+        _updateSprite.addChild(_txtNeed);
 
         _btnMakeUpdate = new CButton();
         _btnMakeUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
-        txt = new CTextField(90, 50, "Увеличить");
-        txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
-        txt.x = 17;
-        txt.y = -4;
-        txt.autoScale = true;
-        _btnMakeUpdate.addChild(txt);
+        _txtBtnUpdate = new CTextField(90, 50, "Увеличить");
+        _txtBtnUpdate.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtBtnUpdate.x = 17;
+        _txtBtnUpdate.y = -4;
+        _txtBtnUpdate.autoScale = true;
+        _btnMakeUpdate.addChild(_txtBtnUpdate);
         _btnMakeUpdate.x = 201;
         _btnMakeUpdate.y = 220;
         _updateSprite.addChild(_btnMakeUpdate);

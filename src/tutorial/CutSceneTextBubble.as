@@ -61,7 +61,7 @@ public class CutSceneTextBubble {
         _btn.clickCallback = callback;
         _btn.startClickCallback = startClick;
         var _btnTxt:CTextField = new CTextField(200, 30, btnSt);
-        _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btn.addChild(_btnTxt);
     }
 
@@ -76,7 +76,7 @@ public class CutSceneTextBubble {
     private function createBubble(st:String):void {
         var im:Image;
         var txt:CTextField = new CTextField(278, 60, st);
-        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         switch (_type) {
             case BIG:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));

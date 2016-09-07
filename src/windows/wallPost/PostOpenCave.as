@@ -52,7 +52,7 @@ public class PostOpenCave extends WindowMain {
         _btn.addButtonTexture(176, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
         var txt:CTextField = new CTextField(140,30,'Рассказать 100');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = 5;
         txt.y = 7;
         _btn.addChild(txt);

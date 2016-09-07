@@ -49,7 +49,7 @@ public class ShopList {
         addArrows(parent);
 
         _txtPageNumber = new CTextField(100, 40, '657');
-        _txtPageNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtPageNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtPageNumber.x = 283;
         _txtPageNumber.y = 268;
         parent.addChild(_txtPageNumber);

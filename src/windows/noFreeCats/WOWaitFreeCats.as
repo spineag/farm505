@@ -31,13 +31,13 @@ public class WOWaitFreeCats extends WindowMain{
         _callbackClickBG = hideIt;
         createExitButton(hideIt);
         var txt:CTextField = new CTextField(400,100,"НЕТ СВОБОДНЫХ ПОМОЩНИКОВ!");
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.touchable = false;
         txt.x = -200;
         txt.y = -155;
         _source.addChild(txt);
         txt = new CTextField(400,100,'Все помощники сейчас заняты! Подождите окончания другого производства!');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -200;
         txt.y = -120;
         txt.touchable = false;
@@ -48,7 +48,7 @@ public class WOWaitFreeCats extends WindowMain{
         _btn.y = 100;
         _source.addChild(_btn);
         txt = new CTextField(130, 40, "ОК");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
         im.x = -40;

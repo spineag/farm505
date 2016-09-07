@@ -52,12 +52,12 @@ public class PostDoneOrder extends WindowMain {
         _btn.addButtonTexture(176, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
         var txt:CTextField = new CTextField(100,30,'Рассказать');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = 5;
         txt.y = 7;
         _btn.addChild(txt);
         txt = new CTextField(50,50,'200');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = 95;
         txt.y = -2;
         _btn.addChild(txt);

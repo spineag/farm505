@@ -8,6 +8,7 @@ import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CSprite;
@@ -46,8 +47,9 @@ public class UpdateItem {
         _contImage.outCallback = onOut;
 
         _txtCount = new CTextField(80,40,'');
-        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        _txtCount.x = 40;
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCount.alignH = Align.RIGHT;
+        _txtCount.x = 17;
         _txtCount.y = 65;
         source.addChild(_txtCount);
 
@@ -59,7 +61,7 @@ public class UpdateItem {
         _btn.clickCallback = onBuy;
 
         _btnTxt = new CTextField(50,20,'50');
-        _btnTxt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        _btnTxt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnTxt.x = 16;
         _btnTxt.y = 10;
         _btn.addChild(_btnTxt);
@@ -118,6 +120,11 @@ public class UpdateItem {
         _resourceImage.x = 50 - _resourceImage.width/2;
         _resourceImage.y = 50 - _resourceImage.height/2;
         _contImage.addChild(_resourceImage);
+    }
+    
+    public function updateTextField():void {
+        _txtCount.updateIt();
+        _btnTxt.updateIt();
     }
 
     public function get isFull():Boolean {

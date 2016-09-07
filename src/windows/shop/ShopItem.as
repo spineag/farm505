@@ -79,19 +79,19 @@ public class ShopItem {
         source.addChild(_bg);
 
         _nameTxt = new CTextField(145, 60, '');
-        _nameTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _nameTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         source.addChild(_nameTxt);
         _nameTxt.touchable = false;
 
         _countTxt = new CTextField(145, 60, '');
-        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _countTxt.y = 120;
         source.addChild(_countTxt);
         _countTxt.visible = false;
         _countTxt.touchable = false;
 
         _countBoxTxt = new CTextField(100, 30, '');
-        _countBoxTxt.setFormat(CTextField.BOLD14, 12, Color.YELLOW, ManagerFilters.TEXT_BROWN_COLOR);
+        _countBoxTxt.setFormat(CTextField.BOLD14, 12, Color.YELLOW, ManagerFilters.BROWN_COLOR);
         _countBoxTxt.y = 130;
         _countBoxTxt.x = 20;
         source.addChild(_countBoxTxt);
@@ -99,7 +99,7 @@ public class ShopItem {
         _countBoxTxt.touchable = false;
 
         _txtAvailable = new CTextField(145, 80, '');
-        _txtAvailable.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtAvailable.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtAvailable.y = 145;
         source.addChild(_txtAvailable);
         _txtAvailable.visible = false;
@@ -132,7 +132,7 @@ public class ShopItem {
         im.x = -7;
         _shopLimitSprite.addChild(im);
         var txt:CTextField = new CTextField(145, 26, 'Достигнут лимит');
-        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.y = 33;
         _shopLimitSprite.addChild(txt);
         _shopLimitSprite.y = 150;
@@ -154,7 +154,7 @@ public class ShopItem {
                 im.filter = ManagerFilters.SHADOW_TINY;
                 _arrImages.push(im);
                 _txtBtnBuyBlue = new CTextField(85, 40, '');
-                _txtBtnBuyBlue.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+                _txtBtnBuyBlue.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
                 _btnBuyBlue.addChild(_txtBtnBuyBlue);
                 _btnBuyBlue.x = 74;
                 _btnBuyBlue.y = 190;
@@ -173,7 +173,7 @@ public class ShopItem {
                 im.filter = ManagerFilters.SHADOW_TINY;
                 _arrImages.push(im);    
                 _txtBtnBuyGreen = new CTextField(85, 40, '');
-                _txtBtnBuyGreen.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);    
+                _txtBtnBuyGreen.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);    
                 _btnBuyGreen.addChild(_txtBtnBuyGreen);
                 _btnBuyGreen.x = 74;
                 _btnBuyGreen.y = 190;
@@ -185,7 +185,7 @@ public class ShopItem {
                 _btnActivationYellow = new CButton();
                 _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
                 var txt:CTextField = new CTextField(125, 40, 'УСТАНОВИТЬ');
-                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_YELLOW_COLOR);
+                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
                 _btnActivationYellow.addChild(txt);
                 _btnActivationYellow.x = 74;
                 _btnActivationYellow.y = 190;
@@ -207,7 +207,7 @@ public class ShopItem {
         }
         for (i = 0; i <_data.currency.length; i++) {
             txt = new CTextField(85, 40, String(_data.cost[i]));
-            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             switch (_data.currency[i]) {
                 case DataMoney.BLUE_COUPONE:
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));

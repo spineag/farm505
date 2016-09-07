@@ -16,6 +16,10 @@ import windows.WindowsManager;
 public class WOBuyForHardCurrency extends WindowMain {
     private var _btnYes:CButton;
     private var _btnNo:CButton;
+    private var _txtYes:CTextField;
+    private var _txtNo:CTextField;
+    private var _txt:CTextField;
+    private var _txt2:CTextField;
     private var _id:int;
     private var _count:int;
     private var _woBG:WindowBackground;
@@ -33,31 +37,30 @@ public class WOBuyForHardCurrency extends WindowMain {
         _btnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
         _btnYes = new CButton();
         _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);
-        var txt:CTextField;
-        txt = new CTextField(50,50,"Да");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
-        txt.x = 15;
-        txt.y = -5;
-        _btnYes.addChild(txt);
-        txt = new CTextField(50,50,"Нет");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_YELLOW_COLOR);
-        txt.x = 15;
-        txt.y = -5;
-        _btnNo.addChild(txt);
+        _txtYes = new CTextField(50,50,"Да");
+        _txtYes.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtYes.x = 15;
+        _txtYes.y = -5;
+        _btnYes.addChild(_txtYes);
+        _txtNo = new CTextField(50,50,"Нет");
+        _txtNo.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
+        _txtNo.x = 15;
+        _txtNo.y = -5;
+        _btnNo.addChild(_txtNo);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("currency_buy_window"));
         _source.addChild(im);
         im.x = -50;
         im.y = -60;
-        txt = new CTextField(300,50,"Подтвердить покупку за рубины?");
-        txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
-        txt.x = -150;
-        txt.y = -100;
-        _source.addChild(txt);
-        txt = new CTextField(300,30,"ПОДТВЕРЖДЕНИЕ ПОКУПКИ!");
-        txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
-        txt.x = -150;
-        txt.y = -115;
-        _source.addChild(txt);
+        _txt = new CTextField(300,50,"Подтвердить покупку за рубины?");
+        _txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt.x = -150;
+        _txt.y = -100;
+        _source.addChild(_txt);
+        _txt2 = new CTextField(300,30,"ПОДТВЕРЖДЕНИЕ ПОКУПКИ!");
+        _txt2.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt2.x = -150;
+        _txt2.y = -115;
+        _source.addChild(_txt2);
         _btnYes.clickCallback = onYes;
         _btnNo.clickCallback = onClickExit;
         _btnYes.x = 100;
@@ -73,23 +76,31 @@ public class WOBuyForHardCurrency extends WindowMain {
         if (g.user.hardCurrency < _count * g.dataResource.objectResources[_id].priceHard) {
             g.windowsManager.uncasheWindow();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
-            hideIt();
+            super.hideIt();
             return;
         }
         g.userInventory.addMoney(1,-_count * g.dataResource.objectResources[_id].priceHard);
         g.userInventory.addResource(_id,_count);
-        hideIt();
+        super.hideIt();
     }
 
     private function onClickExit():void {
         g.windowsManager.uncasheWindow();
-        hideIt();
+        super.hideIt();
     }
 
     override public function showItParams(callback:Function, params:Array):void {
         _id = params[0];
         _count = params[1] - g.userInventory.getCountResourceById(_id);
-        showIt();
+        onWoShowCallback = onShow;
+        super.showIt();
+    }
+
+    private function onShow():void {
+        _txt.updateIt();
+        _txt2.updateIt();
+        _txtNo.updateIt();
+        _txtYes.updateIt();
     }
 
     override protected function deleteIt():void {

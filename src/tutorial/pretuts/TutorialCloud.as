@@ -38,7 +38,7 @@ public class TutorialCloud {
         _source.addChild(_bg);
         _txtSp = new Sprite();
         _txt = new CTextField(680, 340, '');
-        _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.TEXT_BLUE_COLOR);
+        _txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.BLUE_COLOR);
         _txtSp.addChild(_txt);
         _txtSp.x = 177;
         _txtSp.y = 128;
@@ -50,12 +50,12 @@ public class TutorialCloud {
         _btn.x = 500;
         _btn.y = 520;
         var btnTxt:CTextField = new CTextField(120, 40, 'Далее');
-        btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btn.addChild(btnTxt);
         _btn.clickCallback = onClick;
         _source.addChild(_btn);
         _txtPage = new CTextField(100, 30, '');
-        _txtPage.setFormat(CTextField.BOLD24, 20, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtPage.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
         _txtPage.x = 450;
         _txtPage.y = 460;
         _source.addChild(_txtPage);

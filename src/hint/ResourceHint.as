@@ -13,6 +13,7 @@ import starling.animation.Tween;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
 
 import utils.CTextField;
@@ -102,11 +103,13 @@ public class ResourceHint {
         g.starling.juggler.add(tween);
 
         _txtText = new CTextField(200,100,'');
-        _txtText.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtText.setFormat(CTextField.MEDIUM14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtText.leading = -5;
         _txtName = new CTextField(200, 30, '');
-        _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         _txtTime = new CTextField(80, 50, '');
-        _txtTime.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtTime.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
+        _txtTime.alignH = Align.LEFT;
         
         if (_fabrickBoo) {
             _txtText.text = "Будет доступно на: " + g.dataRecipe.objectRecipe[_id].blockByLevel + ' уровне';
@@ -141,11 +144,7 @@ public class ResourceHint {
             _txtName.x = -100;
             _txtName.y = 20;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime);
-            if (_txtTime.textBounds.width >= 50) {
-                _txtTime.x = -20;
-            } else {
-                _txtTime.x = -30;
-            }
+//            _txtTime.x = 20;
             _txtTime.y = 60;
             _txtText.x = -100;
             _txtText.y = 5;
@@ -174,9 +173,10 @@ public class ResourceHint {
             _txtName.text = String(g.dataResource.objectResources[_id].name);
             _txtName.x = -100;
             _txtName.y = 20;
+            _txtName.leading = -5;
             _txtText.text = String(g.dataResource.objectResources[_id].opys);
             _txtText.x = -100;
-            _txtText.y = 15;
+            _txtText.y = 18;
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
             if (_bool) {
@@ -187,7 +187,7 @@ public class ResourceHint {
                 _txtName.x = -100;
                 _txtName.y = -90;
                 _txtText.x = -100;
-                _txtText.y = -100;
+                _txtText.y = -90;
             } else {
                 if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -204,10 +204,10 @@ public class ResourceHint {
                 _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
                 _imageClock.y = 70;
                 _txtName.text = String(g.dataResource.objectResources[_id].name);
-                _txtName.x = -75;
+                _txtName.x = -100;
                 _txtName.y = 20;
                 _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime);
-                _txtTime.x = -10;
+//                _txtTime.x = -10;
                 _txtTime.y = 60;
                 _txtText.text = "Растет на: " + objTrees[i].name;
                 _txtText.x = -100;
@@ -238,7 +238,7 @@ public class ResourceHint {
                 _txtName.y = 20;
                 _txtText.text = "Место производства: Пещера";
                 _txtText.x = -100;
-                _txtText.y = 5;
+                _txtText.y = 8;
                 wText = _txtText.textBounds.width + 20;
                 wName = _txtName.textBounds.width + 40;
                 if (wText > wName) bg = new HintBackground(wText, 65, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -258,7 +258,7 @@ public class ResourceHint {
             _txtName.x = -100;
             _txtName.y = 20;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime);
-            _txtTime.x = -20;
+            _txtTime.x = 20;
             _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_id].buildingId].name;
             _txtText.x = -100;
             wText = _txtText.textBounds.width + 20;
@@ -270,7 +270,7 @@ public class ResourceHint {
                 _imageClock.y = 85;
                 _txtTime.y = 75;
                 _txtText.y = 15;
-                _txtTime.x = -35;
+                _txtTime.x = 0;
                 _imageClock.x = -45;
             } else {
                 if (wText > wName) bg = new HintBackground(wText, 105, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
@@ -297,7 +297,7 @@ public class ResourceHint {
             _txtName.x = -100;
             _txtName.y = 20;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime);
-            _txtTime.x = -10;
+//            _txtTime.x = -10;
             _txtTime.y = 60;
             _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_id].buildId].name;
             _txtText.x = -100;

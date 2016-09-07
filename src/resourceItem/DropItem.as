@@ -90,7 +90,7 @@ public class DropItem {
         }
         MCScaler.scale(_image, fromSize, fromSize);
         var txt:CTextField = new CTextField(70,30,'+' + String(prise.count));
-        txt.setFormat(CTextField.BOLD18, int(18*fromSize/50), Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, int(18*fromSize/50), Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = -15;
         txt.y = _image.height - 5;
         _source.addChild(_image);

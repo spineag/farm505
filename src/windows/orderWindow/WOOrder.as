@@ -148,7 +148,7 @@ public class WOOrder extends WindowMain{
         _rightBlock.addChild(_rightBlockBG);
 
         _txtName = new CTextField(320, 35, "Самбука заказывает");
-        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtName.x = 407;
         _txtName.y = 175;
         _rightBlock.addChild(_txtName);
@@ -164,7 +164,7 @@ public class WOOrder extends WindowMain{
         }
 
         var txt:CTextField = new CTextField(90, 30, "Награда:");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 411;
         txt.y = 418;
         _rightBlock.addChild(txt);
@@ -174,7 +174,7 @@ public class WOOrder extends WindowMain{
         _starSmall.filter = ManagerFilters.SHADOW_TINY;
         _rightBlock.addChild(_starSmall);
         _txtXP = new CTextField(52, 30, "8888");
-        _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXP.x = 523;
         _txtXP.y = 418;
         _rightBlock.addChild(_txtXP);
@@ -189,13 +189,13 @@ public class WOOrder extends WindowMain{
         _imCoup.visible = false;
         _rightBlock.addChild(_imCoup);
         _txtCoupone = new CTextField(30, 30, "1");
-        _txtCoupone.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCoupone.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCoupone.x = 650;
         _txtCoupone.y = 418;
         _txtCoupone.visible = false;
         _rightBlock.addChild(_txtCoupone);
         _txtCoins = new CTextField(52, 30, "8888");
-        _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCoins.x = 590;
         _txtCoins.y = 418;
         _rightBlock.addChild(_txtCoins);
@@ -232,7 +232,7 @@ public class WOOrder extends WindowMain{
         im.y = -15;
         _btnSell.addDisplayObject(im);
         var txt:CTextField = new CTextField(110, 60, "Продать");
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.y = -10;
         _btnSell.addChild(txt);
         _btnSell.x = 547;
@@ -250,10 +250,10 @@ public class WOOrder extends WindowMain{
         im.y = 15;
         _btnSkipDelete.addDisplayObject(im);
         var txt:CTextField = new CTextField(80, 50, "Получить сейчас");
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnSkipDelete.addChild(txt);
         txt = new CTextField(20, 50, '');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         if (g.user.level <= 6) txt.text = String(ManagerOrder.COST_FIRST_SKIP_WAIT);
         else if (g.user.level <= 9) txt.text = String(ManagerOrder.COST_SECOND_SKIP_WAIT);
         else if (g.user.level <= 15) txt.text = String(ManagerOrder.COST_THIRD_SKIP_WAIT);
@@ -597,13 +597,13 @@ public class WOOrder extends WindowMain{
         _rightBlockTimer.addChild(bgIn);
 
         _txtOrder = new CTextField(280, 30, "");
-        _txtOrder.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtOrder.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtOrder.x = 14;
         _txtOrder.y = 40;
         _rightBlockTimer.addChild(_txtOrder);
 
         var t:CTextField = new CTextField(280, 30, "следующий поступит через:");
-        t.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        t.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         t.x = 14;
         t.y = 65;
         _rightBlockTimer.addChild(t);
@@ -614,7 +614,7 @@ public class WOOrder extends WindowMain{
         _rightBlockTimer.addChild(im);
 
         _txtTimer = new CTextField(165, 50, "");
-        _txtTimer.setFormat(CTextField.BOLD30, 30, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtTimer.setFormat(CTextField.BOLD30, 30, ManagerFilters.BROWN_COLOR);
         _txtTimer.x = 101;
         _txtTimer.y = 102;
         _rightBlockTimer.addChild(_txtTimer);

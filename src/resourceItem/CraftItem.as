@@ -96,7 +96,7 @@ public class CraftItem {
             _source.outCallback = onOut;
         }
         _txtNumber = new CTextField(50,50,'');
-        _txtNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
 //        _txtNumber.x = -5;
         _txtNumber.y = 10;
         _source.addChild(_txtNumber);

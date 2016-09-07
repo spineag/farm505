@@ -45,7 +45,7 @@ public class RawItem {
         g.cont.animationsResourceCont.addChild(_source);
 
         var _countTxt:CTextField = new CTextField(50,30,'-' + String(count));
-        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _countTxt.x = im.width - 30;
         _countTxt.y = im.height - 15;
         _source.addChild(_countTxt);

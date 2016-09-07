@@ -11,6 +11,7 @@ import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
 
 import utils.CSprite;
@@ -70,11 +71,17 @@ public class AmbarCell {
             source.addChild(_image);
         }
 
-        _countTxt = new CTextField(60,20,String(g.userInventory.getCountResourceById(_data.id)));
-        _countTxt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        _countTxt.x = 50;
-        _countTxt.y = 77;
+        _countTxt = new CTextField(80,30,'');
+        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _countTxt.alignH = Align.RIGHT;
+        _countTxt.x = 17;
+        _countTxt.y = 72;
+        _countTxt.text = String(g.userInventory.getCountResourceById(_data.id));
         source.addChild(_countTxt);
+    }
+
+    public function updateText():void {
+        _countTxt.updateIt();
     }
 
     public function deleteIt():void {

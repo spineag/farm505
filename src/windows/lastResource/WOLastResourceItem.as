@@ -82,7 +82,7 @@ public class WOLastResourceItem {
         }
 
         _txtCount = new CTextField(50,50,String(g.userInventory.getCountResourceById(id)));
-        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCount.x = 25;
         _txtCount.y = 30;
         source.addChild(_txtCount);

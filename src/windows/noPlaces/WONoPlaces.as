@@ -52,12 +52,12 @@ public class WONoPlaces extends WindowMain {
         _source.addChild(_btn);
         _btn.clickCallback = onClick;
         _txtName = new CTextField(300,30,"НЕДОСТАТОЧНО МЕСТА!");
-        _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -150;
         _txtName.y = -150;
         _source.addChild(_txtName);
         _txtText = new CTextField(350,70,"");
-        _txtText.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtText.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _source.addChild(_txtText);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_medium"));
@@ -70,16 +70,16 @@ public class WONoPlaces extends WindowMain {
         im.x = -50;
         im.y = -50;
         _txtCost = new CTextField(200,50,"");
-        _txtCost.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        _txtCost.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtCost.x = -8;
         _txtCost.y = -3;
         _btn.addChild(_txtCost);
         _source.addChild(im);
         _txtAdd = new CTextField(100,100,"");
-        _txtAdd.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtAdd.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _last = false;
         _txtIcon = new CTextField(80,200,"добавить ячейку очереди");
-        _txtIcon.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtIcon.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         _txtIcon.x = -37;
         _txtIcon.y = -102;
         _source.addChild(_txtIcon);

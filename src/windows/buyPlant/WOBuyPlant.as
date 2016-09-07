@@ -68,8 +68,19 @@ public class WOBuyPlant extends WindowMain {
         if (_arrShiftBtns.length > 0) activateShiftBtn(1, false);
         fillPlantItems();
         showAnimatePlantItems();
+        onWoShowCallback = onShow;
         super.showIt();
         g.managerCutScenes.isWOPlantCutSceneAvailable();
+    }
+
+    private function onShow():void {
+        _birka.updateTextField();
+        for (var i:int=0; i<_arrPlantItems.length; i++) {
+            (_arrPlantItems[i] as WOBuyPlantItem).updateTextField();
+        }
+        for (i=0; i<_arrShiftBtns.length; i++) {
+            (_arrShiftBtns[i] as WOFabricNumber).updateTextField();
+        }
     }
 
     private function updatePlantArray():void {

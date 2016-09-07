@@ -34,18 +34,18 @@ public class WOLastResource extends WindowMain {
 
         var txt:CTextField;
         txt = new CTextField(150,50,"ВНИМАНИЕ!");
-        txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -75;
         txt.y = -130;
         _source.addChild(txt);
         txt = new CTextField(420,60,"Вы подтверждаете использование этого ресурса? После этого у вас не останется семян для посадки!");
-        txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -210;
         txt.y = -90;
         _source.addChild(txt);
         _btnYes = new CButton();
         txt = new CTextField(50, 50, "ДА");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = 15;
         txt.y = -5;
         _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);
@@ -54,7 +54,7 @@ public class WOLastResource extends WindowMain {
 
         _btnNo = new CButton();
         txt = new CTextField(50, 50, "НЕТ");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_YELLOW_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
         txt.x = 15;
         txt.y = -5;
         _btnNo.addButtonTexture(80, 40, CButton.YELLOW, true);

@@ -53,7 +53,7 @@ public class MouseHint {
 //        _imageCircle.y = _source.height - 23;
 //        _source.addChild(_imageCircle);
         _txtCount = new CTextField(30,30,"");
-        _txtCount.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCount.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCount.x = 29;
         _txtCount.y = 39;
         _source.addChild(_txtCount);

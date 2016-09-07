@@ -35,6 +35,7 @@ public class WODailyBonusCraftItem {
     private var _parent:Sprite;
     private var _callback:Function;
     private var _particle:Sprite;
+    private var txt:CTextField;
     private var g:Vars = Vars.getInstance();
 
     public function WODailyBonusCraftItem(obj:Object, parent:Sprite, f:Function) {
@@ -68,8 +69,8 @@ public class WODailyBonusCraftItem {
         im.y = -im.height/2;
         _source = new Sprite();
         _source.addChild(im);
-        var txt:CTextField = new CTextField(80, 60, '+'+String(obj.count));
-        txt.setFormat(CTextField.MEDIUM30, 30, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt = new CTextField(80, 60, '+'+String(obj.count));
+        txt.setFormat(CTextField.MEDIUM30, 30, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = 0;
         txt.y = 5;
         _source.addChild(txt);
@@ -122,6 +123,7 @@ public class WODailyBonusCraftItem {
     }
 
     private function delayBeforeFly():void {
+        txt.updateIt();
         new TweenMax(_source, .1, {scaleX:1.3, scaleY:1.3, onComplete:flyIt, delay:1.5});
     }
 

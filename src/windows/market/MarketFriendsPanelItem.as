@@ -46,7 +46,7 @@ public class MarketFriendsPanelItem{
         _ava.y = 1;
         source.addChild(_ava);
         _txtPersonName = new CTextField(100, 30, 'loading...');
-        _txtPersonName.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtPersonName.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtPersonName.x = -15;
         _txtPersonName.y = 50;
         if (_person.name) _txtPersonName.text = _person.name;
@@ -72,7 +72,7 @@ public class MarketFriendsPanelItem{
             _planet = new CSprite();
             _planetBtn = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
             var txtBtn:CTextField = new CTextField(80, 25, "Посетить");
-            txtBtn.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+            txtBtn.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.BROWN_COLOR);
             txtBtn.x = -8;
             _planet.addChild(_planetBtn);
             _planet.addChild(txtBtn);

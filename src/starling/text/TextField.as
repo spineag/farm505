@@ -10,9 +10,7 @@
 
 package starling.text
 {
-import com.junkbyte.console.Cc;
-
-import flash.display3D.Context3DTextureFormat;
+    import flash.display3D.Context3DTextureFormat;
     import flash.geom.Matrix;
     import flash.geom.Point;
     import flash.geom.Rectangle;
@@ -25,8 +23,7 @@ import flash.display3D.Context3DTextureFormat;
     import starling.display.Quad;
     import starling.display.Sprite;
     import starling.events.Event;
-import starling.filters.FragmentFilter;
-import starling.rendering.Painter;
+    import starling.rendering.Painter;
     import starling.styles.MeshStyle;
     import starling.utils.RectangleUtil;
     import starling.utils.SystemUtil;
@@ -138,7 +135,7 @@ import starling.rendering.Painter;
             if (_requiresRecomposition) recompose();
             super.render(painter);
         }
-
+        
         /** Forces the text contents to be composed right away.
          *  Normally, it will only do so lazily, i.e. before being rendered. */
         private function recompose():void
@@ -431,7 +428,7 @@ import starling.rendering.Painter;
         public function get style():MeshStyle { return _meshBatch.style; }
         public function set style(value:MeshStyle):void
         {
-            _style = value;
+            _meshBatch.style = _style = value;
             setRequiresRecomposition();
         }
 
@@ -502,10 +499,6 @@ import starling.rendering.Painter;
 
         private static function convertToLowerCase(string:String):String
         {
-            if (string==null) {
-                Cc.error('String==null at TextField');
-                return '';
-            }
             var result:String = sStringCache[string];
             if (result == null)
             {

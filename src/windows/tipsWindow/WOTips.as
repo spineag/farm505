@@ -36,7 +36,7 @@ public class WOTips  extends WindowMain {
         _carton.y = -221;
         _source.addChild(_carton);
         var txt:CTextField = new CTextField(420,80,'Список действий');
-        txt.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -210;
         txt.y = -240;
         _source.addChild(txt);

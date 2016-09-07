@@ -50,11 +50,11 @@ public class WOTrainOrder extends WindowMain{
         im.x = 35;
         _btn.addDisplayObject(im);
         txt = new CTextField(100,50,"привезти сейчас");
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = 60;
         _btn.addChild(txt);
         txt = new CTextField(50,50,"30");
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -5;
         _btn.addChild(txt);
         _btn.y = 110;
@@ -62,19 +62,19 @@ public class WOTrainOrder extends WindowMain{
         _source.addChild(_btn);
 
         txt = new CTextField(300,50,"ПРИБЫТИЕ КОРЗИНКИ ");
-        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -150;
         txt.y = -145;
         _source.addChild(txt);
 
         txt = new CTextField(150,50,"Следующий заказ:");
-        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -80;
         txt.y = -60;
         _source.addChild(txt);
 
         txt = new CTextField(300,50,"Корзина прибудет к станции через:");
-        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -150;
         txt.y = -120;
         _source.addChild(txt);
@@ -83,7 +83,7 @@ public class WOTrainOrder extends WindowMain{
         im.y = -80;
         _source.addChild(im);
         _txtTime = new CTextField(80,50,"");
-        _txtTime.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtTime.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtTime.x = -20;
         _txtTime.y = -85;
         _source.addChild(_txtTime);

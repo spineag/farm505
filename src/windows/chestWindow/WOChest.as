@@ -26,6 +26,8 @@ public class WOChest  extends WindowMain{
     private var _woChestItemsTutorial:WOChestItemsTutorial;
     private var _btnOpen:CButton;
     private var _callback:Function;
+    private var _txtBtn:CTextField;
+
     public function WOChest() {
         super();
         _windowType = WindowsManager.WO_CHEST;
@@ -43,7 +45,6 @@ public class WOChest  extends WindowMain{
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        super.showIt();
         _callback = callback;
         if (g.managerChest.getCount + 1 <= 2) {
             var fEndOver:Function = function():void {
@@ -64,18 +65,24 @@ public class WOChest  extends WindowMain{
             im.x = 120;
             im.y = 4;
             _btnOpen.addChild(im);
-            var txt:CTextField = new CTextField(150,30,'Открыть за ' + ManagerChest.COST_OPEN);
-            txt.setFormat(CTextField.BOLD18, 18 , Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
-            txt.text = 'Открыть за ' + String(ManagerChest.COST_OPEN);
-            txt.x = - 10;
-            txt.y = 5;
-            _btnOpen.addChild(txt);
+            _txtBtn = new CTextField(150,30,'Открыть за ' + ManagerChest.COST_OPEN);
+            _txtBtn.setFormat(CTextField.BOLD18, 18 , Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _txtBtn.text = 'Открыть за ' + String(ManagerChest.COST_OPEN);
+            _txtBtn.x = - 10;
+            _txtBtn.y = 5;
+            _btnOpen.addChild(_txtBtn);
             _btnOpen.clickCallback = onClickOpen;
             _source.addChild(_btnOpen);
             _btnOpen.y = 190;
             _armature.animation.gotoAndPlayByFrame('idle_4');
             createExitButton(onClickExit);
         }
+        onWoShowCallback = onShow;
+        super.showIt();
+    }
+
+    private function onShow():void {
+        if (_txtBtn) _txtBtn.updateIt();
     }
 
     private function closeAnimation():void {

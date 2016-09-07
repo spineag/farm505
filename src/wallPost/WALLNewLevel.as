@@ -39,7 +39,7 @@ public class WALLNewLevel {
         bitmap = g.pBitmaps[st + 'wall/wall_new_level.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         _txtLevel = new CTextField(500,200,String(g.user.level));
-        _txtLevel.setFormat(CTextField.BOLD72, 83, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtLevel.setFormat(CTextField.BOLD72, 83, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtLevel.x = 60;
         _txtLevel.y = 90;
         _source.addChild(_txtLevel);
@@ -58,7 +58,7 @@ public class WALLNewLevel {
         t.height = 200;
         t.x = 60;
         t.y = 150;
-        t.filters = [new GlowFilter(ManagerFilters.TEXT_BROWN_COLOR)];
+        t.filters = [new GlowFilter(ManagerFilters.BROWN_COLOR)];
         bitmap.bitmapData.draw(sp);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),bitmap,'interfaceAtlas');
         delete g.pBitmaps[st + 'wall/wall_new_level.jpg'];

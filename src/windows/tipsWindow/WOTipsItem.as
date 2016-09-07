@@ -38,13 +38,13 @@ public class WOTipsItem {
         _btn = new CButton();
         _btn.addButtonTexture(95, 34, CButton.GREEN, true);
         _txtBtn = new CTextField(95, 34, "Показать");
-        _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btn.addChild(_txtBtn);
         _btn.x = 365;
         _btn.y = 34;
         source.addChild(_btn);
         _txt = new CTextField(230, 40, "");
-        _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txt.autoScale = true;
         _txt.x = 75;
         _txt.y = 14;

@@ -45,7 +45,6 @@ public class TreeHint {
     private var _contWatering:CButton;
     private var _isOnHover:Boolean;
     private var _isShowed:Boolean;
-    private var _txtText:CTextField;
     private var _imageCircle:Image;
     private var _imageBgItem:Image;
     private var _imageBgItemHelp:Image;
@@ -87,15 +86,13 @@ public class TreeHint {
         _imageCircle.y = -110;
 
         _txtItem = new CTextField(50,50,"");
-        _txtItem.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtItem.x = 38;
+        _txtItem.setFormat(CTextField.BOLD14, 14, Color.WHITE);
+        _txtItem.x = 37;
         _txtItem.y = -117;
         _txtName = new CTextField(200,50,"");
-        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -100;
         _txtName.y = -140;
-        _txtText = new CTextField(50,30,'УСКОРИТЬ');
-        _txtText.setFormat(CTextField.BOLD18, 16, ManagerFilters.TEXT_BLUE_COLOR);
 
         _contDelete.addDisplayObject(_imageBgItem);
         _contWatering.addDisplayObject(_imageBgItemHelp);
@@ -104,7 +101,6 @@ public class TreeHint {
         _source.addChild(_contDelete);
         _source.addChild(_imageCircle);
         _source.addChild(_txtName);
-        _source.addChild(_txtText);
 
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
@@ -151,6 +147,7 @@ public class TreeHint {
         tween.scaleTo(1);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
+            updateTextField();
 
         };
         g.starling.juggler.add(tween);
@@ -185,6 +182,11 @@ public class TreeHint {
             g.cont.deltaMoveGameCont(dX, dY, .5);
             new TweenMax(_source, .5, {x:_source.x + dX, y:_source.y + dY, ease:Linear.easeOut});
         }
+    }
+
+    private function updateTextField():void {
+        _txtItem.updateIt();
+        _txtName.updateIt();
     }
 
     public function hideIt():void {

@@ -185,7 +185,7 @@ public class MainBottomPanel {
         im.y = 6;
         _homeBtn.addDisplayObject(im);
         var txt:CTextField = new CTextField(100, 70, "Домой");
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.TEXT_ORANGE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.ORANGE_COLOR);
         txt.x = 105;
         _homeBtn.addChild(txt);
         _homeBtn.x = 0 + _homeBtn.width/2;
@@ -428,7 +428,7 @@ public class MainBottomPanel {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_board'));
         _friendBoard.addChild(im);
         txt = new CTextField(150,40,_person.name);
-        txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
         txt.x = 90;
         txt.y = 20;
         _friendBoard.addChild(txt);
@@ -438,7 +438,7 @@ public class MainBottomPanel {
         MCScaler.scale(im,45,45);
         _friendBoard.addChild(im);
         txt = new CTextField(50,50,String(_person.level));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         if (_person is NeighborBot) txt.text = '10';
         txt.x = 55;
         txt.y = 49;

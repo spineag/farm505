@@ -50,32 +50,32 @@ public class FabricHint {
         _source.addChild(im);
 
         _txtName = new CTextField(240,70,'');
-        _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
+        _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.LIGHT_BLUE_COLOR);
         _txtName.y = 5;
         _txtName.x = -20;
         _source.addChild(_txtName);
 
         _txtCreate = new CTextField(200, 30 ,'Для изготовления требуется:');
-        _txtCreate.setFormat(CTextField.REGULAR14, 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtCreate.setFormat(CTextField.REGULAR14, 14, ManagerFilters.BLUE_COLOR);
         _txtCreate.y = 50;
         _source.addChild(_txtCreate);
 
         _txtTimeCreate = new CTextField(50, 30 ,'Время:');
-        _txtTimeCreate.setFormat(CTextField.REGULAR14, 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtTimeCreate.setFormat(CTextField.REGULAR14, 14, ManagerFilters.BLUE_COLOR);
         _txtTimeCreate.x = 20;
         _txtTimeCreate.y = 130;
         _txtOnSklad = new CTextField(100, 30 ,'На складе:');
-        _txtOnSklad.setFormat(CTextField.REGULAR14, 14, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtOnSklad.setFormat(CTextField.REGULAR14, 14, ManagerFilters.BLUE_COLOR);
         _txtOnSklad.x = 100;
         _txtOnSklad.y = 130;
         _txtItem = new CTextField(50, 40 ,'');
-        _txtItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_LIGHT_BLUE_COLOR);
-        _txtItem.format.horizontalAlign = Align.LEFT;
+        _txtItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.LIGHT_BLUE_COLOR);
+        _txtItem.alignH = Align.LEFT;
         _txtItem.x = 163;
         _txtItem.y = 150;
         _txtTime = new CTextField(100, 40 ,'');
-        _txtTime.setFormat(CTextField.BOLD18, 16, ManagerFilters.TEXT_BLUE_COLOR);
-        _txtTime.format.horizontalAlign = Align.LEFT;
+        _txtTime.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
+        _txtTime.alignH = Align.LEFT;
         _txtTime.x = 50;
         _txtTime.y = 150;
         _source.addChild(_txtTimeCreate);
@@ -105,6 +105,7 @@ public class FabricHint {
         _newY = sY;
         if (_data && g.dataResource.objectResources[_data.idResource]) {
             _txtName.text = String(g.dataResource.objectResources[_data.idResource].name);
+            _txtName.visible = false;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_data.idResource].buildTime);
             _txtItem.text = String(g.userInventory.getCountResourceById(_data.idResource));
             createList();
@@ -127,15 +128,28 @@ public class FabricHint {
             g.cont.hintCont.addChild(_source);
 
             _source.scaleX = _source.scaleY = 0;
-            var tween:Tween = new Tween(_source, 0.2);
+            var tween:Tween = new Tween(_source, 0.15);
             tween.scaleTo(1);
             tween.onComplete = function ():void {
                 g.starling.juggler.remove(tween);
-
+                updateOnShow();
+                _txtName.visible = true;
             };
             g.starling.juggler.add(tween);
         } else {
             Cc.error('FabricHint showIt with empty data or g.dataResource.objectResources[data.idResource] = null');
+        }
+    }
+    
+    private function updateOnShow():void {
+        _txtCreate.updateIt();
+        _txtItem.updateIt();
+        _txtName.updateIt();
+        _txtOnSklad.updateIt();
+        _txtTime.updateIt();
+        _txtTimeCreate.updateIt();
+        for (var i:int = 0; i < _arrCells.length; i++) {
+            _arrCells[i].updateTextField();
         }
     }
 
@@ -154,6 +168,7 @@ public class FabricHint {
         }
         _arrCells.length = 0;
         g.gameDispatcher.removeFromTimer(onTimer);
+        _txtName.text = '';
     }
 
     private function createList():void {

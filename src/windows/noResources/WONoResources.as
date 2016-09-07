@@ -46,12 +46,12 @@ public class WONoResources extends WindowMain {
         SOUND_OPEN = SoundConst.WO_AHTUNG;
 
         _txtNoResource = new CTextField(300, 30, "НЕДОСТАТОЧНО РЕСУРСОВ!");
-        _txtNoResource.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtNoResource.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtNoResource.x = -150;
         _txtNoResource.y = -130;
         _source.addChild(_txtNoResource);
         _text = new CTextField(350, 75, "Не хватает ингредиентов. Вы можете купить их за рубины и начать производство немедленно.");
-        _text.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _text.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _text.x = -175;
         _text.y = -100;
         _source.addChild(_text);
@@ -62,7 +62,7 @@ public class WONoResources extends WindowMain {
         _btnBuy.y = 110;
         _source.addChild(_btnBuy);
         _txtHardCost = new CTextField(180, 34, "Купить ресурсы за 8888");
-        _txtHardCost.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        _txtHardCost.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnBuy.addChild(_txtHardCost);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         MCScaler.scale(im, 25, 25);

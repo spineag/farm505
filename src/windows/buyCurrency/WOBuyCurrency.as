@@ -35,6 +35,8 @@ public class WOBuyCurrency extends WindowMain {
     private var _contItems:Sprite;
     private var _arrItems:Array;
     private var _defaultY:int;
+    private var _txtRubins:CTextField;
+    private var _txtCoins:CTextField;
 
     public function WOBuyCurrency() {
         super();
@@ -70,10 +72,10 @@ public class WOBuyCurrency extends WindowMain {
         _cartonHardTab.touchable = true;
         _tabHard.addChild(_cartonHardTab);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        var txt:CTextField = new CTextField(160, 67, 'Рубины');
-        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        txt.x = 85;
-        _tabHard.addChild(txt);
+        _txtRubins = new CTextField(160, 67, 'Рубины');
+        _txtRubins.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtRubins.x = 85;
+        _tabHard.addChild(_txtRubins);
         _tabHard.x = -289;
         _tabHard.y = _defaultY;
         MCScaler.scale(im, 55, 55);
@@ -89,11 +91,11 @@ public class WOBuyCurrency extends WindowMain {
         _cartonSoftTab.touchable = true;
         _tabSoft.addChild(_cartonSoftTab);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
-        txt= new CTextField(160, 67, 'Монеты');
-        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
-        txt.x = 85;
-        txt.touchable = false;
-        _tabSoft.addChild(txt);
+        _txtCoins = new CTextField(160, 67, 'Монеты');
+        _txtCoins.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCoins.x = 85;
+        _txtCoins.touchable = false;
+        _tabSoft.addChild(_txtCoins);
         _tabSoft.x = -9;
         _tabSoft.y = _defaultY;
         MCScaler.scale(im, 55, 55);
@@ -141,7 +143,17 @@ public class WOBuyCurrency extends WindowMain {
         createTabs();
         fillTabs();
         createLists();
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+    
+    private function onShow():void {
+        _birka.updateTextField();
+        _txtCoins.updateIt();
+        _txtRubins.updateIt();
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].updateTextField();
+        }
     }
 
     private function fillTabs():void {

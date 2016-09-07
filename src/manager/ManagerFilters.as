@@ -11,16 +11,18 @@ import starling.text.TextField;
 import starling.utils.Color;
 
 public class ManagerFilters {
-    public static var TEXT_BROWN_COLOR:int = 0x593b02;
-    public static var TEXT_ORANGE_COLOR:int = 0xd06d0a; 
-    public static var TEXT_LIGHT_GREEN_COLOR:int = 0x40f61c;  
-    public static var TEXT_GREEN_COLOR:int = 0x10650a;
-    public static var TEXT_YELLOW_COLOR:int = 0xa37b01;
+    public static var BROWN_COLOR:int = 0x593b02;
+    public static var ORANGE_COLOR:int = 0xd06d0a; 
+    public static var LIGHT_GREEN_COLOR:int = 0x40f61c;  
+    public static var HARD_GREEN_COLOR:int = 0x10650a;
+    public static var GREEN_COLOR:int = 0x367f30;
+    public static var YELLOW_COLOR:int = 0xa37b01;
+    public static var HARD_YELLOW_COLOR:int = 0x72590c;
     public static var LIGHT_YELLOW_COLOR:int = 0xeffd98;
-    public static var TEXT_LIGHT_BLUE_COLOR:int = 0x1377ab;
-    public static var TEXT_GRAY_HARD_COLOR:int = 0x444444;
-    public static var TEXT_BLUE_COLOR:int = 0x0968b1;
-    public static var TEXT_LIGHT_BROWN:int = 0xa57728;
+    public static var LIGHT_BLUE_COLOR:int = 0x1377ab;
+    public static var GRAY_HARD_COLOR:int = 0x444444;
+    public static var BLUE_COLOR:int = 0x0968b1;
+    public static var LIGHT_BROWN:int = 0xa57728;
 
     public function ManagerFilters() {}
 
@@ -41,19 +43,19 @@ public class ManagerFilters {
     }
 
     public static function get RED_STROKE():GlowFilter {
-        return new GlowFilter(Color.RED);
+        return new GlowFilter(Color.RED, 3);
     }
 
     public static function get YELLOW_STROKE():GlowFilter {
-        return new GlowFilter(Color.YELLOW);
+        return new GlowFilter(Color.YELLOW, 3);
     }
 
     public static function get WHITE_STROKE():GlowFilter {
-        return new GlowFilter(Color.WHITE);
+        return new GlowFilter(Color.WHITE, 3);
     }
 
     public static function get BUILD_STROKE():GlowFilter {
-        return new GlowFilter(LIGHT_YELLOW_COLOR);
+        return new GlowFilter(LIGHT_YELLOW_COLOR, 3);
     }
 
     public static function getButtonClickFilter():ColorMatrixFilter {

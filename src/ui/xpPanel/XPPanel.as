@@ -57,12 +57,12 @@ public class XPPanel {
         _imageStar.pivotY = _imageStar.height/2;
         _source.addChild(_imageStar);
         _txtLevel = new CTextField(60, 60, '55');
-        _txtLevel.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtLevel.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtLevel.x = -31;
         _txtLevel.y = -12;
         _source.addChild(_txtLevel);
         _txtXPCount = new CTextField(123, 30, '0');
-        _txtXPCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtXPCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtXPCount.x = 35;
         _txtXPCount.y = 4;
         _source.addChild(_txtXPCount);

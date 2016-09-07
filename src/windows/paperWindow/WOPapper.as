@@ -50,7 +50,7 @@ public class WOPapper extends WindowMain {
         _btnRefreshGreen = new CButton();
         _btnRefreshGreen.addButtonTexture(130, 40, CButton.GREEN, true);
         var txt:CTextField = new CTextField(100, 40, "Обновить 1");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = 2;
         _btnRefreshGreen.addChild(txt);
         _rubinsSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
@@ -73,7 +73,7 @@ public class WOPapper extends WindowMain {
         im.x = 5;
         im.y = 5;
         _txtTimer = new CTextField(100,30,'');
-        _txtTimer.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
+        _txtTimer.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtTimer.y = 5;
         _btnRefreshBlue.addChild(im);
         _btnRefreshBlue.addChild(_txtTimer);

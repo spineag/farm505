@@ -22,6 +22,7 @@ public class WODailyBonus extends WindowMain {
     private var _btnFree:CButton;
     private var _btnBuy:CButton;
     private var _txtBtnBuy:CTextField;
+    private var _txtBtnBuy2:CTextField;
     private var _isAnimate:Boolean;
     private var _curActivePosition:int;
 
@@ -45,7 +46,12 @@ public class WODailyBonus extends WindowMain {
         _curActivePosition = 0;
         fillItems();
         checkBtns();
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+    private function onShow():void {
+        _txtBtnBuy.updateIt();
+        _txtBtnBuy2.updateIt();
     }
 
     override protected function deleteIt():void {
@@ -83,16 +89,16 @@ public class WODailyBonus extends WindowMain {
 
         _btnFree = new CButton();
         _btnFree.addButtonTexture(146, 40, CButton.BLUE, true);
-        var txt:CTextField  = new CTextField(146, 40, 'Вращать колесо');
-        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_BLUE_COLOR);
-        _btnFree.addChild(txt);
+        _txtBtnBuy2  = new CTextField(146, 40, 'Вращать колесо');
+        _txtBtnBuy2.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _btnFree.addChild(_txtBtnBuy2);
         _btnFree.y = 260;
         _source.addChild(_btnFree);
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(200, 40, CButton.GREEN, true);
         _txtBtnBuy = new CTextField(170, 40, 'Вращать колесо за 10');
-        _txtBtnBuy.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.TEXT_GREEN_COLOR);
+        _txtBtnBuy.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
         _btnBuy.addChild(_txtBtnBuy);
         _btnBuy.y = 260;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

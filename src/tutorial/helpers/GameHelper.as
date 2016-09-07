@@ -48,7 +48,7 @@ public class GameHelper {
         _bg.y = -81;
         _source.addChild(_bg);
         _txt = new CTextField(220, 90, "");
-        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.TEXT_BLUE_COLOR);
+        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         _txt.x = -100;
         _txt.y = -60;
         _txt.autoScale = true;
@@ -99,7 +99,7 @@ public class GameHelper {
         _btnShow = new CButton();
         _btnShow.addButtonTexture(126, 40, CButton.YELLOW, true);
         var txt:CTextField = new CTextField(125, 40, 'ПОКАЗАТЬ');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.TEXT_YELLOW_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
         _btnShow.addChild(txt);
         _btnShow.x = 4;
         _btnShow.y = 52;

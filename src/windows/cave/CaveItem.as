@@ -43,10 +43,14 @@ public class CaveItem {
 //        source.hoverCallback = onHover;
 //        source.outCallback = onOut;
         _txtCount = new CTextField(40,30,'');
-        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.TEXT_BROWN_COLOR);
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCount.x = 60;
         _txtCount.y = 68;
         source.addChild(_txtCount);
+    }
+
+    public function updateTextField():void {
+        _txtCount.updateIt();
     }
 
     public function setCoordinates(_x:int, _y:int):void {
@@ -89,7 +93,7 @@ public class CaveItem {
         source.y = _defaultY - 35;
         source.scaleX = source.scaleY = .9;
         source.alpha = 0;
-        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay});
+        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay, onComplete: updateTextField});
     }
 
     private function onClick():void {

@@ -62,13 +62,13 @@ public class WOPapperPage {
         q.y = 38;
         _bg.addChild(q);
         var txt:CTextField = new CTextField(300, 100, "НьюсМяу");
-        txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.TEXT_BLUE_COLOR);
-        txt.format.horizontalAlign = Align.LEFT;
+        txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
+        txt.alignH = Align.LEFT;
         txt.x = 66;
         txt.y = -23;
         _bg.addChild(txt);
         txt = new CTextField(100, 100, String(n) + '/' + String(nMax));
-        txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.TEXT_BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.BROWN_COLOR);
         if (n > nMax) txt.text = '';
         txt.x = 170;
         txt.y = 460;
