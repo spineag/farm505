@@ -65,6 +65,9 @@ public class WOMarket  extends WindowMain {
     private var _callback:Function;
     private var _birka:Birka;
     private var _timer:int;
+    private var _txtAllFriends:CTextField;
+    private var _txtPaper:CTextField;
+    private var _txtToPaper:CTextField;
 
     public function WOMarket() {
         super();
@@ -93,11 +96,11 @@ public class WOMarket  extends WindowMain {
         c.y = -_woHeight/2 + 40;
         _cont.filter = ManagerFilters.SHADOW;
         _cont.addChild(c);
-        var txt:CTextField = new CTextField(80, 25, 'Все друзья');
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, 0x4b3600);
-        txt.x = 8;
-        txt.y = 8;
-        _btnFriends.addChild(txt);
+        _txtAllFriends = new CTextField(80, 25, 'Все друзья');
+        _txtAllFriends.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtAllFriends.x = 8;
+        _txtAllFriends.y = 8;
+        _btnFriends.addChild(_txtAllFriends);
         _source.addChild(_btnFriends);
         _btnFriends.clickCallback = btnFriend;
         _countPage = 1;
@@ -175,10 +178,10 @@ public class WOMarket  extends WindowMain {
 //        MCScaler.scale(im,30,30);
         im.x = 35;
         _btnPaper.addChild(im);
-        txt = new CTextField(30,30,'1');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        txt.x = 10;
-        _btnPaper.addChild(txt);
+        _txtPaper = new CTextField(30,30,'1');
+        _txtPaper.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtPaper.x = 10;
+        _btnPaper.addChild(_txtPaper);
         _btnPaper.x = 153;
         _btnPaper.y = 180;
         _btnPaper.clickCallback = onClickPaper;
@@ -190,11 +193,11 @@ public class WOMarket  extends WindowMain {
 //        _contPaper.addChild(_imCheck);
 //        _imCheck.visible = false;
 
-        txt = new CTextField(200,30,'Выставить в газету:');
-        txt.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.x = 8;
-        txt.y = 135;
-        _contPaper.addChild(txt);
+        _txtToPaper = new CTextField(200,30,'Выставить в газету:');
+        _txtToPaper.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtToPaper.x = 8;
+        _txtToPaper.y = 135;
+        _contPaper.addChild(_txtToPaper);
 
         _txtTimerPaper = new CTextField(80,30,'');
         _txtTimerPaper.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
@@ -238,7 +241,7 @@ public class WOMarket  extends WindowMain {
             }
 //            if (_shiftFriend == 0 && _curUser.userSocialId == g.user.userSocialId)
             if(_shiftFriend == 0)  {
-                if (_curUser.userSocialId == g.user.userSocialId)createMarketTabBtns();
+                if (_curUser.userSocialId == g.user.userSocialId) createMarketTabBtns();
                 else createMarketTabBtns(true);
             }
             else createMarketTabBtns();
@@ -248,7 +251,24 @@ public class WOMarket  extends WindowMain {
         }
         _timer = 15;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+
+    private function onShow():void {
+        _txtAllFriends.updateIt();
+        _txtName.updateIt();
+        _txtNumberPage.updateIt();
+        _txtPaper.updateIt();
+        _txtTimerPaper.updateIt();
+        _txtToPaper.updateIt();
+        _item.updateTextField();
+        _item2.updateTextField();
+        _item3.updateTextField();
+        _birka.updateTextField();
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            _arrItems[i].updateTextField();
+        }
     }
 
     private function onClickExit(e:Event=null):void {

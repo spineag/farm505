@@ -73,6 +73,8 @@ public class MarketItem {
     private var _btnBuyCont:CButton;
     private var _wo:WOMarket;
     private var _btnGoAwaySaleItem:CButton;
+    private var _txtBuyNewPlace:CTextField;
+    private var _txtBuyCell:CTextField;
     private var g:Vars = Vars.getInstance();
 
     public function MarketItem(numberCell:int, close:Boolean, wo:WOMarket) {
@@ -91,9 +93,9 @@ public class MarketItem {
         isFill = 0;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtAdditem = new CTextField(70,70,'');
+        _txtAdditem = new CTextField(80,70,'');
         _txtAdditem.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtAdditem.x = 20;
+        _txtAdditem.x = 15;
         _txtAdditem.y = 30;
         source.addChild(_txtAdditem);
 
@@ -192,17 +194,17 @@ public class MarketItem {
             if (numberCell == 5) _countBuyCell = 5;
             else _countBuyCell = (numberCell - 5) * 2 + 5;
             source.addChild(buyCont);
-            var txt:CTextField = new CTextField(100,90,'Докупить торговое место');
-            txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = 5;
-            txt.y = 20;
-            buyCont.addChild(txt);
+            _txtBuyNewPlace = new CTextField(100,90,'Докупить торговое место');
+            _txtBuyNewPlace.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+            _txtBuyNewPlace.x = 5;
+            _txtBuyNewPlace.y = 0;
+            buyCont.addChild(_txtBuyNewPlace);
             var _btnBuyCont:CButton = new CButton();
-            _btnBuyCont.addButtonTexture(90,30,CButton.GREEN, true);
-            txt = new CTextField(30,30,String(String(_countBuyCell)));
-            txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-            txt.x = 10;
-            _btnBuyCont.addChild(txt);
+            _btnBuyCont.addButtonTexture(90,34,CButton.GREEN, true);
+            _txtBuyCell = new CTextField(30,30,String(String(_countBuyCell)));
+            _txtBuyCell.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+            _txtBuyCell.x = 15;
+            _btnBuyCont.addChild(_txtBuyCell);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             im.x = 55;
             im.y = 3;
@@ -216,6 +218,14 @@ public class MarketItem {
         } else {
             source.endClickCallback = onClick;
         }
+    }
+
+    public function updateTextField():void {
+        if (_txtAdditem) _txtAdditem.updateIt();
+        if (_txtBuyCell) _txtBuyCell.updateIt();
+        if (_txtBuyNewPlace) _txtBuyNewPlace.updateIt();
+        if (_txtPlawka) _txtPlawka.updateIt();
+        if (_costTxt) _costTxt.updateIt();
     }
 
     private function fillIt(data:Object, count:int,cost:int):void {

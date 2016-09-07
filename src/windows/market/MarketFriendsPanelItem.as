@@ -46,7 +46,7 @@ public class MarketFriendsPanelItem{
         _ava.y = 1;
         source.addChild(_ava);
         _txtPersonName = new CTextField(100, 30, 'loading...');
-        _txtPersonName.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtPersonName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtPersonName.x = -15;
         _txtPersonName.y = 50;
         if (_person.name) _txtPersonName.text = _person.name;

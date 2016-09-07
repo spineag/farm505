@@ -9,6 +9,7 @@ import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
@@ -64,13 +65,18 @@ public class MarketCell {
             return;
         }
 
-        _countTxt = new CTextField(60,20,String(g.userInventory.getCountResourceById(_data.id)));
-        _countTxt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _countTxt.x = 50;
+        _countTxt = new CTextField(80,20,String(g.userInventory.getCountResourceById(_data.id)));
+        _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _countTxt.alignH = Align.RIGHT;
+        _countTxt.x = 17;
         _countTxt.y = 77;
         _cont.addChild(_countTxt);
         _cont.x += 2;
         _cont.y += 2;
+    }
+
+    public function updateTextField():void {
+        _countTxt.updateIt();
     }
 
     public function set clickCallback(f:Function):void {

@@ -68,7 +68,7 @@ public class MarketAllFriend {
         }
         source.addChild(_scrollSprite.source);
         var txtPanel:CTextField = new CTextField(220, 25, 'Быстрый доступ к друзьям:');
-        txtPanel.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        txtPanel.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txtPanel.x = 80;
         txtPanel.y = 16;
         source.addChild(txtPanel);

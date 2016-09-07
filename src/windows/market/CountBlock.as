@@ -73,6 +73,10 @@ public class CountBlock {
         _btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
         _btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
     }
+    
+    public function updateTextField():void {
+        
+    }
 
     public function set setWidth(a:int):void {
         _plawkaBg.width = a;

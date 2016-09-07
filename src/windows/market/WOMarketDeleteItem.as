@@ -26,6 +26,10 @@ public class WOMarketDeleteItem extends WindowMain{
     private var _callback:Function;
     private var _data:Object;
     private var _count:int;
+    private var _txt:CTextField;
+    private var _txtInfo:CTextField;
+    private var _txtBtn:CTextField;
+
     public function WOMarketDeleteItem() {
         _windowType = WindowsManager.WO_MARKET_DELETE_ITEM;
         _woWidth = 400;
@@ -33,27 +37,24 @@ public class WOMarketDeleteItem extends WindowMain{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        var txt:CTextField = new CTextField(300,30,'Этот продукт будет возвращен в хранилище.');
-        txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.autoScale = true;
-        txt.x = -150;
-        txt.y = -20;
-        txt.touchable = false;
-        _source.addChild(txt);
-        txt = new CTextField(300,30,'УБРАТЬ ТОВАР С ПРИЛАВКА?');
-        txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -157;
-        txt.y = -60;
-        txt.touchable = false;
-        _source.addChild(txt);
+        _txtInfo = new CTextField(300,30,'Этот продукт будет возвращен в хранилище.');
+        _txtInfo.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtInfo.x = -150;
+        _txtInfo.y = -20;
+        _source.addChild(_txtInfo);
+        _txt = new CTextField(300,30,'УБРАТЬ ТОВАР С ПРИЛАВКА?');
+        _txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt.x = -157;
+        _txt.y = -60;
+        _source.addChild(_txt);
         _callbackClickBG = onClickExit;
         _b = new CButton();
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        txt = new CTextField(200, 34, "Убрать за 1");
-        txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _b.addChild(txt);
+        _txtBtn = new CTextField(200, 34, "Убрать за 1");
+        _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _b.addChild(_txtBtn);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         im.x = 150;
         im.y = 1;
@@ -69,10 +70,17 @@ public class WOMarketDeleteItem extends WindowMain{
     }
 
     override public function showItParams(f:Function, params:Array):void {
+        onWoShowCallback = onShow;
         super.showIt();
         _callback = f;
         _data = params[0];
         _count = params[1];
+    }
+
+    private function onShow():void {
+        _txt.updateIt();
+        _txtBtn.updateIt();
+        _txtInfo.updateIt();
     }
 
     private function onClick():void {
