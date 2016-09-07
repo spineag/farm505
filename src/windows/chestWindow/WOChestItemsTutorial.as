@@ -8,10 +8,12 @@ import starling.display.Sprite;
 public class WOChestItemsTutorial {
     private var _source:Sprite;
     private var _arrData:Array;
+    private var _arr:Array;
 
     public function WOChestItemsTutorial(parent:Sprite, f:Function) {
         _arrData = [{type: ManagerChest.HARD_MONEY, count: 10, countItems: 5},
                     {type: ManagerChest.SOFT_MONEY, count: 250, countItems: 5}];
+        _arr = [];
         _source = new Sprite();
         _source.touchable = false;
         parent.addChild(_source);
@@ -22,13 +24,20 @@ public class WOChestItemsTutorial {
                 item.source.x = -55;
                 _source.addChild(item.source);
                 item.showIt(0);
+                _arr.push(item);
             } else {
                 item = new ItemChest(_arrData[i], f);
                 item.source.x = 55;
                 _source.addChild(item.source);
                 item.showIt(.4);
+                _arr.push(item);
             }
         }
+    }
+    
+    public function updateTextField():void {
+        _arr[0].updateTextField();
+        _arr[1].updateTextField();
     }
 }
 }
@@ -73,6 +82,10 @@ internal class ItemChest {
         _txt.y = 5;
         source.addChild(_txt);
     }
+    
+    public function updateTextField():void {
+        _txt.updateIt();
+    }
 
     private function createImage():Image {
         var im:Image;
@@ -114,6 +127,7 @@ internal class ItemChest {
     }
 
     private function showIt3():void {
+        updateTextField();
         TweenMax.delayedCall(1.5, flyItems, []);
     }
 

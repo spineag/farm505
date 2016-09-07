@@ -67,7 +67,13 @@ public class WOBuyCave extends WindowMain {
         im.x = - 298;
         im.y = - 175;
         _source.addChildAt(im,0);
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+    
+    private function onShow():void {
+        _txt.updateIt();
+        _priceTxt.updateIt();
     }
 
     private function onClickBuy(callob:Object = null, cost:int = 0):void {

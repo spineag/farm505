@@ -37,6 +37,7 @@ public class WOChestItem {
     private var _parent:Sprite;
     private var _callback:Function;
     private var _particle:Sprite;
+    private var _txt:CTextField;
     private var g:Vars = Vars.getInstance();
 
     public function WOChestItem(obj:Object, parent:Sprite, f:Function) {
@@ -67,13 +68,17 @@ public class WOChestItem {
         im.y = -im.height/2;
         _source = new Sprite();
         _source.addChild(im);
-        var txt:CTextField = new CTextField(80, 60, '+'+String(obj.count));
-        txt.setFormat(CTextField.MEDIUM30, 30, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.x = 0;
-        txt.y = 5;
-        _source.addChild(txt);
+        _txt = new CTextField(80, 60, '+'+String(obj.count));
+        _txt.setFormat(CTextField.MEDIUM30, 30, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txt.x = 0;
+        _txt.y = 5;
+        _source.addChild(_txt);
         _parent.addChild(_source);
         showIt();
+    }
+    
+    public function updateTextField():void {
+        _txt.updateIt();
     }
 
     private function addParticle():void {
@@ -121,6 +126,7 @@ public class WOChestItem {
     }
 
     private function delayBeforeFly():void {
+        updateTextField();
         new TweenMax(_source, .1, {scaleX:1.3, scaleY:1.3, onComplete:flyIt, delay:1.5});
     }
 
