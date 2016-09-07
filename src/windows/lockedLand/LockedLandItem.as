@@ -35,6 +35,9 @@ public class LockedLandItem {
     private var _galo4ka:Image;
     private var _bg:CartonBackgroundIn;
     private var _btn:CButton;
+    private var _txtBtn:CTextField;
+    private var _txtCount:CTextField;
+    private var _txtInfo:CTextField;
 
     public function LockedLandItem() {
         source = new Sprite();
@@ -49,16 +52,16 @@ public class LockedLandItem {
         _iconCoins.y = 12;
         _iconCoins.filter = ManagerFilters.SHADOW_LIGHT;
         source.addChild(_iconCoins);
-        var txt:CTextField = new CTextField(150,40,String(count));
-        txt.setFormat(CTextField.BOLD18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.y = 55;
-        txt.x = -30;
-        source.addChild(txt);
-        txt = new CTextField(200,90,'Накопи состояние - '+ String(count)+ ' монет (спишутся после открытия)');
-        txt.setFormat(CTextField.BOLD18, 16, ManagerFilters.BROWN_COLOR);
-        txt.x = 90;
-        txt.y = -2;
-        source.addChild(txt);
+        _txtCount = new CTextField(150,40,String(count));
+        _txtCount.setFormat(CTextField.BOLD18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCount.y = 52;
+        _txtCount.x = -25;
+        source.addChild(_txtCount);
+        _txtInfo = new CTextField(200,90,'Накопи состояние - '+ String(count)+ ' монет (спишутся после открытия)');
+        _txtInfo.setFormat(CTextField.BOLD18, 16, ManagerFilters.BROWN_COLOR);
+        _txtInfo.x = 90;
+        _txtInfo.y = -2;
+        source.addChild(_txtInfo);
 
         if (g.user.softCurrencyCount >= count) {
             _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
@@ -70,9 +73,10 @@ public class LockedLandItem {
         } else {
             _btn= new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
-            txt = new CTextField(120,30,'Купить');
-            txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-            _btn.addChild(txt);
+            _txtBtn = new CTextField(120,30,'Купить');
+            _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
+            _txtBtn.y = 2;
+            _btn.addChild(_txtBtn);
             _btn.x = 362;
             _btn.y = 50;
             source.addChild(_btn);
@@ -107,16 +111,16 @@ public class LockedLandItem {
         icon.x = 41 - icon.width/2;
         icon.y = 34 - icon.height/2;
         source.addChild(icon);
-        var txt:CTextField = new CTextField(150,40,String(g.userInventory.getCountResourceById(id)) + '/' + String(count));
-        txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.y = 55;
-        txt.x = -40;
-        source.addChild(txt);
-        txt = new CTextField(200,90,'Собрать '+String(count)+' '+g.dataResource.objectResources[id].name + ' (пропадут после открытия)');
-        txt.setFormat(CTextField.BOLD18, 16, ManagerFilters.BROWN_COLOR);
-        txt.x = 90;
-        txt.y = -2;
-        source.addChild(txt);
+        _txtCount = new CTextField(150,40,String(g.userInventory.getCountResourceById(id)) + '/' + String(count));
+        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCount.y = 50;
+        _txtCount.x = -35;
+        source.addChild(_txtCount);
+        _txtInfo = new CTextField(200,90,'Собрать '+String(count)+' '+g.dataResource.objectResources[id].name + ' (пропадут после открытия)');
+        _txtInfo.setFormat(CTextField.BOLD18, 16, ManagerFilters.BROWN_COLOR);
+        _txtInfo.x = 90;
+        _txtInfo.y = -2;
+        source.addChild(_txtInfo);
 
         if (g.userInventory.getCountResourceById(id) >= count) {
             _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
@@ -128,10 +132,11 @@ public class LockedLandItem {
         } else {
             _btn = new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
-            txt = new CTextField(120,30,'Купить ' + String(g.dataResource.objectResources[id].priceHard *(count - g.userInventory.getCountResourceById(id))));
-            txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-            txt.x = -15;
-            _btn.addChild(txt);
+            _txtBtn = new CTextField(120,30,'Купить ' + String(g.dataResource.objectResources[id].priceHard *(count - g.userInventory.getCountResourceById(id))));
+            _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
+            _txtBtn.x = -15;
+            _txtBtn.y = 2;
+            _btn.addChild(_txtBtn);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(im,25,25);
             im.x = 90;
@@ -194,6 +199,12 @@ public class LockedLandItem {
             _btn.clickCallback = f1;
             _isGood = false;
         }
+    }
+
+    public function updateTextField():void {
+        if (_txtBtn) _txtBtn.updateIt();
+        if (_txtCount) _txtCount.updateIt();
+        if (_txtInfo) _txtInfo.updateIt();
     }
 
     public function deleteIt():void {

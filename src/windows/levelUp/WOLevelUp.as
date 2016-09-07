@@ -68,16 +68,17 @@ public class WOLevelUp extends WindowMain {
         _contClipRect.mask = new Quad(440,280);
         _contClipRect.x = -_woWidth/2 + 55;
         _contClipRect.y = 55;
-        _txtNewLvl = new CTextField(120,100,"НОВЫЙ УРОВЕНЬ");
-        _txtNewLvl.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtNewObject = new CTextField(215,100,"ДОСТУПНЫ НОВЫЕ ОБЪЕКТЫ");
-        _txtNewObject.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtNewLvl = new CTextField(200,100,"НОВЫЙ УРОВЕНЬ");
+        _txtNewLvl.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtNewLvl.leading = -3;
+        _txtNewObject = new CTextField(400,100,"ДОСТУПНЫ НОВЫЕ ОБЪЕКТЫ");
+        _txtNewObject.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtLevel = new CTextField(300,100,"");
         _txtLevel.setFormat(CTextField.BOLD72, 51, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtContinue = new CTextField(110,100,"РАССКАЗАТЬ");
-        _txtContinue.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtContinue.setFormat(CTextField.BOLD18, 16, Color.WHITE);
         _txtHard = new CTextField(50,50,'+'+String(_count));
-        _txtHard.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtHard.setFormat(CTextField.BOLD18, 16, Color.WHITE);
         if (g.user.level <= 5) {
             _contBtn = new CButton();
             _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
@@ -95,7 +96,7 @@ public class WOLevelUp extends WindowMain {
             MCScaler.scale(_imageHard, 25, 25);
 
             _txtContinue.y = -25;
-            _txtHard.x = 100;
+            _txtHard.x = 90;
             _imageHard.x = 135;
             _imageHard.y = 12;
             _contBtn.addChild(_imageHard);
@@ -134,12 +135,12 @@ public class WOLevelUp extends WindowMain {
 
         _contClipRect.addChild(_contImage);
 
-        _txtNewLvl.x = -67;
+        _txtNewLvl.x = -100;
         _txtNewLvl.y = -55;
-        _txtNewObject.x = -108;
+        _txtNewObject.x = -200;
         _txtNewObject.y = 110;
         _txtLevel.x = -152;
-        _txtLevel.y = -115;
+        _txtLevel.y = -118;
         _callbackClickBG = null;
     }
 
@@ -147,8 +148,20 @@ public class WOLevelUp extends WindowMain {
         if (g.user.level >= 17) g.couponePanel.openPanel(true);
         _txtLevel.text = String(g.user.level);
         createList();
+        onWoShowCallback = onShow;
         super.showIt();
         _source.y -= 40;
+    }
+    
+    private function onShow():void {
+        _txtContinue.updateIt();
+        _txtHard.updateIt();
+        _txtLevel.updateIt();
+        _txtNewLvl.updateIt();
+        _txtNewObject.updateIt();
+        for (var i:int=0; i<_arrCells.length; i++) {
+            _arrCells[i].updateTextField();
+        }
     }
 
     private function onClickNext():void {

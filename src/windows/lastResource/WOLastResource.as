@@ -22,6 +22,11 @@ public class WOLastResource extends WindowMain {
     private var _arrItems:Array;
     private var _dataResource:Object;
     private var _paramsFabrica:Object;
+    private var _txtAhtung:CTextField;
+    private var _txt:CTextField;
+    private var _txtYes:CTextField;
+    private var _txtNo:CTextField;
+
     private var _window:String;
     public function WOLastResource() {
         super();
@@ -32,33 +37,32 @@ public class WOLastResource extends WindowMain {
         _source.addChild(_woBG);
         createExitButton(hideIt);
 
-        var txt:CTextField;
-        txt = new CTextField(150,50,"ВНИМАНИЕ!");
-        txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -75;
-        txt.y = -130;
-        _source.addChild(txt);
-        txt = new CTextField(420,60,"Вы подтверждаете использование этого ресурса? После этого у вас не останется семян для посадки!");
-        txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -210;
-        txt.y = -90;
-        _source.addChild(txt);
+        _txtAhtung = new CTextField(150,50,"ВНИМАНИЕ!");
+        _txtAhtung.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtAhtung.x = -75;
+        _txtAhtung.y = -130;
+        _source.addChild(_txtAhtung);
+        _txt = new CTextField(420,60,"Вы подтверждаете использование этого ресурса? После этого у вас не останется семян для посадки!");
+        _txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt.x = -210;
+        _txt.y = -90;
+        _source.addChild(_txt);
         _btnYes = new CButton();
-        txt = new CTextField(50, 50, "ДА");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        txt.x = 15;
-        txt.y = -5;
+        _txtYes = new CTextField(50, 50, "ДА");
+        _txtYes.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtYes.x = 15;
+        _txtYes.y = -5;
         _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);
-        _btnYes.addChild(txt);
+        _btnYes.addChild(_txtYes);
         _source.addChild(_btnYes);
 
         _btnNo = new CButton();
-        txt = new CTextField(50, 50, "НЕТ");
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
-        txt.x = 15;
-        txt.y = -5;
+        _txtNo = new CTextField(50, 50, "НЕТ");
+        _txtNo.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
+        _txtNo.x = 15;
+        _txtNo.y = -5;
         _btnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
-        _btnNo.addChild(txt);
+        _btnNo.addChild(_txtNo);
         _source.addChild(_btnNo);
         _btnNo.clickCallback = onClickNo;
 
@@ -80,7 +84,6 @@ public class WOLastResource extends WindowMain {
         }
         var item:WOLastResourceItem;
         var i:int;
-        _window = params[1];
         switch (params[1]) {
             case 'order':
                 for (i=0; i < _dataResource.resourceIds.length; i++) {
@@ -199,8 +202,18 @@ public class WOLastResource extends WindowMain {
                 _btnYes.clickCallback = onClickFabric;
 
         }
-
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+
+    private function onShow():void {
+        _txt.updateIt();
+        _txtAhtung.updateIt();
+        _txtNo.updateIt();
+        _txtYes.updateIt();
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].updateTextField();
+        }
     }
 
     private function onClickOrder():void {

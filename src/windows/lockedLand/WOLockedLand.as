@@ -34,6 +34,8 @@ public class WOLockedLand extends WindowMain {
     private var _birka:Birka;
     private var _pl:HintBackground;
     private var _bgC:CartonBackground;
+    private var _txtInfo:CTextField;
+    private var _txtBtn:CTextField;
 
     public function WOLockedLand() {
         super();
@@ -55,9 +57,9 @@ public class WOLockedLand extends WindowMain {
 
         _btnOpen = new CButton();
         _btnOpen.addButtonTexture(158, 46, CButton.BLUE, true);
-        var txt:CTextField = new CTextField(158,46,'Открыть участок');
-        txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _btnOpen.addChild(txt);
+        _txtBtn = new CTextField(158,46,'Открыть участок');
+        _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _btnOpen.addChild(_txtBtn);
         _btnOpen.x = 0;
         _btnOpen.y = -_woHeight/2 + 515;
         _source.addChild(_btnOpen);
@@ -67,9 +69,9 @@ public class WOLockedLand extends WindowMain {
         _pl.y = -_woHeight/2 + 109;
         _pl.addShadow();
         _source.addChild(_pl);
-        txt = new CTextField(310,97,'Выполните следующие задания, чтобы открыть этот участок');
-        txt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
-        _pl.inSprite.addChild(txt);
+        _txtInfo = new CTextField(310,97,'Выполните следующие задания, чтобы открыть этот участок');
+        _txtInfo.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
+        _pl.inSprite.addChild(_txtInfo);
         addAnimation();
     }
 
@@ -123,7 +125,17 @@ public class WOLockedLand extends WindowMain {
         checkBtn();
         WorldClock.clock.add(_armature);
         showAnimation();
+        onWoShowCallback = onShow;
         super.showIt();
+    }
+
+    private function onShow():void {
+        _birka.updateTextField();
+        _txtBtn.updateIt();
+        _txtInfo.updateIt();
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _arrItems[i].updateTextField();
+        }
     }
 
     private function checkBtn():void {

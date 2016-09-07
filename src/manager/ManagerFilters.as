@@ -15,7 +15,7 @@ public class ManagerFilters {
     public static var ORANGE_COLOR:int = 0xd06d0a; 
     public static var LIGHT_GREEN_COLOR:int = 0x40f61c;  
     public static var HARD_GREEN_COLOR:int = 0x10650a;
-    public static var GREEN_COLOR:int = 0x367f30;
+    public static var GREEN_COLOR:int = 0x29b21d;
     public static var YELLOW_COLOR:int = 0xa37b01;
     public static var HARD_YELLOW_COLOR:int = 0x72590c;
     public static var LIGHT_YELLOW_COLOR:int = 0xeffd98;

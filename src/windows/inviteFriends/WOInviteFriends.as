@@ -27,6 +27,8 @@ public class WOInviteFriends extends WindowMain {
     private var _arrItem:Array;
 
     public function WOInviteFriends() {
+        // nyjno popravit teksta  !!!!
+        
         super();
         _windowType = WindowsManager.WO_INVITE_FRIENDS;
         _woWidth = 450;
@@ -67,9 +69,9 @@ public class WOInviteFriends extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void{
-        super.showIt();
         createFriend();
         g.socialNetwork.getFriends();
+        super.showIt();
     }
 
     private function createFriend():void {
