@@ -170,7 +170,8 @@ public class ManagerOrder {
         var arrOrderType1:Array = new Array(); //products
         var arrOrderType2:Array = new Array(); //cave res
         var arrOrderType3:Array = new Array(); // plants
-        var arr:Array;
+        var arrTemp:Array = new Array();
+        var arr:Array = new Array();
         var countResources:int;
         var k:int;
         var i:int=0;
@@ -190,11 +191,11 @@ public class ManagerOrder {
                 }
             } else countFastBuyer = 1;
                 if (countFastBuyer == 0) {
-                    arr = g.userInventory.getResourcesForAmbarAndSklad();
-                    if (arr.length >= 1) {
-                        for (i = 0; i < arr.length; i++) {
-                            if (g.dataResource.objectResources[arr[i].id].orderType == 0) {
-                                arr.splice(i, 1);
+                    arrTemp = g.userInventory.getResourcesForAmbarAndSklad();
+                    if (arrTemp.length >= 1) {
+                        for (i = 0; i < arrTemp.length; i++) {
+                            if (g.dataResource.objectResources[arrTemp[i].id].orderType != 0) {
+                                arr.push(arrTemp[i]);
                             }
                         }
                         if (arr.length >= 1) {

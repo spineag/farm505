@@ -94,12 +94,13 @@ public class MarketItem {
         isFill = 0;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtAdditem = new CTextField(80,70,'');
+        _txtAdditem = new CTextField(80,70,'Добавить товар');
         _txtAdditem.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtAdditem.cacheIt = false;
         _txtAdditem.x = 15;
         _txtAdditem.y = 30;
         source.addChild(_txtAdditem);
+        _txtAdditem.visible = true;
 
         _costTxt = new CTextField(122, 30, '');
         _costTxt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
@@ -222,7 +223,7 @@ public class MarketItem {
             _btnBuyCont.x = 55;
             _btnBuyCont.clickCallback = onClickBuy;
             buyCont.addChild(_btnBuyCont);
-            _txtAdditem.text = '';
+            _txtAdditem.visible = false;
         } else {
             source.endClickCallback = onClick;
         }
@@ -264,7 +265,7 @@ public class MarketItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
             return;
         }
-        _txtAdditem.text = '';
+        _txtAdditem.visible = false;
         _countResource = count;
         _countMoney = cost;
         _countTxt.text = String(_countResource);
@@ -287,7 +288,7 @@ public class MarketItem {
         g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
         g.userInventory.addResource(g.dataResource.objectResources[a].id, -count);
         fillIt(g.dataResource.objectResources[a],count, cost);
-        _txtAdditem.text = '';
+        _txtAdditem.visible = false;
         g.managerCutScenes.checkCutSceneForAddToPapper(this);
     }
 
@@ -323,7 +324,7 @@ public class MarketItem {
         g.userInventory.addMoney(1,-_countBuyCell);
         var f1:Function = function ():void {
             g.user.marketCell++;
-            _txtAdditem.text = 'Добавить товар';
+            _txtAdditem.visible = true;
             source.endClickCallback = onClick;
             _wo.addItemsRefresh();
             _closeCell = false;
@@ -572,8 +573,8 @@ public class MarketItem {
         _countResource = 0;
         if (_costTxt) _costTxt.text = '';
         if(_countTxt) _countTxt.text = '';
-        if (_isUser) _txtAdditem.text = 'Добавить товар';
-        else _txtAdditem.text = '';
+        if (_isUser) _txtAdditem.visible = true;
+        else _txtAdditem.visible = false;
         if (_data) _data = null;
         if (_personBuyerTemp) _personBuyerTemp = null;
         if (_btnGoAwaySaleItem) {
@@ -616,9 +617,9 @@ public class MarketItem {
 //                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
                 showSaleImage(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.cost);
                 _plawkabuy.visible = false;
-                _txtAdditem.text = '';
+                _txtAdditem.visible = false;
             } else { // sale anyway item
-                _txtAdditem.text = '';
+                _txtAdditem.visible = false;
                 fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost);
                 _plawkaCoins.visible = false;
                 _plawkaLvl.visible = false;
@@ -636,7 +637,7 @@ public class MarketItem {
                 _txtPlawka.visible = true;
                 _txtPlawka.y = 75;
                 _txtPlawka.text = String("Доступно на уровне: " + g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel);
-                _txtAdditem.text = '';
+                _txtAdditem.visible = false;
                 isFill = 3;
             }
         }
@@ -681,7 +682,7 @@ public class MarketItem {
         }
         _txtPlawka.visible = true;
         _txtPlawka.y = 45;
-        _txtAdditem.text = '';
+        _txtAdditem.visible = false;
         _countMoney = cost;
         _coin.y = 85;
         _coin.x = _bg.width/2;
@@ -842,11 +843,11 @@ public class MarketItem {
 
     public function friendAdd(user:Boolean = false):void {
         if(_closeCell) return;
-        if (!user)_txtAdditem.text = '';
+        if (!user)_txtAdditem.visible = false;
         else {
             if (isFill == 1 ||  isFill == 2 ) {
-                _txtAdditem.text = '';
-            } else _txtAdditem.text = 'Добавить товар';
+                _txtAdditem.visible = false;
+            } else _txtAdditem.visible = true;
         }
         _isUser = user;
     }
