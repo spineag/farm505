@@ -96,6 +96,8 @@ public class WOTrainItem {
         } else {
             _txtRed.changeTextColor = ManagerFilters.ORANGE_COLOR;
         }
+        _txtWhite.visible = true;
+        _txtRed.visible = true;
         _txtRed.text = String(curCount);
         _txtWhite.text = '/' + String(_info.count);
         _txtWhite.x = 23;
@@ -120,6 +122,8 @@ public class WOTrainItem {
             _galo4ka.visible = true;
             _txtWhite.text = '';
             _txtRed.text = '';
+            _txtWhite.visible = false;
+            _txtRed.visible = false;
         }
     }
 
@@ -164,8 +168,9 @@ public class WOTrainItem {
 
     public function fullIt():void {
         _galo4ka.visible = true;
-        _txtWhite.text = '';
-        _txtRed.text = '';
+        _txtWhite.visible = false;
+        _txtRed.visible = false;
+//        updateTextField();
         _info.fullIt(_im);
     }
 
@@ -214,6 +219,8 @@ public class WOTrainItem {
     public function updateIt():void {
         if (_info) {
             if (!_galo4ka.visible) {
+                _txtWhite.visible = true;
+                _txtRed.visible = true;
                 var curCount:int = g.userInventory.getCountResourceById(_info.id);
                 _txtRed.text = String(g.userInventory.getCountResourceById(_info.id));
 //                if (curCount >= _info.count) {

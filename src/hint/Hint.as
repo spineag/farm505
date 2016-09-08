@@ -83,12 +83,13 @@ public class Hint {
 
         if (!_catXp )  {
             _txtHint.x = 0;
-            _txtHint.width = rectangle.width + 20; var tween:Tween = new Tween(source, 0.1);
-            tween.scaleTo(1);
-            tween.onComplete = function ():void {
-                g.starling.juggler.remove(tween);
-            };
-            g.starling.juggler.add(tween);
+            _txtHint.width = rectangle.width + 20;
+//            var tween:Tween = new Tween(source, 0.1);
+//            tween.scaleTo(1);
+//            tween.onComplete = function ():void {
+//                g.starling.juggler.remove(tween);
+//            };
+//            g.starling.juggler.add(tween);
         } else {
             _txtHint.width = 150;
         }
@@ -116,14 +117,14 @@ public class Hint {
         _isShow = true;
         g.cont.hintCont.addChild(source);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
-        source.scaleX = source.scaleY = 0;
-        tween = new Tween(source, 0.4);
-        tween.scaleTo(1);
-        tween.onComplete = function ():void {
-            g.starling.juggler.remove(tween);
-
-        };
-        g.starling.juggler.add(tween);
+//        source.scaleX = source.scaleY = 0;
+//        tween = new Tween(source, 0.4);
+//        tween.scaleTo(1);
+//        tween.onComplete = function ():void {
+//            g.starling.juggler.remove(tween);
+//
+//        };
+//        g.starling.juggler.add(tween);
     }
 
     private function onEnterFrame():void {

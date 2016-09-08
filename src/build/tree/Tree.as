@@ -305,7 +305,7 @@ public class Tree extends WorldObject {
 //            b = _armature.getBone(st);
 //            _armature.removeBone(b);
 //        }
-        if (b)b.visible = false;
+        if (b) b.visible = false;
         else {
             st = 'fruit' + (_countCrafted+1);
             b = _armature.getBone(st);
