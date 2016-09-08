@@ -75,6 +75,7 @@ public class FriendItem {
 
         txtLvl = new CTextField(40, 18, "");
         txtLvl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        txtLvl.cacheIt = false;
         txtLvl.text = '1';
         txtLvl.text = String(_person.level);
         txtLvl.x = 29;

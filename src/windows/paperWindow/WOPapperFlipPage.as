@@ -31,7 +31,7 @@ public class WOPapperFlipPage extends Sprite3D{
         this.addChild(_back);
         this.alignPivot();
         this.pivotX = -this.width/2;
-        this.y = 5;
+        this.y = 29;
 
         var f1:Function = function():void {
             _top.dispose();

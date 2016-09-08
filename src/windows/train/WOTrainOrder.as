@@ -54,11 +54,11 @@ public class WOTrainOrder extends WindowMain{
         im.x = 35;
         _btn.addDisplayObject(im);
         _txtNow = new CTextField(100,50,"привезти сейчас");
-        _txtNow.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtNow.setFormat(CTextField.BOLD18, 16, Color.WHITE);
         _txtNow.x = 60;
         _btn.addChild(_txtNow);
         _txtCost = new CTextField(50,50,"30");
-        _txtCost.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCost.setFormat(CTextField.BOLD18, 16, Color.WHITE);
         _txtCost.x = -5;
         _btn.addChild(_txtCost);
         _btn.y = 110;
@@ -72,13 +72,13 @@ public class WOTrainOrder extends WindowMain{
         _source.addChild(_txtArrive);
 
         _txtNext = new CTextField(150,50,"Следующий заказ:");
-        _txtNext.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtNext.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
         _txtNext.x = -80;
         _txtNext.y = -60;
         _source.addChild(_txtNext);
 
         _txtTime2 = new CTextField(300,50,"Корзина прибудет к станции через:");
-        _txtTime2 .setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtTime2 .setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
         _txtTime2.cacheIt = false;
         _txtTime2 .x = -150;
         _txtTime2 .y = -120;

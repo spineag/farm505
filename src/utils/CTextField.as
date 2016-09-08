@@ -70,7 +70,7 @@ public class CTextField extends DisplayObjectContainer {
         if (!_useBitmapFont) {
 //            if (_colorStroke != 0xabcdef) {
                 _txt.filter = new GlowFilter(_colorStroke, 5, .7, 1);
-                _txt.filter.cache();
+                if (_cacheIt) _txt.filter.cache();
 //            }
         }
         if (_style) _txt.style = _style;

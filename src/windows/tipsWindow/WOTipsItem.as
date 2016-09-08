@@ -55,7 +55,6 @@ public class WOTipsItem {
     public function updateTextField():void {
         _txt.updateIt();
         _txtBtn.updateIt();
-        
     }
 
     public function fillIt(ob:Object):void {

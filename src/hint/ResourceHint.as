@@ -114,7 +114,7 @@ public class ResourceHint {
         if (_fabrickBoo) {
             _txtText.text = "Будет доступно на: " + g.dataRecipe.objectRecipe[_id].blockByLevel + ' уровне';
             _txtText.x = -100;
-            _txtText.y = -15;
+            _txtText.y = -10;
             wName = _txtText.textBounds.width + 40;
             bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
@@ -127,7 +127,7 @@ public class ResourceHint {
         if (g.dataResource.objectResources[_id].blockByLevel > g.user.level) {
             _txtText.text = "Будет доступно на: " + g.dataResource.objectResources[_id].blockByLevel + ' уровне';
             _txtText.x = -100;
-            _txtText.y = -15;
+            _txtText.y = -10;
             wName = _txtText.textBounds.width + 40;
             bg = new HintBackground(wName, 50, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);

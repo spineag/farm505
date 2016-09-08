@@ -133,10 +133,9 @@ public class MarketItem {
 
         _plawkaLvl.visible = false;
 
-        _txtPlawka = new CTextField(90,60, 'Продано');
-        _txtPlawka.setFormat(CTextField.BOLD14, 14, Color.WHITE);
+        _txtPlawka = new CTextField(100,60, 'Продано');
+        _txtPlawka.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
         _txtPlawka.cacheIt = false;
-        _txtPlawka.x = 10;
         _txtPlawka.y = 85;
         _txtPlawka.visible = false;
         source.addChild(_txtPlawka);

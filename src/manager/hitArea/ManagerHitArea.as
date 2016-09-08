@@ -34,7 +34,11 @@ public class ManagerHitArea {
         } else {
             var area:OwnHitArea = new OwnHitArea();
             if (type == TYPE_CREATE) {
-                area.createFromStarlingSprite(sp, name);
+                if (name == 'bt_close') {
+                    area.createCircle(sp, name);
+                } else {
+                    area.createFromStarlingSprite(sp, name);
+                }
             } else if (type == TYPE_LOADED) {
                 if (_obLoaded[name]) {
                     area.createFromLoaded(_obLoaded[name], sp, name);

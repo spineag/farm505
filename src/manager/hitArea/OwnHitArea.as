@@ -311,6 +311,46 @@ public class OwnHitArea {
         }
     }
 
+    public function createCircle(sp:starling.display.Sprite, nm:String):void {
+        _name = nm;
+        _source = sp;
+        _rect = sp.getBounds(sp);
+        _w = int(_rect.width * bitmapScaling);
+        _h = int(_rect.height * bitmapScaling);
+        _rect.x = int(_rect.x * bitmapScaling);
+        _rect.y = int(_rect.y * bitmapScaling);
+
+        var s:Shape = new Shape();
+        s.graphics.beginFill(Color.RED);
+        s.graphics.drawCircle(_w/2, _h/2, _w/2);
+        s.graphics.endFill();
+        var s2:flash.display.Sprite = new flash.display.Sprite();
+        s2.addChild(s);
+        var bm:BitmapData = DrawToBitmap.copyToBitmapDataFromFlashSprite(s2);
+        var tempBitmapData:BitmapData = new BitmapData(_w, _h);
+        bitmapScaling < 1 ? tempBitmapData.draw(bm, new Matrix(bitmapScaling, 0, 0, bitmapScaling, 0, 0)) : tempBitmapData = bm.clone();
+        bm.dispose();
+        bm = null;
+
+        var i:int;
+        var j:int;
+        var isFullPixel:int;
+        var pixels:Vector.<int>;
+        var color:uint;
+        _pixelsArr = new Vector.<Vector.<int>>(_w);
+        for (i=0; i<_w; i++) {
+            pixels = new Vector.<int>;
+            for (j=0; j<_h; j++) {
+                color = tempBitmapData.getPixel(i, j);
+                if (color == Color.RED)
+                    isFullPixel = 2;
+                else isFullPixel = 1;
+                pixels[j] = isFullPixel;
+            }
+            _pixelsArr[i] = pixels;
+        }
+    }
+
     public function isTouchablePoint(x:int, y:int):Boolean {
         var isFullPixel:int;
         try {
