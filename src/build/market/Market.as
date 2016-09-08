@@ -151,16 +151,16 @@ public class Market extends WorldObject{
     private function fillIt():void {
         var coins:int = 0;
         var res:int = 0;
-        var b:Slot;
+        var b:Bone;
         if (g.isAway) _arrItem = g.visitedUser.marketItems;
         else _arrItem = g.user.marketItems;
         if (!_arrItem) {
-            b = _armature.getSlot('fr');
-            if (b != null) _armature.removeSlot(b);
-            b = _armature.getSlot('fr2');
-            if (b != null) _armature.removeSlot(b);
-            b = _armature.getSlot('coins');
-            if (b != null) _armature.removeSlot(b);
+            b = _armature.getBone('fr');
+            if (b != null) b.visible = false;
+            b = _armature.getBone('fr2');
+            if (b != null) b.visible = false;
+            b = _armature.getBone('coins');
+            if (b != null) b.visible = false;
             return;
         }
         for (var i:int = 0; i < _arrItem.length; i++) {
@@ -173,23 +173,28 @@ public class Market extends WorldObject{
 
         _armature.animation.gotoAndStopByFrame('work');
         if (coins <= 0) {
-            b = _armature.getSlot('coins');
-            if (b != null) _armature.removeSlot(b);
+            b = _armature.getBone('coins');
+            if (b != null) b.visible = false;
 
         } else {
-            _armature.addBone(_coins);
+//            _armature.addBone(_coins);
+            _coins.visible = true;
         }
         if (res <= 0) {
-                b = _armature.getSlot('fr');
+                b = _armature.getBone('fr');
             if (b != null) {
-                _armature.removeSlot(b);
-
-                b = _armature.getSlot('fr2');
-                _armature.removeSlot(b);
+//                _armature.removeSlot(b);
+                    b.visible = false;
+                b = _armature.getBone('fr2');
+//                _armature.removeSlot(b);
+                b.visible = false;
             }
         } else {
-            _armature.addBone(_fruits1);
-            _armature.addBone(_fruits2);
+//            _armature.addBone(_fruits1);
+            _fruits1.visible = true;
+            _fruits2.visible = true;
+//            _armature.addBone(_fruits2);
+
         }
 
         _timer = 300;

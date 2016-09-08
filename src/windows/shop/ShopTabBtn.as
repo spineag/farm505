@@ -65,6 +65,7 @@ public class ShopTabBtn {
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
                     _txtNotification.visible = true;
+                    _txtNotification.text = String(g.user.villageNotification);
                 }
                 break;
             case WOShop.ANIMAL:
@@ -81,6 +82,7 @@ public class ShopTabBtn {
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
                     _txtNotification.visible = true;
+                    _txtNotification.text = String(g.user.fabricaNotification);
                 }
                 break;
             case WOShop.PLANT:
@@ -93,6 +95,7 @@ public class ShopTabBtn {
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
                     _txtNotification.visible = true;
+                    _txtNotification.text = String(g.user.plantNotification);
                 }
                 break;
             case WOShop.DECOR:
@@ -105,6 +108,7 @@ public class ShopTabBtn {
                     _imNotification.y = -5;
                     _source.addChild(_imNotification);
                     _txtNotification.visible = true;
+                    _txtNotification.text = String(g.user.decorNotification);
                 }
                 break;
         }
