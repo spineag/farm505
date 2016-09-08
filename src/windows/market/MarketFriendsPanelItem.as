@@ -28,7 +28,7 @@ public class MarketFriendsPanelItem{
     private var _wo:WOMarket;
     private var _planet:CSprite;
     private var _shiftFriend:int;
-    private var _planetBtn:WOButtonTexture;
+    private var _visitBtn:WOButtonTexture;
 
     private var g:Vars = Vars.getInstance();
 
@@ -70,11 +70,10 @@ public class MarketFriendsPanelItem{
         }
         if (_person.userSocialId != g.user.userSocialId) {
             _planet = new CSprite();
-            _planetBtn = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
-            var txtBtn:CTextField = new CTextField(80, 25, "Посетить");
-            txtBtn.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txtBtn.x = -8;
-            _planet.addChild(_planetBtn);
+            _visitBtn = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
+            var txtBtn:CTextField = new CTextField(65, 25, "Посетить");
+            txtBtn.setFormat(CTextField.BOLD14, 12, Color.WHITE);
+            _planet.addChild(_visitBtn);
             _planet.addChild(txtBtn);
             _planet.x = 20;
             _planet.y = -10;
@@ -133,10 +132,10 @@ public class MarketFriendsPanelItem{
         _person = null;
         _wo = null;
         if (_planet) {
-            _planet.removeChild(_planetBtn);
-            _planetBtn.deleteIt();
-            _planetBtn = null;
-            source.removeChild(_planetBtn);
+            _planet.removeChild(_visitBtn);
+            _visitBtn.deleteIt();
+            _visitBtn = null;
+            source.removeChild(_visitBtn);
             _planet.deleteIt();
             _planet = null;
         }

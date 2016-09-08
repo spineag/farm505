@@ -146,7 +146,7 @@ public class ManagerTips {
         count += ob.count;
         _arrTips.push(ob);
 
-        _tipsPanel.updateAvailableActionCount(count);
+        if (_tipsPanel) _tipsPanel.updateAvailableActionCount(count);
     }
 
     private function getRawRidge():Object {

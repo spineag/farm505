@@ -69,9 +69,8 @@ public class MarketFriendItem {
         source.outCallback = onOut;
         _visitBtn = new CButton();
         _visitBtn.addButtonTexture(70, 30, CButton.BLUE, true);
-        _txtBtn = new CTextField(80, 25, "Посетить");
-        _txtBtn.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtBtn.x = -5;
+        _txtBtn = new CTextField(70, 25, "Посетить");
+        _txtBtn.setFormat(CTextField.BOLD14, 14, Color.WHITE);
         _txtBtn.y = 3;
         _visitBtn.addChild(_txtBtn);
         _visitBtn.x = 55;

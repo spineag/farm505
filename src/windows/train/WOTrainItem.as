@@ -38,14 +38,14 @@ public class WOTrainItem {
         _txtWhite.alignH = Align.RIGHT;
         _txtWhite.x = 23;
         _txtWhite.y = 60;
-        _txtRed = new CTextField(30,30,'');
+        _txtRed = new CTextField(60,30,'');
         _txtRed.setFormat(CTextField.BOLD18, 18, ManagerFilters.ORANGE_COLOR, ManagerFilters.BROWN_COLOR);
         _txtRed.alignH = Align.RIGHT;
         _txtRed.y = 60;
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, 30, 30);
         _galo4ka.x = 65;
-        _galo4ka.y = 60;
+        _galo4ka.y = 5;
         source.addChild(_galo4ka);
         _galo4ka.visible = false;
         _isHover = false;
@@ -99,7 +99,7 @@ public class WOTrainItem {
         _txtRed.text = String(curCount);
         _txtWhite.text = '/' + String(_info.count);
         _txtWhite.x = 23;
-        _txtRed.x = 50 -_txtWhite.textBounds.width ;
+        _txtRed.x = 23 -_txtWhite.textBounds.width ;
         _im = currentImage();
         if (!_im) {
             Cc.error('WOTrainItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);

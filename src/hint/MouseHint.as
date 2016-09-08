@@ -53,9 +53,9 @@ public class MouseHint {
 //        _imageCircle.y = _source.height - 23;
 //        _source.addChild(_imageCircle);
         _txtCount = new CTextField(30,30,"");
-        _txtCount.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCount.x = 29;
-        _txtCount.y = 39;
+        _txtCount.setFormat(CTextField.BOLD14, 14, Color.WHITE);
+        _txtCount.x = 28;
+        _txtCount.y = 38;
         _source.addChild(_txtCount);
     }
 
@@ -90,6 +90,7 @@ public class MouseHint {
         _isShowed = true;
 //        _imageCircle.visible = false;
         _txtCount.text = '';
+        _txtCount.visible = false;
         g.cont.hintContUnder.addChild(_source);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
         onEnterFrame();
@@ -102,7 +103,7 @@ public class MouseHint {
                 break;
             case CLOCK:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(CLOCK));
-                    MCScaler.scale(_image,_image.height-2,_image.width-2);
+                MCScaler.scale(_image,_image.height-2,_image.width-2);
                 _image.x = 7;
                 _image.y = 12;
                 _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_3'));
@@ -124,6 +125,7 @@ public class MouseHint {
                 break;
             case ANIMAL:
 //                _imageCircle.visible = true;
+                _txtCount.visible = true;
                 _txtCount.text = String(g.userInventory.getCountResourceById(dat.idResourceRaw));
                 if (g.dataResource.objectResources[dat.idResourceRaw].buildType == BuildType.PLANT)
                     _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[dat.idResourceRaw].imageShop + '_icon'));

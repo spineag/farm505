@@ -144,6 +144,7 @@ public class WOMarketChoose extends WindowMain {
         _tabAmbar.addChild(im);
         _txtAmbar = new CTextField(90, 40, "Амбар");
         _txtAmbar.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtAmbar.touchable = true;
         _txtAmbar.x = 31;
         _txtAmbar.y = 2;
         _tabAmbar.addChild(_txtAmbar);
@@ -175,6 +176,7 @@ public class WOMarketChoose extends WindowMain {
         _tabSklad.addChild(im);
         _txtSklad = new CTextField(90, 40, "Склад");
         _txtSklad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtSklad.touchable = true;
         _txtSklad.x = 34;
         _txtSklad.y = 2;
         _tabSklad.addChild(_txtSklad);

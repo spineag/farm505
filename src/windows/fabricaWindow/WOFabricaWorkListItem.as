@@ -267,9 +267,11 @@ public class WOFabricaWorkListItem {
             _proposeBtn = new CButton();
             txtPropose = new CTextField(46, 28, "+");
             txtPropose.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            txtPropose.touchable = true;
             _proposeBtn.addChild(txtPropose);
             txtPropose2 = new CTextField(46, 28, String(buyCount));
             txtPropose2.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
+            txtPropose2.touchable = true;
             txtPropose2.y = 20;
             txtPropose2.x = -10;
             _proposeBtn.addChild(txtPropose2);

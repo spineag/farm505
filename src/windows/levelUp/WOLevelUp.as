@@ -349,6 +349,7 @@ public class WOLevelUp extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        g.levelUpHint.hideIt();
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.LEVEL_UP) {
             g.managerTutorial.checkTutorialCallback();
         }

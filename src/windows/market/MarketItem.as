@@ -268,6 +268,7 @@ public class MarketItem {
         _countResource = count;
         _countMoney = cost;
         _countTxt.text = String(_countResource);
+        _countTxt.updateIt();
         _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
         _coin.y = 102;
