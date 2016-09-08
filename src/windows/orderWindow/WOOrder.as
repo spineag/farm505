@@ -1063,9 +1063,7 @@ public class WOOrder extends WindowMain{
         if (!_armatureCustomer) return;
         _source.removeChild(_armatureCustomer.display as Sprite);
         _source.removeChild(_armatureSeller.display as Sprite);
-        _armatureCustomer.dispose();
         _armatureCustomer = null;
-        _armatureSeller.dispose();
         _armatureSeller = null;
     }
 

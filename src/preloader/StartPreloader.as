@@ -22,13 +22,12 @@ import utils.FarmDispatcher;
 
 public class StartPreloader {
     [Embed(source="../../assets/preloaderAtlas.png")]
-    public static const PreloaderTexture:Class;
+    private const PreloaderTexture:Class;
     [Embed(source="../../assets/preloaderAtlas.xml", mimeType="application/octet-stream")]
-    public static const PreloaderTextureXML:Class;
+    private const PreloaderTextureXML:Class;
 
     private var _source:Sprite;
     private var _bg:Image;
-    private var _preloaderSprite:Sprite;
     private var _preloaderBG:Image;
     private var _preloaderLine:Image;
     private var _texture:Texture;
@@ -36,7 +35,6 @@ public class StartPreloader {
     private var _armature:Armature;
     private var _quad:Quad;
     private var _txt:CTextField;
-
 
     private var g:Vars = Vars.getInstance();
 
@@ -55,16 +53,6 @@ public class StartPreloader {
         _quad.x = 327;
         _quad.y = 599;
         _source.addChild(_quad);
-//        _preloaderSprite = new Sprite();
-//        _preloaderBG = new Image(_preloaderAtlas.getTexture('preloader_bg'));
-//        _preloaderLine = new Image(_preloaderAtlas.getTexture('preloader_line'));
-//        _preloaderSprite.addChild(_preloaderBG);
-//        _preloaderSprite.clipRect = new Rectangle(0, 0, _preloaderSprite.width, _preloaderSprite.height);
-//        _preloaderLine.x = -_preloaderLine.width;
-//        _preloaderSprite.addChild(_preloaderLine);
-//        _preloaderSprite.x = _source.width/2 - _preloaderBG.width/2;
-//        _preloaderSprite.y = 600;
-//        _source.addChild(_preloaderSprite);
         _txt = new CTextField(75,50,'0');
         _txt.setFormat(CTextField.BOLD24, 24, 0x0659b6);
         _source.addChild(_txt);
@@ -78,9 +66,6 @@ public class StartPreloader {
         (_armature.display as StarlingArmatureDisplay).y = _bg.height/2;
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         WorldClock.clock.add(_armature);
-//        _armature.animation.gotoAndStop('default', 0);
-
-
         setProgress(0);
     }
 
@@ -93,22 +78,27 @@ public class StartPreloader {
     }
 
     public function setProgress(a:int):void {
-//        _preloaderLine.x = -_preloaderLine.width*(100-a)/100;
         _quad.scaleX = a;
         _txt.text = String(a + '%');
     }
 
     public function hideIt():void {
-        g.cont.popupCont.removeChild(_source);
-        while (_source.numChildren) {
-            _source.removeChildAt(0);
+        if (_armature) WorldClock.clock.remove(_armature);
+        if (_source) {
+            g.cont.popupCont.removeChild(_source);
+            while (_source.numChildren) {
+                _source.removeChildAt(0);
+            }
+            _source.dispose();
+            _source = null;
         }
         if (_texture) _texture.dispose();
         if (_preloaderAtlas)_preloaderAtlas.dispose();
         if (_bg)_bg.dispose();
         if(_preloaderBG) _preloaderBG.dispose();
         if (_preloaderLine) _preloaderLine.dispose();
-        if (_armature) _armature = null;
+        if (_armature) _armature.dispose();
+        _armature = null;
     }
 }
 }

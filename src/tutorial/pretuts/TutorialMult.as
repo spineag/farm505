@@ -43,7 +43,6 @@ public class TutorialMult {
         _isLoad = false;
         _needStart = false;
         g.loadAnimation.load('animations_json/tuts/box_mult_m/', 'tutorial_mult', onLoad);
-
     }
 
     private function onLoad():void {

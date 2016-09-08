@@ -31,7 +31,7 @@ public class FlashAnimatedPreloader {
     public function deleteIt():void {
         WorldClock.clock.remove(_arma);
         _source.removeChild(_arma.display as Sprite);
-        _arma.dispose();
+        _arma = null;
         _source.dispose();
     }
 }

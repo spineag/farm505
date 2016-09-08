@@ -327,7 +327,6 @@ public class LockedLand extends WorldObject {
         if (_armatureOpen.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpen.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
         WorldClock.clock.remove(_armatureOpen);
         _contOpen.removeChild(_armatureOpen.display as StarlingArmatureDisplay);
-        _armatureOpen.dispose();
         _armatureOpen = null;
         openIt();
         g.windowsManager.openWindow(WindowsManager.POST_OPEN_LAND,null);

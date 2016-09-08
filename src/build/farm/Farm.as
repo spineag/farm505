@@ -236,6 +236,8 @@ public class Farm extends WorldObject{
             }
             an.source.x = p.x;
             an.source.y = p.y;
+
+            var arm:Armature;
             var f2:Function = function():void {
                 TweenMax.to(an.source, .5, {scaleY:1});
             };
@@ -249,6 +251,7 @@ public class Farm extends WorldObject{
                 arm.removeEventListener(EventObject.COMPLETE,null);
                 arm.removeEventListener(EventObject.LOOP_COMPLETE, null);
                 _contAnimals.removeChild(arm.display as StarlingArmatureDisplay);
+                arm = null;
             };
 
             var onAnimation1:Function = function():void {
@@ -270,7 +273,6 @@ public class Farm extends WorldObject{
             };
 
             if (!g.managerTutorial.isTutorial && !isFromServer) {
-                var arm:Armature;
                 arm = g.allData.factory['explode_an'].buildArmature("expl_fabric");
                 (arm.display as StarlingArmatureDisplay).x = p.x;
                 (arm.display as StarlingArmatureDisplay).y = p.y - 20;

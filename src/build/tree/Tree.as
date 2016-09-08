@@ -875,6 +875,7 @@ public class Tree extends WorldObject {
     override public function clearIt():void {
         onOut();
         WorldClock.clock.remove(_armature);
+        _armature = null;
         g.gameDispatcher.removeFromTimer(render);
         _resourceItem = null;
         _source.touchable = false;

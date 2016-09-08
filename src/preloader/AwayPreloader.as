@@ -68,7 +68,6 @@ public class AwayPreloader {
             _bg.dispose();
             _bg = null;
             _source.removeChild(_armature as Sprite);
-            _armature.dispose();
             _armature = null;
             _source.dispose();
             _source = null;

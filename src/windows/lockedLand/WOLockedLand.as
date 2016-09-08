@@ -196,7 +196,6 @@ public class WOLockedLand extends WindowMain {
         if (_armature) if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, showAnimation);
         if (_armature) if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, showAnimation);
         if (_armature) _source.removeChild(_armature.display as Sprite);
-        if (_armature) _armature.dispose();
         if (_armature) _armature = null;
         _source.removeChild(_btnOpen);
         _btnOpen.deleteIt();

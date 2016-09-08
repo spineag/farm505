@@ -185,7 +185,6 @@ public class HeroCatsAnimation {
         WorldClock.clock.remove(arma);
         if (arma.hasEventListener(EventObject.COMPLETE)) arma.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
         if (arma.hasEventListener(EventObject.LOOP_COMPLETE)) arma.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
-//        arma.dispose();
         arma = null;
     }
 

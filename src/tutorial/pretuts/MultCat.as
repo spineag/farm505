@@ -62,6 +62,7 @@ public class MultCat {
         _armature.removeEventListener(EventObject.COMPLETE, onHello);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onHello);
         WorldClock.clock.remove(_armature);
+        _armature = null;
         _parent.removeChild(_source);
         _source.dispose();
     }

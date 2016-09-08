@@ -740,7 +740,6 @@ public class Fabrica extends WorldObject {
         if (_armatureOpen.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpen.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
         WorldClock.clock.remove(_armatureOpen);
         _source.removeChild(_armatureOpen.display as Sprite);
-        _armatureOpen.dispose();
         _armatureOpen = null;
         if (!g.managerTutorial.isTutorial) {
             g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
