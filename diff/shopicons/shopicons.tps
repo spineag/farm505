@@ -192,22 +192,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>sklad_icon.png</filename>
-            <filename>smelter_icon.png</filename>
-            <filename>smoke_house_icon.png</filename>
-            <filename>sugar_mill_icon.png</filename>
-            <filename>sunflower_icon.png</filename>
-            <filename>swamp_decor_icon.png</filename>
-            <filename>trampoline_yellow_icon.png</filename>
-            <filename>trees_1_icon.png</filename>
-            <filename>trees_2_icon.png</filename>
-            <filename>trees_3_icon.png</filename>
-            <filename>trees_4_icon.png</filename>
-            <filename>trees_5_icon.png</filename>
-            <filename>trees_6_icon.png</filename>
-            <filename>trees_7_icon.png</filename>
-            <filename>umbrella_green_icon.png</filename>
-            <filename>white_fence_icon.png</filename>
             <filename>cat_icon.png</filename>
             <filename>chair_1_icon.png</filename>
             <filename>chair_2_icon.png</filename>
@@ -226,11 +210,13 @@
             <filename>feed_mill_icon.png</filename>
             <filename>fir_1_icon.png</filename>
             <filename>fir_2_icon.png</filename>
+            <filename>fryer_icon.png</filename>
             <filename>gate_alive_closed_icon.png</filename>
             <filename>gate_blue_closed_icon.png</filename>
             <filename>gate_pink_closed_icon.png</filename>
             <filename>gate_white_closed_icon.png</filename>
             <filename>juice_press_icon.png</filename>
+            <filename>loom_icon.png</filename>
             <filename>picnic_pink_icon.png</filename>
             <filename>pie_oven_icon.png</filename>
             <filename>pig_icon.png</filename>
@@ -259,12 +245,33 @@
             <filename>blue_fence_icon.png</filename>
             <filename>blueberry_icon.png</filename>
             <filename>bridge_icon.png</filename>
-            <filename>loom_icon.png</filename>
-            <filename>fryer_icon.png</filename>
+            <filename>sklad_icon.png</filename>
+            <filename>smelter_icon.png</filename>
+            <filename>smoke_house_icon.png</filename>
+            <filename>sugar_mill_icon.png</filename>
+            <filename>sunflower_icon.png</filename>
+            <filename>swamp_decor_icon.png</filename>
+            <filename>track_blue_cross_icon.png</filename>
             <filename>track_blue_icon.png</filename>
+            <filename>track_orange_icon.png</filename>
+            <filename>track_pink_heart_icon.png</filename>
             <filename>track_pink_icon.png</filename>
+            <filename>track_pink_white_icon.png</filename>
+            <filename>track_purple_icon.png</filename>
+            <filename>track_white_blue_icon.png</filename>
             <filename>track_white_icon.png</filename>
+            <filename>track_white_pink_icon.png</filename>
             <filename>track_yellow_icon.png</filename>
+            <filename>trampoline_yellow_icon.png</filename>
+            <filename>trees_1_icon.png</filename>
+            <filename>trees_2_icon.png</filename>
+            <filename>trees_3_icon.png</filename>
+            <filename>trees_4_icon.png</filename>
+            <filename>trees_5_icon.png</filename>
+            <filename>trees_6_icon.png</filename>
+            <filename>trees_7_icon.png</filename>
+            <filename>umbrella_green_icon.png</filename>
+            <filename>white_fence_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

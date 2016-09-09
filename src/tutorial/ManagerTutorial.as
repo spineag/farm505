@@ -2078,6 +2078,7 @@ public class ManagerTutorial {
         g.user.tutorialStep = 101;
         updateTutorialStep();
         clearAll();
+        g.managerOrder.checkOrders();
     }
 
 
