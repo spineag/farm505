@@ -227,11 +227,11 @@ public class LevelUpHint {
                 _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
                 _imageClock.y = 70;
                 _txtName.text = String(g.dataResource.objectResources[_dataId].name);
-                _txtName.x = -75;
+                _txtName.x = -100;
                 _txtName.y = 20;
                 _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime);
-                _txtTime.x = -10;
-                _txtTime.y = 60;
+                _txtTime.x = -90;
+                _txtTime.y = 33;
                 _txtText.text = "Растет на: " + objTrees[i].name;
                 _txtText.x = -100;
                 _txtText.y = 5;

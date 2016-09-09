@@ -261,6 +261,7 @@ public class WOMarketChoose extends WindowMain {
                 cell.clickCallback = onCellClick;
                 _arrCells.push(cell);
                 _scrollSprite.addNewCell(cell.source);
+                cell.updateTextField();
             }
         } catch(e:Error) {
             Cc.error('WOAmbar fillItems:: error ' + e.errorID + ' - ' + e.message);

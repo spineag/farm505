@@ -96,7 +96,7 @@ public class WOTipsItem {
                 break;
             case ManagerTips.TIP_DAILY_BONUS:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('wheel_of_fortune_icon'));
-                _txt.text = 'Запустить "Колесо фортуны"';
+                _txt.text = 'Запустить Колесо фортуны';
                 break;
             case ManagerTips.TIP_WILD:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('tree_saw_icon'));

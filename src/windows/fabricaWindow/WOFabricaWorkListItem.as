@@ -10,6 +10,8 @@ import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
 
+import flash.geom.Matrix;
+
 import flash.geom.Point;
 import manager.ManagerFilters;
 import resourceItem.RawItem;
@@ -51,6 +53,7 @@ public class WOFabricaWorkListItem {
     private var _rubinSmall:Image;
     private var _txt:CTextField;
     private var _priceSkip:int;
+    private var _armatureBoom:Armature;
     private var g:Vars = Vars.getInstance();
 
     public function WOFabricaWorkListItem(type:String = 'small') {
@@ -160,40 +163,43 @@ public class WOFabricaWorkListItem {
         }
 
         var onFinish:Function = function():void {
-            WorldClock.clock.remove(arm);
-            arm.removeEventListener(EventObject.COMPLETE, onFinish);
-            arm.removeEventListener(EventObject.LOOP_COMPLETE, onFinish);
-            _source.removeChild(arm.display as StarlingArmatureDisplay);
-            arm = null;
+            if (_armatureBoom) {
+                WorldClock.clock.remove(_armatureBoom);
+                _armatureBoom.removeEventListener(EventObject.COMPLETE, onFinish);
+                _armatureBoom.removeEventListener(EventObject.LOOP_COMPLETE, onFinish);
+                _source.removeChild(_armatureBoom.display as StarlingArmatureDisplay);
+                _armatureBoom = null;
+            }
             if (g.managerTutorial) {
 //                removeArrow();
                 g.managerTutorial.checkTutorialCallback();
             }
         };
         if (buy) {
-            var arm:Armature;
-            arm = g.allData.factory['explode_gray_fabric'].buildArmature("expl_fabric");
-            (arm.display as StarlingArmatureDisplay).x = _bg.width / 2;
-            (arm.display as StarlingArmatureDisplay).y = _bg.height;
+
+            _armatureBoom = g.allData.factory['explode_gray_fabric'].buildArmature("expl_fabric");
+            (_armatureBoom.display as StarlingArmatureDisplay).x = _bg.width / 2;
+            (_armatureBoom.display as StarlingArmatureDisplay).y = _bg.height;
             if (_type == SMALL_CELL) {
-                (arm.display as StarlingArmatureDisplay).scale = .5;
+                (_armatureBoom.display as StarlingArmatureDisplay).scale = .5;
             }
-            WorldClock.clock.add(arm);
-            _source.addChild(arm.display as StarlingArmatureDisplay);
-            arm.addEventListener(EventObject.COMPLETE, onFinish);
-            arm.addEventListener(EventObject.LOOP_COMPLETE, onFinish);
-            arm.animation.gotoAndPlayByFrame("idle");
+            WorldClock.clock.add(_armatureBoom);
+            _source.addChild(_armatureBoom.display as StarlingArmatureDisplay);
+            _armatureBoom.addEventListener(EventObject.COMPLETE, onFinish);
+            _armatureBoom.addEventListener(EventObject.LOOP_COMPLETE, onFinish);
+            _armatureBoom.animation.gotoAndPlayByFrame("idle");
         }
 
         _icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(s));
         if (_type == BIG_CELL) {
             MCScaler.scale(_icon, 85, 100);
-            _icon.x = 53 - _icon.width/2;
-            _icon.y = 53 - _icon.height/2;
+            _icon.x = int(53 - _icon.width/2);
+            _icon.y = int(53 - _icon.height/2);
         } else {
-            MCScaler.scale(_icon, 44, 44);
-            _icon.x = 23 - _icon.width/2;
-            _icon.y = 22 - _icon.height/2;
+
+            MCScaler.scaleWithMatrix(_icon, 44, 44);
+            _icon.x = int(23 - _icon.width/2);
+            _icon.y = int(22 - _icon.height/2);
         }
         for(var id:String in g.dataRecipe.objectRecipe){
             if(g.dataRecipe.objectRecipe[id].idResource == _resource.resourceID){
@@ -388,6 +394,11 @@ public class WOFabricaWorkListItem {
     }
 
     public function deleteIt():void {
+        if (_armatureBoom) {
+            WorldClock.clock.remove(_armatureBoom);
+            _source.removeChild(_armatureBoom.display as StarlingArmatureDisplay);
+            _armatureBoom = null;
+        }
         if (_proposeBtn) {
             _source.removeChild(_proposeBtn);
             _proposeBtn.deleteIt();
