@@ -27,7 +27,7 @@ public class TipsPanel {
         _onHover = false;
         _source = new CSprite();
         _source.x = 70;
-        _source.y = 200;
+        _source.y = 185;
         var im:Image = new Image(g.allData.atlas['tipsAtlas'].getTexture('helper_cat_1'));
         im.x = -im.width/2;
         im.y = -im.height/2;

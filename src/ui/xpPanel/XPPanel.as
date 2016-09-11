@@ -101,6 +101,7 @@ public class XPPanel {
             g.userInventory.addNewElementsAfterGettingNewLevel();
             g.managerCats.calculateMaxCountCats();
             g.managerOrder.checkOrders();
+            if (g.user.level == 5) g.managerQuest.checkQuestsOnStart();
             if (g.user.level == g.dataBuilding.objectBuilding[45].blockByLevel)
                 g.managerDailyBonus.generateDailyBonusItems();
             if (g.user.level == 8) {
@@ -108,6 +109,9 @@ public class XPPanel {
             } else if (g.user.level == 10) {
                 g.managerTips.deleteTips();
                 g.managerTips = null;
+                g.managerQuest.checkQuestContPosition();
+            } else if (g.user.level == 17) {
+                g.managerQuest.checkQuestContPosition();
             }
             if (g.user.level >=5 && g.user.level < 10) {
                 if (g.managerTips) g.managerTips.calculateAvailableTips();

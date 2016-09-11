@@ -44,6 +44,9 @@ import media.SoundManager;
 import mouse.OwnMouse;
 import mouse.ToolsModifier;
 import preloader.StartPreloader;
+
+import quest.ManagerQuest;
+
 import server.DirectServer;
 import server.Server;
 import social.SocialNetwork;
@@ -192,6 +195,7 @@ public class Vars {
     public var userInventory:UserInventory;
     public var userTimer:UserTimer;
     public var managerDropResources:ManagerDropBonusResource;
+    public var managerQuest:ManagerQuest;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -481,9 +485,13 @@ public class Vars {
                 managerCutScenes.checkAvailableCutScenes();
             }
             managerHelpers = new ManagerHelpers();
+        managerQuest = new ManagerQuest();
             if (!managerTutorial.isTutorial) {
                 if ((user as User).level >= 4 && (user as User).level < 10) {
                     managerTips = new ManagerTips();
+                }
+                if ((user as User).level >= 5) {
+                    managerQuest.checkQuestsOnStart();
                 }
             }
 

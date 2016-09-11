@@ -27,6 +27,10 @@ public class DataPath {
         return g.useHttps ? 'https://' + MAIN_PATH_GRAPHICS : 'http://' + MAIN_PATH_GRAPHICS;
     }
 
+   public function getQuestIconPath():String {
+        return getGraphicsPath() + 'quest_icon/';
+    }
+
     public function getVersion():String {
         return 'php/' + API_VERSION;
     }

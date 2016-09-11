@@ -337,7 +337,7 @@ public class WorldObject {
         if (g.pBitmaps[_dataBuild.url]) {
             createPNGBuild1(null, onCreate);
         } else {
-            g.load.loadImage(_dataBuild.url, createPNGBuild1);
+            g.load.loadImage(_dataBuild.url, createPNGBuild1, onCreate);
         }
     }
 
