@@ -377,7 +377,7 @@ public class WorldObject {
 
     protected function deleteIsoView():void {
         if (_isoView) {
-            _source.removeChild(_isoView);
+            if (_source) _source.removeChild(_isoView);
             _isoView.dispose();
             _isoView = null;
         }

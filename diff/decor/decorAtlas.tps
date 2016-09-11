@@ -192,6 +192,7 @@
         </struct>
         <key>fileList</key>
         <array>
+            <filename>fence</filename>
             <filename>amanita_1_red.png</filename>
             <filename>amanita_2_red.png</filename>
             <filename>arbor.png</filename>
@@ -200,8 +201,8 @@
             <filename>beach_chair_red.png</filename>
             <filename>bridge.png</filename>
             <filename>cat_statue.png</filename>
-            <filename>chair_1.png</filename>
-            <filename>chair_2.png</filename>
+            <filename>Chair_1.png</filename>
+            <filename>Chair_2.png</filename>
             <filename>dandelion.png</filename>
             <filename>easel_clear.png</filename>
             <filename>farming_table.png</filename>
@@ -218,10 +219,18 @@
             <filename>picnic_pink.png</filename>
             <filename>sunflower.png</filename>
             <filename>swamp_decor.png</filename>
+            <filename>track_blue_cross.png</filename>
+            <filename>track_blue.png</filename>
+            <filename>track_orange.png</filename>
+            <filename>track_pink_heart.png</filename>
+            <filename>track_pink_white.png</filename>
+            <filename>track_pink.png</filename>
+            <filename>track_purple.png</filename>
+            <filename>track_white_blue.png</filename>
+            <filename>track_white_pink.png</filename>
+            <filename>track_white.png</filename>
+            <filename>track_yellow.png</filename>
             <filename>trampoline_yellow.png</filename>
-            <filename>umbrella_green.png</filename>
-            <filename>well_white.png</filename>
-            <filename>well_yellow.png</filename>
             <filename>trees_1.png</filename>
             <filename>trees_2.png</filename>
             <filename>trees_3.png</filename>
@@ -229,11 +238,9 @@
             <filename>trees_5.png</filename>
             <filename>trees_6.png</filename>
             <filename>trees_7.png</filename>
-            <filename>track_pink.png</filename>
-            <filename>track_white.png</filename>
-            <filename>track_yellow.png</filename>
-            <filename>track_blue.png</filename>
-            <filename>fence</filename>
+            <filename>umbrella_green.png</filename>
+            <filename>well_white.png</filename>
+            <filename>well_yellow.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

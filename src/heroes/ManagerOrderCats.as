@@ -222,7 +222,6 @@ public class ManagerOrderCats {
         else {
             return int(max);
         }
-//        return 5;
     }
 
     private function arriveNewCat(cat:OrderCat):void {
