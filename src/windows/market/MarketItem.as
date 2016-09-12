@@ -160,6 +160,7 @@ public class MarketItem {
         _papperBtn.setPivots();
         _papperBtn.x = 15;
         _papperBtn.y = 10;
+        _papperBtn.alpha = 1;
         source.addChild(_papperBtn);
         _papperBtn.clickCallback = onPaper;
         _papperBtn.hoverCallback = function ():void {
@@ -173,6 +174,7 @@ public class MarketItem {
 
         _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         _imCheck.x = 3;
+        _imCheck.y = -3;
         MCScaler.scale(_imCheck,20,20);
         source.addChild(_imCheck);
         _imCheck.visible = false;
@@ -347,6 +349,7 @@ public class MarketItem {
         _dataFromServer.inPapper = true;
         _papperBtn.visible = true;
         _imCheck.visible = true;
+        _papperBtn.alpha = .8;
         g.hint.hideIt();
         _dataFromServer.timeInPapper = int(new Date().getTime() / 1000);
         _wo.startPapperTimer();
@@ -359,9 +362,11 @@ public class MarketItem {
             if ((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper) * (-1) <= 10800) {
                 _papperBtn.visible = true;
                 _imCheck.visible = true;
+                _papperBtn.alpha = .8;
             } else {
                 _papperBtn.visible = false;
                 _imCheck.visible = false;
+                _papperBtn.alpha = 1;
                 g.directServer.updateMarketPapper(number, false, null);
             }
         } else _papperBtn.visible = _wo.booleanPaper;
@@ -391,6 +396,7 @@ public class MarketItem {
     private function deleteCallback():void {
         _papperBtn.visible = false;
         _imCheck.visible = false;
+        _papperBtn.alpha = 1;
         _inPapper = false;
         g.userInventory.addMoney(1,-1);
         g.userInventory.addResource(_data.id, _countResource);
@@ -563,6 +569,8 @@ public class MarketItem {
         _inPapper = false;
         _papperBtn.visible = false;
         _imCheck.visible = false;
+        _papperBtn.alpha = 1;
+
     }
 
     public function unFillIt():void {

@@ -168,8 +168,8 @@ public class WOMarket  extends WindowMain {
         _contPaper.addChild(im);
 
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
-        im.x = 28;
-        im.y = 160;
+        im.x = 12;
+        im.y = 156;
         _contPaper.addChild(im);
 
         _btnPaper = new CButton();
