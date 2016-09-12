@@ -22,7 +22,7 @@ public class QuestUI {
 
     public function checkContPosition():void {
         if (g.user.level > 17) {
-            _cont.y = 270;
+            _cont.y = 210;
         } else if (g.user.level > 9) {
             _cont.y = 20;
         } else {
@@ -46,7 +46,7 @@ public class QuestUI {
         if (_countLoaded <= 0) {
             for (var i:int=0; i<_arrIcons.length; i++) {
                 if (i >= MAX_COUNT) return;
-                (_arrIcons[i] as QuestIcon).showAnimate(i * .5 + 2);
+                (_arrIcons[i] as QuestIcon).showAnimate(i * .5);
             }
         }
     }

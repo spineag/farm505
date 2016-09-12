@@ -3939,7 +3939,7 @@ public class DirectServer {
                 callback.apply();
             }
         } else if (d.id == 13) {
-            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+            Cc.error('GetUserWild: another game');
         } else {
             Cc.error('GetUserWild: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);

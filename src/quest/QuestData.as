@@ -21,28 +21,31 @@ public class QuestData {
         ob.id = 1;
         ob.type = TYPE_ADD_TO_GROUP;
         ob.text = 'Вступи в группу';
-        ob.awartCount = 200;
+        ob.awardCount = 200;
         ob.iconUrl = 'group.png';
         ob.level = 5;
+        ob.isAdded = false;
         _arr.push(ob);
 
         ob = {};
         ob.id = 2;
         ob.type = TYPE_ADD_LEFT_MENU;
         ob.text = 'Добавь игру в меню';
-        ob.awartCount = 100;
+        ob.awardCount = 100;
         ob.iconUrl = 'left_menu.png';
         ob.level = 5;
+        ob.isAdded = false;
         _arr.push(ob);
 
         ob = {};
         ob.id = 3;
         ob.type = TYPE_POST;
         ob.text = 'Расскажи друзьям о игре';
-        ob.awartCount = 100;
+        ob.awardCount = 100;
         ob.iconUrl = 'posting.png';
         ob.imageUrl = 'quest_posting';
         ob.level = 5;
+        ob.isAdded = false;
         _arr.push(ob);
     }
 
