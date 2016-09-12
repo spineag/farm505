@@ -3,6 +3,7 @@ import build.TownAreaBuildSprite;
 import build.WorldObject;
 import build.ambar.Ambar;
 import build.ambar.Sklad;
+import build.catHouse.CatHouse;
 import build.cave.Cave;
 import build.chestBonus.Chest;
 import build.dailyBonus.DailyBonus;
@@ -271,6 +272,20 @@ public class TownArea extends Sprite {
         _freePlace.fillCell(posX, posY);
         _townMatrix[posY][posX].inGame = !isDeactivated;
         _townTailMatrix[posY][posX].inGame = !isDeactivated;
+    }
+
+    public function fillCatHouseMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
+        for (var i:int = posY; i < (posY + sizeY); i++) {
+            for (j = posX; j < (posX + sizeX); j++) {
+                _freePlace.fillCell(j, i);
+                _townMatrix[i][j].build = source;
+                _townMatrix[i][j].isFull = true;
+                if (sizeX > 1 && sizeY > 1) {
+                    if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
+                        _townMatrix[i][j].isWall = true;
+                }
+            }
+        }
     }
 
     public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
@@ -552,6 +567,9 @@ public class TownArea extends Sprite {
             case BuildType.CAVE:
                 build = new Cave(_data);
                 break;
+            case BuildType.CAT_HOUSE:
+                build = new CatHouse(_data);
+                break;
             case BuildType.DAILY_BONUS:
                 build = new DailyBonus(_data);
                 break;
@@ -612,6 +630,18 @@ public class TownArea extends Sprite {
                     return;
                 }
             }
+        }
+
+
+        if (worldObject is CatHouse && !updateAfterMove) {
+            point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+            worldObject.posX = point.x;
+            worldObject.posY = point.y;
+            worldObject.source.x = int(_x);
+            worldObject.source.y = int(_y);
+            fillCatHouseMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+            _cityObjects.push(worldObject);
+            return;
         }
 
 
@@ -1436,6 +1466,9 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.AMBAR:
                 build = new Ambar(_data);
+                break;
+            case BuildType.CAT_HOUSE:
+                build = new CatHouse(_data);
                 break;
             case BuildType.SKLAD:
                 build = new Sklad(_data);

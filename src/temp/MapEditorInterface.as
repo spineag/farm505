@@ -92,24 +92,27 @@ public class MapEditorInterface {
 
         _contBuildings = new Sprite();
         _allTable.addChild(_contBuildings);
-        _leftArrow.addEventListener(Event.TRIGGERED,onTriggered);
-        _rightArrow.addEventListener(Event.TRIGGERED,onTriggered);
+//        _leftArrow.addEventListener(Event.TRIGGERED,onTriggered);
+//        _rightArrow.addEventListener(Event.TRIGGERED,onTriggered);
+
+        _leftArrow.endClickCallback = leftMove;
+        _rightArrow.endClickCallback = rightMove;
 
         fillWilds();
 
         _mouseCoordinates.startIt();
     }
 
-    private function onTriggered(e:Event):void{
-        switch (e.target) {
-            case _leftArrow:
-                scroleType(-500);
-                break;
-            case _rightArrow:
-                scroleType(500);
-                break;
-        }
-    }
+//    private function onTriggered(e:Event):void{
+//        switch (e.target) {
+//            case _leftArrow:
+//                scroleType(-500);
+//                break;
+//            case _rightArrow:
+//                scroleType(500);
+//                break;
+//        }
+//    }
 
     private function fillWilds():void{
         var obj:Object = g.dataBuilding.objectBuilding;
@@ -118,7 +121,7 @@ public class MapEditorInterface {
 
         _arrWilds = [];
         for(var id:String in obj) {
-            if (obj[id].buildType == BuildType.WILD) {
+            if (obj[id].buildType == BuildType.WILD || obj[id].buildType == BuildType.CAT_HOUSE) {
                 item = new MapEditorInterfaceItem(Utils.objectDeepCopy(obj[id]));
                 item.source.y = 20;
                 item.source.x = i * 80;
@@ -129,7 +132,24 @@ public class MapEditorInterface {
         }
     }
 
-    private function scroleType(delta:int):void{
+    private function rightMove():void {
+        var delta:int = 500;
+        var endX:int = -_contBuildings.width + g.stageWidth;
+        var newX:int = _contBuildings.x + delta;
+
+        if(newX > 0) newX = 0;
+        if(newX < endX) newX = endX - 20;
+
+        var tween:Tween = new Tween(_contBuildings, 1);
+        tween.moveTo(newX, _contBuildings.y);
+        tween.onComplete = function ():void {
+            g.starling.juggler.remove(tween);
+        };
+        g.starling.juggler.add(tween);
+    }
+
+    private function leftMove():void {
+        var delta:int = -500;
         var endX:int = -_contBuildings.width + g.stageWidth;
         var newX:int = _contBuildings.x + delta;
 
