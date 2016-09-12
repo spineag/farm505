@@ -5,11 +5,18 @@ package build.catHouse {
 import build.WorldObject;
 
 import com.junkbyte.console.Cc;
+
+import flash.geom.Point;
+
+import hint.FlyMessage;
+
+import media.SoundConst;
+
 import windows.WindowsManager;
 
 public class CatHouse extends WorldObject {
-    private var _isOnHover:Boolean;
-    private var _isAnimate:Boolean;
+
+    private var _isHover:Boolean;
 
     public function CatHouse(_data:Object) {
         super(_data);
@@ -22,6 +29,7 @@ public class CatHouse extends WorldObject {
 
         _source.releaseContDrag = true;
         _dbBuildingId = _data.dbId;
+        _isHover = false;
     }
 
     private function onCreateBuild():void {
@@ -45,18 +53,24 @@ public class CatHouse extends WorldObject {
     }
 
     override public function onHover():void {
-
+        if (_isHover) return;
+        super.onHover();
+        _isHover = true;
+        g.hint.showIt(_dataBuild.name);
     }
 
     override public function onOut():void {
-
+        super.onOut();
+        _isHover = false;
+        g.hint.hideIt();
     }
-
 
     private function onClick():void {
-
+        var p0:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
+        p0.y -= 50;
+        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
+        new FlyMessage(p0,"Скоро будет!!!");
     }
-
 
 }
 }

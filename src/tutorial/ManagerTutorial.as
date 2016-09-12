@@ -2025,7 +2025,7 @@ public class ManagerTutorial {
             }
         };
         if (_afterTutorialWindow) {
-            timer = 2;
+            timer = 1;
             g.gameDispatcher.addToTimer(onFinish)
         }
         else {

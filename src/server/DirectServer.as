@@ -1455,7 +1455,8 @@ public class DirectServer {
                     if (d.message[i].count_cell) dataBuild.countCell = int(d.message[i].count_cell);
                     var p:Point = new Point(int(d.message[i].pos_x), int(d.message[i].pos_y));
                     if (dataBuild.buildType == BuildType.CAVE || dataBuild.buildType == BuildType.MARKET ||
-                            dataBuild.buildType == BuildType.PAPER || dataBuild.buildType == BuildType.DAILY_BONUS || dataBuild.buildType == BuildType.TRAIN ||  dataBuild.buildType == BuildType.CHEST) {
+                            dataBuild.buildType == BuildType.PAPER || dataBuild.buildType == BuildType.DAILY_BONUS || dataBuild.buildType == BuildType.TRAIN ||  dataBuild.buildType == BuildType.CHEST
+                            || dataBuild.buildType == BuildType.CAT_HOUSE) {
                         //do nothing, use usual x and y from server
 //                        p.x *= g.scaleFactor;
 //                        p.y *= g.scaleFactor;  // scaleFactor will use at pasteBuild

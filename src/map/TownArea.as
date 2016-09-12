@@ -274,24 +274,11 @@ public class TownArea extends Sprite {
         _townTailMatrix[posY][posX].inGame = !isDeactivated;
     }
 
-    public function fillCatHouseMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
-        for (var i:int = posY; i < (posY + sizeY); i++) {
-            for (j = posX; j < (posX + sizeX); j++) {
-                _freePlace.fillCell(j, i);
-                _townMatrix[i][j].build = source;
-                _townMatrix[i][j].isFull = true;
-                if (sizeX > 1 && sizeY > 1) {
-                    if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
-                        _townMatrix[i][j].isWall = true;
-                }
-            }
-        }
-    }
 
     public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
 //		if (source is WorldObject) g.matrixGrid.drawDebugPartGrid(posX, posY, sizeX, sizeY);
-
         if (source is TutorialPlace) return;
+        if (source is CatHouse) return;
         var j:int;
         for (var i:int = posY; i < (posY + sizeY); i++) {
             for (j = posX; j < (posX + sizeX); j++) {
@@ -622,7 +609,7 @@ public class TownArea extends Sprite {
         }
         if (!isNewAtMap) {
             if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
-                    worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus|| worldObject is LockedLand || worldObject is Wild) {
+                    worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus || worldObject is LockedLand || worldObject is Wild|| worldObject is CatHouse) {
             } else {
                 point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
                 if (!checkFreeGrids(point.x, point.y, worldObject.sizeX, worldObject.sizeY)) {
@@ -631,19 +618,6 @@ public class TownArea extends Sprite {
                 }
             }
         }
-
-
-        if (worldObject is CatHouse && !updateAfterMove) {
-            point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
-            worldObject.posX = point.x;
-            worldObject.posY = point.y;
-            worldObject.source.x = int(_x);
-            worldObject.source.y = int(_y);
-            fillCatHouseMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-            _cityObjects.push(worldObject);
-            return;
-        }
-
 
         if (worldObject is Wild) {
             point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
@@ -1865,7 +1839,7 @@ public class TownArea extends Sprite {
         g.townAreaTouchManager.tailAreTouchable = v;
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is LockedLand || _cityObjects[i] is Paper || _cityObjects[i] is Cave
-                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest) {
+                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest ||  _cityObjects[i] is CatHouse) {
                 if (g.isActiveMapEditor) return;
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as TownAreaBuildSprite).isTouchable = !v;
@@ -1880,7 +1854,7 @@ public class TownArea extends Sprite {
         g.townAreaTouchManager.tailAreTouchable = v;
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is LockedLand || _cityObjects[i] is Paper || _cityObjects[i] is Cave
-                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest) {
+                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest || _cityObjects[i] is CatHouse) {
                 if (g.isActiveMapEditor) return;
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as TownAreaBuildSprite).isTouchable = !v;
@@ -1896,7 +1870,7 @@ public class TownArea extends Sprite {
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is Ridge || _cityObjects[i] is Farm ||
                 _cityObjects[i] is Fabrica || _cityObjects[i] is Tree || _cityObjects[i] is Ambar || _cityObjects[i] is Sklad  ||
-                    _cityObjects[i] is Paper || _cityObjects[i] is Cave || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is LockedLand || _cityObjects[i] is Chest) {
+                    _cityObjects[i] is Paper || _cityObjects[i] is Cave || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is CatHouse || _cityObjects[i] is LockedLand || _cityObjects[i] is Chest) {
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as TownAreaBuildSprite).isTouchable = !v;
             }

@@ -192,6 +192,22 @@
         </struct>
         <key>fileList</key>
         <array>
+            <filename>a_tr_blue.png</filename>
+            <filename>a_tr_cup_ico.png</filename>
+            <filename>a_tr_gray.png</filename>
+            <filename>a_tr_green.png</filename>
+            <filename>a_tr_kor_ico.png</filename>
+            <filename>a_tr_red.png</filename>
+            <filename>a_tr_rup_ico.png</filename>
+            <filename>add_friend_button.png</filename>
+            <filename>aerial_tram_all.png</filename>
+            <filename>available_on_level.png</filename>
+            <filename>avatar_2.png</filename>
+            <filename>avatar_3.png</filename>
+            <filename>baloon_1.png</filename>
+            <filename>baloon_2.png</filename>
+            <filename>baloon_3.png</filename>
+            <filename>basket_big.png</filename>
             <filename>bg</filename>
             <filename>birka_c.png</filename>
             <filename>birka_cat.png</filename>
@@ -199,21 +215,51 @@
             <filename>birka_t.png</filename>
             <filename>blue_coupone.png</filename>
             <filename>bt_close.png</filename>
+            <filename>button_yel_left_mini.png</filename>
+            <filename>button_yel_left.png</filename>
             <filename>buttons</filename>
+            <filename>buttons_new</filename>
             <filename>carton</filename>
+            <filename>cat_blue.png</filename>
             <filename>cat_icon.png</filename>
+            <filename>cat_shadow.png</filename>
             <filename>cave</filename>
             <filename>check.png</filename>
             <filename>circle.png</filename>
+            <filename>coins_back.png</filename>
+            <filename>coins_market.png</filename>
+            <filename>coins_medium.png</filename>
+            <filename>coins_small.png</filename>
+            <filename>coins.png</filename>
+            <filename>coupons_icon.png</filename>
             <filename>cross.png</filename>
+            <filename>currency_buy_window.png</filename>
+            <filename>cursor_basket.png</filename>
+            <filename>cursor_circle_1.png</filename>
+            <filename>cursor_circle_2.png</filename>
+            <filename>cursor_circle_3.png</filename>
+            <filename>cursor_circle.png</filename>
+            <filename>cursor_clock.png</filename>
+            <filename>cursor_fertilizer.png</filename>
+            <filename>cursor_number_circle.png</filename>
+            <filename>cursor_sickle.png</filename>
+            <filename>decor_cell.png</filename>
             <filename>default_avatar_big.png</filename>
+            <filename>empty_green_tile.png</filename>
+            <filename>empty_red_tile.png</filename>
+            <filename>friend_board.png</filename>
             <filename>friends_panel_ar.png</filename>
             <filename>green_coupone.png</filename>
+            <filename>green_tile.png</filename>
             <filename>hint</filename>
+            <filename>hint_arrow.png</filename>
             <filename>hintMiddle.png</filename>
             <filename>hintSidePixels.png</filename>
             <filename>hintSidePixels2.png</filename>
             <filename>hintTopLeftPart.png</filename>
+            <filename>minus.png</filename>
+            <filename>neighbor.jpg</filename>
+            <filename>new_m.png</filename>
             <filename>newlevel_window_fon.png</filename>
             <filename>newspaper_icon_small.png</filename>
             <filename>newspaper_p1.png</filename>
@@ -239,14 +285,27 @@
             <filename>order_window_paket.png</filename>
             <filename>order_window_right_top.png</filename>
             <filename>order_window_right.png</filename>
+            <filename>particle_yelow.png</filename>
+            <filename>particles</filename>
+            <filename>plawka7.png</filename>
             <filename>plus_button.png</filename>
+            <filename>pokormit.png</filename>
+            <filename>product_particle.png</filename>
             <filename>production</filename>
             <filename>progress_bar_center.png</filename>
             <filename>progress_bar_left.png</filename>
             <filename>progress_bar_right.png</filename>
             <filename>red_coupone.png</filename>
+            <filename>red_m_big.png</filename>
+            <filename>red_tile.png</filename>
+            <filename>refresh_icon.png</filename>
             <filename>roadside_shop_tabl.png</filename>
+            <filename>rubins_medium.png</filename>
+            <filename>rubins_small.png</filename>
             <filename>rubins.png</filename>
+            <filename>sale.png</filename>
+            <filename>server_clock</filename>
+            <filename>shop</filename>
             <filename>shop_window_animals.png</filename>
             <filename>shop_window_court.png</filename>
             <filename>shop_window_decor.png</filename>
@@ -255,89 +314,30 @@
             <filename>shop_window_lock.png</filename>
             <filename>shop_window_plants.png</filename>
             <filename>shop_window_tr.png</filename>
+            <filename>sobrat.png</filename>
+            <filename>star_medium.png</filename>
+            <filename>star_particle.png</filename>
+            <filename>star_small.png</filename>
             <filename>star.png</filename>
+            <filename>storage_window_pr.png</filename>
             <filename>storage_window_prl_c.png</filename>
             <filename>storage_window_prl_l.png</filename>
             <filename>storage_window_prl_r.png</filename>
             <filename>storage_window_scr_c.png</filename>
             <filename>storage_window_scr_line.png</filename>
-            <filename>ui</filename>
-            <filename>watering_can.png</filename>
-            <filename>yellow_coupone.png</filename>
-            <filename>shop</filename>
-            <filename>decor_cell.png</filename>
-            <filename>coins_market.png</filename>
-            <filename>minus.png</filename>
-            <filename>cursor_fertilizer.png</filename>
-            <filename>cursor_basket.png</filename>
-            <filename>cursor_circle.png</filename>
-            <filename>cursor_number_circle.png</filename>
-            <filename>cursor_sickle.png</filename>
-            <filename>star_particle.png</filename>
-            <filename>particle_yelow.png</filename>
-            <filename>a_tr_blue.png</filename>
-            <filename>a_tr_cup_ico.png</filename>
-            <filename>a_tr_gray.png</filename>
-            <filename>a_tr_green.png</filename>
-            <filename>a_tr_kor_ico.png</filename>
-            <filename>a_tr_red.png</filename>
-            <filename>a_tr_rup_ico.png</filename>
-            <filename>aerial_tram_all.png</filename>
-            <filename>hint_arrow.png</filename>
-            <filename>plawka7.png</filename>
-            <filename>product_particle.png</filename>
-            <filename>friend_board.png</filename>
-            <filename>wheels_of_fortune _str.png</filename>
-            <filename>wheels_of_fortune_text.png</filename>
-            <filename>wheels_of_fortune_disk.png</filename>
-            <filename>empty_green_tile.png</filename>
-            <filename>empty_red_tile.png</filename>
-            <filename>green_tile.png</filename>
-            <filename>red_tile.png</filename>
-            <filename>available_on_level.png</filename>
-            <filename>storage_window_pr.png</filename>
-            <filename>buttons_new</filename>
-            <filename>coins_back.png</filename>
-            <filename>cat_shadow.png</filename>
-            <filename>basket_big.png</filename>
-            <filename>currency_buy_window.png</filename>
-            <filename>add_friend_button.png</filename>
-            <filename>sale.png</filename>
-            <filename>refresh_icon.png</filename>
-            <filename>button_yel_left.png</filename>
             <filename>tutorial_arrow_stroke.png</filename>
-            <filename>coupons_icon.png</filename>
-            <filename>coins.png</filename>
-            <filename>baloon_1.png</filename>
-            <filename>baloon_2.png</filename>
-            <filename>baloon_3.png</filename>
-            <filename>particles</filename>
-            <filename>button_yel_left_mini.png</filename>
-            <filename>yellow_tile.png</filename>
-            <filename>tutorial_nyam.png</filename>
             <filename>tutorial_ko.png</filename>
-            <filename>server_clock</filename>
-            <filename>cat_blue.png</filename>
+            <filename>tutorial_nyam.png</filename>
+            <filename>ui</filename>
+            <filename>uskorit.png</filename>
             <filename>visitor_back.png</filename>
-            <filename>cursor_click.png</filename>
-            <filename>cursor_default.png</filename>
-            <filename>cursor_hover.png</filename>
-            <filename>new_m.png</filename>
-            <filename>avatar_2.png</filename>
-            <filename>avatar_3.png</filename>
-            <filename>neighbor.jpg</filename>
-            <filename>coins_medium.png</filename>
-            <filename>coins_small.png</filename>
-            <filename>star_medium.png</filename>
-            <filename>star_small.png</filename>
-            <filename>rubins_medium.png</filename>
-            <filename>rubins_small.png</filename>
             <filename>wait.png</filename>
-            <filename>cursor_clock.png</filename>
-            <filename>cursor_circle_1.png</filename>
-            <filename>cursor_circle_2.png</filename>
-            <filename>cursor_circle_3.png</filename>
-            <filename>red_m_big.png</filename>
+            <filename>watering_can.png</filename>
+            <filename>wheels_of_fortune _str.png</filename>
+            <filename>wheels_of_fortune_disk.png</filename>
+            <filename>wheels_of_fortune_text.png</filename>
+            <filename>yellow_coupone.png</filename>
+            <filename>yellow_tile.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
