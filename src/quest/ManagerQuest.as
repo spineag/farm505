@@ -12,10 +12,11 @@ public class ManagerQuest {
     private var g:Vars = Vars.getInstance();
     private var _questUI:QuestUI;
     private var _quests:Array;
-    private var _qData:QuestData;
+    private var _qAllData:QuestData;
+    private var _curQuestData:Object;
 
     public function ManagerQuest() {
-        _qData = new QuestData();
+        _qAllData = new QuestData();
         _quests = [];
         _questUI = new QuestUI();
         checkQuestsOnStart();
@@ -23,7 +24,7 @@ public class ManagerQuest {
 
     public function checkQuestsOnStart():void {
         return;
-        var qArr:Array = _qData.arrQuests;
+        var qArr:Array = _qAllData.arrQuests;
         for (var i:int=0; i<qArr.length; i++) {
             if (qArr[i].level <= g.user.level && !qArr[i].isAdded) {  // also check is quest unfinished
                 qArr[i].isAdded = true;
@@ -37,6 +38,17 @@ public class ManagerQuest {
         g.windowsManager.openWindow(WindowsManager.WO_QUEST, null, qData);
     }
     
-    public function checkQuestContPosition():void { _questUI.checkContPosition(); } 
+    public function checkQuestContPosition():void { _questUI.checkContPosition(); }
+
+    public function checkOnClick(qData:Object):void {
+        _curQuestData = qData;
+
+        switch (qData.type) {
+            case QuestData.TYPE_ADD_LEFT_MENU:
+
+                break;
+
+        }
+    }
 }
 }

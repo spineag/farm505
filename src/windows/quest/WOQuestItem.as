@@ -3,6 +3,7 @@
  */
 package windows.quest {
 import manager.ManagerFilters;
+import manager.Vars;
 
 import quest.QuestData;
 
@@ -20,6 +21,7 @@ public class WOQuestItem {
     private var _btn:CButton;
     private var _parent:Sprite;
     private var _dataQuest:Object;
+    private var g:Vars = Vars.getInstance();
 
     public function WOQuestItem(p:Sprite) {
         _parent = p;
@@ -53,6 +55,11 @@ public class WOQuestItem {
         } else if (_dataQuest.type == QuestData.TYPE_POST) {
             _txtBtn.text = 'Рассказать';
         }
+        _btn.clickCallback = onClick;
+    }
+
+    private function onClick():void {
+        g.managerQuest.checkOnClick(_dataQuest);
     }
 
     public function updateTextField():void {
