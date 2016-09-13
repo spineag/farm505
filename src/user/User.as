@@ -48,32 +48,18 @@ public class User extends Someone {
     public var shopDecorFilter:int = 1;
     public var sessionKey:String;
     public var fabricItemNotification:Array = [];
+    public var releasedQuestsIds:Array;
 
     private var g:Vars = Vars.getInstance();
 
     public function User() {
-        if (!g.useDataFromServer) {
-            ambarLevel = 1;
-            skladLevel = 1;
-            ambarMaxCount = 50;
-            skladMaxCount = 50;
-            softCurrencyCount = 1000;
-            hardCurrency = 100;
-            yellowCouponCount = 10;
-            redCouponCount = 5;
-            greenCouponCount = 7;
-            blueCouponCount = 8;
-            xp = 173;
-            level = 1;
-            globalXP = 0;
-            isTester = true;
-        }
         userBuildingData = {};
         arrFriends = [];
         arrTempUsers = [];
         arrNoAppFriend = [];
         lastVisitAmbar = true;
         neighbor = new NeighborBot();
+        releasedQuestsIds = [];
     }
 
     public function set visitAmbar(b:Boolean):void  {
@@ -81,19 +67,30 @@ public class User extends Someone {
     }
 
     public function checkUserLevel():void {
-        var levels:Object = g.dataLevel.objectLevels;
-        var txp:int = 0;
-        for (var st:String in levels) {
-            if (txp + levels[st].xp > globalXP) {
-                xp = globalXP - txp;
-                level = int(levels[st].id) - 1;
-                if (level <= 0) level = 1;
-                return;
-            } else {
-                level = levels[st].id;
-                txp += levels[st].xp;
-            }
+//        var tempLevel:int;
+//        var levels:Object = g.dataLevel.objectLevels;
+//        var txp:int = 0;
+//        for (var st:String in levels) {
+//            if (txp + levels[st].xp > globalXP) {
+//                xp = globalXP - txp;
+//                tempLevel = int(levels[st].id) - 1;
+//                if (tempLevel <= 0) tempLevel = 1;
+//                break;
+//            } else {
+//                tempLevel = levels[st].id;
+//                txp += levels[st].xp;
+//            }
+//        }
+
+// temporary fix for levels
+        if (g.dataLevel.objectLevels[level].totalXP > globalXP) {
+            xp = globalXP;
+            globalXP = g.dataLevel.objectLevels[level].totalXP + xp;
+            g.directServer.addUserXP(globalXP, null);
+        } else {
+            xp = globalXP - g.dataLevel.objectLevels[level].totalXP;
         }
+
     }
 
     public function friendAppUser():void {
