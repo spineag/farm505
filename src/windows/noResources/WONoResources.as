@@ -331,7 +331,7 @@ public class WONoResources extends WindowMain {
                     g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.ingridientsId[i], info: _paramData.data.ingridientsCount[i] - countRes});
                 } else callbackForFabric();
             }
-            super.hideIt();
+//            super.hideIt();
         }
     }
 
@@ -408,6 +408,7 @@ public class WONoResources extends WindowMain {
             _callbackBuy.apply(null, [_paramData.data, true]);
             _callbackBuy = null;
         }
+        super.hideIt();
     }
 
     private function callbackForFabric(b:Boolean = false):void {

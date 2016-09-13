@@ -158,7 +158,7 @@ public class MarketItem {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
         _papperBtn.addDisplayObject(im);
         _papperBtn.setPivots();
-        _papperBtn.x = 15;
+        _papperBtn.x = 20;
         _papperBtn.y = 10;
         _papperBtn.alpha = 1;
         source.addChild(_papperBtn);
@@ -173,7 +173,7 @@ public class MarketItem {
         _papperBtn.visible = false;
 
         _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-        _imCheck.x = 3;
+        _imCheck.x = 8;
         _imCheck.y = -3;
         MCScaler.scale(_imCheck,20,20);
         source.addChild(_imCheck);

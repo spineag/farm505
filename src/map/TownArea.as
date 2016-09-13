@@ -1324,9 +1324,6 @@ public class TownArea extends Sprite {
     }
 
     private function setDefaultAwayMatrix():void {
-
-
-
         var ln:int = g.matrixGrid.matrixSize;
         for (var i:int = 0; i < ln; i++) {
             _townAwayMatrix.push([]);
@@ -1369,8 +1366,8 @@ public class TownArea extends Sprite {
 
     private function fillAwayMatrixWithFence(posX:int, posY:int, source:*):void {
         var j:int;
-        for (var i:int = posY; i < (posY + 2); i++) {
-            for (j = posX; j < (posX + 2); j++) {
+        for (var i:int = posY; i < (posY + 1); i++) {
+            for (j = posX; j < (posX + 1); j++) {
                 _townAwayMatrix[i][j].isFull = true;
                 if (i == posY && j == posX)
                     _freePlace.fillAwayCell(j + 1, i + 1);
