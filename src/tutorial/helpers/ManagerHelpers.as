@@ -340,6 +340,7 @@ public class ManagerHelpers {
     }
     
     public function onOpenShop():void {
+
         if (_helper) _helper.deleteHelper();
         _helper = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {

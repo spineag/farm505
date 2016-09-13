@@ -86,26 +86,33 @@ public class Fabrica extends WorldObject {
 
     private function checkBuildState():void {
         try {
-            if (g.user.userBuildingData[_dataBuild.id]) {
-                if (g.user.userBuildingData[_dataBuild.id].isOpen) {
+            if (g.isAway) {
+//                if (g.user.userBuildingData[_dataBuild.id]) {
                     _stateBuild = STATE_ACTIVE;
-                    createAnimatedBuild(onCreateBuild);                                                     // уже построенно и открыто
-                } else {
-                    _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding); // сколько времени уже строится
-                    var arr:Array = g.townArea.getCityObjectsById(_dataBuild.id);
-                    _leftBuildTime = int(_dataBuild.buildTime[arr.length]) - _leftBuildTime;        // сколько времени еще до конца стройки
-                    if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
-                        _stateBuild = STATE_WAIT_ACTIVATE;
-                        addDoneBuilding();
-                    } else {  // еще строится
-                        _stateBuild = STATE_BUILD;
-                        addFoundationBuilding();
-                        g.gameDispatcher.addToTimer(renderBuildProgress);
-                    }
-                }
+                    createAnimatedBuild(onCreateBuild);
+//                }
             } else {
-                _stateBuild = STATE_ACTIVE;
-                createAnimatedBuild(onCreateBuild);
+                if (g.user.userBuildingData[_dataBuild.id]) {
+                    if (g.user.userBuildingData[_dataBuild.id].isOpen) {
+                        _stateBuild = STATE_ACTIVE;
+                        createAnimatedBuild(onCreateBuild);                                                     // уже построенно и открыто
+                    } else {
+                        _leftBuildTime = int(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding); // сколько времени уже строится
+                        var arr:Array = g.townArea.getCityObjectsById(_dataBuild.id);
+                        _leftBuildTime = int(_dataBuild.buildTime[arr.length]) - _leftBuildTime;        // сколько времени еще до конца стройки
+                        if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                            _stateBuild = STATE_WAIT_ACTIVATE;
+                            addDoneBuilding();
+                        } else {  // еще строится
+                            _stateBuild = STATE_BUILD;
+                            addFoundationBuilding();
+                            g.gameDispatcher.addToTimer(renderBuildProgress);
+                        }
+                    }
+                } else {
+                    _stateBuild = STATE_ACTIVE;
+                    createAnimatedBuild(onCreateBuild);
+                }
             }
         } catch (e:Error) {
             Cc.error('Fabric checkBuildState:: error: ' + e.errorID + ' - ' + e.message);

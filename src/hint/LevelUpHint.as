@@ -312,8 +312,8 @@ public class LevelUpHint {
             _txtName.x = -100;
             _txtName.y = 20;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime);
-            _txtTime.x = -10;
-            _txtTime.y = 60;
+            _txtTime.x = -80;
+            _txtTime.y = 33;
             _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_dataId].buildId].name;
             _txtText.x = -100;
             _txtText.y = 5;

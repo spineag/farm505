@@ -252,7 +252,8 @@ public class MainBottomPanel {
                     if (g.user.buyShopTab == WOShop.VILLAGE)
                     shopTab = WOShop.ANIMAL;
                 }
-
+                g.user.decorShiftShop = 0;
+                g.user.decorShop = false;
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
                 if (g.managerHelpers.isActiveHelper) {
                     g.managerHelpers.onOpenShop();

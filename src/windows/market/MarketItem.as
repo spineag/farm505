@@ -134,9 +134,10 @@ public class MarketItem {
         _plawkaLvl.visible = false;
 
         _txtPlawka = new CTextField(100,60, 'Продано');
-        _txtPlawka.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
+        _txtPlawka.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
         _txtPlawka.cacheIt = false;
         _txtPlawka.y = 85;
+//        _txtPlawka.x = -30;
         _txtPlawka.visible = false;
         source.addChild(_txtPlawka);
 
@@ -275,7 +276,7 @@ public class MarketItem {
         _costTxt.text = String(cost);
         _coin.y = 102;
         _coin.x = _bg.width/2 + 15;
-        _txtPlawka.x = 10;
+        _txtPlawka.x = 5;
         _txtPlawka.y = 85;
         _costTxt.y = 101;
         _costTxt.pivotX = _costTxt.width/2;
@@ -453,6 +454,7 @@ public class MarketItem {
                     if (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR)
                         g.managerTutorial.checkTutorialCallback();
                 }
+                isFill = 0;
                 g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
             }
         } else if (isFill == 0) { // пустая
@@ -863,8 +865,7 @@ public class MarketItem {
         if (!_personBuyer) {
             _personBuyerTemp.photo = ar[0].photo_100;
             g.load.loadImage(_personBuyerTemp.photo, onLoadPhoto);
-        }
-        else {
+        }  else {
             _personBuyer.photo = ar[0].photo_100;
             g.load.loadImage(_personBuyer.photo, onLoadPhoto);
         }

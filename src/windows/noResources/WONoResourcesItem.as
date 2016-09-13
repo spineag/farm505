@@ -115,7 +115,7 @@ public class WONoResourcesItem {
         source.addChild(_image);
 
         _txtCount = new CTextField(66, 20, String(count));
-        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCount.y = 45;
         source.addChild(_txtCount);
         _money = true;

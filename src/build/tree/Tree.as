@@ -1012,13 +1012,13 @@ public class Tree extends WorldObject {
                     _wateringIcon.scaleX = 1;
             }
             if (_dataBuild.id == 25) { //Яблоня
-                _wateringIcon.y = 45;
+                if (_wateringIcon) _wateringIcon.y = 45;
             } else if (_dataBuild.id == 26) { // Вишня
-                _wateringIcon.y = 120
+                if (_wateringIcon) _wateringIcon.y = 120
             } else if (_dataBuild.id == 41) { //Малина
-                _wateringIcon.y = 64;
+                if (_wateringIcon) _wateringIcon.y = 64;
             } else if (_dataBuild.id == 42) { //Черника
-                _wateringIcon.y = 24;
+                if (_wateringIcon) _wateringIcon.y = 24;
             }
         }
     }

@@ -158,6 +158,7 @@ public class Animal {
     public function isMouseUnderAnimal():Boolean {
         var p:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
         p = source.globalToLocal(p);
+
         if (p.x > _rect.x && p.x < _rect.x+_rect.width && p.y > _rect.y && p.y < _rect.y+_rect.height) {
             return true;
         } else return false;
