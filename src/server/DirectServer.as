@@ -157,6 +157,7 @@ public class DirectServer {
                 obj = {};
                 obj.id = int(d.message[i].number_level);
                 obj.xp = int(d.message[i].count_xp);
+                obj.totalXP = int(d.message[i].total_xp);
                 obj.countSoft = int(d.message[i].count_soft);
                 obj.countHard = int(d.message[i].count_hard);
                 if (d.message[i].decor_id) obj.decorId = String(d.message[i].decor_id).split('&');
@@ -728,10 +729,11 @@ public class DirectServer {
             if (ob.wall_train_item == int(new Date().dateUTC)) g.user.wallTrainItem = false;
             else g.user.wallTrainItem = true;
 
+            g.user.level = int(ob.level);
             g.user.checkUserLevel();
             g.managerDailyBonus.fillFromServer(ob.daily_bonus_day, int(ob.count_daily_bonus));
             g.managerChest.fillFromServer(ob.chest_day, int(ob.count_chest));
-//            g.user.level = int(ob.level);
+            
             g.user.countCats = int(ob.count_cats);
             if (ob.scale) {
                 g.currentGameScale = int(ob.scale) / 100;

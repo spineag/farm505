@@ -117,7 +117,7 @@ public class XPPanel {
             }
             if (!g.isDebug) g.socialNetwork.setUserLevel();
         }
-        g.directServer.addUserXP(g.user.xp, onAddUserXP);
+        g.directServer.addUserXP(g.user.globalXP, onAddUserXP);
         checkXP();
     }
 
