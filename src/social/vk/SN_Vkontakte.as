@@ -604,19 +604,14 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     private function getUserSettings(value:int, needCheck:Boolean = true):void {
-        var curTask:Object;
-
-//        if (Boolean(value & MASK_ADD_LEFT_MENU)) {
-//            curTask = g.managerQuest.findTask(TypesQuest.ADD_LEFT_MENU);
-//            if (curTask) {
-//                g.server.inquiry(BirdsServer.COMMAND_CLICK, BirdsServer.INQ_TASK_COMPLETE, [g.currentUser.uid, curTask.id_task, MD5.hash('joy_rocks_complete_task' + curTask.id_task)]);
-//            }
-//        } else {
+        if (Boolean(value & MASK_ADD_LEFT_MENU)) {
+            g.managerQuest.onAddToLeftMenu();
+        } else {
             if (needCheck) {
                 _apiConnection.addEventListener(CustomEvent.SETTINGS_CHANGED, onSettingsChanged);
                 _apiConnection.callMethod("showSettingsBox", MASK_ADD_LEFT_MENU);
             }
-//        }
+        }
     }
 
     private function onSettingsChanged(e:CustomEvent):void {
