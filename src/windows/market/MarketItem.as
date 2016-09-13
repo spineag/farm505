@@ -452,9 +452,8 @@ public class MarketItem {
                 if (g.managerTutorial.isTutorial) {
                     if (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR)
                         g.managerTutorial.checkTutorialCallback();
-                } else {
-                    g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
                 }
+                g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
             }
         } else if (isFill == 0) { // пустая
             if (g.managerTutorial.isTutorial) return;
