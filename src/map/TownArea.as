@@ -761,7 +761,7 @@ public class TownArea extends Sprite {
             if (worldObject is Tree) {
                 arr = getCityObjectsByType(BuildType.TREE);
                 for (i = 0; i < arr.length; i++) {
-                    if (arr[i].stateTree == Tree.FULL_DEAD) {
+                    if (arr[i].stateTree == Tree.FULL_DEAD && arr[i].dataBuild.id == worldObject.dataBuild.id) {
                         curCount--;
                     }
                 }
