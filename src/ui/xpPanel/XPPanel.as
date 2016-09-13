@@ -82,7 +82,6 @@ public class XPPanel {
         g.soundManager.playSound(SoundConst.XP_PLUS);
         g.user.xp += count;
         g.user.globalXP += count;
-        if (count && g.useDataFromServer)
         if (g.user.xp >= _maxXP){
             g.user.xp -= _maxXP;
             g.user.level++;
@@ -118,10 +117,11 @@ public class XPPanel {
             }
             if (!g.isDebug) g.socialNetwork.setUserLevel();
         }
+        g.directServer.addUserXP(g.user.xp, onAddUserXP);
         checkXP();
     }
 
-
+    private function onAddUserXP(b:Boolean = true):void {}
     private function onUpdateUserLevel(b:Boolean = true):void {}
 
     public function checkXP():void{

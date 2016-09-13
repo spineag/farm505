@@ -978,7 +978,7 @@ public class DirectServer {
         }
     }
 
-    public function addUserMoney(type:int, count:int, callback:Function):void {
+    public function addUserMoney(type:int, countAll:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USER_MONEY);
         var variables:URLVariables = new URLVariables();
@@ -987,8 +987,8 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.type = type;
-        variables.count = count;
-        variables.hash = MD5.hash(String(g.user.userId)+String(type)+String(count)+SECRET);
+        variables.countAll = countAll;
+        variables.hash = MD5.hash(String(g.user.userId)+String(type)+String(countAll)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -1037,7 +1037,7 @@ public class DirectServer {
         }
     }
 
-    public function addUserXP(count:int, callback:Function):void {
+    public function addUserXP(countAll:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_XP);
         var variables:URLVariables = new URLVariables();
@@ -1045,8 +1045,8 @@ public class DirectServer {
         Cc.ch('server', 'addUserXP', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        variables.count = count;
-        variables.hash = MD5.hash(String(g.user.userId)+String(count)+SECRET);
+        variables.countAll = countAll;
+        variables.hash = MD5.hash(String(g.user.userId)+String(countAll)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -6145,6 +6145,57 @@ public class DirectServer {
         } catch (error:Error) {
             Cc.error('setUserLevelToVK:' + error.errorID);
         }
+    }
+
+    public function getUserQuests(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_QUESTS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserQuests', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.id = g.user.userId;
+        variables.level = g.user.level;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.id)+String(variables.level)+SECRET);
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserQuests);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetUserQuests(e:Event):void { completeGetUserQuests(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserQuests error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserQuests(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserQuests: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAwayUserTreeWatering: wrong JSON:' + String(response));
+            return;
+        }
+
+//        if (d.id == 0) {
+//            Cc.ch('server', 'getUserQuests OK', 5);
+//            if (callback != null) {
+//                callback.apply(null,[d.message.state]);
+//            }
+//        } else if (d.id == 13) {
+//            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+//        } else if (d.id == 6) {
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+//        } else {
+//            Cc.error('getUserQuests: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//        }
     }
 
 

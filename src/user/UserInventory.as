@@ -155,33 +155,40 @@ public class UserInventory {
 
     public function addMoney(typeCurrency:int, count:int, needSendToServer:Boolean = true):void {
         if (count == 0) return;
+        var newCount:int = 0;
         switch (typeCurrency) {
             case DataMoney.HARD_CURRENCY:
                 g.soundManager.playSound(SoundConst.COINS_PLUS);
                 g.user.hardCurrency += count;
                 g.softHardCurrency.checkHard();
+                newCount = g.user.hardCurrency;
                 break;
             case DataMoney.SOFT_CURRENCY:
                 g.soundManager.playSound(SoundConst.COINS_PLUS);
                 g.user.softCurrencyCount += count;
                 g.softHardCurrency.checkSoft();
+                newCount = g.user.softCurrencyCount;
                 break;
             case DataMoney.BLUE_COUPONE:
                 g.user.blueCouponCount += count;
+                newCount = g.user.blueCouponCount;
                 break;
             case DataMoney.YELLOW_COUPONE:
                 g.user.yellowCouponCount += count;
+                newCount = g.user.yellowCouponCount;
                 break;
             case DataMoney.RED_COUPONE:
                 g.user.redCouponCount += count;
+                newCount = g.user.redCouponCount;
                 break;
             case DataMoney.GREEN_COUPONE:
                 g.user.greenCouponCount += count;
+                newCount = g.user.greenCouponCount;
                 break;
         }
 
         if (needSendToServer)
-            g.directServer.addUserMoney(typeCurrency, count, null);
+            g.directServer.addUserMoney(typeCurrency, newCount, null);
     }
 
     public function addNewElementsAfterGettingNewLevel():void {
