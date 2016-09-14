@@ -25,11 +25,7 @@ public class WOBuyCave extends WindowMain {
     public function WOBuyCave() {
         super();
         _windowType = WindowsManager.WO_BUY_CAVE;
-        _woWidth = 600;
-        _woHeight = 350;
-        _woBG = new WindowMine(_woWidth,_woHeight);
-        _source.addChild(_woBG);
-        createExitButton(hideIt);
+
         _callbackClickBG = hideIt;
 
         _btn = new CButton();
@@ -56,16 +52,29 @@ public class WOBuyCave extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         _dataObject = params[0];
-        _priceTxt.text = 'Отремонтировать ' + String(_dataObject.cost);
+
         _callback = callback;
         var im:Image;
-        if (params[2]) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('mine_picture'));
-        } else {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('aerial_tram_all'));
+        _btn.visible = true;
+        switch (params[2]) {
+            case 'cave':
+                _priceTxt.text = 'Отремонтировать ' + String(_dataObject.cost);
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('mine_window'));
+                break;
+            case 'house':
+                _btn.visible = false;
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hobbit_house_window'));
+                break;
+            case 'train':
+                _priceTxt.text = 'Отремонтировать ' + String(_dataObject.cost);
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('aerial_tram_window'));
+                break;
         }
-        im.x = - 298;
-        im.y = - 175;
+        im.x = -im.width/2;
+        im.y = -im.height/2;
+        _woWidth = im.width;
+        _woHeight = im.height;
+        createExitButton(hideIt);
         _source.addChildAt(im,0);
         onWoShowCallback = onShow;
         super.showIt();
@@ -98,9 +107,9 @@ public class WOBuyCave extends WindowMain {
 
     override protected function deleteIt():void {
         if (isCashed) return;
-        _source.removeChild(_woBG);
-        _woBG.deleteIt();
-        _woBG = null;
+//        _source.removeChild(_woBG);
+//        _woBG.deleteIt();
+//        _woBG = null;
         _source.removeChild(_btn);
         _btn.deleteIt();
         _btn = null;

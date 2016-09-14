@@ -272,6 +272,8 @@ public class MarketItem {
         _countMoney = cost;
         _countTxt.text = String(_countResource);
         _countTxt.updateIt();
+        _countTxt.visible = true;
+
         _plawkaCoins.visible = true;
         _costTxt.text = String(cost);
         _coin.y = 102;
@@ -454,7 +456,7 @@ public class MarketItem {
                     if (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR)
                         g.managerTutorial.checkTutorialCallback();
                 }
-                isFill = 0;
+                isFill = 2;
                 g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
             }
         } else if (isFill == 0) { // пустая
@@ -581,7 +583,10 @@ public class MarketItem {
         _countMoney = 0;
         _countResource = 0;
         if (_costTxt) _costTxt.text = '';
-        if(_countTxt) _countTxt.text = '';
+        if(_countTxt) {
+            _countTxt.text = '';
+            _countTxt.visible = false;
+        }
         if (_isUser) _txtAdditem.visible = true;
         else _txtAdditem.visible = false;
         if (_data) _data = null;

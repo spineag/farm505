@@ -66,10 +66,12 @@ public class CatHouse extends WorldObject {
     }
 
     private function onClick():void {
-        var p0:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
-        p0.y -= 50;
-        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
-        new FlyMessage(p0,"Скоро будет!!!");
+//        var p0:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
+//        p0.y -= 50;
+//        g.soundManager.playSound(SoundConst.EMPTY_CLICK);
+//        new FlyMessage(p0,"Скоро будет!!!");
+        if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, null, _dataBuild, "Откройте поезд", 'house');
+
     }
 
 }

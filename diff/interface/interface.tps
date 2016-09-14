@@ -200,7 +200,6 @@
             <filename>a_tr_red.png</filename>
             <filename>a_tr_rup_ico.png</filename>
             <filename>add_friend_button.png</filename>
-            <filename>aerial_tram_all.png</filename>
             <filename>available_on_level.png</filename>
             <filename>avatar_2.png</filename>
             <filename>avatar_3.png</filename>
@@ -338,6 +337,10 @@
             <filename>wheels_of_fortune_text.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>yellow_tile.png</filename>
+            <filename>hobbit_house_window.png</filename>
+            <filename>aerial_tram_all.png</filename>
+            <filename>aerial_tram_window.png</filename>
+            <filename>mine_window.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
