@@ -198,13 +198,25 @@ public class UserInventory {
                 addResource(int(id), 3);
             }
         }
-        res = g.dataAnimal.objectAnimal;
-        for (id in res) {
-            if (res[id].idResourceRaw == res.id){
-                g.userInventory.addResource(res.id,3);  // add feed for animals
-                break;
+
+
+        var build:Object = g.dataBuilding.objectBuilding;
+        var res:Object = g.dataAnimal.objectAnimal;
+        for (var id:String in build) {
+            if (build[id].buildType == BuildType.FARM) {
+                for (var i:int = 0; i < build[id].blockByLevel.length; i++) {
+                    if (build[id].blockByLevel[i] == g.user.level) {
+                        for (var idA:String in res) {
+                            if (build[id].id == res[idA].buildId) {
+                                g.userInventory.addResource(res[idA].idResourceRaw, 3);  // add feed for animals
+                                return;
+                            }
+                        }
+                    }
+                }
             }
         }
+
     }
 
     public function checkLastResource(id:int):Boolean {
