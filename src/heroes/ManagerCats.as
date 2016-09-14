@@ -186,6 +186,8 @@ public class ManagerCats {
     }
 
     public function onBuyCatFromShop():void {
+        g.user.countCats++;
+        g.directServer.buyHeroCat(null);
         addNewHeroFromShop();
 
 //        var cat:HeroCat = new HeroCat(int(Math.random()*2) + 1);
@@ -335,8 +337,6 @@ public class ManagerCats {
         _catsArray.push(cat);
         cat.setPosition(new Point(31, 30));
         cat.addToMap();
-        g.user.countCats++;
-        g.directServer.buyHeroCat(null);
         g.catPanel.checkCat();
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
             g.managerTutorial.checkTutorialCallback();

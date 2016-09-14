@@ -3622,6 +3622,7 @@ public class DirectServer {
         Cc.ch('server', 'buyHeroCat', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.countAll = g.user.countCats;
         variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
