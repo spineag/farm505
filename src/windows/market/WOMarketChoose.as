@@ -440,6 +440,8 @@ public class WOMarketChoose extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (!_scrollSprite) return;
+        unfillItems();
         unfillItems();
         _tabAmbar.filter = null;
         _tabSklad.filter = null;

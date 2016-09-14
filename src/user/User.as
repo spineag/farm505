@@ -83,14 +83,13 @@ public class User extends Someone {
 //        }
 
 // temporary fix for levels
-        if (g.dataLevel.objectLevels[level].totalXP > globalXP) {
-            xp = globalXP;
-            globalXP = g.dataLevel.objectLevels[level].totalXP + xp;
-            g.directServer.addUserXP(globalXP, null);
-        } else {
-            xp = globalXP - g.dataLevel.objectLevels[level].totalXP;
-        }
-
+            if (g.dataLevel.objectLevels[level].totalXP > globalXP) {
+                xp = globalXP;
+                globalXP = g.dataLevel.objectLevels[level].totalXP + xp;
+                g.directServer.addUserXP(globalXP, null);
+            } else {
+                xp = globalXP - g.dataLevel.objectLevels[level].totalXP;
+            }
     }
 
     public function friendAppUser():void {
