@@ -96,7 +96,7 @@ public class XPPanel {
             g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
             g.friendPanel.checkLevel();
             _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
-            g.directServer.updateUserLevel(onUpdateUserLevel);
+            g.directServer.updateUserLevel(null);
             g.userInventory.addNewElementsAfterGettingNewLevel();
             g.managerCats.calculateMaxCountCats();
             g.managerOrder.checkOrders();
@@ -117,12 +117,10 @@ public class XPPanel {
             }
             if (!g.isDebug) g.socialNetwork.setUserLevel();
         }
-        g.directServer.addUserXP(g.user.globalXP, onAddUserXP);
+        g.directServer.addUserXP(g.user.globalXP, null);
         checkXP();
     }
 
-    private function onAddUserXP(b:Boolean = true):void {}
-    private function onUpdateUserLevel(b:Boolean = true):void {}
 
     public function checkXP():void{
         _bar.progress = ((g.user.xp)/_maxXP)*.9 + .1; // get 10% for better view

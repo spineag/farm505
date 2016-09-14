@@ -48,6 +48,7 @@ import preloader.StartPreloader;
 import quest.ManagerQuest;
 
 import server.DirectServer;
+import server.ManagerPendingRequest;
 import server.Server;
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
@@ -196,6 +197,7 @@ public class Vars {
     public var userTimer:UserTimer;
     public var managerDropResources:ManagerDropBonusResource;
     public var managerQuest:ManagerQuest;
+    public var managerPendingRequest:ManagerPendingRequest;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -485,7 +487,9 @@ public class Vars {
                 managerCutScenes.checkAvailableCutScenes();
             }
             managerHelpers = new ManagerHelpers();
-        managerQuest = new ManagerQuest();
+            managerQuest = new ManagerQuest();
+            managerPendingRequest = new ManagerPendingRequest();
+        
             if (!managerTutorial.isTutorial) {
                 if ((user as User).level >= 4 && (user as User).level < 10) {
                     managerTips = new ManagerTips();
