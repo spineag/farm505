@@ -72,7 +72,11 @@ public class UserInventory {
             Cc.error('UserInventory addResource:: count resource < 0 for resource id: ' + id + ' after addResource count: ' + count);
         }
         g.updateAmbarIndicator();
-        g.directServer.addUserResource(id, _inventoryResource[id], f);
+        if (g.managerPendingRequest.isActive) {
+            g.managerPendingRequest.updateResource(id);
+        } else {
+            g.directServer.addUserResource(id, _inventoryResource[id], f);
+        }
         g.managerOrder.checkForFullOrder();
         if (g.managerTips) g.managerTips.calculateAvailableTips();
     }
