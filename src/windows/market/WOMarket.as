@@ -844,7 +844,10 @@ public class WOMarket  extends WindowMain {
             g.gameDispatcher.removeFromTimer(refreshMarketTemp);
             return;
         }
-        if (!_curUser.marketItems) return;  // нужно чтобы не выполнялся этот ретурн
+        if (_arrItems.length == 0 || !_arrItems) {
+            return;
+        }
+        if (!_curUser.marketItems) return; // нужно чтобы не выполнялся этот ретурн
         if (_arrItemsTemp.length != _curUser.marketItems.length) {
             for (i=0; i< _arrItems.length; i++) {
                 _arrItems[i].unFillIt();
