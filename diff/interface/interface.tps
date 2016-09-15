@@ -338,7 +338,6 @@
             <filename>yellow_coupone.png</filename>
             <filename>yellow_tile.png</filename>
             <filename>hobbit_house_window.png</filename>
-            <filename>aerial_tram_all.png</filename>
             <filename>aerial_tram_window.png</filename>
             <filename>mine_window.png</filename>
         </array>

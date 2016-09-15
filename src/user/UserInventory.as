@@ -205,8 +205,8 @@ public class UserInventory {
 
 
         var build:Object = g.dataBuilding.objectBuilding;
-        var res:Object = g.dataAnimal.objectAnimal;
-        for (var id:String in build) {
+       res = g.dataAnimal.objectAnimal;
+        for (id in build) {
             if (build[id].buildType == BuildType.FARM) {
                 for (var i:int = 0; i < build[id].blockByLevel.length; i++) {
                     if (build[id].blockByLevel[i] == g.user.level) {
