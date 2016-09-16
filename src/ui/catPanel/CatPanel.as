@@ -2,6 +2,8 @@
  * Created by user on 10/27/15.
  */
 package ui.catPanel {
+import data.BuildType;
+
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.core.Starling;

@@ -427,11 +427,11 @@ public class WOPapperItem {
         _txtResourceName = null;
         _txtSale = null;
         _p = null;
-        source.dispose();
+//        source.dispose();
         source = null;
         if (_preloader) {
             _preloader = null;
-            source.removeChild(_preloader.source);
+            if (source) source.removeChild(_preloader.source);
         }
     }
 

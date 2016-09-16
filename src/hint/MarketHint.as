@@ -81,7 +81,7 @@ public class MarketHint {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'MarketHint');
             return;
         }
-        isShowed = true;
+//        isShowed = true;
         var start:Point;
         if (!noResource) {
             start = new Point(int(sX - 5), int(sY - 23));
@@ -130,10 +130,10 @@ public class MarketHint {
             _txtSklad.y = 75;
             _source.x = start.x + source.width/2;
             _source.y = start.y + source.height + 5;
-            wText = _txtText.textBounds.width + 40;
-            wName = _txtName.textBounds.width + 40;
-            if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            wText = int(_txtText.textBounds.width + 40);
+            wName = int(_txtName.textBounds.width + 40);
+            if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
@@ -160,10 +160,10 @@ public class MarketHint {
             _txtSklad.text = 'На складе:';
             _txtSklad.x = -60;
             _txtSklad.y = 85;
-            wText = _txtText.textBounds.width + 20;
-            wName = _txtName.textBounds.width + 80;
-            if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            wText = int(_txtText.textBounds.width + 20);
+            wName = int(_txtName.textBounds.width + 80);
+            if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
@@ -192,8 +192,8 @@ public class MarketHint {
                 _txtSklad.text = 'На складе:';
                 _txtSklad.x = -55;
                 _txtSklad.y = 75;
-                wText = _txtText.textBounds.width + 40;
-                wName = _txtName.textBounds.width + 40;
+                wText = int(_txtText.textBounds.width + 40);
+                wName = int(_txtName.textBounds.width + 40);
                 if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _source.addChild(bg);
@@ -225,10 +225,10 @@ public class MarketHint {
                 _txtSklad.text = 'На складе:';
                 _txtSklad.x = -50;
                 _txtSklad.y = 75;
-                wText = _txtText.textBounds.width + 20;
-                wName = _txtName.textBounds.width + 40;
-                if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-                else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                wText = int(_txtText.textBounds.width + 20);
+                wName = int(_txtName.textBounds.width + 40);
+                if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
@@ -257,10 +257,10 @@ public class MarketHint {
             _txtSklad.text = 'На складе:';
             _txtSklad.x = -50;
             _txtSklad.y = 75;
-            wText = _txtText.textBounds.width + 20;
-            wName = _txtName.textBounds.width + 40;
-            if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            wText = int(_txtText.textBounds.width + 20);
+            wName = int(_txtName.textBounds.width + 40);
+            if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
@@ -288,10 +288,10 @@ public class MarketHint {
             _txtSklad.text = 'На складе:';
             _txtSklad.x = -50;
             _txtSklad.y = 75;
-            wText = _txtText.textBounds.width + 20;
-            wName = _txtName.textBounds.width + 40;
-            if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
-            else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            wText = int(_txtText.textBounds.width + 20);
+            wName = int(_txtName.textBounds.width + 40);
+            if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            else bg = new HintBackground(wName, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
@@ -304,6 +304,7 @@ public class MarketHint {
 
         Cc.error('Market Hint:: can"t find for resourceId= ' + _dataId);
     }
+
     public function hideIt():void {
         if (bg) bg.deleteIt();
         while (_source.numChildren) {
