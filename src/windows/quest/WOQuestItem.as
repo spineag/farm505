@@ -7,6 +7,8 @@ import manager.Vars;
 
 import quest.QuestData;
 
+import starling.display.Image;
+
 import starling.display.Sprite;
 import starling.utils.Color;
 import utils.CButton;
@@ -22,6 +24,7 @@ public class WOQuestItem {
     private var _parent:Sprite;
     private var _dataQuest:Object;
     private var g:Vars = Vars.getInstance();
+    private var _galo4ka:Image;
 
     public function WOQuestItem(p:Sprite) {
         _parent = p;
@@ -43,6 +46,13 @@ public class WOQuestItem {
         _btn.x = 333;
         _btn.y = 40;
         _source.addChild(_btn);
+        _btn.visible = false;
+
+        _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+        _galo4ka.x = 333 - int(_galo4ka.width/2);
+        _galo4ka.y = 40 - int(_galo4ka.height/2);
+        _source.addChild(_galo4ka);
+        _galo4ka.visible = false;
     }
 
     public function fillIt(dQuest:Object):void {
@@ -55,16 +65,28 @@ public class WOQuestItem {
         } else if (_dataQuest.type == QuestData.TYPE_POST) {
             _txtBtn.text = 'Рассказать';
         }
-        _btn.clickCallback = onClick;
+        updateInfo();
     }
 
     private function onClick():void {
-        g.managerQuest.checkOnClick(_dataQuest);
+        g.managerQuest.checkOnClickAtWoQuestItem(_dataQuest);
     }
 
     public function updateTextField():void {
         _txt.updateIt();
         _txtBtn.updateIt();
+    }
+    
+    public function updateInfo():void {
+        if (_dataQuest.isDone) {
+            _galo4ka.visible = true;
+            _btn.visible = false;
+            _btn.clickCallback = null;
+        } else {
+            _galo4ka.visible = false;
+            _btn.visible = true;
+            _btn.clickCallback = onClick;
+        }
     }
 
     public function deleteIt():void {

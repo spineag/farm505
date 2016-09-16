@@ -50,5 +50,19 @@ public class QuestUI {
             }
         }
     }
+
+    public function removeIconWithShiftAll(icon:QuestIcon):void {
+        var pos:int = icon.position;
+        if (_arrIcons.indexOf(icon) > -1) {
+            _arrIcons.removeAt(_arrIcons.indexOf(icon));
+            icon.deleteIt();
+            icon = null;
+            for (var i:int=0; i<_arrIcons.length; i++) {
+                if (_arrIcons[i].position > pos) {
+                    (_arrIcons[i] as QuestIcon).moveToNewPosition(_arrIcons[i].position-1);
+                }
+            }
+        }
+    }
 }
 }

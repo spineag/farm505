@@ -2,8 +2,14 @@
  * Created by user on 9/12/16.
  */
 package windows.quest {
+import data.DataMoney;
+
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 import manager.Vars;
+
+import resourceItem.DropItem;
 
 import starling.display.Image;
 import starling.display.Sprite;
@@ -20,6 +26,7 @@ public class WOQuestAward {
     private var _txtCount:CTextField;
     private var _image:Image;
     private var _parent:Sprite;
+    private var _count:int;
 
     public function WOQuestAward(p:Sprite) {
         _parent = p;
@@ -46,12 +53,24 @@ public class WOQuestAward {
     }
 
     public function fillIt(c:int):void {
-        _txtCount.text = String(c);
+        _count = c;
+        _txtCount.text = String(_count);
     }
 
     public function updateTextField():void {
         _txtAward.updateIt();
         _txtCount.updateIt();
+    }
+
+    public function onGetAward():void {
+        var obj:Object;
+        obj = {};
+        obj.count = _count;
+        var p:Point = new Point(0, 0);
+        p = _image.localToGlobal(p);
+        obj.id =  DataMoney.SOFT_CURRENCY;
+//        new DropItem(p.x + 30, p.y + 30, obj);
+        new DropItem(p.x, p.y, obj);
     }
 
     public function deleteIt():void {

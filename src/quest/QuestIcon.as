@@ -21,14 +21,21 @@ public class QuestIcon {
     private var _positionInList:int;
     private var _imageQuest:Image;
     private var _isOnHover:Boolean;
+    private var _galo4ka:Image;
 
     public function QuestIcon(qData:Object, click:Function, onLoadCallback:Function) {
         _isOnHover = false;
         _data = qData;
+        _data.questIcon = this;
         _clickCallback = click;
         _onLoadCallback = onLoadCallback;
         _source = new CSprite();
         g.load.loadImage(g.dataPath.getQuestIconPath() + _data.iconUrl, onLoad);
+        _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+        _galo4ka.x = 35 - int(_galo4ka.width/2);
+        _galo4ka.y = 40 - int(_galo4ka.height/2);
+        _source.addChild(_galo4ka);
+        updateInfo();
     }
 
     private function onLoad(b:Bitmap):void {
@@ -42,7 +49,7 @@ public class QuestIcon {
             _onLoadCallback.apply();
             _onLoadCallback = null;
         } else {
-            _source.addChild(_imageQuest);
+            _source.addChildAt(_imageQuest, 0);
         }
     }
 
@@ -69,12 +76,12 @@ public class QuestIcon {
         _parent.addChild(_source);
     }
 
-    public function get pos():int {
+    public function get position():int {
         return _positionInList;
     }
 
     public function showAnimate(delay:Number):void {
-        _source.addChild(_imageQuest);
+        _source.addChildAt(_imageQuest, 0);
         _source.scale = .3;
         _source.alpha = 0;
         new TweenMax(_source, .2, {scaleX:1.2, scaleY:1.2, alpha:1, ease:Linear.easeIn, onComplete:showIt1, delay: delay});
@@ -86,6 +93,21 @@ public class QuestIcon {
 
     private function showIt2():void {
         new TweenMax(_source, .2, {scaleX:1, scaleY:1, ease:Linear.easeIn});
+    }
+
+    public function updateInfo():void {
+        _galo4ka.visible = _data.isDone;
+    }
+    
+    public function moveToNewPosition(pos:int):void {
+        _positionInList = pos;
+        TweenMax.to(_source, .5, {y: _positionInList * ManagerQuest.DELTA_ICONS + 50});
+    }
+    
+    public function deleteIt():void {
+        _parent.removeChild(_source);
+        _parent = null;
+        _source.deleteIt();
     }
 }
 }

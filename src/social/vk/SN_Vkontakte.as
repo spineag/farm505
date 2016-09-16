@@ -14,6 +14,8 @@ import flash.utils.getTimer;
 
 import manager.Vars;
 
+import quest.QuestData;
+
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
 
@@ -23,6 +25,8 @@ import starling.textures.Texture;
 import tutorial.ManagerTutorial;
 
 import user.Friend;
+
+import utils.Link;
 
 
 public class SN_Vkontakte extends SocialNetwork {
@@ -103,8 +107,15 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     override public function get urlApp():String {
-//        return "http://vk.com/app4993465";
         return "https://vk.com/app5448769";
+    }
+
+    override public function get urlSocialGroup():String {
+        return "https://vk.com/club" + idSocialGroup;
+    }
+
+    override public function get idSocialGroup():String {
+        return "110081720";
     }
 
     override public function get protocol():String {
@@ -600,12 +611,14 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     override public function checkLeftMenu():void {
-        _apiConnection.api("getUserSettings", {}, getUserSettings, onError);
+        if (g.isDebug) {
+            g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_ADD_LEFT_MENU);
+        } _apiConnection.api("getUserSettings", {}, getUserSettings, onError);
     }
 
     private function getUserSettings(value:int, needCheck:Boolean = true):void {
         if (Boolean(value & MASK_ADD_LEFT_MENU)) {
-            g.managerQuest.onAddToLeftMenu();
+            g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_ADD_LEFT_MENU);
         } else {
             if (needCheck) {
                 _apiConnection.addEventListener(CustomEvent.SETTINGS_CHANGED, onSettingsChanged);
@@ -623,27 +636,32 @@ public class SN_Vkontakte extends SocialNetwork {
             Cc.ch('social', 'no value e.params[0] at onSettingsChanged');
         }
     }
+
+    public override function checkIsInSocialGroup():void {
+        _apiConnection.api("groups.isMember", {group_id: idSocialGroup, user_id: g.user.userSocialId}, getIsInGroupHandler, onError);
+    }
+
+    private function getIsInGroupHandler(e:String):void {
+        if (e == '1') {
+            g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_ADD_TO_GROUP);
+        } else {
+            Link.openURL(urlSocialGroup);
+        }
+    }
 }
 }
 
-
-import starling.display.Image;
-import starling.textures.Texture;
 
 import utils.Multipart;
-
 import com.adobe.images.JPGEncoder;
 import com.adobe.serialization.json.JSONuse;
 import com.junkbyte.console.Cc;
 import com.vk.APIConnection;
 import flash.display.Bitmap;
-import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.net.URLLoader;
 import flash.utils.ByteArray;
-
 import manager.Vars;
-
 import social.vk.SN_Vkontakte;
 
 internal class VKWallPost {

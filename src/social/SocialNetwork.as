@@ -52,6 +52,14 @@ public class SocialNetwork extends EventDispatcher {
     public function get urlApp():String {
         return null;
     }
+    
+    public function get urlSocialGroup():String {
+        return null;
+    }
+
+    public function get idSocialGroup():String {
+        return null;
+    }
 
     public function get protocol():String {
         return "http";
@@ -239,6 +247,8 @@ public class SocialNetwork extends EventDispatcher {
         Cc.ch('social', "SocialNetwork:: order request has failed");
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.ORDER_WINDOW_FAIL, false, false));
     }
+    
+    public function checkIsInSocialGroup():void {}
 
     public function getUserParams():Object {
 //        return {sex: g.user.sex, bdate: g.user.bdate, flash_player: Capabilities.version, auth_key: g.sessionKey};

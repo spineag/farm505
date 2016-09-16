@@ -255,6 +255,7 @@ public class Vars {
             managerChest = new ManagerChest();
             townAreaTouchManager = new TownAreaTouchManager();
             soundManager = new SoundManager();
+            managerQuest = new ManagerQuest();
 
             if (useDataFromServer) {
                 socialNetwork = new SocialNetwork(flashVars);
@@ -487,7 +488,7 @@ public class Vars {
                 managerCutScenes.checkAvailableCutScenes();
             }
             managerHelpers = new ManagerHelpers();
-            managerQuest = new ManagerQuest();
+            managerQuest.checkQuestsOnStart();
             managerPendingRequest = new ManagerPendingRequest();
         
             if (!managerTutorial.isTutorial) {

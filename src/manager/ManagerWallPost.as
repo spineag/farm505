@@ -6,6 +6,8 @@ import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 
+import quest.QuestData;
+
 import resourceItem.DropItem;
 
 import starling.core.Starling;
@@ -15,6 +17,7 @@ import ui.xpPanel.XPStar;
 import wallPost.WALLDoneOrder;
 
 import wallPost.WALLDoneTrain;
+import wallPost.WALLForQuest;
 import wallPost.WALLNewFabric;
 
 import wallPost.WALLNewLevel;
@@ -30,9 +33,11 @@ public class ManagerWallPost {
     public static const OPEN_CAVE:String = 'open_cave';
     public static const DONE_TRAIN:String = 'done_train';
     public static const DONE_ORDER:String = 'done_order';
+    public static const POST_FOR_QUEST:String = 'done_order';
 
     private var _count:int;
     private var _type:int;
+    private var _typePost:String;
     private var g:Vars = Vars.getInstance();
 
     public function ManagerWallPost() {
@@ -42,6 +47,7 @@ public class ManagerWallPost {
     public function openWindow(type:String,callback:Function=null, ...params):void {
         _count = params[0];// количество подарка
         _type = params[1];//тип подарка
+        _typePost = type;
         switch (type) {
             case NEW_LEVEL:
                var woLevel:WALLNewLevel = new WALLNewLevel();
@@ -71,6 +77,9 @@ public class ManagerWallPost {
                 var woDoneOrder:WALLDoneOrder = new WALLDoneOrder();
                 woDoneOrder.showItParams(callback,params);
                 break;
+            case POST_FOR_QUEST:
+                var woForQuest:WALLForQuest = new WALLForQuest();
+                woForQuest.showItParams(callback, params);
 
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);
@@ -81,14 +90,21 @@ public class ManagerWallPost {
 
 
     public function callbackAward():void {
-        if (_type == 9) new XPStar(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, _count);
-        else {
-            var obj:Object;
-            obj = {};
-            obj.count = _count;
-            obj.id = _type;
-            new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2,obj);
+        if (_typePost = POST_FOR_QUEST) {
+            g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_POST);
+        } else {
+            if (_type == 9) {
+                new XPStar(Starling.current.nativeStage.stageWidth / 2, Starling.current.nativeStage.stageHeight / 2, _count);
+            } else {
+                var obj:Object;
+                obj = {};
+                obj.count = _count;
+                obj.id = _type;
+                new DropItem(Starling.current.nativeStage.stageWidth / 2, Starling.current.nativeStage.stageHeight / 2, obj);
+            }
         }
+        _type = 0;
+        _typePost = '';
     }
 }
 }

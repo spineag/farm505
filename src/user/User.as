@@ -48,7 +48,6 @@ public class User extends Someone {
     public var shopDecorFilter:int = 1;
     public var sessionKey:String;
     public var fabricItemNotification:Array = [];
-    public var releasedQuestsIds:Array;
 
     private var g:Vars = Vars.getInstance();
 
@@ -59,7 +58,6 @@ public class User extends Someone {
         arrNoAppFriend = [];
         lastVisitAmbar = true;
         neighbor = new NeighborBot();
-        releasedQuestsIds = [];
     }
 
     public function set visitAmbar(b:Boolean):void  {

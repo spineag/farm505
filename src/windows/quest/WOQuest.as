@@ -63,7 +63,7 @@ public class WOQuest extends WindowMain{
         _btnOk.x = 0;
         _btnOk.y = -_woHeight/2 + 390;
         _source.addChild(_btnOk);
-        _btnOk.clickCallback = hideIt;
+        _btnOk.clickCallback = onClick;
 
         _award = new WOQuestAward(_source);
         _questItem = new WOQuestItem(_source);
@@ -79,6 +79,7 @@ public class WOQuest extends WindowMain{
         _award.fillIt(_dataQuest.awardCount);
         _questItem.fillIt(_dataQuest);
         onWoShowCallback = onShow;
+        updateInfo(false);
         super.showIt();
     }
 
@@ -90,7 +91,25 @@ public class WOQuest extends WindowMain{
         _questItem.updateTextField();
     }
 
+    private function onClick():void {
+        if (_dataQuest.isDone) {
+            _award.onGetAward();
+            g.managerQuest.onGetAwardFromQuest();
+        }
+        super.hideIt();
+    }
+
+    public function updateInfo(needCheckItem:Boolean = true):void {
+        if (_dataQuest.isDone) {
+            _txtBtn.text = 'Забрать';
+        } else {
+            _txtBtn.text = 'ОК';
+        }
+        if (needCheckItem) _questItem.updateInfo();
+    }
+
     override protected function deleteIt():void {
+        g.managerQuest.onHideWO();
         _birka.deleteIt();
         _award.deleteIt();
         _questItem.deleteIt();
