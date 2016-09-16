@@ -195,10 +195,8 @@ public class WOPapper extends WindowMain {
         arr = _arrPaper.slice((_shiftPages+2)*6, (_shiftPages+2)*6 + 6);
         _tempRightPage.fillItems(arr);
         _isAnim = true;
-        _flipPage = new WOPapperFlipPage(_rightPage.getScreenshot, _tempLeftPage.getScreenshot, true, afterMoveNext);
         _source.removeChild(_rightPage.source);
-        _rightPage.deleteIt();
-        _rightPage = null;
+        _flipPage = new WOPapperFlipPage(_rightPage.source, _tempLeftPage.source, true, afterMoveNext);
         _tempRightPage.source.y = -_woHeight/2;
         _source.addChild(_tempRightPage.source);
         _source.addChild(_flipPage);
@@ -218,16 +216,18 @@ public class WOPapper extends WindowMain {
         _leftPage.source.x = -_woWidth/2;
         _leftPage.source.y = -_woHeight/2;
         _source.addChild(_leftPage.source);
+        _rightPage.deleteIt();
+        _rightPage = null;
         _rightPage = _tempRightPage;
         _tempRightPage = null;
         _isAnim = false;
         _source.setChildIndex(_btnExit, _source.numChildren - 1);
         checkArrows();
 
-        _leftPage.deleteIt();
-        _rightPage.deleteIt();
         _source.removeChild(_leftPage.source);
         _source.removeChild(_rightPage.source);
+        _leftPage.deleteIt();
+        _rightPage.deleteIt();
         _leftPage = null;
         _rightPage = null;
         _arrPaper = g.managerPaper.arr.slice();
@@ -247,10 +247,8 @@ public class WOPapper extends WindowMain {
         arr = _arrPaper.slice((_shiftPages-1 - 1)*6, (_shiftPages-1 - 1)*6 + 6);
         _tempRightPage.fillItems(arr);
         _isAnim = true;
-        _flipPage = new WOPapperFlipPage(_leftPage.getScreenshot, _tempRightPage.getScreenshot, false, afterMovePrev);
         _source.removeChild(_leftPage.source);
-        _leftPage.deleteIt();
-        _leftPage = null;
+        _flipPage = new WOPapperFlipPage(_leftPage.source, _tempRightPage.source, false, afterMovePrev);
         _tempLeftPage.source.x = -_woWidth/2;
         _tempLeftPage.source.y = -_woHeight/2;
         _source.addChild(_tempLeftPage.source);
@@ -270,15 +268,18 @@ public class WOPapper extends WindowMain {
         _tempRightPage = null;
         _rightPage.source.y = -_woHeight/2;
         _source.addChild(_rightPage.source);
+        _leftPage.deleteIt();
+        _leftPage = null;
         _leftPage = _tempLeftPage;
         _tempLeftPage = null;
         _isAnim = false;
         _source.setChildIndex(_btnExit, _source.numChildren - 1);
         checkArrows();
-        _leftPage.deleteIt();
-        _rightPage.deleteIt();
+        
         _source.removeChild(_leftPage.source);
         _source.removeChild(_rightPage.source);
+        _leftPage.deleteIt();
+        _rightPage.deleteIt();
         _leftPage = null;
         _rightPage = null;
         _arrPaper = g.managerPaper.arr.slice();

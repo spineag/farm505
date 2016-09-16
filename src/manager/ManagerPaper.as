@@ -28,7 +28,7 @@ public class ManagerPaper {
             ob.isOpened = false;
             if (ob.resourceCount > 0 && ob.cost > 0) _arr.push(ob);
         }
-//        fillArrayRandomly(); - only for test paper
+//        if (g.isDebug) fillArrayRandomly(); //- only for test paper
     }
 
     public function fillBot(ar:Array):void {
