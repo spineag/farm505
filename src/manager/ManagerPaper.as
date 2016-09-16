@@ -26,7 +26,7 @@ public class ManagerPaper {
             ob.isBuyed = false;
             ob.isBotBuy = false;
             ob.isOpened = false;
-            _arr.push(ob);
+            if (ob.resourceCount > 0 && ob.cost > 0) _arr.push(ob);
         }
 //        fillArrayRandomly(); - only for test paper
     }

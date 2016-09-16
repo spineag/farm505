@@ -289,6 +289,7 @@ public class MarketItem {
     }
 
     public function onChoose(a:int, count:int, cost:int, inPapper:Boolean):void {
+        if (isFill == 1) return;
         isFill = 1;
         g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
         g.userInventory.addResource(g.dataResource.objectResources[a].id, -count);

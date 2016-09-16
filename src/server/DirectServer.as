@@ -716,11 +716,15 @@ public class DirectServer {
             }
 //            g.userTimer.timerAtPapper = int(ob.time_paper);
             if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
-            else g.userTimer.timerAtPapper = 300 - (ob.time_paper - int(new Date().getTime() / 1000)) * (-1);
-            if (g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
+                else g.userTimer.timerAtPapper = 300 - (int(new Date().getTime() / 1000) - int(ob.time_paper));
+            if (g.userTimer.timerAtPapper > 300) g.userTimer.timerAtPapper = 300;
+            if (g.userTimer.timerAtPapper > 0)  g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
+
             if (int(ob.in_papper) == 0) g.userTimer.papperTimerAtMarket = 0;
-            else g.userTimer.papperTimerAtMarket = 300 - (ob.in_papper - int(new Date().getTime() / 1000)) * (-1);
+                else g.userTimer.papperTimerAtMarket = 300 - (int(new Date().getTime() / 1000) - int(ob.in_papper));
+            if (g.userTimer.papperTimerAtMarket > 300) g.userTimer.papperTimerAtMarket = 300;
             if (g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
+
             g.user.tutorialStep = int(ob.tutorial_step);
             g.user.marketCell = int(ob.market_cell);
             if (ob.wall_order_item_time == int(new Date().dateUTC)) g.user.wallOrderItem = false;

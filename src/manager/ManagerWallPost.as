@@ -90,7 +90,7 @@ public class ManagerWallPost {
 
 
     public function callbackAward():void {
-        if (_typePost = POST_FOR_QUEST) {
+        if (_typePost == POST_FOR_QUEST) {
             g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_POST);
         } else {
             if (_type == 9) {
