@@ -81,7 +81,7 @@ public class Animal {
             source.endClickCallback = onEndClick;
             source.startClickCallback = onStartClick;
         }
-//        source.releaseContDrag = true;
+       if (g.isAway) source.releaseContDrag = true;
         switch (_data.id) {
             case 1: // chicken
                 defaultLabel = 'walk';

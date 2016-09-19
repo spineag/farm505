@@ -153,9 +153,7 @@ public class TownArea extends Sprite {
                     ar.push(_cityObjects[i]);
             }
         } catch (e:Error) {
-//            Cc.error('TownArea getCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
             Cc.error('TownArea getCityObjectsById:: error _cityObjects: ' + _cityObjects.length );
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
         }
         return ar;
     }
@@ -276,7 +274,6 @@ public class TownArea extends Sprite {
 
 
     public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
-//		if (source is WorldObject) g.matrixGrid.drawDebugPartGrid(posX, posY, sizeX, sizeY);
         if (source is TutorialPlace) return;
         if (source is CatHouse) return;
         var j:int;
@@ -414,11 +411,6 @@ public class TownArea extends Sprite {
                         _townTailMatrix[i][j].isTutorialBuilding = false;
                         _townTailMatrix[i][j].build = source;
                         _townTailMatrix[i][j].inTile = true;
-//                    _townTailMatrix[i][j].isFull = true;
-//                    if (sizeX > 1 && sizeY > 1) {
-//                        if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
-//                            _townTailMatrix[i][j].isWall = true;
-//                    }
                 }
             }
 
@@ -439,8 +431,6 @@ public class TownArea extends Sprite {
                 for (var j:int = posX; j < (posX + sizeX); j++) {
                     _townTailMatrix[i][j].build = null;
                     _townTailMatrix[i][j].inTile= false;
-//                    _townTailMatrix[i][j].isFull = false;
-//                    _townTailMatrix[i][j].isWall = false;
                     _townTailMatrix[i][j].isTutorialBuilding = false;
                 }
             }

@@ -55,11 +55,13 @@ public class QuestIcon {
 
     private function onHover():void {
         if (_isOnHover) return;
+        _isOnHover = true;
         g.hint.showIt(_data.text);
     }
 
     private function onOut():void {
         if (!_isOnHover) return;
+        _isOnHover = false;
         g.hint.hideIt();
     }
 
