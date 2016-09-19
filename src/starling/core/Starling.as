@@ -433,7 +433,7 @@ package starling.core
                     _stage.stageWidth, _stage.stageHeight, _stage.cameraPosition);
 
                 if (!shareContext)
-                    _painter.clear(_stage.color, 1.0);
+                    _painter.clear(_stage.color, 0.0);
 
                 _stage.render(_painter);
                 _painter.finishFrame();
@@ -529,7 +529,7 @@ package starling.core
             _frameTimestamp = getTimer() / 1000.0;
 
             // mainly for Android: force redraw when app moves into foreground
-            setTimeout(setRequiresRedraw, 1);
+            setTimeout(setRequiresRedraw, 100);
         }
         
         /** Stops all logic and input processing, effectively freezing the app in its current state.

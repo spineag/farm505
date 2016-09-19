@@ -252,7 +252,7 @@ public class WindowsManager {
         }
         wo.showItParams(callback, params);
         _currentWindow = wo;
-        g.managerHelpers.stopIt();
+        if (g.managerHelpers) g.managerHelpers.stopIt();
     }
 
     public function hideWindow(type:String):void {
@@ -263,7 +263,7 @@ public class WindowsManager {
     }
 
     public function onHideWindow(hiddenWindow:WindowMain):void {
-        g.managerHelpers.checkIt();
+        if (g.managerHelpers) g.managerHelpers.checkIt();
         _currentWindow = null;
         if (_nextWindow) {
             openWindow.apply(null, [_nextWindow.type, _nextWindow.callback].concat(_nextWindow.paramsArray));

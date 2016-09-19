@@ -242,7 +242,7 @@ public class MainBottomPanel {
                 } else if (g.managerCutScenes.isCutScene) {
                     shopTab = WOShop.DECOR;
                     g.managerCutScenes.checkCutSceneCallback();
-                } else if (g.managerHelpers.isActiveHelper) {
+                } else if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_ANIMAL) shopTab = WOShop.ANIMAL;
                     else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FABRICA) shopTab = WOShop.FABRICA;
                     else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FARM) shopTab = WOShop.VILLAGE;
@@ -255,7 +255,7 @@ public class MainBottomPanel {
                 g.user.decorShiftShop = 0;
                 g.user.decorShop = false;
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
-                if (g.managerHelpers.isActiveHelper) {
+                if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     g.managerHelpers.onOpenShop();
                 }
                 if (g.managerTutorial.isTutorial) {

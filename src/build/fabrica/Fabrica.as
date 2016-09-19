@@ -232,7 +232,7 @@ public class Fabrica extends WorldObject {
 //    }
 
     public function openFabricaWindow():void {
-        if (g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_RAW_FABRICA && g.managerHelpers.activeReason.build == this) {
+        if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_RAW_FABRICA && g.managerHelpers.activeReason.build == this) {
             g.managerHelpers.onOpenFabricaWithDelay();
         }
         var needShowArrow:Boolean;

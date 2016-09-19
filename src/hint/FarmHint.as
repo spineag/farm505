@@ -60,7 +60,7 @@ public class FarmHint {
     }
 
     public function showIt(x:int, y:int, dataAnimal:Object, f:Function):void {
-        g.managerHelpers.onUserAction();
+        if (g.managerHelpers) g.managerHelpers.onUserAction();
         hideIt();
 
         if (!dataAnimal) {

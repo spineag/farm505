@@ -327,12 +327,12 @@ public class WOFabricaWorkListItem {
 
     private function makeSkip():void {
         if (g.managerTutorial.isTutorial) {
-            if (_skipCallback != null) {
-                destroyTimer();
-                _btnSkip.visible = false;
-                _skipCallback.apply();
-            }
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_RECIPE) {
+                if (_skipCallback != null) {
+                    destroyTimer();
+                    _btnSkip.visible = false;
+                    _skipCallback.apply();
+                }
                 g.managerTutorial.checkTutorialCallback();
             }
             return;

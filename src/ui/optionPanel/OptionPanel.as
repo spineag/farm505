@@ -237,7 +237,7 @@ public class OptionPanel {
     }
 
     private function onClick(reason:String):void {
-        g.managerHelpers.onUserAction();
+        if (g.managerHelpers) g.managerHelpers.onUserAction();
         var i:int;
         var im:Image;
         switch (reason) {
