@@ -35,7 +35,7 @@ public class CTextField extends DisplayObjectContainer {
     private var _height:int;
     private var _deltaOwnX:int = 0;
     private var _deltaOwnY:int = 0;
-    private var _useBitmapFont:Boolean = false;
+    private var _useBitmapFont:Boolean = true;
     private var _isTouchable:Boolean = false;
     private var _isAutoScale:Boolean = false;
     private var _colorStroke:uint;
@@ -55,7 +55,8 @@ public class CTextField extends DisplayObjectContainer {
 //        _txt.border = true;
     }
 
-    public function updateIt():void {
+    public function updateIt():void { // only for true(open) type font
+        if (_useBitmapFont) return;
         if (_colorStroke == 0xabcdef) return;
         this.removeChild(_txt);
         _txt.dispose();
@@ -95,11 +96,11 @@ public class CTextField extends DisplayObjectContainer {
         _format = new TextFormat();
         if (_useBitmapFont) {
             if (!g.allData.bFonts[type]) type = 'BloggerBold24';
-            if (size <17) {
-                color = colorStroke;
-                colorStroke = 0xabcdef;
-                size += 2;
-            }
+//            if (size <17) {
+//                color = colorStroke;
+//                colorStroke = 0xabcdef;
+//                size += 2;
+//            }
             _format.font = g.allData.bFonts[type];
             _format.size = size;
             _format.color = color;
@@ -134,27 +135,41 @@ public class CTextField extends DisplayObjectContainer {
     }
 
     private function setStrokeStyle(color:uint):void {
-        _style = new DistanceFieldStyle(.5, .2);
-        _style.setupOutline(.5, color);
-        _txt.style = _style;
+        var u:Number = .25;
         // fix x and y position for text with distance
         if (_format.size < 17) {
             deltaOwnX = -7;
             deltaOwnY = -2;
-        } else if (_format.size < 22) {
+            u = .2;
+        } else if (_format.size < 20) {
             deltaOwnX = -5;
-            deltaOwnY = -2;
+            deltaOwnY = -3;
+            u = .25;
+        } else if (_format.size <= 24) {
+            deltaOwnX = -5;
+            deltaOwnY = -3;
+            u = .3;
         } else if (_format.size < 32) {
             deltaOwnX = -4;
             deltaOwnY = -3;
+            u = .4;
         } else {
             deltaOwnX = -2;
+            u = .5;
         }
+
+        _style = new DistanceFieldStyle(.5, .175);
+        _style.setupOutline(u, color);
+        _txt.style = _style;
+    }
+
+    public function updateStrokePower(u:Number):void {
+//        _style.setupBasic();
+        _style.setupOutline(u, _colorStroke);
     }
 
     private function setEmptyStyle():void {
-        _style = new DistanceFieldStyle(.5, .25);
-        _txt.style = _style;
+        var s:Number = .25;
         // fix x and y position for text with distance
         if (_format.size < 17) {
             deltaOwnX = -7;
@@ -162,12 +177,16 @@ public class CTextField extends DisplayObjectContainer {
         } else if (_format.size < 22) {
             deltaOwnX = -5;
             deltaOwnY = -2;
+            s = .175;
         } else if (_format.size < 32) {
             deltaOwnX = -4;
             deltaOwnY = -3;
+            s = .125;
         } else {
             deltaOwnX = -2;
         }
+        _style = new DistanceFieldStyle(.5, s);
+        _txt.style = _style;
     }
 
     public function set alignH(value:String): void { _format.horizontalAlign = value; _txt.format.horizontalAlign = value; }

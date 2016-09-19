@@ -74,7 +74,7 @@ public class FriendItem {
         source.addChild(im);
 
         txtLvl = new CTextField(40, 18, "");
-        txtLvl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        txtLvl.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txtLvl.cacheIt = false;
         txtLvl.text = '1';
         txtLvl.text = String(_person.level);
@@ -84,9 +84,8 @@ public class FriendItem {
         if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
         if (_person is NeighborBot) txtLvl.text = '10';
         _txt = new CTextField(64, 30, "");
-        _txt.setFormat(CTextField.BOLD14, 14, ManagerFilters.BROWN_COLOR);
+        _txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
         _txt.y = -5;
-        _txt.x = -1;
         if (_person.name) {
             setName(_person.name);
         } else {
@@ -153,9 +152,6 @@ public class FriendItem {
     }
 
     private function setName(st:String):void {
-        if (st.length > 8) {
-            _txt.changeSize = 11;
-        }
         _txt.text = st;
     }
 

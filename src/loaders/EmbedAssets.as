@@ -44,17 +44,17 @@ public class EmbedAssets {
     private const BitmapBloggerBoldWhite30png:Class;
     [Embed(source="../../assets/fonts/bitmap/bold30.fnt", mimeType="application/octet-stream")]
     private const BitmapBloggerBoldWhite30xml:Class;
-    [Embed(source="../../assets/fonts/bitmap/bold24.png")]
+    [Embed(source="../../assets/fonts/bitmap/bold24_1.png")]
     private const BitmapBloggerBoldWhite24png:Class;
-    [Embed(source="../../assets/fonts/bitmap/bold24.fnt", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/fonts/bitmap/bold24_1.fnt", mimeType="application/octet-stream")]
     private const BitmapBloggerBoldWhite24xml:Class;
-    [Embed(source="../../assets/fonts/bitmap/bold18.png")]
+    [Embed(source="../../assets/fonts/bitmap/bold18_5.png")]
     private const BitmapBloggerBoldWhite18png:Class;
-    [Embed(source="../../assets/fonts/bitmap/bold18.fnt", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/fonts/bitmap/bold18_5.fnt", mimeType="application/octet-stream")]
     private const BitmapBloggerBoldWhite18xml:Class;
-    [Embed(source="../../assets/fonts/bitmap/font.png")]
+    [Embed(source="../../assets/fonts/bitmap/bold14_1.png")]
     private const BitmapBloggerBoldWhite14png:Class;
-    [Embed(source="../../assets/fonts/bitmap/font.fnt", mimeType="application/octet-stream")]
+    [Embed(source="../../assets/fonts/bitmap/bold14_1.fnt", mimeType="application/octet-stream")]
     private const BitmapBloggerBoldWhite14xml:Class;
     [Embed(source="../../assets/fonts/bitmap/medium30.png")]
     private const BitmapBloggerMediumWhite30png:Class;

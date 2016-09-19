@@ -37,9 +37,9 @@ public class Hint {
     public function Hint() {
         source = new Sprite();
         _txtHint = new CTextField(150,20,"");
-        _txtHint.setFormat(CTextField.MEDIUM18, 15, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtHint.setFormat(CTextField.MEDIUM18, 15,ManagerFilters.BLUE_COLOR);
         _txtHintTime = new CTextField(150,20,"");
-        _txtHintTime.setFormat(CTextField.MEDIUM18, 15, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtHintTime.setFormat(CTextField.MEDIUM18, 15, ManagerFilters.BLUE_COLOR);
         _txtHintTime.cacheIt = false;
         source.touchable = false;
         _isShow = false;
