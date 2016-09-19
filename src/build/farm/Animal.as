@@ -340,7 +340,7 @@ public class Animal {
 import flash.geom.Point;
 
 public function onEndClick(last:Boolean = false):void {
-        g.managerHelpers.onUserAction();
+        if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.toolsModifier.modifierType == ToolsModifier.FEED_ANIMAL_ACTIVE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             return;

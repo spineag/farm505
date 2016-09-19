@@ -1277,7 +1277,7 @@ public class TownArea extends Sprite {
                 return;
             }
         }
-        g.managerHelpers.stopIt();
+        if (g.managerHelpers) g.managerHelpers.stopIt();
         g.hideAllHints();
         g.catPanel.visibleCatPanel(false);
         _awayPreloader = new AwayPreloader();
@@ -1693,7 +1693,7 @@ public class TownArea extends Sprite {
     }
 
     public function backHome():void {
-        g.managerHelpers.checkIt();
+        if (g.managerHelpers) g.managerHelpers.checkIt();
         g.hideAllHints();
         while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
         g.cont.craftAwayCont.visible = false;

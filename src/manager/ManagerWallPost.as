@@ -33,7 +33,7 @@ public class ManagerWallPost {
     public static const OPEN_CAVE:String = 'open_cave';
     public static const DONE_TRAIN:String = 'done_train';
     public static const DONE_ORDER:String = 'done_order';
-    public static const POST_FOR_QUEST:String = 'done_order';
+    public static const POST_FOR_QUEST:String = 'quest_post';
 
     private var _count:int;
     private var _type:int;
@@ -80,7 +80,7 @@ public class ManagerWallPost {
             case POST_FOR_QUEST:
                 var woForQuest:WALLForQuest = new WALLForQuest();
                 woForQuest.showItParams(callback, params);
-
+                break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);
                 break;

@@ -145,7 +145,7 @@ public class Order extends WorldObject{
                 return;
             }
             onOut();
-            if (g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_ORDER) {
+            if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_ORDER) {
                 g.lateAction.releaseOnTimer(.7, showBtnCellArrow);
             }
             g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
