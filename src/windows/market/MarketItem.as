@@ -111,7 +111,7 @@ public class MarketItem {
 
         _countTxt = new CTextField(30, 30, '');
         _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _costTxt.cacheIt = false;
+        _countTxt.cacheIt = false;
         _countTxt.x = 77;
         _countTxt.y = 7;
         source.addChild(_countTxt);

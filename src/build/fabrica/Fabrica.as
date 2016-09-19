@@ -429,11 +429,14 @@ public class Fabrica extends WorldObject {
 
         var f1:Function = function(t:String):void {
             resItem.idFromServer = t;
-            for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
-                g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
-            }
+//            for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
+//                g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
+//            }
         };
         Cc.ch('temp', 'fabrica delay: ' + delay);
+        for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
+            g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
+        }
         g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
         // animation of uploading resources to fabrica
         var p:Point = new Point(source.x, source.y);
