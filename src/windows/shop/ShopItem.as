@@ -93,7 +93,7 @@ public class ShopItem {
         _countTxt.visible = false;
 
         _countBoxTxt = new CTextField(100, 30, '');
-        _countBoxTxt.setFormat(CTextField.BOLD14, 12, Color.YELLOW, ManagerFilters.BROWN_COLOR);
+        _countBoxTxt.setFormat(CTextField.BOLD18, 12, Color.YELLOW, ManagerFilters.BROWN_COLOR);
         _countBoxTxt.cacheIt = false;
         _countBoxTxt.y = 130;
         _countBoxTxt.x = 20;
@@ -145,7 +145,7 @@ public class ShopItem {
         im.x = -7;
         _shopLimitSprite.addChild(im);
         _txtLimit = new CTextField(145, 26, 'Достигнут лимит');
-        _txtLimit.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtLimit.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtLimit.cacheIt = false;
         _txtLimit.y = 33;
         _shopLimitSprite.addChild(_txtLimit);
@@ -201,7 +201,7 @@ public class ShopItem {
                 _btnActivationYellow = new CButton();
                 _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
                 _txtBtnYellow = new CTextField(125, 40, 'УСТАНОВИТЬ');
-                _txtBtnYellow.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
+                _txtBtnYellow.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.YELLOW_COLOR);
                 _txtBtnYellow.cacheIt = false;    
                 _btnActivationYellow.addChild(_txtBtnYellow);
                 _btnActivationYellow.x = 74;

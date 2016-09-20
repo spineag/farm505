@@ -56,9 +56,9 @@ public class WOAmbarFilled extends WindowMain {
         _imageAmbar.y = -20;
         _imageAmbar.touchable = false;
         MCScaler.scale(_imageAmbar,49,320);
-        _txtAmbarFilled = new CTextField(200,50,"");
-        _txtAmbarFilled.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtAmbarFilled.x = -100;
+        _txtAmbarFilled = new CTextField(220,50,"");
+        _txtAmbarFilled.setFormat(CTextField.BOLD18, 17, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtAmbarFilled.x = -110;
         _txtAmbarFilled.y = -125;
         _txtAmbarFilled.touchable = false;
         _source.addChild(_txtAmbarFilled);
@@ -88,12 +88,12 @@ public class WOAmbarFilled extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         _isAmbar = params[0];
         if (_isAmbar) {
-            _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInAmbar) + "/" + String(g.user.ambarMaxCount);
+            _txtCount.text = "ВМЕСТИМОСТЬ: " + String(g.userInventory.currentCountInAmbar) + "/" + String(g.user.ambarMaxCount);
             _txtAmbarFilled.text = "АМБАР ЗАПОЛНЕН";
             _txtBtn.text = "Увеличить Амбар";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
         } else {
-            _txtCount.text = "ВМЕСТИМОСТЬ:" + String(g.userInventory.currentCountInSklad) + "/" + String(g.user.skladMaxCount);
+            _txtCount.text = "ВМЕСТИМОСТЬ: " + String(g.userInventory.currentCountInSklad) + "/" + String(g.user.skladMaxCount);
             _txtAmbarFilled.text = "СКЛАД ЗАПОЛНЕН";
             _txtBtn.text = "Увеличить Склад";
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));

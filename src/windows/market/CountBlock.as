@@ -80,11 +80,11 @@ public class CountBlock {
 
     public function set setWidth(a:int):void {
         _plawkaBg.width = a;
-        _plawkaBg.x = -_plawkaBg.width/2 - 60;
-        _plawkaBg.y = -_plawkaBg.height/2 + 5;
+        _plawkaBg.x = -_plawkaBg.width/2 - 58;
+        _plawkaBg.y = -_plawkaBg.height/2 + 4;
         source.addChild(_plawkaBg);
-        _txt.x = -_txt.width/2 - 60;
-        _txt.y = -_txt.height/2 + 5;
+        _txt.x = -_txt.width/2 - 57;
+        _txt.y = -_txt.height/2 + 3;
         source.addChild(_txt);
         _btnMinus.x = _plawkaBg.x - _btnMinus.width - 10;
         _btnMinus.y = -_btnMinus.height/2 + 5;

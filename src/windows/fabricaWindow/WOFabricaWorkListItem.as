@@ -63,7 +63,7 @@ public class WOFabricaWorkListItem {
         if (type == SMALL_CELL) {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
             MCScaler.scale(_bg, 50, 50);
-            _txtNumberCreate.setFormat(CTextField.BOLD14, 13, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _txtNumberCreate.setFormat(CTextField.BOLD18, 13, Color.WHITE, ManagerFilters.BLUE_COLOR);
         } else {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_k'));
             _txtNumberCreate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -89,7 +89,7 @@ public class WOFabricaWorkListItem {
             _txtTimer.setFormat(CTextField.BOLD18, 18, Color.WHITE);
             _txtTimer.cacheIt = false;
             _txtTimer.x = 13;
-            _txtTimer.y = -20;
+            _txtTimer.y = -22;
             _timerBlock.addChild(_txtTimer);
             _source.addChild(_timerBlock);
             _timerBlock.visible = false;
@@ -101,8 +101,8 @@ public class WOFabricaWorkListItem {
             _btnSkip = new CButton();
             _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
             _txtSkip = new CTextField(100,35,"25");
-            _txtSkip.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-            _txtSkip.y = 11;
+            _txtSkip.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _txtSkip.y = 9;
             _btnSkip.addChild(_txtSkip);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             _rubinSmall.x = 78;
@@ -111,8 +111,8 @@ public class WOFabricaWorkListItem {
             _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _btnSkip.x = 52;
             _btnSkip.y = 117;
-            _txtForce = new CTextField(65,35,"ускорить");
-            _txtForce.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _txtForce = new CTextField(70,35,"ускорить");
+            _txtForce.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _txtForce.x = 10;
             _txtForce.y = -8;
             _btnSkip.addChild(_txtForce);

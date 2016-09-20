@@ -50,7 +50,7 @@ public class TreeHint {
     private var _imageBgItemHelp:Image;
     private var _imageItem:Image;
     private var _imageHelp:Image;
-    private var _txtItem:CTextField;
+    private var _txtCount:CTextField;
     private var _txtName:CTextField;
     private var _worldObject:WorldObject;
     private var _data:Object;
@@ -85,10 +85,10 @@ public class TreeHint {
         _imageCircle.x = 45;
         _imageCircle.y = -110;
 
-        _txtItem = new CTextField(50,50,"");
-        _txtItem.setFormat(CTextField.BOLD14, 14, Color.WHITE);
-        _txtItem.x = 37;
-        _txtItem.y = -117;
+        _txtCount = new CTextField(50,50,"");
+        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtCount.x = 38;
+        _txtCount.y = -119;
         _txtName = new CTextField(200,50,"");
         _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -100;
@@ -124,6 +124,8 @@ public class TreeHint {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'treeHint');
             return;
         }
+        if (_isShowed) return;
+        _isShowed = true;
         _onOutCallback = out;
         _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE);
         _quad.alpha = 0;
@@ -138,8 +140,6 @@ public class TreeHint {
         }
         _worldObject = worldobject;
         _data = data;
-        if (_isShowed) return;
-        _isShowed = true;
         _source.x = x;
         _source.y = y;
         _source.scaleX = _source.scaleY = 0;
@@ -164,9 +164,9 @@ public class TreeHint {
         MCScaler.scale(_imageItem,55,55);
         _imageItem.y = -95;
         _imageItem.x = 5;
-        _txtItem.text = String(g.userInventory.getCountResourceById(data.removeByResourceId));
+        _txtCount.text = String(g.userInventory.getCountResourceById(data.removeByResourceId));
         _contDelete.addChild(_imageItem);
-        _source.addChild(_txtItem);
+        _source.addChild(_txtCount);
         g.cont.hintCont.addChild(_source);
 
         if (_source.y < _source.height + 50 || _source.x < _source.width/2 + 50 || _source.x > Starling.current.nativeStage.stageWidth -_source.width/2 - 50) {
@@ -185,7 +185,7 @@ public class TreeHint {
     }
 
     private function updateTextField():void {
-        _txtItem.updateIt();
+        _txtCount.updateIt();
         _txtName.updateIt();
     }
 

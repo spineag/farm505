@@ -83,6 +83,7 @@ public class WOBuyCurrencyItem {
         _btn.addButtonTexture(120, 40, CButton.GREEN, true);
         _txtBtn = new CTextField(120, 38, String(cost) + ' голосов');
         _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtBtn.leading = -1;
         _btn.addChild(_txtBtn);
         _btn.x = 493;
         _btn.y = 31;

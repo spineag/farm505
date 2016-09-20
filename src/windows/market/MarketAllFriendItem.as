@@ -20,7 +20,7 @@ import windows.WOComponents.CartonBackground;
 import windows.WOComponents.WOButtonTexture;
 import windows.WindowsManager;
 
-public class MarketFriendsPanelItem{
+public class MarketAllFriendItem{
     private var _person:Someone;
     public var source:CSprite;
     private var _ava:Image;
@@ -32,7 +32,7 @@ public class MarketFriendsPanelItem{
 
     private var g:Vars = Vars.getInstance();
 
-    public function MarketFriendsPanelItem(f:Someone, wo:WOMarket, _shift:int) {
+    public function MarketAllFriendItem(f:Someone, wo:WOMarket, _shift:int) {
         _shiftFriend = _shift;
         _person = f;
         source = new CSprite();
@@ -45,9 +45,8 @@ public class MarketFriendsPanelItem{
         _ava.x = 1;
         _ava.y = 1;
         source.addChild(_ava);
-        _txtPersonName = new CTextField(100, 30, 'loading...');
+        _txtPersonName = new CTextField(72, 30, 'loading...');
         _txtPersonName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtPersonName.x = -15;
         _txtPersonName.y = 50;
         if (_person.name) _txtPersonName.text = _person.name;
         source.addChild(_txtPersonName);
@@ -72,7 +71,7 @@ public class MarketFriendsPanelItem{
             _planet = new CSprite();
             _visitBtn = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
             var txtBtn:CTextField = new CTextField(65, 25, "Посетить");
-            txtBtn.setFormat(CTextField.BOLD14, 12, Color.WHITE);
+            txtBtn.setFormat(CTextField.BOLD18, 12, Color.WHITE);
             _planet.addChild(_visitBtn);
             _planet.addChild(txtBtn);
             _planet.x = 20;

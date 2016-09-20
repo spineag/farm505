@@ -58,7 +58,7 @@ public class XPPanel {
         _source.addChild(_imageStar);
         _txtLevel = new CTextField(60, 60, '55');
         _txtLevel.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtLevel.x = -27;
+        _txtLevel.x = -30;
         _txtLevel.y = -12;
         _source.addChild(_txtLevel);
         _txtXPCount = new CTextField(123, 30, '0');

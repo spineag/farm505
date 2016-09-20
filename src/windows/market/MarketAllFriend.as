@@ -63,7 +63,7 @@ public class MarketAllFriend {
         _bg.filter = ManagerFilters.SHADOW_LIGHT;
         source.addChild(_bg);
         for (var i:int=0; i < _arrFriends.length; i++) {
-            var item:MarketFriendsPanelItem = new MarketFriendsPanelItem(_arrFriends[i], _wo, i);
+            var item:MarketAllFriendItem = new MarketAllFriendItem(_arrFriends[i], _wo, i);
             _scrollSprite.addNewCell(item.source);
         }
         source.addChild(_scrollSprite.source);

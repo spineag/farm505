@@ -250,7 +250,7 @@ public class HintBackground extends Sprite {
         var s:String;
         if (size >= 20) s = CTextField.BOLD24;
         else if (size > 14) s = CTextField.BOLD18;
-        else s = CTextField.BOLD14;
+        else s = CTextField.BOLD18;
         _txt = new CTextField(_width - 10, _height - 20,'');
         _txt.setFormat(s, size, ManagerFilters.BLUE_COLOR);
         _txt.x = _bg.x + 5;

@@ -98,7 +98,7 @@ public class WODailyBonus extends WindowMain {
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(200, 40, CButton.GREEN, true);
         _txtBtnBuy = new CTextField(170, 40, 'Вращать колесо за 10');
-        _txtBtnBuy.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
+        _txtBtnBuy.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnBuy.addChild(_txtBtnBuy);
         _btnBuy.y = 260;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

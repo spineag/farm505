@@ -66,9 +66,9 @@ public class ToolsModifier {
         _mouseIcon = new Sprite();
         _plantId = -1;
         _txtCount = new CTextField(50,40,"");
-        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE);
-        _txtCount.x = 18;
-        _txtCount.y = 29;
+        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtCount.x = 21;
+        _txtCount.y = 27;
     }
 
     public function setTownArray():void {
@@ -212,7 +212,7 @@ public class ToolsModifier {
 
     public function updateCountTxt():void {
         if (_plantId > 0) {
-            _txtCount.text = String(g.userInventory.getCountResourceById(plantId));
+            _txtCount.text = String(g.userInventory.getCountResourceById(_plantId));
         } else {
             _txtCount.text = '';
         }

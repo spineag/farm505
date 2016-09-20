@@ -75,7 +75,7 @@ public class AmbarCell {
         _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _countTxt.cacheIt = false;
         _countTxt.alignH = Align.RIGHT;
-        _countTxt.x = 17;
+        _countTxt.x = 15;
         _countTxt.y = 72;
         _countTxt.text = String(g.userInventory.getCountResourceById(_data.id));
         source.addChild(_countTxt);
@@ -92,32 +92,18 @@ public class AmbarCell {
         source = null;
         _image = null;
         _countTxt = null;
-        g.gameDispatcher.removeEnterFrame(onEnterFrame);
-        count = 0;
     }
 
     private function onHover():void {
         if (_onHover) return;
         _onHover = true;
-        count = 0;
-        g.gameDispatcher.addEnterFrame(onEnterFrame);
+        if (!g.resourceHint.isShowed)
+            g.resourceHint.showIt(_data.id,source.x,source.y,source);
     }
 
     private function onOut():void {
         _onHover = false;
         g.resourceHint.hideIt();
-        g.gameDispatcher.removeEnterFrame(onEnterFrame);
-    }
-
-    private var count:int;
-    private function onEnterFrame():void {
-        count++;
-        if (count >= 10) {
-            if (!g.resourceHint.isShowed && _onHover)
-                g.resourceHint.showIt(_data.id,source.x,source.y,source);
-            g.gameDispatcher.removeEnterFrame(onEnterFrame);
-            count = 0;
-        }
     }
 
     public function set clickCallback(f:Function):void {

@@ -103,8 +103,8 @@ public class ResourceHint {
         g.starling.juggler.add(tween);
 
         _txtText = new CTextField(200,100,'');
-        _txtText.setFormat(CTextField.MEDIUM14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtText.leading = -5;
+        _txtText.setFormat(CTextField.MEDIUM18, 14, ManagerFilters.BLUE_COLOR);
+        _txtText.leading = -2;
         _txtName = new CTextField(200, 30, '');
         _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         _txtTime = new CTextField(80, 50, '');
@@ -292,17 +292,17 @@ public class ResourceHint {
 
         if (objAnimals[_id]) {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
-            _imageClock.y = 70;
+            _imageClock.y = 74;
             _imageClock.x = -30;
             _txtName.text = String(g.dataResource.objectResources[_id].name);
             _txtName.x = -100;
-            _txtName.y = 20;
+            _txtName.y = 18;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime);
 //            _txtTime.x = -10;
-            _txtTime.y = 60;
+            _txtTime.y = 62;
             _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_id].buildId].name;
             _txtText.x = -100;
-            _txtText.y = 5;
+            _txtText.y = 7;
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
             if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);

@@ -48,7 +48,7 @@ public class WOInviteFriends extends WindowMain {
         _btn = new CButton();
         _btn.addButtonTexture(100, 34, CButton.BLUE, true);
         var txt:CTextField = new CTextField(100,30,'Пригласить');
-        txt.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btn.addChild(txt);
         _btn.x = 0;
         _btn.y = 200;

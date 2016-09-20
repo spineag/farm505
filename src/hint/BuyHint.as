@@ -22,7 +22,7 @@ public class BuyHint {
     public function BuyHint() {
         _source = new Sprite();
         _txtHint = new CTextField(100,50,"");
-        _txtHint.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtHint.setFormat(CTextField.BOLD18, 14, ManagerFilters.BLUE_COLOR);
         _open = false;
     }
 

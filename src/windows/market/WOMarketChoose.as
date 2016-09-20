@@ -81,12 +81,12 @@ public class WOMarketChoose extends WindowMain {
         _source.addChild(_countResourceBlock.source);
 
         _txtCount = new CTextField(100, 30, 'Количество:');
-        _txtCount.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCount.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCount.x = -190;
         _txtCount.y = 145;
         _source.addChild(_txtCount);
         _txtPrice = new CTextField(150, 30, 'Цена продажи:');
-        _txtPrice.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtPrice.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtPrice.x = -55;
         _txtPrice.y = 145;
         _source.addChild(_txtPrice);
@@ -96,8 +96,9 @@ public class WOMarketChoose extends WindowMain {
         var im:Image  = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_market'));
         im.x = 10;
         _btnSell.addChild(im);
-        _txtSellBtn = new CTextField(100, 50, 'Выставить на продажу');
-        _txtSellBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtSellBtn = new CTextField(108, 50, 'Выставить на продажу');
+        _txtSellBtn.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtSellBtn.leading = -2;
         _txtSellBtn.y = 45;
         _txtSellBtn.x = 2;
         _btnSell.addChild(_txtSellBtn);

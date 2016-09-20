@@ -78,8 +78,8 @@ public class MainBottomPanel {
         _shopBtn.addChild(_imNotification);
         _txtNotification = new CTextField(30,30,'');
         _txtNotification.setFormat(CTextField.BOLD18, 18, Color.WHITE);
-        _txtNotification.x = 36;
-        _txtNotification.y = -7;
+        _txtNotification.x = 34;
+        _txtNotification.y = -9;
         _shopBtn.addChild(_txtNotification);
         _imNotification.visible = false;
         _txtNotification.visible = false;

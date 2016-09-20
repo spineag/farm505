@@ -49,7 +49,7 @@ public class UpdateItem {
         _txtCount = new CTextField(80,40,'');
         _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCount.alignH = Align.RIGHT;
-        _txtCount.x = 17;
+        _txtCount.x = 15;
         _txtCount.y = 65;
         source.addChild(_txtCount);
 
@@ -62,13 +62,13 @@ public class UpdateItem {
 
         _btnTxt = new CTextField(50,20,'50');
         _btnTxt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btnTxt.x = 16;
+        _btnTxt.x = 11;
         _btnTxt.y = 10;
         _btn.addChild(_btnTxt);
 
         _rubinsSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         _rubinsSmall.x = 57;
-        _rubinsSmall.y = 4;
+        _rubinsSmall.y = 5;
         _btn.addChild(_rubinsSmall);
         _rubinsSmall.filter = ManagerFilters.SHADOW_TINY;
 

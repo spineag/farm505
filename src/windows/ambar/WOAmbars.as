@@ -187,8 +187,8 @@ public class WOAmbars extends WindowMain {
         _progress.source.y = -_woHeight/2 + 458;
         _source.addChild(_progress.source);
 
-        _txtCount = new CTextField(250, 67, "Вместимость: 0/0");
-        _txtCount.setFormat(CTextField.BOLD24, 20, ManagerFilters.ORANGE_COLOR, Color.WHITE);
+        _txtCount = new CTextField(290, 67, "Вместимость: 0/0");
+        _txtCount.setFormat(CTextField.BOLD24, 22, ManagerFilters.ORANGE_COLOR, Color.WHITE);
         _txtCount.alignH = Align.LEFT;
         _txtCount.x = -_woWidth/2 + 47;
         _txtCount.y = -_woHeight/2 + 473;
@@ -199,8 +199,8 @@ public class WOAmbars extends WindowMain {
         _btnShowUpdate.x = -_woWidth/2 + 430;
         _btnShowUpdate.y = -_woHeight/2 + 514;
         _txtBtnShowUpdate = new CTextField(90, 50, "Увеличить склад");
-        _txtBtnShowUpdate.setFormat(CTextField.MEDIUM18, 17, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _txtBtnShowUpdate.leading = -5;
+        _txtBtnShowUpdate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtBtnShowUpdate.leading = -1;
         _txtBtnShowUpdate.x = 18;
         _txtBtnShowUpdate.y = -5;
         _btnShowUpdate.addChild(_txtBtnShowUpdate);
@@ -212,9 +212,9 @@ public class WOAmbars extends WindowMain {
         _btnBackFromUpdate = new CButton();
         _btnBackFromUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
         _txtBtnBack = new CTextField(90, 50, "Назад");
-        _txtBtnBack.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtBtnBack.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtBtnBack.x = 18;
-        _txtBtnBack.y = -4;
+        _txtBtnBack.y = -5;
         _btnBackFromUpdate.addChild(_txtBtnBack);
         _btnBackFromUpdate.x = -_woWidth/2 + 430;
         _btnBackFromUpdate.y = -_woHeight/2 + 514;
@@ -246,9 +246,9 @@ public class WOAmbars extends WindowMain {
         _btnMakeUpdate = new CButton();
         _btnMakeUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
         _txtBtnUpdate = new CTextField(90, 50, "Увеличить");
-        _txtBtnUpdate.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtBtnUpdate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtBtnUpdate.x = 17;
-        _txtBtnUpdate.y = -4;
+        _txtBtnUpdate.y = -5;
         _txtBtnUpdate.autoScale = true;
         _btnMakeUpdate.addChild(_txtBtnUpdate);
         _btnMakeUpdate.x = 201;

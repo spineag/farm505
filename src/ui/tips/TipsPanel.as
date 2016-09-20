@@ -39,8 +39,8 @@ public class TipsPanel {
         _source.addChild(im);
         _txt= new CTextField(30,30,"");
         _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE);
-        _txt.x = 18;
-        _txt.y = 32;
+        _txt.x = 17;
+        _txt.y = 30;
         _txt.touchable = false;
         _source.addChild(_txt);
         _source.scaleX = _source.scaleY = .1;

@@ -66,7 +66,7 @@ public class WildHint {
         _btn.addDisplayObject(_bgItem);
         _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
         _txtCount = new CTextField(30,30,"");
-        _txtCount.setFormat(CTextField.BOLD14, 12, Color.WHITE);
+        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE);
         _txtName = new CTextField(100,50,"");
         _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -50;
@@ -105,8 +105,8 @@ public class WildHint {
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
-        _txtCount.x = _circle.x + 2;
-        _txtCount.y = _circle.y + 3;
+        _txtCount.x = _circle.x + 3;
+        _txtCount.y = _circle.y + 2;
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         if (!_iconResource) {
             Cc.error('WildHint showIt:: no such image: ' + g.dataResource.objectResources[idResourceForRemoving].imageShop);

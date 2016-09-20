@@ -54,11 +54,11 @@ public class TimerHint {
         _btn = new CButton();
         _btn.addButtonTexture(78, 46, CButton.GREEN, true);
         _txtCost = new CTextField(50,50,"");
-        _txtCost.setFormat(CTextField.BOLD18, 18, Color.WHITE);
-        _txtCost.x = 5;
+        _txtCost.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtCost.x = 3;
         _txtCost.y = 6;
         _txtTimer = new CTextField(80,30,"");
-        _txtTimer.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtTimer.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtTimer.cacheIt = false;
         _txtTimer.x = -85;
         _txtTimer.y = -58;
@@ -67,7 +67,7 @@ public class TimerHint {
         _txtName.x = -88;
         _txtName.y = -130;
         _txtText = new CTextField(78,50,'ускорить');
-        _txtText.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtText.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
 //        _txtText.x = 13;
         _txtText.y = -17;
         _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("order_window_del_clock"));
@@ -77,7 +77,7 @@ public class TimerHint {
         _btn.addButtonTexture(77, 45, CButton.GREEN, true);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         im.x = 45;
-        im.y = 18;
+        im.y = 19;
         MCScaler.scale(im,25,25);
 
         _btn.addChild(im);

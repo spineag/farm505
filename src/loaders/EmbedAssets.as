@@ -27,18 +27,21 @@ public class EmbedAssets {
 //    [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
 //    private const InstrumentTextureXML:Class;
 
-    [Embed(source="../../assets/fonts/BloggerSansBold.otf", embedAsCFF="false", fontName="BloggerBold")]
-    private const BloggerBold:Class;
+    //    [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
+//    private const HouschkaBold:Class;
 //    [Embed(source="../../assets/fonts/BloggerSansItalic.otf", embedAsCFF="false", fontName="BloggerItalic")]
 //    private const BloggerItalic:Class;
 //    [Embed(source="../../assets/fonts/BloggerSansLightRegular.otf", embedAsCFF="false", fontName="BloggerLight")]
 //    private const BloggerLight:Class;
-    [Embed(source="../../assets/fonts/BloggerSansMediumRegular.otf", embedAsCFF="false", fontName="BloggerMedium")]
-    private const BloggerMedium:Class;
-    [Embed(source="../../assets/fonts/BloggerSansRegular.otf", embedAsCFF="false", fontName="BloggerRegular")]
-    private const BloggerRegular:Class;
-//    [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
-//    private const HouschkaBold:Class;
+
+    // use this !!!!
+//    [Embed(source="../../assets/fonts/BloggerSansMediumRegular.otf", embedAsCFF="false", fontName="BloggerMedium")]
+//    private const BloggerMedium:Class;
+//    [Embed(source="../../assets/fonts/BloggerSansRegular.otf", embedAsCFF="false", fontName="BloggerRegular")]
+//    private const BloggerRegular:Class;
+//    [Embed(source="../../assets/fonts/BloggerSansBold.otf", embedAsCFF="false", fontName="BloggerBold")]
+//    private const BloggerBold:Class;
+
 
     [Embed(source="../../assets/fonts/bitmap/bold30.png")]
     private const BitmapBloggerBoldWhite30png:Class;
@@ -52,10 +55,6 @@ public class EmbedAssets {
     private const BitmapBloggerBoldWhite18png:Class;
     [Embed(source="../../assets/fonts/bitmap/bold18_5.fnt", mimeType="application/octet-stream")]
     private const BitmapBloggerBoldWhite18xml:Class;
-    [Embed(source="../../assets/fonts/bitmap/bold14_1.png")]
-    private const BitmapBloggerBoldWhite14png:Class;
-    [Embed(source="../../assets/fonts/bitmap/bold14_1.fnt", mimeType="application/octet-stream")]
-    private const BitmapBloggerBoldWhite14xml:Class;
     [Embed(source="../../assets/fonts/bitmap/medium30.png")]
     private const BitmapBloggerMediumWhite30png:Class;
     [Embed(source="../../assets/fonts/bitmap/medium30.fnt", mimeType="application/octet-stream")]
@@ -68,10 +67,6 @@ public class EmbedAssets {
     private const BitmapBloggerMediumWhite18png:Class;
     [Embed(source="../../assets/fonts/bitmap/medium18.fnt", mimeType="application/octet-stream")]
     private const BitmapBloggerMediumWhite18xml:Class;
-    [Embed(source="../../assets/fonts/bitmap/medium14.png")]
-    private const BitmapBloggerMediumWhite14png:Class;
-    [Embed(source="../../assets/fonts/bitmap/medium14.fnt", mimeType="application/octet-stream")]
-    private const BitmapBloggerMediumWhite14xml:Class;
     [Embed(source="../../assets/fonts/bitmap/regular30.png")]
     private const BitmapBloggerRegularWhite30png:Class;
     [Embed(source="../../assets/fonts/bitmap/regular30.fnt", mimeType="application/octet-stream")]
@@ -84,10 +79,6 @@ public class EmbedAssets {
     private const BitmapBloggerRegularWhite18png:Class;
     [Embed(source="../../assets/fonts/bitmap/regular18.fnt", mimeType="application/octet-stream")]
     private const BitmapBloggerRegularWhite18xml:Class;
-    [Embed(source="../../assets/fonts/bitmap/regular14.png")]
-    private const BitmapBloggerRegularWhite14png:Class;
-    [Embed(source="../../assets/fonts/bitmap/regular14.fnt", mimeType="application/octet-stream")]
-    private const BitmapBloggerRegularWhite14xml:Class;
     [Embed(source="../../assets/fonts/bitmap/bold72.png")]
     private const BitmapBloggerBold72png:Class;
     [Embed(source="../../assets/fonts/bitmap/bold72.fnt", mimeType="application/octet-stream")]
@@ -106,6 +97,7 @@ public class EmbedAssets {
     }
 
     private function registerFonts():void {
+        //bFont.smoothing = TextureSmoothing.TRILINEAR;
         var texture:Texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite30png);
         var xml:XML = XML(new BitmapBloggerBoldWhite30xml());
         var bFont:BitmapFont = new BitmapFont(texture, xml);
@@ -120,12 +112,6 @@ public class EmbedAssets {
         xml = XML(new BitmapBloggerBoldWhite18xml());
         bFont = new BitmapFont(texture, xml);
         g.allData.bFonts['BloggerBold18'] = TextField.registerBitmapFont(bFont);
-
-        texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite14png);
-        xml = XML(new BitmapBloggerBoldWhite14xml());
-        bFont = new BitmapFont(texture, xml);
-//bFont.smoothing = TextureSmoothing.TRILINEAR;
-        g.allData.bFonts['BloggerBold14'] = TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerMediumWhite30png);
         xml = XML(new BitmapBloggerMediumWhite30xml());
@@ -142,11 +128,6 @@ public class EmbedAssets {
         bFont = new BitmapFont(texture, xml);
         g.allData.bFonts['BloggerMedium18'] = TextField.registerBitmapFont(bFont);
 
-        texture = Texture.fromEmbeddedAsset(BitmapBloggerMediumWhite14png);
-        xml = XML(new BitmapBloggerMediumWhite14xml());
-        bFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerMedium14'] = TextField.registerBitmapFont(bFont);
-
         texture = Texture.fromEmbeddedAsset(BitmapBloggerRegularWhite30png);
         xml = XML(new BitmapBloggerRegularWhite30xml());
         bFont = new BitmapFont(texture, xml);
@@ -161,11 +142,6 @@ public class EmbedAssets {
         xml = XML(new BitmapBloggerRegularWhite18xml());
         bFont = new BitmapFont(texture, xml);
         g.allData.bFonts['BloggerRegular18'] = TextField.registerBitmapFont(bFont);
-
-        texture = Texture.fromEmbeddedAsset(BitmapBloggerRegularWhite14png);
-        xml = XML(new BitmapBloggerRegularWhite14xml());
-        bFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerRegular14'] = TextField.registerBitmapFont(bFont);
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerBold72png);
         xml = XML(new BitmapBloggerBold72xml());
@@ -182,13 +158,15 @@ public class EmbedAssets {
 //        texture = Texture.fromBitmap(new BuildTexture());
 //        xml= XML(new BuildTextureXML());
 //        g.allData.atlas['buildAtlas'] = new TextureAtlas(texture, xml);
-
-        g.allData.fonts['BloggerBold'] = (new BloggerBold() as Font).fontName;
 //        g.allData.fonts['BloggerItalic'] = (new BloggerItalic() as Font).fontName;
 //        g.allData.fonts['BloggerLight'] = (new BloggerLight() as Font).fontName;
-        g.allData.fonts['BloggerRegular'] = (new BloggerRegular() as Font).fontName;
-        g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
 //        g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
+
+        // use this
+//        g.allData.fonts['BloggerRegular'] = (new BloggerRegular() as Font).fontName;
+//        g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
+//        g.allData.fonts['BloggerBold'] = (new BloggerBold() as Font).fontName;
+
 
         var count:int = 2;
         var checkCount:Function = function ():void {

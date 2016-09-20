@@ -43,11 +43,11 @@ public class WOOrderResourceItem {
         _countTxt.y = 60;
         _countTxt.x = -3;
         source.addChild(_countTxt);
-        _countRed = new CTextField(30, 30, "");
+        _countRed = new CTextField(50, 30, "");
         _countRed.setFormat(CTextField.BOLD18, 18, ManagerFilters.ORANGE_COLOR, ManagerFilters.BROWN_COLOR);
         _countRed.alignH = Align.RIGHT;
         _countRed.y = 65;
-        _countRed.x = -3;
+        _countRed.x = -23;
         source.addChild(_countRed);
         source.hoverCallback = onHover;
         source.outCallback = outCallback;
@@ -86,7 +86,7 @@ public class WOOrderResourceItem {
         _countRed.text = String(curCount);
         _countTxt.text = '/' + String(count);
         _countTxt.x = 12;
-        _countRed.x = 61 -_countTxt.textBounds.width ;
+        _countRed.x = 44 -_countTxt.textBounds.width;
         if (curCount >= count) {
             _check.visible = true;
 //            _countTxt.text = String(curCount) + '/' + String(count);

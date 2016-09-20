@@ -95,7 +95,7 @@ public class MarketItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _txtAdditem = new CTextField(80,70,'Добавить товар');
-        _txtAdditem.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtAdditem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtAdditem.cacheIt = false;
         _txtAdditem.x = 15;
         _txtAdditem.y = 30;
@@ -105,7 +105,7 @@ public class MarketItem {
         _costTxt = new CTextField(122, 30, '');
         _costTxt.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _costTxt.cacheIt = false;
-        _costTxt.y = 101;
+        _costTxt.y = 99;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2 - 5;
 
@@ -113,7 +113,7 @@ public class MarketItem {
         _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _countTxt.cacheIt = false;
         _countTxt.x = 77;
-        _countTxt.y = 7;
+        _countTxt.y = 3;
         source.addChild(_countTxt);
 
         _imageCont = new Sprite();
@@ -203,7 +203,7 @@ public class MarketItem {
             else _countBuyCell = (numberCell - 5) * 2 + 5;
             source.addChild(buyCont);
             _txtBuyNewPlace = new CTextField(100,90,'Докупить торговое место');
-            _txtBuyNewPlace.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
+            _txtBuyNewPlace.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
             _txtBuyNewPlace.cacheIt = false;
             _txtBuyNewPlace.x = 5;
             _txtBuyNewPlace.y = 0;
@@ -779,7 +779,7 @@ public class MarketItem {
         _btnGoAwaySaleItem = new CButton();
         _btnGoAwaySaleItem.addButtonTexture(70, 24, CButton.BLUE, true);
         _txtGo = new CTextField(60, 30, 'посетить');
-        _txtGo.setFormat(CTextField.BOLD14, 14, Color.WHITE);
+        _txtGo.setFormat(CTextField.BOLD18, 14, Color.WHITE);
         _txtGo.x = 4;
         _txtGo.y = -4;
         _btnGoAwaySaleItem.addChild(_txtGo);

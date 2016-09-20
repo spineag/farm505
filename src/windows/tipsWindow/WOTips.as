@@ -37,7 +37,7 @@ public class WOTips  extends WindowMain {
         _carton.y = -221;
         _source.addChild(_carton);
         _txtList = new CTextField(420,80,'Список действий');
-        _txtList.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtList.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtList.x = -210;
         _txtList.y = -242;
         _source.addChild(_txtList);

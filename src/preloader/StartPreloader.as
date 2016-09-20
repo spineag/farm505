@@ -57,7 +57,7 @@ public class StartPreloader {
         _txt.setFormat(CTextField.BOLD24, 24, 0x0659b6);
         _source.addChild(_txt);
         _txt.x = _bg.width/2 - 44;
-        _txt.y = _bg.height/2 + 184;
+        _txt.y = _bg.height/2 + 182;
     }
 
     private function create():void {

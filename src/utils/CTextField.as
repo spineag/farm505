@@ -13,16 +13,16 @@ import starling.text.TextField;
 import starling.text.TextFormat;
 
 public class CTextField extends DisplayObjectContainer {
-    public static var BOLD14:String = 'BloggerBold14';
+//    public static var BOLD14:String = 'BloggerBold14';
     public static var BOLD18:String = 'BloggerBold18';
     public static var BOLD24:String = 'BloggerBold24';
     public static var BOLD30:String = 'BloggerBold30';
     public static var BOLD72:String = 'BloggerBold72';
-    public static var MEDIUM14:String = 'BloggerMedium14';
+//    public static var MEDIUM14:String = 'BloggerMedium14';
     public static var MEDIUM18:String = 'BloggerMedium18';
     public static var MEDIUM24:String = 'BloggerMedium24';
     public static var MEDIUM30:String = 'BloggerMedium30';
-    public static var REGULAR14:String = 'BloggerRegular14';
+//    public static var REGULAR14:String = 'BloggerRegular14';
     public static var REGULAR18:String = 'BloggerRegular18';
     public static var REGULAR24:String = 'BloggerRegular24';
     public static var REGULAR30:String = 'BloggerRegular30';
@@ -112,9 +112,9 @@ public class CTextField extends DisplayObjectContainer {
             }
         } else {
             var fontName:String;
-            if (type == BOLD14 || type == BOLD18 || type == BOLD24 || type == BOLD30 || type == BOLD72) {
+            if (type == BOLD18 || type == BOLD24 || type == BOLD30 || type == BOLD72) {
                 fontName = 'BloggerBold';
-            } else if (type == MEDIUM14 || type == MEDIUM18 || type == MEDIUM24 || type == MEDIUM30) {
+            } else if (type == MEDIUM18 || type == MEDIUM24 || type == MEDIUM30) {
                 fontName = 'BloggerMedium';
             } else fontName = 'BloggerRegular';
             if (size <17 && colorStroke != 0xabcdef) {
@@ -169,19 +169,24 @@ public class CTextField extends DisplayObjectContainer {
     }
 
     private function setEmptyStyle():void {
-        var s:Number = .25;
+        var s:Number = .125;
         // fix x and y position for text with distance
         if (_format.size < 17) {
             deltaOwnX = -7;
             deltaOwnY = -2;
-        } else if (_format.size < 22) {
+            s = .25;
+        } else if (_format.size < 21) {
             deltaOwnX = -5;
             deltaOwnY = -2;
             s = .175;
+        } else if (_format.size < 25) {
+            deltaOwnX = -4;
+            deltaOwnY = -3;
+            s = .2;
         } else if (_format.size < 32) {
             deltaOwnX = -4;
             deltaOwnY = -3;
-            s = .125;
+            s = .25;
         } else {
             deltaOwnX = -2;
         }

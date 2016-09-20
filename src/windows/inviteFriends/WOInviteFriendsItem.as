@@ -36,7 +36,7 @@ public class WOInviteFriendsItem {
         source.addChild(_ava);
         g.load.loadImage(data.photo, onLoadPhoto);
         var txt:CTextField = new CTextField(100,100,data.name + ' ' + data.lastName);
-        txt.setFormat(CTextField.BOLD14, 12, Color.BLACK);
+        txt.setFormat(CTextField.BOLD18, 12, Color.BLACK);
         txt.y = 20;
         source.addChild(txt);
         check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));

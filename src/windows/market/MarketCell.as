@@ -69,8 +69,8 @@ public class MarketCell {
         _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _countTxt.cacheIt = false;
         _countTxt.alignH = Align.RIGHT;
-        _countTxt.x = 17;
-        _countTxt.y = 77;
+        _countTxt.x = 13;
+        _countTxt.y = 76;
         _cont.addChild(_countTxt);
         _cont.x += 2;
         _cont.y += 2;

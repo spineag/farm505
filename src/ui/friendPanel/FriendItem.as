@@ -78,7 +78,7 @@ public class FriendItem {
         txtLvl.cacheIt = false;
         txtLvl.text = '1';
         txtLvl.text = String(_person.level);
-        txtLvl.x = 29;
+        txtLvl.x = 31;
         txtLvl.y = 47;
         source.addChild(txtLvl);
         if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';

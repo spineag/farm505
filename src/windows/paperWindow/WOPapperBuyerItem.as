@@ -98,7 +98,7 @@ public class WOPapperBuyerItem {
         source.addChild(_txtCost);
 
         _txtCountResource = new CTextField(84, 62, "10 шт.");
-        _txtCountResource.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.BLUE_COLOR);
+        _txtCountResource.setFormat(CTextField.MEDIUM18, 14, ManagerFilters.BLUE_COLOR);
         _txtCountResource.format.horizontalAlign = Align.RIGHT;
         _txtCountResource.touchable = false;
         _txtCountResource.x = 80;
@@ -106,7 +106,7 @@ public class WOPapperBuyerItem {
         source.addChild(_txtCountResource);
 
         _txtResourceName = new CTextField(200, 30, "Смаженый кабаньчик");
-        _txtResourceName.setFormat(CTextField.MEDIUM14, 14, ManagerFilters.BLUE_COLOR);
+        _txtResourceName.setFormat(CTextField.MEDIUM18, 14, ManagerFilters.BLUE_COLOR);
         _txtResourceName.format.horizontalAlign = Align.RIGHT;
         _txtResourceName.touchable = false;
         _txtResourceName.x = -38;

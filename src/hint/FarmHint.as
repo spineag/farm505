@@ -50,7 +50,7 @@ public class FarmHint {
         _countTxt = new CTextField(50,30," ");
         _countTxt.setFormat(CTextField.REGULAR18, 18, Color.WHITE);
         _nameTxt = new CTextField(70,30," ");
-        _nameTxt.setFormat(CTextField.REGULAR14, 14, Color.WHITE);
+        _nameTxt.setFormat(CTextField.REGULAR18, 14, Color.WHITE);
         _nameTxt.x = 10;
         _nameTxt.y = 65;
         source.addChild(_nameTxt);

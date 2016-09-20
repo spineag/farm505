@@ -104,12 +104,12 @@ public class MarketHint {
         _txtName = new CTextField(200,30,'');
         _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         _txtText = new CTextField(200,100,'');
-        _txtText.setFormat(CTextField.BOLD14, 12, ManagerFilters.BLUE_COLOR);
+        _txtText.setFormat(CTextField.BOLD18, 12, ManagerFilters.BLUE_COLOR);
         _txtText.leading = -5;
         _txtCount = new CTextField(30,30,'');
-        _txtCount.setFormat(CTextField.BOLD14, 14, ManagerFilters.LIGHT_BLUE_COLOR);
+        _txtCount.setFormat(CTextField.BOLD18, 14, ManagerFilters.LIGHT_BLUE_COLOR);
         _txtSklad = new CTextField(70,20,'');
-        _txtSklad.setFormat(CTextField.BOLD14, 12, ManagerFilters.LIGHT_BLUE_COLOR);
+        _txtSklad.setFormat(CTextField.BOLD18, 12, ManagerFilters.LIGHT_BLUE_COLOR);
         
         if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_dataId].imageShop + '_icon'));

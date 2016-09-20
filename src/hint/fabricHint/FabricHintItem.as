@@ -31,10 +31,10 @@ public class FabricHintItem {
         _needCount = needCount;
         _id = obId;
         _txtWhite = new CTextField(50,50,String("/" + String(_needCount)));
-        _txtWhite.setFormat(CTextField.BOLD14, 14, Color.WHITE, ManagerFilters.LIGHT_BLUE_COLOR);
+        _txtWhite.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.LIGHT_BLUE_COLOR);
         _txtWhite.alignH = Align.LEFT;
         _txtOrange = new CTextField(50,50,'');
-        _txtOrange.setFormat(CTextField.BOLD14, 16, ManagerFilters.ORANGE_COLOR);
+        _txtOrange.setFormat(CTextField.BOLD18, 16, ManagerFilters.ORANGE_COLOR);
         _txtOrange.alignH = Align.LEFT;
 //        _txtOrange.y = 55;
 //        _txtOrange.x = 34;
