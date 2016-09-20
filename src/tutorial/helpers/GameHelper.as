@@ -48,10 +48,10 @@ public class GameHelper {
         _bg.x = -208;
         _bg.y = -81;
         _source.addChild(_bg);
-        _txt = new CTextField(220, 90, "");
-        _txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
+        _txt = new CTextField(220, 80, "");
+        _txt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
         _txt.x = -100;
-        _txt.y = -60;
+        _txt.y = -55;
         _txt.autoScale = true;
         _source.addChild(_txt);
         _isUnderBuild = false;
@@ -99,7 +99,7 @@ public class GameHelper {
     private function createShowButton():void {
         _btnShow = new CButton();
         _btnShow.addButtonTexture(126, 40, CButton.YELLOW, true);
-        _txtBtnShow = new CTextField(125, 40, 'ПОКАЗАТЬ');
+        _txtBtnShow = new CTextField(125, 40, 'Показать');
         _txtBtnShow.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
         _btnShow.addChild(_txtBtnShow);
         _btnShow.x = 4;
