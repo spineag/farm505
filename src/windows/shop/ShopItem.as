@@ -620,6 +620,10 @@ public class ShopItem {
     }
 
     private function onClick():void {
+        if (_data.buildType == BuildType.ANIMAL && g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.currentAction != TutorialAction.BUY_ANIMAL) return;
+            if (!g.managerTutorial.isTutorialResource(_data.id)) return;
+        }
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;

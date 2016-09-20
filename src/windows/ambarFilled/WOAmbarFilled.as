@@ -57,14 +57,14 @@ public class WOAmbarFilled extends WindowMain {
         _imageAmbar.touchable = false;
         MCScaler.scale(_imageAmbar,49,320);
         _txtAmbarFilled = new CTextField(220,50,"");
-        _txtAmbarFilled.setFormat(CTextField.BOLD18, 17, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtAmbarFilled.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtAmbarFilled.x = -110;
         _txtAmbarFilled.y = -125;
         _txtAmbarFilled.touchable = false;
         _source.addChild(_txtAmbarFilled);
-        _txtCount = new CTextField(200,50,"");
-        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCount.x = -95;
+        _txtCount = new CTextField(240,50,"");
+        _txtCount.setFormat(CTextField.BOLD18, 17, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCount.x = -120;
         _txtCount.y = 16;
         _txtCount.touchable = false;
         _source.addChild(_txtCount);
