@@ -2047,11 +2047,11 @@ public class ManagerTutorial {
         var chest:WorldObject = g.managerChest.makeTutorialChest();
         _tutorialObjects.push(chest);
         if (!cat) {
-            addCatToPos(31, 35);
+            addCatToPos(34, 36);
             g.cont.moveCenterToPos(31, 31, true);
             subStep25_1();
         } else {
-            g.managerCats.goCatToPoint(cat, new Point(31, 35), subStep26_1);
+            g.managerCats.goCatToPoint(cat, new Point(34, 36), subStep26_1);
             g.cont.moveCenterToPos(31, 31, false, 1);
         }
     }

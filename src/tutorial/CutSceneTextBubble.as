@@ -82,7 +82,7 @@ public class CutSceneTextBubble {
     private function createBubble(st:String):void {
         var im:Image;
         var txt:CTextField = new CTextField(278, 60, st);
-        txt.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
         switch (_type) {
             case BIG:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));

@@ -72,7 +72,7 @@ public class UserInventory {
             Cc.error('UserInventory addResource:: count resource < 0 for resource id: ' + id + ' after addResource count: ' + count);
         }
         g.updateAmbarIndicator();
-        if (g.managerPendingRequest.isActive) {
+        if (g.managerPendingRequest && g.managerPendingRequest.isActive) {
             g.managerPendingRequest.updateResource(id);
         } else {
             g.directServer.addUserResource(id, _inventoryResource[id], f);

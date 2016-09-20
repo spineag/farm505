@@ -14,7 +14,11 @@ public class ManagerPendingRequest {
         _tempResourceIds = [];
     }
 
-    public function get isActive():Boolean { return _isActive; }
+    public function get isActive():Boolean { 
+        return _isActive; 
+    }
+    
+    
     public function activateIt():void { _isActive = true; }
     
     public function disActivateIt():void {

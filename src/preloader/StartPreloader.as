@@ -56,7 +56,7 @@ public class StartPreloader {
         _txt = new CTextField(75,50,'0');
         _txt.setFormat(CTextField.BOLD24, 24, 0x0659b6);
         _source.addChild(_txt);
-        _txt.x = _bg.width/2 - 44;
+        _txt.x = _bg.width/2 - 46;
         _txt.y = _bg.height/2 + 182;
     }
 

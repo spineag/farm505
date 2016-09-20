@@ -474,6 +474,9 @@ public class Vars {
             if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
             townArea.addTownAreaSortCheking();
 
+            managerHelpers = new ManagerHelpers();
+            managerQuest.checkQuestsOnStart();
+            managerPendingRequest = new ManagerPendingRequest();
             managerChest.createChest();
             if (managerTutorial.isTutorial) {
                 if ((user as User).tutorialStep > 1) {
@@ -487,10 +490,7 @@ public class Vars {
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
             }
-            managerHelpers = new ManagerHelpers();
-            managerQuest.checkQuestsOnStart();
-            managerPendingRequest = new ManagerPendingRequest();
-        
+
             if (!managerTutorial.isTutorial) {
                 if ((user as User).level >= 4 && (user as User).level < 10) {
                     managerTips = new ManagerTips();

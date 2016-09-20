@@ -105,21 +105,21 @@ public class ToolsModifier {
         } else if (_modifierType == INVENTORY) {
             g.townArea.onActivateInventoryModifier(true);
         } else if (_modifierType == PLANT_SEED_ACTIVE) {
-            if (!g.managerPendingRequest.isActive) g.managerPendingRequest.activateIt();
+            if (g.managerPendingRequest && !g.managerPendingRequest.isActive) g.managerPendingRequest.activateIt();
             g.managerPlantRidge.onStartActivePlanting(true);
 //            g.managerPlantRidge.lockAllFillRidge(true);
         } else if (_modifierType == PLANT_SEED) {
-            if (!g.managerPendingRequest.isActive) g.managerPendingRequest.activateIt();
+            if (g.managerPendingRequest && !g.managerPendingRequest.isActive) g.managerPendingRequest.activateIt();
 //            g.managerPlantRidge.lockAllFillRidge(true);
         } else if (_modifierType == CRAFT_PLANT) {
-            if (!g.managerPendingRequest.isActive) g.managerPendingRequest.activateIt();
+            if (g.managerPendingRequest && !g.managerPendingRequest.isActive) g.managerPendingRequest.activateIt();
             g.mouseHint.showMouseHint(MouseHint.SERP);
             g.managerPlantRidge.onStartCraftPlanting(true);
         } else if (_modifierType == FEED_ANIMAL_ACTIVE) {
-            if (!g.managerPendingRequest.isActive) g.managerPendingRequest.activateIt();
+            if (g.managerPendingRequest && !g.managerPendingRequest.isActive) g.managerPendingRequest.activateIt();
             g.managerAnimal.onStartFeedAnimal(true);
         } else if (_modifierType == NONE) {
-            if (g.managerPendingRequest.isActive) g.managerPendingRequest.disActivateIt();
+            if (g.managerPendingRequest && g.managerPendingRequest.isActive) g.managerPendingRequest.disActivateIt();
         }
         checkMouseIcon();
     }
