@@ -7,6 +7,8 @@ import data.DataMoney;
 import manager.ManagerWallPost;
 import manager.Vars;
 
+import utils.Link;
+
 import windows.WindowsManager;
 import windows.quest.WOQuest;
 
@@ -35,6 +37,10 @@ public class ManagerQuest {
             ob.getAward = Boolean(int(ar[i].get_award));
             _userQuests[ob.questId] = ob;
         }
+    }
+    
+    public function hideQuestsIcons(v:Boolean):void {
+        if (_questUI) _questUI.hideQuestsIcons(v);
     }
 
     public function checkQuestsOnStart():void {
@@ -69,11 +75,17 @@ public class ManagerQuest {
             if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_QUEST) {
                 (g.windowsManager.currentWindow as WOQuest).updateInfo();
             }
+            if (qData.type == QuestData.TYPE_ADD_TO_GROUP) {
+                g.gameDispatcher.removeFromTimer(checkWithTimer);
+            }
         }
     }
     
     public function checkQuestContPosition():void { _questUI.checkContPosition(); }
-    public function onHideWO():void { _currentOpenedQuestInWO = null; } 
+    public function onHideWO():void {
+        _currentOpenedQuestInWO = null;
+        g.gameDispatcher.removeFromTimer(checkWithTimer);
+    }
 
     public function checkOnClickAtWoQuestItem(qData:Object):void {
         switch (qData.type) {
@@ -81,7 +93,9 @@ public class ManagerQuest {
                 g.socialNetwork.checkLeftMenu();
                 break;
             case QuestData.TYPE_ADD_TO_GROUP:
-                g.socialNetwork.checkIsInSocialGroup();
+                Link.openURL(g.socialNetwork.urlSocialGroup);
+                _timer = 3;
+                g.gameDispatcher.addToTimer(checkWithTimer);
                 break;
             case QuestData.TYPE_POST:
                 g.managerWallPost.openWindow(ManagerWallPost.POST_FOR_QUEST,null,0,DataMoney.SOFT_CURRENCY);
@@ -101,6 +115,19 @@ public class ManagerQuest {
                 onReleaseQuest(_quests[i]);
                 break;
             }
+        }
+    }
+
+    public function checkInGroup():void {
+        g.socialNetwork.checkIsInSocialGroup();
+    }
+
+    private var _timer:int;
+    private function checkWithTimer():void {
+        _timer--;
+        if (_timer <= 0) {
+            checkInGroup();
+            _timer = 3;
         }
     }
     

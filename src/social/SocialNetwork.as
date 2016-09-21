@@ -248,7 +248,9 @@ public class SocialNetwork extends EventDispatcher {
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.ORDER_WINDOW_FAIL, false, false));
     }
     
-    public function checkIsInSocialGroup():void {}
+    public function checkIsInSocialGroup():void {
+        Cc.ch('social', "SocialNetwork:: check is in social group");
+    }
 
     public function getUserParams():Object {
 //        return {sex: g.user.sex, bdate: g.user.bdate, flash_player: Capabilities.version, auth_key: g.sessionKey};

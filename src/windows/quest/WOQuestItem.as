@@ -62,6 +62,7 @@ public class WOQuestItem {
             _txtBtn.text = 'Добавить';
         } else if (_dataQuest.type == QuestData.TYPE_ADD_TO_GROUP) {
             _txtBtn.text = 'Вступить';
+            g.managerQuest.checkInGroup();
         } else if (_dataQuest.type == QuestData.TYPE_POST) {
             _txtBtn.text = 'Рассказать';
         }

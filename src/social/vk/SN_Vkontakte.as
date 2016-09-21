@@ -639,13 +639,14 @@ public class SN_Vkontakte extends SocialNetwork {
 
     public override function checkIsInSocialGroup():void {
         _apiConnection.api("groups.isMember", {group_id: idSocialGroup, user_id: g.user.userSocialId}, getIsInGroupHandler, onError);
+        super.checkIsInSocialGroup();
     }
 
     private function getIsInGroupHandler(e:String):void {
         if (e == '1') {
             g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_ADD_TO_GROUP);
-        } else {
-            Link.openURL(urlSocialGroup);
+//        } else {
+//            Link.openURL(urlSocialGroup);
         }
     }
 }

@@ -29,6 +29,10 @@ public class QuestUI {
             _cont.y = 280;
         }
     }
+    
+    public function hideQuestsIcons(v:Boolean):void {
+        _cont.visible = !v;
+    }
 
     public function addQuest(qData:Object, click:Function):void {
         var f:Function = null;
