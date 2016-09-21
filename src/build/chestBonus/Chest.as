@@ -37,8 +37,6 @@ public class Chest extends WorldObject{
     }
 
     private function onClick():void {
-        showArrow();
-        return;
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction != TutorialAction.TAKE_CHEST) return;
