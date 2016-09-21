@@ -11,6 +11,9 @@ import manager.hitArea.ManagerHitArea;
 
 import mouse.ToolsModifier;
 import tutorial.TutorialAction;
+
+import utils.SimpleArrow;
+
 import windows.WindowsManager;
 
 public class Chest extends WorldObject{
@@ -96,6 +99,13 @@ public class Chest extends WorldObject{
             if (_source) _source.filter = null;
             g.hint.hideIt();
         }
+    }
+
+    override  public function showArrow(t:Number = 0):void {
+        super.hideArrow();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
+        _arrow.animateAtPosition(0, -34 * g.scaleFactor);
+        if (t>0) _arrow.activateTimer(t, super.hideArrow);
     }
 }
 }

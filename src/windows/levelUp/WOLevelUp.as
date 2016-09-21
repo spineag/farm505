@@ -77,14 +77,15 @@ public class WOLevelUp extends WindowMain {
         _txtLevel.setFormat(CTextField.BOLD72, 51, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtContinue = new CTextField(110,100,"РАССКАЗАТЬ");
         _txtContinue.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _txtHard = new CTextField(50,50,'+'+String(_count));
+        _txtContinue.x = 3;
+        _txtHard = new CTextField(50,50,' +'+String(_count));
         _txtHard.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         if (g.user.level <= 5) {
             _contBtn = new CButton();
             _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
             _txtContinue.text = 'ПРОДОЛЖИТЬ';
-            _txtContinue.y = -25;
-            _txtContinue.x = 34;
+            _txtContinue.y = -26;
+            _txtContinue.x = 36;
             _contBtn.addChild(_txtContinue);
             _contBtn.y = _woHeight / 2;
             _contBtn.clickCallback = onClickNext;
@@ -95,8 +96,8 @@ public class WOLevelUp extends WindowMain {
             _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
             MCScaler.scale(_imageHard, 25, 25);
 
-            _txtContinue.y = -25;
-            _txtHard.x = 90;
+            _txtContinue.y = -26;
+            _txtHard.x = 93;
             _imageHard.x = 135;
             _imageHard.y = 12;
             _contBtn.addChild(_imageHard);

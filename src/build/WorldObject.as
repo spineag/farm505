@@ -229,9 +229,11 @@ public class WorldObject {
         hideArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
         if (_rect) {
-            _arrow.animateAtPosition(_rect.x + _rect.width/2, _rect.y);
+            var xX:int = 0;
+            if (_sizeX != _sizeY) xX = _rect.x + _rect.width/2;
+            _arrow.animateAtPosition(xX, _rect.y);
         } else {
-            _arrow.animateAtPosition(0, 10);
+            _arrow.animateAtPosition(0, -10);
         }
         if (t>0) _arrow.activateTimer(t, hideArrow);
     }

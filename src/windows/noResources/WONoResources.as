@@ -62,7 +62,7 @@ public class WONoResources extends WindowMain {
         _btnBuy.y = 110;
         _source.addChild(_btnBuy);
         _txtHardCost = new CTextField(180, 34, "Купить ресурсы за 8888");
-        _txtHardCost.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
+        _txtHardCost.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnBuy.addChild(_txtHardCost);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         MCScaler.scale(im, 25, 25);

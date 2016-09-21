@@ -101,6 +101,7 @@ public class ManagerTutorial {
     }
 
     private function updateTutorialStep():void {
+        Cc.info('update tutorial step: ' + g.user.tutorialStep);
         g.directServer.updateUserTutorialStep(null);
         if (g.analyticManager)
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TUTORIAL, {id:g.user.tutorialStep});
@@ -109,6 +110,7 @@ public class ManagerTutorial {
     public function initScenes():void {
         var curFunc:Function;
 //        try {
+        Cc.info('init tutorial scene for step: ' + g.user.tutorialStep);
             switch (g.user.tutorialStep) {
                 case 1:
                     curFunc = initScene_1;
@@ -1605,9 +1607,9 @@ public class ManagerTutorial {
         _onShowWindowCallback = null;
         var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopDirectItemProperties(1);
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
         _arrow.scaleIt(.7);
-        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
         _tutorialCallback = subStep20_3;
     }
 
@@ -1694,9 +1696,9 @@ public class ManagerTutorial {
         _onShowWindowCallback = null;
         var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0], true);
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
         _arrow.scaleIt(.7);
-        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
+        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
         _tutorialCallback = subStep21_5;
         var dataPlace:Object = {};
         dataPlace.dataBuild = -1;
@@ -2044,12 +2046,14 @@ public class ManagerTutorial {
 
     private function initScene_26():void {
         _tutorialObjects = [];
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.CHEST);
+        if (arr.length) return;
         var chest:WorldObject = g.managerChest.makeTutorialChest();
         _tutorialObjects.push(chest);
         if (!cat) {
             addCatToPos(34, 36);
             g.cont.moveCenterToPos(31, 31, true);
-            subStep25_1();
+            subStep26_1();
         } else {
             g.managerCats.goCatToPoint(cat, new Point(34, 36), subStep26_1);
             g.cont.moveCenterToPos(31, 31, false, 1);

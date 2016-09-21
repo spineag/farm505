@@ -96,7 +96,7 @@ public class WOMarket  extends WindowMain {
         c.y = -_woHeight/2 + 40;
         _cont.filter = ManagerFilters.SHADOW;
         _cont.addChild(c);
-        _txtAllFriends = new CTextField(80, 25, 'Все друзья');
+        _txtAllFriends = new CTextField(96, 24, 'Все друзья');
         _txtAllFriends.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtAllFriends.y = 6;
         _btnFriends.addChild(_txtAllFriends);
@@ -156,7 +156,7 @@ public class WOMarket  extends WindowMain {
         _txtNumberPage = new CTextField(50, 50, '');
         _txtNumberPage.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtNumberPage.x = -253;
-        _txtNumberPage.y = 153;
+        _txtNumberPage.y = 152;
         _source.addChild(_txtNumberPage);
 
         _contPaper = new Sprite();
