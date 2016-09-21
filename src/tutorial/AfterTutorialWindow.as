@@ -60,9 +60,9 @@ public class AfterTutorialWindow {
         _btn.clickCallback = onClick;
         g.cont.popupCont.addChild(_source);
         _source.addChild(_btn);
-        var txt:CTextField = new CTextField(110,100,"Дальше");
+        var txt:CTextField = new CTextField(110,100,"Далее");
         txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.y = -22;
+        txt.y = -28;
         txt.x = 30;
         _btn.addChild(txt);
     }

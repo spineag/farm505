@@ -38,7 +38,8 @@ public class BuildingBuild {
     }
 
     public function doneAnimation():void {
-        armature.animation.stop("done");
+//        armature.animation.gotoAndStopByFrame('over');
+        armature.animation.gotoAndStopByFrame("done");
     }
 
     public function deleteIt():void {

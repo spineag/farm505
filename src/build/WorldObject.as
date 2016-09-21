@@ -231,7 +231,7 @@ public class WorldObject {
         if (_rect) {
             _arrow.animateAtPosition(_rect.x + _rect.width/2, _rect.y);
         } else {
-            _arrow.animateAtPosition(0, 10);
+            _arrow.animateAtPosition(0, -10);
         }
         if (t>0) _arrow.activateTimer(t, hideArrow);
     }

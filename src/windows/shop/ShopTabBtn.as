@@ -51,8 +51,8 @@ public class ShopTabBtn {
         var im:Image;
         _txtNotification = new CTextField(30, 30, String(g.user.decorNotification));
         _txtNotification.setFormat(CTextField.BOLD18, 18, Color.WHITE);
-        _txtNotification.x = 96;
-        _txtNotification.y = -9;
+        _txtNotification.x = 95;
+        _txtNotification.y = -11;
         _txtNotification.visible = false;
         switch (type) {
             case WOShop.VILLAGE:

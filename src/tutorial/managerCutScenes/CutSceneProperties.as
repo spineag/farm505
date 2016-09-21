@@ -83,8 +83,8 @@ public class CutSceneProperties {
         obj = {};
         obj.reason = ManagerCutScenes.REASON_ADD_TO_PAPPER;
         obj.level = 4;
-        obj.text = 'Сообщение о продаже можно поместить в газету';
-        obj.text2 = 'Следующее сообщение можно будет поместить через 5 минут или пропустить ожидание';
+        obj.text = 'Нажми на иконку, чтобы опубликовать объявление в газету!';
+        obj.text2 = 'Новое объявление будет доступно через 5 минут';
         _prop.push(obj);
     }
 }

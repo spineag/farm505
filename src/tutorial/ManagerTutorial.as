@@ -101,6 +101,7 @@ public class ManagerTutorial {
     }
 
     private function updateTutorialStep():void {
+        Cc.info('update tutorial step: ' + g.user.tutorialStep);
         g.directServer.updateUserTutorialStep(null);
         if (g.analyticManager)
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TUTORIAL, {id:g.user.tutorialStep});
@@ -109,6 +110,7 @@ public class ManagerTutorial {
     public function initScenes():void {
         var curFunc:Function;
 //        try {
+        Cc.info('init tutorial scene for step: ' + g.user.tutorialStep);
             switch (g.user.tutorialStep) {
                 case 1:
                     curFunc = initScene_1;
@@ -2044,6 +2046,8 @@ public class ManagerTutorial {
 
     private function initScene_26():void {
         _tutorialObjects = [];
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.CHEST);
+        if (arr.length) return;
         var chest:WorldObject = g.managerChest.makeTutorialChest();
         _tutorialObjects.push(chest);
         if (!cat) {

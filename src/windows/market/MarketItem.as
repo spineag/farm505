@@ -211,14 +211,14 @@ public class MarketItem {
             var _btnBuyCont:CButton = new CButton();
             _btnBuyCont.addButtonTexture(90,34,CButton.GREEN, true);
             _txtBuyCell = new CTextField(30,30,String(String(_countBuyCell)));
-            _txtBuyCell.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+            _txtBuyCell.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _txtBuyCell.cacheIt = false;
             _txtBuyCell.x = 15;
             _txtBuyCell.y = 3;
             _btnBuyCont.addChild(_txtBuyCell);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             im.x = 55;
-            im.y = 3;
+            im.y = 6;
             MCScaler.scale(im,25,25);
             _btnBuyCont.addChild(im);
             _btnBuyCont.y = 110;
