@@ -234,6 +234,8 @@ public class MainBottomPanel {
                 g.toolsPanel.hideRepository();
                 var shopTab:int = WOShop.VILLAGE;
                 if (g.managerTutorial.isTutorial) {
+                    g.user.decorShiftShop = 0;
+                    g.user.decorShop = false;
                     if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL) shopTab = WOShop.ANIMAL;
                     else if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA) shopTab = WOShop.FABRICA;
                     else if (g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) shopTab = WOShop.VILLAGE;
@@ -243,6 +245,8 @@ public class MainBottomPanel {
                     shopTab = WOShop.DECOR;
                     g.managerCutScenes.checkCutSceneCallback();
                 } else if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
+                    g.user.decorShiftShop = 0;
+                    g.user.decorShop = false;
                     if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_ANIMAL) shopTab = WOShop.ANIMAL;
                     else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FABRICA) shopTab = WOShop.FABRICA;
                     else if (g.managerHelpers.activeReason.reason == HelperReason.REASON_BUY_FARM) shopTab = WOShop.VILLAGE;
@@ -252,8 +256,7 @@ public class MainBottomPanel {
                     if (g.user.buyShopTab == WOShop.VILLAGE)
                     shopTab = WOShop.ANIMAL;
                 }
-                g.user.decorShiftShop = 0;
-                g.user.decorShop = false;
+
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
                 if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     g.managerHelpers.onOpenShop();
