@@ -53,7 +53,7 @@ public class LockedLandItem {
         _iconCoins.filter = ManagerFilters.SHADOW_LIGHT;
         source.addChild(_iconCoins);
         _txtCount = new CTextField(150,40,String(count));
-        _txtCount.setFormat(CTextField.BOLD18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCount.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCount.y = 52;
         _txtCount.x = -25;
         source.addChild(_txtCount);
@@ -74,7 +74,7 @@ public class LockedLandItem {
             _btn= new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
             _txtBtn = new CTextField(120,30,'Купить');
-            _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
+            _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _txtBtn.y = 2;
             _btn.addChild(_txtBtn);
             _btn.x = 362;
