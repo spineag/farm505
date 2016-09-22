@@ -61,8 +61,6 @@ public class WildHint {
         _source.addChild(bg);
         _source.addChild(_btn);
         _bgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
-//        _bgItem.x = -_bgItem.width/2;
-//        _bgItem.y = -_bgItem.height - 35;
         _btn.addDisplayObject(_bgItem);
         _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
         _txtCount = new CTextField(30,30,"");
@@ -114,8 +112,6 @@ public class WildHint {
             return;
         }
         MCScaler.scale(_iconResource, 60, 60);
-//        _iconResource.x = -_bgItem.width/2 +3;
-//        _iconResource.y = -_bgItem.height - 32;
         _btn.addChild(_iconResource);
         _source.x = x;
         _source.y = y;
@@ -179,7 +175,6 @@ public class WildHint {
                 _deleteCallback = null;
             }
             managerHide();
-//            onOutHint();
         }
     }
 
@@ -195,10 +190,6 @@ public class WildHint {
     private function onOutHint():void {
         _isOnHover = false;
         hideIt();
-//        if (_onOutCallback != null) {
-//            _onOutCallback.apply();
-//            _onOutCallback = null;
-//        }
     }
 
     public function get isShow():Boolean {

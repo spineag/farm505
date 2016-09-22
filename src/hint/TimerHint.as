@@ -68,7 +68,6 @@ public class TimerHint {
         _txtName.y = -130;
         _txtText = new CTextField(78,50,'ускорить');
         _txtText.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-//        _txtText.x = 13;
         _txtText.y = -17;
         _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("order_window_del_clock"));
         _imageClock.y = -93;
@@ -124,7 +123,7 @@ public class TimerHint {
             quad.pivotX = quad.width/2;
             _source.addChildAt(quad,0);
             quad.alpha = 0;
-        } else _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE);
+        } else _quad = new Quad(_bg.width, _bg.height + height/2 * g.currentGameScale,Color.WHITE);
         _quad.alpha = 0;
         _quad.x = -_bg.width/2;
         _quad.y = -_bg.height;
@@ -149,7 +148,6 @@ public class TimerHint {
         if (g.managerTutorial.isTutorial) _txtCost.text = String(0);
         else _txtCost.text = String(g.managerTimerSkip.newCount(timeAll,timer,cost));
         _txtName.text = name;
-//        _txtText.text = 'ускорить';
         g.cont.hintContUnder.addChild(_source);
         g.gameDispatcher.addToTimer(onTimer);
 
@@ -228,10 +226,6 @@ public class TimerHint {
     private function outHover():void {
         _isOnHover = false;
         hideIt();
-//        if (_onOutCallback != null) {
-//            _onOutCallback.apply();
-//            _onOutCallback = null;
-//        }
     }
 
     private function onClickBtn():void {
