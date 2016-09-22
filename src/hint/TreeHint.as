@@ -127,7 +127,7 @@ public class TreeHint {
         if (_isShowed) return;
         _isShowed = true;
         _onOutCallback = out;
-        _quad = new Quad(_bg.width, _bg.height + height * g.currentGameScale,Color.WHITE);
+        _quad = new Quad(_bg.width, _bg.height + height/2 * g.currentGameScale,Color.WHITE);
         _quad.alpha = 0;
         _quad.x = -_bg.width/2;
         _quad.y = -_bg.height;
@@ -251,10 +251,6 @@ public class TreeHint {
     private function onOut():void {
         _isOnHover = false;
         hideIt();
-//        if (_onOutCallback != null) {
-//            _onOutCallback.apply();
-//            _onOutCallback = null;
-//        }
     }
 
     private function onClickDelete():void {

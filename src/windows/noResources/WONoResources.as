@@ -265,7 +265,6 @@ public class WONoResources extends WindowMain {
         }
     }
 
-
     private function onClickMoney():void {
         if (_countCost <= g.user.hardCurrency) {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countCost);
@@ -279,6 +278,7 @@ public class WONoResources extends WindowMain {
         g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, _countOfResources);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_SOFT_FOR_HARD, {id: DataMoney.SOFT_CURRENCY, info: _countOfResources});
         super.hideIt();
+        _btnBuy.clickCallback = null;
         if (_callbackBuy != null) {
             _callbackBuy.apply(null,[_paramData.data,_paramData.cost]);
             _callbackBuy = null;
@@ -294,13 +294,10 @@ public class WONoResources extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        _btnBuy.clickCallback = null;
         g.userInventory.addResource(_paramData.idResourceRaw, _countOfResources, callbackServe);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.idResourceRaw, info: _countOfResources});
         super.hideIt();
-//        if (_callbackBuy != null) {
-//            _callbackBuy.apply(null);
-//            _callbackBuy = null;
-//        }
     }
 
     private function onClickResource():void {
@@ -313,6 +310,7 @@ public class WONoResources extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        _btnBuy.clickCallback = null;
         if (_paramData.data.buildType == BuildType.INSTRUMENT) {
             g.userInventory.addResource(_paramData.data.id, _countOfResources, callbackServe);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
@@ -331,7 +329,6 @@ public class WONoResources extends WindowMain {
                     g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.ingridientsId[i], info: _paramData.data.ingridientsCount[i] - countRes});
                 } else callbackForFabric();
             }
-//            super.hideIt();
         }
     }
 
@@ -346,6 +343,7 @@ public class WONoResources extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        _btnBuy.clickCallback = null;
         _countCost = 0;
         for (var i:int=0; i<_paramData.resourceIds.length; i++) {
             number = g.userInventory.getCountResourceById(_paramData.resourceIds[i]);
@@ -368,9 +366,9 @@ public class WONoResources extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        _btnBuy.clickCallback = null;
         g.userInventory.addResource(_paramData.data.id, _countOfResources, callbackServe2);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
-
         super.hideIt();
     }
 
@@ -384,6 +382,7 @@ public class WONoResources extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        _btnBuy.clickCallback = null;
         g.userInventory.addResource(_paramData.data.id, _countOfResources, callbackServe2);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.data.id, info: _countOfResources});
         super.hideIt();
