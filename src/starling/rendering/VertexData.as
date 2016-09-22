@@ -28,7 +28,9 @@ package starling.rendering
     import starling.utils.MatrixUtil;
     import starling.utils.StringUtil;
 
-    /** The VertexData class manages a raw list of vertex information, allowing direct upload
+import windows.gameError.AhtungErrorBlyad;
+
+/** The VertexData class manages a raw list of vertex information, allowing direct upload
      *  to Stage3D vertex buffers. <em>You only have to work with this class if you're writing
      *  your own rendering code (e.g. if you create custom display objects).</em>
      *
@@ -901,8 +903,13 @@ package starling.rendering
             if (context == null) throw new MissingContextError();
             if (_numVertices == 0) return null;
 
-            var buffer:VertexBuffer3D = context.createVertexBuffer(
-                _numVertices, _vertexSize / 4, bufferUsage);
+            try {
+                var buffer:VertexBuffer3D = context.createVertexBuffer(
+                        _numVertices, _vertexSize / 4, bufferUsage);
+            } catch (e:Error) {
+                new AhtungErrorBlyad(e);
+                return null;
+            }
 
             if (upload) uploadToVertexBuffer(buffer);
             return buffer;
