@@ -53,8 +53,8 @@ public class WOTrainOrder extends WindowMain{
         im.y = 10;
         im.x = 35;
         _btn.addDisplayObject(im);
-        _txtNow = new CTextField(100,50,"привезти сейчас");
-        _txtNow.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtNow = new CTextField(100,50,"Привезти сейчас");
+        _txtNow.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtNow.x = 60;
         _btn.addChild(_txtNow);
         _txtCost = new CTextField(50,50,"30");
