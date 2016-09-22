@@ -44,19 +44,17 @@ public class ManagerQuest {
     }
 
     public function checkQuestsOnStart():void {
-        if (g.user.isMegaTester || g.user.isTester) {
-            var qArr:Array = _qAllData.arrQuests;
-            for (var i:int = 0; i < qArr.length; i++) {
-                if (qArr[i].level <= g.user.level && !qArr[i].isAdded) {
-                    if (_userQuests[qArr[i].id] && _userQuests[qArr[i].id].getAward) continue;
-                    qArr[i].isAdded = true;
-                    if (_userQuests[qArr[i].id] && _userQuests[qArr[i].id].isDone) qArr[i].isDone = true;
-                    else qArr[i].isDone = false;
-                    _quests.push(qArr[i]);
-                    _questUI.addQuest(qArr[i], onQuestIconClick);
-                    if (!_userQuests[qArr[i].id]) {
-                        _userQuests[qArr[i].id] = qArr[i];
-                    }
+        var qArr:Array = _qAllData.arrQuests;
+        for (var i:int = 0; i < qArr.length; i++) {
+            if (qArr[i].level <= g.user.level && !qArr[i].isAdded) {
+                if (_userQuests[qArr[i].id] && _userQuests[qArr[i].id].getAward) continue;
+                qArr[i].isAdded = true;
+                if (_userQuests[qArr[i].id] && _userQuests[qArr[i].id].isDone) qArr[i].isDone = true;
+                else qArr[i].isDone = false;
+                _quests.push(qArr[i]);
+                _questUI.addQuest(qArr[i], onQuestIconClick);
+                if (!_userQuests[qArr[i].id]) {
+                    _userQuests[qArr[i].id] = qArr[i];
                 }
             }
         }

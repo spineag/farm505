@@ -109,7 +109,7 @@ public class ManagerTutorial {
 
     public function initScenes():void {
         var curFunc:Function;
-//        try {
+        try {
         Cc.info('init tutorial scene for step: ' + g.user.tutorialStep);
             switch (g.user.tutorialStep) {
                 case 1:
@@ -195,10 +195,10 @@ public class ManagerTutorial {
             if (curFunc != null) {
                 curFunc.apply();
             }
-//        } catch (err:Error) {
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
-//            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(_subStep) + " with error message " + err.message);
-//        }
+        } catch (err:Error) {
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
+            Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(_subStep) + " with error message " + err.message);
+        }
     }
 
     private function initScene_1():void {
@@ -1297,7 +1297,7 @@ public class ManagerTutorial {
         if (!cat) {
             addCatToPos(2, 12);
             g.cont.moveCenterToPos(2, 12, true);
-            subStep13_1();
+            subStep14_1();
         } else {
             g.managerCats.goCatToPoint(cat, new Point(2, 12), subStep14_1);
             g.cont.moveCenterToPos(2, 12);
@@ -1999,9 +1999,9 @@ public class ManagerTutorial {
         _subStep = 0;
         _currentAction = TutorialAction.NONE;
         if (!cat) {
-            addCatToPos(31, 28);
+            addCatToPos(34, 36);
         } else {
-            cat.setPosition(new Point(31, 28));
+            cat.setPosition(new Point(34, 36));
             cat.updatePosition();
         }
         g.cont.moveCenterToPos(31, 28, true);

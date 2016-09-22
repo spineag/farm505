@@ -18,7 +18,7 @@ public class AhtungErrorBlyad {
     public function AhtungErrorBlyad(e:Error) {
         var q:Quad = new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK);
         g.cont.popupCont.addChild(q);
-        q.alpha = .95;
+        q.alpha = .9;
         var txt:TextField = new TextField(500, 200, 'Критическая ошибка. Перегрузите игру');
         var format:TextFormat = new TextFormat();
         format.size = 36;
