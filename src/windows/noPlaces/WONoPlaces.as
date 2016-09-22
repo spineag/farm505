@@ -51,7 +51,7 @@ public class WONoPlaces extends WindowMain {
         _btn.y = 120;
         _source.addChild(_btn);
         _btn.clickCallback = onClick;
-        _txtName = new CTextField(300,30,"НЕДОСТАТОЧНО МЕСТА!");
+        _txtName = new CTextField(300,30,"Недостаточно места!");
         _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -150;
         _txtName.y = -150;
@@ -61,25 +61,25 @@ public class WONoPlaces extends WindowMain {
         _source.addChild(_txtText);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_medium"));
-        MCScaler.scale(im,35,35);
+        MCScaler.scale(im,32,32);
         im.x = 178;
-        im.y = 4;
+        im.y = 6;
         _btn.addChild(im);
         im.filter = ManagerFilters.SHADOW_TINY;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_k"));
         im.x = -50;
         im.y = -50;
         _txtCost = new CTextField(200,50,"");
-        _txtCost.setFormat(CTextField.BOLD18, 15, Color.WHITE);
+        _txtCost.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtCost.x = -8;
-        _txtCost.y = -3;
+        _txtCost.y = -5;
         _btn.addChild(_txtCost);
         _source.addChild(im);
         _txtAdd = new CTextField(100,100,"");
         _txtAdd.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _last = false;
         _txtIcon = new CTextField(80,200,"добавить ячейку очереди");
-        _txtIcon.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
+        _txtIcon.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
         _txtIcon.x = -37;
         _txtIcon.y = -102;
         _source.addChild(_txtIcon);
@@ -109,12 +109,12 @@ public class WONoPlaces extends WindowMain {
             _source.addChild(_txtAdd);
             _last = true;
             _cost = params[0];
-            _txtCost.text = String('Ускорить за   ' + _price);
+            _txtCost.text = String('Ускорить за  ' + _price);
             _txtAdd.text = 'Ускорить';
             _txtAdd.x = -47;
             _txtAdd.y = -15;
             _txtText.x = -175;
-            _txtText.y = -115;
+            _txtText.y = -118;
             _txtIcon.visible = false;
 //            _txtButton.text = 'Ускорить за '
         } else {
@@ -125,7 +125,7 @@ public class WONoPlaces extends WindowMain {
             _txtAdd.y = -50;
             _txtAdd.text = 'Добавить ячейку';
             _txtText.x = -170;
-            _txtText.y = -115;
+            _txtText.y = -118;
 //            _txtButton.text = 'Добавить ячейку за '
             _txtIcon.visible = true;
         }

@@ -280,7 +280,7 @@ public class MarketItem {
         _coin.x = _bg.width/2 + 15;
         _txtPlawka.x = 5;
         _txtPlawka.y = 85;
-        _costTxt.y = 101;
+        _costTxt.y = 99;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2 - 5;
         if (_isUser) {

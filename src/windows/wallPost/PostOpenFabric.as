@@ -71,7 +71,7 @@ public class PostOpenFabric  extends WindowMain {
         _image.pivotY = _image.height/2;
         _source.addChild(_image);
         _btn = new CButton();
-        _btn.addButtonTexture(176, 45, CButton.BLUE, true);
+        _btn.addButtonTexture(200, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
         var txt:CTextField = new CTextField(100,30,'Рассказать');
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -80,12 +80,12 @@ public class PostOpenFabric  extends WindowMain {
         _btn.addChild(txt);
         txt = new CTextField(50,50,'200');
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = 95;
+        txt.x = 119;
         txt.y = -2;
         _btn.addChild(txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins_small"));
-        im.x = 140;
-        im.y = 6;
+        im.x = 165;
+        im.y = 8;
         _btn.addChild(im);
         _btn.y = 180;
         _source.addChild(_btn);

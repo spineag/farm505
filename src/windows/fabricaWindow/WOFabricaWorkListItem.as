@@ -72,9 +72,9 @@ public class WOFabricaWorkListItem {
 
         if (type == SMALL_CELL) {
             _source.visible = false;
-            _txt = new CTextField(50, 30, 'пусто');
+            _txt = new CTextField(42, 30, 'пусто');
             _txt.setFormat(CTextField.BOLD18, 15, ManagerFilters.LIGHT_BROWN);
-            _txt.x = -1;
+            _txt.x = 5;
             _txt.y = 5;
             source.addChild(_txt);
         }
@@ -120,7 +120,7 @@ public class WOFabricaWorkListItem {
             _btnSkip.visible = false;
             _btnSkip.clickCallback = makeSkip;
         }
-        _txt.alpha = .5;
+        _txt.alpha = .7;
     }
 
     public function updateTextField():void {

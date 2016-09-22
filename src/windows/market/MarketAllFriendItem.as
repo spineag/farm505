@@ -47,7 +47,7 @@ public class MarketAllFriendItem{
         source.addChild(_ava);
         _txtPersonName = new CTextField(72, 30, 'loading...');
         _txtPersonName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtPersonName.y = 50;
+        _txtPersonName.y = 45;
         if (_person.name) _txtPersonName.text = _person.name;
         source.addChild(_txtPersonName);
         source.endClickCallback = chooseThis;
