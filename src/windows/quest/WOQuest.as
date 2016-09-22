@@ -76,7 +76,7 @@ public class WOQuest extends WindowMain{
         _imageQuest.y = -_woHeight/2 + 50;
         _source.addChild(_imageQuest);
 
-        _award.fillIt(_dataQuest.awardCount);
+        _award.fillIt(_dataQuest);
         _questItem.fillIt(_dataQuest);
         onWoShowCallback = onShow;
         updateInfo(false);

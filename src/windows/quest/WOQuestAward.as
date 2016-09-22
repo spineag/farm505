@@ -26,7 +26,7 @@ public class WOQuestAward {
     private var _txtCount:CTextField;
     private var _image:Image;
     private var _parent:Sprite;
-    private var _count:int;
+    private var _dataQuest:Object;
 
     public function WOQuestAward(p:Sprite) {
         _parent = p;
@@ -45,16 +45,20 @@ public class WOQuestAward {
         _txtCount.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
         _txtCount.x = 130;
         _source.addChild(_txtCount);
-        _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+    }
+
+    public function fillIt(dataQuest:Object):void {
+        _dataQuest = dataQuest;
+        _txtCount.text = String(_dataQuest.awardCount);
+        if (_dataQuest.awardType == DataMoney.HARD_CURRENCY) {
+            _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
+        } else if (_dataQuest.awardType == DataMoney.SOFT_CURRENCY) {
+            _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
+        }
         MCScaler.scale(_image, 32, 32);
         _image.x = 190;
         _image.y = 11;
         _source.addChild(_image);
-    }
-
-    public function fillIt(c:int):void {
-        _count = c;
-        _txtCount.text = String(_count);
     }
 
     public function updateTextField():void {
@@ -65,10 +69,10 @@ public class WOQuestAward {
     public function onGetAward():void {
         var obj:Object;
         obj = {};
-        obj.count = _count;
+        obj.count = int(_dataQuest.awardCount);
         var p:Point = new Point(0, 0);
         p = _image.localToGlobal(p);
-        obj.id =  DataMoney.SOFT_CURRENCY;
+        obj.id =  _dataQuest.awardType;
 //        new DropItem(p.x + 30, p.y + 30, obj);
         new DropItem(p.x, p.y, obj);
     }
