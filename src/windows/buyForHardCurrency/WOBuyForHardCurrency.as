@@ -79,6 +79,7 @@ public class WOBuyForHardCurrency extends WindowMain {
             super.hideIt();
             return;
         }
+        _btnYes.clickCallback = null;
         g.userInventory.addMoney(1,-_count * g.dataResource.objectResources[_id].priceHard);
         g.userInventory.addResource(_id,_count);
         super.hideIt();

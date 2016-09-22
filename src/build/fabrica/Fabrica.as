@@ -5,7 +5,6 @@ package build.fabrica {
 import analytic.AnalyticManager;
 import build.WorldObject;
 import data.BuildType;
-import data.DataMoney;
 
 import dragonBones.Armature;
 import dragonBones.Bone;
@@ -18,7 +17,6 @@ import flash.geom.Point;
 import heroes.BasicCat;
 import heroes.HeroCat;
 import manager.ManagerFilters;
-import manager.ManagerWallPost;
 import manager.hitArea.ManagerHitArea;
 
 import media.SoundConst;
@@ -45,7 +43,7 @@ public class Fabrica extends WorldObject {
     private var _arrCrafted:Array;
     private var _armatureOpen:Armature;
     private var _countTimer:int;
-
+    private var _fabricWork:Boolean;
     public function Fabrica(_data:Object) {
         super(_data);
         if (!_data) {
@@ -65,7 +63,7 @@ public class Fabrica extends WorldObject {
         _buildingBuildSprite = new Sprite();
         _source.addChild(_buildingBuildSprite);
         checkBuildState();
-
+        _fabricWork = true;
         _arrRecipes = [];
         _arrList = [];
         _arrCrafted = [];
@@ -87,10 +85,8 @@ public class Fabrica extends WorldObject {
     private function checkBuildState():void {
         try {
             if (g.isAway) {
-//                if (g.user.userBuildingData[_dataBuild.id]) {
                     _stateBuild = STATE_ACTIVE;
                     createAnimatedBuild(onCreateBuild);
-//                }
             } else {
                 if (g.user.userBuildingData[_dataBuild.id]) {
                     if (g.user.userBuildingData[_dataBuild.id].isOpen) {
@@ -429,9 +425,6 @@ public class Fabrica extends WorldObject {
 
         var f1:Function = function(t:String):void {
             resItem.idFromServer = t;
-//            for (var i:int = 0; i < dataRecipe.ingridientsId.length; i++) {
-//                g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
-//            }
         };
         Cc.ch('temp', 'fabrica delay: ' + delay);
         for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
@@ -454,8 +447,10 @@ public class Fabrica extends WorldObject {
     }
 
     private function onHeroAnimation():void {
+        if (_fabricWork) return;
         if (_arrList.length && _heroCat) {
             startAnimation();
+            _fabricWork = true;
             _heroCat.visible = false;
         }
     }
@@ -554,6 +549,7 @@ public class Fabrica extends WorldObject {
     }
 
     private function stopAnimation():void {
+        _fabricWork = false;
         if (_armature) _armature.animation.gotoAndStopByFrame('idle');
         if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, chooseAnimation);
         if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
@@ -595,7 +591,6 @@ public class Fabrica extends WorldObject {
         _source.touchable = false;
         _arrList.length = 0;
         _arrRecipes.length = 0;
-//        if (_armature) _armature.dispose();
         super.clearIt();
     }
 
@@ -721,12 +716,9 @@ public class Fabrica extends WorldObject {
     }
 
     private function changeTexture(oldName:String, newName:String):void {
-//        var im:Image = g.allData.factory['cat_main'].getTextureDisplay(newName) as Image;
         var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
         if (_armature) var b:Slot = _armature.getSlot(oldName);
         if (im && b) {
-//            im.pivotX = b.display.pivotX;
-//            im.pivotY = b.display.pivotY;
             b.displayList = null;
             b.display = im;
         } else {
