@@ -208,7 +208,7 @@ public class MarketItem {
             _txtBuyNewPlace.x = 5;
             _txtBuyNewPlace.y = 0;
             buyCont.addChild(_txtBuyNewPlace);
-            var _btnBuyCont:CButton = new CButton();
+            _btnBuyCont = new CButton();
             _btnBuyCont.addButtonTexture(90,34,CButton.GREEN, true);
             _txtBuyCell = new CTextField(30,30,String(String(_countBuyCell)));
             _txtBuyCell.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
@@ -327,6 +327,7 @@ public class MarketItem {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        _btnBuyCont.clickCallback = null;
         g.userInventory.addMoney(1,-_countBuyCell);
         var f1:Function = function ():void {
             g.user.marketCell++;
