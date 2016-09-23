@@ -613,25 +613,24 @@ public class SN_Vkontakte extends SocialNetwork {
     override public function checkLeftMenu():void {
         if (g.isDebug) {
             g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_ADD_LEFT_MENU);
-        } _apiConnection.api("getUserSettings", {}, getUserSettings, onError);
+        } else _apiConnection.api("getUserSettings", {}, onCheckLeftMenu, onError);
     }
 
-    private function getUserSettings(value:int, needCheck:Boolean = true):void {
+    private function onCheckLeftMenu(value:int, needCheck:Boolean = true):void {
         if (Boolean(value & MASK_ADD_LEFT_MENU)) {
             g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_ADD_LEFT_MENU);
         } else {
             if (needCheck) {
-                _apiConnection.addEventListener(CustomEvent.SETTINGS_CHANGED, onSettingsChanged);
+                _apiConnection.addEventListener(CustomEvent.SETTINGS_CHANGED, onSmthChanged);
                 _apiConnection.callMethod("showSettingsBox", MASK_ADD_LEFT_MENU);
             }
         }
     }
 
-    private function onSettingsChanged(e:CustomEvent):void {
-        _apiConnection.removeEventListener(CustomEvent.SETTINGS_CHANGED, onSettingsChanged);
-
+    private function onSmthChanged(e:CustomEvent):void {
+        _apiConnection.removeEventListener(CustomEvent.SETTINGS_CHANGED, onSmthChanged);
         if (e.params[0]) {
-            getUserSettings(int(e.params[0]), false);
+            onCheckLeftMenu(int(e.params[0]), false);
         } else {
             Cc.ch('social', 'no value e.params[0] at onSettingsChanged');
         }

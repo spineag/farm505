@@ -32,8 +32,8 @@ public class QuestIcon {
         _source = new CSprite();
         g.load.loadImage(g.dataPath.getQuestIconPath() + _data.iconUrl, onLoad);
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-        _galo4ka.x = 35 - int(_galo4ka.width/2);
-        _galo4ka.y = 40 - int(_galo4ka.height/2);
+        _galo4ka.x = 30 - int(_galo4ka.width/2);
+        _galo4ka.y = 35 - int(_galo4ka.height/2);
         _source.addChild(_galo4ka);
         updateInfo();
     }

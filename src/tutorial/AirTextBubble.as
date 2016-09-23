@@ -43,7 +43,7 @@ public class AirTextBubble {
         _bg.scaleX = -1;
         _bg.x = _bg.width;
         _source.addChild(_bg);
-        _txt = new CTextField(260, 90, "");
+        _txt = new CTextField(260, 85, "");
         _txt.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
         _txt.x = 36;
         _txt.y = 32;

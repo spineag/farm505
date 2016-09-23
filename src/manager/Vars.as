@@ -496,6 +496,7 @@ public class Vars {
                 }
                 if ((user as User).level >= 5) {
                     managerQuest.checkQuestsOnStart();
+                    managerQuest.checkQuestContPosition();
                 }
             }
 

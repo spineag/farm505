@@ -85,9 +85,9 @@ public class WOTrain extends WindowMain {
         _btnSend.x = _woWidth/2 - 180;
         _btnSend.y = 205;
         _txtSend = new CTextField(89,62,"Отправить");
-        _txtSend.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtSend.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtSend.x = 5;
-        _txtSend.y = -10;
+        _txtSend.y = -12;
         _btnSend.addChild(_txtSend);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
         im.y = -15;
@@ -142,10 +142,9 @@ public class WOTrain extends WindowMain {
 
         _btnLoad = new CButton();
         _btnLoad.addButtonTexture(130, 36, CButton.YELLOW, true);
-        _txtLoad2 = new CTextField(80,30,'Загрузить');
-        _txtLoad2.setFormat(CTextField.BOLD18, 16, ManagerFilters.HARD_YELLOW_COLOR);
-        _txtLoad2.x = 25;
-        _txtLoad2.y = 3;
+        _txtLoad2 = new CTextField(130,36,'Загрузить');
+        _txtLoad2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
+        _txtLoad2.y = -2;
         _btnLoad.addChild(_txtLoad2);
         _btnLoad.x = 200;
         _btnLoad.y = 150;
@@ -246,7 +245,7 @@ public class WOTrain extends WindowMain {
         _source.addChild(_leftBlock);
         _txtNeed = new CTextField(200,30,'Требуются продукты:');
         _txtNeed.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txtNeed.y = 15;
+        _txtNeed.y = 13;
         _txtNeed.x = 60;
         _leftBlock.addChild(_txtNeed);
     }

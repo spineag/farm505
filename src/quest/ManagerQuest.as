@@ -30,8 +30,9 @@ public class ManagerQuest {
     }
 
     public function fromServer(ar:Array):void {
-        var ob:Object = {};
+        var ob:Object;
         for (var i:int=0; i<ar.length; i++) {
+            ob = {};
             ob.questId = int(ar[i].quest_id); 
             ob.isDone = Boolean(int(ar[i].is_done)); 
             ob.getAward = Boolean(int(ar[i].get_award));
@@ -79,7 +80,7 @@ public class ManagerQuest {
         }
     }
     
-    public function checkQuestContPosition():void { _questUI.checkContPosition(); }
+    public function checkQuestContPosition():void { if (_questUI) _questUI.checkContPosition(); }
     public function onHideWO():void {
         _currentOpenedQuestInWO = null;
         g.gameDispatcher.removeFromTimer(checkWithTimer);

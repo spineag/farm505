@@ -21,10 +21,10 @@ public class QuestUI {
     }
 
     public function checkContPosition():void {
-        if (g.user.level > 17) {
+        if (g.user.level > 16) {
             _cont.y = 210;
         } else if (g.user.level > 9) {
-            _cont.y = 20;
+            _cont.y = 120;
         } else {
             _cont.y = 280;
         }
