@@ -329,12 +329,13 @@ public class WOPapperItem {
 
     private function onClickVisit():void {
         if (!_data) return;
+        _data.isOpened = true;
+        source.alpha = .5;
         g.windowsManager.cashWindow = _wo;
         _wo.hideIt();
         _p.idVisitItemFromPaper = _data.resourceId;
         _p.level = _data.level;
         g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);
-        _data.isOpened = true;
 
     }
 

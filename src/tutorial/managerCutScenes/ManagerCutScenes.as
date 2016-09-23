@@ -63,6 +63,7 @@ public class ManagerCutScenes {
     private var _cutSceneStep:int;
     public var isCutScene:Boolean = false;
     private var _temp:*;
+    private var _closeMarket:Boolean = false;
 
     public function ManagerCutScenes() {
         _properties = (new CutSceneProperties(this)).properties;
@@ -184,9 +185,13 @@ public class ManagerCutScenes {
             endCutScene();
         }
     }
+    public function get closeMarket():Boolean {
+        return _closeMarket;
+    }
 
     private function releaseMarket():void {
         if (g.managerTips) g.managerTips.setUnvisible(true);
+        _closeMarket = true;
         _cutSceneStep = 1;
         isCutScene = true;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -201,6 +206,7 @@ public class ManagerCutScenes {
         g.optionPanel.makeScaling(1);
         _cat.flipIt(false);
         _cat.showBubble(_curCutScenePropertie.text);
+        _closeMarket = false;
         (_cutSceneBuildings[0] as Market).showArrow();
         _airBubble = new AirTextBubble();
         _cutSceneCallback = market_2;
