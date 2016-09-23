@@ -3,6 +3,7 @@
  */
 package tutorial {
 import com.greensock.TweenMax;
+import com.junkbyte.console.Cc;
 
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
@@ -13,6 +14,8 @@ import manager.Vars;
 import starling.core.Starling;
 import starling.display.Sprite;
 import starling.events.Event;
+
+import windows.WindowsManager;
 
 public class CutScene {
     private var _source:Sprite;
@@ -43,12 +46,17 @@ public class CutScene {
     }
 
     private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null, stURL:String='', startClick:Function = null):void {
-        if (st.length > 100 || stURL != '') {
-            _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.BIG, stURL);
-        } else {
-            _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.MIDDLE);
+        try {
+            if (st.length > 100 || stURL != '') {
+                _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.BIG, stURL);
+            } else {
+                _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.MIDDLE);
+            }
+            _bubble.showBubble(st, stBtn, callback, callbackNo, startClick);
+        } catch (e:Error) {
+            Cc.error('CutScene showBubble: error ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'cutScene showBubble');
         }
-        _bubble.showBubble(st, stBtn, callback, callbackNo, startClick);
     }
 
     public function reChangeBubble(st:String, stBtn:String='', callback:Function=null, callbackNo:Function = null, startClick:Function=null):void {

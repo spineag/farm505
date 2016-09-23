@@ -2,21 +2,13 @@
  * Created by andy on 3/3/16.
  */
 package heroes {
+import com.junkbyte.console.Cc;
 import dragonBones.starling.StarlingArmatureDisplay;
-
 import tutorial.*;
-
 import build.TownAreaBuildSprite;
-
 import com.greensock.TweenMax;
-
-import heroes.BasicCat;
-import heroes.HeroCatsAnimation;
-import heroes.HeroEyesAnimation;
 import starling.display.Image;
 import starling.display.Sprite;
-import utils.CSprite;
-import windows.WOComponents.HintBackground;
 
 public class TutorialCat extends BasicCat {
     private var _catImage:Sprite;
@@ -81,13 +73,17 @@ public class TutorialCat extends BasicCat {
         } else {
             type = TutorialTextBubble.SMALL;
         }
-        if (_bubble) {
-            _bubble.showBubble(st, _isFlip, type);
-            if (_isFlip) {
-                _bubble.setXY(20 + _source.x, -50 + _source.y);
-            } else {
-                _bubble.setXY(-20 + _source.x, -50 + _source.y);
+        try {
+            if (_bubble) {
+                _bubble.showBubble(st, _isFlip, type);
+                if (_isFlip) {
+                    _bubble.setXY(20 + _source.x, -50 + _source.y);
+                } else {
+                    _bubble.setXY(-20 + _source.x, -50 + _source.y);
+                }
             }
+        } catch (e:Error) {
+            Cc.error('TutorialCat showBubble error: ' + e.message + '  step: ' + g.user.tutorialStep);
         }
     }
 

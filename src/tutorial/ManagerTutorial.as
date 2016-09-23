@@ -302,6 +302,7 @@ public class ManagerTutorial {
         }
         if (!texts) texts = (new TutorialTexts()).objText;
         _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+        if (_tutorialObjects)
         var p:Point = new Point();
         p.x = (_tutorialObjects[0] as WorldObject).posX;
         p.y = (_tutorialObjects[0] as WorldObject).posY;
@@ -444,6 +445,7 @@ public class ManagerTutorial {
     private function initScene_5():void {
         _currentAction = TutorialAction.NONE;
         _subStep = 0;
+        _tutorialObjects = [];
         if (!texts) texts = (new TutorialTexts()).objText;
         if (!cat) {
             addCatToPos(30, 11);
@@ -459,6 +461,11 @@ public class ManagerTutorial {
         var i:int;
         _subStep = 1;
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
+        if (!arr.length) {
+            Cc.error('ManagerTutorial substep5_1: no farm');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tuts 5_1');
+            return;
+        }
         if ((arr[0] as Farm).isAnyCrafted) {
             arr = (arr[0] as Farm).arrAnimals;
             for (i = 0; i<arr.length; i++) {
@@ -489,9 +496,15 @@ public class ManagerTutorial {
     private function subStep5_2():void {
         _subStep = 2;
         _currentAction = TutorialAction.ANIMAL_FEED;
-        (_tutorialObjects[0] as Animal).playDirectIdle();
-        (_tutorialObjects[0] as Animal).addArrow();
-        (_tutorialObjects[0] as Animal).tutorialCallback = subStep5_3;
+        if (_tutorialObjects.length && _tutorialObjects[0] is Animal) {
+            (_tutorialObjects[0] as Animal).playDirectIdle();
+            (_tutorialObjects[0] as Animal).addArrow();
+            (_tutorialObjects[0] as Animal).tutorialCallback = subStep5_3;
+        } else {
+            Cc.error('ManagerTutorial substep5_2: no animal');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tuts 5_2');
+            return;
+        }
     }
 
     private function subStep5_3(chick:Animal):void {
@@ -513,9 +526,15 @@ public class ManagerTutorial {
     private function subStep5_4():void {
         _subStep = 4;
         _currentAction = TutorialAction.ANIMAL_SKIP;
-        (_tutorialObjects[0] as Animal).playDirectIdle();
-        (_tutorialObjects[0] as Animal).addArrow();
-        (_tutorialObjects[0] as Animal).tutorialCallback = subStep5_5;
+        if (_tutorialObjects.length && _tutorialObjects[0] as Animal) {
+            (_tutorialObjects[0] as Animal).playDirectIdle();
+            (_tutorialObjects[0] as Animal).addArrow();
+            (_tutorialObjects[0] as Animal).tutorialCallback = subStep5_5;
+        } else {
+            Cc.error('ManagerTutorial substep5_4: no animal');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tuts 5_4');
+            return;
+        }
     }
 
     private function subStep5_5(chick:Animal):void {
