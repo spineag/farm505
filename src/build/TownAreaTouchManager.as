@@ -8,17 +8,13 @@ import build.decor.DecorTail;
 import build.farm.Farm;
 import build.lockedLand.LockedLand;
 import build.ridge.Ridge;
-
 import flash.geom.Point;
-
 import heroes.AddNewHero;
 import heroes.BasicCat;
 import heroes.OrderCat;
 import manager.Vars;
 import manager.hitArea.OwnHitArea;
-
 import mouse.ToolsModifier;
-
 import starling.display.DisplayObject;
 import starling.display.Sprite;
 import starling.events.Touch;
@@ -31,7 +27,7 @@ public class TownAreaTouchManager {
     private var contTail:CSprite;
     private var _touch:Touch;
     private var _curBuild:WorldObject;
-    private var _prevBuild:WorldObject;
+    private var _prevBuilds:Array;
     private var _arrTown:Array;
 
     public function TownAreaTouchManager() {
@@ -49,19 +45,36 @@ public class TownAreaTouchManager {
         contTail.outCallback = onOutTail;
         contTail.isTouchable = false;
         contTail.releaseContDrag = true;
+
+        _prevBuilds = [];
     }
 
     public function set tailAreTouchable(v:Boolean):void {
         contTail.isTouchable = v;
     }
 
+    private function releaseOutForPrevBuilds():void {
+        if (!_prevBuilds.length) return;
+        for (var i:int=0; i<_prevBuilds.length; i++) {
+            if (_prevBuilds[i] && _prevBuilds[i].source) (_prevBuilds[i] as WorldObject).source.releaseOut();
+        }
+        _prevBuilds.length = 0;
+    }
+
     private function onEndClick():void {
+        var b:WorldObject;
         _touch = cont.getCurTouch;
         if (!_touch) return;
-        _curBuild = getWorldObject(_touch);
-        if (_curBuild && _curBuild.source) {
+        b = getWorldObject(_touch);
+        if (b && b.source) {
+            if (b != _curBuild) {
+                _prevBuilds.push(_curBuild);
+                _curBuild = b;
+            }
+            releaseOutForPrevBuilds();
+
             var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
-            if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT &&  _curBuild.source.isTouchable) {
+            if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
                 _curBuild.source.releaseEndClick();
             } else {
                 if (_curBuild is Ridge && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
@@ -69,78 +82,99 @@ public class TownAreaTouchManager {
                 } else checkForTouches();
             }
         } else {
+            _prevBuilds.push(_curBuild);
+            _curBuild = null;
+            releaseOutForPrevBuilds();
             g.cont.onEnded();
         }
     }
 
     private function onStartClick():void {
+        var b:WorldObject;
         _touch = cont.getCurTouch;
         if (!_touch) return;
-        _curBuild = getWorldObject(_touch);
-        if (_curBuild && _curBuild.source) {
+        b = getWorldObject(_touch);
+        if (b && b.source) {
+            if (b != _curBuild) {
+                _prevBuilds.push(_curBuild);
+                _curBuild = b;
+            }
+            releaseOutForPrevBuilds();
+
             var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
             if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
                 _curBuild.source.releaseStartClick();
             } else {
                 checkForTouches();
             }
+        } else {
+            _prevBuilds.push(_curBuild);
+            _curBuild = null;
+            releaseOutForPrevBuilds();
         }
     }
 
     private function onHover():void {
+        var b:WorldObject;
         _touch = cont.getCurTouch;
         if (!_touch) {
-            if (_curBuild && _curBuild.source) _curBuild.source.releaseOut();
+            _prevBuilds.push(_curBuild);
             _curBuild = null;
-            if (_prevBuild && _curBuild.source) _prevBuild.source.releaseOut();
-            _prevBuild = null;
+            releaseOutForPrevBuilds();
             return;
         }
-        _curBuild = getWorldObject(_touch);
-        if (_curBuild && _curBuild.source) {
-            if (!_prevBuild) _prevBuild = _curBuild;
+        b = getWorldObject(_touch);
+        if (b && b.source) {
+            if (b != _curBuild) {
+                _prevBuilds.push(_curBuild);
+                _curBuild = b;
+            }
+            releaseOutForPrevBuilds();
+
             var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
-            if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT &&  _curBuild.source.isTouchable) {
+            if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
                 _curBuild.source.releaseHover();
-                if (_prevBuild && _prevBuild != _curBuild) {
-                    if (_prevBuild.source) _prevBuild.source.releaseOut();
-                    _prevBuild = _curBuild;
-                }
             } else {
                 _curBuild.source.releaseOut();
                 checkForTouches();
             }
+        } else {
+            _prevBuilds.push(_curBuild);
+            _curBuild = null;
+            releaseOutForPrevBuilds();
         }
     }
 
     private function onOut():void {
-        _touch = cont.getCurTouch;
-        if (!_touch) {
-            if (_curBuild && _curBuild.source) {
-                _curBuild.source.releaseOut();
-                _curBuild = null;
-            }
-            return;
-        }
-        _curBuild = getWorldObject(_touch);
-        if (_curBuild && _curBuild.source) {
-            _curBuild.source.releaseOut();
-        }
+        _prevBuilds.push(_curBuild);
+        _curBuild = null;
+        releaseOutForPrevBuilds();
     }
 
     private function onEndClickTail():void {
+        var b:WorldObject;
         _touch = contTail.getCurTouch;
         if (!_touch) {
             return;
         }
-        _curBuild = getWorldObject(_touch);
-        if (_curBuild && _curBuild.source) {
+        b = getWorldObject(_touch);
+        if (b && b.source) {
+            if (b != _curBuild) {
+                _prevBuilds.push(_curBuild);
+                _curBuild = b;
+            }
+            releaseOutForPrevBuilds();
+
             var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
             if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
                 _curBuild.source.releaseEndClick();
             } else {
                 checkForTailTouches();
             }
+        } else {
+            _prevBuilds.push(_curBuild);
+            _curBuild = null;
+            releaseOutForPrevBuilds();
         }
     }
 
@@ -149,44 +183,40 @@ public class TownAreaTouchManager {
     }
 
     private function onHoverTail():void {
+        var b:WorldObject;
         _touch = contTail.getCurTouch;
         if (!_touch) {
-            if (_curBuild) _curBuild.source.releaseOut();
+            _prevBuilds.push(_curBuild);
             _curBuild = null;
+            releaseOutForPrevBuilds();
             return;
         }
-        _curBuild = getWorldObject(_touch);
-        if (!_prevBuild) _prevBuild = _curBuild;
-        if (_curBuild) {
+        b = getWorldObject(_touch);
+        if (b && b.source) {
+            if (b != _curBuild) {
+                _prevBuilds.push(_curBuild);
+                _curBuild = b;
+            }
+            releaseOutForPrevBuilds();
+
             var hitAreaState:int = _curBuild.source.getHitAreaState(_touch);
             if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT && _curBuild.source.isTouchable) {
                 _curBuild.source.releaseHover();
-                if (_prevBuild && _prevBuild != _curBuild) {
-                    if (_prevBuild.source) _prevBuild.source.releaseOut();
-                    _prevBuild = _curBuild;
-                }
             } else {
                 _curBuild.source.releaseOut();
                 checkForTailTouches();
             }
+        } else {
+            _prevBuilds.push(_curBuild);
+            _curBuild = null;
+            releaseOutForPrevBuilds();
         }
     }
 
     private function onOutTail():void {
-        _touch = contTail.getCurTouch;
-        if (!_touch) {
-            if (_prevBuild.source) {
-                if (_prevBuild && _prevBuild.source.isTouchable) {
-                    _prevBuild.source.releaseOut();
-                    _prevBuild = null;
-                }
-            }
-            return;
-        }
-        _curBuild = getWorldObject(_touch);
-        if (_curBuild) {
-            _curBuild.source.releaseOut();
-        }
+        _prevBuilds.push(_curBuild);
+        _curBuild = null;
+        releaseOutForPrevBuilds();
     }
 
     private function getWorldObject(t:Touch):WorldObject {
@@ -242,28 +272,53 @@ public class TownAreaTouchManager {
                     if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
                         if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
                             (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('start');
-                        } else (ar[0] as WorldObject).source.releaseStartClick();
+                        } else {
+                            _prevBuilds.push(_curBuild);
+                            releaseOutForPrevBuilds();
+                            _curBuild = ar[0];
+                            _curBuild.source.releaseStartClick();
+                        }
                     }
                 } else if (_touch.phase == TouchPhase.ENDED) {
                     if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
                         if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
                             (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('end');
-                        } else (ar[0] as WorldObject).source.releaseEndClick();
+                        } else {
+                            _prevBuilds.push(_curBuild);
+                            releaseOutForPrevBuilds();
+                            _curBuild = ar[0];
+                            _curBuild.source.releaseEndClick();
+                        }
                     }
                 } else if (_touch.phase == TouchPhase.HOVER) {
                     if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
                         if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
                             (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('hover');
-                        } else (ar[0] as WorldObject).source.releaseHover();
+                        } else {
+                            _prevBuilds.push(_curBuild);
+                            releaseOutForPrevBuilds();
+                            _curBuild = ar[0];
+                            _curBuild.source.releaseHover();
+                        }
                     } else {
                         if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
                             (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('out');
-                        } else (ar[0] as WorldObject).source.releaseOut();
+                        } else {
+                            _prevBuilds.push(_curBuild);
+                            releaseOutForPrevBuilds();
+                            _curBuild = ar[0];
+                            _curBuild.source.releaseOut();
+                        }
                     }
                 } else {
                     if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
                         (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('out');
-                    } else (ar[0] as WorldObject).source.releaseOut();
+                    } else {
+                        _prevBuilds.push(_curBuild);
+                        releaseOutForPrevBuilds();
+                        _curBuild = ar[0];
+                        _curBuild.source.releaseOut();
+                    }
                 }
             }
             ar.length = 0;
@@ -272,6 +327,9 @@ public class TownAreaTouchManager {
                 if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
                     g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
                 }
+                _prevBuilds.push(_curBuild);
+                releaseOutForPrevBuilds();
+                _curBuild = null;
                 g.cont.onEnded();
 //            } else if (_touch.phase == TouchPhase.BEGAN) {
 //            } else if (_touch.phase == TouchPhase.HOVER) {
@@ -279,8 +337,6 @@ public class TownAreaTouchManager {
             }
         }
     }
-
-import flash.geom.Point;
 
 public function checkForTailTouches():void {
         if (g.isAway) return;
@@ -305,19 +361,34 @@ public function checkForTailTouches():void {
                 var hitAreaState:int = (ar[0] as WorldObject).source.getHitAreaState(_touch);
                 if (_touch.phase == TouchPhase.BEGAN) {
                     if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
-                        (ar[0] as WorldObject).source.releaseStartClick();
+                        _prevBuilds.push(_curBuild);
+                        releaseOutForPrevBuilds();
+                        _curBuild = ar[0];
+                        _curBuild.source.releaseStartClick();
                     }
                 } else if (_touch.phase == TouchPhase.ENDED) {
                     if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
-                        (ar[0] as WorldObject).source.releaseEndClick();
+                        _prevBuilds.push(_curBuild);
+                        releaseOutForPrevBuilds();
+                        _curBuild = ar[0];
+                        _curBuild.source.releaseEndClick();
                     }
                 } else if (_touch.phase == TouchPhase.HOVER) {
                     if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
-                        (ar[0] as WorldObject).source.releaseHover();
+                        _prevBuilds.push(_curBuild);
+                        releaseOutForPrevBuilds();
+                        _curBuild = ar[0];
+                        _curBuild.source.releaseHover();
                     } else {
+                        _prevBuilds.push(_curBuild);
+                        releaseOutForPrevBuilds();
+                        _curBuild = null;
                        (ar[0] as WorldObject).source.releaseOut();
                     }
                 } else {
+                    _prevBuilds.push(_curBuild);
+                    releaseOutForPrevBuilds();
+                    _curBuild = null;
                     (ar[0] as WorldObject).source.releaseOut();
                 }
             }
