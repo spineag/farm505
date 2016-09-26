@@ -2165,11 +2165,14 @@ public class ManagerTutorial {
         switch (g.user.tutorialStep) {
             case 3:
             case 4:
-                if (!_tutorialObjects[0]) return;
-                p.x = (_tutorialObjects[0] as WorldObject).posX;
-                p.y = (_tutorialObjects[0] as WorldObject).posY;
                 g.cont.killMoveCenterToPoint();
-                g.cont.moveCenterToPos(p.x, p.y, false, 1);
+                if (_tutorialObjects && _tutorialObjects[0]) {
+                    p.x = (_tutorialObjects[0] as WorldObject).posX;
+                    p.y = (_tutorialObjects[0] as WorldObject).posY;
+                    g.cont.moveCenterToPos(p.x, p.y, false, 1);
+                } else {
+                    g.cont.moveCenterToPos(21, 33, false, 1);
+                }
                 break;
             case 5:
                 if (_subStep == 5) {
