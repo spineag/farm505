@@ -98,53 +98,52 @@ public class ManagerTips {
     }
 
     public function calculateAvailableTips():void {
-        _arrTips = [];
-        var count:int = 0;
-        var ob:Object;
+            _arrTips = [];
+            var count:int = 0;
+            var ob:Object;
+            ob = getRawRidge();
+            count += ob.count;
+            _arrTips.push(ob);
 
-        ob = getRawRidge();
-        count += ob.count;
-        _arrTips.push(ob);
+            ob = getCraftRidge();
+            count += ob.count;
+            _arrTips.push(ob);
 
-        ob = getCraftRidge();
-        count += ob.count;
-        _arrTips.push(ob);
+            ob = getRawFabrica();
+            count += ob.count;
+            _arrTips.push(ob);
 
-        ob = getRawFabrica();
-        count += ob.count;
-        _arrTips.push(ob);
+            ob = getCraftFabrica();
+            count += ob.count;
+            _arrTips.push(ob);
 
-        ob = getCraftFabrica();
-        count += ob.count;
-        _arrTips.push(ob);
+            ob = getMarket();
+            count += ob.count;
+            _arrTips.push(ob);
 
-        ob = getMarket();
-        count += ob.count;
-        _arrTips.push(ob);
+            ob = getPapper();
+            count += ob.count;
+            _arrTips.push(ob);
 
-        ob = getPapper();
-        count += ob.count;
-        _arrTips.push(ob);
+            ob = getOrder();
+            count += ob.count;
+            _arrTips.push(ob);
 
-        ob = getOrder();
-        count += ob.count;
-        _arrTips.push(ob);
+            ob = getDailyBonus();
+            count += ob.count;
+            _arrTips.push(ob);
 
-        ob = getDailyBonus();
-        count += ob.count;
-        _arrTips.push(ob);
+            ob = getWild();
+            count += ob.count;
+            _arrTips.push(ob);
 
-        ob = getWild();
-        count += ob.count;
-        _arrTips.push(ob);
+            ob = getHero();
+            count += ob.count;
+            _arrTips.push(ob);
 
-        ob = getHero();
-        count += ob.count;
-        _arrTips.push(ob);
-
-        ob = getRawAnimal();
-        count += ob.count;
-        _arrTips.push(ob);
+            ob = getRawAnimal();
+            count += ob.count;
+            _arrTips.push(ob);
 
         if (_tipsPanel) _tipsPanel.updateAvailableActionCount(count);
     }
