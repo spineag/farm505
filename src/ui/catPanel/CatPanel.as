@@ -88,7 +88,6 @@ public class CatPanel {
             g.user.level++;
             g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
         }
-
 //        g.directServer.addUserXP(1,null);
 //        var _dataBuild:Object = g.dataBuilding.objectBuilding[1];
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);

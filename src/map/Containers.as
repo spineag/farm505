@@ -2,6 +2,10 @@
  * Created by user on 5/14/15.
  */
 package map {
+import build.ridge.Ridge;
+
+import data.BuildType;
+
 import manager.*;
 
 import com.greensock.TweenMax;
@@ -155,6 +159,10 @@ public class Containers {
                 if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE) {
                     g.bottomPanel.cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+                    for (var i:int = 0; i < arr.length; i++) {
+                        arr[i].lastBuyResource = false;
+                    }
                 } else {
                     g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
                 }

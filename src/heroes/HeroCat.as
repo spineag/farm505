@@ -259,15 +259,19 @@ public class HeroCat extends BasicCat{
             }
         };
         var k:Number = Math.random();
-        if (k < .4) {
+        if (freeIdleGo) {
             _animation.playIt('close', true, fClose);
         } else {
-            if (k < .6) {
-                _animation.playIt("work", true, makeWateringIdle, callback);
-            } else if (k < .8) {
-                _animation.playIt("idle", true, makeWateringIdle, callback);
+            if (k < .4) {
+                _animation.playIt('close', true, fClose);
             } else {
-                _animation.playIt("look", true, makeWateringIdle, callback);
+                if (k < .6) {
+                    _animation.playIt("work", true, makeWateringIdle, callback);
+                } else if (k < .8) {
+                    _animation.playIt("idle", true, makeWateringIdle, callback);
+                } else {
+                    _animation.playIt("look", true, makeWateringIdle, callback);
+                }
             }
         }
     }

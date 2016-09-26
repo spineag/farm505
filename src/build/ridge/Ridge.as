@@ -39,7 +39,7 @@ public class Ridge extends WorldObject{
     private var _plantSprite:Sprite;
     private var _stateRidge:int;
     private var _isOnHover:Boolean;
-    private var _lastBuyResource:Boolean;
+    public var lastBuyResource:Boolean;
 
     public function Ridge(_data:Object) {
         super(_data);
@@ -198,7 +198,7 @@ public class Ridge extends WorldObject{
                 g.toolsModifier.modifierType = ToolsModifier.CRAFT_PLANT;
                 return;
             }
-            _lastBuyResource = true;
+            lastBuyResource = true;
             _source.filter = null;
             plantThePlant();
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE) {
@@ -274,11 +274,11 @@ public class Ridge extends WorldObject{
                 if (g.managerTutorial.isTutorial) return;
                 onOut();
 
-                if (!_lastBuyResource) {
+                if (!lastBuyResource) {
                     if (g.timerHint.isShow) g.timerHint.managerHide(onClickCallbackWhenWork);
                      else g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale,_dataPlant.buildTime, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut, true);
                 }
-                _lastBuyResource = false;
+                lastBuyResource = false;
             }
             if (_stateRidge == EMPTY) {
                 onOut();
