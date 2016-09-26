@@ -49,13 +49,6 @@ public class ConsoleWrapper {
         Cc.bindKey(new KeyBind(Keyboard.F, true, false, true, true), makeFullscreen);
         Cc.bindKey(new KeyBind(Keyboard.I, true, false, true, true), showStats);
         Cc.bindKey(new KeyBind(Keyboard.T, true,false,true,true), makeTester);
-
-        Cc.bindKey(new KeyBind(Keyboard.G, true, false, true, true), forOptimisation);
-        Cc.bindKey(new KeyBind(Keyboard.H, true, false, true, true), forOptimisation2);
-        Cc.bindKey(new KeyBind(Keyboard.J, true, false, true, true), forOptimisation3);
-        Cc.bindKey(new KeyBind(Keyboard.K, true, false, true, true), forOptimisation4);
-        Cc.bindKey(new KeyBind(Keyboard.M, true, false, true, true), forOptimisation5);
-        Cc.bindKey(new KeyBind(Keyboard.N, true, false, true, true), forOptimisation6);
 //        Cc.bindKey(new KeyBind(Keyboard.R, false, false, true, true), removeUserData);
 
         //Cc.addSlashCommand("export", exportLogToHTML, "Save game log.", true);
@@ -118,31 +111,6 @@ public class ConsoleWrapper {
         else g.user.isTester = true;
         g.directServer.updateUserTester(null);
         Cc.info("Your isTester = " + g.user.isTester);
-    }
-
-    private function forOptimisation():void {                                       // G
-        if (g.isDebug) g.cont.contentCont.visible = !g.cont.contentCont.visible;
-        if (g.isDebug) g.cont.craftCont.visible = !g.cont.craftCont.visible;
-    }
-
-    private function forOptimisation2():void {                                      // H
-        if (g.isDebug) g.cont.tailCont.visible = !g.cont.tailCont.visible;
-    }
-
-    private function forOptimisation3():void {                                      // J
-        if (g.isDebug) g.cont.backgroundCont.visible = !g.cont.backgroundCont.visible;
-    }
-
-    private function forOptimisation4():void {                                      // K
-        if (g.isDebug) g.cont.interfaceCont.visible = !g.cont.interfaceCont.visible;
-    }
-
-    private function forOptimisation5():void {                                      // M
-        if (g.isDebug) g.cont.windowsCont.visible = !g.cont.windowsCont.visible;
-    }
-
-    private function forOptimisation6():void {                                      // N
-        if (g.isDebug) g.cont.windowsCont.visible = !g.cont.windowsCont.visible;
     }
 
     private function inspectObjects():void {

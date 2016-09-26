@@ -136,6 +136,7 @@ public class Containers {
             _isDragged = true;
             dragGameCont(te.touches[0].getLocation(g.mainStage));  // потрібно переписати перевірки на спосіб тачу
         } else if (te.getTouch(gameCont, TouchPhase.BEGAN)) {
+            if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
             _startDragPoint = te.touches[0].getLocation(g.mainStage); //te.touches[0].globalX;
             _startDragPointCont = new Point(gameCont.x, gameCont.y);
             g.ownMouse.showClickCursor();
