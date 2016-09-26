@@ -503,7 +503,6 @@ public class ManagerTutorial {
         } else {
             Cc.error('ManagerTutorial substep5_2: no animal');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tuts 5_2');
-            return;
         }
     }
 
@@ -526,14 +525,13 @@ public class ManagerTutorial {
     private function subStep5_4():void {
         _subStep = 4;
         _currentAction = TutorialAction.ANIMAL_SKIP;
-        if (_tutorialObjects.length && _tutorialObjects[0] as Animal) {
+        if (_tutorialObjects.length && _tutorialObjects[0] is Animal) {
             (_tutorialObjects[0] as Animal).playDirectIdle();
             (_tutorialObjects[0] as Animal).addArrow();
             (_tutorialObjects[0] as Animal).tutorialCallback = subStep5_5;
         } else {
             Cc.error('ManagerTutorial substep5_4: no animal');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tuts 5_4');
-            return;
         }
     }
 
@@ -632,6 +630,7 @@ public class ManagerTutorial {
     }
 
     private function subStep7_3():void {
+        _subStep = 3;
         _onShowWindowCallback = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
@@ -2032,6 +2031,7 @@ public class ManagerTutorial {
     }
 
     private function subStep25_1():void {
+        _subStep = 1;
         if (cutScene) cutScene.hideIt(deleteCutScene);
         g.user.tutorialStep = 26;
         updateTutorialStep();
@@ -2149,7 +2149,7 @@ public class ManagerTutorial {
     }
 
     public function onResize():void {
-        Cc.info('tuts: onResize');
+        Cc.info('tuts: onResize with _subStep: ' + _subStep);
         if (black) {
             removeBlack();
             addBlack();
@@ -2172,6 +2172,14 @@ public class ManagerTutorial {
                 g.cont.moveCenterToPos(p.x, p.y, false, 1);
                 break;
             case 5:
+                if (_subStep == 5) {
+                    if (_tutorialObjects.length && _tutorialObjects[0] is Animal) {
+                        (_tutorialObjects[0] as Animal).onResize();
+                    }
+                }
+                g.cont.killMoveCenterToPoint();
+                g.cont.moveCenterToPos(28, 11, false, 1);
+                break;
             case 6:
                 g.cont.killMoveCenterToPoint();
                 g.cont.moveCenterToPos(28, 11, false, 1);
@@ -2378,6 +2386,10 @@ public class ManagerTutorial {
                 }
                 break;
             case 14:
+                if (_subStep==3) {
+                    if (_tutorialObjects.length && _tutorialObjects[0] is Fabrica)
+                    (_tutorialObjects[0] as Fabrica).onResize();
+                }
                 g.cont.killMoveCenterToPoint();
                 g.cont.moveCenterToPos(2, 12, false, 1);
                 break;
@@ -2414,6 +2426,7 @@ public class ManagerTutorial {
                         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
                         _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
                         _arrow.scaleIt(.5);
+                        _arrow.animateAtPosition(ob.x, ob.y + ob.height/2);
                     } else {
                         Cc.error('wo_fabrica is not opened on resize');
                     }
@@ -2426,7 +2439,14 @@ public class ManagerTutorial {
             case 20:
                 g.cont.killMoveCenterToPoint();
                 g.cont.moveCenterToPos(31, 28, false, 1);
-                if (_subStep == 2) {
+                if (_subStep == 0) {
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    ob = g.bottomPanel.getShopButtonProperties();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y)
+                } else if (_subStep == 2) {
                     if (_dustRectangle) {
                         _dustRectangle.deleteIt();
                         _dustRectangle = null;
@@ -2538,6 +2558,8 @@ public class ManagerTutorial {
                 } else if (_subStep < 4) {
                     g.cont.killMoveCenterToPoint();
                     g.cont.moveCenterToPos(31, 28, false, 1);
+                } else if (_subStep == 4) {
+                    if (_tutorialObjects.length) g.cont.moveCenterToXY((_tutorialObjects[0] as Market).source.x-100, (_tutorialObjects[0] as Market).source.y, false, 1.5);
                 } else if (_subStep > 4) {
                     if (_tutorialObjects[0]) {
                         g.cont.moveCenterToXY((_tutorialObjects[0] as Market).source.x - 100, (_tutorialObjects[0] as Market).source.y, false, 1);
@@ -2579,6 +2601,15 @@ public class ManagerTutorial {
                 }
                 break;
             case 25:
+                if (_subStep == 1) {
+                    if (_afterTutorialWindow) _afterTutorialWindow.onResize();
+                    if (_dustRectangle) {
+                        _dustRectangle.deleteIt();
+                        _dustRectangle = null;
+                    }
+                    ob = _afterTutorialWindow.btnNext();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                }
                 g.cont.killMoveCenterToPoint();
                 g.cont.moveCenterToPos(31, 28, false, 1);
                 break;
