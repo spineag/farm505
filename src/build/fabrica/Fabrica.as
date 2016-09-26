@@ -345,6 +345,20 @@ public class Fabrica extends WorldObject {
         }
     }
 
+    public function onResize():void {
+        if (g.managerTutorial.isTutorial) {
+            g.timerHint.canHide = true;
+            g.timerHint.hideArrow();
+            g.timerHint.hideIt(true);
+
+            g.timerHint.canHide = false;
+            g.timerHint.addArrow();
+            g.managerTutorial.checkTutorialCallback();
+            g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
+                    _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+        }
+    }
+
     public function get arrRecipes():Array {
         return _arrRecipes;
     }

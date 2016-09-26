@@ -96,5 +96,10 @@ public class AfterTutorialWindow {
         ob.height = _btn.height/2;
         return ob;
     }
+
+    public function onResize():void {
+        _source.x = Starling.current.nativeStage.stageWidth / 2;
+        _source.y = Starling.current.nativeStage.stageHeight / 2;
+    }
 }
 }

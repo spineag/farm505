@@ -378,6 +378,18 @@ public function onEndClick(last:Boolean = false):void {
         }
     }
 
+    public function onResize():void {
+        if (g.managerTutorial.isTutorial) {
+            g.timerHint.hideArrow();
+            g.timerHint.hideIt(true);
+            var p1:Point = new Point(0, _rect.y);
+            p1 = source.localToGlobal(p1);
+            if (_data.id == 1 || _data.id == 3) p1.y += 25;
+            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _data.timeCraft, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut, false, true);
+            g.timerHint.addArrow();
+        }
+    }
+
     private function onClickCallbackWhenWork():void {
         if (!g.mouseHint.isShowedAnimalFeed) {
             var p1:Point = new Point(0, _rect.y);

@@ -55,6 +55,14 @@ public class CutSceneTextBubble {
         if (_btnTxt) _btnTxt.updateIt();
     }
 
+    public function onResize():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+            addParticles();
+        }
+    }
+
     public function set startClick(f:Function):void {
         if (_btn) {
             _btn.startClickCallback = f;
