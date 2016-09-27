@@ -68,6 +68,7 @@ public class WOOrder extends WindowMain{
     private var _btnSkipDelete:CButton;
     private var _armatureCustomer:Armature;
     private var _armatureSeller:Armature;
+    private var _armatureAddCoins:Armature;
     private var _imCoup:Image;
     private var _txtCoupone:CTextField;
     private var _bubble:TutorialTextBubble;
@@ -759,6 +760,7 @@ public class WOOrder extends WindowMain{
     // ------------------ ANIMATIONS ---------------------
 
     private function createTopCats():void {
+        _armatureAddCoins = g.allData.factory['add_coins'].buildArmature("money");
         _armatureCustomer = g.allData.factory['order_window'].buildArmature("cat_customer");
         _armatureSeller = g.allData.factory['order_window'].buildArmature("cat_seller");
         (_armatureCustomer.display as StarlingArmatureDisplay).x = 110;
@@ -947,6 +949,7 @@ public class WOOrder extends WindowMain{
     private function startAnimationCats():void {
         WorldClock.clock.add(_armatureCustomer);
         WorldClock.clock.add(_armatureSeller);
+
 //        animateCustomerCat();
 //        animateSellerCat();
     }
@@ -1021,12 +1024,28 @@ public class WOOrder extends WindowMain{
             _armatureCustomer.addEventListener(EventObject.LOOP_COMPLETE, animateCustomerOnSell);
             _armatureCustomer.animation.gotoAndPlayByFrame('love');
         }
+        WorldClock.clock.add(_armatureAddCoins);
+        _source.addChild(_armatureAddCoins.display as StarlingArmatureDisplay);
+        if (_armatureAddCoins) {
+            _armatureAddCoins.addEventListener(EventObject.COMPLETE, animateAddCoins);
+            _armatureAddCoins.addEventListener(EventObject.LOOP_COMPLETE, animateAddCoins);
+            _armatureAddCoins.animation.gotoAndPlayByFrame('idle');
+        }
+        (_armatureAddCoins.display as StarlingArmatureDisplay).x = _activeOrderItem.source.x;
+        (_armatureAddCoins.display as StarlingArmatureDisplay).y = _activeOrderItem.source.y;
     }
 
     private function animateSellerOnSell(e:Event=null):void {
         _armatureSeller.removeEventListener(EventObject.COMPLETE, animateSellerOnSell);
         _armatureSeller.removeEventListener(EventObject.LOOP_COMPLETE, animateSellerOnSell);
         animateSellerCat();
+    }
+
+    private function animateAddCoins(e:Event=null):void {
+        _armatureAddCoins.removeEventListener(EventObject.COMPLETE, animateSellerOnSell);
+        _armatureAddCoins.removeEventListener(EventObject.LOOP_COMPLETE, animateSellerOnSell);
+        WorldClock.clock.remove(_armatureAddCoins);
+        _source.removeChild(_armatureAddCoins.display as StarlingArmatureDisplay);
     }
 
     private function animateCustomerOnSell(e:Event=null):void {

@@ -196,6 +196,7 @@ public class HeroCat extends BasicCat{
 // SIMPLE IDLE
     private var timer:int;
     public function makeFreeCatIdle():void {
+        freeIdleGo = !freeIdleGo;
         if (freeIdleGo) {
             g.managerCats.goIdleCatToPoint(this, g.townArea.getRandomFreeCell(), makeFreeCatIdle);
         } else {
@@ -204,7 +205,7 @@ public class HeroCat extends BasicCat{
             g.gameDispatcher.addToTimer(renderForIdleFreeCat);
             renderForIdleFreeCat();
         }
-        freeIdleGo = !freeIdleGo;
+
     }
     
     public function get isIdleGoNow():Boolean {

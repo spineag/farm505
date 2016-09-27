@@ -205,8 +205,20 @@ public class ManagerOrder {
                             } else {
                                 arr.sortOn('count', Array.DESCENDING | Array.NUMERIC);
                                 if (Math.random() < .5) {
-                                    order.resourceIds.push(arr[0].id);
-                                    order.resourceCounts.push(int(arr[0].count / 2 + 1));
+                                    k = Math.random();
+                                    if (k < .5) {
+                                        order.resourceIds.push(arr[0].id);
+                                        order.resourceCounts.push(int(arr[0].count / 2 + 1));
+                                    } else if (k < .7) {
+                                        order.resourceIds.push(arr[0].id);
+                                        order.resourceCounts.push(int(arr[0].count - 1 ));
+                                        if ( order.resourceCounts[0] <= 0) {
+                                            order.resourceCounts[0] = 1
+                                        }
+                                    } else {
+                                        order.resourceIds.push(arr[0].id);
+                                        order.resourceCounts.push(int(arr[0].count) + 3);
+                                    }
                                 } else {
                                     order.resourceIds.push(arr[1].id);
                                     order.resourceCounts.push(int(arr[1].count / 2 + 1));

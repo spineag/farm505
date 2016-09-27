@@ -35,8 +35,8 @@ public class PostOpenFabric  extends WindowMain {
 //            return;
 //        }
 //        g.windowsManager.cashWindow = this;
-        _woHeight = 430;
-        _woWidth = 620;
+        _woHeight = 510;
+        _woWidth = 510;
 
 
     }
@@ -87,7 +87,7 @@ public class PostOpenFabric  extends WindowMain {
         im.x = 165;
         im.y = 8;
         _btn.addChild(im);
-        _btn.y = 180;
+        _btn.y = 240;
         _source.addChild(_btn);
         if (_data.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
@@ -100,7 +100,7 @@ public class PostOpenFabric  extends WindowMain {
             im.y = -5;
             im.x = -95;
         } else {
-            im.y = -75;
+            im.y = -80;
             im.x = -95;
         }
         _source.addChild(im);

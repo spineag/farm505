@@ -616,6 +616,8 @@ public class DirectServer {
         variables.idSocial = g.user.userSocialId;
         variables.name = g.user.name;
         variables.lastName = g.user.lastName;
+        variables.sex = g.user.sex;
+        variables.bornDate = g.user.bornDate;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();

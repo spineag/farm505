@@ -112,12 +112,15 @@ public class LoadComponents {
         g.loadAnimation.load('animations_json/plot_seller', 'plot_seller', onLoadDB);
         g.loadAnimation.load('animations_json/preloader_2', 'preloader_2', onLoadDB);
         g.loadAnimation.load('animations_json/visit_preloader', 'visit_preloader', onLoadDB);
+        g.loadAnimation.load('animations_json/explode_gray_fabric', 'explode_gray_fabric', onLoadDB);
+        g.loadAnimation.load('animations_json/add_coins', 'add_coins', onLoadDB);
+
     }
 
     private function onLoadDB():void {
         count++;
         g.startPreloader.setProgress(48 + count*2);
-        if (count >=6) {
+        if (count >=8) {
             loadDBX();
         }
     }
@@ -134,7 +137,6 @@ public class LoadComponents {
         g.loadAnimation.load('animations_json/x1/explode', 'explode', onLoadDB_X);
         g.loadAnimation.load('animations_json/x1/explode_an', 'explode_an', onLoadDB_X);
         g.loadAnimation.load('animations_json/x1/explode_gray', 'explode_gray', onLoadDB_X);
-        g.loadAnimation.load('animations_json/explode_gray_fabric', 'explode_gray_fabric', onLoadDB_X);
         g.loadAnimation.load('animations_json/x1/plant', 'plant', onLoadDB_X);
         g.loadAnimation.load('animations_json/x1/tools', 'tools', onLoadDB_X);
     }
@@ -142,7 +144,7 @@ public class LoadComponents {
     private function onLoadDB_X():void {
         count++;
         g.startPreloader.setProgress(60 + 2*count);
-        if (count >=11) {
+        if (count >=10) {
             loadHitArea();
         }
     }
