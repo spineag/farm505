@@ -2,6 +2,8 @@
  * Created by user on 11/9/15.
  */
 package windows.WOComponents {
+import flash.geom.Rectangle;
+
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
@@ -51,17 +53,24 @@ public class Birka extends Sprite{
         im.x = -im.width;
         _bg.addChild(im);
 
-        var cCount:int = Math.ceil((_curH - 80)/43) + 1;
-        for (var i:int=0; i < cCount; i++) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_c'));
-            im.x = -im.width;
-            if (i == cCount-1) {
-                im.y = -_curH + 30;
-            } else {
-                im.y = -75 - i * (im.height - 2);
-            }
-            _bg.addChildAt(im, 0);
-        }
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_c'));
+        im.tileGrid = new Rectangle();
+        im.x = -im.width;
+        im.y = -_curH + 36;
+        im.height = _curH - 80;
+        _bg.addChildAt(im, 0);
+
+//        var cCount:int = Math.ceil((_curH - 80)/43) + 1;
+//        for (var i:int=0; i < cCount; i++) {
+//            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_c'));
+//            im.x = -im.width;
+//            if (i == cCount-1) {
+//                im.y = -_curH + 30;
+//            } else {
+//                im.y = -75 - i * (im.height - 2);
+//            }
+//            _bg.addChildAt(im, 0);
+//        }
 
         catIm.x = -58;
         catIm.y = -60;
