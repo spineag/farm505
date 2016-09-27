@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/wild/wildAtlas.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/wild/wildAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -201,6 +201,7 @@
             <filename>stump.png</filename>
             <filename>swamp.png</filename>
             <filename>wild_tree.png</filename>
+            <filename>ribbon</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
