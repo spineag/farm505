@@ -428,6 +428,7 @@ public function onEndClick(last:Boolean = false):void {
         if (g.managerTutorial.isTutorial && _tutorialCallback == null) return;
         if (g.isActiveMapEditor) return;
         g.hint.hideIt();
+        if (source.filter) source.filter.dispose();
         source.filter = null;
         _isOnHover = false;
 //        g.gameDispatcher.removeFromTimer(countEnterFrameMouseHint);

@@ -157,6 +157,7 @@ public class Ridge extends WorldObject{
         if (_source) {
             super.onOut();
             _isOnHover = false;
+            if (_source.filter) _source.filter.dispose();
             _source.filter = null;
 //            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }

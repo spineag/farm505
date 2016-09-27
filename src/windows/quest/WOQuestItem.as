@@ -70,6 +70,7 @@ public class WOQuestItem {
     }
 
     private function onClick():void {
+        if (_dataQuest.type == QuestData.TYPE_POST) _btn.clickCallback = null;
         g.managerQuest.checkOnClickAtWoQuestItem(_dataQuest);
     }
 

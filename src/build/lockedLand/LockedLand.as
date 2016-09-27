@@ -150,9 +150,18 @@ public class LockedLand extends WorldObject {
         super.onOut();
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (g.isActiveMapEditor) return;
-        if (_build) _build.filter = null;
-        if (_topRibbon) _topRibbon.filter = null;
-        if (_bottomRibbon) _bottomRibbon.filter = null;
+        if (_build) {
+            if (_build.filter) _build.filter.dispose();
+            _build.filter = null;
+        }
+        if (_topRibbon) {
+            if (_topRibbon.filter) _topRibbon.filter.dispose();
+            _topRibbon.filter = null;
+        }
+        if (_bottomRibbon) {
+            if (_bottomRibbon.filter) _bottomRibbon.filter.dispose();
+            _bottomRibbon.filter = null;
+        }
     }
 
     private function onClick():void {

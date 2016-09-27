@@ -96,7 +96,10 @@ public class Chest extends WorldObject{
         if (_source) {
             super.onOut();
             _isOnHover = false;
-            if (_source) _source.filter = null;
+            if (_source) {
+                if (_source.filter) _source.filter.dispose();
+                _source.filter = null;
+            }
             g.hint.hideIt();
         }
     }

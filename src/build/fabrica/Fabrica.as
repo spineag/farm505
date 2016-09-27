@@ -197,6 +197,7 @@ public class Fabrica extends WorldObject {
             g.hint.hideIt();
             return;
         }
+        if (_source.filter) _source.filter.dispose();
         _source.filter = null;
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.currentAction == TutorialAction.FABRICA_SKIP_FOUNDATION) return;

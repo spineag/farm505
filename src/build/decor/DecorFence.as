@@ -86,6 +86,7 @@ public class DecorFence extends WorldObject {
     override public function onOut():void {
         super.onOut();
         if (g.isActiveMapEditor) return;
+        if (_source.filter) _source.filter.dispose();
         _source.filter = null;
     }
 

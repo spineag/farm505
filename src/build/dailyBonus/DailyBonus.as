@@ -78,6 +78,7 @@ public class DailyBonus extends WorldObject{
             g.hint.hideIt();
             return;
         }
+        if (_source.filter) _source.filter.dispose();
         _source.filter = null;
         _isOnHover = false;
         g.hint.hideIt();

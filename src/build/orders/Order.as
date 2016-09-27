@@ -106,6 +106,7 @@ public class Order extends WorldObject{
         }
         g.hint.hideIt();
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (_source.filter) _source.filter.dispose();
         _source.filter = null;
         _isOnHover = false;
     }

@@ -99,6 +99,7 @@ public class CraftItem {
         _txtNumber.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
 //        _txtNumber.x = -5;
         _txtNumber.y = 10;
+        _txtNumber.visible = false;
         _source.addChild(_txtNumber);
     }
     
@@ -112,6 +113,7 @@ public class CraftItem {
     }
 
     private function onOut():void {
+        if (_source.filter) _source.filter.dispose();
         _image.filter = null;
     }
 
@@ -168,7 +170,9 @@ public class CraftItem {
         }
         _source.visible = true;
         _source.endClickCallback = null;
+        if (_source.filter) _source.filter.dispose();
         _source.filter = null;
+        _txtNumber.visible = true;
         _source.isTouchable = false;
         for(var id:String in g.dataRecipe.objectRecipe) {
             if (g.dataRecipe.objectRecipe[id].idResource == _resourceItem.resourceID) {

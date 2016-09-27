@@ -244,7 +244,10 @@ public class Cave extends WorldObject{
             return;
         }
         _isOnHover = false;
-        if (_source) _source.filter = null;
+        if (_source) {
+            if (_source.filter) _source.filter.dispose();
+            _source.filter = null;
+        }
         if (_isAnimate) return;
 //        g.hint.hideIt();
 //        if (_stateBuild == STATE_BUILD) {

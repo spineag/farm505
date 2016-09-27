@@ -130,6 +130,7 @@ public class Market extends WorldObject{
 
     override public function onOut():void {
         _isOnHover = false;
+        if (_source.filter) _source.filter.dispose();
         _source.filter = null;
         g.hint.hideIt();
     }

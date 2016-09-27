@@ -104,7 +104,10 @@ public class Wild extends WorldObject{
         if (_delete) return;
         _isOnHover = false;
 //            if (!_isOnHover) g.wildHint.hideIt();
-        if (_source) _source.filter = null;
+        if (_source) {
+            if (_source.filter) _source.filter.dispose();
+            _source.filter = null;
+        }
 //        g.gameDispatcher.addEnterFrame(countEnterFrame);
     }
 

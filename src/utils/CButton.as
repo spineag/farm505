@@ -163,6 +163,7 @@ public class CButton extends Sprite {
     public function set setEnabled(v:Boolean):void {
         this.isTouchable = v;
         if (v) {
+            if (this.filter) this.filter.dispose();
             this.filter = null;
         } else {
             this.filter = ManagerFilters.getButtonDisableFilter();
@@ -191,6 +192,7 @@ public class CButton extends Sprite {
 
     private function onEndClickAnimation():void {
         g.soundManager.playSound(SoundConst.ON_BUTTON_CLICK);
+        if (_bg.filter) _bg.filter.dispose();
         _bg.filter = null;
         this.scaleX = this.scaleY = _scale;
     }
@@ -205,6 +207,7 @@ public class CButton extends Sprite {
     private function onOutAnimation():void {
         _isHover = false;
         this.scaleX = this.scaleY = _scale;
+        if (_bg.filter) _bg.filter.dispose();
         _bg.filter = null;
     }
 

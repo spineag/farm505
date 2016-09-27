@@ -490,6 +490,7 @@ public class Tree extends WorldObject {
         if (g.selectedBuild) return;
         super.onOut();
         if (g.isAway) {
+            if (_source.filter) _source.filter.dispose();
             _source.filter = null;
             _isOnHover = false;
             return;

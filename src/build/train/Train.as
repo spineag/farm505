@@ -460,7 +460,9 @@ public class Train extends WorldObject{
 
     override public function onOut():void {
         super.onOut();
+        if (_buildingBuildSprite.filter) _buildingBuildSprite.filter.dispose();
         _buildingBuildSprite.filter = null;
+        if (_source.filter) _source.filter.dispose();
         _build.filter = null;
         g.hint.hideIt();
         _isOnHover = false;

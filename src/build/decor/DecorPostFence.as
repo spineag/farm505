@@ -154,6 +154,7 @@ public class DecorPostFence extends WorldObject{
 
     override public function onOut():void {
         super.onOut();
+        if (_source.filter) _source.filter.dispose();
         _source.filter = null;
     }
 

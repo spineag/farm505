@@ -107,6 +107,7 @@ public class Sklad extends WorldObject{
             return;
         }
         _isOnHover = false;
+        if (_source.filter) _source.filter.dispose();
         _source.filter = null;
         g.hint.hideIt();
     }
