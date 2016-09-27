@@ -86,7 +86,6 @@ public class SocialNetwork extends EventDispatcher {
         g.user.bornDate = _paramsUser.bdate;
 //        g.user.city = _paramsUser.city || "";
 //        g.user.country = _paramsUser.country || "";
-        trace('doshel');
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_PROFILES));
     }
 
