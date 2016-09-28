@@ -6,6 +6,9 @@ import analytic.AnalyticManager;
 
 import build.WorldObject;
 import com.junkbyte.console.Cc;
+
+import dragonBones.Slot;
+
 import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
@@ -51,7 +54,9 @@ public class Ridge extends WorldObject{
         _plantSprite = new Sprite();
         _stateRidge = EMPTY;
         _isOnHover = false;
-        createAtlasBuild(onCreateBuild);
+        _dataBuild.url = 'plant'; // temp
+        _dataBuild.image = 'ridge'; // temp
+        createAnimatedBuild(onCreateBuild);
     }
 
     private function onCreateBuild():void {
@@ -64,6 +69,13 @@ public class Ridge extends WorldObject{
             _source.nameIt = 'ridge';
         }
         _source.releaseContDrag = true;
+        _armature.animation.stop();
+        var sl:Slot = _armature.getSlot('craft');
+        if (sl) {
+            sl.displayList = null;
+        } else {
+            Cc.error('Ridge onCreateBuild: no slot CRAFT at ridge');
+        }
         _source.addChild(_plantSprite);
     }
 
