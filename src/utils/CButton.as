@@ -107,16 +107,16 @@ public class CButton extends Sprite {
                 te.stopImmediatePropagation();
                 te.stopPropagation();
                 Mouse.cursor = OwnMouse.HOVER_CURSOR;
-                onHoverAnimation();
-                if (_hoverCallback != null) {
+                if (!_isHover && _hoverCallback != null) {
                     _hoverCallback.apply();
                 }
+                onHoverAnimation();
             } else {
                 Mouse.cursor = OwnMouse.USUAL_CURSOR;
-                onOutAnimation();
-                if (_outCallback != null) {
+                if (!_isHover && _outCallback != null) {
                     _outCallback.apply();
                 }
+                onOutAnimation();
             }
         } else {
             if (_hitAreaState != 2) {

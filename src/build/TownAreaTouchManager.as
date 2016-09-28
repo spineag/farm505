@@ -32,6 +32,7 @@ public class TownAreaTouchManager {
 
     public function TownAreaTouchManager() {
         cont = g.cont.contentCont;
+        cont.useCheckForHover = false;
         cont.endClickCallback = onEndClick;
         cont.startClickCallback = onStartClick;
         cont.hoverCallback = onHover;
@@ -39,6 +40,7 @@ public class TownAreaTouchManager {
         cont.releaseContDrag = true;
 
         contTail = g.cont.tailCont;
+        contTail.useCheckForHover = false;
         contTail.endClickCallback = onEndClickTail;
         contTail.startClickCallback = onStartClickTail;
         contTail.hoverCallback = onHoverTail;

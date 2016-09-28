@@ -3,15 +3,12 @@
  */
 package windows.WOComponents {
 import flash.geom.Rectangle;
-
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
-
 import utils.CTextField;
 
 public class Birka extends Sprite{

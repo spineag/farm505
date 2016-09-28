@@ -29,6 +29,9 @@ public class CSprite extends Sprite {
     private var _hitArea:OwnHitArea;
     private var _hitAreaState:int;
     private var _currentTouch:Touch;
+    private var _startDragPoint:Point;
+    private var _isHover:Boolean;
+    private var _useCheckForHover:Boolean;
     private var _itsName:String; // use for testing
 
     private var g:Vars = Vars.getInstance();
@@ -38,6 +41,8 @@ public class CSprite extends Sprite {
         _needStrongCheckHitTest = false;
         _needStrongCheckByteArray = false;
         _useContDrag = false;
+        _isHover = false;
+        _useCheckForHover = true;
         _scale = 1;
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }
@@ -58,10 +63,14 @@ public class CSprite extends Sprite {
         return _currentTouch;
     }
 
-    private var _startDragPoint:Point;
+    public function set useCheckForHover(v:Boolean):void {
+        _useCheckForHover = v;
+    }
+
     public function onTouch(te:TouchEvent):void {
         _currentTouch = te.getTouch(this);
         if (_currentTouch == null) {
+            _isHover = false;
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
             if (_outCallback != null) {
                 _outCallback.apply();
@@ -120,18 +129,22 @@ public class CSprite extends Sprite {
         } else if (te.touches[0].phase == TouchPhase.HOVER) {
             if (_hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
                 te.stopPropagation();
+                if (_isHover) return;
+                _isHover = true && _useCheckForHover;
                 Mouse.cursor = OwnMouse.HOVER_CURSOR;
                 if (_hoverCallback != null) {
                     _hoverCallback.apply();
                 }
             } else {
                 Mouse.cursor = OwnMouse.USUAL_CURSOR;
+                _isHover = false;
                 if (_outCallback != null) {
                     _outCallback.apply();
                 }
             }
         } else {
             if (_hitAreaState != OwnHitArea.UNDER_VISIBLE_POINT) {
+                _isHover = false;
                 Mouse.cursor = OwnMouse.USUAL_CURSOR;
                 if (_outCallback != null) {
                     _outCallback.apply();

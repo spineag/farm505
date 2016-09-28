@@ -2,6 +2,8 @@
  * Created by andy on 11/5/15.
  */
 package windows.WOComponents {
+import flash.geom.Rectangle;
+
 import manager.Vars;
 import starling.display.BlendMode;
 import starling.display.Image;
@@ -52,52 +54,34 @@ public class CartonBackground extends Sprite{
         addChild(im);
         arr.push(im);
 
-        //top center and bottom center
+        //top center and bottom center and center
         var te:Texture = tex.getTexture('carton_cc');
         im = new Image(te);
-        var imWidth:int = im.width;
-        var imHeight:int = im.height;
-        countW = Math.ceil((w - arr[0].width - arr[2].width)/imWidth);
-        if (countW*(imWidth - delta) < w - arr[0].width - arr[2].width) countW++;
-        for (i=0; i<countW; i++) {
-            im = new Image(te);
-            im.x = arr[0].x + arr[0].width + i*(imWidth - delta) - 1;
-            if (i == countW-1 && im.x > arr[2].x - 10) im.x = arr[2].x - 10;
-            im.y = 0;
-            addChildAt(im, 0);
-            im = new Image(te);
-            im.x = arr[1].x + arr[1].width + i*(imWidth - delta) - 1;
-            if (i == countW-1 && im.x > arr[3].x - 10) im.x = arr[3].x - 10;
-            im.y = h - imHeight;
-            addChildAt(im, 0);
-        }
+        im.tileGrid = new Rectangle();
+        im.width = w - arr[0].width - arr[2].width;
+        im.height = h;
+        im.x = arr[0].width;
+        im.y = 0;
+        im.tileGrid = im.tileGrid;
+        addChildAt(im, 0);
 
-        // left and right
-        countH = Math.ceil((h - arr[0].height - arr[1].height)/imHeight);
-        if (countH*(imHeight - delta) < h - arr[0].height - arr[1].height) countH++;
-        for (i=0; i<countH; i++) {
-            im = new Image(te);
-            im.y = arr[0].y + arr[0].height + i*(imHeight - delta);
-            if (i == countH-1 && im.y > arr[1].y - 10) im.y = arr[1].y - 10;
-            im.x = 0;
-            addChildAt(im, 0);
-            im = new Image(te);
-            im.y = arr[2].y + arr[2].height + i*(imHeight - delta);
-            if (i == countH-1 && im.y > arr[3].y - 10) im.y = arr[3].y - 10;
-            im.x = w - imWidth;
-            addChildAt(im, 0);
-        }
+        im = new Image(te);
+        im.tileGrid = new Rectangle();
+        im.width = arr[0].width;
+        im.height = h - arr[0].height - arr[1].height;
+        im.x = 0;
+        im.y = arr[0].height;
+        im.tileGrid = im.tileGrid;
+        addChildAt(im, 0);
 
-        for (i=0; i<countW; i++) {
-            for (var j:int=0; j<countH; j++) {
-                im = new Image(te);
-                im.x = arr[0].x + arr[0].width + i*(imWidth - delta) - 1;
-                im.y = arr[0].y + arr[0].height + j*(imHeight - delta);
-                if (i == countH-1 && im.y > arr[3].y - 10) im.y = arr[3].y - 10;
-                addChildAt(im, 0);
-            }
-            if (i == countW-1 && im.x > arr[2].x - 10) im.x = arr[2].x - 10;
-        }
+        im = new Image(te);
+        im.tileGrid = new Rectangle();
+        im.width = arr[0].width;
+        im.height = h - arr[0].height - arr[1].height;
+        im.x = w - arr[2].width;
+        im.y = arr[0].height;
+        im.tileGrid = im.tileGrid;
+        addChildAt(im, 0);
 
         arr.length = 0;
         touchable = false;

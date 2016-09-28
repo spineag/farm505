@@ -2,18 +2,11 @@
  * Created by andy on 1/21/16.
  */
 package windows.WOComponents {
+import flash.geom.Rectangle;
 import manager.Vars;
-
-import starling.core.Starling;
-
-import starling.display.BlendMode;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.textures.Texture;
-
 import starling.textures.TextureAtlas;
-
 import utils.CButton;
 import utils.DrawToBitmap;
 
@@ -28,7 +21,6 @@ public class WOSimpleButtonTexture  extends Sprite {
         var im:Image;
         var tex:TextureAtlas = g.allData.atlas['interfaceAtlas'];
         var arr:Array = [];
-        var i:int;
         var st:String = 'bt_b_b_';
         var useBig:Boolean = h<=35;
         var _s:Sprite = new Sprite();
@@ -70,26 +62,24 @@ public class WOSimpleButtonTexture  extends Sprite {
         arr.push(im);
 
         //center
+        var temp:int;
         im = new Image(tex.getTexture(st+'c'));
-        var countW:int = Math.ceil(w - arr[0].width - arr[1].width) + 1;
-        for (i=0; i<countW; i++) {
-            im = new Image(tex.getTexture(st+'c'));
-            im.x = arr[0].x + arr[0].width + i - 1;
-            im.y = 0;
-            _s.addChildAt(im, 0);
-        }
-        arr.push(im);
+        temp = im.height;
+        im.tileGrid = new Rectangle();
+        im.width = w - arr[0].width - arr[1].width;
+        im.x = arr[0].x + arr[0].width;
+        im.tileGrid = im.tileGrid;
+        _s.addChildAt(im, 0);
+
         // add shadows
-        st = 'shadow_s';
-        for (i=0; i<countW-1; i++) {
-            im = new Image(tex.getTexture(st));
-            im.x = arr[0].x + arr[0].width + i;
-            im.y = arr[2].height - 2;
-            _s.addChildAt(im, 0);
-        }
+        im = new Image(tex.getTexture('shadow_s'));
+        im.tileGrid = new Rectangle();
+        im.width = w - arr[0].width - arr[1].width;
+        im.x = arr[0].x + arr[0].width;
+        im.y = temp - 2;
+        _s.addChildAt(im, 0);
 
         arr.length = 0;
-//        im = new Image(Texture.fromBitmap(DrawToBitmap.drawToBitmap(Starling.current, _s)));
         im = new Image(DrawToBitmap.getTextureFromStarlingDisplayObject(_s));
         im.height = int(h*1.2); // because we have shadow in pictures
         addChild(im);
