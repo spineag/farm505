@@ -260,7 +260,6 @@
             <filename>neighbor.jpg</filename>
             <filename>new_m.png</filename>
             <filename>newlevel_window_fon.png</filename>
-            <filename>newspaper_icon_small.png</filename>
             <filename>newspaper_p1.png</filename>
             <filename>op_bt_a_off.png</filename>
             <filename>op_bt_a_on.png</filename>
@@ -340,6 +339,7 @@
             <filename>hobbit_house_window.png</filename>
             <filename>aerial_tram_window.png</filename>
             <filename>mine_window.png</filename>
+            <filename>newspaper_icon_small.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

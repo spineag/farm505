@@ -218,6 +218,9 @@ public class ManagerPlantRidge {
         if (!b) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.bottomPanel.cancelBoolean(false);
+            for (i=0; i<_arrRidge.length; i++) {
+                _arrRidge[i].lastBuyResource = false;
+            }
         }
     }
 

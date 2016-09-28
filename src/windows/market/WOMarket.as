@@ -167,6 +167,7 @@ public class WOMarket  extends WindowMain {
         _contPaper.addChild(im);
 
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
+        MCScaler.scale(im,im.height/2+5, im.width/2+5);
         im.x = 12;
         im.y = 156;
         _contPaper.addChild(im);

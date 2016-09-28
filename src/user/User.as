@@ -20,7 +20,7 @@ public class User extends Someone {
     public var blueCouponCount:int;
     public var greenCouponCount:int;
     public var xp:int = 0;
-    public var sex:String = 'm';
+    public var sex:String = 'w';
     public var isTester:Boolean;
     public var isMegaTester:Boolean;
     public var userBuildingData:Object; // info about building in build progress
@@ -48,7 +48,7 @@ public class User extends Someone {
     public var shopDecorFilter:int = 1;
     public var sessionKey:String;
     public var fabricItemNotification:Array = [];
-
+    public var bornDate:int;
     private var g:Vars = Vars.getInstance();
 
     public function User() {

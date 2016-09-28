@@ -1,1 +1,1 @@
-{"name":"explode_an","imagePath":"texture.png","SubTexture":[{"name":"sm","x":161,"height":45,"width":47,"y":0},{"name":"star","x":210,"height":3,"width":3,"y":0},{"name":"stars","x":0,"height":150,"width":159,"y":0}]}
+{"name":"explode_an","SubTexture":[{"name":"sm","x":161,"width":47,"y":0,"height":45},{"name":"star","x":210,"width":3,"y":0,"height":3},{"name":"stars","x":0,"width":159,"y":0,"height":150}],"imagePath":"texture.png"}

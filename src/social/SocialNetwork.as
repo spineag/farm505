@@ -82,11 +82,10 @@ public class SocialNetwork extends EventDispatcher {
         g.user.name = _paramsUser.firstName;
         g.user.lastName = _paramsUser.lastName || "";
         g.user.photo = _paramsUser.photo || "";
-//        g.user.sex = _paramsUser.sex || "";
-//        g.user.bdate = _paramsUser.bdate || "";
+        g.user.sex = _paramsUser.sex || "";
+        g.user.bornDate = _paramsUser.bdate;
 //        g.user.city = _paramsUser.city || "";
 //        g.user.country = _paramsUser.country || "";
-
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_PROFILES));
     }
 

@@ -133,7 +133,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero) continue;
                 if (_cityObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityObjects[i]);
             }

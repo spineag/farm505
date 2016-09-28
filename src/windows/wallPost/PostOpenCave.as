@@ -26,8 +26,8 @@ public class PostOpenCave extends WindowMain {
     private var _image:Image;
     public function PostOpenCave() {
         super();
-        _woHeight = 430;
-        _woWidth = 620;
+        _woHeight = 510;
+        _woWidth = 510;
         var st:String = g.dataPath.getGraphicsPath();
         g.load.loadImage(st + 'wall/wall_open_cave.png',onLoad);
 
@@ -66,7 +66,7 @@ public class PostOpenCave extends WindowMain {
         im.x = 165;
         im.y = 8;
         _btn.addChild(im);
-        _btn.y = 180;
+        _btn.y = 240;
         _source.addChild(_btn);
         createExitButton(hideIt);
     }

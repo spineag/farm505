@@ -157,6 +157,7 @@ public class MarketItem {
 
         _papperBtn = new CButton();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
+        MCScaler.scale(im,im.height/2+5, im.width/2+5);
         _papperBtn.addDisplayObject(im);
         _papperBtn.setPivots();
         _papperBtn.x = 20;
@@ -176,7 +177,7 @@ public class MarketItem {
         _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         _imCheck.x = 8;
         _imCheck.y = -3;
-        MCScaler.scale(_imCheck,20,20);
+        MCScaler.scale(_imCheck,25,25);
         source.addChild(_imCheck);
         _imCheck.visible = false;
 
@@ -383,7 +384,7 @@ public class MarketItem {
         var f1:Function = function():void {
             for (var i:int = 0; i < g.user.marketItems.length; i++) {
                 if (g.user.marketItems[i].numberCell == number) {
-                    if (g.user.marketItems[0].buyerId > 0) {
+                    if (g.user.marketItems[i].buyerId > 0) {
                         _wo.refreshItemWhenYouBuy();
                         return;
                     }
