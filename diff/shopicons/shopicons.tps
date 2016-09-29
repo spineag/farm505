@@ -199,7 +199,6 @@
             <filename>chicken_icon.png</filename>
             <filename>cow_icon.png</filename>
             <filename>dairy_icon.png</filename>
-            <filename>dandelion_icon.png</filename>
             <filename>easel_clear_icon.png</filename>
             <filename>farm_bee_icon.png</filename>
             <filename>farm_chicken_icon.png</filename>
@@ -249,7 +248,6 @@
             <filename>smelter_icon.png</filename>
             <filename>smoke_house_icon.png</filename>
             <filename>sugar_mill_icon.png</filename>
-            <filename>sunflower_icon.png</filename>
             <filename>swamp_decor_icon.png</filename>
             <filename>track_blue_cross_icon.png</filename>
             <filename>track_blue_icon.png</filename>
@@ -272,6 +270,9 @@
             <filename>trees_7_icon.png</filename>
             <filename>umbrella_green_icon.png</filename>
             <filename>white_fence_icon.png</filename>
+            <filename>sunflower_icon.png</filename>
+            <filename>dandelion_icon.png</filename>
+            <filename>cat_nail_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

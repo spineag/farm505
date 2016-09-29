@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:3193ff67bec79338d47bbe60e2a88ea5:4232078fe1f35424f151fe40bab1f593:8e467b6e9f38a55d4cabd49280944c60$ -->
-<TextureAtlas imagePath="decorAtlas.png" width="1495" height="504">
-    <SubTexture name="Chair_1" x="763" y="462" width="30" height="37" frameX="-4" frameY="-7" frameWidth="35" frameHeight="46"/>
-    <SubTexture name="Chair_2" x="1455" y="263" width="34" height="45" frameX="0" frameY="0" frameWidth="35" frameHeight="46"/>
-    <SubTexture name="alive_fence" x="659" y="334" width="21" height="34"/>
-    <SubTexture name="alive_fence_1" x="1305" y="276" width="58" height="44" frameX="-2" frameY="0" frameWidth="60" frameHeight="45"/>
-    <SubTexture name="amanita_1_red" x="1455" y="310" width="23" height="32"/>
-    <SubTexture name="amanita_2_red" x="729" y="462" width="32" height="36"/>
-    <SubTexture name="arbor" x="394" y="2" width="181" height="190" frameX="0" frameY="-3" frameWidth="181" frameHeight="194"/>
-    <SubTexture name="arch_alive" x="1252" y="120" width="111" height="154" frameX="-2" frameY="-4" frameWidth="113" frameHeight="158"/>
-    <SubTexture name="arch_blue" x="1365" y="108" width="102" height="153" frameX="-5" frameY="0" frameWidth="113" frameHeight="158"/>
-    <SubTexture name="arch_brick" x="177" y="358" width="104" height="135"/>
-    <SubTexture name="arch_leaf_green" x="378" y="203" width="103" height="136"/>
-    <SubTexture name="arch_leaf_green_2" x="748" y="332" width="39" height="71"/>
-    <SubTexture name="arch_leaf_green_3" x="734" y="405" width="60" height="55"/>
-    <SubTexture name="arch_leaf_green_4" x="1305" y="322" width="54" height="54"/>
-    <SubTexture name="arch_pink" x="570" y="205" width="113" height="127" frameX="0" frameY="-1" frameWidth="113" frameHeight="128"/>
-    <SubTexture name="arch_polka_dot" x="283" y="348" width="106" height="140"/>
-    <SubTexture name="arch_unique" x="391" y="341" width="102" height="134"/>
-    <SubTexture name="arch_white" x="265" y="203" width="111" height="143" frameX="-2" frameY="-14" frameWidth="113" frameHeight="158"/>
-    <SubTexture name="balabas_blue" x="987" y="210" width="78" height="76" frameX="-2" frameY="-1" frameWidth="81" frameHeight="78"/>
-    <SubTexture name="barrel" x="1427" y="425" width="52" height="58" frameX="-11" frameY="-8" frameWidth="75" frameHeight="75"/>
-    <SubTexture name="beach_chair_red" x="1119" y="362" width="73" height="61" frameX="-1" frameY="0" frameWidth="75" frameHeight="62"/>
-    <SubTexture name="blue_fence" x="1469" y="79" width="16" height="28"/>
-    <SubTexture name="blue_fence_1" x="1365" y="430" width="60" height="43" frameX="0" frameY="-1" frameWidth="60" frameHeight="45"/>
-    <SubTexture name="bridge" x="1132" y="2" width="170" height="116" frameX="-1" frameY="-1" frameWidth="172" frameHeight="118"/>
-    <SubTexture name="cat_statue" x="177" y="210" width="86" height="146" frameX="-4" frameY="0" frameWidth="93" frameHeight="149"/>
-    <SubTexture name="dandelion" x="109" y="431" width="66" height="65" frameX="-1" frameY="-4" frameWidth="70" frameHeight="70"/>
-    <SubTexture name="easel_clear" x="772" y="206" width="68" height="104" frameX="-3" frameY="0" frameWidth="72" frameHeight="107"/>
-    <SubTexture name="farming_table" x="1194" y="378" width="69" height="60" frameX="0" frameY="0" frameWidth="69" frameHeight="61"/>
-    <SubTexture name="fence_brick" x="924" y="298" width="61" height="66"/>
-    <SubTexture name="fence_brick_2" x="615" y="450" width="58" height="52"/>
-    <SubTexture name="fence_brick_3" x="495" y="429" width="57" height="52"/>
-    <SubTexture name="fence_brick_4" x="1265" y="378" width="36" height="67"/>
-    <SubTexture name="fence_leaf_green" x="796" y="383" width="62" height="67"/>
-    <SubTexture name="fence_polka_dot" x="685" y="332" width="61" height="65"/>
-    <SubTexture name="fence_polka_dot_3" x="1306" y="445" width="54" height="53"/>
-    <SubTexture name="fence_polka_dot_4" x="860" y="439" width="62" height="54"/>
-    <SubTexture name="fence_polka_dot_5" x="1077" y="356" width="40" height="71"/>
-    <SubTexture name="fence_unique" x="1365" y="364" width="59" height="64"/>
-    <SubTexture name="fence_unique_2" x="1054" y="447" width="56" height="55"/>
-    <SubTexture name="fence_unique_3" x="1077" y="285" width="41" height="69"/>
-    <SubTexture name="fence_unique_4" x="924" y="433" width="61" height="53"/>
-    <SubTexture name="fir_1" x="915" y="210" width="70" height="86" frameX="0" frameY="0" frameWidth="72" frameHeight="89"/>
-    <SubTexture name="fir_2" x="842" y="210" width="71" height="88" frameX="-1" frameY="-1" frameWidth="72" frameHeight="89"/>
-    <SubTexture name="flower_1" x="1067" y="209" width="56" height="74" frameX="-2" frameY="-5" frameWidth="61" frameHeight="79"/>
-    <SubTexture name="flower_2" x="847" y="300" width="62" height="68" frameX="-2" frameY="-2" frameWidth="66" frameHeight="74"/>
-    <SubTexture name="flower_3" x="675" y="450" width="52" height="52" frameX="-9" frameY="-9" frameWidth="66" frameHeight="65"/>
-    <SubTexture name="flower_4" x="789" y="312" width="56" height="69" frameX="-6" frameY="-5" frameWidth="66" frameHeight="74"/>
-    <SubTexture name="flower_5" x="924" y="366" width="61" height="65" frameX="-3" frameY="-5" frameWidth="66" frameHeight="74"/>
-    <SubTexture name="flower_6" x="1426" y="364" width="53" height="59" frameX="-9" frameY="-1" frameWidth="66" frameHeight="65"/>
-    <SubTexture name="flower_7" x="1119" y="425" width="62" height="66" frameX="-2" frameY="0" frameWidth="64" frameHeight="66"/>
-    <SubTexture name="flower_8" x="860" y="370" width="62" height="67" frameX="-4" frameY="-7" frameWidth="66" frameHeight="74"/>
-    <SubTexture name="gate_alive_closed" x="987" y="441" width="65" height="56" frameX="0" frameY="0" frameWidth="65" frameHeight="57"/>
-    <SubTexture name="gate_blue_closed" x="1183" y="440" width="59" height="51" frameX="0" frameY="0" frameWidth="60" frameHeight="52"/>
-    <SubTexture name="gate_pink_closed" x="554" y="450" width="59" height="52"/>
-    <SubTexture name="gate_white_closed" x="1303" y="378" width="60" height="65"/>
-    <SubTexture name="picnic_pink" x="1304" y="2" width="162" height="104" frameX="0" frameY="-4" frameWidth="162" frameHeight="112"/>
-    <SubTexture name="pink_fence" x="1468" y="47" width="17" height="30"/>
-    <SubTexture name="pink_fence_1" x="1244" y="447" width="60" height="45"/>
-    <SubTexture name="sunflower" x="495" y="320" width="57" height="107" frameX="-7" frameY="-4" frameWidth="70" frameHeight="112"/>
-    <SubTexture name="swamp_decor" x="2" y="431" width="105" height="67" frameX="-4" frameY="0" frameWidth="113" frameHeight="69"/>
-    <SubTexture name="track_blue" x="554" y="399" width="88" height="49"/>
-    <SubTexture name="track_blue_cross" x="1365" y="263" width="88" height="48"/>
-    <SubTexture name="track_orange" x="644" y="399" width="88" height="49"/>
-    <SubTexture name="track_pink" x="1125" y="260" width="88" height="49"/>
-    <SubTexture name="track_pink_heart" x="987" y="288" width="88" height="49"/>
-    <SubTexture name="track_pink_white" x="1120" y="311" width="88" height="49"/>
-    <SubTexture name="track_purple" x="1215" y="276" width="88" height="49"/>
-    <SubTexture name="track_white" x="1210" y="327" width="88" height="49"/>
-    <SubTexture name="track_white_blue" x="1365" y="313" width="88" height="49"/>
-    <SubTexture name="track_white_pink" x="987" y="339" width="88" height="49"/>
-    <SubTexture name="track_yellow" x="987" y="390" width="88" height="49"/>
-    <SubTexture name="trampoline_yellow" x="554" y="334" width="103" height="63" frameX="-2" frameY="-1" frameWidth="106" frameHeight="65"/>
+<!-- $TexturePacker:SmartUpdate:f5e5feec5bf2a9433de1a4c655375786:d4249cd2f018e09688af745de7084476:8e467b6e9f38a55d4cabd49280944c60$ -->
+<TextureAtlas imagePath="decorAtlas.png" width="2022" height="380">
+    <SubTexture name="Chair_1" x="202" y="336" width="30" height="37" frameX="-4" frameY="-7" frameWidth="35" frameHeight="46"/>
+    <SubTexture name="Chair_2" x="1690" y="296" width="34" height="45" frameX="0" frameY="0" frameWidth="35" frameHeight="46"/>
+    <SubTexture name="alive_fence" x="234" y="336" width="21" height="34"/>
+    <SubTexture name="alive_fence_1" x="1069" y="332" width="58" height="44" frameX="-2" frameY="0" frameWidth="60" frameHeight="45"/>
+    <SubTexture name="amanita_1_red" x="1422" y="108" width="23" height="32"/>
+    <SubTexture name="amanita_2_red" x="168" y="336" width="32" height="36"/>
+    <SubTexture name="arbor" x="569" y="2" width="181" height="190" frameX="0" frameY="-3" frameWidth="181" frameHeight="194"/>
+    <SubTexture name="arch_alive" x="1591" y="2" width="111" height="154" frameX="-2" frameY="-4" frameWidth="113" frameHeight="158"/>
+    <SubTexture name="arch_blue" x="1704" y="2" width="102" height="153" frameX="-5" frameY="0" frameWidth="113" frameHeight="158"/>
+    <SubTexture name="arch_brick" x="1530" y="158" width="104" height="135"/>
+    <SubTexture name="arch_leaf_green" x="1636" y="158" width="103" height="136"/>
+    <SubTexture name="arch_leaf_green_2" x="1486" y="284" width="39" height="71"/>
+    <SubTexture name="arch_leaf_green_3" x="1134" y="210" width="60" height="55"/>
+    <SubTexture name="arch_leaf_green_4" x="988" y="206" width="54" height="54"/>
+    <SubTexture name="arch_pink" x="1307" y="108" width="113" height="127" frameX="0" frameY="-1" frameWidth="113" frameHeight="128"/>
+    <SubTexture name="arch_polka_dot" x="1422" y="142" width="106" height="140"/>
+    <SubTexture name="arch_unique" x="1741" y="157" width="102" height="134"/>
+    <SubTexture name="arch_white" x="1808" y="2" width="111" height="143" frameX="-2" frameY="-14" frameWidth="113" frameHeight="158"/>
+    <SubTexture name="balabas_blue" x="561" y="244" width="78" height="76" frameX="-2" frameY="-1" frameWidth="81" frameHeight="78"/>
+    <SubTexture name="barrel" x="896" y="262" width="52" height="58" frameX="-11" frameY="-8" frameWidth="75" frameHeight="75"/>
+    <SubTexture name="beach_chair_red" x="821" y="259" width="73" height="61" frameX="-1" frameY="0" frameWidth="75" frameHeight="62"/>
+    <SubTexture name="blue_fence" x="1447" y="108" width="16" height="28"/>
+    <SubTexture name="blue_fence_1" x="940" y="328" width="60" height="43" frameX="0" frameY="-1" frameWidth="60" frameHeight="45"/>
+    <SubTexture name="bridge" x="2" y="210" width="170" height="116" frameX="-1" frameY="-1" frameWidth="172" frameHeight="118"/>
+    <SubTexture name="cat_statue" x="1921" y="2" width="86" height="146" frameX="-4" frameY="0" frameWidth="93" frameHeight="149"/>
+    <SubTexture name="dandelion" x="1741" y="293" width="101" height="85"/>
+    <SubTexture name="easel_clear" x="1845" y="147" width="68" height="104" frameX="-3" frameY="0" frameWidth="72" frameHeight="107"/>
+    <SubTexture name="farming_table" x="1909" y="284" width="69" height="60" frameX="0" frameY="0" frameWidth="69" frameHeight="61"/>
+    <SubTexture name="fence_brick" x="1527" y="295" width="61" height="66"/>
+    <SubTexture name="fence_brick_2" x="1361" y="305" width="58" height="52"/>
+    <SubTexture name="fence_brick_3" x="839" y="205" width="57" height="52"/>
+    <SubTexture name="fence_brick_4" x="1590" y="295" width="36" height="67"/>
+    <SubTexture name="fence_leaf_green" x="1845" y="253" width="62" height="67"/>
+    <SubTexture name="fence_polka_dot" x="351" y="313" width="61" height="65"/>
+    <SubTexture name="fence_polka_dot_3" x="884" y="322" width="54" height="53"/>
+    <SubTexture name="fence_polka_dot_4" x="1844" y="322" width="62" height="54"/>
+    <SubTexture name="fence_polka_dot_5" x="1980" y="284" width="40" height="71"/>
+    <SubTexture name="fence_unique" x="950" y="262" width="59" height="64"/>
+    <SubTexture name="fence_unique_2" x="1127" y="267" width="56" height="55"/>
+    <SubTexture name="fence_unique_3" x="1260" y="209" width="41" height="69"/>
+    <SubTexture name="fence_unique_4" x="821" y="322" width="61" height="53"/>
+    <SubTexture name="fir_1" x="421" y="223" width="70" height="86" frameX="0" frameY="0" frameWidth="72" frameHeight="89"/>
+    <SubTexture name="fir_2" x="348" y="223" width="71" height="88" frameX="-1" frameY="-1" frameWidth="72" frameHeight="89"/>
+    <SubTexture name="flower_1" x="1011" y="262" width="56" height="74" frameX="-2" frameY="-5" frameWidth="61" frameHeight="79"/>
+    <SubTexture name="flower_2" x="1196" y="209" width="62" height="68" frameX="-2" frameY="-2" frameWidth="66" frameHeight="74"/>
+    <SubTexture name="flower_3" x="1246" y="280" width="52" height="52" frameX="-9" frameY="-9" frameWidth="66" frameHeight="65"/>
+    <SubTexture name="flower_4" x="1069" y="261" width="56" height="69" frameX="-6" frameY="-5" frameWidth="66" frameHeight="74"/>
+    <SubTexture name="flower_5" x="414" y="313" width="61" height="65" frameX="-3" frameY="-5" frameWidth="66" frameHeight="74"/>
+    <SubTexture name="flower_6" x="1367" y="237" width="53" height="59" frameX="-9" frameY="-1" frameWidth="66" frameHeight="65"/>
+    <SubTexture name="flower_7" x="1303" y="237" width="62" height="66" frameX="-2" frameY="0" frameWidth="64" frameHeight="66"/>
+    <SubTexture name="flower_8" x="1422" y="284" width="62" height="67" frameX="-4" frameY="-7" frameWidth="66" frameHeight="74"/>
+    <SubTexture name="gate_alive_closed" x="561" y="322" width="65" height="56" frameX="0" frameY="0" frameWidth="65" frameHeight="57"/>
+    <SubTexture name="gate_blue_closed" x="1185" y="279" width="59" height="51" frameX="0" frameY="0" frameWidth="60" frameHeight="52"/>
+    <SubTexture name="gate_pink_closed" x="1300" y="305" width="59" height="52"/>
+    <SubTexture name="gate_white_closed" x="1628" y="296" width="60" height="65"/>
+    <SubTexture name="picnic_pink" x="1307" y="2" width="162" height="104" frameX="0" frameY="-4" frameWidth="162" frameHeight="112"/>
+    <SubTexture name="pink_fence" x="539" y="331" width="17" height="30"/>
+    <SubTexture name="pink_fence_1" x="477" y="331" width="60" height="45"/>
+    <SubTexture name="sunflower" x="493" y="223" width="66" height="106" frameX="-1" frameY="0" frameWidth="68" frameHeight="106"/>
+    <SubTexture name="swamp_decor" x="1915" y="150" width="105" height="67" frameX="-4" frameY="0" frameWidth="113" frameHeight="69"/>
+    <SubTexture name="track_blue" x="261" y="329" width="88" height="49"/>
+    <SubTexture name="track_blue_cross" x="569" y="194" width="88" height="48"/>
+    <SubTexture name="track_orange" x="58" y="328" width="88" height="49"/>
+    <SubTexture name="track_pink" x="659" y="194" width="88" height="49"/>
+    <SubTexture name="track_pink_heart" x="749" y="205" width="88" height="49"/>
+    <SubTexture name="track_pink_white" x="641" y="245" width="88" height="49"/>
+    <SubTexture name="track_purple" x="641" y="296" width="88" height="49"/>
+    <SubTexture name="track_white" x="731" y="256" width="88" height="49"/>
+    <SubTexture name="track_white_blue" x="731" y="307" width="88" height="49"/>
+    <SubTexture name="track_white_pink" x="898" y="206" width="88" height="49"/>
+    <SubTexture name="track_yellow" x="1044" y="210" width="88" height="49"/>
+    <SubTexture name="trampoline_yellow" x="1915" y="219" width="103" height="63" frameX="-2" frameY="-1" frameWidth="106" frameHeight="65"/>
     <SubTexture name="trees_1" x="2" y="2" width="199" height="206" frameX="0" frameY="-1" frameWidth="200" frameHeight="209"/>
-    <SubTexture name="trees_2" x="577" y="2" width="144" height="201" frameX="-2" frameY="-1" frameWidth="148" frameHeight="204"/>
-    <SubTexture name="trees_3" x="2" y="210" width="173" height="219" frameX="-1" frameY="-1" frameWidth="175" frameHeight="220"/>
-    <SubTexture name="trees_4" x="869" y="2" width="130" height="206" frameX="-1" frameY="-1" frameWidth="132" frameHeight="209"/>
-    <SubTexture name="trees_5" x="723" y="2" width="144" height="202" frameX="-1" frameY="-1" frameWidth="147" frameHeight="205"/>
+    <SubTexture name="trees_2" x="752" y="2" width="144" height="201" frameX="-2" frameY="-1" frameWidth="148" frameHeight="204"/>
+    <SubTexture name="trees_3" x="394" y="2" width="173" height="219" frameX="-1" frameY="-1" frameWidth="175" frameHeight="220"/>
+    <SubTexture name="trees_4" x="1044" y="2" width="130" height="206" frameX="-1" frameY="-1" frameWidth="132" frameHeight="209"/>
+    <SubTexture name="trees_5" x="898" y="2" width="144" height="202" frameX="-1" frameY="-1" frameWidth="147" frameHeight="205"/>
     <SubTexture name="trees_6" x="203" y="2" width="189" height="199" frameX="-1" frameY="-1" frameWidth="192" frameHeight="203"/>
-    <SubTexture name="trees_7" x="1001" y="2" width="129" height="205" frameX="-1" frameY="-2" frameWidth="131" frameHeight="209"/>
-    <SubTexture name="umbrella_green" x="1132" y="120" width="118" height="138" frameX="0" frameY="0" frameWidth="118" frameHeight="139"/>
-    <SubTexture name="well_white" x="483" y="194" width="85" height="124" frameX="0" frameY="0" frameWidth="90" frameHeight="124"/>
-    <SubTexture name="well_yellow" x="685" y="206" width="85" height="124" frameX="0" frameY="0" frameWidth="90" frameHeight="124"/>
-    <SubTexture name="white_fence" x="1468" y="2" width="18" height="43" frameX="0" frameY="-1" frameWidth="18" frameHeight="44"/>
-    <SubTexture name="white_fence_1" x="796" y="452" width="54" height="50"/>
+    <SubTexture name="trees_7" x="1176" y="2" width="129" height="205" frameX="-1" frameY="-2" frameWidth="131" frameHeight="209"/>
+    <SubTexture name="umbrella_green" x="1471" y="2" width="118" height="138" frameX="0" frameY="0" frameWidth="118" frameHeight="139"/>
+    <SubTexture name="well_white" x="174" y="210" width="85" height="124" frameX="0" frameY="0" frameWidth="90" frameHeight="124"/>
+    <SubTexture name="well_yellow" x="261" y="203" width="85" height="124" frameX="0" frameY="0" frameWidth="90" frameHeight="124"/>
+    <SubTexture name="white_fence" x="148" y="328" width="18" height="43" frameX="0" frameY="-1" frameWidth="18" frameHeight="44"/>
+    <SubTexture name="white_fence_1" x="2" y="328" width="54" height="50"/>
 </TextureAtlas>

@@ -61,6 +61,7 @@ public class Hint {
                 break;
             case 'xp':
                 _txtHint.text = st;
+                _txtHint.updateIt();
                 _catXp = true;
                 break;
             case 'market_paper':
@@ -77,11 +78,11 @@ public class Hint {
 //                    return;
                 break;
         }
-        var rectangle:Rectangle = _txtHint.textBounds;
         _type = type;
         _newX = newX;
 
         if (!_catXp )  {
+            var rectangle:Rectangle = _txtHint.textBounds;
             _txtHint.x = 0;
             _txtHint.width = rectangle.width + 20;
 //            var tween:Tween = new Tween(source, 0.1);
@@ -93,6 +94,7 @@ public class Hint {
         } else {
             _txtHint.width = 150;
         }
+        var rectangle:Rectangle = _txtHint.textBounds;
 
         _txtHint.height = rectangle.height + 10;
         if (_fabric) {
@@ -108,7 +110,7 @@ public class Hint {
         if (_fabric) bg = new HintBackground(rectangle.width + 22, rectangle.height + 30);
         else bg = new HintBackground(rectangle.width + 22, rectangle.height + 12);
         if (_catXp) {
-            _txtHint.x = bg.x + 3;
+            _txtHint.x = bg.x + 8;
         }
         source.addChild(bg);
         source.addChild(_txtHint);

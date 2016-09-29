@@ -203,7 +203,6 @@
             <filename>cat_statue.png</filename>
             <filename>Chair_1.png</filename>
             <filename>Chair_2.png</filename>
-            <filename>dandelion.png</filename>
             <filename>easel_clear.png</filename>
             <filename>farming_table.png</filename>
             <filename>fir_1.png</filename>
@@ -217,7 +216,6 @@
             <filename>flower_7.png</filename>
             <filename>flower_8.png</filename>
             <filename>picnic_pink.png</filename>
-            <filename>sunflower.png</filename>
             <filename>swamp_decor.png</filename>
             <filename>track_blue_cross.png</filename>
             <filename>track_blue.png</filename>
@@ -241,6 +239,8 @@
             <filename>umbrella_green.png</filename>
             <filename>well_white.png</filename>
             <filename>well_yellow.png</filename>
+            <filename>dandelion.png</filename>
+            <filename>sunflower.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
