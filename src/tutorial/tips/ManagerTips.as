@@ -9,6 +9,9 @@ import build.wild.Wild;
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
+
+import dragonBones.starling.StarlingFactory;
+
 import flash.display.Bitmap;
 import flash.events.TimerEvent;
 import flash.utils.Timer;
@@ -43,27 +46,13 @@ public class ManagerTips {
 
     public function ManagerTips(show:Boolean = false) {
         _arrowShow = show;
-        if (g.allData.atlas['tipsAtlas']) showTips();
+        if (g.allData.factory['icon_tips']) showTips();
             else loadTips();
     }
 
     private function loadTips():void {
-        var st:String = g.dataPath.getGraphicsPath() + 'x1/';
-        g.load.loadImage(st + 'tipsAtlas.png' + g.getVersion('tipsAtlas'), onLoadImage, st);
-        g.load.loadXML(st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas'), onLoad, st);
-    }
-
-    private function onLoadImage(b:Bitmap, st:String):void {
-        onLoad(st);
-    }
-
-    private function onLoad(st:String):void {
-        if (g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')] && g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')]) {
-            g.allData.atlas['tipsAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')].create() as Bitmap), g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')]);
-            delete  g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')];
-            delete  g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')];
-            showTips();
-        }
+        var st:String = 'animations_json/icon_tips';
+        g.loadAnimation.load(st, 'icon_tips', showTips);
     }
 
     private function showTips():void {
@@ -71,24 +60,26 @@ public class ManagerTips {
         if (_arrowShow) _tipsPanel.showArrow();
         _arrowShow = false;
     }
+
+    public function onResize():void {
+        if (_tipsPanel) _tipsPanel.onResize();
+    }
     
     public function onHideWOTips():void {
         _tipsPanel.onHideWO();
     }
 
     public function deleteTips():void {
-        _tipsPanel.hideIt();
+        _tipsPanel.deleteIt();
         _tipsPanel = null;
         _arrTips.length = 0;
         _arrTips = null;
-        (g.allData.atlas['tipsAtlas'] as TextureAtlas).dispose();
-        g.allData.atlas['tipsAtlas'] = null;
+        (g.allData.factory['icon_tips'] as StarlingFactory).clear();
+        g.allData.factory['icon_tips'] = null;
     }
 
     public function setUnvisible(v:Boolean):void {
-        if (_tipsPanel) {
-            _tipsPanel.setUnvisible(v);
-        }
+        if (_tipsPanel) _tipsPanel.setUnvisible(v);
     }
 
     public function getArrTips():Array {

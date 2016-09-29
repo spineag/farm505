@@ -59,7 +59,6 @@ public class LoadAnimation {
 //            factory.addTextureAtlas(textureAtlas);
 
             g.allData.factory[_name] = factory;
-            g.allData.factoryData[_name] = dragonBonesData;
 
             delete g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)];
             delete g.pJSONs[_url + '/texture.json' + g.getVersion(_name)];

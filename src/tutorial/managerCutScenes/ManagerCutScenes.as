@@ -149,7 +149,7 @@ public class ManagerCutScenes {
     }
 
     private function checkTypeFunctions():void {
-        g.toolsModifier.modifierType == ToolsModifier.NONE;
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         try {
             switch (_curCutScenePropertie.id_action) {
                 case ID_ACTION_SHOW_MARKET:

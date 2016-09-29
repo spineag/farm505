@@ -8,7 +8,6 @@ public class AllData {
     public var fonts:Object;
     public var bFonts:Object; // bitmap fonts
     public var factory:Object;  // StarlingFactory
-    public var factoryData:Object;  // StarlingFactory
     public var dataBuyMoney:Array;
 
     public function AllData() {
@@ -16,7 +15,6 @@ public class AllData {
         fonts = {};
         bFonts = {};
         factory = {};
-        factoryData = {};
         dataBuyMoney = [];
     }
 }

@@ -10,14 +10,7 @@ public class DataPath {
 
     public static const API_VERSION:String = "api-v1-0/";
 
-    private var _data:Object;
-
     protected static var g:Vars = Vars.getInstance();
-
-    public function DataPathGame():void {
-//        _data = {};
-//        _data["loader.swf"] = getMainPathSWF() + "game/loader.swf";
-    }
 
     public function getMainPath():String {
         return g.useHttps ? 'https://' + MAIN_PATH : 'http://' + MAIN_PATH;

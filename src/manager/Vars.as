@@ -217,7 +217,7 @@ public class Vars {
     }
 
     private function initVariables():void {
-        try {
+//        try {
             startPreloader.setProgress(77);
 
             event = new OwnEvent();
@@ -271,9 +271,9 @@ public class Vars {
                 dataResource.fillDataResources();
                 initVariables2();
             }
-        } catch (e:Error) {
-            Cc.stackch('error', 'initVariables::', 10);
-        }
+//        } catch (e:Error) {
+//            Cc.stackch('error', 'initVariables::', 10);
+//        }
     }
 
     private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
@@ -415,7 +415,7 @@ public class Vars {
     }
 
     private function initVariables2():void {
-        try {
+//        try {
             timerHint = new TimerHint();
             wildHint = new WildHint();
             hint = new Hint();
@@ -435,14 +435,14 @@ public class Vars {
             optionPanel = new OptionPanel();
             friendPanel = new FriendPanel();
             toolsPanel = new ToolsPanel();
-        } catch (e:Error) {
-            Cc.stackch('error', 'initVariables2::', 10);
-        }
+//        } catch (e:Error) {
+//            Cc.stackch('error', 'initVariables2::', 10);
+//        }
         afterLoadAll();
     }
 
     private function afterLoadAll():void {
-        try {
+//        try {
             startPreloader.setProgress(100);
             if (currentGameScale != 1) {
                 optionPanel.makeScaling(currentGameScale, false, true);
@@ -500,9 +500,6 @@ public class Vars {
                 startPreloader.hideIt();
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
-            }
-
-            if (!managerTutorial.isTutorial) {
                 if ((user as User).level >= 4 && (user as User).level < 10) {
                     managerTips = new ManagerTips();
                 }
@@ -518,9 +515,9 @@ public class Vars {
 
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
-        } catch (e:Error) {
-            Cc.stackch('error', 'afterAllLoaded::', 10);
-        }
+//        } catch (e:Error) {
+//            Cc.stackch('error', 'afterAllLoaded::', 10);
+//        }
     }
 
     private function onEnterFrameGlobal():void {

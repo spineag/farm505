@@ -4,9 +4,19 @@
 package ui.tips {
 import com.greensock.TweenMax;
 
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+import dragonBones.events.EventObject;
+import dragonBones.starling.StarlingArmatureDisplay;
+import dragonBones.starling.StarlingFactory;
+
 import manager.ManagerFilters;
 import manager.Vars;
+
+import starling.core.Starling;
 import starling.display.Image;
+import starling.display.Quad;
+import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
@@ -17,7 +27,7 @@ import windows.WindowsManager;
 
 public class TipsPanel {
     private var _source:CSprite;
-    private var _timer:int;
+    private var _armature:Armature;
     private var _txt:CTextField;
     private var _arrow:SimpleArrow;
     private var _onHover:Boolean;
@@ -26,46 +36,29 @@ public class TipsPanel {
     public function TipsPanel() {
         _onHover = false;
         _source = new CSprite();
-        _source.x = 70;
-        _source.y = 185;
-        var im:Image = new Image(g.allData.atlas['tipsAtlas'].getTexture('helper_cat_1'));
-        im.x = -im.width/2;
-        im.y = -im.height/2;
-        _source.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
-        MCScaler.scale(im,35,35);
-        im.x = 16;
-        im.y = 30;
-        _source.addChild(im);
-        _txt= new CTextField(30,30,"");
-        _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE);
-        _txt.x = 17;
-        _txt.y = 30;
-        _txt.touchable = false;
-        _source.addChild(_txt);
-        _source.scaleX = _source.scaleY = .1;
-        if (!g.cont.interfaceCont.contains(_source)) g.cont.interfaceCont.addChild(_source);
-        TweenMax.to(_source, .3, {scaleX:1, scaleY:1, onComplete: onShow1});
-    }
-
-    private function onShow1():void {
-        TweenMax.to(_source, .4, {scaleX:.9, scaleY:.9, onComplete:onShow2});
-    }
-
-    private function onShow2():void {
-        _source.endClickCallback = onClick;
+        _armature = g.allData.factory['icon_tips'].buildArmature('table');
+        (_armature.display as StarlingArmatureDisplay).x = 60;
+        (_armature.display as StarlingArmatureDisplay).y = -48;
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
+        g.cont.interfaceCont.addChild(_source);
+        _source.y = Starling.current.nativeStage.stageHeight + 120;
+        WorldClock.clock.add(_armature);
+        TweenMax.to(_source, .5, {y:Starling.current.nativeStage.stageHeight, onComplete: animateGuys});
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-        // also add cutScene here about it
-        g.managerTips.calculateAvailableTips();
-        g.gameDispatcher.addToTimer(onTimer);
-        _timer = 7;
+        _source.endClickCallback = onClick;
     }
 
-    public function hideIt():void {
+    public function onResize():void {
+        _source.y = Starling.current.nativeStage.stageHeight;
+        _source.x = 0;
+    }
+
+    public function deleteIt():void {
         deleteArrow();
         if (g.cont.interfaceCont.contains(_source)) g.cont.interfaceCont.removeChild(_source);
-        g.gameDispatcher.removeFromTimer(onTimer);
+        _source.removeChild(_armature.display as StarlingArmatureDisplay);
+        _armature.dispose();
         _source.deleteIt();
         _source = null;
     }
@@ -74,78 +67,40 @@ public class TipsPanel {
         if (_txt) _txt.text = String(count);
     }
 
-    private function onTimer():void {
-        _timer--;
-        if (_timer < 0) {
-            animateIt();
-            _timer = 7;
-        }
-    }
-
     private function onClick():void {
         deleteArrow();
         if (g.managerCutScenes.isCutScene || g.managerTutorial.isTutorial || g.isAway) return;
         TweenMax.killTweensOf(_source);
-        _source.scaleX = _source.scaleY = .9;
-        g.gameDispatcher.removeFromTimer(onTimer);
         g.windowsManager.openWindow(WindowsManager.WO_TIPS);
     }
 
     public function onHideWO():void {
-        g.gameDispatcher.addToTimer(onTimer);
-        _timer = 7;
+        animateGuys();
     }
 
     private function onHover():void {
         if (_onHover) return;
         _onHover = true;
         TweenMax.killTweensOf(_source);
-        _source.scaleX = _source.scaleY = 1;
-        g.gameDispatcher.removeFromTimer(onTimer);
         g.hint.showIt("Подсказки",'none',1);
     }
 
     private function onOut():void {
         if (!_onHover) return;
         _onHover = false;
-        _source.scaleX = _source.scaleY = .9;
-        g.gameDispatcher.addToTimer(onTimer);
-        _timer = 7;
         g.hint.hideIt()
-    }
-
-    private function animateIt():void {
-        TweenMax.to(_source, .2, {scaleX:1, scaleY:1, onComplete: animate2});
-    }
-
-    private function animate2():void {
-        TweenMax.to(_source, .2, {scaleX:.9, scaleY:.9, onComplete: animate3});
-    }
-
-    private function animate3():void {
-        TweenMax.to(_source, .2, {scaleX:1, scaleY:1, onComplete: animate4});
-    }
-
-    private function animate4():void {
-        TweenMax.to(_source, .2, {scaleX:.9, scaleY:.9});
     }
 
     public function setUnvisible(v:Boolean):void {
         _source.visible = !v;
-        if (v) {
-            g.gameDispatcher.removeFromTimer(onTimer);
-        } else {
-            _timer = 7;
-            g.gameDispatcher.addToTimer(onTimer);
-        }
     }
 
     public function showArrow():void {
         deleteArrow();
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
-        _arrow.scaleIt(.5);
-        _arrow.animateAtPosition(60, 15);
-        _arrow.activateTimer(5, deleteArrow);
+//        _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
+//        _arrow.scaleIt(.5);
+//        _arrow.animateAtPosition(60, 15);
+//        _arrow.activateTimer(5, deleteArrow);
     }
 
     private function deleteArrow():void {
@@ -153,6 +108,66 @@ public class TipsPanel {
             _arrow.deleteIt();
             _arrow = null;
         }
+    }
+
+    private function stopGuys():void {
+
+    }
+
+    private var _counter:int=0;
+    private function animateGuys():void {
+        var n:int = int(Math.random()*7);
+        switch (n) {
+            case 0:
+            case 1:
+                _armature.animation.gotoAndPlayByFrame('idle_1');
+                _armature.addEventListener(EventObject.COMPLETE, fEnd);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
+                break;
+            case 2:
+            case 3:
+                _armature.animation.gotoAndPlayByFrame('idle_2');
+                _armature.addEventListener(EventObject.COMPLETE, fEnd);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
+                break;
+            case 4:
+            case 5:
+                _armature.animation.gotoAndPlayByFrame('idle_3');
+                _armature.addEventListener(EventObject.COMPLETE, fEnd);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
+                break;
+            case 6:
+                _counter = 3;
+                _armature.animation.gotoAndPlayByFrame('idle_6');
+                _armature.addEventListener(EventObject.COMPLETE, fEnd6);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd6);
+                break;
+        }
+    }
+
+    private function fEnd(e:Event=null):void {
+        _armature.removeEventListener(EventObject.COMPLETE, fEnd);
+        _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEnd);
+        animateGuys();
+    }
+
+    private function fEnd6(e:Event=null):void {
+        _counter--;
+        if (_counter <=0) {
+            _armature.removeEventListener(EventObject.COMPLETE, fEnd6);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEnd6);
+            _armature.addEventListener(EventObject.COMPLETE, fEnd7);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd7);
+            _armature.animation.gotoAndPlayByFrame('idle_7');
+        } else {
+            _armature.animation.gotoAndPlayByFrame('idle_6');
+        }
+    }
+
+    private function fEnd7(e:Event=null):void {
+        _armature.removeEventListener(EventObject.COMPLETE, fEnd7);
+        _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEnd7);
+        animateGuys();
     }
 
 }
