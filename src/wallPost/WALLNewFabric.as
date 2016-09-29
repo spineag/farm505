@@ -55,8 +55,8 @@ public class WALLNewFabric {
         }
         if (bd) {
             var b:Bitmap = new Bitmap(bd);
-            b.x = 307 - b.width/2;
-            b.y = 215 - b.height/2;
+            b.x = 220 - b.width/2;
+            b.y = 300 - b.height/2;
             sp.addChild(b);
         }
         var rbd:BitmapData = new BitmapData(sp.width, sp.height);

@@ -485,6 +485,12 @@ public class WOMarket  extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        g.windowsManager.cashWindow = this;
+        super.hideIt();
+        g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, callbacKPapperBtn, 'market');
+    }
+
+    private function callbacKPapperBtn():void {
         g.userInventory.addMoney(1,-1);
         g.userTimer.papperTimerAtMarket = 0;
         g.directServer.skipUserInPaper(null);

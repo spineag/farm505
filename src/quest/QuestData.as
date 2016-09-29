@@ -44,7 +44,7 @@ public class QuestData {
         ob = {};
         ob.id = 3;
         ob.type = TYPE_POST;
-        ob.text = 'Расскажи друзьям о игре';
+        ob.text = 'Расскажи друзьям об игре';
         ob.awardCount = 10;
         ob.awardType = DataMoney.HARD_CURRENCY;
         ob.iconUrl = 'posting.png';

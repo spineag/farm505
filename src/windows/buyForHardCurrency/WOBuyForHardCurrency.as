@@ -23,6 +23,7 @@ public class WOBuyForHardCurrency extends WindowMain {
     private var _id:int;
     private var _count:int;
     private var _woBG:WindowBackground;
+    private var _callback:Function;
 
     public function WOBuyForHardCurrency() {
         super();
@@ -61,7 +62,6 @@ public class WOBuyForHardCurrency extends WindowMain {
         _txt2.x = -150;
         _txt2.y = -115;
         _source.addChild(_txt2);
-        _btnYes.clickCallback = onYes;
         _btnNo.clickCallback = onClickExit;
         _btnYes.x = 100;
         _btnYes.y = 80;
@@ -72,7 +72,7 @@ public class WOBuyForHardCurrency extends WindowMain {
         _source.addChild(_btnNo);
     }
 
-    private function onYes():void {
+    private function lockedLand():void {
         if (g.user.hardCurrency < _count * g.dataResource.objectResources[_id].priceHard) {
             g.windowsManager.uncasheWindow();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
@@ -85,15 +85,33 @@ public class WOBuyForHardCurrency extends WindowMain {
         super.hideIt();
     }
 
+    private function marketPapper():void {
+        super.hideIt();
+        if (_callback != null) {
+            _callback.apply(null);
+            _callback = null;
+        }
+
+    }
+
     private function onClickExit():void {
         g.windowsManager.uncasheWindow();
         super.hideIt();
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        _id = params[0];
-        _count = params[1] - g.userInventory.getCountResourceById(_id);
         onWoShowCallback = onShow;
+        switch (params[0]) {
+            case 'lockedLand':
+                _id = params[1];
+                _count = params[2] - g.userInventory.getCountResourceById(_id);
+                _btnYes.clickCallback = lockedLand;
+                break;
+            case 'market':
+                _callback = callback;
+                _btnYes.clickCallback =  marketPapper;
+                break;
+        }
         super.showIt();
     }
 
