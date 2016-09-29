@@ -228,7 +228,7 @@ public class LockedLandItem {
 
     private function buyItem():void {
         g.windowsManager.hideWindow(WindowsManager.WO_LOCKED_LAND);
-        g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, null, _id, _count);
+        g.windowsManager.openWindow(WindowsManager.WO_BUY_FOR_HARD, null,'lockedLand', _id, _count);
     }
 
 

@@ -56,8 +56,8 @@ public class WALLNewLevel {
         t.text = String(g.user.level);
         t.width = 500;
         t.height = 200;
-        t.x = 60;
-        t.y = 150;
+        t.x = 250;
+        t.y = 300;
         t.filters = [new GlowFilter(ManagerFilters.BROWN_COLOR)];
         bitmap.bitmapData.draw(sp);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),bitmap,'interfaceAtlas');

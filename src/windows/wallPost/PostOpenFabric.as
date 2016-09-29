@@ -97,11 +97,11 @@ public class PostOpenFabric  extends WindowMain {
         }
         im = new Image(texture);
         if (_data.id == 3) {
-            im.y = -5;
-            im.x = -95;
+            im.y = 10;
+            im.x = -115;
         } else {
-            im.y = -80;
-            im.x = -95;
+            im.y = -40;
+            im.x = -115;
         }
         _source.addChild(im);
         createExitButton(hideIt);

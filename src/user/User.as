@@ -48,7 +48,7 @@ public class User extends Someone {
     public var shopDecorFilter:int = 1;
     public var sessionKey:String;
     public var fabricItemNotification:Array = [];
-    public var bornDate:int;
+    public var bornDate:String;
     private var g:Vars = Vars.getInstance();
 
     public function User() {

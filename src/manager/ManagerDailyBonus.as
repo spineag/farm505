@@ -74,7 +74,7 @@ public class ManagerDailyBonus {
             obj.id = 0;
             obj.type = SOFT_MONEY;
         } else {
-            obj.count = 1;
+            obj.count = 10;
             obj.id = 0;
             obj.type = HARD_MONEY;
         }
