@@ -340,6 +340,7 @@
             <filename>aerial_tram_window.png</filename>
             <filename>mine_window.png</filename>
             <filename>newspaper_icon_small.png</filename>
+            <filename>animated_decor.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -195,6 +195,32 @@ public class UserInventory {
             g.directServer.addUserMoney(typeCurrency, newCount, null);
     }
 
+    public function dropMoney(typeCurrency:int, count:int):void {
+        if (count == 0) return;
+        var newCount:int = 0;
+        switch (typeCurrency) {
+            case DataMoney.HARD_CURRENCY:
+                newCount = g.user.hardCurrency + count;
+                break;
+            case DataMoney.SOFT_CURRENCY:
+                newCount = g.user.softCurrencyCount + count;
+                break;
+            case DataMoney.BLUE_COUPONE:
+                newCount = g.user.blueCouponCount + count;
+                break;
+            case DataMoney.YELLOW_COUPONE:
+                newCount = g.user.yellowCouponCount + count;
+                break;
+            case DataMoney.RED_COUPONE:
+                newCount = g.user.redCouponCount + count;
+                break;
+            case DataMoney.GREEN_COUPONE:
+                newCount = g.user.greenCouponCount + count;
+                break;
+        }
+        g.directServer.addUserMoney(typeCurrency, newCount, null);
+    }
+
     public function addNewElementsAfterGettingNewLevel():void {
         var res:Object = g.dataResource.objectResources;
         for (var id:String in res) {

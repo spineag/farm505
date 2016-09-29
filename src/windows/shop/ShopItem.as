@@ -65,6 +65,7 @@ public class ShopItem {
     private var _arrow:SimpleArrow;
     private var g:Vars = Vars.getInstance();
     private var _arrImages:Array; // use only for delete filters from images
+    private var _imAnimationDecor:Image;
 
     public function ShopItem(data:Object, wo:WOShop, pos:int) {
         _arrImages = [];
@@ -107,6 +108,11 @@ public class ShopItem {
         source.addChild(_txtAvailable);
         _txtAvailable.visible = false;
 
+        _imAnimationDecor = new Image(g.allData.atlas['interfaceAtlas'].getTexture('animated_decor'));
+        _imAnimationDecor.x = 100;
+        _imAnimationDecor.y = 60;
+        source.addChild(_imAnimationDecor);
+        _imAnimationDecor.visible = false;
         source.endClickCallback = onClick;
         setInfo();
     }
@@ -282,7 +288,11 @@ public class ShopItem {
         if (_data.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
             if (!texture) {
-                if (_data.buildType == BuildType.DECOR ||_data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.TREE) texture = g.allData.atlas[_data.url].getTexture(_data.image);
+                if (_data.buildType == BuildType.DECOR ||_data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_POST_FENCE
+                        || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.TREE) {
+                    if (_data.animationDecor == 0) texture = g.allData.atlas[_data.url].getTexture(_data.image);
+                    else texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
+                }
                 else texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
             }
             if (!texture) {
@@ -424,6 +434,9 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (_data.blockByLevel) {
+                if (_data.animationDecor) {
+                    _imAnimationDecor.visible = true;
+                }
                 if (_data.buildType == BuildType.DECOR_TAIL) {
                     arr = g.townArea.getCityTailObjectsById(_data.id);
                 } else {
@@ -434,6 +447,9 @@ public class ShopItem {
                     _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                     _im.filter = ManagerFilters.getButtonDisableFilter();
+                    if (_data.animationDecor) {
+                        _imAnimationDecor.filter = ManagerFilters.getButtonDisableFilter();
+                    }
                     _nameTxt.text = _data.name;
                 } else {
                     if (_state == STATE_FROM_INVENTORY) {

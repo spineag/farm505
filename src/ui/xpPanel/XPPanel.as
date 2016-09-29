@@ -78,10 +78,8 @@ public class XPPanel {
         _source.x = Starling.current.nativeStage.stageWidth - 170;
     }
 
-    public function addXP(count:int):void{
+    public function addXP():void{
         g.soundManager.playSound(SoundConst.XP_PLUS);
-        g.user.xp += count;
-        g.user.globalXP += count;
         if (g.user.xp >= _maxXP){
             g.user.xp -= _maxXP;
             g.user.level++;
@@ -117,10 +115,14 @@ public class XPPanel {
             }
             if (!g.isDebug) g.socialNetwork.setUserLevel();
         }
-        g.directServer.addUserXP(g.user.globalXP, null);
         checkXP();
     }
 
+    public function serverAdd(count:int):void {
+        g.user.xp += count;
+        g.user.globalXP += count;
+        g.directServer.addUserXP(g.user.globalXP, null);
+    }
 
     public function checkXP():void{
         _bar.progress = ((g.user.xp)/_maxXP)*.9 + .1; // get 10% for better view

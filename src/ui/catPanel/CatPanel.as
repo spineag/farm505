@@ -5,6 +5,7 @@ package ui.catPanel {
 import data.BuildType;
 
 import manager.ManagerFilters;
+import manager.ManagerWallPost;
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.Image;

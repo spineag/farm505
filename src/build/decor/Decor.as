@@ -6,6 +6,14 @@ import analytic.AnalyticManager;
 
 import build.WorldObject;
 import com.junkbyte.console.Cc;
+
+import dragonBones.animation.WorldClock;
+import dragonBones.events.EventObject;
+
+import flash.geom.Point;
+
+import heroes.HeroCat;
+
 import manager.ManagerFilters;
 import data.OwnEvent;
 
@@ -19,24 +27,52 @@ import starling.events.Event;
 import windows.WindowsManager;
 
 public class Decor extends WorldObject{
+    private var _isHover:Boolean;
+    private var _heroCat:HeroCat;
+    private var _decorWork:Boolean;
+    private var _decorAnimation:int;
+
     public function Decor(_data:Object) {
         super(_data);
-        createAtlasBuild(onCreateBuild);
+        if (_dataBuild.animationDecor) {
+            createAnimatedBuild(onCreateBuild)
+        } else {
+            createAtlasBuild(onCreateBuild);
+        }
         _source.releaseContDrag = true;
+        _isHover = false;
+        _decorAnimation = 0;
     }
 
     private function onCreateBuild():void {
         if (!g.isAway) {
+            if (_dataBuild.animationDecor) {
+                WorldClock.clock.add(_armature);
+                _armature.animation.gotoAndPlayByFrame('idle');
+            }
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
-            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image, ManagerHitArea.TYPE_FROM_ATLAS);
+            if (_dataBuild.animationDecor)  _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
+            else _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image, ManagerHitArea.TYPE_FROM_ATLAS);
             _source.registerHitArea(_hitArea);
         }
     }
 
     override public function onHover():void {
         if (g.selectedBuild) return;
+        if (_isHover) return;
+        _isHover = true;
+        if (_dataBuild.animationDecor && !_decorWork) {
+                var fEndOver:Function = function(e:Event=null):void {
+                    _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                    _armature.animation.gotoAndPlayByFrame('idle');
+                };
+                _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndPlayByFrame('over');
+        }
         super.onHover();
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY)
@@ -83,7 +119,11 @@ public class Decor extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-
+            if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
+            if (_dataBuild.animationDecor && _heroCat) {
+                _heroCat.isFree = false;
+                g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
+            }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
@@ -92,9 +132,77 @@ public class Decor extends WorldObject{
 
     override public function onOut():void {
         super.onOut();
+        _isHover = false;
         if(_source) {
             if (_source.filter) _source.filter.dispose();
             _source.filter = null;
+        }
+    }
+
+    private function onHeroAnimation():void {
+        if (_decorWork) return;
+        if (_heroCat) {
+            startAnimation();
+            _decorWork = true;
+            _heroCat.visible = false;
+        }
+    }
+
+    private function startAnimation():void {
+        if (!_armature) return;
+
+        var fEndOver:Function = function(e:Event=null):void {
+            _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
+            chooseAnimation();
+        };
+        _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+        _armature.animation.gotoAndPlayByFrame('start');
+
+    }
+
+    private function stopAnimation():void {
+        _decorWork = false;
+        _heroCat = null;
+        if (_armature) _armature.animation.gotoAndStopByFrame('idle');
+        if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, chooseAnimation);
+        if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
+    }
+
+    private function chooseAnimation(e:Event=null):void {
+        if (!_armature) return;
+        if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
+        if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
+        var k:int = int(Math.random() * 2);
+        switch (k) {
+            case 0:
+                _armature.animation.gotoAndPlayByFrame('idle_1');
+                break;
+            case 1:
+                _armature.animation.gotoAndPlayByFrame('idle_2');
+                break;
+            case 2:
+                _armature.animation.gotoAndPlayByFrame('idle_1');
+                break;
+        }
+        _decorAnimation ++;
+        if (_decorAnimation >= 7) {
+            var fEndOver:Function = function(e:Event=null):void {
+                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                if (_heroCat) {
+                    _heroCat.visible = true;
+                    _heroCat.isFree = true;
+                }
+                stopAnimation();
+            };
+            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlayByFrame('back');
+            _decorAnimation = 0;
         }
     }
 
