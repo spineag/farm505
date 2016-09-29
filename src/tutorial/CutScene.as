@@ -32,7 +32,8 @@ public class CutScene {
         _xStart = -95;
         _xEnd = 125;
         _armature = g.allData.factory['tutorialCatBig'].buildArmature('cat');
-        (_armature.display as StarlingArmatureDisplay).scaleX = -1;
+        (_armature.display as StarlingArmatureDisplay).scale = 1.5;
+        (_armature.display as StarlingArmatureDisplay).scaleX *= -1;
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         onResize();
     }

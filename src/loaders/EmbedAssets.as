@@ -92,8 +92,13 @@ public class EmbedAssets {
     private var g:Vars = Vars.getInstance();
 
     public function EmbedAssets(onLoadCallback:Function) {
-        createTexture(onLoadCallback);
+        g.allData = new AllData();
+//        createTexture(onLoadCallback);
         registerFonts();
+        if (onLoadCallback != null) {
+            onLoadCallback.apply();
+            onLoadCallback = null;
+        }
     }
 
     private function registerFonts():void {
@@ -150,7 +155,7 @@ public class EmbedAssets {
     }
 
     private function createTexture(onLoadCallback:Function):void {
-        g.allData = new AllData();
+
 
 //        var texture:Texture = Texture.fromBitmap(new ResourceTexture());
 //        var xml:XML= XML(new ResourceTextureXML());
@@ -158,9 +163,6 @@ public class EmbedAssets {
 //        texture = Texture.fromBitmap(new BuildTexture());
 //        xml= XML(new BuildTextureXML());
 //        g.allData.atlas['buildAtlas'] = new TextureAtlas(texture, xml);
-//        g.allData.fonts['BloggerItalic'] = (new BloggerItalic() as Font).fontName;
-//        g.allData.fonts['BloggerLight'] = (new BloggerLight() as Font).fontName;
-//        g.allData.fonts['HouschkaBold'] = (new HouschkaBold() as Font).fontName;
 
         // use this
 //        g.allData.fonts['BloggerRegular'] = (new BloggerRegular() as Font).fontName;

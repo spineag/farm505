@@ -312,8 +312,20 @@ public class Vars {
     private function onUserInfo():void {
         soundManager.load();
         managerCats.addAllHeroCats();
-        directServer.getDataAnimal(onDataAnimal);
         startPreloader.setProgress(84);
+        if (managerTutorial.isTutorial) {
+            loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial);
+        } else {
+            directServer.getDataAnimal(onDataAnimal);
+        }
+    }
+    
+    private function onLoadCatTutorial():void {
+        loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', onLoadCatTutorialBig);
+    }
+    
+    private function onLoadCatTutorialBig():void {
+        directServer.getDataAnimal(onDataAnimal);
     }
 
     private function onDataAnimal():void {
