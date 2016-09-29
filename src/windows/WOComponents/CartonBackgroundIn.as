@@ -2,10 +2,8 @@
  * Created by andy on 11/5/15.
  */
 package windows.WOComponents {
+import flash.geom.Rectangle;
 import manager.Vars;
-
-import starling.display.BlendMode;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
@@ -17,11 +15,7 @@ public class CartonBackgroundIn extends Sprite{
     public function CartonBackgroundIn(w:int, h:int) {
         var im:Image;
         var tex:TextureAtlas = g.allData.atlas['interfaceAtlas'];
-        var countW:int;
-        var countH:int;
         var arr:Array = [];
-        var i:int;
-        var delta:int = 1;
 
         if (w%2) w++;
         if (h%2) h++;
@@ -58,70 +52,45 @@ public class CartonBackgroundIn extends Sprite{
         var te1:Texture = tex.getTexture('shop_window_ct');
         var te2:Texture = tex.getTexture('shop_window_dc');
         im = new Image(te1);
-        countW = Math.ceil((w - arr[0].width - arr[2].width)/im.width);
-        if (countW*(im.width - delta) < w - arr[0].width - arr[2].width) countW++;
-        for (i=0; i<=countW; i++) {
-            im = new Image(te1);
-            if (i == countW) {
-                im.x = arr[2].x - im.width + 5;
-            } else {
-                im.x = arr[1].x + arr[1].width + i * (im.width - delta);
-            }
-            im.y = 0;
-            addChildAt(im, 0);
-            im = new Image(te2);
-            if (i == countW) {
-                im.x = arr[3].x - im.width + 5;
-            } else {
-                im.x = arr[1].x + arr[1].width + i * (im.width - delta);
-            }
-            im.y = h - im.height;
-            addChildAt(im, 0);
-        }
+        im.tileGrid = new Rectangle();
+        im.width = w - arr[0].width - arr[2].width;
+        im.x = arr[0].width;
+        im.tileGrid = im.tileGrid;
+        addChildAt(im, 0);
+        im = new Image(te2);
+        im.tileGrid = new Rectangle();
+        im.width = w - arr[0].width - arr[2].width;
+        im.x = arr[0].width;
+        im.y = h - arr[1].height;
+        im.tileGrid = im.tileGrid;
+        addChildAt(im, 0);
 
         // left and right
         te1 = tex.getTexture('shop_window_cl');
         te2 = tex.getTexture('shop_window_cr');
         im = new Image(te1);
-        countH = Math.ceil((h - arr[0].height - arr[1].height)/im.height);
-        if (countH*(im.height - delta) < h - arr[0].height - arr[1].height) countH++;
-        for (i=0; i<=countH; i++) {
-            im = new Image(te1);
-            if (i == countH) {
-                im.y = arr[1].y - im.width + 5;
-            } else {
-                im.y = arr[0].y + arr[0].height + i * (im.height - delta);
-            }
-            im.x = 0;
-            addChildAt(im, 0);
-            im = new Image(te2);
-            if (i == countH) {
-                im.y = arr[3].y - im.width + 5;
-            } else {
-                im.y = arr[2].y + arr[2].height + i * (im.height - delta);
-            }
-            im.x = w - im.width;
-            addChildAt(im, 0);
-        }
+        im.tileGrid = new Rectangle();
+        im.height = h - arr[0].height - arr[1].height;
+        im.y = arr[0].height;
+        im.tileGrid = im.tileGrid;
+        addChildAt(im, 0);
+        im = new Image(te2);
+        im.tileGrid = new Rectangle();
+        im.height = h - arr[0].height - arr[1].height;
+        im.x = w - arr[2].width;
+        im.y = arr[0].height;
+        im.tileGrid = im.tileGrid;
+        addChildAt(im, 0);
 
-        var j:int;
         te1 = tex.getTexture('shop_window_cc');
-        for (i=0; i<=countW; i++) {
-            for (j=0; j<countH; j++) {
-                im = new Image(te1);
-                if (i == countW) {
-                    im.x = arr[2].x - im.width;
-                } else {
-                    im.x = arr[0].x + arr[0].width + i*(im.width - delta);
-                }
-                if (j == countH-1) {
-                    im.y = arr[1].y - im.height;
-                } else {
-                    im.y = arr[0].y + arr[0].height + j*(im.height - delta);
-                }
-                addChildAt(im, 0);
-            }
-        }
+        im = new Image(te1);
+        im.tileGrid = new Rectangle();
+        im.width = w - arr[0].width - arr[2].width;
+        im.height = h - arr[0].height - arr[1].height;
+        im.x = arr[0].width;
+        im.y = arr[0].height;
+        im.tileGrid = im.tileGrid;
+        addChildAt(im, 0);
 
         arr.length = 0;
         touchable = false;

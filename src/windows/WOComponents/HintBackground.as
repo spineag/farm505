@@ -2,6 +2,8 @@
  * Created by user on 11/27/15.
  */
 package windows.WOComponents {
+import flash.geom.Rectangle;
+
 import manager.ManagerFilters;
 import manager.Vars;
 
@@ -143,12 +145,9 @@ public class HintBackground extends Sprite {
 
     private function createBG(w:int, h:int, tex:TextureAtlas):void {
         var im:Image;
-        var countW:int;
-        var countH:int;
         var arr:Array = [];
-        var i:int;
-
         _bg = new Sprite();
+
         //top left
         im = new Image(tex.getTexture('hint_left_up'));
         im.x = 0;
@@ -179,51 +178,42 @@ public class HintBackground extends Sprite {
 
         //top center and bottom center
         im = new Image(tex.getTexture('hint_up'));
-        var imWidth:int = im.width;
-        var imHeight:int = im.height;
-        countW = Math.ceil((w - arr[0].width - arr[2].width)/(imWidth-1));
-        countW += 2;
-        for (i=0; i<=countW; i++) {
-            im = new Image(tex.getTexture('hint_up'));
-            im.x = arr[0].x + arr[0].width + i*(imWidth-1) - 1;
-            im.y = 0;
-            _bg.addChildAt(im, 0);
-            im = new Image(tex.getTexture('hint_down'));
-            im.x = arr[1].x + arr[1].width + i*(imWidth-1) - 1;
-            im.y = h - imHeight;
-            _bg.addChildAt(im, 0);
-        }
+        im.tileGrid = new Rectangle();
+        im.width = w - arr[0].width - arr[2].width;
+        im.x = arr[0].width;
+        im.tileGrid = im.tileGrid;
+        _bg.addChildAt(im, 0);
+        im = new Image(tex.getTexture('hint_down'));
+        im.tileGrid = new Rectangle();
+        im.width = w - arr[0].width - arr[2].width + 2;
+        im.x = arr[0].width - 1;
+        im.y = h - im.height;
+        im.tileGrid = im.tileGrid;
+        _bg.addChildAt(im, 0);
 
         // left and right
         im = new Image(tex.getTexture('hint_left'));
-        imWidth = im.width;
-        imHeight = im.height;
-        countH = Math.ceil((h - arr[0].height - arr[1].height)/imHeight);
-        if (countH*imHeight < h - arr[0].height - arr[1].height) countH++;
-        for (i=0; i<=countH; i++) {
-            im = new Image(tex.getTexture('hint_left'));
-            im.y = arr[0].y + arr[0].height + i*imHeight;
-            im.x = 0;
-            _bg.addChildAt(im, 0);
-            im = new Image(tex.getTexture('hint_right'));
-            im.y = arr[2].y + arr[2].height + i*imHeight;
-            im.x = w - imWidth;
-            _bg.addChildAt(im, 0);
-        }
+        im.tileGrid = new Rectangle();
+        im.height = h - arr[0].height - arr[1].height;
+        im.y = arr[0].height;
+        im.tileGrid = im.tileGrid;
+        _bg.addChildAt(im, 0);
+        im = new Image(tex.getTexture('hint_right'));
+        im.tileGrid = new Rectangle();
+        im.height = h - arr[0].height - arr[1].height;
+        im.x = w - im.width;
+        im.y = arr[0].height;
+        im.tileGrid = im.tileGrid;
+        _bg.addChildAt(im, 0);
 
         im = new Image(tex.getTexture('hint_center'));
-        imWidth = im.width;
-        imHeight = im.height;
-        countW = Math.ceil((w - arr[0].width - arr[2].width)/(imWidth-1)) + 2;
-        countH = Math.ceil((h - arr[0].height - arr[1].height)/imHeight);
-        for (i=0; i<countW; i++) {
-            for (var j:int=0; j<countH; j++) {
-                im = new Image(tex.getTexture('hint_center'));
-                im.x = arr[0].x + arr[0].width + i*(imWidth-1) - 1;
-                im.y = arr[0].y + arr[0].height + j*imHeight;
-                _bg.addChildAt(im, 0);
-            }
-        }
+        im.tileGrid = new Rectangle();
+        im.width = w - arr[0].width - arr[2].width;
+        im.height = h - arr[0].height - arr[1].height;
+        im.x = arr[0].width;
+        im.y = arr[0].height;
+        im.tileGrid = im.tileGrid;
+        _bg.addChildAt(im, 0);
 
         arr.length = 0;
     }
