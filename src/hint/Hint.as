@@ -61,7 +61,6 @@ public class Hint {
                 break;
             case 'xp':
                 _txtHint.text = st;
-                _txtHint.updateIt();
                 _catXp = true;
                 break;
             case 'market_paper':
@@ -78,6 +77,7 @@ public class Hint {
 //                    return;
                 break;
         }
+        _txtHint.updateIt();
         _type = type;
         _newX = newX;
 

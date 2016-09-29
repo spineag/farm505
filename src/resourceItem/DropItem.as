@@ -82,6 +82,7 @@ public class DropItem {
                     endPoint = g.couponePanel.getPoint();
                     break;
             }
+            g.userInventory.dropMoney(prise.id, prise.count);
         }
         if (!_image) {
             Cc.error('DropItem:: no image for type: ' + prise.id);
@@ -132,7 +133,7 @@ public class DropItem {
                         g.couponePanel.animationBuy();
                         break;
                 }
-                g.userInventory.addMoney(prise.id, prise.count);
+                g.userInventory.addMoney(prise.id, prise.count,false);
             }
         };
         var tempX:int = _source.x - 140 + int(Math.random()*140);

@@ -69,8 +69,9 @@ public class XPStar {
             }
             _source = null;
             g.xpPanel.animationStar();
-            g.xpPanel.addXP(_xp);
+            g.xpPanel.addXP();
         };
+        g.xpPanel.serverAdd(_xp);
         var tempX:int;
         _source.x < endX ? tempX = _source.x + 70 : tempX = _source.x - 70;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
