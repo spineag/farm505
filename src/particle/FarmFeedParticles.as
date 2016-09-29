@@ -9,7 +9,7 @@ import starling.display.Sprite;
 
 public class FarmFeedParticles {
     public var source:Sprite;
-    private const MAX_COUNT:int = 8;
+    private const MAX_COUNT:int = 5;
     private var _count:int;
     private var _callback:Function;
     private var g:Vars = Vars.getInstance()

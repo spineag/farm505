@@ -773,11 +773,15 @@ public class ManagerTutorial {
 
     private function subStep8_5():void {
         cat.flipIt(false);
-        _currentAction = TutorialAction.PUT_FABRICA;
         _subStep = 5;
-        cat.showBubble(texts[g.user.tutorialStep][_subStep]);
-        _tutorialCallback = subStep8_6;
-        (_tutorialObjects[0] as Fabrica).showArrow();
+        if ((_tutorialObjects[0] as Fabrica).stateBuild == WorldObject.STATE_ACTIVE) {
+            subStep8_7();
+        } else {
+            _currentAction = TutorialAction.PUT_FABRICA;
+            cat.showBubble(texts[g.user.tutorialStep][_subStep]);
+            _tutorialCallback = subStep8_6;
+            (_tutorialObjects[0] as Fabrica).showArrow();
+        }
     }
 
     private function subStep8_6():void {
@@ -1650,7 +1654,7 @@ public class ManagerTutorial {
         _tutorialCallback = null;
         g.user.tutorialStep = 21;
         updateTutorialStep();
-        createDelay(2, subStep20_5);
+        createDelay(1, subStep20_5);
     }
 
     private function subStep20_5():void {
