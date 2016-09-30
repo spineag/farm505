@@ -48,7 +48,7 @@ public class WOSeverNoWork  extends WindowMain {
         _b.y = 120;
         _source.addChild(_b);
         _txtBtn = new CTextField(200, 34, "Перезагрузить");
-        _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
+        _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _b.addChild(_txtBtn);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
         im.x = -35;

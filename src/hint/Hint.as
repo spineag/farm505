@@ -81,8 +81,9 @@ public class Hint {
         _type = type;
         _newX = newX;
 
+        var rectangle:Rectangle;
         if (!_catXp )  {
-            var rectangle:Rectangle = _txtHint.textBounds;
+            rectangle = _txtHint.textBounds;
             _txtHint.x = 0;
             _txtHint.width = rectangle.width + 20;
 //            var tween:Tween = new Tween(source, 0.1);
@@ -94,7 +95,7 @@ public class Hint {
         } else {
             _txtHint.width = 150;
         }
-        var rectangle:Rectangle = _txtHint.textBounds;
+        rectangle = _txtHint.textBounds;
 
         _txtHint.height = rectangle.height + 10;
         if (_fabric) {

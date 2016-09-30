@@ -358,6 +358,7 @@ public class OptionPanel {
             g.xpPanel.onResize();
             g.catPanel.onResize();
             g.windowsManager.onResize();
+            if (g.managerTips) g.managerTips.onResize();
             _source.x = Starling.current.nativeStage.stageWidth;
             _source.y = Starling.current.nativeStage.stageHeight - g.stageHeight + 147;
             if (_source.visible) _source.x -= 58;

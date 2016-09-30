@@ -6264,7 +6264,8 @@ public class DirectServer {
     }
 
     private function internetNotWork(ev:Event):void {
-        g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
+        if (g.windowsManager) g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
+        Cc.error('no inet');
     }
 }
 }

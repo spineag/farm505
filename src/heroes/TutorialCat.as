@@ -18,6 +18,7 @@ public class TutorialCat extends BasicCat {
     private var _animation:HeroCatsAnimation;
     private var _bubble:TutorialTextBubble;
     private var _isFlip:Boolean;
+    private var _label:String = '';
 
     public function TutorialCat() {
         super();
@@ -32,13 +33,20 @@ public class TutorialCat extends BasicCat {
         _catBackImage.touchable = false;
         freeIdleGo = true;
 
+        if (g.allData.factory['tutorialCat']) {
+            createCat();
+        } else {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', createCat);
+        }
+    }
+
+    private function createCat():void {
         _animation = new HeroCatsAnimation();
         _animation.catArmature = g.allData.factory['tutorialCat'].buildArmature("cat");
         _animation.catBackArmature = g.allData.factory['cat_main'].buildArmature("cat_back");
         _catImage.addChild(_animation.catArmature.display as StarlingArmatureDisplay);
         _catBackImage.addChild(_animation.catBackArmature.display as StarlingArmatureDisplay);
 
-//        heroEyes = new HeroEyesAnimation(g.allData.factory['cat'], _animation.catArmature, 'heads/head', '', false);
         _source.addChild(_catImage);
         _source.addChild(_catBackImage);
         _animation.catImage = _catImage;
@@ -46,6 +54,8 @@ public class TutorialCat extends BasicCat {
         _bubble = new TutorialTextBubble(g.cont.animationsCont);
         showFront(true);
         addShadow();
+        if (_isFlip) _animation.flipIt(_isFlip);
+        if (_label != '') _animation.playIt(_label);
     }
 
     public function get isFree():Boolean { return true; }
@@ -94,52 +104,51 @@ public class TutorialCat extends BasicCat {
     }
 
     override public function showFront(v:Boolean):void {
-        _animation.showFront(v);
-//        if (v) heroEyes.startAnimations();
-//        else heroEyes.stopAnimations();
+        if (_animation) _animation.showFront(v);
     }
 
     override public function set visible(value:Boolean):void {
-        if (!value)  _animation.stopIt();
+        if (!value)  {
+            if (_animation) _animation.stopIt();
+        }
         super.visible = value;
     }
 
     override public function flipIt(v:Boolean):void {
         _isFlip = v;
-        _animation.flipIt(v);
+        if (_animation) _animation.flipIt(v);
     }
 
     override public function walkAnimation():void {
-//        heroEyes.startAnimations();
-        _animation.playIt('walk');
+        _label = 'walk';
+        if (_animation) _animation.playIt('walk');
         super.walkAnimation();
     }
     override public function walkIdleAnimation():void {
-//        heroEyes.startAnimations();
-        _animation.playIt('walk');
+        _label = 'walk';
+        if (_animation) _animation.playIt('walk');
         super.walkIdleAnimation();
     }
     override public function runAnimation():void {
-//        heroEyes.startAnimations();
-        _animation.playIt('run');
+        _label = 'run';
+        if (_animation) _animation.playIt('run');
         super.runAnimation();
     }
     override public function stopAnimation():void {
-//        heroEyes.stopAnimations();
-        _animation.stopIt();
+        _label = '';
+        if (_animation) _animation.stopIt();
         super.stopAnimation();
     }
     override public function idleAnimation():void {
+        _label = 'idle';
         showFront(true);
-//        heroEyes.startAnimations();
-        _animation.playIt('idle');
+        if (_animation) _animation.playIt('idle');
         super.idleAnimation();
     }
 
     public function playDirectLabel(label:String, playOnce:Boolean, callback:Function):void {
         showFront(true);
-//        heroEyes.startAnimations();
-        _animation.playIt(label, playOnce, callback);
+        if (_animation) _animation.playIt(label, playOnce, callback);
     }
 
     override public function deleteIt():void {
@@ -149,15 +158,13 @@ public class TutorialCat extends BasicCat {
         }
         killAllAnimations();
         removeFromMap();
-//        if (heroEyes) {
-//            heroEyes.stopAnimations();
-//            heroEyes = null;
-//        }
-        _catImage.removeChild(_animation.catArmature.display as Sprite);
-        _catBackImage.removeChild(_animation.catBackArmature.display as Sprite);
-        _animation.deleteArmature(_animation.catArmature);
-        _animation.deleteArmature(_animation.catBackArmature);
-        _animation.clearIt();
+        if (_animation) {
+            _catImage.removeChild(_animation.catArmature.display as Sprite);
+            _catBackImage.removeChild(_animation.catBackArmature.display as Sprite);
+            _animation.deleteArmature(_animation.catArmature);
+            _animation.deleteArmature(_animation.catBackArmature);
+            _animation.clearIt();
+        }
         super.deleteIt();
         _catImage = null;
         _catBackImage = null;

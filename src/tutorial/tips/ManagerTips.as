@@ -45,6 +45,7 @@ public class ManagerTips {
     private var g:Vars = Vars.getInstance();
 
     public function ManagerTips(show:Boolean = false) {
+        _tipsPanel = new TipsPanel();
         _arrowShow = show;
         if (g.allData.factory['icon_tips']) showTips();
             else loadTips();
@@ -56,7 +57,7 @@ public class ManagerTips {
     }
 
     private function showTips():void {
-        _tipsPanel = new TipsPanel();
+        _tipsPanel.showIt();
         if (_arrowShow) _tipsPanel.showArrow();
         _arrowShow = false;
     }

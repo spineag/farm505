@@ -36,6 +36,9 @@ public class TipsPanel {
     public function TipsPanel() {
         _onHover = false;
         _source = new CSprite();
+    }
+
+    public function showIt():void {
         _armature = g.allData.factory['icon_tips'].buildArmature('table');
         (_armature.display as StarlingArmatureDisplay).x = 60;
         (_armature.display as StarlingArmatureDisplay).y = -48;
@@ -108,10 +111,6 @@ public class TipsPanel {
             _arrow.deleteIt();
             _arrow = null;
         }
-    }
-
-    private function stopGuys():void {
-
     }
 
     private var _counter:int=0;

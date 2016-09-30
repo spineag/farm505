@@ -150,7 +150,7 @@ public class ManagerCutScenes {
 
     private function checkTypeFunctions():void {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
-        try {
+//        try {
             switch (_curCutScenePropertie.id_action) {
                 case ID_ACTION_SHOW_MARKET:
                     if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
@@ -180,25 +180,29 @@ public class ManagerCutScenes {
                     releaseOpenTrain();
                     break;
             }
-        } catch (e:Error) {
-            Cc.error('error during cutScene for _curCutScenePropertie.id_action=' + _curCutScenePropertie.id_action);
-            endCutScene();
-        }
+//        } catch (e:Error) {
+//            Cc.error('error during cutScene for _curCutScenePropertie.id_action=' + _curCutScenePropertie.id_action);
+//            endCutScene();
+//        }
     }
     public function get closeMarket():Boolean {
         return _closeMarket;
     }
 
     private function releaseMarket():void {
-        if (g.managerTips) g.managerTips.setUnvisible(true);
-        _closeMarket = true;
-        _cutSceneStep = 1;
-        isCutScene = true;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.MARKET);
-        addCatToPos(20, 22);
-        g.managerCats.goCatToPoint(_cat, new Point(44, 0), market_1);
-        g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 3);
+        if (_cutSceneBuildings.length) {
+            if (g.managerTips) g.managerTips.setUnvisible(true);
+            _closeMarket = true;
+            _cutSceneStep = 1;
+            isCutScene = true;
+            addCatToPos(20, 22);
+            g.managerCats.goCatToPoint(_cat, new Point(44, 0), market_1);
+            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 3);
+        } else {
+            Cc.error('cutScene for market - no market building');
+        }
     }
 
     private function market_1():void {
@@ -1028,6 +1032,7 @@ public class ManagerCutScenes {
         }
         isCutScene = false;
         if (g.managerTips) g.managerTips.setUnvisible(false);
+
     }
 
 }
