@@ -48,10 +48,27 @@ public class ManagerTips {
         _tipsPanel = new TipsPanel();
         _arrowShow = show;
         if (g.allData.factory['icon_tips']) showTips();
-            else loadTips();
+            else loadTipsIcon();
+        if (!g.allData.atlas['tipsAtlas']) {
+            var st:String = g.dataPath.getGraphicsPath() + 'x1/';
+            g.load.loadImage(st + 'tipsAtlas.png' + g.getVersion('tipsAtlas'), onLoad2, st);
+            g.load.loadXML(st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas'), onLoad3, st);
+        }
     }
 
-    private function loadTips():void {
+    private function onLoad2(b:Bitmap, st:String):void {
+        onLoad3(st);
+    }
+
+    private function onLoad3(st:String):void {
+        if (g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')] && g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')]) {
+            g.allData.atlas['tipsAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')].create() as Bitmap), g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')]);
+            delete  g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')];
+            delete  g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')];
+        }
+    }
+
+    private function loadTipsIcon():void {
         var st:String = 'animations_json/icon_tips';
         g.loadAnimation.load(st, 'icon_tips', showTips);
     }
@@ -84,6 +101,7 @@ public class ManagerTips {
     }
 
     public function getArrTips():Array {
+        if (!_arrTips) g.managerTips.calculateAvailableTips();
         _arrTips.sortOn('priority', Array.NUMERIC);
         _arrTips.reverse();
         return _arrTips;

@@ -149,6 +149,9 @@ public class ManagerCutScenes {
     }
 
     private function checkTypeFunctions():void {
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCat', checkTypeFunctions);
+        }
         g.toolsModifier.modifierType = ToolsModifier.NONE;
 //        try {
             switch (_curCutScenePropertie.id_action) {

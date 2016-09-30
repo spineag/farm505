@@ -3,25 +3,19 @@
  */
 package ui.tips {
 import com.greensock.TweenMax;
-
 import dragonBones.Armature;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-import dragonBones.starling.StarlingFactory;
-
 import manager.ManagerFilters;
 import manager.Vars;
-
 import starling.core.Starling;
-import starling.display.Image;
-import starling.display.Quad;
+import starling.display.Sprite;
 import starling.events.Event;
-import starling.text.TextField;
 import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
-import utils.MCScaler;
 import utils.SimpleArrow;
 import windows.WindowsManager;
 
@@ -29,6 +23,7 @@ public class TipsPanel {
     private var _source:CSprite;
     private var _armature:Armature;
     private var _txt:CTextField;
+    private var _spriteTxt:Sprite;
     private var _arrow:SimpleArrow;
     private var _onHover:Boolean;
     private var g:Vars = Vars.getInstance();
@@ -50,6 +45,20 @@ public class TipsPanel {
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
         _source.endClickCallback = onClick;
+
+        _spriteTxt = new Sprite();
+        _spriteTxt.touchable = false;
+        _txt = new CTextField(40, 40, "0");
+        _txt.setFormat(CTextField.BOLD24, 22, Color.RED);
+        _txt.x = -16;
+        _txt.y = -12;
+        _spriteTxt.addChild(_txt);
+        var b:Slot = _armature.getSlot('number');
+        if (b) {
+            b.displayList = null;
+            b.display = _spriteTxt;
+        }
+        g.managerTips.calculateAvailableTips();
     }
 
     public function onResize():void {
