@@ -13,11 +13,13 @@ public class DataPath {
     protected static var g:Vars = Vars.getInstance();
 
     public function getMainPath():String {
-        return g.useHttps ? 'https://' + MAIN_PATH : 'http://' + MAIN_PATH;
+//        return g.useHttps ? 'https://' + MAIN_PATH : 'http://' + MAIN_PATH;
+        return 'https://' + MAIN_PATH;
     }
 
     public function getGraphicsPath():String {
-        return g.useHttps ? 'https://' + MAIN_PATH_GRAPHICS : 'http://' + MAIN_PATH_GRAPHICS;
+//        return g.useHttps ? 'https://' + MAIN_PATH_GRAPHICS : 'http://' + MAIN_PATH_GRAPHICS;
+        return 'https://' + MAIN_PATH_GRAPHICS;
     }
 
    public function getQuestIconPath():String {

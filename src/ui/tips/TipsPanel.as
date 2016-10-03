@@ -41,6 +41,7 @@ public class TipsPanel {
         g.cont.interfaceCont.addChild(_source);
         _source.y = Starling.current.nativeStage.stageHeight + 120;
         WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndStopByFrame('idle_1');
         TweenMax.to(_source, .5, {y:Starling.current.nativeStage.stageHeight, onComplete: animateGuys});
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
@@ -82,7 +83,6 @@ public class TipsPanel {
     private function onClick():void {
         deleteArrow();
         if (g.managerCutScenes.isCutScene || g.managerTutorial.isTutorial || g.isAway) return;
-        TweenMax.killTweensOf(_source);
         g.windowsManager.openWindow(WindowsManager.WO_TIPS);
     }
 
@@ -93,7 +93,6 @@ public class TipsPanel {
     private function onHover():void {
         if (_onHover) return;
         _onHover = true;
-        TweenMax.killTweensOf(_source);
         g.hint.showIt("Подсказки",'none',1);
     }
 
