@@ -494,5 +494,9 @@ public class WorldObject {
         TweenMax.to(_build, time, {scaleX: 0.98, scaleY: 1.02, y: -6*g.scaleFactor, onComplete: f1});
     }
 
+    public function disableForOptimisation(needDisable:Boolean):void {
+        _source.visible = !needDisable;
+    }
+
 }
 }

@@ -55,6 +55,8 @@ public class AddNewHero {
         }
     }
 
+    public function disableForOptimisation(needDisable:Boolean):void {}
+
     private function showCat():void {
         _armature = g.allData.factory['catsShow'].buildArmature('cat');
         _source.addChild(_armature.display as StarlingArmatureDisplay);
