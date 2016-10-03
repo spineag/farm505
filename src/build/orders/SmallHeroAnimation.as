@@ -5,18 +5,24 @@ package build.orders {
 import dragonBones.Armature;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
+import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
 
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class SmallHeroAnimation {
     private var _arma:Armature;
     private var _armaClip:StarlingArmatureDisplay;
     private var _armaClipCont:Sprite;
     private var _building:Order;
+    private var _isHas:Boolean;
+    private var _arrLabels:Array;
 
     public function SmallHeroAnimation(b:Order) {
         _building = b;
+        _isHas = false;
+        _arrLabels = ['start', 'idle_1', 'idle_2', 'idle_3', 'idle_4', 'idle_5', 'idle_7'];
     }
     
     public function set armature(arma:Armature):void {
@@ -29,23 +35,29 @@ public class SmallHeroAnimation {
         _armaClipCont.addChild(_armaClip);
         b.display = _armaClipCont;
         _armaClip.touchable = false;
-        _armaClip.visible = false;
+        WorldClock.clock.add(_arma);
+        _arma.addEventListener(EventObject.COMPLETE, fEnd);
+        _arma.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
     }
 
     public function animateIt(v:Boolean):void {
         if (!_arma) return;
-        if (v) {
-            WorldClock.clock.add(_arma);
-            _arma.animation.gotoAndPlayByFrame('start');
-            _armaClip.visible = true;
+        _isHas = v;
+        fEnd();
+    }
+
+    private function fEnd(e:Event=null):void {
+        if (_isHas) {
+            _arma.animation.gotoAndPlayByFrame('idle_6');
         } else {
-            _arma.animation.gotoAndStopByFrame('start');
-            WorldClock.clock.remove(_arma);
-            _armaClip.visible = false;
+            _arma.animation.gotoAndPlayByFrame(_arrLabels[int(Math.random()*7)]);
         }
     }
 
     public function deleteIt():void {
+        _arma.removeEventListener(EventObject.COMPLETE, fEnd);
+        _arma.removeEventListener(EventObject.LOOP_COMPLETE, fEnd);
+        WorldClock.clock.remove(_arma);
         _armaClipCont.removeChild(_armaClip);
         _arma.dispose();
         _armaClip = null;
