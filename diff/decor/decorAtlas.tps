@@ -241,6 +241,8 @@
             <filename>well_yellow.png</filename>
             <filename>dandelion.png</filename>
             <filename>sunflower.png</filename>
+            <filename>track_autumn.png</filename>
+            <filename>track_autumn_1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

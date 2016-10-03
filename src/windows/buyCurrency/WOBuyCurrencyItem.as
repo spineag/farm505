@@ -35,13 +35,14 @@ public class WOBuyCurrencyItem {
     private var _txtBtn:CTextField;
     private var _txtCount:CTextField;
     private var _im:Image;
+    private var _action:Sprite;
     private var _currency:int;
     private var _costRealMoney:int;
     private var _countGameMoney:int;
     private var _packId:int;
     private var g:Vars = Vars.getInstance();
 
-    public function WOBuyCurrencyItem(currency:int, count:int, profit:String, cost:int, packId:int) {
+    public function WOBuyCurrencyItem(currency:int, count:int, bonus:Array, cost:int, packId:int) {
         _currency = currency;
         _packId = packId;
         _countGameMoney = count;
@@ -88,6 +89,31 @@ public class WOBuyCurrencyItem {
         _btn.x = 493;
         _btn.y = 31;
         source.addChild(_btn);
+        _action = new Sprite();
+        var im:Image;
+        var txt:CTextField;
+        if (bonus[0] == 1) {
+             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price'));
+            source.addChild(im);
+        } else if (bonus[0] == 2) {
+             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_sells'));
+            source.addChild(im);
+        }
+        if (bonus[1] > 0) {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bonus'));
+            _action.addChild(im);
+             txt= new CTextField(60, 30, bonus[1] + '%');
+            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+            txt.y = 5;
+            _action.addChild(txt);
+            txt = new CTextField(60, 30, 'Выгода');
+            txt.y = 20;
+            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+            _action.addChild(txt);
+            source.addChild(_action);
+            _action.x = 350;
+        }
+
         _btn.clickCallback = onClick;
     }
 
@@ -106,6 +132,11 @@ public class WOBuyCurrencyItem {
         _btn = null;
         source.dispose();
         source = null;
+        while (_action.numChildren) {
+            _action.removeChildAt(0);
+        }
+        _action.dispose();
+        _action = null;
         g = null;
     }
 

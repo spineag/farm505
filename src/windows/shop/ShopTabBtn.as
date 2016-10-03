@@ -35,6 +35,7 @@ public class ShopTabBtn {
         _source = new CSprite();
         _type = type;
         _bg = new CartonBackground(123, 100);
+        _bg.touchable = true;
         _source.addChild(_bg);
         _txtTabName = new CTextField(123, 100, '');
         _txtTabName.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -117,6 +118,7 @@ public class ShopTabBtn {
         im.y = 38 - im.height/2;
         _source.addChild(im);
         _source.addChild(_txtTabName);
+        _txtTabName.touchable = true;
     }
     
     public function updateTextField():void {

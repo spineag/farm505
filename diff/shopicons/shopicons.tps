@@ -273,6 +273,8 @@
             <filename>sunflower_icon.png</filename>
             <filename>dandelion_icon.png</filename>
             <filename>cat_nail_icon.png</filename>
+            <filename>track_autumn_icon.png</filename>
+            <filename>track_autumn_1_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
