@@ -179,7 +179,7 @@ public class Farm extends WorldObject{
                     checkForCraft();
                 }
             } else {
-                if (!isFull && !g.managerTutorial.isTutorial) {
+                if (!isFull && !g.managerTutorial.isTutorial && !g.isAway) {
                     g.user.decorShiftShop = 0;
                     g.user.decorShop = false;
                     g.user.animalIdArrow = _dataAnimal.id;

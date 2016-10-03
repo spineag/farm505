@@ -341,6 +341,9 @@
             <filename>mine_window.png</filename>
             <filename>newspaper_icon_small.png</filename>
             <filename>animated_decor.png</filename>
+            <filename>best_price.png</filename>
+            <filename>bonus.png</filename>
+            <filename>top_sells.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
