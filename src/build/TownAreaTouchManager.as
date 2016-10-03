@@ -268,39 +268,53 @@ public class TownAreaTouchManager {
                 ar.sortOn('depth', Array.NUMERIC);
                 ar.reverse();
             }
-            if ((ar[0] as WorldObject).source.isTouchable) {
-                var hitAreaState:int = (ar[0] as WorldObject).source.getHitAreaState(_touch);
-                if (_touch.phase == TouchPhase.BEGAN) {
-                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
-                        if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                            (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('start');
-                        } else {
-                            _prevBuilds.push(_curBuild);
-                            releaseOutForPrevBuilds();
-                            _curBuild = ar[0];
-                            _curBuild.source.releaseStartClick();
+            for (i=0; i<ar.length; i++) {
+                if ((ar[i] as WorldObject).source.isTouchable) {
+                    var hitAreaState:int = (ar[i] as WorldObject).source.getHitAreaState(_touch);
+                    if (_touch.phase == TouchPhase.BEGAN) {
+                        if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
+                            if (ar[i] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                                (ar[i] as Farm).releaseMouseEventForAnimalFromTouchManager('start');
+                            } else {
+                                _prevBuilds.push(_curBuild);
+                                releaseOutForPrevBuilds();
+                                _curBuild = ar[i];
+                                _curBuild.source.releaseStartClick();
+                            }
+                            break;
                         }
-                    }
-                } else if (_touch.phase == TouchPhase.ENDED) {
-                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
-                        if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                            (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('end');
-                        } else {
-                            _prevBuilds.push(_curBuild);
-                            releaseOutForPrevBuilds();
-                            _curBuild = ar[0];
-                            _curBuild.source.releaseEndClick();
+                    } else if (_touch.phase == TouchPhase.ENDED) {
+                        if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
+                            if (ar[i] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                                (ar[i] as Farm).releaseMouseEventForAnimalFromTouchManager('end');
+                            } else {
+                                _prevBuilds.push(_curBuild);
+                                releaseOutForPrevBuilds();
+                                _curBuild = ar[i];
+                                _curBuild.source.releaseEndClick();
+                            }
+                            break;
                         }
-                    }
-                } else if (_touch.phase == TouchPhase.HOVER) {
-                    if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
-                        if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                            (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('hover');
+                    } else if (_touch.phase == TouchPhase.HOVER) {
+                        if (hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
+                            if (ar[i] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                                (ar[i] as Farm).releaseMouseEventForAnimalFromTouchManager('hover');
+                            } else {
+                                _prevBuilds.push(_curBuild);
+                                releaseOutForPrevBuilds();
+                                _curBuild = ar[i];
+                                _curBuild.source.releaseHover();
+                            }
+                            break;
                         } else {
-                            _prevBuilds.push(_curBuild);
-                            releaseOutForPrevBuilds();
-                            _curBuild = ar[0];
-                            _curBuild.source.releaseHover();
+                            if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
+                                (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('out');
+                            } else {
+                                _prevBuilds.push(_curBuild);
+                                releaseOutForPrevBuilds();
+                                _curBuild = ar[i];
+                                _curBuild.source.releaseOut();
+                            }
                         }
                     } else {
                         if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
@@ -308,18 +322,9 @@ public class TownAreaTouchManager {
                         } else {
                             _prevBuilds.push(_curBuild);
                             releaseOutForPrevBuilds();
-                            _curBuild = ar[0];
+                            _curBuild = ar[i];
                             _curBuild.source.releaseOut();
                         }
-                    }
-                } else {
-                    if (ar[0] is Farm && g.toolsModifier.modifierType == ToolsModifier.NONE) {
-                        (ar[0] as Farm).releaseMouseEventForAnimalFromTouchManager('out');
-                    } else {
-                        _prevBuilds.push(_curBuild);
-                        releaseOutForPrevBuilds();
-                        _curBuild = ar[0];
-                        _curBuild.source.releaseOut();
                     }
                 }
             }

@@ -151,9 +151,10 @@ public class ManagerCutScenes {
     private function checkTypeFunctions():void {
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCat', checkTypeFunctions);
+            return;
         }
         g.toolsModifier.modifierType = ToolsModifier.NONE;
-//        try {
+        try {
             switch (_curCutScenePropertie.id_action) {
                 case ID_ACTION_SHOW_MARKET:
                     if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
@@ -175,18 +176,18 @@ public class ManagerCutScenes {
                     releaseFromInventoryDecor();
                     break;
                 case ID_ACTION_TRAIN_AVAILABLE:
-                    if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
+//                    if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     releaseAvailableTrain();
                     break;
                 case ID_ACTION_OPEN_TRAIN:
-                    if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
+//                    if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     releaseOpenTrain();
                     break;
             }
-//        } catch (e:Error) {
-//            Cc.error('error during cutScene for _curCutScenePropertie.id_action=' + _curCutScenePropertie.id_action);
-//            endCutScene();
-//        }
+        } catch (e:Error) {
+            Cc.error('error during cutScene for _curCutScenePropertie.id_action=' + _curCutScenePropertie.id_action);
+            endCutScene();
+        }
     }
     public function get closeMarket():Boolean {
         return _closeMarket;
@@ -489,6 +490,11 @@ public class ManagerCutScenes {
     }
 
     private function releaseAvailableTrain():void {
+        g.user.cutScenes[5] = 1;
+        saveUserCutScenesData();
+        isCutScene = false;
+        return;
+
         _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseAvailableTrain');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -525,6 +531,11 @@ public class ManagerCutScenes {
     }
 
     private function releaseOpenTrain():void {
+        g.user.cutScenes[6] = 1;
+        saveUserCutScenesData();
+        isCutScene = false;
+        return;
+
         _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseOpenTrain');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
