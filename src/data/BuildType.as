@@ -36,5 +36,6 @@ public class BuildType {
     public static const LOCKED_LAND:int = 27;
     public static const CAT:int = 28;
     public static const CAT_HOUSE:int = 29;
+    public static const DECOR_ANIMATION:int = 30;
 }
 }

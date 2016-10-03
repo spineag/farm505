@@ -8,6 +8,7 @@ import build.cave.Cave;
 import build.chestBonus.Chest;
 import build.dailyBonus.DailyBonus;
 import build.decor.Decor;
+import build.decor.DecorAnimation;
 import build.decor.DecorFence;
 import build.decor.DecorPostFence;
 import build.decor.DecorTail;
@@ -565,6 +566,9 @@ public class TownArea extends Sprite {
             case BuildType.TUTORIAL_PLACE:
                 build = new TutorialPlace(_data);
                 break;
+            case BuildType.DECOR_ANIMATION:
+                build = new DecorAnimation(_data);
+                break;
         }
 
         if (!build) {
@@ -913,7 +917,7 @@ public class TownArea extends Sprite {
         if ((build as WorldObject).dataBuild.buildType == BuildType.ANIMAL || (build as WorldObject).dataBuild.buildType == BuildType.FARM || (build as WorldObject).dataBuild.buildType == BuildType.FABRICA) {
             g.bottomPanel.cancelBoolean(false);
         }
-        if ((build as WorldObject).dataBuild.buildType == BuildType.DECOR || (build as WorldObject).dataBuild.buildType == BuildType.DECOR_TAIL || (build as WorldObject).dataBuild.buildType == BuildType.DECOR_POST_FENCE) {
+        if ((build as WorldObject).dataBuild.buildType == BuildType.DECOR_ANIMATION || (build as WorldObject).dataBuild.buildType == BuildType.DECOR || (build as WorldObject).dataBuild.buildType == BuildType.DECOR_TAIL || (build as WorldObject).dataBuild.buildType == BuildType.DECOR_POST_FENCE) {
             var cont:Sprite = new Sprite();
             cont.x = _x;
             cont.y = _y;
@@ -1465,6 +1469,9 @@ public class TownArea extends Sprite {
             case BuildType.CHEST:
                 build = new Chest(_data);
                 break;
+            case BuildType.DECOR_ANIMATION:
+                build = new DecorAnimation(_data);
+                break;
         }
 
         if (!build) {
@@ -1718,6 +1725,20 @@ public class TownArea extends Sprite {
         g.managerCats.onGoAway(false);
     }
 
+    private function startDecorAnimation():void {
+        var arr:Array = getAwayCityObjectsByType(BuildType.DECOR_ANIMATION);
+        var i:int = 0;
+        if (arr.length == 0) return;
+        if (arr.length <= 4) {
+            for (i = 0; i < arr.length; i++) {
+                arr[i].awayAnimation();
+            }
+        } //else {
+//            for ()
+//        }
+
+    }
+
     private function clearAwayCity():void {
         for (var i:int = 0; i < _cityAwayObjects.length; i++) {
             if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue;
@@ -1798,6 +1819,21 @@ public class TownArea extends Sprite {
             }
         } catch (e:Error) {
             Cc.error('TownArea getAwayCityObjectsById:: error id: ' + e.errorID + ' - ' + e.message + '    for id: ' + id);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+        }
+        return ar;
+    }
+
+    public function getAwayCityObjectsByType(buildType:int):Array {
+        var ar:Array = [];
+        try {
+            for (var i:int = 0; i < _cityAwayObjects.length; i++) {
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is AddNewHero) continue;
+                if (_cityAwayObjects[i].dataBuild.buildType == buildType)
+                    ar.push(_cityAwayObjects[i]);
+            }
+        } catch (e:Error) {
+            Cc.error('TownArea getAwayCityObjectsByType:: error id: ' + e.errorID + ' - ' + e.message + '    for type: ' + buildType);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
         }
         return ar;

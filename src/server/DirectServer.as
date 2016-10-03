@@ -575,9 +575,7 @@ public class DirectServer {
                         obj.countCraftResource = String(d.message[i].count_craft_resource).split('&');
                         for (k = 0; k < obj.countCraftResource.length; k++) obj.countCraftResource[k] = int(obj.countCraftResource[k]);
                     }
-                    if (d.message[i].animation) {
-                        obj.animationDecor = int(d.message[i].animation);
-                    }
+
                     if (d.message[i].instrument_id) obj.removeByResourceId = int(d.message[i].instrument_id);
                     if (d.message[i].start_count_resources) obj.startCountResources = int(d.message[i].start_count_resources);
                     if (d.message[i].delta_count_resources) obj.deltaCountResources = int(d.message[i].delta_count_resources);

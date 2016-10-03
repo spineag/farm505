@@ -139,8 +139,8 @@ public class WindowMain {
     public function onResize():void {
         _source.x = Starling.current.nativeStage.stageWidth/2;
         _source.y = Starling.current.nativeStage.stageHeight/2;
-        removeBlackBG();
-        createBlackBG();
+//        removeBlackBG();
+//        createBlackBG();
     }
 
     private function createBlackBG():void {
