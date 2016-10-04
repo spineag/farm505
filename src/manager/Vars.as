@@ -198,6 +198,7 @@ public class Vars {
     public var managerDropResources:ManagerDropBonusResource;
     public var managerQuest:ManagerQuest;
     public var managerPendingRequest:ManagerPendingRequest;
+    public var managerVisibleObjects:ManagerVisibleObjects;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -489,6 +490,8 @@ public class Vars {
             managerHelpers = new ManagerHelpers();
             managerPendingRequest = new ManagerPendingRequest();
             managerChest.createChest();
+            managerVisibleObjects = new ManagerVisibleObjects();
+            managerVisibleObjects.checkInStaticPosition();
             if (managerTutorial.isTutorial) {
                 if ((user as User).tutorialStep > 1) {
                     startPreloader.hideIt();

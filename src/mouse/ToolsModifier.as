@@ -378,6 +378,7 @@ public class ToolsModifier {
         }
 
         if (te.getTouch(_cont, TouchPhase.ENDED)) {
+            g.cont.checkOnDragEnd();
             if (_startDragPoint) {
                 var distance:int = Math.abs(g.cont.gameCont.x - _startDragPoint.x) + Math.abs(g.cont.gameCont.y - _startDragPoint.y);
                 if (distance > 5) {
@@ -408,7 +409,6 @@ public class ToolsModifier {
         if (_activeBuilding is DecorTail) {
             if (_modifierType == MOVE) {
                 g.townArea.onActivateMoveModifier(true);
-//                g.cont.contentCont.touchable = true;
                 g.cont.contentCont.alpha = 1;
             }
         } else g.cont.contentCont.alpha = 1;

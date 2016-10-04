@@ -137,7 +137,6 @@ public class Containers {
             onEnded();
         } else if (te.getTouch(gameCont, TouchPhase.MOVED)) {
             if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) return;
-            _isDragged = true;
             dragGameCont(te.touches[0].getLocation(g.mainStage));  // потрібно переписати перевірки на спосіб тачу
         } else if (te.getTouch(gameCont, TouchPhase.BEGAN)) {
             if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
@@ -149,10 +148,10 @@ public class Containers {
     }
 
     public function onEnded():void {
+        checkOnDragEnd();
         g.ownMouse.showUsualCursor();
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE && !_isDragged && g.selectedBuild) {
             g.toolsModifier.onTouchEnded();
-            _isDragged = false;
             return;
         }
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
@@ -169,10 +168,8 @@ public class Containers {
                 }
             }
             _isDragged = false;
-            return;
         }
         g.hideAllHints();
-        _isDragged = false;
     }
 
     public function setDragPoints(p:Point):void {
@@ -197,6 +194,8 @@ public class Containers {
         if (g.managerCutScenes.isCutScene && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && !g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR)) return;
         g.hideAllHints(); // ??? not optimise
         if (_startDragPointCont == null || _startDragPoint == null) return;
+        if (!_isDragged) if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(true);
+        _isDragged = true;
         var s:Number = gameCont.scaleX;
         gameCont.x = _startDragPointCont.x + mouseP.x - _startDragPoint.x;
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
@@ -208,6 +207,13 @@ public class Containers {
             gameCont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s;
         if (gameCont.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s)
             gameCont.x = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s;
+    }
+    
+    public function checkOnDragEnd():void {
+        if (_isDragged) {
+            _isDragged = false;
+            if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(false);
+        }
     }
 
     public function moveCenterToXY(_x:int, _y:int, needQuick:Boolean = false, time:Number = .5, callback:Function = null):void {  // (_x, _y) - координати в загальній системі gameCont
@@ -226,6 +232,7 @@ public class Containers {
         if (newX < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s)
             newX = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s;
         var f1:Function = function():void {
+            if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(false);
             if (callback != null) {
                 callback.apply();
             }
@@ -233,7 +240,9 @@ public class Containers {
         if (needQuick) {
             gameCont.x = newX;
             gameCont.y = newY;
+            if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         } else {
+            if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(true);
             new TweenMax(gameCont, time, {x:newX, y:newY, ease:Linear.easeOut,onComplete: f1});
         }
 

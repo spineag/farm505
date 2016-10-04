@@ -205,28 +205,9 @@ public class Fabrica extends WorldObject {
         }
         if (g.isActiveMapEditor) return;
         _isOnHover = false;
-//        if (_stateBuild == STATE_BUILD) {
-//            g.gameDispatcher.addEnterFrame(countEnterFrame);
-//        } else {
-            g.hint.hideIt();
-//        }
+        g.hint.hideIt();
     }
 
-//    private function countEnterFrame():void {
-//        _countTimer--;
-//        if (_countTimer <= 0) {
-//            g.gameDispatcher.removeEnterFrame(countEnterFrame);
-//            if (_isOnHover == true) {
-//                g.timerHint.needMoveCenter = true;
-//                g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height / 3) * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
-//            }
-//            if (_isOnHover == false) {
-//                if(_source)_source.filter = null;
-//                g.timerHint.hideIt();
-//                g.gameDispatcher.removeEnterFrame(countEnterFrame);
-//            }
-//        }
-//    }
 
     public function openFabricaWindow():void {
         if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_RAW_FABRICA && g.managerHelpers.activeReason.build == this) {
@@ -358,6 +339,11 @@ public class Fabrica extends WorldObject {
             g.timerHint.showIt(90, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale,
                     _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
         }
+    }
+
+    override public function showForOptimisation(needShow:Boolean):void {
+        if (_craftSprite) _craftSprite.visible = needShow;
+        super.showForOptimisation(needShow);
     }
 
     public function get arrRecipes():Array {

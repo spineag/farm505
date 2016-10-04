@@ -114,6 +114,7 @@ public class CSprite extends Sprite {
                 }
             }
         } else if (_currentTouch.phase == TouchPhase.ENDED) {
+            g.cont.checkOnDragEnd();
             Mouse.cursor = OwnMouse.USUAL_CURSOR;
             if (_hitAreaState != OwnHitArea.UNDER_INVISIBLE_POINT) {
                 te.stopPropagation();

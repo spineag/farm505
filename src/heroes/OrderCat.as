@@ -14,6 +14,8 @@ import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
 
 import flash.geom.Point;
+import flash.geom.Rectangle;
+
 import manager.Vars;
 
 import starling.display.DisplayObject;
@@ -59,6 +61,7 @@ public class OrderCat {
     private var _arriveCallback:Function;
     private var _callbackHi:Function;
     private var _catData:Object;
+    private var _rect:Rectangle;
 
     private var _isWoman:Boolean;
     protected var g:Vars = Vars.getInstance();
@@ -88,8 +91,13 @@ public class OrderCat {
         _source.addChild(_catImage);
         _source.addChild(_catBackImage);
         showFront(true);
+        _rect = _source.getBounds(_source);
 
         addShadow();
+    }
+
+    public function get rect():Rectangle {
+        return _rect;
     }
 
     public function setPositionInQueue(i:int):void {
@@ -349,6 +357,10 @@ public class OrderCat {
 
     public function get catData():Object {
         return _catData;
+    }
+
+    public function showForOptimisation(needShow:Boolean):void {
+        if (_source) _source.visible = needShow;
     }
 
 

@@ -414,6 +414,11 @@ public class Farm extends WorldObject{
         }
     }
 
+    override public function showForOptimisation(needShow:Boolean):void {
+        if (_craftSprite) _craftSprite.visible = needShow;
+        super.showForOptimisation(needShow);
+    }
+
     private function checkForCraft():void {
         var i:int;
         if (_arrCrafted.length) {
