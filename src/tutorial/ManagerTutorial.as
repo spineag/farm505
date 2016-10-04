@@ -2121,7 +2121,7 @@ public class ManagerTutorial {
             cat = null;
         }
         TUTORIAL_ON = false;
-        g.managerTips = new ManagerTips(true);
+        if (!g.managerTips) g.managerTips = new ManagerTips(true);
     }
 
     private function addCatToPos(_x:int, _y:int):void {

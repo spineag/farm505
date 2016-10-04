@@ -501,7 +501,7 @@ public class Vars {
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
                 if ((user as User).level >= 4 && (user as User).level < 10) {
-                    managerTips = new ManagerTips();
+                    if (!managerTips) managerTips = new ManagerTips();
                 }
                 if ((user as User).level >= 5) {
                     managerQuest.checkQuestsOnStart();

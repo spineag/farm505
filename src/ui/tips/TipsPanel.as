@@ -3,6 +3,8 @@
  */
 package ui.tips {
 import com.greensock.TweenMax;
+import com.junkbyte.console.Cc;
+
 import dragonBones.Armature;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
@@ -34,6 +36,7 @@ public class TipsPanel {
     }
 
     public function showIt():void {
+        if (_armature) return;
         _armature = g.allData.factory['icon_tips'].buildArmature('table');
         (_armature.display as StarlingArmatureDisplay).x = 60;
         (_armature.display as StarlingArmatureDisplay).y = -48;
@@ -82,6 +85,10 @@ public class TipsPanel {
 
     private function onClick():void {
         deleteArrow();
+        if (!g.allData.atlas['tipsAtlas']) {
+            Cc.error('tipsPanel onClick: tipsAtlas is not loaded yet');
+            return;
+        }
         if (g.managerCutScenes.isCutScene || g.managerTutorial.isTutorial || g.isAway) return;
         g.windowsManager.openWindow(WindowsManager.WO_TIPS);
     }
