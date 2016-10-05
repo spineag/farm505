@@ -294,7 +294,7 @@ public class ManagerTips {
     private function getHero():Object {
         var ob:Object = {};
         ob.type = TIP_BUY_HERO;
-        if (g.managerCats.curCountCats < g.managerCats.maxCountCats) {
+        if (g.managerCats.curCountCats < g.managerCats.maxCountCats && g.managerCats.catInfo.cost <= g.user.softCurrencyCount) {
             ob.priority = 9 + 100;
             ob.count = 1;
         } else {

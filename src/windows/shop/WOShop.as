@@ -269,7 +269,7 @@ public class WOShop extends WindowMain {
             case DECOR:
                 obj = g.dataBuilding.objectBuilding;
                 for (id in obj) {
-                    if (obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_FULL_FENСE ||
+                    if (obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_ANIMATION || obj[id].buildType == BuildType.DECOR_FULL_FENСE ||
                             obj[id].buildType == BuildType.DECOR_POST_FENCE || obj[id].buildType == BuildType.DECOR_TAIL) {
                         if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == obj[id].filterType)
                             arr.push(Utils.objectDeepCopy(obj[id]));

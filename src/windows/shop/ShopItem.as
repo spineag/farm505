@@ -284,19 +284,16 @@ public class ShopItem {
     }
 
     private function setInfo():void {
-//        if (_data.id == 107 || _data.id == 109 || _data.id == 108) return;
+//        if (_data.id == 55) return;
         if (_data.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
             if (!texture) {
-                if (_data.buildType == BuildType.DECOR ||_data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_POST_FENCE
-                        || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.TREE) {
-                    if (_data.animationDecor == 0) texture = g.allData.atlas[_data.url].getTexture(_data.image);
-                    else texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
-                }
+                if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_POST_FENCE
+                        || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.TREE) texture = g.allData.atlas[_data.url].getTexture(_data.image);
                 else texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
             }
             if (!texture) {
-                Cc.error('ShopItem:: no such texture: ' + _data.url);
+                Cc.error('ShopItem:: no such texture: ' + _data.url + '_data.id ' + _data.id);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
                 return;
             }
@@ -322,7 +319,7 @@ public class ShopItem {
         } else {
             _countCost = _data.cost;
         }
-        if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE)
+        if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE)
                 && g.userInventory.decorInventory[_data.id]) {
             _state = STATE_FROM_INVENTORY;
             _countCost = 0;
@@ -432,9 +429,9 @@ public class ShopItem {
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
-        } else if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+        } else if (_data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (_data.blockByLevel) {
-                if (_data.animationDecor) {
+                if ( _data.buildType == BuildType.DECOR_ANIMATION) {
                     _imAnimationDecor.visible = true;
                 }
                 if (_data.buildType == BuildType.DECOR_TAIL) {
@@ -447,7 +444,7 @@ public class ShopItem {
                     _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                     _im.filter = ManagerFilters.getButtonDisableFilter();
-                    if (_data.animationDecor) {
+                    if (_data.buildType == BuildType.DECOR_ANIMATION) {
                         _imAnimationDecor.filter = ManagerFilters.getButtonDisableFilter();
                     }
                     _nameTxt.text = _data.name;
@@ -665,7 +662,7 @@ public class ShopItem {
         }
 
         var ob:Object;
-        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
             if (g.managerTutorial.isTutorial) return;
             if (g.managerCutScenes.isCutScene) {
                 if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && g.managerCutScenes.isCutSceneResource(_data.id)) {

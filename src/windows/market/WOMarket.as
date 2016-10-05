@@ -750,6 +750,7 @@ public class WOMarket  extends WindowMain {
 
     private function onLeft():void {
         if (g.managerCutScenes.isCutScene) return;
+        if (_shift <=0 ) return;
         var tween:Tween = new Tween(_leftBtn, 0.2);
         tween.scaleTo(.6);
         tween.onComplete = function ():void {
@@ -769,7 +770,7 @@ public class WOMarket  extends WindowMain {
 
     private function onRight():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (_rightBtn.filter == ManagerFilters.BUTTON_DISABLE_FILTER) return;  // wo za pizdec?
+        if ((_shift+4)*2 >= _arrItems.length) return;
         var tween:Tween = new Tween(_rightBtn, 0.2);
         tween.scaleTo(.6);
         tween.onComplete = function ():void {

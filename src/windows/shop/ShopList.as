@@ -194,7 +194,7 @@ public class ShopList {
             g.user.decorShop = false;
             g.user.decorShiftShop = 0;
             arr.sortOn("indexQueue", Array.NUMERIC);
-        } else if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
+        } else if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_ANIMATION || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
                 arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL) {
             for (j = 0; j < arr.length; j++) {
                 arr[j].indexQueue = int(arr[j].blockByLevel[0]);
@@ -236,7 +236,7 @@ public class ShopList {
             animList(f);
         }
         if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
-                arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL) {
+                arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL ||  arr[0].buildType == BuildType.DECOR_ANIMATION) {
             if (!g.user.decorShop) g.user.decorShop = true;
         }
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));
@@ -312,7 +312,7 @@ public class ShopList {
         };
 
         if (_currentShopArr[0].buildType == BuildType.DECOR || _currentShopArr[0].buildType == BuildType.DECOR_FULL_FENСE ||
-                _currentShopArr[0].buildType == BuildType.DECOR_POST_FENCE || _currentShopArr[0].buildType == BuildType.DECOR_TAIL) {
+                _currentShopArr[0].buildType == BuildType.DECOR_POST_FENCE || _currentShopArr[0].buildType == BuildType.DECOR_TAIL || _currentShopArr[0].buildType == BuildType.DECOR_ANIMATION) {
             g.user.decorShiftShop = _shift;
         }
         animList(f);
@@ -343,10 +343,10 @@ public class ShopList {
                 item.deleteIt();
             }
         };
-        if (_currentShopArr[0].buildType == BuildType.DECOR || _currentShopArr[0].buildType == BuildType.DECOR_FULL_FENСE ||
-                _currentShopArr[0].buildType == BuildType.DECOR_POST_FENCE || _currentShopArr[0].buildType == BuildType.DECOR_TAIL) {
-            g.user.decorShiftShop = _shift;
-        }
+            if (_currentShopArr[0].buildType == BuildType.DECOR || _currentShopArr[0].buildType == BuildType.DECOR_FULL_FENСE ||
+                    _currentShopArr[0].buildType == BuildType.DECOR_POST_FENCE || _currentShopArr[0].buildType == BuildType.DECOR_TAIL || _currentShopArr[0].buildType == BuildType.DECOR_ANIMATION) {
+                g.user.decorShiftShop = _shift;
+            }
         animList(f);
     }
 

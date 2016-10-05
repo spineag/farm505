@@ -1395,6 +1395,7 @@ public class TownArea extends Sprite {
         sortAwayAtLockedLands();
         _awayPreloader.deleteIt();
         _awayPreloader = null;
+        startDecorAnimation();
     }
 
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {
@@ -1733,9 +1734,11 @@ public class TownArea extends Sprite {
             for (i = 0; i < arr.length; i++) {
                 arr[i].awayAnimation();
             }
-        } //else {
-//            for ()
-//        }
+        } else {
+            for (i = 0; i < arr.length; i++) {
+                arr[i].awayAnimation();
+            }
+        }
 
     }
 
