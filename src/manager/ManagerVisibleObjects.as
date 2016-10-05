@@ -10,15 +10,11 @@ import starling.core.Starling;
 
 public class ManagerVisibleObjects {
     private var g:Vars = Vars.getInstance();
-    private var _arr:Array;
-    private var _arrAway:Array;
     private var _p1:Point;
     private var _p2:Point;
     private var _useThis:Boolean = true;
 
     public function ManagerVisibleObjects() {
-        _arr = g.townArea.cityObjects;
-        _arrAway = g.townArea.cityAwayObjects;
         _p1 = new Point();
         _p2 = new Point();
     }
@@ -27,9 +23,9 @@ public class ManagerVisibleObjects {
         var i:int;
         var ar:Array;
         if (g.isAway) {
-            ar = _arrAway;
+            ar = g.townArea.cityAwayObjects;
         } else {
-            ar = _arr;
+            ar = g.townArea.cityObjects;
         }
         if (needShowAll) {
             for (i = 0; i < ar.length; i++) {
