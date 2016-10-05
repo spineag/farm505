@@ -95,7 +95,7 @@ public class HeroCat extends BasicCat{
 
     public function pauseIt(v:Boolean):void {
         if (v) {
-            if (_currentPath.length) {
+            if (_currentPath && _currentPath.length) {
                 setPosition(_currentPath.pop());
                 updatePosition();
             }

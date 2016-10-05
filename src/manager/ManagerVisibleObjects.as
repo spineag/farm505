@@ -5,52 +5,49 @@ package manager {
 import build.WorldObject;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-
 import heroes.OrderCat;
-
 import starling.core.Starling;
-import starling.display.Quad;
-
-import utils.CSprite;
 
 public class ManagerVisibleObjects {
     private var g:Vars = Vars.getInstance();
-    private var _arr:Array;
-    private var _arrAway:Array;
     private var _p1:Point;
     private var _p2:Point;
     private var _useThis:Boolean = true;
 
     public function ManagerVisibleObjects() {
-        _arr = g.townArea.cityObjects;
-        _arrAway = g.townArea.cityAwayObjects;
         _p1 = new Point();
         _p2 = new Point();
     }
 
     private function enableIt(needShowAll:Boolean):void {
         var i:int;
+        var ar:Array;
+        if (g.isAway) {
+            ar = g.townArea.cityAwayObjects;
+        } else {
+            ar = g.townArea.cityObjects;
+        }
         if (needShowAll) {
-            for (i = 0; i < _arr.length; i++) {
-                if (_arr[i] is WorldObject) {
-                    (_arr[i] as WorldObject).showForOptimisation(needShowAll);
-                } else if (_arr[i] is OrderCat) {
-                    (_arr[i] as OrderCat).showForOptimisation(needShowAll);
+            for (i = 0; i < ar.length; i++) {
+                if (ar[i] is WorldObject) {
+                    (ar[i] as WorldObject).showForOptimisation(needShowAll);
+                } else if (ar[i] is OrderCat) {
+                    (ar[i] as OrderCat).showForOptimisation(needShowAll);
                 }
             }
         } else {
-            for (i = 0; i < _arr.length; i++) {
-                if (_arr[i] is WorldObject) {
-                    if (isWorldObjectOnScreen(_arr[i] as WorldObject)) {
-                        (_arr[i] as WorldObject).showForOptimisation(true);
+            for (i = 0; i < ar.length; i++) {
+                if (ar[i] is WorldObject) {
+                    if (isWorldObjectOnScreen(ar[i] as WorldObject)) {
+                        (ar[i] as WorldObject).showForOptimisation(true);
                     } else {
-                        (_arr[i] as WorldObject).showForOptimisation(false);
+                        (ar[i] as WorldObject).showForOptimisation(false);
                     }
-                } else if (_arr[i] is OrderCat) {
-                    if (isWorldObjectOnScreen(_arr[i] as OrderCat)) {
-                        (_arr[i] as OrderCat).showForOptimisation(true);
+                } else if (ar[i] is OrderCat) {
+                    if (isWorldObjectOnScreen(ar[i] as OrderCat)) {
+                        (ar[i] as OrderCat).showForOptimisation(true);
                     } else {
-                        (_arr[i] as OrderCat).showForOptimisation(false);
+                        (ar[i] as OrderCat).showForOptimisation(false);
                     }
                 }
             }

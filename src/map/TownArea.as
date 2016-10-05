@@ -1395,6 +1395,7 @@ public class TownArea extends Sprite {
         sortAwayAtLockedLands();
         _awayPreloader.deleteIt();
         _awayPreloader = null;
+        if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         startDecorAnimation();
     }
 
@@ -1724,6 +1725,7 @@ public class TownArea extends Sprite {
         p.y = 26;
         if (!g.managerTutorial.isTutorial) g.cont.moveCenterToPos(p.x, p.y, true, 2);
         g.managerCats.onGoAway(false);
+        if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
     }
 
     private function startDecorAnimation():void {

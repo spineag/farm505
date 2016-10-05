@@ -2,6 +2,9 @@
  * Created by user on 9/22/16.
  */
 package windows.gameError {
+import flash.display.StageDisplayState;
+import flash.geom.Rectangle;
+
 import manager.Vars;
 
 import starling.core.Starling;
@@ -16,6 +19,12 @@ public class AhtungErrorBlyad {
     private var g:Vars = Vars.getInstance();
 
     public function AhtungErrorBlyad(e:Error) {
+        if (Starling.current.nativeStage.displayState == StageDisplayState.FULL_SCREEN) {
+            Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
+            Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
+            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
+            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
+        }
         var q:Quad = new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK);
         g.cont.popupCont.addChild(q);
         q.alpha = .9;

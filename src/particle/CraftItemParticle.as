@@ -23,7 +23,7 @@ public class CraftItemParticle {
     }
 
     private function addParticle():void {
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('product_particle'));
+        var im:Image = new Image(g.allData.atlas['resourceAtlas'].getTexture('product_particle'));
         im.scaleX = im.scaleY = g.scaleFactor;
         im.x = -im.width/2;
         im.y = -im.height/2;
