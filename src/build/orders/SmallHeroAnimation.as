@@ -8,6 +8,8 @@ import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
 
+import manager.Vars;
+
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -18,8 +20,11 @@ public class SmallHeroAnimation {
     private var _building:Order;
     private var _isHas:Boolean;
     private var _arrLabels:Array;
+    private var _needShow:Boolean =  true;
+    private var g:Vars = Vars.getInstance();
 
     public function SmallHeroAnimation(b:Order) {
+        _armaClipCont = new Sprite();
         _building = b;
         _isHas = false;
         _arrLabels = ['start', 'idle_1', 'idle_2', 'idle_3', 'idle_4', 'idle_5', 'idle_7'];
@@ -31,13 +36,36 @@ public class SmallHeroAnimation {
         if (b.display) b.display.dispose();
         _arma = arma;
         _armaClip = arma.display as StarlingArmatureDisplay;
-        _armaClipCont = new Sprite();
         _armaClipCont.addChild(_armaClip);
         b.display = _armaClipCont;
         _armaClip.touchable = false;
-        WorldClock.clock.add(_arma);
-        _arma.addEventListener(EventObject.COMPLETE, fEnd);
-        _arma.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
+        if (g.managerTutorial && g.managerTutorial.isTutorial) {
+            _armaClipCont.visible = false;
+            _needShow = false;
+        } else {
+            _armaClipCont.visible = true;
+            _needShow = true;
+            WorldClock.clock.add(_arma);
+            _arma.addEventListener(EventObject.COMPLETE, fEnd);
+            _arma.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
+        }
+    }
+
+    public function needShowIt(v:Boolean):void {
+        _needShow = v;
+        if (_arma) {
+            if (_needShow) {
+                _armaClipCont.visible = true;
+                WorldClock.clock.add(_arma);
+                _arma.addEventListener(EventObject.COMPLETE, fEnd);
+                _arma.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
+            } else {
+                _armaClipCont.visible = false;
+                WorldClock.clock.remove(_arma);
+                _arma.removeEventListener(EventObject.COMPLETE, fEnd);
+                _arma.removeEventListener(EventObject.LOOP_COMPLETE, fEnd);
+            }
+        }
     }
 
     public function animateIt(v:Boolean):void {

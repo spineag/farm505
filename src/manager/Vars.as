@@ -497,6 +497,7 @@ public class Vars {
                     startPreloader.hideIt();
                     startPreloader = null;
                 }
+                managerOrder.showSmallHeroAtOrder(false);
                 managerTutorial.initScenes();
                 managerTutorial.checkDefaults();
             } else {

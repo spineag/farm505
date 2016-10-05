@@ -1089,16 +1089,21 @@ public class ManagerOrder {
     public function checkForFullOrder():void {
         if (checkIsAnyFullOrder()) {
             g.bottomPanel.onFullOrder(true);
-            _orderBuilding.animateSmallHero(true);
+            if (_orderBuilding) _orderBuilding.animateSmallHero(true);
         } else {
             g.bottomPanel.onFullOrder(false);
-            _orderBuilding.animateSmallHero(false);
+            if (_orderBuilding) _orderBuilding.animateSmallHero(false);
         }
     }
 
     public function cancelAnimateSmallHero():void {
         g.bottomPanel.onFullOrder(false);
-        _orderBuilding.animateSmallHero(false);
+        if (_orderBuilding) _orderBuilding.animateSmallHero(false);
+    }
+    
+    public function showSmallHeroAtOrder(v:Boolean):void {
+        if (_orderBuilding) _orderBuilding.showSmallHero(v);
+        if (v) checkForFullOrder();
     }
 
     public function onSkipTimer(order:ManagerOrderItem):void {

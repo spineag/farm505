@@ -71,6 +71,12 @@ public class Order extends WorldObject{
         }
     }
 
+    public function showSmallHero(needShow:Boolean):void {
+        if (_smallHero) {
+            _smallHero.needShowIt(needShow);
+        }
+    }
+
     override public function onHover():void {
         if (g.selectedBuild) return;
         super.onHover();

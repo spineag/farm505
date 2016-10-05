@@ -2122,6 +2122,7 @@ public class ManagerTutorial {
         }
         TUTORIAL_ON = false;
         if (!g.managerTips) g.managerTips = new ManagerTips(true);
+        if (g.managerOrder) g.managerOrder.showSmallHeroAtOrder(true);
     }
 
     private function addCatToPos(_x:int, _y:int):void {
