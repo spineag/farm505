@@ -83,6 +83,8 @@ import user.Someone;
 import user.User;
 import user.UserInventory;
 import user.UserTimer;
+import user.UserValidateResources;
+
 import utils.FarmDispatcher;
 import windows.WindowsManager;
 
@@ -194,6 +196,7 @@ public class Vars {
     public var gameDispatcher:FarmDispatcher;
     public var user:User;
     public var userInventory:UserInventory;
+    public var userValidates:UserValidateResources;
     public var userTimer:UserTimer;
     public var managerDropResources:ManagerDropBonusResource;
     public var managerQuest:ManagerQuest;
@@ -223,6 +226,7 @@ public class Vars {
 
             event = new OwnEvent();
             useDataFromServer = true;
+            userValidates = new UserValidateResources();
 
             dataBuilding = new DataBuildings();
             dataRecipe = new DataRecipe();

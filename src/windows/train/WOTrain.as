@@ -252,6 +252,7 @@ public class WOTrain extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        if (!g.userValidates.checkInfo('level', g.user.level)) return;
         var list:Array = params[0];
         _build = params[1];
         _counter = params[3];

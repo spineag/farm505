@@ -117,6 +117,7 @@ public class WOShop extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        if (!g.userValidates.checkInfo('level', g.user.level)) return;
         updateMoneyCounts();
         if (params.length) {
             if (g.user.decorShop && !g.managerCutScenes.isCutScene) onTab(DECOR);

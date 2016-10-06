@@ -712,16 +712,27 @@ public class DirectServer {
                 return;
             }
             g.user.ambarLevel = int(ob.ambar_level);
+            g.userValidates.updateInfo('ambarLevel', g.user.ambarLevel);
             g.user.skladLevel = int(ob.sklad_level);
+            g.userValidates.updateInfo('skladLevel', g.user.skladLevel);
             g.user.ambarMaxCount = int(ob.ambar_max);
+            g.userValidates.updateInfo('ambarMax', g.user.ambarMaxCount);
             g.user.skladMaxCount = int(ob.sklad_max);
+            g.userValidates.updateInfo('skladMax', g.user.skladMaxCount);
             g.user.hardCurrency = int(ob.hard_count);
+            g.userValidates.updateInfo('hardCount', g.user.hardCurrency);
             g.user.softCurrencyCount = int(ob.soft_count);
+            g.userValidates.updateInfo('softCount', g.user.softCurrencyCount);
             g.user.redCouponCount = int(ob.red_count);
+            g.userValidates.updateInfo('redCount', g.user.redCouponCount);
             g.user.yellowCouponCount = int(ob.yellow_count);
+            g.userValidates.updateInfo('yellowCount', g.user.yellowCouponCount);
             g.user.blueCouponCount = int(ob.blue_count);
+            g.userValidates.updateInfo('softCount', g.user.softCurrencyCount);
             g.user.greenCouponCount = int(ob.green_count);
+            g.userValidates.updateInfo('greenCount', g.user.greenCouponCount);
             g.user.globalXP = int(ob.xp);
+            g.userValidates.updateInfo('xpGlobal', g.user.globalXP);
             g.user.allNotification = int(ob.notification_new);
             if (!g.isDebug) {
                 if (ob.music == '1') g.soundManager.enabledMusic(true);
@@ -751,11 +762,13 @@ public class DirectServer {
             else g.user.wallTrainItem = true;
 
             g.user.level = int(ob.level);
+            g.userValidates.updateInfo('level', g.user.level);
             g.user.checkUserLevel();
             g.managerDailyBonus.fillFromServer(ob.daily_bonus_day, int(ob.count_daily_bonus));
             g.managerChest.fillFromServer(ob.chest_day, int(ob.count_chest));
             
             g.user.countCats = int(ob.count_cats);
+            g.userValidates.updateInfo('countCats', g.user.countCats);
             if (ob.scale) {
                 g.currentGameScale = int(ob.scale) / 100;
             }
