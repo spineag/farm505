@@ -31,6 +31,8 @@ import utils.Utils;
 import windows.WindowsManager;
 import com.adobe.crypto.MD5;
 
+import windows.gameError.PreloadInfoTab;
+
 
 public class DirectServer {
     private var g:Vars = Vars.getInstance();
@@ -702,6 +704,13 @@ public class DirectServer {
             var i:int;
             Cc.ch('server', 'getUserInfo OK', 5);
             var ob:Object = d.message;
+            var check:int = int(ob.ambar_max) + int(ob.sklad_max) + int(ob.ambar_level) + int(ob.sklad_level) + int(ob.hard_count) + int(ob.soft_count) +
+                    int(ob.yellow_count) + int(ob.green_count) + int(ob.red_count) + int(ob.blue_count) + int(ob.level) + int(ob.xp) + int(ob.count_cats) +
+                    int(ob.tutorial_step) + int(ob.count_chest) + int(ob.count_daily_bonus);
+            if (check != int(ob.test_date)) {
+                wrongDataFromServer('getUserInfo');
+                return;
+            }
             g.user.ambarLevel = int(ob.ambar_level);
             g.user.skladLevel = int(ob.sklad_level);
             g.user.ambarMaxCount = int(ob.ambar_max);
@@ -723,7 +732,6 @@ public class DirectServer {
                 g.soundManager.enabledMusic(false);
                 g.soundManager.enabledSound(false);
             }
-//            g.userTimer.timerAtPapper = int(ob.time_paper);
             if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
                 else g.userTimer.timerAtPapper = 300 - (int(new Date().getTime() / 1000) - int(ob.time_paper));
             if (g.userTimer.timerAtPapper > 300) g.userTimer.timerAtPapper = 300;
@@ -6267,8 +6275,14 @@ public class DirectServer {
         Cc.error('IOError:: ' + e.text);
     }
 
+    private function wrongDataFromServer(st:String):void {
+        new PreloadInfoTab('Ошибка данных.');
+        Cc.error('wrong data from server:: ' + st);
+    }
+
     private function internetNotWork(ev:Event):void {
         if (g.windowsManager) g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
+            else new PreloadInfoTab('Ошибка соединения.');
         Cc.error('no inet');
     }
 }
