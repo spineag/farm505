@@ -13,8 +13,11 @@ public class Someone {
     public var idVisitItemFromPaper:int;
     public var marketCell:int = -1;
     public var userDataCity:UserDataCity;
+    public var needHelpCount:int;
+    public var needHelp:Boolean = false;
 
     public function Someone() {
+        needHelpCount = 0;
         userDataCity = new UserDataCity();
     }
 }

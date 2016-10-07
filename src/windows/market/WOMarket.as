@@ -208,7 +208,6 @@ public class WOMarket  extends WindowMain {
     }
 
     private function fillFriends(e:SocialNetworkEvent=null):void {
-//        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
         _arrFriends = g.user.arrFriends.slice();
 
         for (var i:int = 0; i <_arrFriends.length; i++) {

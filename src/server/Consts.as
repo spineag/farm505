@@ -15,7 +15,6 @@ public class Consts {
     public static var INQ_DATA_BUY_MONEY:String = 'getDataBuyMoney.php';
     public static var INQ_START:String = 'start.php';
     public static var INQ_USER_INFO:String = 'getUserInfo.php';
-    public static var INQ_FRIENDS_INFO:String = 'getFriendsInfo.php';
     public static var INQ_ALL_FRIENDS_INFO:String = 'getAllFriendsInfo.php';
     public static var INQ_UPDATE_USER_TUTORIAL_STEP:String = 'updateUserTutorialStep.php';
     public static var INQ_USER_MONEY:String = 'addUserMoney.php';

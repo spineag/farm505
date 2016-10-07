@@ -9,8 +9,6 @@ public class UserDataCity {
     public var plants:Array;
     public var recipes:Array;
 
-    public function UserDataCity() {
-
-    }
+    public function UserDataCity() {}
 }
 }
