@@ -149,10 +149,6 @@ public class ManagerCutScenes {
     }
 
     private function checkTypeFunctions():void {
-        if (!g.allData.factory['tutorialCatBig']) {
-            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCat', checkTypeFunctions);
-            return;
-        }
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         try {
             switch (_curCutScenePropertie.id_action) {
@@ -288,6 +284,10 @@ public class ManagerCutScenes {
     }
 
     private function releaseDecor():void {
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseDecor);
+            return;
+        }
         _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseDecor');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -350,6 +350,10 @@ public class ManagerCutScenes {
     }
 
     private function releaseToInventoryDecor():void {
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseToInventoryDecor);
+            return;
+        }
         _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseToInventoryDecor');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -411,6 +415,10 @@ public class ManagerCutScenes {
     }
 
     private function releaseFromInventoryDecor():void {
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseFromInventoryDecor);
+            return;
+        }
         _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseFromInventoryDecor');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -495,6 +503,10 @@ public class ManagerCutScenes {
         isCutScene = false;
         return;
 
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseAvailableTrain);
+            return;
+        }
         _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseAvailableTrain');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -536,6 +548,10 @@ public class ManagerCutScenes {
         isCutScene = false;
         return;
 
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseOpenTrain);
+            return;
+        }
         _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseOpenTrain');
         g.toolsModifier.modifierType = ToolsModifier.NONE;

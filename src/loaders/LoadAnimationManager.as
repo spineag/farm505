@@ -40,6 +40,7 @@ public class LoadAnimationManager {
         var i:int;
         if (additionalQueue[url] && additionalQueue[url].length) {
             for (i = 0; i < additionalQueue[url].length; i++) {
+                if (i>50) break;
                 if (additionalQueue[url][i].callback != null) {
                     additionalQueue[url][i].callback.apply(null, additionalQueue[url][i].callbackParams);
                 }
