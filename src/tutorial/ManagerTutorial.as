@@ -260,7 +260,10 @@ public class ManagerTutorial {
 
     private function subStep2_1():void {
         _subStep = 1;
-        cutScene.reChangeBubble(texts[g.user.tutorialStep][_subStep], texts['lookAround'], emptyFunction, subStep2_2a, subStep2_2);
+
+        // remove fullscreen and go to subStep2_2a
+//        cutScene.reChangeBubble(texts[g.user.tutorialStep][_subStep], texts['lookAround'], emptyFunction, subStep2_2a, subStep2_2);
+        subStep2_2a();
     }
 
     private function subStep2_2():void {

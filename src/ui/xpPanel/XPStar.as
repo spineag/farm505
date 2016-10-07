@@ -58,8 +58,6 @@ public class XPStar {
     private function flyItStar():void {
         var endX:int = Starling.current.nativeStage.stageWidth - 168;
         var endY:int = 35;
-//        var endX:int = g.xpPanel._imageStar.x;
-//        var endY:int = g.xpPanel._imageStar.y;
         _txtStar.text = '+' + String(_xp);
 
         var f1:Function = function():void {
@@ -68,10 +66,9 @@ public class XPStar {
                 _source.removeChildAt(0);
             }
             _source = null;
-            g.xpPanel.animationStar();
-            g.xpPanel.addXP();
+            g.xpPanel.visualAddXP();
         };
-        g.xpPanel.serverAdd(_xp);
+        g.xpPanel.serverAddXP(_xp);
         var tempX:int;
         _source.x < endX ? tempX = _source.x + 70 : tempX = _source.x - 70;
         var tempY:int = _source.y + 30 + int(Math.random()*20);

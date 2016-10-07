@@ -228,6 +228,7 @@ public class WOMarket  extends WindowMain {
     }
 
     override public function showItParams(f:Function, params:Array):void {
+        if (!g.userValidates.checkInfo('level', g.user.level)) return;
         _arrFriends = [];
         fillFriends();
         _countPage = 1;

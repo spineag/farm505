@@ -88,6 +88,7 @@ public class User extends Someone {
             } else {
                 xp = globalXP - g.dataLevel.objectLevels[level].totalXP;
             }
+        g.userValidates.updateInfo('xp', xp);
     }
 
     public function friendAppUser():void {

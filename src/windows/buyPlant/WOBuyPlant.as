@@ -55,6 +55,7 @@ public class WOBuyPlant extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        if (!g.userValidates.checkInfo('level', g.user.level)) return;
         _ridge = params[0];
         _callback = callback;
         if (!_ridge) {

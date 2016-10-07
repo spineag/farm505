@@ -56,6 +56,7 @@ public class WOCave extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        if (!g.userValidates.checkInfo('level', g.user.level)) return;
         try {
             var f1:Function = function (id:int):void {
                 if (callback != null) {

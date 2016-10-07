@@ -76,6 +76,7 @@ public class WOLockedLand extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        if (!g.userValidates.checkInfo('level', g.user.level)) return;
         _dataLand = params[0];
         _land = params[1];
 

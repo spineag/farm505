@@ -65,12 +65,16 @@ public class UserInventory {
             Cc.error('UserInventory addResource:: try to add count=0 for resource id: ' + id);
             return;
         }
+        if (!g.userValidates.checkInfo('ambarMax', g.user.ambarMaxCount)) return;
+        if (!g.userValidates.checkInfo('skladMax', g.user.skladMaxCount)) return;
         if (!_inventoryResource[id]) _inventoryResource[id] = 0;
+        if (!g.userValidates.checkResources(id, _inventoryResource[id])) return;
         _inventoryResource[id] += count;
         if (_inventoryResource[id] < 0) {
             _inventoryResource[id] = 0;
             Cc.error('UserInventory addResource:: count resource < 0 for resource id: ' + id + ' after addResource count: ' + count);
         }
+        g.userValidates.updateResources(id, _inventoryResource[id]);
         g.updateAmbarIndicator();
         if (g.managerPendingRequest && g.managerPendingRequest.isActive) {
             g.managerPendingRequest.updateResource(id);
@@ -86,6 +90,7 @@ public class UserInventory {
             Cc.error('UserInventory addResourceFromServer:: duplicate for resourceId: ' + id);
         }
         _inventoryResource[id] = count;
+        g.userValidates.updateResources(id, count);
     }
 
     public function getResourcesForAmbar():Array {
@@ -162,63 +167,49 @@ public class UserInventory {
         var newCount:int = 0;
         switch (typeCurrency) {
             case DataMoney.HARD_CURRENCY:
+                if (!g.userValidates.checkInfo('hardCount', g.user.hardCurrency)) return;
                 g.soundManager.playSound(SoundConst.COINS_PLUS);
                 g.user.hardCurrency += count;
+                g.userValidates.updateInfo('hardCount', g.user.hardCurrency);
                 g.softHardCurrency.checkHard();
                 newCount = g.user.hardCurrency;
                 break;
             case DataMoney.SOFT_CURRENCY:
+                if (!g.userValidates.checkInfo('softCount', g.user.softCurrencyCount)) return;
                 g.soundManager.playSound(SoundConst.COINS_PLUS);
                 g.user.softCurrencyCount += count;
+                g.userValidates.updateInfo('softCount', g.user.softCurrencyCount);
                 g.softHardCurrency.checkSoft();
                 newCount = g.user.softCurrencyCount;
                 break;
             case DataMoney.BLUE_COUPONE:
+                if (!g.userValidates.checkInfo('blueCount', g.user.blueCouponCount)) return;
                 g.user.blueCouponCount += count;
+                g.userValidates.updateInfo('blueCount', g.user.blueCouponCount);
                 newCount = g.user.blueCouponCount;
                 break;
             case DataMoney.YELLOW_COUPONE:
+                if (!g.userValidates.checkInfo('yellowCount', g.user.yellowCouponCount)) return;
                 g.user.yellowCouponCount += count;
+                g.userValidates.updateInfo('yellowCount', g.user.yellowCouponCount);
                 newCount = g.user.yellowCouponCount;
                 break;
             case DataMoney.RED_COUPONE:
+                if (!g.userValidates.checkInfo('redCount', g.user.redCouponCount)) return;
                 g.user.redCouponCount += count;
+                g.userValidates.updateInfo('redCount', g.user.redCouponCount);
                 newCount = g.user.redCouponCount;
                 break;
             case DataMoney.GREEN_COUPONE:
+                if (!g.userValidates.checkInfo('greenCount', g.user.greenCouponCount)) return;
                 g.user.greenCouponCount += count;
+                g.userValidates.updateInfo('greenCount', g.user.greenCouponCount);
                 newCount = g.user.greenCouponCount;
                 break;
         }
 
         if (needSendToServer)
             g.directServer.addUserMoney(typeCurrency, newCount, null);
-    }
-
-    public function dropMoney(typeCurrency:int, count:int):void {
-        if (count == 0) return;
-        var newCount:int = 0;
-        switch (typeCurrency) {
-            case DataMoney.HARD_CURRENCY:
-                newCount = g.user.hardCurrency + count;
-                break;
-            case DataMoney.SOFT_CURRENCY:
-                newCount = g.user.softCurrencyCount + count;
-                break;
-            case DataMoney.BLUE_COUPONE:
-                newCount = g.user.blueCouponCount + count;
-                break;
-            case DataMoney.YELLOW_COUPONE:
-                newCount = g.user.yellowCouponCount + count;
-                break;
-            case DataMoney.RED_COUPONE:
-                newCount = g.user.redCouponCount + count;
-                break;
-            case DataMoney.GREEN_COUPONE:
-                newCount = g.user.greenCouponCount + count;
-                break;
-        }
-        g.directServer.addUserMoney(typeCurrency, newCount, null);
     }
 
     public function addNewElementsAfterGettingNewLevel():void {
@@ -229,16 +220,15 @@ public class UserInventory {
             }
         }
 
-
         var build:Object = g.dataBuilding.objectBuilding;
-       res = g.dataAnimal.objectAnimal;
+        res = g.dataAnimal.objectAnimal;
         for (id in build) {
             if (build[id].buildType == BuildType.FARM) {
                 for (var i:int = 0; i < build[id].blockByLevel.length; i++) {
                     if (build[id].blockByLevel[i] == g.user.level) {
                         for (var idA:String in res) {
                             if (build[id].id == res[idA].buildId) {
-                                g.userInventory.addResource(res[idA].idResourceRaw, 3);  // add feed for animals
+                                addResource(res[idA].idResourceRaw, 3);  // add feed for animals
                                 return;
                             }
                         }

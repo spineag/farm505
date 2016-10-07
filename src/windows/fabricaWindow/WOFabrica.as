@@ -48,6 +48,7 @@ public class WOFabrica extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        if (!g.userValidates.checkInfo('level', g.user.level)) return;
         _fabrica = params[2];
         _callbackOnClick = callback;
         _arrAllRecipes = params[0];

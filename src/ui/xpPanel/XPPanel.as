@@ -78,11 +78,15 @@ public class XPPanel {
         _source.x = Starling.current.nativeStage.stageWidth - 170;
     }
 
-    public function addXP():void{
+    public function visualAddXP():void{
+        animationStar();
         g.soundManager.playSound(SoundConst.XP_PLUS);
         if (g.user.xp >= _maxXP){
             g.user.xp -= _maxXP;
+            if (!g.userValidates.checkInfo('level', g.user.level)) return;
+            g.userValidates.updateInfo('xp', g.user.xp);
             g.user.level++;
+            g.userValidates.updateInfo('level', g.user.level);
             _txtLevel.text = String(g.user.level);
             if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
@@ -118,9 +122,13 @@ public class XPPanel {
         checkXP();
     }
 
-    public function serverAdd(count:int):void {
+    public function serverAddXP(count:int):void {
+        if (!g.userValidates.checkInfo('xp', g.user.xp)) return;
+        if (!g.userValidates.checkInfo('xpGlobal', g.user.globalXP)) return;
         g.user.xp += count;
         g.user.globalXP += count;
+        g.userValidates.updateInfo('xpGlobal', g.user.globalXP);
+        g.userValidates.updateInfo('xp', g.user.xp);
         g.directServer.addUserXP(g.user.globalXP, null);
     }
 
@@ -137,7 +145,8 @@ public class XPPanel {
     private function onOut():void {
         g.hint.hideIt();
     }
-    public function animationStar():void {
+
+    private function animationStar():void {
         var tween:Tween = new Tween(_imageStar, 0.3);
         tween.scaleTo(1.5);
         tween.onComplete = function ():void {

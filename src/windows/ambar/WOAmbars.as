@@ -392,22 +392,30 @@ public class WOAmbars extends WindowMain {
         var needCountForUpdate:int;
         var st:String;
         if (_type == AMBAR) {
+            if (!g.userValidates.checkInfo('ambarMax', g.user.ambarMaxCount)) return;
+            if (!g.userValidates.checkInfo('ambarLevel', g.user.ambarLevel)) return;
             needCountForUpdate = g.dataBuilding.objectBuilding[12].startCountInstrumets + g.dataBuilding.objectBuilding[12].deltaCountAfterUpgrade * (g.user.ambarLevel - 1);
             g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId1, -needCountForUpdate);
             g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId2, -needCountForUpdate);
             g.userInventory.addResource(g.dataBuilding.objectBuilding[12].upInstrumentId3, -needCountForUpdate);
             g.user.ambarLevel++;
             g.user.ambarMaxCount += g.dataBuilding.objectBuilding[12].deltaCountResources;
+            g.userValidates.updateInfo('ambarLevel', g.user.ambarLevel);
+            g.userValidates.updateInfo('ambarMax', g.user.ambarMaxCount);
             st = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
             _progress.setProgress(g.userInventory.currentCountInAmbar / g.user.ambarMaxCount);
             g.directServer.updateUserAmbar(1, g.user.ambarLevel, g.user.ambarMaxCount, null);
         } else {
+            if (!g.userValidates.checkInfo('skladMax', g.user.skladMaxCount)) return;
+            if (!g.userValidates.checkInfo('skladLevel', g.user.skladLevel)) return;
             needCountForUpdate = g.dataBuilding.objectBuilding[13].startCountInstrumets + g.dataBuilding.objectBuilding[13].deltaCountAfterUpgrade * (g.user.skladLevel - 1);
             g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId1, -needCountForUpdate);
             g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId2, -needCountForUpdate);
             g.userInventory.addResource(g.dataBuilding.objectBuilding[13].upInstrumentId3, -needCountForUpdate);
             g.user.skladLevel++;
             g.user.skladMaxCount += g.dataBuilding.objectBuilding[13].deltaCountResources;
+            g.userValidates.updateInfo('skladLevel', g.user.skladLevel);
+            g.userValidates.updateInfo('skladMax', g.user.skladMaxCount);
             st = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
             _progress.setProgress(g.userInventory.currentCountInSklad / g.user.skladMaxCount);
             g.directServer.updateUserAmbar(2, g.user.skladLevel, g.user.skladMaxCount, null);
