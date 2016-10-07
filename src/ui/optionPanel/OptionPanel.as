@@ -242,6 +242,9 @@ public class OptionPanel {
         var im:Image;
         switch (reason) {
             case 'fullscreen':
+                g.bottomPanel.cancelBoolean(false);
+                g.toolsModifier.modifierType = ToolsModifier.NONE;
+                g.toolsModifier.cancelMove();
                     try {
                         var func:Function = function(e:flash.events.Event):void {
                             Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);

@@ -134,6 +134,7 @@ public class DropItem {
                         break;
                 }
                 g.userInventory.addMoney(prise.id, prise.count,false);
+                if (g.managerTips) g.managerTips.calculateAvailableTips();
             }
         };
         var tempX:int = _source.x - 140 + int(Math.random()*140);

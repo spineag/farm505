@@ -32,6 +32,7 @@ public class Hint {
     private var _type:String;
     private var _timeHint:int;
     private var _fabric:Boolean;
+    private var _tips:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function Hint() {
@@ -48,6 +49,7 @@ public class Hint {
     public function showIt(st:String, type:String = 'none', newX:int = 0, time:int = 0):void {
         _fabric = false;
         _catXp = false;
+        _tips = false;
         _timeHint = 0;
         switch (type) {
             case 'none':
@@ -75,6 +77,10 @@ public class Hint {
                 _txtHint.text = st;
                 g.gameDispatcher.addToTimer(timer);
 //                    return;
+                break;
+            case 'tips':
+                _tips = true;
+                _txtHint.text = st;
                 break;
         }
         _txtHint.updateIt();
@@ -119,7 +125,10 @@ public class Hint {
         if(_isShow) return;
         _isShow = true;
         g.cont.hintCont.addChild(source);
-        g.gameDispatcher.addEnterFrame(onEnterFrame);
+        if (_tips) {
+            source.x = g.ownMouse.mouseX;
+             source.y = Starling.current.nativeStage.stageHeight - source.height - 100;
+        } else g.gameDispatcher.addEnterFrame(onEnterFrame);
 //        source.scaleX = source.scaleY = 0;
 //        tween = new Tween(source, 0.4);
 //        tween.scaleTo(1);

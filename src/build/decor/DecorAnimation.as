@@ -41,14 +41,15 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function onCreateBuild():void {
+
+        WorldClock.clock.add(_armature);
+        _armature.animation.gotoAndPlayByFrame('idle');
+        _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
+        _source.registerHitArea(_hitArea);
         if (!g.isAway) {
-            WorldClock.clock.add(_armature);
-            _armature.animation.gotoAndPlayByFrame('idle');
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
-            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
-            _source.registerHitArea(_hitArea);
         }
     }
 

@@ -100,7 +100,7 @@ public class TipsPanel {
     private function onHover():void {
         if (_onHover) return;
         _onHover = true;
-        g.hint.showIt("Подсказки",'none',1);
+        g.hint.showIt("Подсказки",'tips',1);
     }
 
     private function onOut():void {

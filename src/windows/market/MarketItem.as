@@ -645,6 +645,13 @@ public class MarketItem {
             }
         } else { //have Item
             isFill = 1;
+            if (_person is NeighborBot) {
+                if (g.dataResource.objectResources[_dataFromServer.resourceId].buildType == BuildType.INSTRUMENT) {
+                    _dataFromServer.resourceCount = 3;
+                    _dataFromServer.cost *= 3;
+                }
+            }
+
             _inPapper = _dataFromServer.inPapper;
             fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost);
             if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) { //have item but your level so small
