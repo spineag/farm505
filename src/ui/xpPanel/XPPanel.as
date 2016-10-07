@@ -88,6 +88,9 @@ public class XPPanel {
             g.user.level++;
             g.userValidates.updateInfo('level', g.user.level);
             _txtLevel.text = String(g.user.level);
+//            if (g.windowsManager.currentWindow.windowType == WindowsManager.POST_OPEN_FABRIC) {
+//                g.windowsManager.cashWindow = g.windowsManager.currentWindow;
+//            }
             if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                 if (g.managerCutScenes.isCutScene) return;

@@ -100,6 +100,15 @@ public class TipsPanel {
     private function onHover():void {
         if (_onHover) return;
         _onHover = true;
+
+        var fEndOver:Function = function(e:Event=null):void {
+            _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            animateGuys();
+        };
+        _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+        _armature.animation.gotoAndPlayByFrame('idle_6');
         g.hint.showIt("Подсказки",'tips',1);
     }
 
@@ -130,7 +139,7 @@ public class TipsPanel {
 
     private var _counter:int=0;
     private function animateGuys():void {
-        var n:int = int(Math.random()*7);
+        var n:int = int(Math.random()*6);
         switch (n) {
             case 0:
             case 1:
@@ -146,15 +155,10 @@ public class TipsPanel {
                 break;
             case 4:
             case 5:
+                _counter = 3;
                 _armature.animation.gotoAndPlayByFrame('idle_3');
                 _armature.addEventListener(EventObject.COMPLETE, fEnd);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd);
-                break;
-            case 6:
-                _counter = 3;
-                _armature.animation.gotoAndPlayByFrame('idle_6');
-                _armature.addEventListener(EventObject.COMPLETE, fEnd6);
-                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEnd6);
                 break;
         }
     }

@@ -23,6 +23,7 @@ import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WindowMain;
+import windows.WindowsManager;
 
 public class PostOpenFabric  extends WindowMain {
     private var _btn:CButton;
@@ -35,6 +36,7 @@ public class PostOpenFabric  extends WindowMain {
 //            return;
 //        }
 //        g.windowsManager.cashWindow = this;
+        _windowType = WindowsManager.POST_OPEN_FABRIC;
         _woHeight = 510;
         _woWidth = 510;
 
