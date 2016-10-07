@@ -32,6 +32,7 @@ import utils.CButton;
 
 import utils.CSprite;
 import utils.CTextField;
+import utils.MCScaler;
 
 import windows.WOComponents.HorizontalPlawka;
 
@@ -47,25 +48,14 @@ public class FriendPanel {
     private var _count:int;
     private var _shift:int;
     private var _addFriendsBtn:CButton;
+    private var _tab1:CSprite;
+    private var _tab2:CSprite;
 
     private var g:Vars = Vars.getInstance();
     public function FriendPanel() {
         _source = new Sprite();
         onResize();
         g.cont.interfaceCont.addChild(_source);
-        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_left'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_center'),
-                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_right'), 465);
-        _source.addChild(pl);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
-        im.x = 20;
-        im.y = -23;
-        _source.addChild(im);
-        var txt:CTextField = new CTextField(106, 27, "Мои друзья");
-        txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
-        txt.x = 30;
-        txt.y = -23;
-        _source.addChild(txt);
-
         _mask = new Sprite();
         _mask.x = 105;
         _mask.y = 7;
@@ -73,11 +63,46 @@ public class FriendPanel {
         _mask.mask = new Quad(328, 90);
         _mask.addChild(_cont);
         _source.addChild(_mask);
-
+        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_left'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_center'),
+                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_right'), 465);
+        _source.addChild(pl);
+        createTabs();
         createAddFriendBtn();
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
         _maxFriend = 0;
         _count = 0;
+    }
+
+    private function createTabs():void {
+        _tab1 = new CSprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
+        im.x = 20;
+        im.y = -23;
+        _tab1.addChild(im);
+        var txt:CTextField = new CTextField(106, 27, "Мои друзья");
+        txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
+        txt.x = 30;
+        txt.y = -23;
+        _tab1.addChild(txt);
+        _source.addChild(_tab1);
+
+        _tab2 = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
+        im.x = 20;
+        im.y = -23;
+        _tab2.addChild(im);
+        txt = new CTextField(106, 27, "Нужна помощь");
+        txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
+        txt.x = 30;
+        txt.y = -23;
+        _tab2.addChild(txt);
+        _tab2.x = 120;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+        MCScaler.scale(im, 20, 20);
+        im.x = 128;
+        im.y = -25;
+        _tab2.addChild(im);
+        _source.addChildAt(_tab2, 0);
     }
 
     private function createAddFriendBtn():void {

@@ -49,6 +49,7 @@ public class WOPapperItem {
     private var _btnBuyBot:CButton;
     private var _btnDelete:CButton;
     private var _preloader:FlashAnimatedPreloader;
+    private var _helpIcon:Image;
 
     private var g:Vars = Vars.getInstance();
 
@@ -193,6 +194,12 @@ public class WOPapperItem {
             arr.push('Мария Головина');
 
             _txtUserName.text =   String(arr[int(Math.random()*arr.length)]);
+        }
+        if (_p.needHelpCount > 0) {
+            _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+            _helpIcon.x = 140;
+            _helpIcon.y = 2;
+            source.addChild(_helpIcon);
         }
         source.endClickCallback = onClickVisit;
         if (_data.isOpened) {

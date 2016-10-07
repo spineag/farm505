@@ -23,6 +23,7 @@ public class ManagerPaper {
             ob.userId = int(ar[i].user_id);
             ob.userSocialId = ar[i].user_social_id;
             ob.cost = int(ar[i].cost);
+            ob.needHelp = int(ar[i].need_help);
             ob.isBuyed = false;
             ob.isBotBuy = false;
             ob.isOpened = false;

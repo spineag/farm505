@@ -240,6 +240,7 @@ public class User extends Someone {
         for (var i:int=0; i<d.length; i++) {
             someOne = getSomeoneBySocialId(d[i].social_id);
             someOne.level = int(d[i].level);
+            someOne.needHelpCount = int(d[i].need_help);
         }
     }
 }
