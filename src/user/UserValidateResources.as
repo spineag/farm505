@@ -13,7 +13,6 @@ public class UserValidateResources {
     private var K2:int = 11;
 
     private var xp:int;
-    private var xpGlobal:int;
     private var level:int;
     private var resources:Object;
     private var softCount:int;
@@ -50,7 +49,6 @@ public class UserValidateResources {
             case 'skladLevel': skladLevel = count*K1 + K2; break;
             case 'skladMax': skladMax = count*K1 + K2; break;
             case 'countCats': countCats = count*K1 + K2; break;
-            case 'xpGlobal': xpGlobal = count*K1 + K2; break;
             default:  Cc.error('UserValidResources initInfo:: unknown reason: ' + reason); break;
         }
     }
@@ -87,7 +85,6 @@ public class UserValidateResources {
             case 'skladLevel': isGood = skladLevel == count*K1 + K2; break;
             case 'skladMax': isGood = skladMax == count*K1 + K2; break;
             case 'countCats': isGood = countCats == count*K1 + K2; break;
-            case 'xpGlobal': isGood = xpGlobal == count*K1 + K2; break;
             default:  Cc.error('UserValidResources initInfo:: unknown reason: ' + reason); break;
         }
         if (!isGood) {

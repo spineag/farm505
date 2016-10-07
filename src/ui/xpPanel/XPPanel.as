@@ -124,10 +124,8 @@ public class XPPanel {
 
     public function serverAddXP(count:int):void {
         if (!g.userValidates.checkInfo('xp', g.user.xp)) return;
-        if (!g.userValidates.checkInfo('xpGlobal', g.user.globalXP)) return;
         g.user.xp += count;
         g.user.globalXP += count;
-        g.userValidates.updateInfo('xpGlobal', g.user.globalXP);
         g.userValidates.updateInfo('xp', g.user.xp);
         g.directServer.addUserXP(g.user.globalXP, null);
     }

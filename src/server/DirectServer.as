@@ -732,7 +732,6 @@ public class DirectServer {
             g.user.greenCouponCount = int(ob.green_count);
             g.userValidates.updateInfo('greenCount', g.user.greenCouponCount);
             g.user.globalXP = int(ob.xp);
-            g.userValidates.updateInfo('xpGlobal', g.user.globalXP);
             g.user.allNotification = int(ob.notification_new);
             if (!g.isDebug) {
                 if (ob.music == '1') g.soundManager.enabledMusic(true);
@@ -907,58 +906,6 @@ public class DirectServer {
             Cc.error('updateUserTester: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTutorialStep: id: ' + d.id + '  with message: ' + d.message);
-        }
-    }
-
-    public function getFriendsInfo(userSocialId:int,_person:Someone,callback:Function):void {
-        var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_FRIENDS_INFO);
-        var variables:URLVariables = new URLVariables();
-
-        Cc.ch('server', 'getFriendsInfo', 1);
-        variables = addDefault(variables);
-        variables.userSocialId = userSocialId;
-        variables.hash = MD5.hash(String(g.user.userId)+String(userSocialId)+SECRET);
-        request.data = variables;
-        request.method = URLRequestMethod.POST;
-        iconMouse.startConnect();
-        loader.addEventListener(Event.COMPLETE, onCompleteFriendsInfo);
-        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
-        function onCompleteFriendsInfo(e:Event):void { completeFriendsInfo(e.target.data,_person, callback); }
-        try {
-            loader.load(request);
-        } catch (error:Error) {
-            Cc.error('getFriendsInfo error:' + error.errorID);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
-        }
-    }
-
-    private function completeFriendsInfo(response:String,_person:Someone, callback:Function = null):void {
-        iconMouse.endConnect();
-        var d:Object;
-        try {
-            d = JSON.parse(response);
-        } catch (e:Error) {
-            Cc.error('getFriendsInfo: wrong JSON:' + String(response));
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsInfo: wrong JSON:' + String(response));
-            return;
-        }
-
-        if (d.id == 0) {
-            Cc.ch('server', 'getFriendsInfo OK', 5);
-                _person.level = d.message.level;
-            if (callback != null) {
-                callback.apply();
-            }
-        } else if (d.id == 13) {
-            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
-        } else if (d.id == 6) {
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
-        } else {
-            Cc.error('getFriendsInfo: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 

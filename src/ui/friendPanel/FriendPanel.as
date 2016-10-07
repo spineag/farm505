@@ -351,7 +351,7 @@ public class FriendPanel {
             arr.push(_arrFriends[i].userSocialId);
         }
 
-        if (arr.length > 0)g.directServer.getAllFriendsInfo(arr, sortFriend);
+        if (arr.length > 0) g.directServer.getAllFriendsInfo(arr, sortFriend);
         else noFriends();
     }
 
