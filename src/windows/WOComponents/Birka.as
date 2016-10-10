@@ -30,8 +30,8 @@ public class Birka extends Sprite{
         createAll();
 
         _source.touchable = false;
-        _source.y = -h/2 + _curH/2 + 180;
-        _source.x = -w/2 + 14;
+        _source.y = int(-h/2 + _curH/2 + 180);
+        _source.x = int(-w/2 + 14);
         _parent.addChild(_source);
     }
 
@@ -39,6 +39,7 @@ public class Birka extends Sprite{
         var tW:int = int(_txt.textBounds.width);
         var catIm:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_cat'));
         _curH = int(catIm.height) + tW + 50;
+        if (_curH%2) _curH++;
         _source.addChild(_bg);
 
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_d'));
@@ -53,8 +54,8 @@ public class Birka extends Sprite{
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_c'));
         im.tileGrid = new Rectangle();
         im.x = -im.width;
-        im.y = -_curH + 36;
-        im.height = _curH - 80;
+        im.y = -_curH + 34;
+        im.height = _curH - 76;
         _bg.addChildAt(im, 0);
 
 //        var cCount:int = Math.ceil((_curH - 80)/43) + 1;

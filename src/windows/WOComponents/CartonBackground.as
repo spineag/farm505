@@ -17,11 +17,7 @@ public class CartonBackground extends Sprite{
     public function CartonBackground(w:int, h:int) {
         var im:Image;
         var tex:TextureAtlas = g.allData.atlas['interfaceAtlas'];
-        var countW:int;
-        var countH:int;
         var arr:Array = [];
-        var i:int;
-        var delta:int = 5;
 
         if (w%2) w++;
         if (h%2) h++;
