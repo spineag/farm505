@@ -41,6 +41,7 @@ import windows.shop.WOShop;
 public class MainBottomPanel {
     private var _source:Sprite;
     private var _friendBoard:Sprite;
+    private var _friendBoardHelpInfo:Image;
     private var _shopBtn:CButton;
     private var _toolsBtn:CButton;
     private var _optionBtn:CSprite;
@@ -392,6 +393,7 @@ public class MainBottomPanel {
         _orderBtn.visible = !b;
         _toolsBtn.visible = !b;
         _cancelBtn.visible = false;
+        removeHelpIcon();
         if(b) {
             while (_friendBoard.numChildren) {
                 _friendBoard.removeChildAt(0);
@@ -447,6 +449,24 @@ public class MainBottomPanel {
         txt.x = 55;
         txt.y = 49;
         _friendBoard.addChild(txt);
+    }
+
+    public function addHelpIcon():void {
+        // _person === g.visitedUser
+        if (_person && _person.needHelpCount > 0) {
+            _friendBoardHelpInfo = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+            _friendBoardHelpInfo.x = 65;
+            _friendBoardHelpInfo.y = 5;
+            _friendBoard.addChild(_friendBoardHelpInfo);
+        }
+    }
+
+    public function removeHelpIcon():void {
+        if (_friendBoardHelpInfo) {
+            if (_friendBoard.contains(_friendBoardHelpInfo)) _friendBoard.removeChild(_friendBoardHelpInfo);
+            _friendBoardHelpInfo.dispose();
+            _friendBoardHelpInfo = null;
+        }
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {

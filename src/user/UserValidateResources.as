@@ -3,9 +3,7 @@
  */
 package user {
 import com.junkbyte.console.Cc;
-
 import manager.Vars;
-
 import windows.WindowsManager;
 
 public class UserValidateResources {
@@ -59,7 +57,9 @@ public class UserValidateResources {
     }
 
     public function checkResources(id:int, count:int):Boolean {
-        if (g.isDebug || g.user.isTester || g.user.isMegaTester) {
+        return true;
+//        if (g.isDebug || g.user.isTester || g.user.isMegaTester) {
+        if (g.isDebug) {
             var c:int = count * K1 + K2;
             if (c == resources[id]) {
                 return true;
@@ -71,10 +71,10 @@ public class UserValidateResources {
         } else return true;
     }
 
-import com.junkbyte.console.Cc;
-
 public function checkInfo(reason:String, count:int):Boolean {
-        if (g.isDebug || g.user.isTester || g.user.isMegaTester) {
+    return true;
+//        if (g.isDebug || g.user.isTester || g.user.isMegaTester) {
+        if (g.isDebug) {
             var isGood:Boolean = false;
             switch (reason) {
                 case 'xp': isGood = xp == count*K1 + K2; break;

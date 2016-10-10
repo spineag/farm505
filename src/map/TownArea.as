@@ -1397,6 +1397,8 @@ public class TownArea extends Sprite {
         _awayPreloader = null;
         if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         startDecorAnimation();
+
+        g.user.calculateReasonForHelpAway();
     }
 
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {

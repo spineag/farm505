@@ -84,15 +84,19 @@ public class WOChest  extends WindowMain{
     }
 
     private function closeAnimation():void {
-            var fEndOver:Function = function(e:Event=null):void {
+        var fEndOver:Function = function(e:Event=null):void {
+            if (_armature) {
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-                if (g.managerTutorial.isTutorial) hideItTutorial();
-                else hideIt();
-            };
+            }
+            if (g.managerTutorial.isTutorial) hideItTutorial();
+            else hideIt();
+        };
+        if (_armature) {
             _armature.addEventListener(EventObject.COMPLETE, fEndOver);
             _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
             _armature.animation.gotoAndPlayByFrame('idle_3');
+        }
     }
 
     override public function hideIt():void {

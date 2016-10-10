@@ -191,15 +191,19 @@ public class FriendPanel {
     }
 
     private function checkArrows():void {
-        if (_shift <= 0) {
-            _leftArrow.setEnabled = false;
-        } else {
-            _leftArrow.setEnabled = true;
+        if (_leftArrow) {
+            if (_shift <= 0) {
+                _leftArrow.setEnabled = false;
+            } else {
+                _leftArrow.setEnabled = true;
+            }
         }
-        if (_shift + 5 >= _arrFriends.length) {
-            _rightArrow.setEnabled = false;
-        } else {
-            _rightArrow.setEnabled = true;
+        if (_rightArrow) {
+            if (_shift + 5 >= _arrFriends.length) {
+                _rightArrow.setEnabled = false;
+            } else {
+                _rightArrow.setEnabled = true;
+            }
         }
     }
 
@@ -208,11 +212,17 @@ public class FriendPanel {
         fillFriends();
     }
 
+    public function updateFriendsPanel():void {
+        if (_activeTabType == TYPE_NEED_HELP) {
+            fillFriends();
+        }
+    }
+
     private function fillFriends():void {
         clearItems();
         if (_activeTabType == TYPE_NORMAL) {
             _arrFriends = g.user.arrFriends.slice();
-        } else {
+        } else if (_activeTabType == TYPE_NEED_HELP) {
             var ar:Array = g.user.arrFriends.slice();
             _arrFriends = [];
             for (var i:int=0; i<ar.length; i++) {
@@ -220,93 +230,95 @@ public class FriendPanel {
             }
         }
 
-        var bt:CButton;
-        var im:Image;
-        var txt:CTextField;
-        if (_arrFriends.length == 0 ) {
-            bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-            bt.addDisplayObject(im);
-            txt = new CTextField(64, 50,"Добавить друга");
-            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-            txt.x = -1;
-            txt.y = 12;
-            bt.addChild(txt);
-            bt.setPivots();
-            bt.x = 237 + bt.width/2;
-            bt.y = 6 + bt.height/2;
-            _source.addChild(bt);
-            bt.clickCallback = inviteFriends;
+        if (_activeTabType == TYPE_NORMAL) {
+            var bt:CButton;
+            var im:Image;
+            var txt:CTextField;
+            if (_arrFriends.length == 0) {
+                bt = new CButton();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+                bt.addDisplayObject(im);
+                txt = new CTextField(64, 50, "Добавить друга");
+                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+                txt.x = -1;
+                txt.y = 12;
+                bt.addChild(txt);
+                bt.setPivots();
+                bt.x = 237 + bt.width / 2;
+                bt.y = 6 + bt.height / 2;
+                _source.addChild(bt);
+                bt.clickCallback = inviteFriends;
 
-            bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-            bt.addDisplayObject(im);
-            txt = new CTextField(64, 50,"Добавить друга");
-            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-            txt.x = -1;
-            txt.y = 12;
-            bt.addChild(txt);
-            bt.setPivots();
-            bt.x = 303 + bt.width/2;
-            bt.y = 6 + bt.height/2;
-            _source.addChild(bt);
-            bt.clickCallback = inviteFriends;
+                bt = new CButton();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+                bt.addDisplayObject(im);
+                txt = new CTextField(60, 50, "Добавить друга");
+                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+                txt.x = 1;
+                txt.y = 12;
+                bt.addChild(txt);
+                bt.setPivots();
+                bt.x = 303 + bt.width / 2;
+                bt.y = 6 + bt.height / 2;
+                _source.addChild(bt);
+                bt.clickCallback = inviteFriends;
 
-            bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-            bt.addDisplayObject(im);
-            txt = new CTextField(64, 50,"Добавить друга");
-            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-            txt.x = -1;
-            txt.y = 12;
-            bt.addChild(txt);
-            bt.setPivots();
-            bt.x = 369 + bt.width/2;
-            bt.y = 6 + bt.height/2;
-            _source.addChild(bt);
-            bt.clickCallback = inviteFriends;
-        } else if (_arrFriends.length == 1) {
-            bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-            bt.addDisplayObject(im);
-            txt = new CTextField(64, 50,"Добавить друга");
-            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-            txt.x = -1;
-            txt.y = 12;
-            bt.addChild(txt);
-            bt.setPivots();
-            bt.x = 303 + bt.width/2;
-            bt.y = 6 + bt.height/2;
-            _source.addChild(bt);
-            bt.clickCallback = inviteFriends;
+                bt = new CButton();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+                bt.addDisplayObject(im);
+                txt = new CTextField(60, 50, "Добавить друга");
+                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+                txt.x = 1;
+                txt.y = 12;
+                bt.addChild(txt);
+                bt.setPivots();
+                bt.x = 369 + bt.width / 2;
+                bt.y = 6 + bt.height / 2;
+                _source.addChild(bt);
+                bt.clickCallback = inviteFriends;
+            } else if (_arrFriends.length == 1) {
+                bt = new CButton();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+                bt.addDisplayObject(im);
+                txt = new CTextField(60, 50, "Добавить друга");
+                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+                txt.x = 1;
+                txt.y = 12;
+                bt.addChild(txt);
+                bt.setPivots();
+                bt.x = 303 + bt.width / 2;
+                bt.y = 6 + bt.height / 2;
+                _source.addChild(bt);
+                bt.clickCallback = inviteFriends;
 
-            bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-            bt.addDisplayObject(im);
-            txt = new CTextField(64, 50,"Добавить друга");
-            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-            txt.x = -1;
-            txt.y = 12;
-            bt.addChild(txt);
-            bt.setPivots();
-            bt.x = 369 + bt.width/2;
-            bt.y = 6 + bt.height/2;
-            _source.addChild(bt);
-            bt.clickCallback = inviteFriends;
-        } else if (_arrFriends.length == 2) {
-            bt = new CButton();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-            bt.addDisplayObject(im);
-            txt = new CTextField(64, 50,"Добавить друга");
-            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-            txt.x = -1;
-            txt.y = 12;
-            bt.addChild(txt);
-            bt.setPivots();
-            bt.x = 369 + bt.width/2;
-            bt.y = 6 + bt.height/2;
-            _source.addChild(bt);
-            bt.clickCallback = inviteFriends;
+                bt = new CButton();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+                bt.addDisplayObject(im);
+                txt = new CTextField(60, 50, "Добавить друга");
+                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+                txt.x = 1;
+                txt.y = 12;
+                bt.addChild(txt);
+                bt.setPivots();
+                bt.x = 369 + bt.width / 2;
+                bt.y = 6 + bt.height / 2;
+                _source.addChild(bt);
+                bt.clickCallback = inviteFriends;
+            } else if (_arrFriends.length == 2) {
+                bt = new CButton();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+                bt.addDisplayObject(im);
+                txt = new CTextField(60, 50, "Добавить друга");
+                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+                txt.x = 1;
+                txt.y = 12;
+                bt.addChild(txt);
+                bt.setPivots();
+                bt.x = 369 + bt.width / 2;
+                bt.y = 6 + bt.height / 2;
+                _source.addChild(bt);
+                bt.clickCallback = inviteFriends;
+            }
         }
         createLevel();
     }

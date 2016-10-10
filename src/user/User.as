@@ -3,7 +3,11 @@
  */
 package user {
 
+import build.tree.Tree;
+
 import com.junkbyte.console.Cc;
+
+import data.BuildType;
 
 import manager.Vars;
 
@@ -241,6 +245,27 @@ public class User extends Someone {
             someOne = getSomeoneBySocialId(d[i].social_id);
             someOne.level = int(d[i].level);
             someOne.needHelpCount = int(d[i].need_help);
+        }
+    }
+
+    public function calculateReasonForHelpAway():void {
+        var ar:Array = g.townArea.getAwayCityObjectsByType(BuildType.TREE);
+        var ar2:Array = [];
+        for (var i:int=0; i<ar.length; i++) {
+            if ((ar[i] as Tree).stateTree == Tree.ASK_FIX) ar2.push(ar[i]);
+        }
+        g.visitedUser.needHelpCount = ar2.length;
+        if (g.visitedUser.needHelpCount > 0) g.bottomPanel.addHelpIcon();
+    }
+
+    public function onMakeHelpAway():void {
+        if (!g.visitedUser) return;
+        g.visitedUser.needHelpCount--;
+        if (g.visitedUser.needHelpCount <= 0) {
+            g.bottomPanel.removeHelpIcon();
+            if (g.visitedUser is Friend) {
+                g.friendPanel.updateFriendsPanel();
+            }
         }
     }
 }

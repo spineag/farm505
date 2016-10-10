@@ -197,7 +197,8 @@ public class WOPapperItem {
         }
         if (_p.needHelpCount > 0) {
             _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
-            _helpIcon.x = 140;
+            MCScaler.scale(_helpIcon, 20, 20);
+            _helpIcon.x = 150;
             _helpIcon.y = 2;
             source.addChild(_helpIcon);
         }

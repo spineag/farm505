@@ -593,7 +593,6 @@ public class Tree extends WorldObject {
                     }
                 } else if (_dataBuild.id == 26) { // Вишня
                     if (_state == ASK_FIX) makeWateringIcon(true);
-
                     if (_state == GROW1 || _state == GROW_FLOWER1) {
                         newX = g.cont.gameCont.x + (_source.x + _source.width / 19) * g.currentGameScale;
                         newY = g.cont.gameCont.y + (_source.y - _source.height / 3.3) * g.currentGameScale;
@@ -615,7 +614,6 @@ public class Tree extends WorldObject {
                     } else if (_state == GROW2 || _state == GROW_FLOWER2) {
                         newX = g.cont.gameCont.x + (_source.x + _source.width / 12) * g.currentGameScale;
                         newY = g.cont.gameCont.y + (_source.y - _source.height / 14) * g.currentGameScale;
-
                     } else if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
                         newX = g.cont.gameCont.x + (_source.x + _source.width / 9) * g.currentGameScale;
                         newY = g.cont.gameCont.y + (_source.y - _source.height / 14) * g.currentGameScale;
@@ -638,7 +636,6 @@ public class Tree extends WorldObject {
                         newY = g.cont.gameCont.y + (_source.y - _source.height / 6) * g.currentGameScale;
                     }
                     if (_state == ASK_FIX) makeWateringIcon(true);
-
                 }
                 if (_state == DEAD) {
                     g.treeHint.onDelete = deleteTree;
@@ -1109,6 +1106,7 @@ public class Tree extends WorldObject {
     }
 
     private function wateringTree(state:int):void {
+        g.user.onMakeHelpAway();
         if (state != _state) {
             var p:Point = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
@@ -1124,7 +1122,7 @@ public class Tree extends WorldObject {
                 break;
             }
         }
-            onOut();
+        onOut();
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
         new XPStar(start.x,start.y,8);
