@@ -57,9 +57,8 @@ public class UserValidateResources {
     }
 
     public function checkResources(id:int, count:int):Boolean {
-        return true;
-//        if (g.isDebug || g.user.isTester || g.user.isMegaTester) {
-        if (g.isDebug) {
+        if (g.isDebug || g.user.isTester || g.user.isMegaTester) {
+            if (!resources[id]) resources[id] = K2;
             var c:int = count * K1 + K2;
             if (c == resources[id]) {
                 return true;
@@ -71,10 +70,8 @@ public class UserValidateResources {
         } else return true;
     }
 
-public function checkInfo(reason:String, count:int):Boolean {
-    return true;
-//        if (g.isDebug || g.user.isTester || g.user.isMegaTester) {
-        if (g.isDebug) {
+    public function checkInfo(reason:String, count:int):Boolean {
+        if (g.isDebug || g.user.isTester || g.user.isMegaTester) {
             var isGood:Boolean = false;
             switch (reason) {
                 case 'xp': isGood = xp == count*K1 + K2; break;
