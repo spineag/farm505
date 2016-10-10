@@ -79,10 +79,10 @@ public class ManagerHitArea {
         var sp:flash.display.Sprite;
         var arr:Array = ['order_area', 'aerial_tram', 'buildingBuild', 'sklad', 'chest', 'bbq_grill', 'bakery', 'dairy', 'feed_mill', 'fryer', 'juice_press', 'loom', 'pie_oven',
                         'pizza_maker', 'smelter', 'smoke_house', 'sugar_mill', 'mine', 'apple1', 'apple2', 'apple3', 'cherry1', 'cherry2', 'cherry3',
-                        'blueberry1', 'blueberry2', 'blueberry3', 'raspberry1', 'raspberry2', 'raspberry3', 'newspaper', 'market', 'daily_bonus'];
+                        'blueberry1', 'blueberry2', 'blueberry3', 'raspberry1', 'raspberry2', 'raspberry3', 'newspaper', 'market', 'daily_bonus', 'cat_nail'];
         var n:Array = ['order_area', 'aerial_tram', 'buildingBuild', 'sklad', 'chest', 'bbq_grill', 'bakery', 'dairy', 'feed_mill', 'fryer', 'juice_press', 'loom', 'pie_oven',
                         'pizza_maker', 'smelter', 'smoke_house', 'sugar_mill', 'mine', 'tree25small', 'tree25middle', 'tree25big', 'tree26small', 'tree26middle', 'tree26big',
-                        'tree42small', 'tree42middle', 'tree42big', 'tree41small', 'tree41middle', 'tree41big', 'newspaper', 'market', 'daily_bonus'];
+                        'tree42small', 'tree42middle', 'tree42big', 'tree41small', 'tree41middle', 'tree41big', 'newspaper', 'market', 'daily_bonus', 'cat_nail'];
         for (var i:int=0; i<arr.length; i++) {
             if (response.hasDefinition(arr[i])) {
                 cl = response.getDefinition(arr[i]) as Class;

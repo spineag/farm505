@@ -256,7 +256,10 @@ public class WOOrderItem {
         if (_leftSeconds <= 19 && !_recheck) {
             _recheck = true;
             if (_txtName && _order.delOb)_wo.timerSkip(_order);
-            else g.userTimer.newCatOrder();
+            else  {
+                g.userTimer.newCatOrder();
+                g.managerOrder.checkForFullOrder();
+            }
         }
         if (_leftSeconds <= 0) {
             _leftSeconds = -1;

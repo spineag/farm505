@@ -55,9 +55,11 @@ public class ShopItem {
     private var _btnBuyBlue:CButton;
     private var _btnBuyCoupone:CButton;
     private var _btnActivationYellow:CButton;
+    private var _btnActivationPink:CButton;
     private var _txtBtnBuyBlue:CTextField;
     private var _txtBtnBuyGreen:CTextField;
     private var _txtAvailable:CTextField;
+    private var _txtAvailablePink:CTextField;
     private var _shopLimitSprite:Sprite;
     private var _wo:WOShop;
     private var _bg:CartonBackgroundIn;
@@ -215,6 +217,19 @@ public class ShopItem {
                 _btnActivationYellow.clickCallback = onClick;
                 source.addChild(_btnActivationYellow);
                 break;
+            case 'pink':
+                if (_btnActivationPink) return;
+                _btnActivationPink = new CButton();
+                _btnActivationPink.addButtonTexture(126, 40, CButton.PINK, true);
+                _txtAvailablePink = new CTextField(125, 40, 'УСТАНОВИТЬ');
+                _txtAvailablePink.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.YELLOW_COLOR);
+                _txtAvailablePink.cacheIt = false;
+                _btnActivationPink.addChild(_txtAvailablePink);
+                _btnActivationPink.x = 74;
+                _btnActivationPink.y = 190;
+                _btnActivationPink.clickCallback = onClick;
+                source.addChild(_btnActivationPink);
+                break;
         }
     }
 
@@ -306,6 +321,7 @@ public class ShopItem {
             _imCont.x = 72;
             _imCont.y = 90;
             source.addChildAt(_imCont, 1);
+
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
@@ -628,7 +644,30 @@ public class ShopItem {
                 }
             }
         }
-
+        if (_data.visibleTester) {
+            if (_btnBuyGreen) {
+                source.removeChild(_btnBuyGreen);
+                _btnBuyGreen.deleteIt();
+                _btnBuyGreen = null;
+            }
+            if (_btnBuyBlue) {
+                source.removeChild(_btnBuyBlue);
+                _btnBuyBlue.deleteIt();
+                _btnBuyBlue = null;
+            }
+            if (_btnBuyCoupone) {
+                source.removeChild(_btnBuyCoupone);
+                _btnBuyCoupone.deleteIt();
+                _btnBuyCoupone = null;
+            }
+            if (_btnActivationYellow) {
+                source.removeChild(_btnActivationYellow);
+                _btnActivationYellow.deleteIt();
+                _btnActivationYellow = null;
+            }
+            createButtons('pink');
+            _countCost = 0;
+        }
         if (_nameTxt.text == '') _nameTxt.text = _data.name;
     }
 

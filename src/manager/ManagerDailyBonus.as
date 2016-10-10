@@ -114,10 +114,12 @@ public class ManagerDailyBonus {
 
     public function checkDailyBonusStateBuilding():void {
         var b:WorldObject = g.townArea.getCityObjectsByType(BuildType.DAILY_BONUS)[0];
-        if (_count <= 0) {
-            (b as DailyBonus).showLights();
-        } else {
-            (b as DailyBonus).hideLights();
+        if (b) {
+            if (_count <= 0) {
+                (b as DailyBonus).showLights();
+            } else {
+                (b as DailyBonus).hideLights();
+            }
         }
     }
 }

@@ -150,7 +150,7 @@ public class LoadComponents {
     }
 
     private function loadHitArea():void {
-        var url:String = g.dataPath.getGraphicsPath() + 'hitArea.swf';
+        var url:String = g.dataPath.getGraphicsPath() + 'hitArea2.swf';
         g.load.loadSWFModule(url, loadedHitArea);
     }
 

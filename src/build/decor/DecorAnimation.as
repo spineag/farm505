@@ -31,6 +31,7 @@ public class DecorAnimation extends WorldObject{
     private var _heroCat:HeroCat;
     private var _decorWork:Boolean;
     private var _decorAnimation:int;
+    private var  _awayAnimation:Boolean = false;
 
     public function DecorAnimation(_data:Object) {
         super(_data);
@@ -41,7 +42,6 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function onCreateBuild():void {
-
         WorldClock.clock.add(_armature);
         _armature.animation.gotoAndPlayByFrame('idle');
         _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
@@ -50,6 +50,9 @@ public class DecorAnimation extends WorldObject{
             _source.hoverCallback = onHover;
             _source.endClickCallback = onClick;
             _source.outCallback = onOut;
+        }
+        if (_awayAnimation) {
+            awayAnimation();
         }
     }
 
@@ -144,7 +147,6 @@ public class DecorAnimation extends WorldObject{
 
     private function startAnimation():void {
         if (!_armature) return;
-
         var fEndOver:Function = function(e:Event=null):void {
             _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
             _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
@@ -159,7 +161,9 @@ public class DecorAnimation extends WorldObject{
     }
 
     public function awayAnimation():void {
+        _awayAnimation = true;
         if (!_armature) return;
+        _awayAnimation = false;
         if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
         if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
         var k:int = int(Math.random() * 2);

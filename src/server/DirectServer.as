@@ -522,7 +522,8 @@ public class DirectServer {
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
                 obj = {};
-                if (d.message[i].visible == 1) {
+//                if (g.user.isTester)
+//                if (d.message[i].visible == 1 ) {
                     obj.id = int(d.message[i].id);
                     obj.width = int(d.message[i].width);
                     obj.height = int(d.message[i].height);
@@ -600,9 +601,10 @@ public class DirectServer {
                         obj.variaty = String(d.message[i].variaty).split('&');
                         for (k = 0; k < obj.variaty.length; k++) obj.variaty[k] = Number(obj.variaty[k]);
                     }
-
-                    g.dataBuilding.objectBuilding[obj.id] = obj;
-                }
+                    if (d.message[i].visible) obj.visibleTester = Boolean(int(d.message[i].visible));
+                if (g.user.isTester) g.dataBuilding.objectBuilding[obj.id] = obj;
+                    else if (d.message[i].visible == 0 ) g.dataBuilding.objectBuilding[obj.id] = obj;
+//                }
             }
             if (callback != null) {
                 callback.apply();
@@ -2490,7 +2492,7 @@ public class DirectServer {
 
         if (!tr || tr.stateBuild < 4) {
             Cc.ch('server', 'getUserTrain:: train.stateBuild < 4', 1);
-            tr.fillItDefault();
+           if (tr) tr.fillItDefault();
             if (callback != null) {
                 callback.apply();
             }
@@ -3907,19 +3909,21 @@ public class DirectServer {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
                 dataBuild = Utils.objectDeepCopy(g.dataBuilding.objectBuilding[int(d.message[i].building_id)]);
                 var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
-                dataBuild.dbId = dbId;
-                dataBuild.isFlip = int(d.message[i].is_flip);
+                if (dataBuild) {
+                    dataBuild.dbId = dbId;
+                    dataBuild.isFlip = int(d.message[i].is_flip);
 
-                ob = {};
-                ob.buildId = dataBuild.id;
-                ob.posX = int(d.message[i].pos_x);
-                ob.posY = int(d.message[i].pos_y);
-                ob.isFlip = int(d.message[i].is_flip);
-                ob.dbId = dbId;
-                g.user.userDataCity.objects.push(ob);
+                    ob = {};
+                    ob.buildId = dataBuild.id;
+                    ob.posX = int(d.message[i].pos_x);
+                    ob.posY = int(d.message[i].pos_y);
+                    ob.isFlip = int(d.message[i].is_flip);
+                    ob.dbId = dbId;
+                    g.user.userDataCity.objects.push(ob);
 
-                var build:WorldObject = g.townArea.createNewBuild(dataBuild, dbId);
-                g.townArea.pasteBuild(build, p.x, p.y, false);
+                    var build:WorldObject = g.townArea.createNewBuild(dataBuild, dbId);
+                    g.townArea.pasteBuild(build, p.x, p.y, false);
+                }
             }
             if (callback != null) {
                 callback.apply();
