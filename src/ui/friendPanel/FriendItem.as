@@ -170,18 +170,6 @@ public class FriendItem {
 //        source.addChildAt(_ava,1);
     }
 
-
-    public function clearIt():void {
-        while (source.numChildren) source.removeChildAt(0);
-        source.endClickCallback = null;
-        source.touchable = false;
-        _person = null;
-        _ava.dispose();
-        _ava = null;
-        _txt = null;
-        source = null;
-    }
-
     public function get position():int {
         return _positionInList;
     }

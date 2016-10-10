@@ -37,6 +37,9 @@ import utils.MCScaler;
 import windows.WOComponents.HorizontalPlawka;
 
 public class FriendPanel {
+    private const TYPE_NORMAL:int = 1;
+    private const TYPE_NEED_HELP:int = 2;
+
     private var _source:Sprite;
     private var _mask:Sprite;
     private var _cont:Sprite;
@@ -44,36 +47,36 @@ public class FriendPanel {
     private var _rightArrow:CButton;
     private var _arrFriends:Array;
     private var _arrItems:Array;
-    private var _maxFriend:int;
     private var _count:int;
     private var _shift:int;
     private var _addFriendsBtn:CButton;
     private var _tab1:CSprite;
     private var _tab2:CSprite;
+    private var _activeTabType:int;
 
     private var g:Vars = Vars.getInstance();
     public function FriendPanel() {
         _source = new Sprite();
         onResize();
         g.cont.interfaceCont.addChild(_source);
+        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_left'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_center'),
+                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_right'), 465);
+        _source.addChild(pl);
         _mask = new Sprite();
         _mask.x = 105;
         _mask.y = 7;
         _cont = new Sprite();
         _mask.mask = new Quad(328, 90);
         _mask.addChild(_cont);
-        _source.addChild(_mask);
-        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_left'), g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_center'),
-                g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_back_right'), 465);
-        _source.addChild(pl);
         createTabs();
+        _source.addChild(_mask);
         createAddFriendBtn();
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
-        _maxFriend = 0;
         _count = 0;
     }
 
     private function createTabs():void {
+        _activeTabType = TYPE_NORMAL;
         _tab1 = new CSprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
         im.x = 20;
@@ -103,6 +106,25 @@ public class FriendPanel {
         im.y = -25;
         _tab2.addChild(im);
         _source.addChildAt(_tab2, 0);
+        _tab2.endClickCallback = onTabClick;
+    }
+
+    private function onTabClick():void {
+        if (_activeTabType == TYPE_NORMAL) {
+            _source.setChildIndex(_tab1, 0);
+            _source.setChildIndex(_tab2, 2);
+            _activeTabType = TYPE_NEED_HELP;
+            _tab2.endClickCallback = null;
+            _tab1.endClickCallback = onTabClick;
+        } else if (_activeTabType == TYPE_NEED_HELP) {
+            _source.setChildIndex(_tab2, 0);
+            _source.setChildIndex(_tab1, 2);
+            _activeTabType = TYPE_NORMAL;
+            _tab2.endClickCallback = onTabClick;
+            _tab1.endClickCallback = null;
+        }
+        fillFriends();
+        checkArrows();
     }
 
     private function createAddFriendBtn():void {
@@ -183,11 +205,21 @@ public class FriendPanel {
 
     public function onGettingInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
-        _arrFriends = g.user.arrFriends.slice();
+        fillFriends();
+    }
 
-        for (var i:int = 0; i < _arrFriends.length; i++) {
-            _maxFriend ++;
+    private function fillFriends():void {
+        clearItems();
+        if (_activeTabType == TYPE_NORMAL) {
+            _arrFriends = g.user.arrFriends.slice();
+        } else {
+            var ar:Array = g.user.arrFriends.slice();
+            _arrFriends = [];
+            for (var i:int=0; i<ar.length; i++) {
+                if ((ar[i] as Someone).needHelpCount > 0) _arrFriends.push(ar[i]);
+            }
         }
+
         var bt:CButton;
         var im:Image;
         var txt:CTextField;
@@ -261,7 +293,6 @@ public class FriendPanel {
             bt.y = 6 + bt.height/2;
             _source.addChild(bt);
             bt.clickCallback = inviteFriends;
-
         } else if (_arrFriends.length == 2) {
             bt = new CButton();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
@@ -286,8 +317,10 @@ public class FriendPanel {
         _shift = 0;
         _arrFriends.sortOn("level",  Array.NUMERIC);
         _arrFriends.reverse();
-        _arrFriends.unshift(g.user.neighbor);
-        _arrFriends.unshift(g.user);
+        if (_activeTabType == TYPE_NORMAL) {
+            _arrFriends.unshift(g.user.neighbor);
+            _arrFriends.unshift(g.user);
+        }
         if (_arrFriends.length > 5) {
             createArrows();
             checkArrows();
@@ -302,6 +335,16 @@ public class FriendPanel {
             item.source.y = -1;
             _cont.addChild(item.source);
         }
+    }
+
+    private function clearItems():void {
+        if (!_arrItems) return;
+        for (var i:int=0; i<_arrItems.length; i++) {
+            _cont.removeChild(_arrItems[i].source);
+            (_arrItems[i] as FriendItem).deleteIt();
+        }
+        _arrItems.length = 0;
+        _shift = 0;
     }
 
     private function onLeftClick():void {
