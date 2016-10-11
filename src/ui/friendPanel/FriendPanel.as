@@ -223,6 +223,8 @@ public class FriendPanel {
     public function updateFriendsPanel():void {
         if (_activeTabType == TYPE_NEED_HELP) {
             fillFriends();
+        } else {
+            checkHelpIcon();
         }
     }
 
