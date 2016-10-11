@@ -57,8 +57,6 @@ public class UserValidateResources {
     }
 
     public function checkResources(id:int, count:int):Boolean {
-        return true;
-
         if (g.isDebug || g.user.isTester || g.user.isMegaTester) {
             if (!resources[id]) resources[id] = K2;
             var c:int = count * K1 + K2;
@@ -73,8 +71,6 @@ public class UserValidateResources {
     }
 
     public function checkInfo(reason:String, count:int):Boolean {
-        return true;
-        
         if (g.isDebug || g.user.isTester || g.user.isMegaTester) {
             var isGood:Boolean = false;
             switch (reason) {

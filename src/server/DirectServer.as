@@ -733,6 +733,8 @@ public class DirectServer {
             g.userValidates.updateInfo('softCount', g.user.softCurrencyCount);
             g.user.greenCouponCount = int(ob.green_count);
             g.userValidates.updateInfo('greenCount', g.user.greenCouponCount);
+            g.user.blueCouponCount = int(ob.blue_count);
+            g.userValidates.updateInfo('blueCount', g.user.blueCouponCount);
             g.user.globalXP = int(ob.xp);
             g.user.allNotification = int(ob.notification_new);
             if (!g.isDebug) {
