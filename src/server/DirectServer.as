@@ -2802,7 +2802,7 @@ public class DirectServer {
         Cc.error('deleteUser responce:' + response);
     }
 
-    public function addUserMarketItem(id:int, count:int, inPapper:Boolean, cost:int, numberCell:int, callback:Function):void {
+    public function addUserMarketItem(id:int, levelResource:int, count:int, inPapper:Boolean, cost:int, numberCell:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_MARKET_ITEM);
         var variables:URLVariables = new URLVariables();
@@ -2811,6 +2811,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.resourceId = id;
+        variables.level = levelResource;
         variables.count = count;
         variables.cost = cost;
         variables.numberCell = numberCell;
@@ -3075,6 +3076,7 @@ public class DirectServer {
         Cc.ch('server', 'getPaperItems', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        variables.level = g.user.level;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();

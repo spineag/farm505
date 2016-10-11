@@ -824,9 +824,9 @@ public class WOMarket  extends WindowMain {
         g.windowsManager.openWindow(WindowsManager.WO_MARKET_CHOOSE, callbackFromMarketChoose, item);
     }
 
-    private function callbackFromMarketChoose(item:MarketItem, a:int, count:int = 0, cost:int = 0, inPapper:Boolean = false):void {
+    private function callbackFromMarketChoose(item:MarketItem, a:int, level:int = 1, count:int = 0, cost:int = 0, inPapper:Boolean = false):void {
         if (a>0) {
-            item.onChoose(a, count, cost, inPapper);
+            item.onChoose(a, level, count, cost, inPapper);
         }
     }
 

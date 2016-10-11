@@ -289,10 +289,10 @@ public class MarketItem {
         }
     }
 
-    public function onChoose(a:int, count:int, cost:int, inPapper:Boolean):void {
+    public function onChoose(a:int, level:int, count:int, cost:int, inPapper:Boolean):void {
         if (isFill == 1) return;
         isFill = 1;
-        g.directServer.addUserMarketItem(a, count, inPapper, cost, number, onAddToServer);
+        g.directServer.addUserMarketItem(a, level, count, inPapper, cost, number, onAddToServer);
         g.userInventory.addResource(g.dataResource.objectResources[a].id, -count);
         fillIt(g.dataResource.objectResources[a],count, cost);
         _txtAdditem.visible = false;
