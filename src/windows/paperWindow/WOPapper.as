@@ -324,11 +324,13 @@ public class WOPapper extends WindowMain {
         if (_arrPaper.length > 60) _arrPaper.length = 60;
         _maxPages = Math.ceil(_arrPaper.length/6);
         if (_maxPages <2) _maxPages = 2;
-
+        checkArrows();
         createPages();
     }
 
     private function checkArrows():void {
+        if (!_leftArrow) return;
+        if (!_rightArrow) return;
         if (_shiftPages <= 1) {
             _leftArrow.setEnabled = false;
             _rightArrow.touchable = true;

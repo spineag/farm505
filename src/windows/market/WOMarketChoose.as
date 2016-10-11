@@ -431,8 +431,10 @@ public class WOMarketChoose extends WindowMain {
                     return;
                 }
             }
+            var level:int = g.dataResource.objectResources[_curResourceId].blockByLevel;
+            if (!level || level < 1) level = 1;
             if (_callback != null) {
-                _callback.apply(null, [_activetedItem, _curResourceId, _countResourceBlock.count, _countMoneyBlock.count]);
+                _callback.apply(null, [_activetedItem, _curResourceId, level, _countResourceBlock.count, _countMoneyBlock.count]);
                 _callback = null;
             }
             if (isCashed) g.windowsManager.secondCashWindow = null;

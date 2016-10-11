@@ -3,10 +3,15 @@
  */
 package manager {
 import build.WorldObject;
+import build.wild.Wild;
+
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import heroes.OrderCat;
 import starling.core.Starling;
+import starling.display.Quad;
+
+import windows.ambarFilled.WOAmbarFilled;
 
 public class ManagerVisibleObjects {
     private var g:Vars = Vars.getInstance();
@@ -14,10 +19,7 @@ public class ManagerVisibleObjects {
     private var _p2:Point;
     private var _useThis:Boolean = true;
 
-    public function ManagerVisibleObjects() {
-        _p1 = new Point();
-        _p2 = new Point();
-    }
+    public function ManagerVisibleObjects() {}
 
     private function enableIt(needShowAll:Boolean):void {
         var i:int;
@@ -68,11 +70,17 @@ public class ManagerVisibleObjects {
         var rect:Rectangle = someBuild.rect;
         if (!rect) return true;
         if (!rect.width || !rect.height) return true;
-        _p1.x = rect.x;
-        _p1.y = rect.y;
+
+        if (someBuild is WorldObject && (someBuild as WorldObject).flip) {
+            _p1.x = rect.x + rect.width;
+            _p1.y = rect.y;
+            _p2.x = rect.x;
+            _p2.y = rect.y + rect.height;
+        } else {
+            _p1 = rect.topLeft;
+            _p2 = rect.bottomRight;
+        }
         _p1 = someBuild.source.localToGlobal(_p1);
-        _p2.x = rect.x + rect.width;
-        _p2.y = rect.y + rect.height;
         _p2 = someBuild.source.localToGlobal(_p2);
 
         if (_p2.x < 0) return false;
