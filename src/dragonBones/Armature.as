@@ -387,6 +387,7 @@ package dragonBones
 		 */
 		public function advanceTime(passedTime:Number):void
 		{
+			if (!_animation) return;
 			if (!_lockDispose)
 			{
 				_lockDispose = true;
