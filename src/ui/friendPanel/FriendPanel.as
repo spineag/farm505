@@ -27,6 +27,7 @@ import tutorial.TutorialAction;
 import user.NeighborBot;
 
 import user.Someone;
+import user.User;
 
 import utils.CButton;
 
@@ -53,6 +54,7 @@ public class FriendPanel {
     private var _tab1:CSprite;
     private var _tab2:CSprite;
     private var _activeTabType:int;
+    private var _helpIcon:Image;
 
     private var g:Vars = Vars.getInstance();
     public function FriendPanel() {
@@ -100,16 +102,18 @@ public class FriendPanel {
         txt.y = -23;
         _tab2.addChild(txt);
         _tab2.x = 120;
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
-        MCScaler.scale(im, 20, 20);
-        im.x = 128;
-        im.y = -25;
-        _tab2.addChild(im);
+        _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+        MCScaler.scale(_helpIcon, 20, 20);
+        _helpIcon.x = 128;
+        _helpIcon.y = -25;
+        _tab2.addChild(_helpIcon);
         _source.addChildAt(_tab2, 0);
         _tab2.endClickCallback = onTabClick;
+        _helpIcon.visible = false;
     }
 
     private function onTabClick():void {
+        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_activeTabType == TYPE_NORMAL) {
             _source.setChildIndex(_tab1, 0);
             _source.setChildIndex(_tab2, 2);
@@ -170,24 +174,28 @@ public class FriendPanel {
     }
 
     private function createArrows():void {
-        _leftArrow = new CButton();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
-        _leftArrow.addDisplayObject(im);
-        _leftArrow.setPivots();
-        _leftArrow.x = 78 + _leftArrow.width/2;
-        _leftArrow.y = 15 + _leftArrow.height/2;
-        _source.addChild(_leftArrow);
-        _leftArrow.clickCallback = onLeftClick;
+        if (!_leftArrow) {
+            _leftArrow = new CButton();
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+            _leftArrow.addDisplayObject(im);
+            _leftArrow.setPivots();
+            _leftArrow.x = 78 + _leftArrow.width / 2;
+            _leftArrow.y = 15 + _leftArrow.height / 2;
+            _source.addChild(_leftArrow);
+            _leftArrow.clickCallback = onLeftClick;
+        }
 
-        _rightArrow = new CButton();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
-        im.scaleX = -1;
-        _rightArrow.addDisplayObject(im);
-        _rightArrow.setPivots();
-        _rightArrow.x = 485 - _rightArrow.width/2;
-        _rightArrow.y = 15 + _rightArrow.height/2;
-        _source.addChild(_rightArrow);
-        _rightArrow.clickCallback = onRightClick;
+        if (!_rightArrow) {
+            _rightArrow = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_ar'));
+            im.scaleX = -1;
+            _rightArrow.addDisplayObject(im);
+            _rightArrow.setPivots();
+            _rightArrow.x = 485 - _rightArrow.width / 2;
+            _rightArrow.y = 15 + _rightArrow.height / 2;
+            _source.addChild(_rightArrow);
+            _rightArrow.clickCallback = onRightClick;
+        }
     }
 
     private function checkArrows():void {
@@ -323,6 +331,17 @@ public class FriendPanel {
         createLevel();
     }
 
+    private function checkHelpIcon():void {
+        for (var i:int=0; i<_arrFriends.length; i++) {
+            if (_arrFriends[i] is User || _arrFriends[i] is NeighborBot) continue;
+            if ((_arrFriends[i] as Someone).needHelpCount > 0) {
+                _helpIcon.visible = true;
+                return;
+            }
+        }
+        _helpIcon.visible = false;
+    }
+
     private function sortFriend():void {
         var item:FriendItem;
         _arrItems = [];
@@ -332,6 +351,10 @@ public class FriendPanel {
         if (_activeTabType == TYPE_NORMAL) {
             _arrFriends.unshift(g.user.neighbor);
             _arrFriends.unshift(g.user);
+            checkHelpIcon();
+        } else if (_activeTabType == TYPE_NEED_HELP) {
+            if (_arrFriends.length) _helpIcon.visible = true;
+                else _helpIcon.visible = false;
         }
         if (_arrFriends.length > 5) {
             createArrows();
@@ -356,6 +379,7 @@ public class FriendPanel {
             (_arrItems[i] as FriendItem).deleteIt();
         }
         _arrItems.length = 0;
+        _arrFriends.length = 0;
         _shift = 0;
     }
 
@@ -462,8 +486,10 @@ public class FriendPanel {
         var item:FriendItem;
         _arrItems = [];
         _shift = 0;
-        _arrFriends.unshift(g.user.neighbor);
-        _arrFriends.unshift(g.user);
+        if (_activeTabType == TYPE_NORMAL) {
+            _arrFriends.unshift(g.user.neighbor);
+            _arrFriends.unshift(g.user);
+        }
         var l:int = _arrFriends.length;
         if (l>5) l = 5;
         for (var i:int = 0; i < l; i++) {
