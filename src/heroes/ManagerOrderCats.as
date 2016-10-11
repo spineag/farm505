@@ -216,7 +216,6 @@ public class ManagerOrderCats {
                 b = true;
             }
         }
-        trace(r);
         if (b) {
             return max - r;
         }

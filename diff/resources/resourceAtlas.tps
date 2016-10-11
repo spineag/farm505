@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.7.1</string>
+        <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/resources/resourceAtlas.tps</string>
+        <string>/Users/user/IdeaProjects/farm505/diff/resources/resourceAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,6 +43,8 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
+        <key>atfCompressData</key>
+        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -173,14 +175,16 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
-            <key>innerPadding</key>
-            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
+            <key>trimMargin</key>
+            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <key>tracerTolerance</key>
+            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -188,28 +192,43 @@
         </struct>
         <key>fileList</key>
         <array>
+            <filename>product_particle.png</filename>
+            <filename>part_plants</filename>
+            <filename>part_products/apple_charlotte_icon.png</filename>
             <filename>part_products/apple_icon.png</filename>
+            <filename>part_products/apple_jam_icon.png</filename>
             <filename>part_products/apple_juice_icon.png</filename>
             <filename>part_products/bacon_icon.png</filename>
+            <filename>part_products/bacon_pizza_icon.png</filename>
             <filename>part_products/bacon_with_eggs_icon.png</filename>
             <filename>part_products/baked_potato_icon.png</filename>
+            <filename>part_products/baked_potato.png</filename>
+            <filename>part_products/ball_icon.png</filename>
+            <filename>part_products/bear_icon.png</filename>
             <filename>part_products/berry_juice_icon.png</filename>
             <filename>part_products/berry_pie_icon.png</filename>
+            <filename>part_products/berry_yogurt_icon.png</filename>
             <filename>part_products/blueberry_icon.png</filename>
+            <filename>part_products/blueberry_jam_icon.png</filename>
             <filename>part_products/blueberry_muffin_icon.png</filename>
+            <filename>part_products/bracelet.png</filename>
             <filename>part_products/bun_icon.png</filename>
             <filename>part_products/butter_icon.png</filename>
             <filename>part_products/cabbage_pie_icon.png</filename>
+            <filename>part_products/cacao_icon.png</filename>
             <filename>part_products/carrot_juice_icon.png</filename>
             <filename>part_products/cheese_icon.png</filename>
             <filename>part_products/cheeseburger_icon.png</filename>
             <filename>part_products/cherry_icon.png</filename>
             <filename>part_products/chicken_feed_icon.png</filename>
+            <filename>part_products/chocolate_ice_cream_icon.png</filename>
+            <filename>part_products/chocolate_icon.png</filename>
             <filename>part_products/cookie_icon.png</filename>
             <filename>part_products/cooper_ore_icon.png</filename>
             <filename>part_products/copper_bar_icon.png</filename>
             <filename>part_products/corn_bread_icon.png</filename>
             <filename>part_products/corn_syrup_icon.png</filename>
+            <filename>part_products/cotton_candy_icon.png</filename>
             <filename>part_products/cotton_fabric_icon.png</filename>
             <filename>part_products/cow_feed_icon.png</filename>
             <filename>part_products/cream_icon.png</filename>
@@ -220,36 +239,51 @@
             <filename>part_products/goat_milk_icon.png</filename>
             <filename>part_products/gold_bar_icon.png</filename>
             <filename>part_products/gold_ore_icon.png</filename>
+            <filename>part_products/grape_ice_cream_icon.png</filename>
             <filename>part_products/grape_juice_icon.png</filename>
             <filename>part_products/grape_pie_icon.png</filename>
+            <filename>part_products/grape_yogurt_icon.png</filename>
             <filename>part_products/gratin_icon.png</filename>
+            <filename>part_products/ham_icon.png</filename>
             <filename>part_products/hamburger_icon.png</filename>
             <filename>part_products/honey_icon.png</filename>
+            <filename>part_products/hotdog copy.png</filename>
             <filename>part_products/iron_bar_icon.png</filename>
             <filename>part_products/iron_ore_icon.png</filename>
+            <filename>part_products/jelly_beans.png</filename>
+            <filename>part_products/lemon_icon.png</filename>
             <filename>part_products/meat_icon.png</filename>
             <filename>part_products/meat_pie_icon.png</filename>
             <filename>part_products/milk_bottle_icon.png</filename>
+            <filename>part_products/necklace.png</filename>
             <filename>part_products/omelette_icon.png</filename>
+            <filename>part_products/orange_icon.png</filename>
             <filename>part_products/pancake_icon.png</filename>
             <filename>part_products/pig_feed_icon.png</filename>
             <filename>part_products/pizza_icon.png</filename>
             <filename>part_products/powdered_sugar_icon.png</filename>
+            <filename>part_products/pyramid_icon.png</filename>
             <filename>part_products/raisin_bun_icon.png</filename>
             <filename>part_products/raspberry_icon.png</filename>
+            <filename>part_products/raspberry_jam_icon.png</filename>
             <filename>part_products/raspberry_muffin_icon.png</filename>
+            <filename>part_products/ring.png</filename>
             <filename>part_products/sausage_icon.png</filename>
             <filename>part_products/sheep_feed_icon.png</filename>
             <filename>part_products/silver_bar_icon.png</filename>
             <filename>part_products/silver_ore_icon.png</filename>
             <filename>part_products/socks_icon.png</filename>
             <filename>part_products/spicy_pizza_icon.png</filename>
+            <filename>part_products/strawberry_ice_cream_icon.png</filename>
+            <filename>part_products/strawberry_jam_icon.png</filename>
+            <filename>part_products/strawberry_yogurt_icon.png</filename>
             <filename>part_products/sugar_icon.png</filename>
             <filename>part_products/sweater_icon.png</filename>
+            <filename>part_products/toffee.png</filename>
+            <filename>part_products/tomato_juice_icon.png</filename>
+            <filename>part_products/vanllla_ice_cream_icon.png</filename>
             <filename>part_products/winter_hat_icon.png</filename>
             <filename>part_products/wool_icon.png</filename>
-            <filename>part_plants</filename>
-            <filename>product_particle.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
