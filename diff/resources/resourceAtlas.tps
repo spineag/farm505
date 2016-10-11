@@ -202,7 +202,6 @@
             <filename>part_products/bacon_pizza_icon.png</filename>
             <filename>part_products/bacon_with_eggs_icon.png</filename>
             <filename>part_products/baked_potato_icon.png</filename>
-            <filename>part_products/baked_potato.png</filename>
             <filename>part_products/ball_icon.png</filename>
             <filename>part_products/bear_icon.png</filename>
             <filename>part_products/berry_juice_icon.png</filename>
@@ -211,7 +210,6 @@
             <filename>part_products/blueberry_icon.png</filename>
             <filename>part_products/blueberry_jam_icon.png</filename>
             <filename>part_products/blueberry_muffin_icon.png</filename>
-            <filename>part_products/bracelet.png</filename>
             <filename>part_products/bun_icon.png</filename>
             <filename>part_products/butter_icon.png</filename>
             <filename>part_products/cabbage_pie_icon.png</filename>
@@ -240,24 +238,24 @@
             <filename>part_products/gold_bar_icon.png</filename>
             <filename>part_products/gold_ore_icon.png</filename>
             <filename>part_products/grape_ice_cream_icon.png</filename>
-            <filename>part_products/grape_juice_icon.png</filename>
             <filename>part_products/grape_pie_icon.png</filename>
             <filename>part_products/grape_yogurt_icon.png</filename>
             <filename>part_products/gratin_icon.png</filename>
             <filename>part_products/ham_icon.png</filename>
             <filename>part_products/hamburger_icon.png</filename>
             <filename>part_products/honey_icon.png</filename>
-            <filename>part_products/hotdog copy.png</filename>
+            <filename>part_products/hotdog_icon.png</filename>
             <filename>part_products/iron_bar_icon.png</filename>
             <filename>part_products/iron_ore_icon.png</filename>
-            <filename>part_products/jelly_beans.png</filename>
+            <filename>part_products/jelly_beans_icon.png</filename>
             <filename>part_products/lemon_icon.png</filename>
             <filename>part_products/meat_icon.png</filename>
             <filename>part_products/meat_pie_icon.png</filename>
             <filename>part_products/milk_bottle_icon.png</filename>
-            <filename>part_products/necklace.png</filename>
+            <filename>part_products/necklace_icon.png</filename>
             <filename>part_products/omelette_icon.png</filename>
             <filename>part_products/orange_icon.png</filename>
+            <filename>part_products/orange_juice_icon.png</filename>
             <filename>part_products/pancake_icon.png</filename>
             <filename>part_products/pig_feed_icon.png</filename>
             <filename>part_products/pizza_icon.png</filename>
@@ -267,7 +265,7 @@
             <filename>part_products/raspberry_icon.png</filename>
             <filename>part_products/raspberry_jam_icon.png</filename>
             <filename>part_products/raspberry_muffin_icon.png</filename>
-            <filename>part_products/ring.png</filename>
+            <filename>part_products/ring_icon.png</filename>
             <filename>part_products/sausage_icon.png</filename>
             <filename>part_products/sheep_feed_icon.png</filename>
             <filename>part_products/silver_bar_icon.png</filename>
@@ -279,11 +277,13 @@
             <filename>part_products/strawberry_yogurt_icon.png</filename>
             <filename>part_products/sugar_icon.png</filename>
             <filename>part_products/sweater_icon.png</filename>
-            <filename>part_products/toffee.png</filename>
+            <filename>part_products/toffee_icon.png</filename>
             <filename>part_products/tomato_juice_icon.png</filename>
             <filename>part_products/vanllla_ice_cream_icon.png</filename>
             <filename>part_products/winter_hat_icon.png</filename>
             <filename>part_products/wool_icon.png</filename>
+            <filename>part_products/grape_juice_icon.png</filename>
+            <filename>part_products/bracelet_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
