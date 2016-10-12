@@ -44,6 +44,7 @@ public class Fabrica extends WorldObject {
     private var _armatureOpen:Armature;
     private var _countTimer:int;
     private var _fabricWork:Boolean;
+
     public function Fabrica(_data:Object) {
         super(_data);
         if (!_data) {

@@ -19,7 +19,10 @@ public class ManagerVisibleObjects {
     private var _p2:Point;
     private var _useThis:Boolean = true;
 
-    public function ManagerVisibleObjects() {}
+    public function ManagerVisibleObjects() {
+        _p1 = new Point();
+        _p2 = new Point();
+    }
 
     private function enableIt(needShowAll:Boolean):void {
         var i:int;
