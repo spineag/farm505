@@ -589,6 +589,7 @@ public class DirectServer {
                     if (d.message[i].up_instrument_id_3) obj.upInstrumentId3 = int(d.message[i].up_instrument_id_3);
                     if (d.message[i].max_count) obj.maxAnimalsCount = int(d.message[i].max_count);
                     if (d.message[i].image_active) obj.imageActive = d.message[i].image_active;
+                    if (d.message[i].cat_need) obj.CatNeed = Boolean(int(d.message[i].cat_need));
                     if (d.message[i].resource_id) {
                         obj.idResource = String(d.message[i].resource_id).split('&');
                         for (k = 0; k < obj.idResource.length; k++) obj.idResource[k] = int(obj.idResource[k]);
