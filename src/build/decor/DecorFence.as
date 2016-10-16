@@ -19,7 +19,7 @@ import starling.events.Event;
 import windows.WindowsManager;
 
 // для забора как в Птичем Городке
-public class DecorFence extends WorldObject {
+public class DecorFence extends WorldObject {   // tsili 4astunu zabory
     public function DecorFence(_data:Object) {
         super(_data);
         createAtlasBuild(onCreateBuild);
