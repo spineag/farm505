@@ -1051,8 +1051,10 @@ public class WOOrder extends WindowMain{
     private function animateCustomerOnSell(e:Event=null):void {
         _armatureCustomer.removeEventListener(EventObject.COMPLETE, animateCustomerOnSell);
         _armatureCustomer.removeEventListener(EventObject.LOOP_COMPLETE, animateCustomerOnSell);
+//        emptyCarCustomer();
 
-        emptyCarCustomer();
+
+
 //      changeCatTexture(_activeOrderItem.position);
 //      animateCustomerCat();
 
@@ -1061,6 +1063,8 @@ public class WOOrder extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.POST_DONE_ORDER);
             g.directServer.updateWallOrderItem(null);
             g.user.wallOrderItem = false;
+        } else {
+            hideIt();
         }
 
     }

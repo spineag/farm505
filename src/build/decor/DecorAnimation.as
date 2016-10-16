@@ -147,16 +147,18 @@ public class DecorAnimation extends WorldObject{
 
     private function startAnimation():void {
         if (!_armature) return;
-        var fEndOver:Function = function(e:Event=null):void {
-            _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
-            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-            _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
-            _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
-            chooseAnimation();
-        };
-        _armature.addEventListener(EventObject.COMPLETE, fEndOver);
-        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-        _armature.animation.gotoAndPlayByFrame('start');
+        if (_armature.animation.hasAnimation('start')) {
+            var fEndOver:Function = function (e:Event = null):void {
+                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
+                chooseAnimation();
+            };
+            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlayByFrame('start');
+        } else  chooseAnimation();
 
     }
 
@@ -201,24 +203,39 @@ public class DecorAnimation extends WorldObject{
                 _armature.animation.gotoAndPlayByFrame('idle_2');
                 break;
             case 2:
-                _armature.animation.gotoAndPlayByFrame('idle_1');
+                _armature.animation.gotoAndPlayByFrame('idle_3');
+                break;
+            case 3:
+                _armature.animation.gotoAndPlayByFrame('idle_4');
+                break;
+            case 3:
+                _armature.animation.gotoAndPlayByFrame('idle_5');
                 break;
         }
         _decorAnimation ++;
         if (_decorAnimation >= 7) {
-            var fEndOver:Function = function(e:Event=null):void {
-                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
-                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            if (_armature.animation.hasAnimation('back')) {
+                var fEndOver:Function = function (e:Event = null):void {
+                    _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                    if (_heroCat) {
+                        _heroCat.visible = true;
+                        _heroCat.isFree = true;
+                    }
+                    stopAnimation();
+                };
+                _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndPlayByFrame('back');
+                _decorAnimation = 0;
+            } else {
                 if (_heroCat) {
                     _heroCat.visible = true;
                     _heroCat.isFree = true;
                 }
                 stopAnimation();
-            };
-            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
-            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-            _armature.animation.gotoAndPlayByFrame('back');
-            _decorAnimation = 0;
+                _decorAnimation = 0;
+            }
         }
     }
 

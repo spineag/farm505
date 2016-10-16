@@ -281,6 +281,13 @@
             <filename>umbrella_green_icon.png</filename>
             <filename>white_fence_icon.png</filename>
             <filename>yogurt_machine_icon.png</filename>
+            <filename>tent_icon.png</filename>
+            <filename>well_white_icon.png</filename>
+            <filename>well_yellow_icon.png</filename>
+            <filename>teleskope_icon.png</filename>
+            <filename>scarecrow_icon.png</filename>
+            <filename>ghost_icon.png</filename>
+            <filename>witch_pot_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
