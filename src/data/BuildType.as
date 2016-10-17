@@ -15,7 +15,7 @@ public class BuildType {
     public static const TUTORIAL_PLACE:int = 6;
     public static const INSTRUMENT:int = 7;
     public static const RESOURCE:int = 8;
-    public static const DECOR_FULL_FENСE:int = 9;  // полная секция забора - возможно сюда занести ворота в заборе
+    public static const DECOR_FULL_FENСE:int = 9;  // полная секция забора
     public static const DECOR_POST_FENCE:int = 10; // столб забора, к которому будут автоматом крепиться перегородки
     public static const FABRICA:int = 11;
     public static const WILD:int = 12;
@@ -37,5 +37,7 @@ public class BuildType {
     public static const CAT:int = 28;
     public static const CAT_HOUSE:int = 29;
     public static const DECOR_ANIMATION:int = 30;
+    public static const DECOR_FENCE_GATE:int = 31;
+    public static const DECOR_FENCE_ARKA:int = 32;
 }
 }

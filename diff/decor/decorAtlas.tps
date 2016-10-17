@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/decor/decorAtlas.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/decor/decorAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -188,7 +188,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>fence</filename>
             <filename>amanita_1_red.png</filename>
             <filename>amanita_2_red.png</filename>
             <filename>arbor.png</filename>
@@ -199,8 +198,10 @@
             <filename>cat_statue.png</filename>
             <filename>Chair_1.png</filename>
             <filename>Chair_2.png</filename>
+            <filename>dandelion.png</filename>
             <filename>easel_clear.png</filename>
             <filename>farming_table.png</filename>
+            <filename>fence</filename>
             <filename>fir_1.png</filename>
             <filename>fir_2.png</filename>
             <filename>flower_1.png</filename>
@@ -212,7 +213,11 @@
             <filename>flower_7.png</filename>
             <filename>flower_8.png</filename>
             <filename>picnic_pink.png</filename>
+            <filename>sunflower.png</filename>
             <filename>swamp_decor.png</filename>
+            <filename>tail1.png</filename>
+            <filename>track_autumn_1.png</filename>
+            <filename>track_autumn.png</filename>
             <filename>track_blue_cross.png</filename>
             <filename>track_blue.png</filename>
             <filename>track_orange.png</filename>
@@ -235,10 +240,10 @@
             <filename>umbrella_green.png</filename>
             <filename>well_white.png</filename>
             <filename>well_yellow.png</filename>
-            <filename>dandelion.png</filename>
-            <filename>sunflower.png</filename>
-            <filename>track_autumn.png</filename>
-            <filename>track_autumn_1.png</filename>
+            <filename>alive_fence</filename>
+            <filename>blue_fence</filename>
+            <filename>white_fence</filename>
+            <filename>pink_fence</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
