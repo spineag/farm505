@@ -341,6 +341,7 @@
             <filename>bonus.png</filename>
             <filename>top_sells.png</filename>
             <filename>exclamation_point.png</filename>
+            <filename>radio</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
