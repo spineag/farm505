@@ -7,6 +7,8 @@ import analytic.AnalyticManager;
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 
+import dragonBones.Bone;
+
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 
@@ -29,6 +31,7 @@ import windows.WindowsManager;
 public class DecorAnimation extends WorldObject{
     private var _isHover:Boolean;
     private var _heroCat:HeroCat;
+    private var _heroCatArray:Array;
     private var _decorWork:Boolean;
     private var _decorAnimation:int;
     private var  _awayAnimation:Boolean = false;
@@ -39,6 +42,7 @@ public class DecorAnimation extends WorldObject{
         _source.releaseContDrag = true;
         _isHover = false;
         _decorAnimation = 0;
+        _heroCatArray = [];
     }
 
     private function onCreateBuild():void {
@@ -116,10 +120,24 @@ public class DecorAnimation extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
-            if (_heroCat) {
-                _heroCat.isFree = false;
-                g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
+            if (!_dataBuild.catNeed) {
+                var oldBones:Vector.<Bone> = _armature.getBones();
+                var count:int = oldBones.length;
+                if (count > 1) {
+                    var heroCat:HeroCat;
+                    for (var i:int = 0; i < count; i++) {
+                        heroCat
+                        _heroCatArray
+                    }
+                } else {
+                    if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
+                    if (_heroCat) {
+                        _heroCat.isFree = false;
+                        g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
+                    }
+                }
+            } else {
+                onHeroAnimation();
             }
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -138,10 +156,15 @@ public class DecorAnimation extends WorldObject{
 
     private function onHeroAnimation():void {
         if (_decorWork) return;
-        if (_heroCat) {
+        if (!_dataBuild.catNeed) {
+            if (_heroCat) {
+                startAnimation();
+                _decorWork = true;
+                _heroCat.visible = false;
+            }
+        } else {
             startAnimation();
             _decorWork = true;
-            _heroCat.visible = false;
         }
     }
 
@@ -159,7 +182,6 @@ public class DecorAnimation extends WorldObject{
             _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
             _armature.animation.gotoAndPlayByFrame('start');
         } else  chooseAnimation();
-
     }
 
     public function awayAnimation():void {
@@ -168,23 +190,39 @@ public class DecorAnimation extends WorldObject{
         _awayAnimation = false;
         if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
         if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
-        var k:int = int(Math.random() * 2);
+        var k:int = int(Math.random() * 5);
         switch (k) {
             case 0:
                 _armature.animation.gotoAndPlayByFrame('idle_1');
                 break;
             case 1:
-                _armature.animation.gotoAndPlayByFrame('idle_2');
+                if (_armature.animation.hasAnimation('idle_2')) _armature.animation.gotoAndPlayByFrame('idle_2');
+                else _armature.animation.gotoAndPlayByFrame('idle_1');
                 break;
             case 2:
-                _armature.animation.gotoAndPlayByFrame('idle_1');
+                if (_armature.animation.hasAnimation('idle_3')) _armature.animation.gotoAndPlayByFrame('idle_3');
+                else if (_armature.animation.hasAnimation('idle_2')) _armature.animation.gotoAndPlayByFrame('idle_2');
+                else _armature.animation.gotoAndPlayByFrame('idle_1');
+                break;
+            case 3:
+                if (_armature.animation.hasAnimation('idle_4')) _armature.animation.gotoAndPlayByFrame('idle_4');
+                else if (_armature.animation.hasAnimation('idle_3')) _armature.animation.gotoAndPlayByFrame('idle_3');
+                else if (_armature.animation.hasAnimation('idle_2')) _armature.animation.gotoAndPlayByFrame('idle_2');
+                else _armature.animation.gotoAndPlayByFrame('idle_1');
+                break;
+            case 4:
+                if (_armature.animation.hasAnimation('idle_5')) _armature.animation.gotoAndPlayByFrame('idle_5');
+                else if (_armature.animation.hasAnimation('idle_4')) _armature.animation.gotoAndPlayByFrame('idle_4');
+                else if (_armature.animation.hasAnimation('idle_3')) _armature.animation.gotoAndPlayByFrame('idle_3');
+                else if (_armature.animation.hasAnimation('idle_2')) _armature.animation.gotoAndPlayByFrame('idle_2');
+                else _armature.animation.gotoAndPlayByFrame('idle_1');
                 break;
         }
     }
 
     private function stopAnimation():void {
         _decorWork = false;
-        _heroCat = null;
+        if (_heroCat) _heroCat = null;
         if (_armature) _armature.animation.gotoAndStopByFrame('idle');
         if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, chooseAnimation);
         if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
@@ -194,22 +232,32 @@ public class DecorAnimation extends WorldObject{
         if (!_armature) return;
         if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
         if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
-        var k:int = int(Math.random() * 2);
+        var k:int = int(Math.random() * 5);
         switch (k) {
             case 0:
                 _armature.animation.gotoAndPlayByFrame('idle_1');
                 break;
             case 1:
-                _armature.animation.gotoAndPlayByFrame('idle_2');
+                if (_armature.animation.hasAnimation('idle_2')) _armature.animation.gotoAndPlayByFrame('idle_2');
+                else _armature.animation.gotoAndPlayByFrame('idle_1');
                 break;
             case 2:
-                _armature.animation.gotoAndPlayByFrame('idle_3');
+                if (_armature.animation.hasAnimation('idle_3')) _armature.animation.gotoAndPlayByFrame('idle_3');
+                else if (_armature.animation.hasAnimation('idle_2')) _armature.animation.gotoAndPlayByFrame('idle_2');
+                else _armature.animation.gotoAndPlayByFrame('idle_1');
                 break;
             case 3:
-                _armature.animation.gotoAndPlayByFrame('idle_4');
+                if (_armature.animation.hasAnimation('idle_4')) _armature.animation.gotoAndPlayByFrame('idle_4');
+                else if (_armature.animation.hasAnimation('idle_3')) _armature.animation.gotoAndPlayByFrame('idle_3');
+                else if (_armature.animation.hasAnimation('idle_2')) _armature.animation.gotoAndPlayByFrame('idle_2');
+                else _armature.animation.gotoAndPlayByFrame('idle_1');
                 break;
-            case 3:
-                _armature.animation.gotoAndPlayByFrame('idle_5');
+            case 4:
+                if (_armature.animation.hasAnimation('idle_5')) _armature.animation.gotoAndPlayByFrame('idle_5');
+                else if (_armature.animation.hasAnimation('idle_4')) _armature.animation.gotoAndPlayByFrame('idle_4');
+                else if (_armature.animation.hasAnimation('idle_3')) _armature.animation.gotoAndPlayByFrame('idle_3');
+                else if (_armature.animation.hasAnimation('idle_2')) _armature.animation.gotoAndPlayByFrame('idle_2');
+                else _armature.animation.gotoAndPlayByFrame('idle_1');
                 break;
         }
         _decorAnimation ++;
@@ -229,9 +277,11 @@ public class DecorAnimation extends WorldObject{
                 _armature.animation.gotoAndPlayByFrame('back');
                 _decorAnimation = 0;
             } else {
-                if (_heroCat) {
-                    _heroCat.visible = true;
-                    _heroCat.isFree = true;
+                if (!_dataBuild.catNeed) {
+                    if (_heroCat) {
+                        _heroCat.visible = true;
+                        _heroCat.isFree = true;
+                    }
                 }
                 stopAnimation();
                 _decorAnimation = 0;
