@@ -288,6 +288,9 @@
             <filename>scarecrow_icon.png</filename>
             <filename>ghost_icon.png</filename>
             <filename>witch_pot_icon.png</filename>
+            <filename>kakao_icon.png</filename>
+            <filename>lemon_icon.png</filename>
+            <filename>orange_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
