@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/farm505/diff/decor/decorAtlas.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/decor/decorAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -213,7 +213,6 @@
             <filename>flower_7.png</filename>
             <filename>flower_8.png</filename>
             <filename>picnic_pink.png</filename>
-            <filename>sunflower.png</filename>
             <filename>swamp_decor.png</filename>
             <filename>tail1.png</filename>
             <filename>track_autumn_1.png</filename>
@@ -244,6 +243,7 @@
             <filename>blue_fence</filename>
             <filename>white_fence</filename>
             <filename>pink_fence</filename>
+            <filename>sunflower</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
