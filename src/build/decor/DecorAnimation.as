@@ -125,32 +125,32 @@ public class DecorAnimation extends WorldObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (!_dataBuild.catNeed) {
-                var oldBones:Vector.<Bone> = _armature.getBones();
-                var count:int = oldBones.length - 1;
-                if (count > 1) {
-                    var heroCat:HeroCat;
-                    var armature:Armature;
-                    for (var i:int = 0; i < count; i++) {
-                        heroCat = g.managerCats.getFreeCat();
-                        if (heroCat) {
-                            heroCat.isFree = false;
-                            armature = new Armature();
-                            armature = g.allData.factory[_dataBuild.url].buildArmature('cat' + String(count - i));
-                            WorldClock.clock.add(armature);
-                            armature.animation.gotoAndPlayByFrame('idle');
-                            _build.addChild(armature.display as StarlingArmatureDisplay);
-                            g.managerCats.goCatToPoint(heroCat, new Point(posX, posY), onHeroAnimationArray, armature, heroCat);
-//                            _heroCatArray.push(heroCat);
-//                            _armatureArray.push(armature);
-                        }
-                    }
-                } else {
+//                var oldBones:Vector.<Bone> = _armature.getBones();
+//                var count:int = oldBones.length - 1;
+//                if (count > 1) {
+//                    var heroCat:HeroCat;
+//                    var armature:Armature;
+//                    for (var i:int = 0; i < count; i++) {
+//                        heroCat = g.managerCats.getFreeCat();
+//                        if (heroCat) {
+//                            heroCat.isFree = false;
+//                            armature = new Armature();
+//                            armature = g.allData.factory[_dataBuild.url].buildArmature('cat' + String(count - i));
+//                            WorldClock.clock.add(armature);
+//                            armature.animation.gotoAndPlayByFrame('idle');
+//                            _build.addChild(armature.display as StarlingArmatureDisplay);
+//                            g.managerCats.goCatToPoint(heroCat, new Point(posX, posY), onHeroAnimationArray, armature, heroCat);
+////                            _heroCatArray.push(heroCat);
+////                            _armatureArray.push(armature);
+//                        }
+//                    }
+//                } else {
                     if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
                     if (_heroCat) {
                         _heroCat.isFree = false;
                         g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
                     }
-                }
+//                }
             } else {
                 onHeroAnimation();
             }

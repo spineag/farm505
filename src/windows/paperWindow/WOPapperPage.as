@@ -31,12 +31,14 @@ public class WOPapperPage {
     private var _wo:WOPapper;
     private var _txtPage:CTextField;
     private var _txtTitle:CTextField;
+    private var _woHeight:int;
     private var g:Vars = Vars.getInstance();
 
     public function WOPapperPage(numberPage:int, maxNumberPage:int, side:String, wo:WOPapper) {
         _wo = wo;
         source = new Sprite();
         _side = side;
+        _woHeight = 545;
         createBG(numberPage, maxNumberPage);
         createItems();
     }
@@ -51,22 +53,42 @@ public class WOPapperPage {
 
     private function createBG(n:int, nMax:int):void {
         _bg = new CSprite();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_p1'));
-        _quad = new Quad(im.width, im.height,Color.WHITE);
+        var im:Image;
+        var sp:Sprite = new Sprite();
+//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_p1'));
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bottom_newspaper'));
+        im.y = _woHeight - im.height;
+        sp.addChild(im);
+
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_newspaper'));
+        sp.addChild(im);
+
+        for (var i:int = 0; i < 92; i++) {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('centre_newspaper'));
+            im.y = 30 + (i * 5);
+            sp.addChild(im);
+        }
+
+        _quad = new Quad(sp.width, sp.height,Color.WHITE);
         _quad.alpha = 0;
         source.addChild(_quad);
-        im.touchable = false;
+        sp.touchable = false;
         if (_side == RIGHT_SIDE) {
-            im.scaleX = -1;
-            im.x = im.width;
+            sp.scaleX = -1;
+            sp.x = sp.width;
         }
-        _bg.addChild(im);
+        _bg.addChild(sp);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_cat'));
         MCScaler.scale(im, 30, 30);
         im.rotation = Math.PI/2;
         im.x = 66;
         im.y = 15;
         _bg.addChild(im);
+
+
+
+
+
         var q:Quad = new Quad(320, 2, 0x0184df);
         q.x = 70;
         q.y = 38;

@@ -94,9 +94,11 @@ public class WOBuyCurrencyItem {
         var txt:CTextField;
         if (bonus[0] == 1) {
              im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price'));
+            im.x = 280;
             source.addChild(im);
         } else if (bonus[0] == 2) {
              im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_sells'));
+            im.x = 280;
             source.addChild(im);
         }
         if (bonus[1] > 0) {
