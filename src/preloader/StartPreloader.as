@@ -47,7 +47,7 @@ public class StartPreloader {
         _texture = Texture.fromBitmap(new PreloaderTexture());
         var xml:XML = XML(new PreloaderTextureXML());
         _preloaderAtlas = new TextureAtlas(_texture, xml);
-        _bg = new Image(_preloaderAtlas.getTexture('preloader_window'));
+        _bg = new Image(_preloaderAtlas.getTexture('preloader_window_halloween'));
         _source.addChild(_bg);
         _quad = new Quad(3.2, 3, 0xc0e8ff);
         _quad.x = 327;

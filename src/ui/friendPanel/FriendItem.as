@@ -31,6 +31,7 @@ public class FriendItem {
     private var _timer:int;
     private var _positionInList:int;
     private var g:Vars = Vars.getInstance();
+    private var _friendBoardHelpInfo:CSprite;
 
     public function FriendItem(f:Someone,pos:int =0) {
         _person = f;
@@ -93,6 +94,18 @@ public class FriendItem {
         }
         source.addChild(_txt);
         source.endClickCallback = visitPerson;
+
+        if (_person && _person.needHelpCount > 0) {
+            _friendBoardHelpInfo = new CSprite();
+            var help:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+            MCScaler.scale(help, 20, 20);
+            help.x = 38;
+            help.y = 18;
+            _friendBoardHelpInfo.addChild(help);
+            _friendBoardHelpInfo.hoverCallback = function():void { g.hint.showIt("Мне нужна помощь"); };
+            _friendBoardHelpInfo.outCallback = function():void { g.hint.hideIt(); };
+            source.addChild(_friendBoardHelpInfo);
+        }
     }
 
     private function visitPerson():void {
@@ -216,7 +229,7 @@ public class FriendItem {
         if (_preloader) _preloader = null;
         source.deleteIt();
         source = null;
-
+        if (_friendBoardHelpInfo) _friendBoardHelpInfo = null;
     }
 
 }

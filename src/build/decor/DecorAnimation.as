@@ -8,6 +8,7 @@ import build.WorldObject;
 import com.junkbyte.console.Cc;
 
 import dragonBones.Armature;
+import dragonBones.Slot;
 import dragonBones.starling.StarlingArmatureDisplay;
 import dragonBones.Bone;
 
@@ -15,6 +16,8 @@ import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 
 import flash.geom.Point;
+
+import heroes.BasicCat;
 
 import heroes.HeroCat;
 
@@ -394,6 +397,104 @@ public class DecorAnimation extends WorldObject{
                 stopAnimation();
                 _decorAnimation = 0;
             }
+        }
+    }
+
+    private function releaseHeroCatWoman():void {
+        if (_heroCat) {
+            if (_heroCat.typeMan == BasicCat.MAN) {
+                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                    releaseManBackTexture();
+                else releaseManFrontTexture();
+            } else if (_heroCat.typeMan == BasicCat.WOMAN) {
+                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                    releaseWomanBackTexture();
+                else releaseWomanFrontTexture();
+            }
+        } else {
+            if (g.isAway) {
+                if (Math.random() < .5) {
+                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                        releaseManBackTexture();
+                    else releaseManFrontTexture();
+                } else {
+                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                        releaseWomanBackTexture();
+                    else releaseWomanFrontTexture();
+                }
+            }
+        }
+    }
+
+    private function releaseManFrontTexture():void {
+        if (!_armature) return;
+        changeTexture("head", "head");
+        changeTexture("body", "body");
+        changeTexture("handLeft", "hand_l");
+        changeTexture("legLeft", "leg_l");
+        changeTexture("handRight", "hand_r");
+        changeTexture("legRight", "leg_r");
+        changeTexture("tail", "tail");
+        if (_dataBuild.id == 10) {
+            changeTexture("handRight2", "hand_r");
+        }
+        var viyi:Bone = _armature.getBone('viyi'); {
+            if (viyi) {
+                viyi.visible = false;
+            }
+        }
+    }
+
+    private function releaseManBackTexture():void {
+        changeTexture("head", "head_b");
+        changeTexture("body", "body_b");
+        changeTexture("handLeft", "hand_l_b");
+        changeTexture("legLeft", "leg_l_b");
+        changeTexture("handRight", "hand_r_b");
+        changeTexture("legRight", "leg_r_b");
+        changeTexture("tail", "tail");
+        if (_dataBuild.id == 10) {
+            changeTexture("handRight2", "hand_r_b");
+        }
+    }
+
+    private function releaseWomanFrontTexture():void {
+        if (!_armature) return;
+        changeTexture("head", "head_w");
+        changeTexture("body", "body_w");
+        changeTexture("handLeft", "hand_w_l");
+        changeTexture("legLeft", "leg_w_r");
+        changeTexture("handRight", "hand_w_r");
+        changeTexture("legRight", "leg_w_r");
+        changeTexture("tail", "tail_w");
+        if (_dataBuild.id == 10) {
+            changeTexture("handRight2", "hand_w_r");
+        }
+        var viyi:Bone = _armature.getBone('viyi'); {
+            if (viyi) {
+                viyi.visible = true;
+            }
+        }
+    }
+
+    private function releaseWomanBackTexture():void {
+        changeTexture("head", "head_w_b");
+        changeTexture("body", "body_w_b");
+        changeTexture("handLeft", "hand_w_l_b");
+        changeTexture("legLeft", "leg_w_l_b");
+        changeTexture("handRight", "hand_w_r_b");
+        changeTexture("legRight", "leg_w_r_b");
+        changeTexture("tail", "tail_w");
+    }
+
+    private function changeTexture(oldName:String, newName:String):void {
+        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
+        if (_armature) var b:Slot = _armature.getSlot(oldName);
+        if (im && b) {
+            b.displayList = null;
+            b.display = im;
+        } else {
+            Cc.error('Fabrica changeTexture:: null Bone for oldName= '+oldName + ' for fabricaId= '+String(_dataBuild.id));
         }
     }
 

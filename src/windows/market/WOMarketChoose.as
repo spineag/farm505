@@ -296,6 +296,10 @@ public class WOMarketChoose extends WindowMain {
         _curResourceId = a;
 //        _btnSell.filter = null;
 //        _countResourceBlock.btnNull();
+        _countMoneyBlock.count = 0;
+        _countResourceBlock.count = 0;
+        booleanMinus = true;
+        booleanPlus = true;
         _countResourceBlock._btnMinus.setEnabled = true;
         _countResourceBlock._btnPlus.setEnabled = true;
         _countMoneyBlock._btnPlus.setEnabled = true;

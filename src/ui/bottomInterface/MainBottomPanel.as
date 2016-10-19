@@ -453,11 +453,15 @@ public class MainBottomPanel {
 
     public function addHelpIcon():void {
         // _person === g.visitedUser
+        var sp:CSprite = new CSprite();
         if (_person && _person.needHelpCount > 0) {
             _friendBoardHelpInfo = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
             _friendBoardHelpInfo.x = 65;
             _friendBoardHelpInfo.y = 5;
-            _friendBoard.addChild(_friendBoardHelpInfo);
+            sp.addChild(_friendBoardHelpInfo);
+            sp.hoverCallback = function():void { g.hint.showIt("Мне нужна помощь"); };
+            sp.outCallback = function():void { g.hint.hideIt(); };
+            _friendBoard.addChild(sp);
         }
     }
 

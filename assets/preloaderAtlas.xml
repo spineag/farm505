@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:ddda0a4b01e1a885087f50d42c851c6b:5d701781603151269699ba3782bb22d9:31eb2820b0f5eb53ce3c6f44c4b6dfc7$ -->
-<TextureAtlas imagePath="preloaderAtlas.png" width="1004" height="708">
+<!-- $TexturePacker:SmartUpdate:c4ff16fb89a81cc8e852816b652736af:cfcf6d6a65146bc5855188ab9eb11868:31eb2820b0f5eb53ce3c6f44c4b6dfc7$ -->
+<TextureAtlas imagePath="preloaderAtlas.png" width="2006" height="676">
     <SubTexture name="preloader_bg" x="2" y="644" width="613" height="30"/>
-    <SubTexture name="preloader_line" x="2" y="676" width="613" height="30"/>
+    <SubTexture name="preloader_line" x="617" y="644" width="613" height="30"/>
     <SubTexture name="preloader_window" x="2" y="2" width="1000" height="640"/>
+    <SubTexture name="preloader_window_halloween" x="1004" y="2" width="1000" height="640"/>
 </TextureAtlas>

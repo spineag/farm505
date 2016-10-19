@@ -195,6 +195,7 @@
             <filename>preloader_bg.png</filename>
             <filename>preloader_line.png</filename>
             <filename>preloader_window.jpg</filename>
+            <filename>preloader_window_halloween.jpg</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

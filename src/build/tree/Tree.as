@@ -186,28 +186,28 @@ public class Tree extends WorldObject {
         switch (_state) {
             case GROW1:
                 _armature.animation.gotoAndStopByFrame("small");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '1', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER1:
                 _armature.animation.gotoAndStopByFrame("small_flower");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '1', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED1:
                 _armature.animation.gotoAndStopByFrame("small_fruits");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'small', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '1', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 2;
                 break;
             case GROW2:
                 _armature.animation.gotoAndStopByFrame("middle");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER2:
                 _armature.animation.gotoAndStopByFrame("middle_flower");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED2:
@@ -216,18 +216,18 @@ public class Tree extends WorldObject {
                 _armature.addBone(_fruit2);
                 _fruit2.visible = true;
                 _armature.animation.gotoAndStopByFrame("middle_fruits");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'middle', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 3;
                 break;
             case GROW3:
                 _armature.animation.gotoAndStopByFrame("big");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FLOWER3:
                 _armature.animation.gotoAndStopByFrame("big_flower");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED3:
@@ -238,38 +238,38 @@ public class Tree extends WorldObject {
                 _armature.addBone(_fruit3);
                 _fruit3.visible = true;
                 _armature.animation.gotoAndStopByFrame("big_fruits");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 4;
                 break;
             case DEAD:
                 _armature.animation.gotoAndStopByFrame("dead");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case FULL_DEAD:
                 _armature.animation.gotoAndStopByFrame("dead");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case ASK_FIX:
                 _armature.animation.gotoAndStopByFrame("dead");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case FIXED:
                 _armature.animation.gotoAndStopByFrame("dead");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '2', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FIXED:
                 _armature.animation.gotoAndStopByFrame("big");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case GROW_FIXED_FLOWER:
                 _armature.animation.gotoAndStopByFrame("big_flower");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 break;
             case GROWED_FIXED:
@@ -282,7 +282,7 @@ public class Tree extends WorldObject {
                 _armature.addBone(_fruit4);
                 _fruit4.visible = true;
                 _armature.animation.gotoAndStopByFrame("big_fruits");
-                _hitArea = g.managerHitArea.getHitArea(_source, 'tree' + _dataBuild.id + 'big', ManagerHitArea.TYPE_LOADED);
+                _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);
                 _countCrafted = 4;
                 break;
@@ -935,78 +935,6 @@ public class Tree extends WorldObject {
             rechekFruits();
         }
     }
-
-//    public function countMouseEnterFrame():void {
-//        _countMouse--;
-//        if (_countMouse <= 5) {
-//            if (_isOnHover == true) {
-//                if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
-//                    g.mouseHint.showMouseHint(MouseHint.KORZINA);
-//                } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
-//                        _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-//                    g.mouseHint.showMouseHint(MouseHint.CLOCK);
-//                }
-//            }
-//        }
-//        if (_countMouse <= 0) {
-//            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
-//            if (_isOnHover == true) {
-//                if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
-//                    g.mouseHint.showMouseHint(MouseHint.KORZINA);
-//                } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
-//                        _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER || _state == FULL_DEAD || _state == ASK_FIX || _state == DEAD) {
-//                var time:int = _timeToEndState;
-//                if (_timeToEndState == 0) time += int(_resourceItem.buildTime);
-//                else time += int(_resourceItem.buildTime /2 + .5);
-//                var newX:int;
-//                var newY:int;
-//                if (_dataBuild.id == 25) { //Яблоня
-//                    if (_state == ASK_FIX) makeWateringIcon(true);
-//                    newX = g.cont.gameCont.x + _source.x * g.currentGameScale;
-//                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
-//                }else if (_dataBuild.id == 26) { // Вишня
-//                    if (_state == ASK_FIX) makeWateringIcon(true);
-//                    newX = g.cont.gameCont.x + (_source.x + _source.width /12) * g.currentGameScale;
-//                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
-//                } else if (_dataBuild.id == 41) { //Малина
-//                    if (_state == ASK_FIX) makeWateringIcon(true);
-//                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-//                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
-//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 2) * g.currentGameScale;
-//                    } else{
-//                        newX = g.cont.gameCont.x + (_source.x + _source.width / 5) * g.currentGameScale;
-//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
-//                    }
-//                } else if (_dataBuild.id == 42) { //Черника
-//                    if (_state == ASK_FIX) makeWateringIcon(true);
-//                    if (_state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-//                        newX = g.cont.gameCont.x + (_source.x + _source.width / 3) * g.currentGameScale;
-//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 6) * g.currentGameScale;
-//                    } else{
-//                        newX = g.cont.gameCont.x + (_source.x +  _source.width / 12) * g.currentGameScale;
-//                        newY = g.cont.gameCont.y + (_source.y - _source.height / 9) * g.currentGameScale;
-//                    }
-//                }if (_state == DEAD) {
-//                    g.treeHint.onDelete = deleteTree;
-//                    g.treeHint.showIt(_source.height,_dataBuild, newX, newY, _dataBuild.name, this, onOut);
-//                    g.treeHint.onWatering = askWateringTree;
-//                } else if (_state == FULL_DEAD || _state == ASK_FIX) {
-//                    if (g.isAway) return;
-//                    g.wildHint.onDelete = deleteTree;
-//                    g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId, _dataBuild.name,onOut);
-//                }  else {
-//                     g.timerHint.showIt(_source.height,newX,newY, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip,onOut);
-//                }
-//                }
-//            } else {
-////                _source.filter = null;
-//                g.mouseHint.hideIt();
-//                g.timerHint.hideIt();
-//                g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
-//            }
-//        }
-//    }
-
     override public function addXP():void {
         if (_dataBuild.xpForBuild) {
             var start:Point = new Point(int(_source.x), int(_source.y));

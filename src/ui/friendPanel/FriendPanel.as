@@ -115,12 +115,16 @@ public class FriendPanel {
     private function onTabClick():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_activeTabType == TYPE_NORMAL) {
+            _shift = 0;
+            animList();
             _source.setChildIndex(_tab1, 0);
             _source.setChildIndex(_tab2, 2);
             _activeTabType = TYPE_NEED_HELP;
             _tab2.endClickCallback = null;
             _tab1.endClickCallback = onTabClick;
         } else if (_activeTabType == TYPE_NEED_HELP) {
+            _shift = 0;
+            animList();
             _source.setChildIndex(_tab2, 0);
             _source.setChildIndex(_tab1, 2);
             _activeTabType = TYPE_NORMAL;
