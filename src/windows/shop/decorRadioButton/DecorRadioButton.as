@@ -12,17 +12,23 @@ public class DecorRadioButton {
     private var _items:Array;
     private var _parent:CSprite;
     private var _activeItem:DecorRadioButtonItem;
+    private var _updateCallback:Function;
 
-    public function DecorRadioButton(p:CSprite) {
+    public function DecorRadioButton(p:CSprite, f:Function) {
         _items = [];
         _source = new Sprite();
         _parent = p;
-        _source.y = 150;
+        _source.y = 153;
         _parent.addChild(_source);
+        _updateCallback = f;
     }
 
     public function addItem(ob:Object):void {
         var item:DecorRadioButtonItem = new DecorRadioButtonItem(ob, onClick);
+        if (!_items.length) {
+            item.activateIt();
+            _activeItem = item;
+        }
         _items.push(item);
         _source.addChild(item.source);
     }
@@ -33,8 +39,8 @@ public class DecorRadioButton {
             case 0: Cc.error('DecorRadioButton:: no items'); break;
             case 1: _items[0].source.x = 72; break;
             case 2: _items[0].source.x = 45; _items[1].source.x = 100; break;
-            case 3: _items[0].source.x = 30; _items[1].source.y = 72; _items[2].source.x = 114; break;
-            case 4: _items[0].source.x = 20; _items[1].source.y = 55; _items[2].source.x = 90; _items[3].source.x = 125; break;
+            case 3: _items[0].source.x = 40; _items[1].source.x = 72; _items[2].source.x = 104; break;
+            case 4: _items[0].source.x = 20; _items[1].source.x = 55; _items[2].source.x = 90; _items[3].source.x = 125; break;
             default: Cc.error('DecorRadioButton:: 5 items and more');
         }
     }
@@ -43,6 +49,9 @@ public class DecorRadioButton {
         if (_activeItem != item) {
             _activeItem.activateIt(false);
             _activeItem = item;
+            if (_updateCallback != null) {
+                _updateCallback.apply(null, [_activeItem.dataItem]);
+            }
         }
     }
 

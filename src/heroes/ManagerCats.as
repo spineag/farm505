@@ -298,6 +298,7 @@ public class ManagerCats {
 
     private function isCrossedPathAndSquare(path:Array, buildPosX:int, buildPosY:int, buildWidth:int, buildHeight:int):Boolean {
         var isCrossed:Boolean = false;
+        if (!path || !path.length) return false;
         var p:Point;
         for (var i:int=0; i<path.length; i++) {
             p = path[i];

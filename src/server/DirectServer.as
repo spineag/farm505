@@ -511,7 +511,6 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataBuilding: wrong JSON:' + String(response));
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataBuilding: wrong JSON:' + String(response));
             return;
         }
@@ -522,8 +521,6 @@ public class DirectServer {
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
                 obj = {};
-//                if (g.user.isTester)
-//                if (d.message[i].visible == 1 ) {
                     obj.id = int(d.message[i].id);
                     obj.width = int(d.message[i].width);
                     obj.height = int(d.message[i].height);
@@ -603,10 +600,18 @@ public class DirectServer {
                         for (k = 0; k < obj.variaty.length; k++) obj.variaty[k] = Number(obj.variaty[k]);
                     }
                     if (d.message[i].visible) obj.visibleTester = Boolean(int(d.message[i].visible));
+                    if (d.message[i].color) obj.color = String(d.message[i].color);
+                    if (d.message[i].group) {
+                        if (int(d.message[i].group) > 0) {
+                            obj.group = int(d.message[i].group);
+                            g.allData.addToDecorGroup(obj);
+                        }
+                    }
+
                 if (g.user.isTester) g.dataBuilding.objectBuilding[obj.id] = obj;
                     else if (d.message[i].visible == 0 ) g.dataBuilding.objectBuilding[obj.id] = obj;
-//                }
             }
+            g.allData.sortDecorData();
             if (callback != null) {
                 callback.apply();
             }

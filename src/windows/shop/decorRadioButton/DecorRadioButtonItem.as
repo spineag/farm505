@@ -39,8 +39,8 @@ public class DecorRadioButtonItem {
         _source.addChild(_image);
         _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('select_color'));
         _checkImage.visible = false;
-        _checkImage.x = 1;
-        _checkImage.y = -3;
+        _checkImage.x = -13;
+        _checkImage.y = -16;
         _source.addChild(_checkImage);
 
         _source.hoverCallback = function():void { _hoverImage.visible = true };
@@ -50,6 +50,10 @@ public class DecorRadioButtonItem {
 
     public function get source():CSprite {
         return _source;
+    }
+
+    public function get dataItem():Object {
+        return _data;
     }
 
     private function onClick():void {

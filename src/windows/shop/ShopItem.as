@@ -35,6 +35,7 @@ import utils.CSprite;
 import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WindowsManager;
+import windows.shop.decorRadioButton.DecorRadioButton;
 
 public class ShopItem {
     public var source:CSprite;
@@ -68,6 +69,7 @@ public class ShopItem {
     private var g:Vars = Vars.getInstance();
     private var _arrImages:Array; // use only for delete filters from images
     private var _imAnimationDecor:Image;
+    private var _radioButton:DecorRadioButton;
 
     public function ShopItem(data:Object, wo:WOShop, pos:int) {
         _arrImages = [];
@@ -116,6 +118,53 @@ public class ShopItem {
         source.addChild(_imAnimationDecor);
         _imAnimationDecor.visible = false;
         source.endClickCallback = onClick;
+        setInfo();
+
+        if (_data.group && _data.blockByLevel[0] <= g.user.level) {
+            var arr:Array = g.allData.getGroup(_data.group);
+            if (arr.length > 1) {
+                _radioButton = new DecorRadioButton(source, onClickRadioButton);
+                for (var i:int=0; i<arr.length; i++) {
+                    _radioButton.addItem(arr[i]);
+                }
+                _radioButton.calculatePositions();
+            }
+        }
+    }
+
+    private function onClickRadioButton(activeItemData:Object):void {
+        source.removeChild(_imCont);
+        _imCont.removeChild(_im);
+        _imCont.dispose();
+        _im.dispose();
+        _imCont = null;
+        _im = null;
+        if (_btnBuyGreen) {
+            source.removeChild(_btnBuyGreen);
+            _btnBuyGreen.deleteIt();
+            _btnBuyGreen = null;
+        }
+        if (_btnBuyBlue) {
+            source.removeChild(_btnBuyBlue);
+            _btnBuyBlue.deleteIt();
+            _btnBuyBlue = null;
+        }
+        if (_btnBuyCoupone) {
+            source.removeChild(_btnBuyCoupone);
+            _btnBuyCoupone.deleteIt();
+            _btnBuyCoupone = null;
+        }
+        if (_btnActivationYellow) {
+            source.removeChild(_btnActivationYellow);
+            _btnActivationYellow.deleteIt();
+            _btnActivationYellow = null;
+        }
+        if (_btnActivationPink) {
+            source.removeChild(_btnActivationPink);
+            _btnActivationPink.deleteIt();
+            _btnActivationPink = null;
+        }
+        _data = activeItemData;
         setInfo();
     }
     
@@ -299,7 +348,6 @@ public class ShopItem {
     }
 
     private function setInfo():void {
-//        if (_data.id == 55) return;
         if (_data.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
             if (!texture) {
@@ -445,7 +493,8 @@ public class ShopItem {
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
-        } else if (_data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+        } else if (_data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR ||  _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL
+                || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE) {
             if (_data.blockByLevel) {
                 if ( _data.buildType == BuildType.DECOR_ANIMATION) {
                     _imAnimationDecor.visible = true;
@@ -1093,6 +1142,11 @@ public class ShopItem {
             source.removeChild(_btnActivationYellow);
             _btnActivationYellow.deleteIt();
             _btnActivationYellow = null;
+        }
+        if (_btnActivationPink) {
+            source.removeChild(_btnActivationPink);
+            _btnActivationPink.deleteIt();
+            _btnActivationPink = null;
         }
         _txtBtnBuyBlue = null;
         _txtBtnBuyGreen = null;

@@ -212,7 +212,7 @@ public class WOShop extends WindowMain {
     private function onTab(a:int):void {
         var arr:Array = [];
         var obj:Object;
-        var id:String;
+        var st:String;
         if (g.user.allNotification > 0) {
             switch (curentTab) {
                 case VILLAGE:
@@ -239,41 +239,44 @@ public class WOShop extends WindowMain {
             case VILLAGE:
                 obj = g.dataBuilding.objectBuilding;
                 arr.push(g.managerCats.catInfo);
-                for (id in obj) {
-                    if (obj[id].buildType == BuildType.RIDGE || obj[id].buildType == BuildType.FARM) {
-                        arr.push(Utils.objectDeepCopy(obj[id]));
+                for (st in obj) {
+                    if (obj[st].buildType == BuildType.RIDGE || obj[st].buildType == BuildType.FARM) {
+                        arr.push(Utils.objectDeepCopy(obj[st]));
                     }
                 }
                 break;
             case ANIMAL:
                 obj = g.dataAnimal.objectAnimal;
-                for (id in obj) {
-                        arr.push(Utils.objectDeepCopy(obj[id]));
+                for (st in obj) {
+                        arr.push(Utils.objectDeepCopy(obj[st]));
                 }
                 break;
             case FABRICA:
                 obj = g.dataBuilding.objectBuilding;
-                for (id in obj) {
-                    if (obj[id].buildType == BuildType.FABRICA) {
-                        arr.push(Utils.objectDeepCopy(obj[id]));
+                for (st in obj) {
+                    if (obj[st].buildType == BuildType.FABRICA) {
+                        arr.push(Utils.objectDeepCopy(obj[st]));
                     }
                 }
                 break;
             case PLANT:
                 obj = g.dataBuilding.objectBuilding;
-                for (id in obj) {
-                    if (obj[id].buildType == BuildType.TREE) {
-                        arr.push(Utils.objectDeepCopy(obj[id]));
+                for (st in obj) {
+                    if (obj[st].buildType == BuildType.TREE) {
+                        arr.push(Utils.objectDeepCopy(obj[st]));
                     }
                 }
                 break;
             case DECOR:
                 obj = g.dataBuilding.objectBuilding;
-                for (id in obj) {
-                    if (obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_ANIMATION || obj[id].buildType == BuildType.DECOR_FULL_FENСE ||
-                            obj[id].buildType == BuildType.DECOR_POST_FENCE || obj[id].buildType == BuildType.DECOR_TAIL) {
-                        if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == obj[id].filterType)
-                            arr.push(Utils.objectDeepCopy(obj[id]));
+                for (st in obj) {
+                    if (obj[st].buildType == BuildType.DECOR || obj[st].buildType == BuildType.DECOR_ANIMATION || obj[st].buildType == BuildType.DECOR_FULL_FENСE ||
+                            obj[st].buildType == BuildType.DECOR_POST_FENCE || obj[st].buildType == BuildType.DECOR_TAIL || obj[st].buildType == BuildType.DECOR_FENCE_GATE ||
+                            obj[st].buildType == BuildType.DECOR_FENCE_ARKA) {
+                        if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == obj[st].filterType) {
+                            if (obj[st].group && !g.allData.isFirstInGroupDecor(obj[st].group, obj[st].id)) continue;
+                            arr.push(Utils.objectDeepCopy(obj[st]));
+                        }
                     }
                 }
                 break;
