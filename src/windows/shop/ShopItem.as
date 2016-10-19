@@ -120,7 +120,7 @@ public class ShopItem {
         source.endClickCallback = onClick;
         setInfo();
 
-        if (_data.group && _data.blockByLevel[0] <= g.user.level) {
+        if (_data.group && _data.blockByLevel[0] <= g.user.level && (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION)) {
             var arr:Array = g.allData.getGroup(_data.group);
             if (arr.length > 1) {
                 _radioButton = new DecorRadioButton(source, onClickRadioButton);

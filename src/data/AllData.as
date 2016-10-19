@@ -36,11 +36,23 @@ public class AllData {
 
     public function isFirstInGroupDecor(groupId:int, id:int):Boolean {
         if (!decorGroups[groupId] || !decorGroups[groupId].length) return true;
-        if (decorGroups[groupId][0].id == id) return true;
-        else return false;
+        for (var i:int = 0; i<decorGroups[groupId].length; i++) {
+            if (decorGroups[groupId][i].visibleTester) {
+                if (g.user.isMegaTester || g.user.isTester) {
+                    if (decorGroups[groupId][i].id == id) return true;
+                    else return false;
+                }
+            } else {
+                if (decorGroups[groupId][i].id == id) return true;
+                else return false;
+            }
+        }
+        return true;
     }
 
     public function getGroup(groupId:int):Array {
+        if (groupId < 100) return []; // temp
+
         if (!decorGroups[groupId] || !decorGroups[groupId].length) return [];
         var arr:Array = [];
         for (var i:int=0 ;i<decorGroups[groupId].length; i++) {
