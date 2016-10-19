@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/Documents/505/farm/diff/shopicons/shopicons.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/shopicons/shopicons.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -265,7 +265,6 @@
             <filename>track_white_icon.png</filename>
             <filename>track_white_pink_icon.png</filename>
             <filename>track_yellow_icon.png</filename>
-            <filename>trampoline_yellow_icon.png</filename>
             <filename>trees_1_icon.png</filename>
             <filename>trees_2_icon.png</filename>
             <filename>trees_3_icon.png</filename>
@@ -273,7 +272,6 @@
             <filename>trees_5_icon.png</filename>
             <filename>trees_6_icon.png</filename>
             <filename>trees_7_icon.png</filename>
-            <filename>umbrella_green_icon.png</filename>
             <filename>white_fence_icon.png</filename>
             <filename>yogurt_machine_icon.png</filename>
             <filename>tent_icon.png</filename>
@@ -282,7 +280,6 @@
             <filename>teleskope_icon.png</filename>
             <filename>scarecrow_icon.png</filename>
             <filename>ghost_icon.png</filename>
-            <filename>witch_pot_icon.png</filename>
             <filename>kakao_icon.png</filename>
             <filename>lemon_icon.png</filename>
             <filename>orange_icon.png</filename>
@@ -293,6 +290,9 @@
             <filename>pumpkin_3_icon.png</filename>
             <filename>pumpkin_icon.png</filename>
             <filename>cactus_round</filename>
+            <filename>trampoline</filename>
+            <filename>umbrella</filename>
+            <filename>witch_pot</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
