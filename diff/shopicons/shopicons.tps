@@ -287,6 +287,7 @@
             <filename>lemon_icon.png</filename>
             <filename>orange_icon.png</filename>
             <filename>sunflower</filename>
+            <filename>beach_chair</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
