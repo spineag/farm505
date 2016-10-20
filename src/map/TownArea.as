@@ -676,9 +676,9 @@ public class TownArea extends Sprite {
             }
         }
         if (isNewAtMap) {
-            if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
+            if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorAnimation || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
                 g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
-            if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
+            if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorAnimation || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
                 worldObject.addXP();
             if (worldObject is Tree)
                 g.directServer.addUserBuilding(worldObject, onAddNewTree);
@@ -703,7 +703,7 @@ public class TownArea extends Sprite {
         }
 
         if (isNewAtMap || updateAfterMove) {
-            if (worldObject is Fabrica || worldObject is Farm || worldObject is Decor) {
+            if (worldObject is Fabrica || worldObject is Farm || worldObject is Decor || worldObject is DecorAnimation) {
                 g.managerCats.checkAllCatsAfterPasteBuilding(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
             }
         }
@@ -772,7 +772,7 @@ public class TownArea extends Sprite {
             (build as WorldObject).source.filter = null;
             g.toolsModifier.startMove(build, afterMoveReturn, true);
 
-        } else if (isNewAtMap &&(worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence)) {
+        } else if (isNewAtMap &&(worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorAnimation)) {
             if (g.userInventory.decorInventory[ worldObject.dataBuild.id]) {
                 build = createNewBuild( worldObject.dataBuild);
                 g.selectedBuild = build;
@@ -853,7 +853,7 @@ public class TownArea extends Sprite {
         }
         if (build is Ridge) cost = (build as WorldObject).dataBuild.cost;
         var arr:Array;
-        if (build is Decor || build is DecorFence || build is DecorPostFence) {
+        if (build is Decor || build is DecorFence || build is DecorPostFence || build is DecorAnimation) {
             arr = getCityObjectsById((build as WorldObject).dataBuild.id);
             if ((build as WorldObject).dataBuild.currency.length > 1) {
                 for (var i:int = 0; i < (build as WorldObject).dataBuild.currency.length; i++) {
@@ -895,7 +895,7 @@ public class TownArea extends Sprite {
         var p:Point = new Point((build as WorldObject).source.x, (build as WorldObject).source.y);
         p = g.cont.contentCont.localToGlobal(p);
         new UseMoneyMessage(p, moneyType, count, .3);
-        if (build  is Decor || build is DecorFence || build is DecorPostFence || build is DecorTail) new XPStar(p.x, p.y, (build as WorldObject).dataBuild.xpForBuild);
+        if (build  is Decor || build is DecorFence || build is DecorPostFence || build is DecorTail || build is DecorAnimation) new XPStar(p.x, p.y, (build as WorldObject).dataBuild.xpForBuild);
     }
 
     public function startMoveAfterShop(build:WorldObject, isFromInventory:Boolean = false):void {

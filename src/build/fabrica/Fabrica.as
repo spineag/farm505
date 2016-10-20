@@ -633,22 +633,22 @@ public class Fabrica extends WorldObject {
     private function releaseHeroCatWoman():void {
         if (_heroCat) {
             if (_heroCat.typeMan == BasicCat.MAN) {
-                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133) // це конешно сильно)))
                     releaseManBackTexture();
                 else releaseManFrontTexture();
             } else if (_heroCat.typeMan == BasicCat.WOMAN) {
-                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133)
                     releaseWomanBackTexture();
                 else releaseWomanFrontTexture();
             }
         } else {
             if (g.isAway) {
                 if (Math.random() < .5) {
-                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133)
                         releaseManBackTexture();
                     else releaseManFrontTexture();
                 } else {
-                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 133)
                         releaseWomanBackTexture();
                     else releaseWomanFrontTexture();
                 }

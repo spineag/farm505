@@ -117,7 +117,7 @@ public class UserInventory {
 
         arr = [];
         for (var id:String in _inventoryResource) {
-            if (res[id].placeBuild == BuildType.PLACE_SKLAD  && res[id].blockByLevel <= g.user.level && _inventoryResource[id]>0) {
+            if (res[id] && res[id].placeBuild == BuildType.PLACE_SKLAD  && res[id].blockByLevel <= g.user.level && _inventoryResource[id]>0) {
                 obj = {};
                 obj.id = int(id);
                 obj.count = _inventoryResource[id];
