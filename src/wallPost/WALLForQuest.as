@@ -22,9 +22,6 @@ public class WALLForQuest {
     public function showItParams(callback:Function, params:Array):void {
         if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
-            Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
-            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
-            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
         }
         var st:String = g.dataPath.getGraphicsPath();
         g.load.loadImage(st + 'wall/quest_posting.jpg',onLoad);

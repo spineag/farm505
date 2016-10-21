@@ -53,8 +53,8 @@ public class WindowMain {
         g.hideAllHints();//?
         if (_source) {
             createBlackBG();
-            _source.x = Starling.current.nativeStage.stageWidth / 2;
-            _source.y = Starling.current.nativeStage.stageHeight / 2;
+            _source.x = g.managerResize.stageWidth / 2;
+            _source.y = g.managerResize.stageHeight / 2;
             g.cont.addGameContListener(false);
             g.cont.windowsCont.addChild(_source);
             _source.scaleX = _source.scaleY = .8;
@@ -137,8 +137,8 @@ public class WindowMain {
     }
 
     public function onResize():void {
-        _source.x = Starling.current.nativeStage.stageWidth/2;
-        _source.y = Starling.current.nativeStage.stageHeight/2;
+        _source.x = g.managerResize.stageWidth/2;
+        _source.y = g.managerResize.stageHeight/2;
 //        removeBlackBG();
 //        createBlackBG();
     }
@@ -147,7 +147,7 @@ public class WindowMain {
         if (_black) return;
         _black = new CSprite();
         _black.nameIt = 'wo_black';
-        _black.addChild(new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK));
+        _black.addChild(new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK));
         g.cont.windowsCont.addChildAt(_black, 0);
         _black.alpha = .0;
         _black.endClickCallback = onBGClick;

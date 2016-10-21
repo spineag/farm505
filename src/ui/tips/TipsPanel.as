@@ -42,10 +42,10 @@ public class TipsPanel {
         (_armature.display as StarlingArmatureDisplay).y = -48;
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         g.cont.interfaceCont.addChild(_source);
-        _source.y = Starling.current.nativeStage.stageHeight + 120;
+        _source.y = g.managerResize.stageHeight + 120;
         WorldClock.clock.add(_armature);
         _armature.animation.gotoAndStopByFrame('idle_1');
-        TweenMax.to(_source, .5, {y:Starling.current.nativeStage.stageHeight, onComplete: animateGuys});
+        TweenMax.to(_source, .5, {y:g.managerResize.stageHeight, onComplete: animateGuys});
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
         _source.endClickCallback = onClick;
@@ -66,7 +66,7 @@ public class TipsPanel {
     }
 
     public function onResize():void {
-        _source.y = Starling.current.nativeStage.stageHeight;
+        _source.y = g.managerResize.stageHeight;
         _source.x = 0;
     }
 

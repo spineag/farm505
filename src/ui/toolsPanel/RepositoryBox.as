@@ -77,13 +77,13 @@ public class RepositoryBox {
         showItems();
         source.visible = true;
         TweenMax.killTweensOf(source);
-        new TweenMax(source, .5, {y:Starling.current.nativeStage.stageHeight - 83, ease:Back.easeOut});
+        new TweenMax(source, .5, {y:g.managerResize.stageHeight - 83, ease:Back.easeOut});
     }
 
     public function hideIt(needQuick:Boolean = false):void {
         g.event.removeEventListener(OwnEvent.UPDATE_REPOSITORY, updateItems);
         TweenMax.killTweensOf(source);
-        new TweenMax(source, .5, {y:Starling.current.nativeStage.stageHeight + 10, ease:Back.easeOut, onComplete: function():void {source.visible = false; deleteItems()}});
+        new TweenMax(source, .5, {y:g.managerResize.stageHeight + 10, ease:Back.easeOut, onComplete: function():void {source.visible = false; deleteItems()}});
     }
 
     private function showItems():void {

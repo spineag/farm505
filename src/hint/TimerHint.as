@@ -152,15 +152,15 @@ public class TimerHint {
         g.gameDispatcher.addToTimer(onTimer);
 
         if (_needMoveCenter) {
-            if (_source.y < _source.height + 50 || _source.x < _source.width / 2 + 50 || _source.x > Starling.current.nativeStage.stageWidth - _source.width / 2 - 50) {
+            if (_source.y < _source.height + 50 || _source.x < _source.width / 2 + 50 || _source.x > g.managerResize.stageWidth - _source.width / 2 - 50) {
                 var dY:int = 0;
                 if (_source.y < _source.height + 50)
                     dY = _source.height + 50 - _source.y;
                 var dX:int = 0;
                 if (_source.x < _source.width / 2 + 50) {
                     dX = _source.width / 2 + 50 - _source.x;
-                } else if (_source.x > Starling.current.nativeStage.stageWidth - _source.width / 2 - 50) {
-                    dX = Starling.current.nativeStage.stageWidth - _source.width / 2 - 50 - _source.x;
+                } else if (_source.x > g.managerResize.stageWidth - _source.width / 2 - 50) {
+                    dX = g.managerResize.stageWidth - _source.width / 2 - 50 - _source.x;
                 }
                 g.cont.deltaMoveGameCont(dX, dY, .5);
                 new TweenMax(_source, .5, {x: _source.x + dX, y: _source.y + dY, ease: Linear.easeOut});

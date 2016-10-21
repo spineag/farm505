@@ -1949,7 +1949,7 @@ public class ManagerTutorial {
         _subStep = 6;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
             _airBubble = new AirTextBubble();
-            _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2);
+            _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, g.managerResize.stageWidth/2 - 150, g.managerResize.stageHeight/2);
             var ob:Object = (g.windowsManager.currentWindow as WOMarket).getItemProperties(1);
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _tutorialCallback = subStep24_7;
@@ -1975,7 +1975,7 @@ public class ManagerTutorial {
         updateTutorialStep();
         _airBubble.hideIt();
         g.user.tutorialStep = 24;
-        _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, subStep24_8);
+        _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, g.managerResize.stageWidth/2 - 150, g.managerResize.stageHeight/2, subStep24_8);
         _airBubble.showBtnParticles();
         _airBubble.showBtnArrow();
     }
@@ -2140,7 +2140,7 @@ public class ManagerTutorial {
 
     private function addBlack():void {
         if (!black) {
-            var q:Quad = new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK);
+            var q:Quad = new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK);
             black = new Sprite();
             black.addChild(q);
             black.alpha = .3;
@@ -2587,7 +2587,7 @@ public class ManagerTutorial {
                             }
                             _airBubble.hideIt();
                             _airBubble = new AirTextBubble();
-                            _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2);
+                            _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, g.managerResize.stageWidth/2 - 150, g.managerResize.stageHeight/2);
                             ob = (g.windowsManager.currentWindow as WOMarket).getItemProperties(1);
                             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
                             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
@@ -2598,7 +2598,7 @@ public class ManagerTutorial {
                         }
                     } else if (_subStep == 7) {
                         _airBubble.hideIt();
-                        _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, subStep24_8);
+                        _airBubble.showIt(texts[g.user.tutorialStep][_subStep], g.cont.popupCont, g.managerResize.stageWidth/2 - 150, g.managerResize.stageHeight/2, subStep24_8);
                         _airBubble.showBtnParticles();
                         _airBubble.showBtnArrow();
                     } else if (_subStep == 9) {

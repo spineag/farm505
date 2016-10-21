@@ -75,10 +75,6 @@ public class PostDoneOrder extends WindowMain {
     private function onClick():void {
         if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
-            Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
-//            Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
-            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
-            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
         }
         g.managerWallPost.openWindow(ManagerWallPost.DONE_ORDER,null,200,DataMoney.SOFT_CURRENCY);
         super.hideIt();

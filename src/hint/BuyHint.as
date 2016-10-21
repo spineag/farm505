@@ -54,9 +54,9 @@ public class BuyHint {
 
     private function checkPosition():void {  // check is hint source is in stage width|height
         if (_source.x < 20) _source.x = 20;
-        if (_source.x > Starling.current.nativeStage.stageWidth - _source.width - 20) _source.x = Starling.current.nativeStage.stageWidth - _source.width - 20;
+        if (_source.x > g.managerResize.stageWidth - _source.width - 20) _source.x = g.managerResize.stageWidth - _source.width - 20;
         if (_source.y < 20) _source.y = 20;
-        if (_source.y > Starling.current.nativeStage.stageHeight - _source.height - 20) _source.y = Starling.current.nativeStage.stageHeight - _source.height - 20;
+        if (_source.y > g.managerResize.stageHeight - _source.height - 20) _source.y = g.managerResize.stageHeight - _source.height - 20;
     }
 
     public function hideIt():void {

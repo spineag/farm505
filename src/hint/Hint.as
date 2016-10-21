@@ -127,7 +127,7 @@ public class Hint {
         g.cont.hintCont.addChild(source);
         if (_tips) {
             source.x = g.ownMouse.mouseX;
-             source.y = Starling.current.nativeStage.stageHeight - source.height - 100;
+             source.y = g.managerResize.stageHeight - source.height - 100;
         } else g.gameDispatcher.addEnterFrame(onEnterFrame);
 //        source.scaleX = source.scaleY = 0;
 //        tween = new Tween(source, 0.4);
@@ -167,9 +167,9 @@ public class Hint {
 
     private function checkPosition():void {  // check is hint source is in stage width|height
         if (source.x < 20) source.x = 20;
-        if (source.x > Starling.current.nativeStage.stageWidth - source.width - 20) source.x = Starling.current.nativeStage.stageWidth - source.width - 20;
+        if (source.x > g.managerResize.stageWidth - source.width - 20) source.x = g.managerResize.stageWidth - source.width - 20;
         if (source.y < 20) source.y = 20;
-        if (source.y > Starling.current.nativeStage.stageHeight - source.height - 20) source.y = Starling.current.nativeStage.stageHeight - source.height - 20;
+        if (source.y > g.managerResize.stageHeight - source.height - 20) source.y = g.managerResize.stageHeight - source.height - 20;
     }
 
     public function hideIt():void {

@@ -212,7 +212,7 @@ public class OptionPanel {
     public function showIt():void {
         _source.visible = true;
         var tween:Tween = new Tween(_source, 0.2);
-        _source.x = Starling.current.nativeStage.stageWidth;
+        _source.x = g.managerResize.stageWidth;
         tween.moveTo(_source.x - 58, _source.y);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
@@ -315,7 +315,7 @@ public class OptionPanel {
     }
 
     public function onResize():void {
-        _source.x = Starling.current.nativeStage.stageWidth;
+        _source.x = g.managerResize.stageWidth;
         _source.y = g.managerResize.stageHeight - 473;
         if (_source.visible) _source.x -= 58;
     }
@@ -340,12 +340,12 @@ public class OptionPanel {
         var oY:Number = g.matrixGrid.offsetY*s;
 
         if (pNew.y > oY + g.cont.SHIFT_MAP_Y*s) pNew.y = oY + g.cont.SHIFT_MAP_Y*s;
-        if (pNew.y < oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s)
-            pNew.y = oY - g.realGameHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s;
+        if (pNew.y < oY - g.realGameHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s)
+            pNew.y = oY - g.realGameHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s;
         if (pNew.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
             pNew.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
-        if (pNew.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - g.cont.SHIFT_MAP_X*s)
-            pNew.x =  -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - g.cont.SHIFT_MAP_X*s;
+        if (pNew.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - g.cont.SHIFT_MAP_X*s)
+            pNew.x =  -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - g.cont.SHIFT_MAP_X*s;
         cont.scaleX = cont.scaleY = oldScale;
         g.currentGameScale = s;
         if (needQuick) {

@@ -372,12 +372,12 @@ public class MainBottomPanel {
     }
 
     public function onResize():void {
-        _source.x = Starling.current.nativeStage.stageWidth - 271;
-        _source.y = Starling.current.nativeStage.stageHeight - 83;
+        _source.x = g.managerResize.stageWidth - 271;
+        _source.y = g.managerResize.stageHeight - 83;
     }
 
     public function onResizePanelFriend():void {
-        _friendBoard.x = Starling.current.nativeStage.stageWidth/2 - 121;
+        _friendBoard.x = g.managerResize.stageWidth/2 - 121;
     }
 
     public function cancelBoolean(b:Boolean):void {
@@ -551,14 +551,14 @@ public class MainBottomPanel {
     }
 
     public function hideMainPanel():void { // for tutorial
-        _source.x = Starling.current.nativeStage.stageWidth - 271;
-        _source.y = Starling.current.nativeStage.stageHeight + 83;
+        _source.x = g.managerResize.stageWidth - 271;
+        _source.y = g.managerResize.stageHeight + 83;
         _source.visible = false;
     }
 
     public function animateShowingMainPanel():void { // for tutorial
         _source.visible = true;
-        new TweenMax(_source, 1, {y:Starling.current.nativeStage.stageHeight - 83, ease:Back.easeOut});
+        new TweenMax(_source, 1, {y:g.managerResize.stageHeight - 83, ease:Back.easeOut});
     }
 
     public function notification():void {

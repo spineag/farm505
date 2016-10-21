@@ -201,12 +201,12 @@ public class Containers {
         gameCont.y = _startDragPointCont.y + mouseP.y - _startDragPoint.y;
         var oY:Number = g.matrixGrid.offsetY*s;
         if (gameCont.y > oY + SHIFT_MAP_Y*s) gameCont.y = oY + SHIFT_MAP_Y*s;
-        if (gameCont.y < -g.realGameTilesHeight*s - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*s)
-            gameCont.y = -g.realGameTilesHeight*s - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*s;
+        if (gameCont.y < -g.realGameTilesHeight*s - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*s)
+            gameCont.y = -g.realGameTilesHeight*s - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*s;
         if (gameCont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s)
             gameCont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s;
-        if (gameCont.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s)
-            gameCont.x = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s;
+        if (gameCont.x < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s)
+            gameCont.x = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s;
     }
     
     public function checkOnDragEnd():void {
@@ -222,15 +222,15 @@ public class Containers {
         var newY:int;
         var s:Number = gameCont.scaleX;
         var oY:Number = g.matrixGrid.offsetY*s;
-        newX = -(_x*s - Starling.current.nativeStage.stageWidth/2);
-        newY = -(_y*s - Starling.current.nativeStage.stageHeight/2);
+        newX = -(_x*s - g.managerResize.stageWidth/2);
+        newY = -(_y*s - g.managerResize.stageHeight/2);
         if (newY > oY + SHIFT_MAP_Y*s) newY = oY + SHIFT_MAP_Y*s;
-        if (newY < -g.realGameTilesHeight*s - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*s)
-            newY = -g.realGameTilesHeight*s - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*s;
+        if (newY < -g.realGameTilesHeight*s - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*s)
+            newY = -g.realGameTilesHeight*s - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*s;
         if (newX > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s)
             newX =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*s;
-        if (newX < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s)
-            newX = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + SHIFT_MAP_X*s;
+        if (newX < -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s)
+            newX = -s*g.realGameWidth/2 + s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + SHIFT_MAP_X*s;
         var f1:Function = function():void {
             if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(false);
             if (callback != null) {
@@ -263,12 +263,12 @@ public class Containers {
         var nX:int = gameCont.x + deltaX;
         var nY:int = gameCont.y + deltaY;
         if (nY > oY + SHIFT_MAP_Y*g.cont.gameCont.scaleX) nY = oY + SHIFT_MAP_Y*g.cont.gameCont.scaleX;
-        if (nY < -g.realGameTilesHeight*g.cont.gameCont.scaleX - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*g.cont.gameCont.scaleX)
-            nY = -g.realGameTilesHeight*g.cont.gameCont.scaleX - oY + Starling.current.nativeStage.stageHeight + SHIFT_MAP_Y*g.cont.gameCont.scaleX;
+        if (nY < -g.realGameTilesHeight*g.cont.gameCont.scaleX - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*g.cont.gameCont.scaleX)
+            nY = -g.realGameTilesHeight*g.cont.gameCont.scaleX - oY + g.managerResize.stageHeight + SHIFT_MAP_Y*g.cont.gameCont.scaleX;
         if (nX > g.cont.gameCont.scaleX*g.realGameWidth/2 - g.cont.gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*g.cont.gameCont.scaleX)
             nX =  g.cont.gameCont.scaleX*g.realGameWidth/2 - g.cont.gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + SHIFT_MAP_X*g.cont.gameCont.scaleX;
-        if (nX < -g.cont.gameCont.scaleX*g.realGameWidth/2 + g.cont.gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*g.cont.gameCont.scaleX)
-            nX = -g.cont.gameCont.scaleX*g.realGameWidth/2 + g.cont.gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*g.cont.gameCont.scaleX;
+        if (nX < -g.cont.gameCont.scaleX*g.realGameWidth/2 + g.cont.gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - SHIFT_MAP_X*g.cont.gameCont.scaleX)
+            nX = -g.cont.gameCont.scaleX*g.realGameWidth/2 + g.cont.gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth - SHIFT_MAP_X*g.cont.gameCont.scaleX;
         new TweenMax(gameCont, time, {x:nX, y:nY, ease:Linear.easeOut});
     }
 
@@ -276,12 +276,12 @@ public class Containers {
         var s:Number = gameCont.scaleX;
         var oY:Number = g.matrixGrid.offsetY*s;
         if (gameCont.y > oY + g.cont.SHIFT_MAP_Y*s) gameCont.y = oY + g.cont.SHIFT_MAP_Y*s;
-        if (gameCont.y < -oY - g.realGameTilesHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s)
-            gameCont.y = -oY - g.realGameTilesHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s;
+        if (gameCont.y < -oY - g.realGameTilesHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s)
+            gameCont.y = -oY - g.realGameTilesHeight*s + g.managerResize.stageHeight + g.cont.SHIFT_MAP_Y*s;
         if (gameCont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
             gameCont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
-        if (gameCont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + g.cont.SHIFT_MAP_X*s)
-            gameCont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + g.cont.SHIFT_MAP_Y*s;
+        if (gameCont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + g.cont.SHIFT_MAP_X*s)
+            gameCont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.managerResize.stageWidth + g.cont.SHIFT_MAP_Y*s;
     }
 }
 }

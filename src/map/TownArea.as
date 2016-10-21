@@ -1266,7 +1266,7 @@ public class TownArea extends Sprite {
         if (person.level <= 0 && !person.marketItems) {
             if (person is NeighborBot) b = false;
             if (b) {
-                var p0:Point = new Point(Starling.current.nativeStage.stageWidth / 2, Starling.current.nativeStage.stageHeight / 2);
+                var p0:Point = new Point(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2);
                 new FlyMessage(p0, "ЭТОТ ЧЕЛОВЕК УДАЛЕН ИЗ ИГРЫ");
                 return;
             }

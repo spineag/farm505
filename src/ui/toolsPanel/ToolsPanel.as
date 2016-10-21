@@ -95,24 +95,24 @@ public class ToolsPanel {
 
     public function onResize():void {
         if (_source.visible) {
-            _source.x = Starling.current.nativeStage.stageWidth - 480;
+            _source.x = g.managerResize.stageWidth - 480;
         } else {
-            _source.x = Starling.current.nativeStage.stageWidth - 271;
+            _source.x = g.managerResize.stageWidth - 271;
         }
         if (repositoryBox.source.visible) {
-            repositoryBox.source.y = Starling.current.nativeStage.stageHeight - 83;
+            repositoryBox.source.y = g.managerResize.stageHeight - 83;
         } else {
-            repositoryBox.source.y = Starling.current.nativeStage.stageHeight + 10;
+            repositoryBox.source.y = g.managerResize.stageHeight + 10;
         }
 
-        repositoryBox.source.x = Starling.current.nativeStage.stageWidth - 740;
-        _source.y = Starling.current.nativeStage.stageHeight - 83;
+        repositoryBox.source.x = g.managerResize.stageWidth - 740;
+        _source.y = g.managerResize.stageHeight - 83;
     }
 
     public function showIt():void {
         _source.visible  = true;
         TweenMax.killTweensOf(_source);
-        new TweenMax(_source, .5, {x:Starling.current.nativeStage.stageWidth - 480, ease:Back.easeOut, delay:.2});
+        new TweenMax(_source, .5, {x:g.managerResize.stageWidth - 480, ease:Back.easeOut, delay:.2});
     }
 
     public function hideRepository():void {
@@ -121,7 +121,7 @@ public class ToolsPanel {
 
     public function hideIt():void {
         TweenMax.killTweensOf(_source);
-        new TweenMax(_source, .5, {x:Starling.current.nativeStage.stageWidth - 271, ease:Back.easeOut, onComplete: function():void {_source.visible = false}});
+        new TweenMax(_source, .5, {x:g.managerResize.stageWidth - 271, ease:Back.easeOut, onComplete: function():void {_source.visible = false}});
     }
 
     private function onClick(reason:String):void {

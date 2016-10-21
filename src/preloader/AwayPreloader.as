@@ -35,9 +35,9 @@ public class AwayPreloader {
     }
 
     public function showIt(isBackHome:Boolean):void {
-        _bg = new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK);
-        _bg.x = -Starling.current.nativeStage.stageWidth/2;
-        _bg.y = -Starling.current.nativeStage.stageHeight/2;
+        _bg = new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK);
+        _bg.x = -g.managerResize.stageWidth/2;
+        _bg.y = -g.managerResize.stageHeight/2;
         _source.addChildAt(_bg, 0);
         _bg.alpha = .8;
         if (!isBackHome) {
@@ -48,8 +48,8 @@ public class AwayPreloader {
         WorldClock.clock.add(_armature);
         _armature.animation.gotoAndPlayByFrame('run');
 
-        _source.x = Starling.current.nativeStage.stageWidth/2;
-        _source.y = Starling.current.nativeStage.stageHeight/2;
+        _source.x = g.managerResize.stageWidth/2;
+        _source.y = g.managerResize.stageHeight/2;
         g.cont.windowsCont.addChild(_source);
 
         isShowing = true;

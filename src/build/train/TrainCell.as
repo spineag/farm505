@@ -73,14 +73,14 @@ public class TrainCell {
         g.userInventory.addResource(_dataResource.id, -_count);
         var p:Point;
         if (!im) {
-            p = new Point(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2);
+            p = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         } else {
             p = new Point(im.x + im.width / 2, im.y + im.height / 2);
             p = im.parent.localToGlobal(p);
         }
         if (p.x < 0 || p.y < 0 ) {
-            p.x = Starling.current.nativeStage.stageWidth/2;
-            p.y = Starling.current.nativeStage.stageHeight/2;
+            p.x = g.managerResize.stageWidth/2;
+            p.y = g.managerResize.stageHeight/2;
         }
         new XPStar(p.x, p.y, countXP);
         var prise:Object = {};
