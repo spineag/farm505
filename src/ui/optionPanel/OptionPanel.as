@@ -411,7 +411,11 @@ public class OptionPanel {
             isAnimScaling = false;
         } else {
             isAnimScaling = true;
-            new TweenMax(cont, .5, {x: pNew.x, y: pNew.y, scaleX: s, scaleY: s, ease: Linear.easeOut, onComplete: function ():void {isAnimScaling = false;}});
+            if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(true);
+            new TweenMax(cont, .5, {x: pNew.x, y: pNew.y, scaleX: s, scaleY: s, ease: Linear.easeOut, onComplete: function ():void {
+                isAnimScaling = false;
+                if (g.managerVisibleObjects) g.managerVisibleObjects.onActivateDrag(false);
+            }});
         }
         if (sendToServer) {
             g.directServer.saveUserGameScale(null);
