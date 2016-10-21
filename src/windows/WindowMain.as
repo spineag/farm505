@@ -35,8 +35,8 @@ public class WindowMain {
 
     public function WindowMain() {
         _source = new Sprite();
-        _source.x = g.stageWidth/2;
-        _source.y = g.stageHeight/2;
+        _source.x = g.managerResize.stageWidth/2;
+        _source.y = g.managerResize.stageHeight/2;
         _woHeight = 0;
         _woWidth = 0;
         SOUND_OPEN = SoundConst.DEFAULT_WINDOW;

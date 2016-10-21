@@ -40,7 +40,7 @@ public class CraftPanel {
         _source.touchable = false;
         _source.pivotX = _source.width/2;
         _source.pivotY = _source.height/2;
-        _source.x = g.stageWidth/2;
+        _source.x = g.managerResize.stageWidth/2;
         _source.y = 70;
 
         _progress = new AmbarProgress(false, false);

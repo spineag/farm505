@@ -38,7 +38,7 @@ public class MapEditorInterface {
 
     public function MapEditorInterface() {
         _allTable = new Sprite();
-        _allTable.y = g.stageHeight - 100;
+        _allTable.y = g.managerResize.stageHeight - 100;
         g.cont.interfaceContMapEditor.addChild(_allTable);
 
         _mouseCoordinates = new IsometricMouseCoordinates();
@@ -49,12 +49,12 @@ public class MapEditorInterface {
         _contBuildings = new Sprite();
         _allTable.addChild(_contBuildings);
 
-        var bg:Quad = new Quad(g.stageWidth, 80, Color.GRAY);
+        var bg:Quad = new Quad(g.managerResize.stageWidth, 80, Color.GRAY);
         bg.y = 20;
         _allTable.addChild(bg);
 
         bg = new Quad(50, 20, Color.BLUE);
-        bg.x = g.stageWidth - 50;
+        bg.x = g.managerResize.stageWidth - 50;
         bg.y = 0;
         _allTable.addChild(bg);
 
@@ -70,7 +70,7 @@ public class MapEditorInterface {
         var Txr:Texture = Texture.fromBitmapData(BMP,false, false);
         _leftArrow = new CSprite();
         _leftArrow.addChild(new Image(Txr));
-        _leftArrow.x = g.stageWidth - 45;
+        _leftArrow.x = g.managerResize.stageWidth - 45;
         _leftArrow.y = 0;
         _allTable.addChild(_leftArrow);
 
@@ -86,7 +86,7 @@ public class MapEditorInterface {
         var Tx:Texture = Texture.fromBitmapData(BM,false, false);
         _rightArrow = new CSprite();
         _rightArrow.addChild(new Image(Tx));
-        _rightArrow.x = g.stageWidth - 15;
+        _rightArrow.x = g.managerResize.stageWidth - 15;
         _rightArrow.y = 0;
         _allTable.addChild(_rightArrow);
 
@@ -134,7 +134,7 @@ public class MapEditorInterface {
 
     private function rightMove():void {
         var delta:int = 500;
-        var endX:int = -_contBuildings.width + g.stageWidth;
+        var endX:int = -_contBuildings.width + g.managerResize.stageWidth;
         var newX:int = _contBuildings.x + delta;
 
         if(newX > 0) newX = 0;
@@ -150,7 +150,7 @@ public class MapEditorInterface {
 
     private function leftMove():void {
         var delta:int = -500;
-        var endX:int = -_contBuildings.width + g.stageWidth;
+        var endX:int = -_contBuildings.width + g.managerResize.stageWidth;
         var newX:int = _contBuildings.x + delta;
 
         if(newX > 0) newX = 0;

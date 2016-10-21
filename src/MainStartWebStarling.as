@@ -2,13 +2,8 @@
  * Created by ndy on 16.03.2014.
  */
 package {
-
 import com.junkbyte.console.Cc;
-
-
 import flash.display.Sprite;
-
-
 import flash.display.StageAlign;
 import flash.display.StageQuality;
 import flash.display.StageScaleMode;
@@ -17,20 +12,13 @@ import flash.events.UncaughtErrorEvent;
 import flash.system.Security;
 import flash.utils.clearTimeout;
 import flash.utils.setTimeout;
-
+import manager.ManagerResize;
 import map.Containers;
-
 import manager.Vars;
-
-import map.MatrixGrid;
-
 import preloader.StartPreloader;
-
 import starling.core.Starling;
 import starling.events.Event;
-
 import user.User;
-
 import utils.ConsoleWrapper;
 
 //[SWF (frameRate='30', backgroundColor='#709e1d', width = '1000', height = '640')]
@@ -57,14 +45,6 @@ public class MainStartWebStarling extends flash.display.Sprite{
     }
 
     private function onStageResize(e:flash.events.Event):void {
-//        star.stage.stageWidth = stage.stageWidth;
-//        star.stage.stageHeight = stage.stageHeight;
-//
-//        const viewPort:Rectangle = starling.viewPort;
-//        viewPort.width = stage.stageWidth;
-//        viewPort.height = stage.stageHeight;
-//        starling.viewPort = viewPort;
-
         if (stageReadyInterval > 0) {
             clearTimeout(stageReadyInterval);
             stageReadyInterval = 0;
@@ -99,6 +79,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
         g.user = new User();
         g.user.userGAcid = String(g.flashVars['gacid']);
         Cc.ch('analytic', 'gacid from flashvars:: ' + g.user.userGAcid);
+        g.managerResize = new ManagerResize();
 
         game = star.root as MainStarling;
         game.addEventListener(MainStarling.LOADED, onLoaded);
