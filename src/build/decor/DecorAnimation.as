@@ -151,7 +151,14 @@ public class DecorAnimation extends WorldObject{
                     if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
                     if (_heroCat) {
                         _heroCat.isFree = false;
-                        g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
+                        var fEndOver:Function = function(e:Event=null):void {
+                            _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                            g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
+                        };
+                        _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+                        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                        _armature.animation.gotoAndPlayByFrame('over');
                     }
 //                }
             } else {
@@ -385,7 +392,7 @@ public class DecorAnimation extends WorldObject{
                 break;
         }
         _decorAnimation ++;
-        if (_decorAnimation >= 7) {
+        if (_decorAnimation >= 4) {
             if (_armature.animation.hasAnimation('back')) {
                 var fEndOver:Function = function (e:Event = null):void {
                     _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
