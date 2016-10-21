@@ -15,7 +15,7 @@ public class ManagerResize {
 
     public function ManagerResize() {
         _stageWidth = 1000;
-        _stageHeight = 620;
+        _stageHeight = 640;
         g.mainStage.addEventListener(ResizeEvent.RESIZE, onStageResize);
     }
 
