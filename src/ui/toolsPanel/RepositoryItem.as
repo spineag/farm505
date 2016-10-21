@@ -13,6 +13,7 @@ import mouse.ToolsModifier;
 
 import starling.display.Image;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Color;
 
 import tutorial.managerCutScenes.ManagerCutScenes;
@@ -51,7 +52,13 @@ public class RepositoryItem {
         _box = box;
         _arrDbIds = arrIds;
         _countCell = countCell;
-        var im:Image = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
+        var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
+        if (!texture) {
+            if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_POST_FENCE
+                    || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.TREE) texture = g.allData.atlas[_data.url].getTexture(_data.image);
+            else texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
+        }
+        var im:Image = new Image(texture);
         MCScaler.scale(im, 55, 55);
         im.x = 30 - im.width/2;
         im.y = 30 - im.height/2;
