@@ -271,5 +271,17 @@ public class Containers {
             nX = -g.cont.gameCont.scaleX*g.realGameWidth/2 + g.cont.gameCont.scaleX*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth - SHIFT_MAP_X*g.cont.gameCont.scaleX;
         new TweenMax(gameCont, time, {x:nX, y:nY, ease:Linear.easeOut});
     }
+
+    public function onResize():void {
+        var s:Number = gameCont.scaleX;
+        var oY:Number = g.matrixGrid.offsetY*s;
+        if (gameCont.y > oY + g.cont.SHIFT_MAP_Y*s) gameCont.y = oY + g.cont.SHIFT_MAP_Y*s;
+        if (gameCont.y < -oY - g.realGameTilesHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s)
+            gameCont.y = -oY - g.realGameTilesHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s;
+        if (gameCont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
+            gameCont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
+        if (gameCont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + g.cont.SHIFT_MAP_X*s)
+            gameCont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + g.cont.SHIFT_MAP_Y*s;
+    }
 }
 }

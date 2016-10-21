@@ -59,8 +59,8 @@ public class TutorialMult {
 
     private function startMult():void {
         _armature = g.allData.factory['tutorial_mult'].buildArmature('mult');
-        (_armature.display as StarlingArmatureDisplay).x = g.stageWidth/2;
-        (_armature.display as StarlingArmatureDisplay).y = g.stageHeight/2;
+        (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2;
+        (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/2;
         g.cont.popupCont.addChild(_armature.display as StarlingArmatureDisplay);
         if (_startCallback != null) {
             _startCallback.apply();
@@ -74,7 +74,7 @@ public class TutorialMult {
         }
         _boneBlue = _armature.getSlot('blue');
         _boneBlueSprite = new Sprite();
-        _tempBG = new Quad(g.stageWidth + 500, g.stageHeight + 500);
+        _tempBG = new Quad(g.managerResize.stageWidth + 500, g.managerResize.stageHeight + 500);
         _tempBG.setVertexColor(0, 0x7FAFB3);
         _tempBG.setVertexColor(1, 0x7FAFB3);
         _tempBG.setVertexColor(2, 0xA4C6C8);
@@ -172,7 +172,7 @@ public class TutorialMult {
         _armature.addEventListener(EventObject.COMPLETE, onIdle5);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onIdle5);
         _armature.animation.gotoAndPlayByFrame('idle5');
-        _tempBG = new Quad(g.stageWidth + 500, g.stageHeight + 500, 0xF5F3E4);
+        _tempBG = new Quad(g.managerResize.stageWidth + 500, g.managerResize.stageHeight + 500, 0xF5F3E4);
         _tempBG.x = -_tempBG.width/2;
         _tempBG.y = -_tempBG.height/2;
         _tempBlack.addChild(_tempBG);

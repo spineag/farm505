@@ -48,13 +48,12 @@ public class OptionPanel {
     public function OptionPanel() {
         _arrCells = [/*.5,*/ .62, .8, 1, 1.25, 1.55];
         fillBtns();
-        Starling.current.nativeStage.addEventListener(flash.events.Event.RESIZE, onStageResize);
     }
 
     private function fillBtns():void {
         _source = new Sprite();
-        _source.x = g.stageWidth;
-        _source.y = 147;
+        _source.x = g.managerResize.stageWidth;
+        _source.y = g.managerResize.stageHeight - 473;
         g.cont.interfaceCont.addChild(_source);
         _source.visible = false;
         var im:Image;
@@ -250,7 +249,6 @@ public class OptionPanel {
                             Starling.current.nativeStage.removeEventListener(flash.events.MouseEvent.MOUSE_UP, func);
                             makeFullScreen();
                             _contFullScreen.filter = null;
-//                            makeResizeForGame();
                         };
                         Starling.current.nativeStage.addEventListener(flash.events.MouseEvent.MOUSE_UP, func);
                     } catch (e:Error) {
@@ -307,72 +305,19 @@ public class OptionPanel {
         }
     }
 
-//    private function reportKeyDown(event:KeyboardEvent):void  {
-//        if (event.keyCode == 27) {
-//            Cc.info('reportKeyDown: ESC');
-//            makeFullScreen();
-//            makeResizeForGame();
-//        }
-//    }
-
-    private function onStageResize(e:flash.events.Event):void {
-        Cc.info('event onStageResize');
-//        makeFullScreen();
-        makeResizeForGame();
-    }
-
     public function makeFullScreen():void {
         Cc.info('makeFullScreen');
         if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) {
-//            Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
             Starling.current.nativeStage.displayState = StageDisplayState.FULL_SCREEN;
-            Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
-//            Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
-//            Starling.current.nativeStage.addEventListener(flash.events.Event.RESIZE, onStageResize);
-            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
-            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
         } else {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
-            Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
-//            Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, reportKeyDown);
-            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
-            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
         }
     }
 
-    public function makeResizeForGame():void {
-        Cc.info('makeResizeForGame');
-        var cont:Sprite = g.cont.gameCont;
-        var s:Number = cont.scaleX;
-        var oY:Number = g.matrixGrid.offsetY*s;
-        if (cont.y > oY + g.cont.SHIFT_MAP_Y*s) cont.y = oY + g.cont.SHIFT_MAP_Y*s;
-        if (cont.y < -oY - g.realGameTilesHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s)
-            cont.y = -oY - g.realGameTilesHeight*s + Starling.current.nativeStage.stageHeight + g.cont.SHIFT_MAP_Y*s;
-        if (cont.x > s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s)
-            cont.x =  s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + g.cont.SHIFT_MAP_X*s;
-        if (cont.x < -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + g.cont.SHIFT_MAP_X*s)
-            cont.x =  -s*g.realGameWidth/2 - s*g.matrixGrid.DIAGONAL/2 + Starling.current.nativeStage.stageWidth + g.cont.SHIFT_MAP_Y*s;
-        try {
-            g.bottomPanel.onResize();
-            g.bottomPanel.onResizePanelFriend();
-            g.craftPanel.onResize();
-            g.friendPanel.onResize();
-            g.toolsPanel.onResize();
-            g.xpPanel.onResize();
-            g.catPanel.onResize();
-            g.windowsManager.onResize();
-            if (g.managerVisibleObjects) g.managerVisibleObjects.onResize();
-            if (g.managerTips) g.managerTips.onResize();
-            _source.x = Starling.current.nativeStage.stageWidth;
-            _source.y = Starling.current.nativeStage.stageHeight - g.stageHeight + 147;
-            if (_source.visible) _source.x -= 58;
-        } catch (e:Error) {
-            Cc.stackch('error', 'error at makeResizeForGame::', 10);
-        }
-        Cc.info('before check tuts for resize');
-        if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
-        if (g.managerCutScenes.isCutScene) g.managerCutScenes.onResize();
-        if (g.managerHelpers) g.managerHelpers.onResize();
+    public function onResize():void {
+        _source.x = Starling.current.nativeStage.stageWidth;
+        _source.y = g.managerResize.stageHeight - 473;
+        if (_source.visible) _source.x -= 58;
     }
 
     private var isAnimScaling:Boolean = false;
@@ -384,14 +329,14 @@ public class OptionPanel {
         oldScale = cont.scaleX;
         if (oldScale > s-.05 && oldScale < s+.05) return;
         p = new Point();
-        p.x = g.stageWidth/2;
-        p.y = g.stageHeight/2;
+        p.x = g.managerResize.stageWidth/2;
+        p.y = g.managerResize.stageHeight/2;
         p = cont.globalToLocal(p);
         cont.scaleX = cont.scaleY = s;
         p = cont.localToGlobal(p);
         pNew = new Point();
-        pNew.x = cont.x - p.x + g.stageWidth/2;
-        pNew.y = cont.y - p.y + g.stageHeight/2;
+        pNew.x = cont.x - p.x + g.managerResize.stageWidth/2;
+        pNew.y = cont.y - p.y + g.managerResize.stageHeight/2;
         var oY:Number = g.matrixGrid.offsetY*s;
 
         if (pNew.y > oY + g.cont.SHIFT_MAP_Y*s) pNew.y = oY + g.cont.SHIFT_MAP_Y*s;
