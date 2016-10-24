@@ -1,4 +1,5 @@
 ﻿package map {
+import additional.lohmatik.Lohmatik;
 import build.TownAreaBuildSprite;
 import build.WorldObject;
 import build.ambar.Ambar;
@@ -13,7 +14,6 @@ import build.decor.DecorFence;
 import build.decor.DecorPostFence;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
-import build.farm.Animal;
 import build.farm.Farm;
 import build.lockedLand.LockedLand;
 import build.market.Market;
@@ -28,25 +28,19 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
-
 import heroes.AddNewHero;
 import heroes.BasicCat;
 import heroes.OrderCat;
-
 import hint.FlyMessage;
-
 import manager.Vars;
 import mouse.ToolsModifier;
 import preloader.AwayPreloader;
 import resourceItem.ResourceItem;
 import resourceItem.UseMoneyMessage;
-
-import starling.core.Starling;
 import starling.display.Sprite;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import ui.xpPanel.XPStar;
-
 import user.NeighborBot;
 import user.Someone;
 import windows.WindowsManager;
@@ -134,7 +128,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik) continue;
                 if (_cityObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityObjects[i]);
             }
@@ -149,7 +143,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik) continue;
                 if (_cityObjects[i].dataBuild.id == id)
                     ar.push(_cityObjects[i]);
             }
@@ -163,7 +157,6 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero) continue;
                 if (_cityObjects[i] is Tree) {
                     if (checkLastState) {
                         if (_cityObjects[i].dataBuild.id == id && (_cityObjects[i] as Tree).stateTree != Tree.FULL_DEAD)
@@ -476,14 +469,29 @@ public class TownArea extends Sprite {
             c.source.x = int(p.x);
             c.source.y = int(p.y);
             _cont.addChild(c.source);
+            zSort();
         }
-        zSort();
     }
 
     public function removeHero(c:BasicCat):void {
         if (_cityObjects.indexOf(c) > -1) _cityObjects.splice(_cityObjects.indexOf(c), 1);
-        if (_cont.contains(c.source))
-            _cont.removeChild(c.source);
+        if (_cont.contains(c.source)) _cont.removeChild(c.source);
+    }
+
+    public function addLohmatik(loh:Lohmatik):void {
+        if (_cityObjects.indexOf(loh) == -1) _cityObjects.push(loh);
+        if (!_cont.contains(loh.source)) {
+            var p:Point = g.matrixGrid.getXYFromIndex(new Point(loh.posX, loh.posY));
+            loh.source.x = int(p.x);
+            loh.source.y = int(p.y);
+            _cont.addChild(loh.source);
+            zSort();
+        }
+    }
+
+    public function removeLohmatik(loh:Lohmatik):void {
+        if (_cityObjects.indexOf(loh) > -1) _cityObjects.splice(_cityObjects.indexOf(loh), 1);
+        if (_cont.contains(loh.source)) _cont.removeChild(loh.source);
     }
 
     public function createNewBuild(_data:Object, dbId:int = 0):WorldObject {
@@ -1748,7 +1756,7 @@ public class TownArea extends Sprite {
 
     private function clearAwayCity():void {
         for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue;
+            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue; // wtf??
             _cont.removeChild(_cityAwayObjects[i].source);
             _cityAwayObjects[i].clearIt();
         }
@@ -1809,7 +1817,7 @@ public class TownArea extends Sprite {
 
     private function getAwayBuildingByDbId(dbId:int):WorldObject {
         for (var i:int=0; i<_cityAwayObjects.length; i++) {
-            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue;
+            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityObjects[i] is Lohmatik) continue;
             if (_cityAwayObjects[i].dbBuildingId == dbId)
             return _cityAwayObjects[i];
         }
@@ -1820,7 +1828,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue;
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityObjects[i] is Lohmatik) continue;
                 if (_cityAwayObjects[i].dataBuild.id == id)
                     ar.push(_cityAwayObjects[i]);
             }
@@ -1835,7 +1843,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is AddNewHero) continue;
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik) continue;
                 if (_cityAwayObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityAwayObjects[i]);
             }

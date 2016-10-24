@@ -25,8 +25,8 @@ public class AStar {
 
     public function AStar() {}
 
-    public function getPath(sX:int, sY:int, eX:int, eY:int, f:Function, c:BasicCat):void {
-        _cat = c as HeroCat;
+    public function getPath(sX:int, sY:int, eX:int, eY:int, f:Function, c:*):void {
+        if (c is HeroCat) _cat = c as HeroCat;
         callback = f;
         startX = sX;
         startY = sY;
@@ -82,7 +82,11 @@ public class AStar {
         if (curNode == null) {
             Cc.error('AStar makeSearch:: curNode == null.');
             Cc.error('sX:'+startX+', sY:'+startY+', eX:'+endX+', eY:'+endY);
-            Cc.error('g.isAway: ' + bliad.isAway + ' and cat.isAway: ' + _cat.isAwayCat);
+            if (_cat) {
+                Cc.error('g.isAway: ' + bliad.isAway + ' and cat.isAway: ' + _cat.isAwayCat);
+            } else {
+                Cc.error('g.isAway: ' + bliad.isAway + ' for lohmatik');
+            }
             if (callback != null) {
                 callback.apply(null, [[new Point(startX, startY)]]);
             }

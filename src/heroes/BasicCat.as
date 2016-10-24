@@ -180,7 +180,7 @@ public class BasicCat {
                 idleAnimation();
                 if (callbackOnWalking != null) {
                     callbackOnWalking.apply();
-                    _callbackOnWalking = null;
+                    callbackOnWalking = null;
                 }
             }
         };
@@ -228,7 +228,7 @@ public class BasicCat {
             _source.scaleX = 1;
             Cc.error('BasicCat gotoPoint:: wrong front-back logic');
         }
-        checkForJump(p);
+//        checkForJump(p);
         new TweenMax(_source, koef/_curSpeed, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
     }
 

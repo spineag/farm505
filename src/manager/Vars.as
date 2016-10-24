@@ -3,6 +3,8 @@
  */
 package manager {
 import additional.butterfly.ManagerButterfly;
+import additional.lohmatik.ManagerLohmatik;
+
 import analytic.AnalyticManager;
 import build.TownAreaTouchManager;
 import build.WorldObject;
@@ -197,6 +199,7 @@ public class Vars {
     public var userValidates:UserValidateResources;
     public var userTimer:UserTimer;
     public var managerDropResources:ManagerDropBonusResource;
+    public var managerLohmatic:ManagerLohmatik;
     public var managerQuest:ManagerQuest;
     public var managerPendingRequest:ManagerPendingRequest;
     public var managerVisibleObjects:ManagerVisibleObjects;
@@ -519,6 +522,8 @@ public class Vars {
             managerButterfly = new ManagerButterfly();
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();
+
+            managerLohmatic = new ManagerLohmatik();
 
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
