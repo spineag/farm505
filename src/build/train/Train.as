@@ -503,17 +503,17 @@ public class Train extends WorldObject{
             onOut();
             return;
         }
-        new XPStar(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, _dataPack.count_xp);
+        new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp);
         var prise:Object = {};
         var priseCoupone:Object = {};
         prise.id = DataMoney.SOFT_CURRENCY;
         prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
         prise.count = _dataPack.count_money;
-        new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, prise);
+        new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
         priseCoupone.id = int(Math.random() * 4) + 3;
         priseCoupone.type = DropResourceVariaty.DROP_TYPE_MONEY;
         priseCoupone.count = 1;
-        new DropItem(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2, priseCoupone);
+        new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, priseCoupone);
         if (g.user.wallTrainItem) {
             g.windowsManager.openWindow(WindowsManager.POST_DONE_TRAIN);
             g.directServer.updateWallTrainItem(null);

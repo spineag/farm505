@@ -236,7 +236,6 @@ public class WOTrain extends WindowMain {
     }
 
     private function createLeftBlock():void {
-        trace('lol');
         _leftBlock = new Sprite();
         _leftBlockBG = new CartonBackground(326, 430);
         _leftBlockBG.filter = ManagerFilters.SHADOW;

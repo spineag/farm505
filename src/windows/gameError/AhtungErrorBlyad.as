@@ -21,11 +21,8 @@ public class AhtungErrorBlyad {
     public function AhtungErrorBlyad(e:Error) {
         if (Starling.current.nativeStage.displayState == StageDisplayState.FULL_SCREEN) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
-            Starling.current.viewPort = new Rectangle(0, 0, Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight);
-            g.starling.stage.stageWidth = Starling.current.nativeStage.stageWidth;
-            g.starling.stage.stageHeight = Starling.current.nativeStage.stageHeight;
         }
-        var q:Quad = new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK);
+        var q:Quad = new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK);
         g.cont.popupCont.addChild(q);
         q.alpha = .9;
         var txt:TextField = new TextField(500, 200, 'Критическая ошибка. Перезагрузите игру');
@@ -33,8 +30,8 @@ public class AhtungErrorBlyad {
         format.size = 36;
         format.color = Color.WHITE;
         txt.format = format;
-        txt.x = Starling.current.nativeStage.stageWidth/2 - 250;
-        txt.y = Starling.current.nativeStage.stageHeight/2 - 100;
+        txt.x = g.managerResize.stageWidth/2 - 250;
+        txt.y = g.managerResize.stageHeight/2 - 100;
         g.cont.popupCont.addChild(txt);
 
         var _b:CButton = new CButton();
@@ -43,8 +40,8 @@ public class AhtungErrorBlyad {
         q.x = -105;
         q.y = -17;
         _b.addChild(q);
-        _b.x = Starling.current.nativeStage.stageWidth/2;
-        _b.y = Starling.current.nativeStage.stageHeight/2 + 100;
+        _b.x = g.managerResize.stageWidth/2;
+        _b.y = g.managerResize.stageHeight/2 + 100;
         txt = new TextField(210, 34, "Перезагрузить");
         format = new TextFormat();
         format.size = 24;

@@ -94,13 +94,13 @@ public class ManagerWallPost {
             g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_POST);
         } else {
             if (_type == 9) {
-                new XPStar(Starling.current.nativeStage.stageWidth / 2, Starling.current.nativeStage.stageHeight / 2, _count);
+                new XPStar(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2, _count);
             } else {
                 var obj:Object;
                 obj = {};
                 obj.count = _count;
                 obj.id = _type;
-                new DropItem(Starling.current.nativeStage.stageWidth / 2, Starling.current.nativeStage.stageHeight / 2, obj);
+                new DropItem(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2, obj);
             }
         }
         _type = 0;

@@ -87,9 +87,9 @@ public class ManagerVisibleObjects {
         _p2 = someBuild.source.localToGlobal(_p2);
 
         if (_p2.x < 0) return false;
-        if (_p1.x > Starling.current.nativeStage.stageWidth) return false;
+        if (_p1.x > g.managerResize.stageWidth) return false;
         if (_p2.y < 0) return false;
-        if (_p1.y > Starling.current.nativeStage.stageHeight) return false;
+        if (_p1.y > g.managerResize.stageHeight) return false;
         return true;
     }
 

@@ -85,10 +85,6 @@ public class WOPapperPage {
         im.y = 15;
         _bg.addChild(im);
 
-
-
-
-
         var q:Quad = new Quad(320, 2, 0x0184df);
         q.x = 70;
         q.y = 38;
@@ -99,12 +95,19 @@ public class WOPapperPage {
         _txtTitle.x = 66;
         _txtTitle.y = -23;
         _bg.addChild(_txtTitle);
-        _txtPage = new CTextField(100, 100, String(n) + '/' + String(nMax));
-        _txtPage.setFormat(CTextField.BOLD24, 20, ManagerFilters.BROWN_COLOR);
-        if (n > nMax) _txtPage.text = '';
-        _txtPage.x = 170;
-        _txtPage.y = 460;
-        _bg.addChild(_txtPage);
+        if (n <= nMax) {
+//            trace(n + ' n');
+//            trace(nMax + ' nMax');
+            _txtPage = new CTextField(100, 100, String(n) + '/' + String(nMax));
+            _txtPage.setFormat(CTextField.BOLD24, 20, ManagerFilters.BROWN_COLOR);
+            if (n > nMax) {
+                _txtPage.text = '';
+                _txtPage.updateIt();
+            }
+            _txtPage.x = 170;
+            _txtPage.y = 460;
+            _bg.addChild(_txtPage);
+        }
         source.addChild(_bg);
     }
 

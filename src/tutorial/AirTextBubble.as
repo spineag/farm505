@@ -87,7 +87,7 @@ public class AirTextBubble {
         if (_fonClickable) return;
         _fonClickable = new CSprite();
         _fonClickable.nameIt = 'airText_fonClickable';
-        _fonClickable.addChild(new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK));
+        _fonClickable.addChild(new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK));
         _parent.addChild(_fonClickable);
         _fonClickable.alpha = 0;
         _fonClickable.endClickCallback = null;

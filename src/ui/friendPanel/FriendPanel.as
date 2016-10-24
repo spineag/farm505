@@ -153,11 +153,11 @@ public class FriendPanel {
     }
 
     public function onResize():void {
-        _source.x = Starling.current.nativeStage.stageWidth - 740;
+        _source.x = g.managerResize.stageWidth - 740;
         if (_source.visible) {
-            _source.y = Starling.current.nativeStage.stageHeight - 89;
+            _source.y = g.managerResize.stageHeight - 89;
         } else {
-            _source.y = Starling.current.nativeStage.stageHeight + 100;
+            _source.y = g.managerResize.stageHeight + 100;
         }
     }
 
@@ -165,15 +165,15 @@ public class FriendPanel {
         _source.visible  = true;
 //        _source.x = Starling.current.nativeStage.stageWidth - 271;
         TweenMax.killTweensOf(_source);
-        new TweenMax(_source, .5, {y:Starling.current.nativeStage.stageHeight - 89, ease:Back.easeOut, delay:.2});
+        new TweenMax(_source, .5, {y:g.managerResize.stageHeight - 89, ease:Back.easeOut, delay:.2});
     }
 
     public function hideIt(direct:Boolean = false):void {
         if (!direct) {
             TweenMax.killTweensOf(_source);
-            new TweenMax(_source, .5, {y: Starling.current.nativeStage.stageHeight + 100, ease: Back.easeOut, onComplete: function ():void { _source.visible = false } });
+            new TweenMax(_source, .5, {y: g.managerResize.stageHeight + 100, ease: Back.easeOut, onComplete: function ():void { _source.visible = false } });
         } else {
-            _source.y = Starling.current.nativeStage.stageHeight + 100;
+            _source.y = g.managerResize.stageHeight + 100;
         }
     }
 

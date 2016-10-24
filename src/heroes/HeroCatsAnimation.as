@@ -109,9 +109,7 @@ public class HeroCatsAnimation {
     }
 
     private function removeListener():void {
-        if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) {
-            _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
-        }
+        if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
         if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
         if (_armatureBack && _armatureBack.hasEventListener(EventObject.COMPLETE)) {
             _armatureBack.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);

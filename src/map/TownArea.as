@@ -1,4 +1,5 @@
 ﻿package map {
+import additional.lohmatik.Lohmatik;
 import build.TownAreaBuildSprite;
 import build.WorldObject;
 import build.ambar.Ambar;
@@ -13,7 +14,6 @@ import build.decor.DecorFence;
 import build.decor.DecorPostFence;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
-import build.farm.Animal;
 import build.farm.Farm;
 import build.lockedLand.LockedLand;
 import build.market.Market;
@@ -28,25 +28,19 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
-
 import heroes.AddNewHero;
 import heroes.BasicCat;
 import heroes.OrderCat;
-
 import hint.FlyMessage;
-
 import manager.Vars;
 import mouse.ToolsModifier;
 import preloader.AwayPreloader;
 import resourceItem.ResourceItem;
 import resourceItem.UseMoneyMessage;
-
-import starling.core.Starling;
 import starling.display.Sprite;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import ui.xpPanel.XPStar;
-
 import user.NeighborBot;
 import user.Someone;
 import windows.WindowsManager;
@@ -134,7 +128,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik) continue;
                 if (_cityObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityObjects[i]);
             }
@@ -149,7 +143,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik) continue;
                 if (_cityObjects[i].dataBuild.id == id)
                     ar.push(_cityObjects[i]);
             }
@@ -163,7 +157,6 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero) continue;
                 if (_cityObjects[i] is Tree) {
                     if (checkLastState) {
                         if (_cityObjects[i].dataBuild.id == id && (_cityObjects[i] as Tree).stateTree != Tree.FULL_DEAD)
@@ -476,14 +469,29 @@ public class TownArea extends Sprite {
             c.source.x = int(p.x);
             c.source.y = int(p.y);
             _cont.addChild(c.source);
+            zSort();
         }
-        zSort();
     }
 
     public function removeHero(c:BasicCat):void {
         if (_cityObjects.indexOf(c) > -1) _cityObjects.splice(_cityObjects.indexOf(c), 1);
-        if (_cont.contains(c.source))
-            _cont.removeChild(c.source);
+        if (_cont.contains(c.source)) _cont.removeChild(c.source);
+    }
+
+    public function addLohmatik(loh:Lohmatik):void {
+        if (_cityObjects.indexOf(loh) == -1) _cityObjects.push(loh);
+        if (!_cont.contains(loh.source)) {
+            var p:Point = g.matrixGrid.getXYFromIndex(new Point(loh.posX, loh.posY));
+            loh.source.x = int(p.x);
+            loh.source.y = int(p.y);
+            _cont.addChild(loh.source);
+            zSort();
+        }
+    }
+
+    public function removeLohmatik(loh:Lohmatik):void {
+        if (_cityObjects.indexOf(loh) > -1) _cityObjects.splice(_cityObjects.indexOf(loh), 1);
+        if (_cont.contains(loh.source)) _cont.removeChild(loh.source);
     }
 
     public function createNewBuild(_data:Object, dbId:int = 0):WorldObject {
@@ -676,9 +684,9 @@ public class TownArea extends Sprite {
             }
         }
         if (isNewAtMap) {
-            if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
+            if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorAnimation || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
                 g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
-            if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
+            if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorAnimation || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
                 worldObject.addXP();
             if (worldObject is Tree)
                 g.directServer.addUserBuilding(worldObject, onAddNewTree);
@@ -703,7 +711,7 @@ public class TownArea extends Sprite {
         }
 
         if (isNewAtMap || updateAfterMove) {
-            if (worldObject is Fabrica || worldObject is Farm || worldObject is Decor) {
+            if (worldObject is Fabrica || worldObject is Farm || worldObject is Decor || worldObject is DecorAnimation) {
                 g.managerCats.checkAllCatsAfterPasteBuilding(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
             }
         }
@@ -772,7 +780,7 @@ public class TownArea extends Sprite {
             (build as WorldObject).source.filter = null;
             g.toolsModifier.startMove(build, afterMoveReturn, true);
 
-        } else if (isNewAtMap &&(worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence)) {
+        } else if (isNewAtMap &&(worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorAnimation)) {
             if (g.userInventory.decorInventory[ worldObject.dataBuild.id]) {
                 build = createNewBuild( worldObject.dataBuild);
                 g.selectedBuild = build;
@@ -853,7 +861,7 @@ public class TownArea extends Sprite {
         }
         if (build is Ridge) cost = (build as WorldObject).dataBuild.cost;
         var arr:Array;
-        if (build is Decor || build is DecorFence || build is DecorPostFence) {
+        if (build is Decor || build is DecorFence || build is DecorPostFence || build is DecorAnimation) {
             arr = getCityObjectsById((build as WorldObject).dataBuild.id);
             if ((build as WorldObject).dataBuild.currency.length > 1) {
                 for (var i:int = 0; i < (build as WorldObject).dataBuild.currency.length; i++) {
@@ -895,7 +903,7 @@ public class TownArea extends Sprite {
         var p:Point = new Point((build as WorldObject).source.x, (build as WorldObject).source.y);
         p = g.cont.contentCont.localToGlobal(p);
         new UseMoneyMessage(p, moneyType, count, .3);
-        if (build  is Decor || build is DecorFence || build is DecorPostFence || build is DecorTail) new XPStar(p.x, p.y, (build as WorldObject).dataBuild.xpForBuild);
+        if (build  is Decor || build is DecorFence || build is DecorPostFence || build is DecorTail || build is DecorAnimation) new XPStar(p.x, p.y, (build as WorldObject).dataBuild.xpForBuild);
     }
 
     public function startMoveAfterShop(build:WorldObject, isFromInventory:Boolean = false):void {
@@ -1266,7 +1274,7 @@ public class TownArea extends Sprite {
         if (person.level <= 0 && !person.marketItems) {
             if (person is NeighborBot) b = false;
             if (b) {
-                var p0:Point = new Point(Starling.current.nativeStage.stageWidth / 2, Starling.current.nativeStage.stageHeight / 2);
+                var p0:Point = new Point(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2);
                 new FlyMessage(p0, "ЭТОТ ЧЕЛОВЕК УДАЛЕН ИЗ ИГРЫ");
                 return;
             }
@@ -1748,7 +1756,7 @@ public class TownArea extends Sprite {
 
     private function clearAwayCity():void {
         for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue;
+            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue; // wtf??
             _cont.removeChild(_cityAwayObjects[i].source);
             _cityAwayObjects[i].clearIt();
         }
@@ -1809,7 +1817,7 @@ public class TownArea extends Sprite {
 
     private function getAwayBuildingByDbId(dbId:int):WorldObject {
         for (var i:int=0; i<_cityAwayObjects.length; i++) {
-            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue;
+            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityObjects[i] is Lohmatik) continue;
             if (_cityAwayObjects[i].dbBuildingId == dbId)
             return _cityAwayObjects[i];
         }
@@ -1820,7 +1828,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue;
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityObjects[i] is Lohmatik) continue;
                 if (_cityAwayObjects[i].dataBuild.id == id)
                     ar.push(_cityAwayObjects[i]);
             }
@@ -1835,7 +1843,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is AddNewHero) continue;
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik) continue;
                 if (_cityAwayObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityAwayObjects[i]);
             }

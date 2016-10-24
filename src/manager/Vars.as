@@ -3,6 +3,8 @@
  */
 package manager {
 import additional.butterfly.ManagerButterfly;
+import additional.lohmatik.ManagerLohmatik;
+
 import analytic.AnalyticManager;
 import build.TownAreaTouchManager;
 import build.WorldObject;
@@ -96,8 +98,6 @@ public class Vars {
     public var mainStage:Stage;
     public var scaleFactor:Number;
     public var currentGameScale:Number = 1;
-    public var stageWidth:int = 1000;
-    public var stageHeight:int = 640;
     public var realGameWidth:int = 7468;
     public var realGameHeight:int = 5000;
     public var realGameTilesWidth:int = 6782;
@@ -199,9 +199,11 @@ public class Vars {
     public var userValidates:UserValidateResources;
     public var userTimer:UserTimer;
     public var managerDropResources:ManagerDropBonusResource;
+    public var managerLohmatic:ManagerLohmatik;
     public var managerQuest:ManagerQuest;
     public var managerPendingRequest:ManagerPendingRequest;
     public var managerVisibleObjects:ManagerVisibleObjects;
+    public var managerResize:ManagerResize;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -520,6 +522,8 @@ public class Vars {
             managerButterfly = new ManagerButterfly();
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();
+
+            managerLohmatic = new ManagerLohmatik();
 
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});

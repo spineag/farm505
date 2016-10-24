@@ -53,8 +53,8 @@ public class AfterTutorialWindow {
     }
 
     private function addIt():void {
-        _source.x = Starling.current.nativeStage.stageWidth / 2;
-        _source.y = Starling.current.nativeStage.stageHeight / 2;
+        _source.x = g.managerResize.stageWidth / 2;
+        _source.y = g.managerResize.stageHeight / 2;
         _source.addChild(_image);
         _btn.y = _image.height/2 - _btn.height/2;
         _btn.clickCallback = onClick;
@@ -98,8 +98,8 @@ public class AfterTutorialWindow {
     }
 
     public function onResize():void {
-        _source.x = Starling.current.nativeStage.stageWidth / 2;
-        _source.y = Starling.current.nativeStage.stageHeight / 2;
+        _source.x = g.managerResize.stageWidth / 2;
+        _source.y = g.managerResize.stageHeight / 2;
     }
 }
 }

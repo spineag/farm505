@@ -181,7 +181,7 @@ public class GameHelper {
     }
 
     private function releaseTownBuild():void {
-        _centerPoint = new Point(Starling.current.nativeStage.stageWidth/2, Starling.current.nativeStage.stageHeight/2);
+        _centerPoint = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         _source.x = _centerPoint.x;
         _source.y = _centerPoint.y;
         g.cont.hintGameCont.addChild(_source);

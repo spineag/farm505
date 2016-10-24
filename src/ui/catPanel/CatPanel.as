@@ -68,7 +68,7 @@ public class CatPanel {
 
     public function onResize():void {
         _source.y = 77;
-        _source.x = Starling.current.nativeStage.stageWidth - 108;
+        _source.x = g.managerResize.stageWidth - 108;
     }
 
     private function onHover():void {

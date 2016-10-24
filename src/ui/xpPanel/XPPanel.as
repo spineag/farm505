@@ -75,7 +75,7 @@ public class XPPanel {
 
     public function onResize():void {
         _source.y = 17;
-        _source.x = Starling.current.nativeStage.stageWidth - 170;
+        _source.x = g.managerResize.stageWidth - 170;
     }
 
     public function visualAddXP():void{

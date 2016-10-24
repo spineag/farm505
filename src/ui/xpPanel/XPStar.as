@@ -56,7 +56,7 @@ public class XPStar {
     }
 
     private function flyItStar():void {
-        var endX:int = Starling.current.nativeStage.stageWidth - 168;
+        var endX:int = g.managerResize.stageWidth - 168;
         var endY:int = 35;
         _txtStar.text = '+' + String(_xp);
 

@@ -67,6 +67,11 @@ public class ManagerHitArea {
         }
     }
 
+    public function hasLoadedHitAreaByName(name:String):Boolean {
+        if (_obLoaded[name]) return true;
+        else return false;
+    }
+
     public function deleteHitArea(name:String):void {
         if (_areas[name]) {
             _areas[name].deleteIt();

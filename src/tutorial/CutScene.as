@@ -95,7 +95,7 @@ public class CutScene {
     }
 
     public function onResize():void {
-        _source.y = Starling.current.nativeStage.stageHeight - 25;
+        _source.y = g.managerResize.stageHeight - 25;
         if (_bubble) _bubble.onResize();
     }
 

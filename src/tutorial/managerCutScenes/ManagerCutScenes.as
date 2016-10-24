@@ -221,7 +221,7 @@ public class ManagerCutScenes {
         _cutSceneCallback = null;
         _cat.hideBubble();
         (_cutSceneBuildings[0] as Market).hideArrow();
-        _airBubble.showIt(_curCutScenePropertie.text2, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, market_3);
+        _airBubble.showIt(_curCutScenePropertie.text2, g.cont.popupCont, g.managerResize.stageWidth/2 - 150, g.managerResize.stageHeight/2, market_3);
         _airBubble.showBtnParticles();
         _airBubble.showBtnArrow();
     }
@@ -598,7 +598,7 @@ public class ManagerCutScenes {
     private function openTrain_2a():void {
         _cutSceneStep = 4;
         _airBubble = new AirTextBubble();
-        _airBubble.showIt(_curCutScenePropertie.text2, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 150, Starling.current.nativeStage.stageHeight/2, openTrain_3);
+        _airBubble.showIt(_curCutScenePropertie.text2, g.cont.popupCont, g.managerResize.stageWidth/2 - 150, g.managerResize.stageHeight/2, openTrain_3);
         _airBubble.showBtnParticles();
         var ob:Object = (g.windowsManager.currentWindow as WOTrain).getBoundsProperties('firstItem');
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
@@ -619,7 +619,7 @@ public class ManagerCutScenes {
         }
 
         _airBubble = new AirTextBubble();
-        _airBubble.showIt(_curCutScenePropertie.text3, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 300, Starling.current.nativeStage.stageHeight/2 - 100, openTrain_4);
+        _airBubble.showIt(_curCutScenePropertie.text3, g.cont.popupCont, g.managerResize.stageWidth/2 - 300, g.managerResize.stageHeight/2 - 100, openTrain_4);
         _airBubble.showBtnParticles();
         var ob:Object = (g.windowsManager.currentWindow as WOTrain).getBoundsProperties('loadBtn');
         _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);
@@ -640,7 +640,7 @@ public class ManagerCutScenes {
         }
 
         _airBubble = new AirTextBubble();
-        _airBubble.showIt(_curCutScenePropertie.text4, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 330, Starling.current.nativeStage.stageHeight/2 - 200, openTrain_5);
+        _airBubble.showIt(_curCutScenePropertie.text4, g.cont.popupCont, g.managerResize.stageWidth/2 - 330, g.managerResize.stageHeight/2 - 200, openTrain_5);
         _airBubble.showBtnParticles();
         var ob:Object = (g.windowsManager.currentWindow as WOTrain).getBoundsProperties('priseCont');
         _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);
@@ -661,7 +661,7 @@ public class ManagerCutScenes {
         }
 
         _airBubble = new AirTextBubble();
-        _airBubble.showIt(_curCutScenePropertie.text5, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2 - 300, Starling.current.nativeStage.stageHeight/2 + 100, openTrain_6);
+        _airBubble.showIt(_curCutScenePropertie.text5, g.cont.popupCont, g.managerResize.stageWidth/2 - 300, g.managerResize.stageHeight/2 + 100, openTrain_6);
         _airBubble.showBtnParticles();
         var ob:Object = (g.windowsManager.currentWindow as WOTrain).getBoundsProperties('mainLoadBtn');
         _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);
@@ -778,7 +778,7 @@ public class ManagerCutScenes {
 //            _arrow.scaleIt(.5);
 //            _arrow.animateAtPosition(ob.x -10, ob.y + ob.height/2);
             _airBubble = new AirTextBubble();
-            _airBubble.showIt(_curCutScenePropertie.text2, g.cont.popupCont, Starling.current.nativeStage.stageWidth/2-100, Starling.current.nativeStage.stageHeight/2-50, onAddToPapper2);
+            _airBubble.showIt(_curCutScenePropertie.text2, g.cont.popupCont, g.managerResize.stageWidth/2-100, g.managerResize.stageHeight/2-50, onAddToPapper2);
         }
     }
     
@@ -824,7 +824,7 @@ public class ManagerCutScenes {
 
     private function addBlack():void {
         if (!_black) {
-            var q:Quad = new Quad(Starling.current.nativeStage.stageWidth, Starling.current.nativeStage.stageHeight, Color.BLACK);
+            var q:Quad = new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK);
             _black = new Sprite();
             _black.addChild(q);
             _black.alpha = .3;
