@@ -3,6 +3,7 @@
  */
 package ui.toolsPanel {
 import build.WorldObject;
+import build.decor.DecorFenceGate;
 
 import com.junkbyte.console.Cc;
 import data.BuildType;
@@ -84,6 +85,7 @@ public class RepositoryItem {
         if (_data.buildType == BuildType.DECOR_TAIL) {
             g.toolsModifier.startMoveTail(build, g.townArea.afterMoveFromInventory, true);
         } else {
+            if (build is DecorFenceGate) (build as DecorFenceGate).showFullView();
             g.toolsModifier.startMove(build, g.townArea.afterMoveFromInventory, true);
         }
         _box.arrNumber(_countCell);
