@@ -1,4 +1,5 @@
 ﻿package map {
+import additional.lohmatik.Lohmatik;
 import build.TownAreaBuildSprite;
 import build.WorldObject;
 import build.ambar.Ambar;
@@ -14,7 +15,6 @@ import build.decor.DecorFenceGate;
 import build.decor.DecorPostFence;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
-import build.farm.Animal;
 import build.farm.Farm;
 import build.lockedLand.LockedLand;
 import build.market.Market;
@@ -29,25 +29,19 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
-
 import heroes.AddNewHero;
 import heroes.BasicCat;
 import heroes.OrderCat;
-
 import hint.FlyMessage;
-
 import manager.Vars;
 import mouse.ToolsModifier;
 import preloader.AwayPreloader;
 import resourceItem.ResourceItem;
 import resourceItem.UseMoneyMessage;
-
-import starling.core.Starling;
 import starling.display.Sprite;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import ui.xpPanel.XPStar;
-
 import user.NeighborBot;
 import user.Someone;
 import windows.WindowsManager;
@@ -164,7 +158,6 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero) continue;
                 if (_cityObjects[i] is Tree) {
                     if (checkLastState) {
                         if (_cityObjects[i].dataBuild.id == id && (_cityObjects[i] as Tree).stateTree != Tree.FULL_DEAD)
