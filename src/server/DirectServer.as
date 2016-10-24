@@ -547,7 +547,19 @@ public class DirectServer {
                     obj.image = d.message[i].image;
                     obj.xpForBuild = int(d.message[i].xp_for_build);
                     obj.buildType = int(d.message[i].build_type);
-
+                
+                // temp
+//                if (obj.id == 75) {
+//                    obj.buildType = BuildType.DECOR_FENCE_GATE;
+//                    obj.innerX = [];
+//                    obj.innerY = [];
+//                    obj.innerX.push(-28 * g.scaleFactor); obj.innerY.push(-30 * g.scaleFactor); // main (top) part of gate
+//                    obj.innerX.push(-14 * g.scaleFactor); obj.innerY.push(-21 * g.scaleFactor); // second part of gate
+//                    obj.innerX.push(-54 * g.scaleFactor); obj.innerY.push(0 * g.scaleFactor); // second part for shop view
+//                    obj.innerX.push(45 * g.scaleFactor); obj.innerY.push(-34 * g.scaleFactor); // line for main part
+//                    obj.innerX.push(-36 * g.scaleFactor); obj.innerY.push(10 * g.scaleFactor); // line for second part
+//                }
+                
                     if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
                     if (d.message[i].currency) {
                         obj.currency = String(d.message[i].currency).split('&');

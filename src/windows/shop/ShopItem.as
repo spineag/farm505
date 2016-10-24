@@ -3,6 +3,7 @@
  */
 package windows.shop {
 import build.WorldObject;
+import build.decor.DecorFenceGate;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.tree.Tree;
@@ -750,7 +751,8 @@ public class ShopItem {
         }
 
         var ob:Object;
-        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL
+                || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_FENCE_GATE) {
             if (g.managerTutorial.isTutorial) return;
             if (g.managerCutScenes.isCutScene) {
                 if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && g.managerCutScenes.isCutSceneResource(_data.id)) {
@@ -828,7 +830,8 @@ public class ShopItem {
                 return;
             }
         }
-        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE) {
+        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE
+            || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE) {
             if (_data.currency == DataMoney.SOFT_CURRENCY) {
                 g.buyHint.showIt(_countCost);
             }
@@ -887,6 +890,7 @@ public class ShopItem {
             }
             if (build is Tree) (build as Tree).showShopView();
             if (build is Fabrica) (build as Fabrica).showShopView();
+            if (build is DecorFenceGate) (build as DecorFenceGate).showFullView();
             if (g.managerTutorial.isTutorial) {
                 if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA && g.managerTutorial.isTutorialResource(_data.id)) {
                     g.managerTutorial.checkTutorialCallback();

@@ -1,5 +1,4 @@
 ﻿package map {
-import additional.lohmatik.Lohmatik;
 import build.TownAreaBuildSprite;
 import build.WorldObject;
 import build.ambar.Ambar;
@@ -11,9 +10,11 @@ import build.dailyBonus.DailyBonus;
 import build.decor.Decor;
 import build.decor.DecorAnimation;
 import build.decor.DecorFence;
+import build.decor.DecorFenceGate;
 import build.decor.DecorPostFence;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
+import build.farm.Animal;
 import build.farm.Farm;
 import build.lockedLand.LockedLand;
 import build.market.Market;
@@ -28,19 +29,25 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
+
 import heroes.AddNewHero;
 import heroes.BasicCat;
 import heroes.OrderCat;
+
 import hint.FlyMessage;
+
 import manager.Vars;
 import mouse.ToolsModifier;
 import preloader.AwayPreloader;
 import resourceItem.ResourceItem;
 import resourceItem.UseMoneyMessage;
+
+import starling.core.Starling;
 import starling.display.Sprite;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import ui.xpPanel.XPStar;
+
 import user.NeighborBot;
 import user.Someone;
 import windows.WindowsManager;
@@ -157,6 +164,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero) continue;
                 if (_cityObjects[i] is Tree) {
                     if (checkLastState) {
                         if (_cityObjects[i].dataBuild.id == id && (_cityObjects[i] as Tree).stateTree != Tree.FULL_DEAD)
@@ -577,6 +585,9 @@ public class TownArea extends Sprite {
             case BuildType.DECOR_ANIMATION:
                 build = new DecorAnimation(_data);
                 break;
+            case BuildType.DECOR_FENCE_GATE:
+                build = new DecorFenceGate(_data);
+                break;
         }
 
         if (!build) {
@@ -610,8 +621,8 @@ public class TownArea extends Sprite {
             _cont.removeChild(worldObject.source);
         }
         if (!isNewAtMap) {
-            if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
-                    worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus || worldObject is LockedLand || worldObject is Wild|| worldObject is CatHouse) {
+            if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market || worldObject is Cave || worldObject is Paper ||
+                    worldObject is Train || worldObject is DailyBonus || worldObject is LockedLand || worldObject is Wild || worldObject is CatHouse) {
             } else {
                 point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
                 if (!checkFreeGrids(point.x, point.y, worldObject.sizeX, worldObject.sizeY)) {
@@ -637,7 +648,7 @@ public class TownArea extends Sprite {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
                 for (var ik:int = worldObject.posY; ik < (worldObject.posY + worldObject.sizeY); ik++) {
                     for (var jk:int = worldObject.posX; jk < (worldObject.posX + worldObject.sizeX); jk++) {
-                        fillTailMatrix(jk, ik,0,0, worldObject);
+                        fillTailMatrix(jk, ik, 0, 0, worldObject);
                     }
                 }
             }
@@ -670,7 +681,14 @@ public class TownArea extends Sprite {
         worldObject.updateDepth();
         if (worldObject is DecorPostFence) {
             fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
-            addFenceLenta(worldObject as DecorPostFence);
+            addFenceLenta(worldObject);
+        } else if (worldObject is DecorFenceGate) {
+            if ((worldObject as DecorFenceGate).isMain) {
+                (worldObject as DecorFenceGate).removeFullView();
+                (worldObject as DecorFenceGate).createSecondPart();
+                fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
+                addFenceLenta(worldObject);
+            } else isNewAtMap = false;
         } else {
             if (worldObject.useIsometricOnly) {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
@@ -684,9 +702,11 @@ public class TownArea extends Sprite {
             }
         }
         if (isNewAtMap) {
-            if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorAnimation || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
+            if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || 
+                    worldObject is DecorFence || worldObject is DecorAnimation || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorFenceGate)
                 g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
-            if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorAnimation || worldObject is DecorFence || worldObject is DecorPostFence || worldObject is DecorTail)
+            if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence 
+                    || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorAnimation || worldObject is DecorFenceGate)
                 worldObject.addXP();
             if (worldObject is Tree)
                 g.directServer.addUserBuilding(worldObject, onAddNewTree);
@@ -969,6 +989,7 @@ public class TownArea extends Sprite {
             pasteBuild(build, _x, _y);
         }
         if (build is Fabrica) (build as Fabrica).removeShopView();
+        if (build is DecorFenceGate) (build as DecorFenceGate).removeFullView();
         showSmallBuildAnimations(build, DataMoney.SOFT_CURRENCY, -(build as WorldObject).countShopCost);
         if (g.managerCutScenes.isCutScene && (build as WorldObject).dataBuild.buildType == BuildType.DECOR) {
             if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR)) {
@@ -1150,7 +1171,7 @@ public class TownArea extends Sprite {
             _cont.removeChild(worldObject.source);
         }
         if (worldObject is DecorFence || worldObject is DecorPostFence) {
-            if (worldObject is DecorPostFence) removeFenceLenta(worldObject as DecorPostFence);
+            if (worldObject is DecorPostFence) removeFenceLenta(worldObject);
             unFillMatrixWithFence(worldObject.posX, worldObject.posY);
         } else {
             unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
@@ -1209,49 +1230,101 @@ public class TownArea extends Sprite {
         if (build is Ridge) (build as Ridge).checkAfterMove();
     }
 
-    private function addFenceLenta(d:DecorPostFence):void {
+    private function addFenceLenta(d:WorldObject):void {
         // проверяем, есть ли по соседству еще столбы забора, если да - то проводим между ними ленту
         var obj:Object;
 
-        if (_townMatrix[d.posY][d.posX - 2]) {
-            obj = _townMatrix[d.posY][d.posX - 2];
-            if (obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence && (obj.buildFence as DecorPostFence).dataBuild.id == d.dataBuild.id)
-                (obj.buildFence as DecorPostFence).addRightLenta();
-        }
-        if (_townMatrix[d.posY - 2]) {
-            obj = _townMatrix[d.posY - 2][d.posX];
-            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence && (obj.buildFence as DecorPostFence).dataBuild.id == d.dataBuild.id)
-                (obj.buildFence as DecorPostFence).addLeftLenta();
-        }
-        if (_townMatrix[d.posY][d.posX + 2]) {
-            obj = _townMatrix[d.posY][d.posX + 2];
-            if (obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence && (obj.buildFence as DecorPostFence).dataBuild.id == d.dataBuild.id)
-                d.addRightLenta();
-        }
-        if (_townMatrix[d.posY + 2]) {
-            obj = _townMatrix[d.posY + 2][d.posX];
-            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence && (obj.buildFence as DecorPostFence).dataBuild.id == d.dataBuild.id)
-                d.addLeftLenta();
+        if (d is DecorPostFence) {
+            if (_townMatrix[d.posY][d.posX - 2]) {
+                obj = _townMatrix[d.posY][d.posX - 2];
+                if (obj.inGame && obj.buildFence) {
+                    if (obj.buildFence is DecorPostFence) {
+                        if ((obj.buildFence as DecorPostFence).dataBuild.group == d.dataBuild.group) (obj.buildFence as DecorPostFence).addRightLenta();
+                    } else if (obj.buildFence is DecorFenceGate && (obj.buildFence as DecorFenceGate).dataBuild.group == d.dataBuild.group) {
+                        if ((obj.buildFence as DecorFenceGate).flip) (obj.buildFence as DecorFenceGate).addSmallTopLenta();
+                    }
+                }
+            }
+            if (_townMatrix[d.posY - 2]) {
+                obj = _townMatrix[d.posY - 2][d.posX];
+                if (obj && obj.inGame && obj.buildFence) {
+                    if (obj.buildFence is DecorPostFence) {
+                        if ((obj.buildFence as DecorPostFence).dataBuild.group == d.dataBuild.group) (obj.buildFence as DecorPostFence).addLeftLenta();
+                    } else if (obj.buildFence is DecorFenceGate && (obj.buildFence as DecorFenceGate).dataBuild.group == d.dataBuild.group) {
+                        if (!(obj.buildFence as DecorFenceGate).flip) (obj.buildFence as DecorFenceGate).addSmallTopLenta();
+                    }
+                }
+            }
+            if (_townMatrix[d.posY][d.posX + 2]) {
+                obj = _townMatrix[d.posY][d.posX + 2];
+                if (obj.inGame && obj.buildFence) {
+                    if (obj.buildFence is DecorPostFence) {
+                        if ((obj.buildFence as DecorPostFence).dataBuild.group == d.dataBuild.group) (d as DecorPostFence).addRightLenta();
+                    }
+                } else if (obj.buildFence is DecorFenceGate && (obj.buildFence as DecorFenceGate).dataBuild.group == d.dataBuild.group) {
+                    if ((obj.buildFence as DecorFenceGate).flip) (obj.buildFence as DecorFenceGate).addSmallBottomLenta();
+                }
+            }
+            if (_townMatrix[d.posY + 2]) {
+                obj = _townMatrix[d.posY + 2][d.posX];
+                if (obj && obj.inGame && obj.buildFence) {
+                    if (obj.buildFence is DecorPostFence) {
+                        if ((obj.buildFence as DecorPostFence).dataBuild.group == d.dataBuild.group) (d as DecorPostFence).addLeftLenta();
+                    } else if (obj.buildFence is DecorFenceGate && (obj.buildFence as DecorFenceGate).dataBuild.group == d.dataBuild.group) {
+                        if (!(obj.buildFence as DecorFenceGate).flip) (obj.buildFence as DecorFenceGate).addSmallBottomLenta();
+                    }
+                }
+            }
+        } else if (d is DecorFenceGate) {
+            if ((d as DecorFenceGate).flip) {
+                if (_townMatrix[d.posY][d.posX - 2]) {
+                    obj = _townMatrix[d.posY][d.posX - 2];
+                    if (obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence) {
+                        if ((obj.buildFence as DecorPostFence).dataBuild.group == (d as DecorFenceGate).dataBuild.group) (d as DecorFenceGate).addSmallTopLenta();
+                    }
+                }
+                if (_townMatrix[d.posY][d.posX + 2]) {
+                    obj = _townMatrix[d.posY][d.posX + 2];
+                    if (obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence) {
+                        if ((obj.buildFence as DecorPostFence).dataBuild.group == (d as DecorFenceGate).dataBuild.group) (d as DecorFenceGate).addSmallBottomLenta();
+                    }
+                }
+            } else {
+                if (_townMatrix[d.posY - 2]) {
+                    obj = _townMatrix[d.posY - 2][d.posX];
+                    if (obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence) {
+                        if ((obj.buildFence as DecorPostFence).dataBuild.group == (d as DecorFenceGate).dataBuild.group) (d as DecorFenceGate).addSmallTopLenta();
+                    }
+                }
+                if (_townMatrix[d.posY + 2]) {
+                    obj = _townMatrix[d.posY + 2][d.posX];
+                    if (obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence) {
+                        if ((obj.buildFence as DecorPostFence).dataBuild.group == (d as DecorFenceGate).dataBuild.group) (d as DecorFenceGate).addSmallBottomLenta();
+                    }
+                }
+            }
         }
     }
 
-    private function removeFenceLenta(d:DecorPostFence):void {
+    private function removeFenceLenta(d:WorldObject):void {
         // проверяем, есть ли по соседству еще столбы забора, если да - то забираем между ними ленту
         var obj:Object;
 
-        if (_townMatrix[d.posY][d.posX - 2]) {
-            obj = _townMatrix[d.posY][d.posX - 2];
-            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
-                (obj.buildFence as DecorPostFence).removeRightLenta();
-        }
-        if (_townMatrix[d.posY - 2]) {
-            obj = _townMatrix[d.posY - 2][d.posX];
-            if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
-                (obj.buildFence as DecorPostFence).removeLeftLenta();
-        }
+        if (d is DecorPostFence) {
+            if (_townMatrix[d.posY][d.posX - 2]) {
+                obj = _townMatrix[d.posY][d.posX - 2];
+                if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                    (obj.buildFence as DecorPostFence).removeRightLenta();
+            }
+            if (_townMatrix[d.posY - 2]) {
+                obj = _townMatrix[d.posY - 2][d.posX];
+                if (obj && obj.inGame && obj.buildFence && obj.buildFence is DecorPostFence)
+                    (obj.buildFence as DecorPostFence).removeLeftLenta();
+            }
 
-        d.removeLeftLenta();
-        d.removeRightLenta();
+            (d as DecorPostFence).removeLeftLenta();
+            (d as DecorPostFence).removeRightLenta();
+        }
     }
 
     private function removeAllBuildingsFromTown():void {
@@ -1556,6 +1629,12 @@ public class TownArea extends Sprite {
         if (worldObject is DecorFence || worldObject is DecorPostFence) {
             fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
             if (worldObject is DecorPostFence) addAwayFenceLenta(worldObject as DecorPostFence);
+        } else if (worldObject is DecorFenceGate) {
+            if ((worldObject as DecorFenceGate).isMain) {
+                (worldObject as DecorFenceGate).createSecondPart();
+                fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
+//                addAwayFenceLenta(worldObject as DecorPostFence);
+            }
         } else {
             if (worldObject.useIsometricOnly && !(worldObject is DecorTail)) {
                 fillAwayMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
