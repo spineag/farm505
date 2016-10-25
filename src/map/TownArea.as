@@ -1359,6 +1359,7 @@ public class TownArea extends Sprite {
             g.managerOrderCats.removeAwayCats();
             clearAwayCity();
         } else {
+            g.managerLohmatic.onGoAway();
             g.cont.craftAwayCont.visible = true;
             g.cont.craftCont.visible = false;
             if (g.managerTips) g.managerTips.setUnvisible(true);
@@ -1808,6 +1809,7 @@ public class TownArea extends Sprite {
         if (!g.managerTutorial.isTutorial) g.cont.moveCenterToPos(p.x, p.y, true, 2);
         g.managerCats.onGoAway(false);
         if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
+        g.managerLohmatic.onBackHome();
     }
 
     private function startDecorAnimation():void {

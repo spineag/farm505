@@ -48,15 +48,9 @@ public class ButterflyAnimation {
     }
 
     private function changeBoneTexture(oldName:String, newName:String):void {
-//        var im:Image = g.allData.factory['bfly'].getTextureDisplay(newName) as Image;
         var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture("butterfly_" + newName));
         var b:Slot = _armature.getSlot(oldName);
         if (im) {
-//            im.x = b.display.x;
-//            im.y = b.display.y;
-//            im.scaleX = b.display.scaleX;
-//            im.scaleY = b.display.scaleY;
-//            im.rotation = b.display.rotation;
             b.displayList = null;
             b.display = im;
         }

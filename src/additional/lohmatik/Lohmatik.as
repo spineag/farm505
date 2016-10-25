@@ -5,25 +5,43 @@ package additional.lohmatik {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
+
+import data.DataMoney;
+
 import dragonBones.Armature;
+import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
+
+import flash.display.StageDisplayState;
 import flash.geom.Point;
 import manager.Vars;
 import manager.hitArea.ManagerHitArea;
 import manager.hitArea.OwnHitArea;
+
+import resourceItem.DropItem;
+
+import starling.core.Starling;
+
+import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
+
+import ui.xpPanel.XPStar;
+
 import utils.CSprite;
 import utils.IsoUtils;
 import utils.Point3D;
+
+import windows.WindowsManager;
 
 public class Lohmatik {
     private var g:Vars = Vars.getInstance();
     private var _source:CSprite;
     private var _build:Sprite;
     private var _armature:Armature;
+    private var _armatureOpen:Armature;
     private var _depth:Number = 0;
     private var _posX:int = 0;
     private var _posY:int = 0;
@@ -43,9 +61,21 @@ public class Lohmatik {
         _source.addChild(_build);
         _source.releaseContDrag = true;
         _source.endClickCallback = onClick;
+//        changeSkin();
         WorldClock.clock.add(_armature);
         _hitArea = g.managerHitArea.getHitArea(_source, 'lohmatik', ManagerHitArea.TYPE_SIMPLE);
         _source.registerHitArea(_hitArea);
+    }
+
+    private function changeSkin():void {
+        var skins:Array = ['lohmatik_blue', 'lohmatik_gray', 'lohmatik_green', 'lohmatik_violet', 'lohmatik_yellow'];
+        var st:String = skins[int(Math.random()*5)];
+        var im:Image = new Image(g.allData.atlas['customisationInterfaceAtlas'].getTexture(st));
+        var b:Slot = _armature.getSlot('lohmatik');
+        if (b && im) {
+            b.displayList = null;
+            b.display = im;
+        }
     }
 
     public function setPosition(p:Point):void {
@@ -77,17 +107,67 @@ public class Lohmatik {
     private function onCompleteAnimation5(e:Event=null):void {
         if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation5);
         if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation5);
+        flyItAward();
+        showBoom();
+        new TweenMax(_source, .7, {alpha:0, ease: Linear.easeNone});
+    }
+
+    private function flyItAward():void {
+        var obj:Object;
+        obj = {};
+        obj.count = 1;
+        var p:Point = new Point(0, 0);
+        p = _source.localToGlobal(p);
+        obj.id =  DataMoney.SOFT_CURRENCY;
+        new DropItem(p.x, p.y, obj);
+        new XPStar(p.x, p.y, 1);
+    }
+
+    public function showBoom():void {
+        _armatureOpen = g.allData.factory['explode'].buildArmature("expl");
+        if (!_armatureOpen) {
+            Cc.error('Lohmatik:: no boom :(');
+            if (_clickCallback != null) {
+                _clickCallback.apply(null, [this]);
+            }
+            return;
+        }
+        (_armatureOpen.display as StarlingArmatureDisplay).scale = .6;
+        (_armatureOpen.display as StarlingArmatureDisplay).y = - 10;
+        _source.addChild(_armatureOpen.display as StarlingArmatureDisplay);
+        WorldClock.clock.add(_armatureOpen);
+        _armatureOpen.addEventListener(EventObject.COMPLETE, onBoom);
+        _armatureOpen.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
+        _armatureOpen.animation.gotoAndPlayByFrame("start");
+    }
+
+    private function onBoom(e:Event=null):void {
+        if (_armatureOpen.hasEventListener(EventObject.COMPLETE)) _armatureOpen.removeEventListener(EventObject.COMPLETE, onBoom);
+        if (_armatureOpen.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpen.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
+        WorldClock.clock.remove(_armatureOpen);
+        _source.removeChild(_armatureOpen.display as StarlingArmatureDisplay);
+        _armatureOpen = null;
         if (_clickCallback != null) {
             _clickCallback.apply(null, [this]);
         }
     }
 
     public function deleteIt():void {
+        if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
+        if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
+        TweenMax.killTweensOf(_source);
         g.townArea.removeLohmatik(this);
         if (_armature) {
             WorldClock.clock.remove(_armature);
             _build.removeChild(_armature.display as StarlingArmatureDisplay);
             _armature = null;
+        }
+        if (_armatureOpen) {
+            if (_armatureOpen.hasEventListener(EventObject.COMPLETE)) _armatureOpen.removeEventListener(EventObject.COMPLETE, onBoom);
+            if (_armatureOpen.hasEventListener(EventObject.LOOP_COMPLETE)) _armatureOpen.removeEventListener(EventObject.LOOP_COMPLETE, onBoom);
+            WorldClock.clock.remove(_armatureOpen);
+            _source.removeChild(_armatureOpen.display as StarlingArmatureDisplay);
+            _armatureOpen = null;
         }
         _source.deleteIt();
         _source = null;
