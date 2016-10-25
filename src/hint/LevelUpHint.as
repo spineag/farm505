@@ -146,7 +146,7 @@ public class LevelUpHint {
         if (house) {
             if (g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.FARM || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.RIDGE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.FABRICA
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.TREE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_FULL_FENСE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_POST_FENCE
-                    || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_TAIL || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.MARKET
+                    || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_TAIL || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DECOR_ANIMATION || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.MARKET
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.ORDER || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.DAILY_BONUS
                     || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.CAVE || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.PAPER || g.dataBuilding.objectBuilding[_dataId].buildType == BuildType.TRAIN) {
                 _txtName.text = String(g.dataBuilding.objectBuilding[_dataId].name);

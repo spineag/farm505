@@ -6,6 +6,9 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import mouse.BuildMoveGridTile;
+
 import starling.display.Image;
 import starling.text.TextField;
 import starling.textures.Texture;
@@ -155,6 +158,9 @@ public class WOLevelUpItem {
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.ORDER) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('orders_icon'));
+                _bolHouse = true;
+            } else if (ob.buildType == BuildType.DECOR_ANIMATION) {
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon'));
                 _bolHouse = true;
             }
         } catch (e:Error) {

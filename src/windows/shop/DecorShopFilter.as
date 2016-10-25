@@ -21,6 +21,8 @@ public class DecorShopFilter {
     public static const FILTER_TREES:int = 2;
     public static const FILTER_FENCE:int = 3;
     public static const FILTER_TAIL:int = 4;
+    public static const FILTER_SPECIAL:int = 5;
+    public static const FILTER_HOLIDAY:int = 6;
 
     private var _wo:WOShop;
     private var _source:Sprite;
@@ -43,8 +45,8 @@ public class DecorShopFilter {
         _itemsSprite.y = 5;
         _itemsSpriteMain.addChild(_itemsSprite);
         _source.addChild(_itemsSpriteMain);
-        _itemsSpriteMain.mask = new Quad(200, 200);
-        _itemsSpriteMain.mask.y = -200;
+        _itemsSpriteMain.mask = new Quad(200, 300);
+        _itemsSpriteMain.mask.y = -300;
         _arrItems = [];
         _isShow = false;
         createItems();
@@ -62,10 +64,10 @@ public class DecorShopFilter {
     }
 
     private function createItems():void {
-        var arr:Array = [FILTER_ALL, FILTER_TREES, FILTER_FENCE, FILTER_TAIL, FILTER_OTHER];
+        var arr:Array = [FILTER_ALL,FILTER_FENCE, FILTER_TAIL, FILTER_TREES,  FILTER_OTHER, FILTER_SPECIAL, FILTER_HOLIDAY];
         arr.splice(arr.indexOf(g.user.shopDecorFilter), 1);
         var item:DecorShopFilterItem;
-        for (var i:int=0; i<4; i++) {
+        for (var i:int=0; i<6; i++) {
             item = new DecorShopFilterItem(arr[i], i, onItemClick, _itemsSprite);
             _arrItems.push(item);
         }
@@ -87,7 +89,8 @@ public class DecorShopFilter {
     private function onActiveItemClick(type:int):void {
         _isShow = !_isShow;
         if (_isShow) {
-            TweenMax.to(_itemsSprite, .3, {y: -132});
+            // если Новый фильтр добовляешь ты, так добавь к {y: этому числу 31}
+            TweenMax.to(_itemsSprite, .3, {y: -194});
             createBlack();
         } else {
             _itemsSprite.y = 5;
