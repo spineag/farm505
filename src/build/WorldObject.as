@@ -265,6 +265,7 @@ public class WorldObject {
                 if (g.cont.craftCont.contains(_craftSprite)) g.cont.craftCont.removeChild(_craftSprite);
             }
         }
+        if (_source) _source.deleteIt();
         _dataBuild = null;
         _build = null;
         _source = null;

@@ -10,12 +10,18 @@ import manager.Vars;
 public class ManagerLohmatik {
     private var g:Vars = Vars.getInstance();
     private var _arr:Array;
+    private var _timerCounter:int;
 
     public function ManagerLohmatik() {
-        addLohmatics();
+        _timerCounter = 0;
+        _arr = [];
+        if (g.user.isMegaTester || g.user.isTester) {
+            addLohmatics();
+        }
     }
 
     private function addLohmatics():void {
+        if (g.isAway) return;
         if (g.allData.factory['lohmatik']) {
             onLoad();
         } else {
@@ -25,8 +31,9 @@ public class ManagerLohmatik {
 
     private function onLoad():void {
         var l:Lohmatik;
-        _arr = [];
-        for (var i:int=0; i<3; i++) {
+        var count:int = 1;
+        if (Math.random()>.5) count++;
+        for (var i:int=0; i<count; i++) {
             l = new Lohmatik(onLohClick);
             _arr.push(l);
             l.setPosition(g.townArea.getRandomFreeCell());
@@ -37,9 +44,10 @@ public class ManagerLohmatik {
     private function onLohClick(l:Lohmatik):void {
         l.deleteIt();
         if (_arr.indexOf(l) > -1) _arr.removeAt(_arr.indexOf(l));
-//        if (!_arr.length) {
-//            delete g.allData.factory['lohmatik'];
-//        }
+        if (!_arr.length) {
+            _timerCounter = 15*60;
+            g.gameDispatcher.addToTimer(onTimer);
+        }
     }
 
     private function makeAnyAction(l:Lohmatik):void {
@@ -76,6 +84,33 @@ public class ManagerLohmatik {
             a.getPath(l.posX, l.posY, p.x, p.y, f1, l);
         } catch (e:Error) {
             Cc.error('ManagerLohmatik goIdleCatToPoint error: ' + e.errorID + ' - ' + e.message);
+        }
+    }
+    
+    private function onTimer():void {
+        _timerCounter--;
+        if (_timerCounter < 0) {
+            g.gameDispatcher.removeFromTimer(onTimer);
+            addLohmatics();
+        }
+    }
+
+    public function onGoAway():void {
+        if (g.user.isMegaTester || g.user.isTester) {
+            g.gameDispatcher.removeFromTimer(onTimer);
+            if (_arr.length) {
+                for (var i:int = 0; i < _arr.length; i++) {
+                    (_arr[i] as Lohmatik).deleteIt();
+                }
+            }
+            _arr.length = 0;
+        }
+    }
+
+    public function onBackHome():void {
+        if (g.user.isMegaTester || g.user.isTester) {
+            if (_timerCounter <= 0) _timerCounter = 15 * 60;
+            g.gameDispatcher.addToTimer(onTimer);
         }
     }
 }

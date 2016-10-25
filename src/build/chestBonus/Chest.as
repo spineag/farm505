@@ -67,7 +67,7 @@ public class Chest extends WorldObject{
     }
 
     private function animation():void {
-        _timerAnimation = 5*Math.random();
+        _timerAnimation = int(5*Math.random());
         g.gameDispatcher.addToTimer(timerAnimation);
     }
 
@@ -109,6 +109,12 @@ public class Chest extends WorldObject{
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
         _arrow.animateAtPosition(0, -34 * g.scaleFactor);
         if (t>0) _arrow.activateTimer(t, super.hideArrow);
+    }
+    
+    override public function clearIt():void {
+        WorldClock.clock.remove(_armature);
+        g.gameDispatcher.removeFromTimer(timerAnimation);
+        super.clearIt();
     }
 }
 }
