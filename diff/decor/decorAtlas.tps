@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/andy/Documents/505farm/farm505/diff/decor/decorAtlas.tps</string>
+        <string>/Users/user/Documents/505/farm/diff/decor/decorAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -188,13 +188,19 @@
         </struct>
         <key>fileList</key>
         <array>
+            <filename>alive_fence</filename>
             <filename>amanita_1_red.png</filename>
             <filename>amanita_2_red.png</filename>
             <filename>arbor.png</filename>
+            <filename>arch_brick</filename>
+            <filename>arch_stone_blue</filename>
+            <filename>archNEW</filename>
             <filename>balabas_blue.png</filename>
             <filename>barrel.png</filename>
             <filename>beach_chair_red.png</filename>
+            <filename>blue_fence</filename>
             <filename>bridge.png</filename>
+            <filename>cactus_round</filename>
             <filename>cat_statue.png</filename>
             <filename>Chair_1.png</filename>
             <filename>Chair_2.png</filename>
@@ -212,7 +218,15 @@
             <filename>flower_6.png</filename>
             <filename>flower_7.png</filename>
             <filename>flower_8.png</filename>
+            <filename>leaf_green</filename>
             <filename>picnic_pink.png</filename>
+            <filename>pink_fence</filename>
+            <filename>polka_dot</filename>
+            <filename>pumpkin_1.png</filename>
+            <filename>pumpkin_2.png</filename>
+            <filename>pumpkin_3.png</filename>
+            <filename>pumpkin.png</filename>
+            <filename>sunflower</filename>
             <filename>swamp_decor.png</filename>
             <filename>tail1.png</filename>
             <filename>track_autumn_1.png</filename>
@@ -237,18 +251,10 @@
             <filename>trees_6.png</filename>
             <filename>trees_7.png</filename>
             <filename>umbrella_green.png</filename>
+            <filename>unique</filename>
             <filename>well_white.png</filename>
             <filename>well_yellow.png</filename>
-            <filename>alive_fence</filename>
-            <filename>blue_fence</filename>
             <filename>white_fence</filename>
-            <filename>pink_fence</filename>
-            <filename>sunflower</filename>
-            <filename>pumpkin_1.png</filename>
-            <filename>pumpkin_2.png</filename>
-            <filename>pumpkin_3.png</filename>
-            <filename>pumpkin.png</filename>
-            <filename>cactus_round</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
