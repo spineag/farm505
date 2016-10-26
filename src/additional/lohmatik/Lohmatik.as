@@ -5,36 +5,24 @@ package additional.lohmatik {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import data.DataMoney;
-
 import dragonBones.Armature;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
-
-import flash.display.StageDisplayState;
 import flash.geom.Point;
 import manager.Vars;
 import manager.hitArea.ManagerHitArea;
 import manager.hitArea.OwnHitArea;
-
 import resourceItem.DropItem;
-
-import starling.core.Starling;
-
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
-
 import ui.xpPanel.XPStar;
-
 import utils.CSprite;
 import utils.IsoUtils;
 import utils.Point3D;
-
-import windows.WindowsManager;
 
 public class Lohmatik {
     private var g:Vars = Vars.getInstance();

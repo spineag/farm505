@@ -559,6 +559,36 @@ public class DirectServer {
 //                    obj.innerX.push(45 * g.scaleFactor); obj.innerY.push(-34 * g.scaleFactor); // line for main part
 //                    obj.innerX.push(-36 * g.scaleFactor); obj.innerY.push(10 * g.scaleFactor); // line for second part
 //                }
+                if (obj.id == 92) {
+                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+                    obj.innerX = []; obj.innerY = [];
+                    obj.innerX.push(-41 * g.scaleFactor); obj.innerY.push(-195 * g.scaleFactor); // main (top) part of gate
+                    obj.innerX.push(-61 * g.scaleFactor); obj.innerY.push(-236 * g.scaleFactor); // second part of gate
+                }
+                if (obj.id == 94) {
+                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+                    obj.innerX = []; obj.innerY = [];
+                    obj.innerX.push(-47 * g.scaleFactor); obj.innerY.push(-146 * g.scaleFactor); // main (top) part of gate
+                    obj.innerX.push(-64 * g.scaleFactor); obj.innerY.push(-192 * g.scaleFactor); // second part of gate
+                }
+                if (obj.id == 96) {
+                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+                    obj.innerX = []; obj.innerY = [];
+                    obj.innerX.push(-57 * g.scaleFactor); obj.innerY.push(-151 * g.scaleFactor); // main (top) part of gate
+                    obj.innerX.push(-72 * g.scaleFactor); obj.innerY.push(-188 * g.scaleFactor); // second part of gate
+                }
+                if (obj.id == 98) {
+                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+                    obj.innerX = []; obj.innerY = [];
+                    obj.innerX.push(-55 * g.scaleFactor); obj.innerY.push(-151 * g.scaleFactor); // main (top) part of gate
+                    obj.innerX.push(-64 * g.scaleFactor); obj.innerY.push(-189 * g.scaleFactor); // second part of gate
+                }
+                if (obj.id == 176) {
+                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+                    obj.innerX = []; obj.innerY = [];
+                    obj.innerX.push(-22 * g.scaleFactor); obj.innerY.push(-148 * g.scaleFactor); // main (top) part of gate
+                    obj.innerX.push(-61 * g.scaleFactor); obj.innerY.push(-201 * g.scaleFactor); // second part of gate
+                }
                 
                     if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
                     if (d.message[i].currency) {

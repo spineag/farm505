@@ -344,10 +344,12 @@ public class ShopList {
                 item.deleteIt();
             }
         };
+        if (_currentShopArr.length) {
             if (_currentShopArr[0].buildType == BuildType.DECOR || _currentShopArr[0].buildType == BuildType.DECOR_FULL_FENСE ||
                     _currentShopArr[0].buildType == BuildType.DECOR_POST_FENCE || _currentShopArr[0].buildType == BuildType.DECOR_TAIL || _currentShopArr[0].buildType == BuildType.DECOR_ANIMATION) {
                 g.user.decorShiftShop = _shift;
             }
+        }
         animList(f);
     }
 

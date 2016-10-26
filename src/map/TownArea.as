@@ -11,6 +11,7 @@ import build.dailyBonus.DailyBonus;
 import build.decor.Decor;
 import build.decor.DecorAnimation;
 import build.decor.DecorFence;
+import build.decor.DecorFenceArka;
 import build.decor.DecorFenceGate;
 import build.decor.DecorPostFence;
 import build.decor.DecorTail;
@@ -581,6 +582,9 @@ public class TownArea extends Sprite {
             case BuildType.DECOR_FENCE_GATE:
                 build = new DecorFenceGate(_data);
                 break;
+            case BuildType.DECOR_FENCE_ARKA:
+                build = new DecorFenceArka(_data);
+                break;
         }
 
         if (!build) {
@@ -682,6 +686,12 @@ public class TownArea extends Sprite {
                 fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
                 addFenceLenta(worldObject);
             } else isNewAtMap = false;
+        } else if (worldObject is DecorFenceArka) {
+            if ((worldObject as DecorFenceArka).isMain) {
+                (worldObject as DecorFenceArka).removeFullView();
+                (worldObject as DecorFenceArka).createSecondPart();
+                fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
+            } else isNewAtMap = false;
         } else {
             if (worldObject.useIsometricOnly) {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
@@ -745,7 +755,7 @@ public class TownArea extends Sprite {
         worldObject.afterPasteBuild();
 
         // временно полная сортировка, далее нужно будет дописать "умную"
-        if (updateAfterMove) zSort();
+        zSort();
 
         if (g.managerCutScenes.isCutScene) return;
         var build:WorldObject;
@@ -893,7 +903,6 @@ public class TownArea extends Sprite {
         }
         pasteBuild(build, _x, _y);
         showSmallBuildAnimations(build, (build as WorldObject).dataBuild.currency,-cost);
-
     }
 
     public function afterMoveFromInventory(build:WorldObject, _x:Number, _y:Number):void { // для декора из инвентаря
@@ -983,6 +992,7 @@ public class TownArea extends Sprite {
         }
         if (build is Fabrica) (build as Fabrica).removeShopView();
         if (build is DecorFenceGate) (build as DecorFenceGate).removeFullView();
+        if (build is DecorFenceArka) (build as DecorFenceArka).removeFullView();
         showSmallBuildAnimations(build, DataMoney.SOFT_CURRENCY, -(build as WorldObject).countShopCost);
         if (g.managerCutScenes.isCutScene && (build as WorldObject).dataBuild.buildType == BuildType.DECOR) {
             if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR)) {
@@ -1628,6 +1638,11 @@ public class TownArea extends Sprite {
                 (worldObject as DecorFenceGate).createSecondPart();
                 fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
 //                addAwayFenceLenta(worldObject as DecorPostFence);
+            }
+        } else if (worldObject is DecorFenceArka) {
+            if ((worldObject as DecorFenceArka).isMain) {
+                (worldObject as DecorFenceArka).createSecondPart();
+                fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
             }
         } else {
             if (worldObject.useIsometricOnly && !(worldObject is DecorTail)) {
