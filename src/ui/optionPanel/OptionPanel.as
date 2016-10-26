@@ -53,7 +53,7 @@ public class OptionPanel {
     private function fillBtns():void {
         _source = new Sprite();
         _source.x = g.managerResize.stageWidth;
-        _source.y = g.managerResize.stageHeight - 473;
+        _source.y = g.managerResize.stageHeight - 493;
         g.cont.interfaceCont.addChild(_source);
         _source.visible = false;
         var im:Image;
@@ -316,7 +316,7 @@ public class OptionPanel {
 
     public function onResize():void {
         _source.x = g.managerResize.stageWidth;
-        _source.y = g.managerResize.stageHeight - 473;
+        _source.y = g.managerResize.stageHeight - 493;
         if (_source.visible) _source.x -= 58;
     }
 

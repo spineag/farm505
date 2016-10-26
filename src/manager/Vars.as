@@ -79,6 +79,7 @@ import ui.craftPanel.CraftPanel;
 import ui.friendPanel.FriendPanel;
 import ui.optionPanel.OptionPanel;
 import ui.softHardCurrencyPanel.SoftHardCurrency;
+import ui.stock.StockPanel;
 import ui.toolsPanel.ToolsPanel;
 import ui.xpPanel.XPPanel;
 import user.Someone;
@@ -173,6 +174,7 @@ public class Vars {
     public var friendPanel:FriendPanel;
     public var toolsPanel:ToolsPanel;
     public var catPanel:CatPanel;
+    public var stock:StockPanel;
 
     public var windowsManager:WindowsManager;
     public var managerHitArea:ManagerHitArea;
@@ -442,6 +444,7 @@ public class Vars {
             optionPanel = new OptionPanel();
             friendPanel = new FriendPanel();
             toolsPanel = new ToolsPanel();
+            stock = new StockPanel();
 //        } catch (e:Error) {
 //            Cc.stackch('error', 'initVariables2::', 10);
 //        }
