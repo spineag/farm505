@@ -755,7 +755,7 @@ public class TownArea extends Sprite {
         worldObject.afterPasteBuild();
 
         // временно полная сортировка, далее нужно будет дописать "умную"
-        if (updateAfterMove) zSort();
+        zSort();
 
         if (g.managerCutScenes.isCutScene) return;
         var build:WorldObject;
@@ -903,7 +903,6 @@ public class TownArea extends Sprite {
         }
         pasteBuild(build, _x, _y);
         showSmallBuildAnimations(build, (build as WorldObject).dataBuild.currency,-cost);
-
     }
 
     public function afterMoveFromInventory(build:WorldObject, _x:Number, _y:Number):void { // для декора из инвентаря
