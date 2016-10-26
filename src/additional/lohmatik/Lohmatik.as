@@ -38,6 +38,7 @@ public class Lohmatik {
     private var _callbackOnAnimation:Function;
     protected var _currentPath:Array;
     private var _hitArea:OwnHitArea;
+    private var _click:Boolean;
 
     public function Lohmatik(f:Function) {
         _isBack = false;
@@ -53,6 +54,7 @@ public class Lohmatik {
         WorldClock.clock.add(_armature);
         _hitArea = g.managerHitArea.getHitArea(_source, 'lohmatik', ManagerHitArea.TYPE_SIMPLE);
         _source.registerHitArea(_hitArea);
+        _click = false;
     }
 
     private function changeSkin():void {
@@ -82,6 +84,8 @@ public class Lohmatik {
 
     private function onClick():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (_click) return;
+        _click = true;
         _callbackOnAnimation = null;
         _build.scale = 1;
         TweenMax.killTweensOf(_source);

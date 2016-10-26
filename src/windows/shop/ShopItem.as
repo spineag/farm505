@@ -37,6 +37,7 @@ import windows.shop.decorRadioButton.DecorRadioButton;
 
 public class ShopItem {
     public var source:CSprite;
+    private var _hand:CSprite;
     private var _im:Image;
     private var _imCont:Sprite;
     private var _nameTxt:CTextField;
@@ -66,7 +67,6 @@ public class ShopItem {
     private var _arrow:SimpleArrow;
     private var g:Vars = Vars.getInstance();
     private var _arrImages:Array; // use only for delete filters from images
-    private var _imAnimationDecor:Image;
     private var _radioButton:DecorRadioButton;
 
     public function ShopItem(data:Object, wo:WOShop, pos:int) {
@@ -109,12 +109,15 @@ public class ShopItem {
         _txtAvailable.y = 145;
         source.addChild(_txtAvailable);
         _txtAvailable.visible = false;
-
-        _imAnimationDecor = new Image(g.allData.atlas['interfaceAtlas'].getTexture('animated_decor'));
-        _imAnimationDecor.x = 100;
-        _imAnimationDecor.y = 60;
-        source.addChild(_imAnimationDecor);
-        _imAnimationDecor.visible = false;
+        _hand = new CSprite();
+        _hand.hoverCallback = function():void { g.hint.showIt("Интерактивный декор"); };
+        _hand.outCallback = function():void { g.hint.hideIt(); };
+        source.addChild(_hand);
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('animated_decor'));
+        im.x = 100;
+        im.y = 60;
+        _hand.addChild(im);
+        _hand.visible = false;
         source.endClickCallback = onClick;
         setInfo();
 
@@ -497,7 +500,7 @@ public class ShopItem {
                 || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE) {
             if (_data.blockByLevel) {
                 if ( _data.buildType == BuildType.DECOR_ANIMATION) {
-                    _imAnimationDecor.visible = true;
+                    _hand.visible = true;
                 }
                 if (_data.buildType == BuildType.DECOR_TAIL) {
                     arr = g.townArea.getCityTailObjectsById(_data.id);
@@ -510,7 +513,7 @@ public class ShopItem {
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                     _im.filter = ManagerFilters.getButtonDisableFilter();
                     if (_data.buildType == BuildType.DECOR_ANIMATION) {
-                        _imAnimationDecor.filter = ManagerFilters.getButtonDisableFilter();
+                        _hand.filter = ManagerFilters.getButtonDisableFilter();
                     }
                     _nameTxt.text = _data.name;
                 } else {

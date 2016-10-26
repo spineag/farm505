@@ -39,6 +39,7 @@ public class ManagerResize {
             g.catPanel.onResize();
             g.windowsManager.onResize();
             g.optionPanel.onResize();
+            g.stock.onResize();
             if (g.managerTips) g.managerTips.onResize();
             if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
             if (g.managerCutScenes.isCutScene) g.managerCutScenes.onResize();
