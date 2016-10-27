@@ -308,9 +308,7 @@ public class Fabrica extends WorldObject {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) return;
             _stateBuild = STATE_ACTIVE;
             g.user.userBuildingData[_dataBuild.id].isOpen = 1;
-            if (g.useDataFromServer) {
-                g.directServer.openBuildedBuilding(this, onOpenBuilded);
-            }
+            g.directServer.openBuildedBuilding(this, onOpenBuilded);
             clearBuildingBuildSprite();
             onOut();
             createAnimatedBuild(onCreateBuild);

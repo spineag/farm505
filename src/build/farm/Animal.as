@@ -289,7 +289,7 @@ public class Animal {
                 texture = g.allData.atlas[obj.url].getTexture(obj.imageShop);
 
             new RawItem(p, texture, 1, 0);
-            if (g.useDataFromServer) g.directServer.rawUserAnimal(animal_db_id, null);
+            g.directServer.rawUserAnimal(animal_db_id, null);
             if (_data.id != 6) {
                 if (_data.id == 1) {
                     g.soundManager.playSound(SoundConst.RAW_CHICKEN);

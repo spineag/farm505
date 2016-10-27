@@ -184,7 +184,6 @@ public class Vars {
     public var directServer:DirectServer;
     public var useHttps:Boolean;
     public var startPreloader:StartPreloader;
-    public var useDataFromServer:Boolean;
     public var dataPath:DataPath;
     public var event:OwnEvent;
 
@@ -229,7 +228,6 @@ public class Vars {
             startPreloader.setProgress(77);
 
             event = new OwnEvent();
-            useDataFromServer = true;
             userValidates = new UserValidateResources();
 
             dataBuilding = new DataBuildings();
@@ -266,20 +264,11 @@ public class Vars {
             soundManager = new SoundManager();
             managerQuest = new ManagerQuest();
 
-            if (useDataFromServer) {
-                socialNetwork = new SocialNetwork(flashVars);
-                socialNetworkID = SocialNetworkSwitch.SN_VK;
-                SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
-                socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
-                socialNetwork.init();
-            } else {
-                dataLevel.fillDataLevels();
-                dataAnimal.fillDataAnimal();
-                dataRecipe.fillDataRecipe();
-                dataBuilding.fillDataBuilding();
-                dataResource.fillDataResources();
-                initVariables2();
-            }
+            socialNetwork = new SocialNetwork(flashVars);
+            socialNetworkID = SocialNetworkSwitch.SN_VK;
+            SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
+            socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
+            socialNetwork.init();
 //        } catch (e:Error) {
 //            Cc.stackch('error', 'initVariables::', 10);
 //        }
