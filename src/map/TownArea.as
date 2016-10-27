@@ -1874,7 +1874,7 @@ public class TownArea extends Sprite {
         if (b && b is Tree) {
             (b as Tree).releaseTreeFromServer(ob);
         } else {
-            Cc.error('TownArea fillAwayTree:: no such Tree with dbId: ' + ob.dbId);
+            Cc.error('TownArea fillAwayTree:: no such Tree with dbId: ' + ob.dbId + " OR it's visible only for testers");
         }
     }
 
@@ -1883,7 +1883,7 @@ public class TownArea extends Sprite {
         if (b && b is Ridge) {
             (b as Ridge).fillPlant(g.dataResource.objectResources[ob.plantId], true, ob.timeWork);
         } else {
-            Cc.error('TownArea fillAwayRidge:: no such Ridge with dbId: ' + ob.dbId);
+            Cc.error('TownArea fillAwayRidge:: no such Ridge with dbId: ' + ob.dbId + " OR it's visible only for testers");
         }
     }
 
@@ -1892,7 +1892,7 @@ public class TownArea extends Sprite {
         if (b && b is Farm) {
             (b as Farm).addAnimal(true, ob);
         } else {
-            Cc.error('TownArea fillAwayAnimal:: no such Farm with dbId: ' + ob.dbId);
+            Cc.error('TownArea fillAwayAnimal:: no such Farm with dbId: ' + ob.dbId + " OR it's visible only for testers");
         }
     }
 
@@ -1909,7 +1909,7 @@ public class TownArea extends Sprite {
                 (b as Fabrica).awayImitationOfWork();
             }
         } else {
-            Cc.error('TownArea fillAwayRecipe:: no such Fabrica with dbId: ' + ob.dbId);
+            Cc.error('TownArea fillAwayRecipe:: no such Fabrica with dbId: ' + ob.dbId + " OR it's visible only for testers");
         }
     }
 

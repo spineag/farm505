@@ -50,7 +50,7 @@ public class Lohmatik {
         _source.addChild(_build);
         _source.releaseContDrag = true;
         _source.endClickCallback = onClick;
-//        changeSkin();
+        changeSkin();
         WorldClock.clock.add(_armature);
         _hitArea = g.managerHitArea.getHitArea(_source, 'lohmatik', ManagerHitArea.TYPE_SIMPLE);
         _source.registerHitArea(_hitArea);
