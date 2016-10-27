@@ -370,6 +370,7 @@ public class DecorAnimation extends WorldObject{
 
     private function chooseAnimation(e:Event=null):void {
         if (!_armature) return;
+        if (!_dataBuild) return;
         if (!_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
         if (!_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
         var k:int = int(Math.random() * 5);
