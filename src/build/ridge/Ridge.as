@@ -175,7 +175,7 @@ public class Ridge extends WorldObject{
             _resourceItem = new ResourceItem();
             _resourceItem.fillIt(_dataPlant);
             var f1:Function = function():void {
-                if (g.useDataFromServer) g.managerPlantRidge.onCraft(_plant.idFromServer);
+                g.managerPlantRidge.onCraft(_plant.idFromServer);
                 _plant = null;
             };
             var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);

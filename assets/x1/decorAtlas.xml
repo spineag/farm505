@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:6487e4480a69be79ae96c6eef5ddc740:1d0d9ff084e3e0b7fa081df54748ce59:8e467b6e9f38a55d4cabd49280944c60$ -->
+<!-- $TexturePacker:SmartUpdate:f72840e4a2a941ced4a8ff3add1f2ded:1a1ad164a5e99e10a75e07d1edb691c6:8e467b6e9f38a55d4cabd49280944c60$ -->
 <TextureAtlas imagePath="decorAtlas.png">
     <SubTexture name="Chair_1" x="378" y="461" width="28" height="35" frameX="-5" frameY="-8" frameWidth="35" frameHeight="46"/>
     <SubTexture name="Chair_2" x="965" y="448" width="33" height="43" frameX="0" frameY="-1" frameWidth="35" frameHeight="46"/>
@@ -22,9 +22,9 @@
     <SubTexture name="arch_pink" x="1118" y="118" width="113" height="126" frameX="0" frameY="-2" frameWidth="113" frameHeight="128"/>
     <SubTexture name="arch_pink_1" x="704" y="412" width="49" height="84" frameX="-4" frameY="0" frameWidth="53" frameHeight="84"/>
     <SubTexture name="arch_pink_2" x="344" y="343" width="62" height="116"/>
-    <SubTexture name="arch_polka-dot_11" x="799" y="204" width="57" height="107"/>
-    <SubTexture name="arch_polka-dot_12" x="1719" y="159" width="69" height="138"/>
     <SubTexture name="arch_polka_dot" x="256" y="201" width="106" height="140"/>
+    <SubTexture name="arch_polka_dot_11" x="799" y="204" width="57" height="107"/>
+    <SubTexture name="arch_polka_dot_12" x="1719" y="159" width="69" height="138"/>
     <SubTexture name="arch_stone_blue" x="1423" y="141" width="104" height="135"/>
     <SubTexture name="arch_stone_blue_11" x="1790" y="159" width="42" height="99"/>
     <SubTexture name="arch_stone_blue_12" x="432" y="192" width="74" height="135"/>

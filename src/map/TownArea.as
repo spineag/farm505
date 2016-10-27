@@ -588,7 +588,7 @@ public class TownArea extends Sprite {
         }
 
         if (!build) {
-            Cc.error('TownArea:: BUILD is null for type: ' + _data.buildType);
+            Cc.error('TownArea:: BUILD is null for buildType: ' + _data.buildType);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return null;
         }
@@ -1561,11 +1561,17 @@ public class TownArea extends Sprite {
             case BuildType.DECOR_ANIMATION:
                 build = new DecorAnimation(_data);
                 break;
+            case BuildType.DECOR_FENCE_GATE:
+                build = new DecorFenceGate(_data);
+                break;
+            case BuildType.DECOR_FENCE_ARKA:
+                build = new DecorFenceArka(_data);
+                break;
         }
 
         if (!build) {
-            Cc.error('TownArea:: BUILD is null for type: ' + _data.buildType);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+            Cc.error('TownArea away:: BUILD is null for buildType: ' + _data.buildType);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea away');
             return;
         }
         (build as WorldObject).dbBuildingId = dbId;
@@ -1588,7 +1594,8 @@ public class TownArea extends Sprite {
             return;
         }
             if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
-                    worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus|| worldObject is LockedLand || worldObject is Wild ) {
+                    worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus|| worldObject is LockedLand || worldObject is Wild ||
+                    worldObject is DecorFenceArka || worldObject is DecorFenceGate) {
             } else {
                 if (!checkAwayFreeGrids(posX, posY, worldObject.sizeX, worldObject.sizeY)) {
                     Cc.error('TownArea pasteAwayBuild checkFreeGrids::' + posX + ', ' + posY + ' not empty ' + worldObject.dataBuild.name + ' ' + worldObject.dataBuild.id);
@@ -1635,12 +1642,14 @@ public class TownArea extends Sprite {
             if (worldObject is DecorPostFence) addAwayFenceLenta(worldObject as DecorPostFence);
         } else if (worldObject is DecorFenceGate) {
             if ((worldObject as DecorFenceGate).isMain) {
+                (worldObject as DecorFenceGate).removeFullView();
                 (worldObject as DecorFenceGate).createSecondPart();
                 fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
-//                addAwayFenceLenta(worldObject as DecorPostFence);
+                addFenceLenta(worldObject);
             }
         } else if (worldObject is DecorFenceArka) {
             if ((worldObject as DecorFenceArka).isMain) {
+                (worldObject as DecorFenceArka).removeFullView();
                 (worldObject as DecorFenceArka).createSecondPart();
                 fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
             }
@@ -1865,7 +1874,7 @@ public class TownArea extends Sprite {
         if (b && b is Tree) {
             (b as Tree).releaseTreeFromServer(ob);
         } else {
-            Cc.error('TownArea fillAwayTree:: no such Tree with dbId: ' + ob.dbId);
+            Cc.error('TownArea fillAwayTree:: no such Tree with dbId: ' + ob.dbId + " OR it's visible only for testers");
         }
     }
 
@@ -1874,7 +1883,7 @@ public class TownArea extends Sprite {
         if (b && b is Ridge) {
             (b as Ridge).fillPlant(g.dataResource.objectResources[ob.plantId], true, ob.timeWork);
         } else {
-            Cc.error('TownArea fillAwayRidge:: no such Ridge with dbId: ' + ob.dbId);
+            Cc.error('TownArea fillAwayRidge:: no such Ridge with dbId: ' + ob.dbId + " OR it's visible only for testers");
         }
     }
 
@@ -1883,7 +1892,7 @@ public class TownArea extends Sprite {
         if (b && b is Farm) {
             (b as Farm).addAnimal(true, ob);
         } else {
-            Cc.error('TownArea fillAwayAnimal:: no such Farm with dbId: ' + ob.dbId);
+            Cc.error('TownArea fillAwayAnimal:: no such Farm with dbId: ' + ob.dbId + " OR it's visible only for testers");
         }
     }
 
@@ -1900,7 +1909,7 @@ public class TownArea extends Sprite {
                 (b as Fabrica).awayImitationOfWork();
             }
         } else {
-            Cc.error('TownArea fillAwayRecipe:: no such Fabrica with dbId: ' + ob.dbId);
+            Cc.error('TownArea fillAwayRecipe:: no such Fabrica with dbId: ' + ob.dbId + " OR it's visible only for testers");
         }
     }
 

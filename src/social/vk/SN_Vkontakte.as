@@ -1,33 +1,17 @@
 package social.vk {
-
-import com.adobe.images.JPGEncoder;
-import com.adobe.serialization.json.JSONuse;
 import com.junkbyte.console.Cc;
 import com.vk.APIConnection;
 import com.vk.CustomEvent;
-
 import flash.display.Bitmap;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.external.ExternalInterface;
 import flash.utils.getTimer;
-
 import manager.Vars;
-
 import quest.QuestData;
-
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
-
-import starling.display.Image;
-import starling.textures.Texture;
-
-import tutorial.ManagerTutorial;
-
 import user.Friend;
-
-import utils.Link;
-
 
 public class SN_Vkontakte extends SocialNetwork {
     private static const MASK_ADD_LEFT_MENU:int = 256;

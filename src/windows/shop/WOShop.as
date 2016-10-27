@@ -274,7 +274,10 @@ public class WOShop extends WindowMain {
                             obj[st].buildType == BuildType.DECOR_POST_FENCE || obj[st].buildType == BuildType.DECOR_TAIL || obj[st].buildType == BuildType.DECOR_FENCE_GATE ||
                             obj[st].buildType == BuildType.DECOR_FENCE_ARKA) {
                         if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == obj[st].filterType) {
-                            if (obj[st].group && !g.allData.isFirstInGroupDecor(obj[st].group, obj[st].id)) continue;
+                            if (obj[st].buildType == BuildType.DECOR || obj[st].buildType == BuildType.DECOR_ANIMATION || obj[st].buildType == BuildType.DECOR_TAIL) {
+                                if (obj[st].group && !g.allData.isFirstInGroupDecor(obj[st].group, obj[st].id)) 
+                                    continue;
+                            }
                             arr.push(Utils.objectDeepCopy(obj[st]));
                         }
                     }

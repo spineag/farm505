@@ -63,20 +63,20 @@ public class DecorFenceArka extends WorldObject {
         if (_dataBuild.isFlip) {
             p.x = posX + 2;
             p.y = posY;
-            p = g.matrixGrid.getXYFromIndex(p);
             if (g.isAway) {
                 g.townArea.pasteAwayBuild(_part, p.x, p.y);
             } else {
+                p = g.matrixGrid.getXYFromIndex(p);
                 g.townArea.pasteBuild(_part, p.x, p.y);
             }
             _part.source.scaleX = -_defaultScale;
         } else {
             p.x = posX;
             p.y = posY + 2;
-            p = g.matrixGrid.getXYFromIndex(p);
             if (g.isAway) {
                 g.townArea.pasteAwayBuild(_part, p.x, p.y);
             } else {
+                p = g.matrixGrid.getXYFromIndex(p);
                 g.townArea.pasteBuild(_part, p.x, p.y);
             }
         }

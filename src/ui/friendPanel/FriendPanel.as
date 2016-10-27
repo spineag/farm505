@@ -496,6 +496,7 @@ public class FriendPanel {
             _arrFriends.unshift(g.user.neighbor);
             _arrFriends.unshift(g.user);
         }
+        _helpIcon.visible = false;
         var l:int = _arrFriends.length;
         if (l>5) l = 5;
         for (var i:int = 0; i < l; i++) {
