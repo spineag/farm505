@@ -297,6 +297,7 @@
             <filename>umbrella</filename>
             <filename>witch_pot</filename>
             <filename>scarecrow_icon.png</filename>
+            <filename>picnic_blue_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

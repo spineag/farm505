@@ -3,6 +3,7 @@
  */
 package {
 import com.junkbyte.console.Cc;
+
 import flash.display.Sprite;
 import flash.display.StageAlign;
 import flash.display.StageQuality;
