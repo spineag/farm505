@@ -98,7 +98,7 @@ public class Vars {
     public var starling:Starling;
     public var mainStage:Stage;
     public var scaleFactor:Number;
-    public var currentGameScale:Number = 1;
+    public var currentGameScale:Number = 1; // use scaleFactor!
     public var realGameWidth:int = 7468;
     public var realGameHeight:int = 5000;
     public var realGameTilesWidth:int = 6782;
@@ -265,7 +265,11 @@ public class Vars {
             managerQuest = new ManagerQuest();
 
             socialNetwork = new SocialNetwork(flashVars);
-            socialNetworkID = SocialNetworkSwitch.SN_VK;
+            if (isDebug) {
+                socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
+            } else {
+                socialNetworkID = int(flashVars['channel']);
+            }
             SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
             socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
             socialNetwork.init();
