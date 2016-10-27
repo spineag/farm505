@@ -236,9 +236,9 @@ public class ShopList {
             _shift = g.user.decorShiftShop;
             animList(f);
         }
-        if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
+        if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE || arr[0].buildType == BuildType.DECOR_FENCE_ARKA || arr[0].buildType == BuildType.DECOR_FENCE_GATE ||
                 arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL ||  arr[0].buildType == BuildType.DECOR_ANIMATION) {
-            if (!g.user.decorShop) g.user.decorShop = true;
+            g.user.decorShop = true;
         }
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));
         if (animalId >= 0 && !g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene) {

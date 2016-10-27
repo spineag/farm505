@@ -237,11 +237,11 @@ public class WOTrain extends WindowMain {
 
     private function createLeftBlock():void {
         _leftBlock = new Sprite();
-        _leftBlockBG = new CartonBackground(326, 430);
+        _leftBlockBG = new CartonBackground(324, 432);
         _leftBlockBG.filter = ManagerFilters.SHADOW;
         _leftBlock.addChild(_leftBlockBG);
         _leftBlock.y = -205;
-        _leftBlock.x = -_woWidth/2 + 40;
+        _leftBlock.x = -int(_woWidth/2) + 40;
         _source.addChild(_leftBlock);
         _txtNeed = new CTextField(200,30,'Требуются продукты:');
         _txtNeed.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
