@@ -58,44 +58,54 @@ public class LoadComponents {
 
     private function createAtlases():void {
         g.allData.atlas['iconAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'iconAtlas.png' + g.getVersion('iconAtlas')].create() as Bitmap), g.pXMLs[st + 'iconAtlas.xml' + g.getVersion('iconAtlas')]);
+        (g.pBitmaps[st + 'iconAtlas.png' + g.getVersion('iconAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'iconAtlas.png' + g.getVersion('iconAtlas')];
         delete  g.pXMLs[st + 'iconAtlas.xml' + g.getVersion('iconAtlas')];
 
         g.allData.atlas['instrumentAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'instrumentAtlas.png' + g.getVersion('instrumentAtlas')].create() as Bitmap), g.pXMLs[st + 'instrumentAtlas.xml' + g.getVersion('instrumentAtlas')]);
+        (g.pBitmaps[st + 'instrumentAtlas.png' + g.getVersion('instrumentAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'instrumentAtlas.png' + g.getVersion('instrumentAtlas')];
         delete  g.pXMLs[st + 'instrumentAtlas.xml' + g.getVersion('instrumentAtlas')];
 
         g.allData.atlas['interfaceAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'interfaceAtlas.png' + g.getVersion('interfaceAtlas')].create() as Bitmap), g.pXMLs[st + 'interfaceAtlas.xml' + g.getVersion('interfaceAtlas')]);
+        (g.pBitmaps[st + 'interfaceAtlas.png' + g.getVersion('interfaceAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'interfaceAtlas.png' + g.getVersion('interfaceAtlas')];
         delete  g.pXMLs[st + 'interfaceAtlas.xml' + g.getVersion('interfaceAtlas')];
 
         g.allData.atlas['resourceAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'resourceAtlas.png' + g.getVersion('resourceAtlas')].create() as Bitmap), g.pXMLs[st + 'resourceAtlas.xml' + g.getVersion('resourceAtlas')]);
+        (g.pBitmaps[st + 'resourceAtlas.png' + g.getVersion('resourceAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'resourceAtlas.png' + g.getVersion('resourceAtlas')];
         delete  g.pXMLs[st + 'resourceAtlas.xml' + g.getVersion('resourceAtlas')];
 
         g.allData.atlas['buildAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/buildAtlas.png' + g.getVersion('buildAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/buildAtlas.xml' + g.getVersion('buildAtlas')]);
+        (g.pBitmaps[st + 'x1/buildAtlas.png' + g.getVersion('buildAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'x1/buildAtlas.png' + g.getVersion('buildAtlas')];
         delete  g.pXMLs[st + 'x1/buildAtlas.xml' + g.getVersion('buildAtlas')];
 
         g.allData.atlas['decorAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/decorAtlas.xml' + g.getVersion('decorAtlas')]);
         g.managerHitArea.registerFromAtlas(g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')].create() as Bitmap, g.pXMLs[st + 'x1/decorAtlas.xml' + g.getVersion('decorAtlas')]);
+        (g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')];
         delete  g.pXMLs[st + 'x1/decorAtlas.xml' + g.getVersion('decorAtlas')];
 
         g.allData.atlas['farmAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/farmAtlas.png' + g.getVersion('farmAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/farmAtlas.xml' + g.getVersion('farmAtlas')]);
+        (g.pBitmaps[st + 'x1/farmAtlas.png' + g.getVersion('farmAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'x1/farmAtlas.png' + g.getVersion('farmAtlas')];
         delete  g.pXMLs[st + 'x1/farmAtlas.xml' + g.getVersion('farmAtlas')];
 
         g.allData.atlas['wildAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')]);
         g.managerHitArea.registerFromAtlas(g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')].create() as Bitmap, g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')]);
+        (g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')];
         delete  g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')];
 
         g.allData.atlas['customisationAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/customisationAtlas.xml' + g.getVersion('customisationAtlas')]);
+        (g.pBitmaps[st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas')];
         delete  g.pXMLs[st + 'x1/customisationAtlas.xml' + g.getVersion('customisationAtlas')];
 
         g.allData.atlas['customisationInterfaceAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')].create() as Bitmap), g.pXMLs[st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas')]);
+        (g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')];
         delete  g.pXMLs[st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas')];
 

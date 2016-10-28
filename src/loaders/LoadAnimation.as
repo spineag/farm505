@@ -60,6 +60,7 @@ public class LoadAnimation {
 
             g.allData.factory[_name] = factory;
 
+            (g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)] as PBitmap).deleteIt();
             delete g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)];
             delete g.pJSONs[_url + '/texture.json' + g.getVersion(_name)];
             delete g.pJSONs[_url + '/skeleton.json' + g.getVersion(_name)];
