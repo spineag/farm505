@@ -4,6 +4,8 @@
 package wallPost {
 import flash.display.Bitmap;
 
+import loaders.PBitmap;
+
 import manager.Vars;
 
 import starling.core.Starling;
@@ -32,6 +34,7 @@ public class WALLOpenCave {
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
 //        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Проход в шахту расчищен! Теперь мы можем самостоятельно добывать руду в Долине Рукоделия!'),bitmap,'interfaceAtlas');
+        (g.pBitmaps[st + 'wall/wall_open_cave.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_open_cave.jpg'];
     }
 }

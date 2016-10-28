@@ -8,9 +8,13 @@ import dragonBones.Armature;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
+import dragonBones.factories.BaseFactory;
 import dragonBones.starling.StarlingArmatureDisplay;
+import dragonBones.starling.StarlingFactory;
 
 import flash.display.Bitmap;
+
+import loaders.PBitmap;
 
 import manager.Vars;
 import starling.display.Image;
@@ -244,7 +248,9 @@ public class TutorialMult {
     public function deleteIt():void {
         WorldClock.clock.remove(_armature);
         g.cont.popupCont.removeChild(_armature.display as Sprite);
+        (g.allData.factory['tutorial_mult'] as StarlingFactory).clear();
         delete g.allData.factory['tutorial_mult'];
+        (g.pBitmaps['tutorial_mult_map'] as PBitmap).deleteIt();
         delete g.pBitmaps['tutorial_mult_map'];
         _catsSprite.dispose();
         _tempBG.dispose();

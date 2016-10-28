@@ -107,6 +107,7 @@ public class QuestIcon {
     }
     
     public function deleteIt():void {
+        // need delete this: g.pBitmaps[g.dataPath.getQuestIconPath() + _data.iconUrl].create() as Bitmap)
         _parent.removeChild(_source);
         _parent = null;
         _source.deleteIt();

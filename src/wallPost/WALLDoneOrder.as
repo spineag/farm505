@@ -4,6 +4,8 @@
 package wallPost {
 import flash.display.Bitmap;
 
+import loaders.PBitmap;
+
 import manager.Vars;
 
 import starling.core.Starling;
@@ -32,6 +34,7 @@ public class WALLDoneOrder {
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
 //        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Заказ Лавки в Умелых Лапках готов! За мою хорошую работу Жители Долины Рукоделия меня щедро отблагодарили!'),bitmap,'interfaceAtlas');
+        (g.pBitmaps[st + 'wall/wall_done_order.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_done_order.jpg'];
     }
 }

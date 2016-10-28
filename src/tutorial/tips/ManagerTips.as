@@ -63,6 +63,7 @@ public class ManagerTips {
     private function onLoad3(st:String):void {
         if (g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')] && g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')]) {
             g.allData.atlas['tipsAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')].create() as Bitmap), g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')]);
+            (g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')]).deleteIt();
             delete  g.pBitmaps[st + 'tipsAtlas.png' + g.getVersion('tipsAtlas')];
             delete  g.pXMLs[st + 'tipsAtlas.xml' + g.getVersion('tipsAtlas')];
         }
@@ -93,7 +94,7 @@ public class ManagerTips {
         _arrTips.length = 0;
         _arrTips = null;
         (g.allData.factory['icon_tips'] as StarlingFactory).clear();
-        g.allData.factory['icon_tips'] = null;
+        delete g.allData.factory['icon_tips'];
     }
 
     public function setUnvisible(v:Boolean):void {

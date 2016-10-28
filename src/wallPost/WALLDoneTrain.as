@@ -4,6 +4,8 @@
 package wallPost {
 import flash.display.Bitmap;
 
+import loaders.PBitmap;
+
 import manager.Vars;
 
 import starling.core.Starling;
@@ -32,6 +34,7 @@ public class WALLDoneTrain {
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
 //        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Корзинка собрана и отправлена по Канатной дороге! Пора получить награду за выполнение заказа!'),bitmap,'interfaceAtlas');
+        (g.pBitmaps[st + 'wall/wall_done_train.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_done_train.jpg'];
     }
 }

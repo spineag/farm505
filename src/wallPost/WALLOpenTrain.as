@@ -4,6 +4,8 @@
 package wallPost {
 import flash.display.Bitmap;
 
+import loaders.PBitmap;
+
 import manager.Vars;
 
 import starling.core.Starling;
@@ -33,6 +35,7 @@ public class WALLOpenTrain {
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
 //        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Канатная дорога открыта! Теперь, загружая корзинку и выполняя заказы, я буду получать еще больше опыта, монет и ваучеров!'),bitmap,'interfaceAtlas');
+        (g.pBitmaps[st + 'wall/wall_open_train.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_open_train.jpg'];
     }
 }
