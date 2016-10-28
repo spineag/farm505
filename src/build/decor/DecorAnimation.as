@@ -515,9 +515,6 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function changeTexture(oldName:String, newName:String):void {
-        if (_dataBuild.id == 146) {
-            trace(1);
-        }
         var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
         if (_armature) var b:Slot = _armature.getSlot(oldName);
         if (im && b) {
