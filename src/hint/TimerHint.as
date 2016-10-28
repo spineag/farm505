@@ -112,21 +112,21 @@ public class TimerHint {
         _onOutCallback = out;
         var quad:Quad;
         if (ridge) {
-            _quad = new Quad(_bg.width, _bg.height,Color.WHITE);
-            quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN);
-            quad.pivotX = quad.width/2;
+            _quad = new Quad(int(_bg.width), int(_bg.height), Color.WHITE);
+            quad = new Quad(int(height * g.currentGameScale), int(height * g.currentGameScale), Color.GREEN);
+            quad.pivotX = int(quad.width/2);
             _source.addChildAt(quad,0);
             quad.alpha = 0;
         } else if (animal) {
-            _quad = new Quad(_bg.width, _bg.height,Color.WHITE);
-            quad = new Quad(height * g.currentGameScale,height * g.currentGameScale,Color.GREEN);
-            quad.pivotX = quad.width/2;
+            _quad = new Quad(int(_bg.width), int(_bg.height), Color.WHITE);
+            quad = new Quad(int(height * g.currentGameScale), int(height * g.currentGameScale), Color.GREEN);
+            quad.pivotX = int(quad.width/2);
             _source.addChildAt(quad,0);
             quad.alpha = 0;
-        } else _quad = new Quad(_bg.width, _bg.height + height/2 * g.currentGameScale,Color.WHITE);
+        } else _quad = new Quad(int(_bg.width), int(_bg.height + height/2 * g.currentGameScale), Color.WHITE);
         _quad.alpha = 0;
-        _quad.x = -_bg.width/2;
-        _quad.y = -_bg.height;
+        _quad.x = -int(_bg.width/2);
+        _quad.y = -int(_bg.height);
         _source.addChildAt(_quad,0);
         _callbackSkip = f;
         _source.x = x;// + 115;
@@ -163,7 +163,7 @@ public class TimerHint {
                     dX = g.managerResize.stageWidth - _source.width / 2 - 50 - _source.x;
                 }
                 g.cont.deltaMoveGameCont(dX, dY, .5);
-                new TweenMax(_source, .5, {x: _source.x + dX, y: _source.y + dY, ease: Linear.easeOut});
+                new TweenMax(_source, .5, {x: int(_source.x + dX), y: int(_source.y + dY), ease: Linear.easeOut});
             }
             _needMoveCenter = false;
         }

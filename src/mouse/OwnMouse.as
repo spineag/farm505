@@ -32,12 +32,12 @@ public class OwnMouse {
         CreateMouseCursor();
     }
 
-    public function get mouseX():Number {
-        return g.starling.nativeOverlay.mouseX;
+    public function get mouseX():int {
+        return int(g.starling.nativeOverlay.mouseX);
     }
 
     public function get mouseY():Number {
-        return g.starling.nativeOverlay.mouseY;
+        return int(g.starling.nativeOverlay.mouseY);
     }
 
     private function CreateMouseCursor():void {

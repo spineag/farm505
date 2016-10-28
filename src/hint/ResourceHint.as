@@ -90,8 +90,8 @@ public class ResourceHint {
 //        }
         var start:Point = new Point(int(_newX-2), int(_newY - 20));
         start = _newSource.parent.localToGlobal(start);
-        _source.x = start.x + _newSource.width/2;
-        _source.y = start.y + _newSource.height;
+        _source.x = int(start.x + _newSource.width/2);
+        _source.y = int(start.y + _newSource.height);
 
         _source.scaleX = _source.scaleY = 0;
         var tween:Tween = new Tween(_source, 0.2);
@@ -150,13 +150,13 @@ public class ResourceHint {
             _txtText.x = -100;
             _txtText.y = 5;
             if(_bool) {
-                _source.x = start.x;
-                _source.y = start.y;
+                _source.x = int(start.x);
+                _source.y = int(start.y);
                 _txtText.text = 'Время роста:';
             } else {
                 _txtText.text = "Растет на грядке";
-                _source.x = start.x + _newSource.width/2;
-                _source.y = start.y + _newSource.height + 5;
+                _source.x = int(start.x + _newSource.width/2);
+                _source.y = int(start.y + _newSource.height) + 5;
             }
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
@@ -183,8 +183,8 @@ public class ResourceHint {
             if (_bool) {
                 if (wText > wName) bg = new HintBackground(wText, 75, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
                 else bg = new HintBackground(wName, 75, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
-                _source.x = start.x + _newSource.width/2;
-                _source.y = start.y + 30;
+                _source.x = int(start.x + _newSource.width/2);
+                _source.y = int(start.y) + 30;
                 _txtName.x = -100;
                 _txtName.y = -90;
                 _txtText.x = -100;

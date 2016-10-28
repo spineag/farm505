@@ -103,21 +103,21 @@ public class Hint {
         }
         rectangle = _txtHint.textBounds;
 
-        _txtHint.height = rectangle.height + 10;
+        _txtHint.height = int(rectangle.height) + 10;
         if (_fabric) {
-            _txtHintTime.height = rectangle.height + 10;
+            _txtHintTime.height = int(rectangle.height) + 10;
             _txtHintTime.x = 0;
             _txtHintTime.y = 20;
-            _txtHintTime.width = rectangle.width + 20;
+            _txtHintTime.width = int(rectangle.width) + 20;
         }
         if (source.numChildren) {
             while (source.numChildren) source.removeChildAt(0);
         }
         var bg:HintBackground;
-        if (_fabric) bg = new HintBackground(rectangle.width + 22, rectangle.height + 30);
-        else bg = new HintBackground(rectangle.width + 22, rectangle.height + 12);
+        if (_fabric) bg = new HintBackground(int(rectangle.width) + 22, int(rectangle.height) + 30);
+        else bg = new HintBackground(int(rectangle.width) + 22, int(rectangle.height) + 12);
         if (_catXp) {
-            _txtHint.x = bg.x + 8;
+            _txtHint.x = int(bg.x) + 8;
         }
         source.addChild(bg);
         source.addChild(_txtHint);
@@ -127,7 +127,7 @@ public class Hint {
         g.cont.hintCont.addChild(source);
         if (_tips) {
             source.x = g.ownMouse.mouseX;
-             source.y = g.managerResize.stageHeight - source.height - 100;
+             source.y = int(g.managerResize.stageHeight - source.height) - 100;
         } else g.gameDispatcher.addEnterFrame(onEnterFrame);
 //        source.scaleX = source.scaleY = 0;
 //        tween = new Tween(source, 0.4);
@@ -167,9 +167,9 @@ public class Hint {
 
     private function checkPosition():void {  // check is hint source is in stage width|height
         if (source.x < 20) source.x = 20;
-        if (source.x > g.managerResize.stageWidth - source.width - 20) source.x = g.managerResize.stageWidth - source.width - 20;
+        if (source.x > g.managerResize.stageWidth - source.width - 20) source.x = int(g.managerResize.stageWidth - source.width) - 20;
         if (source.y < 20) source.y = 20;
-        if (source.y > g.managerResize.stageHeight - source.height - 20) source.y = g.managerResize.stageHeight - source.height - 20;
+        if (source.y > g.managerResize.stageHeight - source.height - 20) source.y = int(g.managerResize.stageHeight - source.height) - 20;
     }
 
     public function hideIt():void {

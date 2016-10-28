@@ -80,8 +80,8 @@ public class LevelUpHint {
         isShowed = true;
         var start:Point = new Point(int(sX-13), int(sY - 5));
         start = source.parent.localToGlobal(start);
-        _source.x = start.x + source.width/2;
-        _source.y = start.y + source.height;
+        _source.x = int(start.x + source.width/2);
+        _source.y = int(start.y + source.height);
 
         _txtName = new CTextField(200, 30, '');
         _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
@@ -169,8 +169,8 @@ public class LevelUpHint {
             _source.addChild(bg);
             _source.addChild(_txtText);
             g.cont.hintCont.addChild(_source);
-            _source.x = start.x;
-            _source.y = start.y;
+            _source.x = int(start.x);
+            _source.y = int(start.y);
             return;
         }
         if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
@@ -190,8 +190,8 @@ public class LevelUpHint {
             _txtText.text = 'Растет на грядке';
             _txtText.x = -100;
             _txtText.y = 5;
-            _source.x = start.x + source.width/2;
-            _source.y = start.y + source.height + 5;
+            _source.x = int(start.x + source.width/2);
+            _source.y = int(start.y + source.height + 5);
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
             if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);

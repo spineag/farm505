@@ -90,8 +90,8 @@ public class MarketHint {
             start = new Point(int(sX-8), int(sY-5));
             start = source.parent.localToGlobal(start);
         }
-        _source.x = start.x + source.width/2;
-        _source.y = start.y + source.height;
+        _source.x = int(start.x + source.width/2);
+        _source.y = int(start.y + source.height);
         _source.scaleX = _source.scaleY = 0;
         var tween:Tween = new Tween(_source, 0.2);
         tween.scaleTo(1);
@@ -128,8 +128,8 @@ public class MarketHint {
             _txtSklad.text = 'На складе:';
             _txtSklad.x = -55;
             _txtSklad.y = 75;
-            _source.x = start.x + source.width/2;
-            _source.y = start.y + source.height + 5;
+            _source.x = int(start.x + source.width/2);
+            _source.y = int(start.y + source.height + 5);
             wText = int(_txtText.textBounds.width + 40);
             wName = int(_txtName.textBounds.width + 40);
             if (wText > wName) bg = new HintBackground(wText, 96, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);

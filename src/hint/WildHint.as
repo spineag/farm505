@@ -69,8 +69,8 @@ public class WildHint {
         _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -50;
         _txtName.y = -150;
-        _circle.x = +_bgItem.width/2 -20;
-        _circle.y = -_bgItem.height - 50;
+        _circle.x = int(_bgItem.width/2) - 20;
+        _circle.y = -int(_bgItem.height) - 50;
         _source.addChild(_circle);
         _source.addChild(_txtCount);
         _source.addChild(_txtName);
@@ -89,9 +89,9 @@ public class WildHint {
         _height = height;
         _buildType = buildType;
         _onOutCallback = out;
-        _quad = new Quad(bg.width, bg.height + _height * g.currentGameScale,Color.WHITE);
+        _quad = new Quad(int(bg.width), int(bg.height + _height * g.currentGameScale), Color.WHITE);
         _quad.alpha = 0;
-        _quad.x = -bg.width/2;
+        _quad.x = -int(bg.width/2);
         _quad.y = -bg.height;
         _source.addChildAt(_quad,0);
         if (!g.dataResource.objectResources[idResourceForRemoving]) {
@@ -103,8 +103,8 @@ public class WildHint {
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
-        _txtCount.x = _circle.x + 3;
-        _txtCount.y = _circle.y + 2;
+        _txtCount.x = int(_circle.x) + 3;
+        _txtCount.y = int(_circle.y) + 2;
         _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[idResourceForRemoving].imageShop));
         if (!_iconResource) {
             Cc.error('WildHint showIt:: no such image: ' + g.dataResource.objectResources[idResourceForRemoving].imageShop);

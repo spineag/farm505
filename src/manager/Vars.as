@@ -98,7 +98,7 @@ public class Vars {
     public var starling:Starling;
     public var mainStage:Stage;
     public var scaleFactor:Number;
-    public var currentGameScale:Number = 1; // use scaleFactor!
+    public var currentGameScale:Number = 1;
     public var realGameWidth:int = 7468;
     public var realGameHeight:int = 5000;
     public var realGameTilesWidth:int = 6782;

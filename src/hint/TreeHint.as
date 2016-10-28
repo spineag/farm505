@@ -127,9 +127,9 @@ public class TreeHint {
         if (_isShowed) return;
         _isShowed = true;
         _onOutCallback = out;
-        _quad = new Quad(_bg.width, _bg.height + height/2 * g.currentGameScale,Color.WHITE);
+        _quad = new Quad(int(_bg.width), int(_bg.height + height/2 * g.currentGameScale), Color.WHITE);
         _quad.alpha = 0;
-        _quad.x = -_bg.width/2;
+        _quad.x = -int(_bg.width/2);
         _quad.y = -_bg.height;
         _source.addChildAt(_quad,0);
 
@@ -180,7 +180,7 @@ public class TreeHint {
                 dX = g.managerResize.stageWidth -_source.width/2 - 50 - _source.x;
             }
             g.cont.deltaMoveGameCont(dX, dY, .5);
-            new TweenMax(_source, .5, {x:_source.x + dX, y:_source.y + dY, ease:Linear.easeOut});
+            new TweenMax(_source, .5, {x:int(_source.x + dX), y:int(_source.y + dY), ease:Linear.easeOut});
         }
     }
 
