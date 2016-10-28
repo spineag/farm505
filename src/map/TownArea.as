@@ -249,7 +249,7 @@ public class TownArea extends Sprite {
             _townMatrix.push([]);
             _townTailMatrix.push([]);
             for (var j:int = 0; j < ln; j++) {
-                _townTailMatrix[i][j] = {build: null, inGame: true, inTile:false};
+                _townTailMatrix[i][j] = {build: null, inGame: true, inTile:false, isFull:false};
                 _townMatrix[i][j] = {};
                 _townMatrix[i][j].build = null;
                 _townMatrix[i][j].buildFence = null;
@@ -258,6 +258,7 @@ public class TownArea extends Sprite {
                 _townMatrix[i][j].isBlocked = false; // ? propably it's old not used properties
                 _townMatrix[i][j].isWall = false;
                 _townMatrix[i][j].isTutorialBuilding = false;
+                _townMatrix[i][j].isLockedLand = false;
             }
         }
     }
@@ -286,6 +287,7 @@ public class TownArea extends Sprite {
                         if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
                             _townMatrix[i][j].isWall = true;
                     }
+                    if (source is LockedLand)  _townMatrix[i][j].isLockedLand = true;
             }
         }
 
@@ -407,6 +409,7 @@ public class TownArea extends Sprite {
                         _townTailMatrix[i][j].isTutorialBuilding = false;
                         _townTailMatrix[i][j].build = source;
                         _townTailMatrix[i][j].inTile = true;
+                        _townTailMatrix[i][j].isFull = true;
                 }
             }
 
@@ -426,8 +429,9 @@ public class TownArea extends Sprite {
             for (var i:int = posY; i < (posY + sizeY); i++) {
                 for (var j:int = posX; j < (posX + sizeX); j++) {
                     _townTailMatrix[i][j].build = null;
-                    _townTailMatrix[i][j].inTile= false;
+                    _townTailMatrix[i][j].inTile = false;
                     _townTailMatrix[i][j].isTutorialBuilding = false;
+                    _townTailMatrix[i][j].isFull = false;
                 }
             }
 

@@ -136,29 +136,32 @@ public class DecorAnimation extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            if ( _decorWork) return;
             if (!_dataBuild.catNeed) {
-//                var oldBones:Vector.<Bone> = _armature.getBones();
-//                var count:int = oldBones.length - 1;
-//                if (count > 1) {
-//                    var heroCat:HeroCat;
-//                    var armature:Armature;
-//                    for (var i:int = 0; i < count; i++) {
-//                        heroCat = g.managerCats.getFreeCat();
-//                        if (heroCat) {
-//                            heroCat.isFree = false;
-//                            armature = new Armature();
-//                            armature = g.allData.factory[_dataBuild.url].buildArmature('cat' + String(count - i));
-//                            WorldClock.clock.add(armature);
-//                            armature.animation.gotoAndPlayByFrame('idle');
-//                            _build.addChild(armature.display as StarlingArmatureDisplay);
-//                            g.managerCats.goCatToPoint(heroCat, new Point(posX, posY), onHeroAnimationArray, armature, heroCat);
-////                            _heroCatArray.push(heroCat);
-////                            _armatureArray.push(armature);
-//                        }
-//                    }
-//                } else {
+                var ob:Object = g.allData.factory[_dataBuild.url].allDragonBonesData[_dataBuild.url];
+                var oldBones:Vector.<String> = ob.armatureNames;
+                var count:int  = oldBones.length - 1;
+                if (count > 1) {
+                    var heroCat:HeroCat;
+                    var armature:Armature;
+                    for (var i:int = 0; i < count; i++) {
+                        heroCat = g.managerCats.getFreeCat();
+                        if (heroCat) {
+                            _decorWork = true;
+                            heroCat.isFree = false;
+                            armature = new Armature();
+                            armature = g.allData.factory[_dataBuild.url].buildArmature('cat' + String(count - i));
+                            WorldClock.clock.add(armature);
+                            armature.animation.gotoAndPlayByFrame('idle');
+                            _build.addChild(armature.display as StarlingArmatureDisplay);
+                            _armatureArray.push(armature);
+                            g.managerCats.goCatToPoint(heroCat, new Point(posX, posY), onHeroAnimationArray, armature, heroCat);
+                        }
+                    }
+                } else {
                     if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
                     if (_heroCat) {
+                        _decorWork = true;
                         _heroCat.isFree = false;
                         var fEndOver:Function = function(e:Event=null):void {
                             _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
@@ -169,7 +172,7 @@ public class DecorAnimation extends WorldObject{
                         _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                         _armature.animation.gotoAndPlayByFrame('over');
                     }
-//                }
+                }
             } else {
                 onHeroAnimation();
             }
@@ -189,111 +192,102 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function onHeroAnimation():void {
-        if (_decorWork) return;
         if (!_dataBuild.catNeed) {
             if (_heroCat) {
-                _decorWork = true;
                 startAnimation();
                 _heroCat.visible = false;
             }
         } else {
-            _decorWork = true;
             startAnimation();
         }
     }
 
-//    private function onHeroAnimationArray(armature:Armature,heroCat:HeroCat):void {
-//        if (heroCat) {
-//            _decorWork = true;
-//            heroCat.visible = false;
-//            if (armature.animation.hasAnimation('start')) {
-//                var fEndOver:Function = function (e:Event = null):void {
-//                    armature.removeEventListener(EventObject.COMPLETE, fEndOver);
-//                    armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-////                    armature.addEventListener(EventObject.COMPLETE, chooseAnimationArray);
-////                    armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimationArray);
-//                    chooseAnimationArray(null,armature, heroCat);
-//                };
-//                armature.addEventListener(EventObject.COMPLETE, fEndOver);
-//                armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-//                armature.animation.gotoAndPlayByFrame('start');
-//            }
-//        }
-//    }
-//
-//    private function chooseAnimationArray(e:Event=null, armature:Armature =null,heroCat:HeroCat = null):void {
-//        var loop:Function = function (e:Event = null):void {
-//            armature.removeEventListener(EventObject.COMPLETE, loop);
-//            armature.removeEventListener(EventObject.LOOP_COMPLETE, loop);
-//            if(_decorAnimation >= 7) return;
-//            chooseAnimationArray(null,armature, heroCat);
-//        };
-//        if (!armature) return;
-//        if (!armature.hasEventListener(EventObject.COMPLETE)) armature.addEventListener(EventObject.COMPLETE, loop);
-//        if (!armature.hasEventListener(EventObject.LOOP_COMPLETE)) armature.addEventListener(EventObject.LOOP_COMPLETE, loop);
-//        var k:int = int(Math.random() * 5);
-//        switch (k) {
-//            case 0:
-//                armature.animation.gotoAndPlayByFrame('idle_1');
-//                break;
-//            case 1:
-//                if (armature.animation.hasAnimation('idle_2')) armature.animation.gotoAndPlayByFrame('idle_2');
-//                else armature.animation.gotoAndPlayByFrame('idle_1');
-//                break;
-//            case 2:
-//                if (armature.animation.hasAnimation('idle_3')) armature.animation.gotoAndPlayByFrame('idle_3');
-//                else if (armature.animation.hasAnimation('idle_2')) armature.animation.gotoAndPlayByFrame('idle_2');
-//                else armature.animation.gotoAndPlayByFrame('idle_1');
-//                break;
-//            case 3:
-//                if (armature.animation.hasAnimation('idle_4')) armature.animation.gotoAndPlayByFrame('idle_4');
-//                else if (armature.animation.hasAnimation('idle_3')) armature.animation.gotoAndPlayByFrame('idle_3');
-//                else if (armature.animation.hasAnimation('idle_2')) armature.animation.gotoAndPlayByFrame('idle_2');
-//                else armature.animation.gotoAndPlayByFrame('idle_1');
-//                break;
-//            case 4:
-//                if (armature.animation.hasAnimation('idle_5')) armature.animation.gotoAndPlayByFrame('idle_5');
-//                else if (armature.animation.hasAnimation('idle_4')) armature.animation.gotoAndPlayByFrame('idle_4');
-//                else if (armature.animation.hasAnimation('idle_3')) armature.animation.gotoAndPlayByFrame('idle_3');
-//                else if (armature.animation.hasAnimation('idle_2')) armature.animation.gotoAndPlayByFrame('idle_2');
-//                else armature.animation.gotoAndPlayByFrame('idle_1');
-//                break;
-//        }
-//
-//        var stopAnimationArray:Function = function (e:Event = null):void {
-//            _decorWork = false;
-//            if (heroCat) heroCat = null;
-//            if (armature && armature.hasEventListener(EventObject.COMPLETE)) armature.removeEventListener(EventObject.COMPLETE, chooseAnimationArray);
-//            if (armature && armature.hasEventListener(EventObject.LOOP_COMPLETE)) armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimationArray);
-//            if (armature) armature.animation.gotoAndStopByFrame('idle');
-//        };
-//
-//        _decorAnimation ++;
-//        if (_decorAnimation >= 7) {
-//            if (armature.animation.hasAnimation('back')) {
-//                var fEndOver:Function = function (e:Event = null):void {
-//                    armature.removeEventListener(EventObject.COMPLETE, fEndOver);
-//                    armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-//                    if (heroCat) {
-//                        heroCat.visible = true;
-//                        heroCat.isFree = true;
-//                    }
-//                    stopAnimation();
-//                };
-//                armature.addEventListener(EventObject.COMPLETE, fEndOver);
-//                armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-//                armature.animation.gotoAndPlayByFrame('back');
-//                _decorAnimation = 0;
-//            } else {
-//                    if (heroCat) {
-//                        heroCat.visible = true;
-//                        heroCat.isFree = true;
-//                    }
-//                stopAnimationArray();
-//                _decorAnimation = 0;
-//            }
-//        }
-//    }
+    private function onHeroAnimationArray(armature:Armature,heroCat:HeroCat):void {
+        if (heroCat) {
+            heroCat.visible = false;
+            if (armature.animation.hasAnimation('start')) {
+                var fEndOver:Function = function (e:Event = null):void {
+                    armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                    armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                    releaseHeroCatWoman();
+                    chooseAnimationArray(null,armature, heroCat);
+                };
+                armature.addEventListener(EventObject.COMPLETE, fEndOver);
+                armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                armature.animation.gotoAndPlayByFrame('start');
+            }
+        }
+    }
+
+    private function chooseAnimationArray(e:Event=null, armature:Armature =null,heroCat:HeroCat = null):void {
+        var loop:Function = function (e:Event = null):void {
+            armature.removeEventListener(EventObject.COMPLETE, loop);
+            armature.removeEventListener(EventObject.LOOP_COMPLETE, loop);
+            _decorAnimation ++;
+            if (_decorAnimation >= 7) {
+                if (armature.animation.hasAnimation('back')) {
+                    var fEndOver:Function = function (e:Event = null):void {
+                        armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                        armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                        if (armature) armature.animation.gotoAndStopByFrame('idle');
+                        if (heroCat) {
+                            heroCat.visible = true;
+                            heroCat.isFree = true;
+                            _armatureArray.pop();
+                            if (_armatureArray.length <= 0) _decorWork = false;
+                            if (heroCat) heroCat = null;
+                        }
+                        stopAnimation();
+                    };
+                    armature.addEventListener(EventObject.COMPLETE, fEndOver);
+                    armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                    armature.animation.gotoAndPlayByFrame('back');
+                    _decorAnimation = 0;
+                } else {
+                    if (heroCat) {
+                        heroCat.visible = true;
+                        heroCat.isFree = true;
+                        _armatureArray.pop();
+                        if (_armatureArray.length <= 0) _decorWork = false;
+                        if (heroCat) heroCat = null;
+                    }
+                    if (armature) armature.animation.gotoAndStopByFrame('idle');
+                    _decorAnimation = 0;
+                }
+            } else chooseAnimationArray(null,armature, heroCat);
+        };
+        if (!armature) return;
+        if (!armature.hasEventListener(EventObject.COMPLETE)) armature.addEventListener(EventObject.COMPLETE, loop);
+        if (!armature.hasEventListener(EventObject.LOOP_COMPLETE)) armature.addEventListener(EventObject.LOOP_COMPLETE, loop);
+        var k:int = int(Math.random() * 5);
+        switch (k) {
+            case 0:
+                armature.animation.gotoAndPlayByFrame('idle_1');
+                break;
+            case 1:
+                if (armature.animation.hasAnimation('idle_2')) armature.animation.gotoAndPlayByFrame('idle_2');
+                else armature.animation.gotoAndPlayByFrame('idle_1');
+                break;
+            case 2:
+                if (armature.animation.hasAnimation('idle_3')) armature.animation.gotoAndPlayByFrame('idle_3');
+                else if (armature.animation.hasAnimation('idle_2')) armature.animation.gotoAndPlayByFrame('idle_2');
+                else armature.animation.gotoAndPlayByFrame('idle_1');
+                break;
+            case 3:
+                if (armature.animation.hasAnimation('idle_4')) armature.animation.gotoAndPlayByFrame('idle_4');
+                else if (armature.animation.hasAnimation('idle_3')) armature.animation.gotoAndPlayByFrame('idle_3');
+                else if (armature.animation.hasAnimation('idle_2')) armature.animation.gotoAndPlayByFrame('idle_2');
+                else armature.animation.gotoAndPlayByFrame('idle_1');
+                break;
+            case 4:
+                if (armature.animation.hasAnimation('idle_5')) armature.animation.gotoAndPlayByFrame('idle_5');
+                else if (armature.animation.hasAnimation('idle_4')) armature.animation.gotoAndPlayByFrame('idle_4');
+                else if (armature.animation.hasAnimation('idle_3')) armature.animation.gotoAndPlayByFrame('idle_3');
+                else if (armature.animation.hasAnimation('idle_2')) armature.animation.gotoAndPlayByFrame('idle_2');
+                else armature.animation.gotoAndPlayByFrame('idle_1');
+                break;
+        }
+    }
 
     private function startAnimation():void {
         if (!_armature) return;
@@ -304,7 +298,7 @@ public class DecorAnimation extends WorldObject{
                     _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                     _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
                     _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
-//                    releaseHeroCatWoman();
+                    releaseHeroCatWoman();
                     chooseAnimation();
                 };
                 _armature.addEventListener(EventObject.COMPLETE, fEndOver);
@@ -313,7 +307,7 @@ public class DecorAnimation extends WorldObject{
             } else {
                 _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
-//                releaseHeroCatWoman();
+                releaseHeroCatWoman();
                 chooseAnimation();
             }
         } else {
@@ -363,7 +357,10 @@ public class DecorAnimation extends WorldObject{
     private function stopAnimation():void {
         _decorWork = false;
         if (_heroCat) _heroCat = null;
-        if (_armature) _armature.animation.gotoAndStopByFrame('idle');
+        if (_armature) {
+            if (_dataBuild.catNeed) _armature.animation.gotoAndPlayByFrame('idle');
+            else _armature.animation.gotoAndStopByTime('idle');
+        }
         if (_armature) _armature.removeEventListener(EventObject.COMPLETE, chooseAnimation);
         if (_armature) _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
     }
@@ -418,7 +415,7 @@ public class DecorAnimation extends WorldObject{
                 _armature.animation.gotoAndPlayByFrame('back');
                 _decorAnimation = 0;
             } else {
-                if (!_dataBuild.catNeed) {
+                if (_dataBuild && !_dataBuild.catNeed) {
                     if (_heroCat) {
                         _heroCat.visible = true;
                         _heroCat.isFree = true;
@@ -524,12 +521,13 @@ public class DecorAnimation extends WorldObject{
             b.displayList = null;
             b.display = im;
         } else {
-            Cc.error('Fabrica changeTexture:: null Bone for oldName= '+oldName + ' for fabricaId= '+String(_dataBuild.id));
+            Cc.error('DecorAnimation changeTexture:: null Bone for oldName= '+oldName + ' for fabricaId= '+String(_dataBuild.id));
         }
     }
 
     override public function clearIt():void {
         onOut();
+        if (_heroCat) _heroCat = null;
         _source.touchable = false;
         super.clearIt();
     }
