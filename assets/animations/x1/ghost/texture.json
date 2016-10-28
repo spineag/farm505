@@ -1,1 +1,1 @@
-{"name":"ghost","imagePath":"texture.png","SubTexture":[{"x":0,"name":"shadow","width":62,"y":85,"height":62},{"x":0,"name":"ghostt","width":63,"y":0,"height":83}]}
+{"imagePath":"texture.png","name":"ghost","SubTexture":[{"width":50,"name":"shadow","height":50,"x":52,"y":0},{"width":50,"name":"ghostt","height":67,"x":0,"y":0}]}

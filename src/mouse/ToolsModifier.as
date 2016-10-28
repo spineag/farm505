@@ -569,13 +569,16 @@ public class ToolsModifier {
         return true;
     }
     public function checkFreeTailGrids(posX:int, posY:int, width:int, height:int):Boolean {
+        var ob:Object;
         for (i = posY; i < posY + height; i++) {
             for (j = posX; j < posX + width; j++) {
                 if (i < 0 || j < 0 || i > 80 || j > 80) return false;
                 obj = g.townArea.townTailMatrix[i][j];
+                ob = _townMatrix[i][j];
                 if (obj.inTile) return false;
                 if (!obj.inGame) return false;
                 if (obj.isBlocked) return false;
+                if (ob.isLockedLand) return false;
             }
         }
 
