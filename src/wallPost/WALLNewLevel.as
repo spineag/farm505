@@ -8,6 +8,8 @@ import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 
+import loaders.PBitmap;
+
 import manager.ManagerFabricaRecipe;
 
 import manager.ManagerFilters;
@@ -61,6 +63,7 @@ public class WALLNewLevel {
         t.filters = [new GlowFilter(ManagerFilters.BROWN_COLOR)];
         bitmap.bitmapData.draw(sp);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),bitmap,'interfaceAtlas');
+        (g.pBitmaps[st + 'wall/wall_new_level.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_new_level.jpg'];
     }
 }

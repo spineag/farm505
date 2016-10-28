@@ -18,11 +18,6 @@ public class SocialNetwork extends EventDispatcher {
     protected var _appFriends:Array;
     protected var _paramsUser:Object;
 
-    protected var _serverPath:String;
-    protected var _contentPath:String;
-
-    protected var _channelMark:String;
-
     protected static var g:Vars = Vars.getInstance();
 
     private var _friendsIDs:Array;
@@ -254,18 +249,6 @@ public class SocialNetwork extends EventDispatcher {
     public function getUserParams():Object {
 //        return {sex: g.user.sex, bdate: g.user.bdate, flash_player: Capabilities.version, auth_key: g.sessionKey};
         return {};
-    }
-
-    public function get contentPath():String {
-        return _contentPath || _serverPath;
-    }
-
-    public function get serverPath():String {
-        return _serverPath;
-    }
-
-    public function get channelMark():String {
-        return _channelMark;
     }
 
     private function clearScreen():void {

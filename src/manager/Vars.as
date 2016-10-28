@@ -265,7 +265,11 @@ public class Vars {
             managerQuest = new ManagerQuest();
 
             socialNetwork = new SocialNetwork(flashVars);
-            socialNetworkID = SocialNetworkSwitch.SN_VK;
+            if (isDebug) {
+                socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
+            } else {
+                socialNetworkID = int(flashVars['channel']);
+            }
             SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
             socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
             socialNetwork.init();

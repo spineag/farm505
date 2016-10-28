@@ -4,6 +4,8 @@
 package wallPost {
 import flash.display.Bitmap;
 
+import loaders.PBitmap;
+
 import manager.Vars;
 
 import starling.core.Starling;
@@ -34,6 +36,7 @@ public class WALLOpenLand {
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
 //        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Новая территория открыта! Теперь моя Долина Рукоделия в игре Умелые Лапки стала еще больше!'),bitmap,'interfaceAtlas');
+        (g.pBitmaps[st + 'wall/wall_new_land.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_new_land.jpg'];
     }
 }

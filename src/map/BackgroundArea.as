@@ -7,6 +7,8 @@ import com.junkbyte.console.Cc;
 import flash.display.Bitmap;
 import flash.geom.Point;
 
+import loaders.PBitmap;
+
 import map.Containers;
 import manager.Vars;
 
@@ -110,7 +112,7 @@ public class BackgroundArea {
         bg.y = _y * g.scaleFactor;
         bg.blendMode = BlendMode.NONE;
         _additionalCont.addChild(bg);
-        g.pBitmaps[url].deleteIt();
+        (g.pBitmaps[url] as PBitmap).deleteIt();
         delete g.pBitmaps[url];
         _countLoaded++;
     }

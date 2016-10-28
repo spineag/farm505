@@ -180,6 +180,7 @@ public class LoaderManager {
             count--;
             if (count<=0) {
                 g.allData.atlas[name] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + '.png'].create() as Bitmap), g.pXMLs[st + '.xml']);
+                (g.pBitmaps[st + '.png'] as PBitmap).deleteIt();
                 delete  g.pBitmaps[st + '.png'];
                 delete  g.pXMLs[st + '.xml'];
                 if (f!=null) f.apply(null, params);

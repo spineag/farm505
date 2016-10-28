@@ -5,6 +5,9 @@ package wallPost {
 import flash.display.Bitmap;
 import flash.display.StageDisplayState;
 import flash.geom.Rectangle;
+
+import loaders.PBitmap;
+
 import manager.Vars;
 import starling.core.Starling;
 import starling.display.Image;
@@ -33,6 +36,7 @@ public class WALLForQuest {
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
 //        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Новая увлекательная игра о Долине Рукоделия!'), bitmap, 'interfaceAtlas');
+        (g.pBitmaps[st + 'wall/quest_posting.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/quest_posting.jpg'];
     }
 }

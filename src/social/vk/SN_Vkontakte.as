@@ -27,11 +27,6 @@ public class SN_Vkontakte extends SocialNetwork {
     protected static var g:Vars = Vars.getInstance();
 
     public function SN_Vkontakte(flashVars:Object, pathArg:String) {
-        _channelMark = "vk";
-
-        _serverPath = pathArg;
-        _contentPath = pathArg;
-
         flashVars["channelGuid"] ||= "d3a603c8017548938c30c3f13a2d7741";
         flashVars["applicationGuid"] ||= '42815205f51644a1abe3774fb9a68d22';
         //flashVars["sessionKEY"] ||= GUID.create();
@@ -634,7 +629,6 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 }
 }
-
 
 import utils.Multipart;
 import com.adobe.images.JPGEncoder;

@@ -6,6 +6,8 @@ import flash.display.Bitmap;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 
+import loaders.PBitmap;
+
 import manager.Vars;
 
 import starling.core.Starling;
@@ -63,8 +65,10 @@ public class WALLNewFabric {
         rbd.draw(sp);
         var rb:Bitmap = new Bitmap(rbd);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Мы построили новую фабрику! Теперь в Долине Рукоделия еще больше прибыльного производства!'),rb,'interfaceAtlas');
+        (g.pBitmaps[st + 'iconAtlas.png' + g.getVersion('iconAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'iconAtlas.png' + g.getVersion('iconAtlas')];
         delete  g.pXMLs[st + 'iconAtlas.xml' + g.getVersion('iconAtlas')];
+        (g.pBitmaps[st + 'wall/wall_new_fabric.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_new_fabric.jpg'];
     }
 }

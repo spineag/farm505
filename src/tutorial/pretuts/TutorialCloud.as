@@ -4,6 +4,9 @@
 package tutorial.pretuts {
 import com.greensock.TweenMax;
 import flash.display.Bitmap;
+
+import loaders.PBitmap;
+
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
@@ -33,6 +36,7 @@ public class TutorialCloud {
     private function onLoad(p:Bitmap):void {
         _isClickable = false;
         _bg = new Image(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'x1/cloud.jpg'].create() as Bitmap));
+        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'x1/cloud.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'x1/cloud.jpg'];
         _source = new Sprite();
         _source.addChild(_bg);

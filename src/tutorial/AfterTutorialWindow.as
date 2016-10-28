@@ -5,6 +5,8 @@ package tutorial {
 import flash.display.Bitmap;
 import flash.geom.Point;
 
+import loaders.PBitmap;
+
 import manager.ManagerFilters;
 
 import manager.Vars;
@@ -68,6 +70,7 @@ public class AfterTutorialWindow {
     }
 
     public function hideIt():void {
+        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/after_tutorial_window.png'] as PBitmap).deleteIt();
         delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/after_tutorial_window.png'];
         g.cont.popupCont.removeChild(_source);
         _image = null;

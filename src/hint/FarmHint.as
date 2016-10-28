@@ -38,7 +38,7 @@ public class FarmHint {
         source.nameIt = 'farmHint';
         _textureHint = new Image(g.allData.atlas['interfaceAtlas'].getTexture("popup_farm"));
         source.addChild(_textureHint);
-        source.pivotX = source.width/2;
+        source.pivotX = int(source.width/2);
         source.pivotY = source.height;
         var quad:Quad = new Quad(source.width, source.height,Color.WHITE);
         quad.alpha = 0;

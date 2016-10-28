@@ -10,12 +10,8 @@ import social.SocialNetwork;
 public class SN_Blank extends SocialNetwork {
 
     public function SN_Blank(flashVars:Object, channelMark:String, serverPath:String, contentPath:String = null) {
-        _channelMark = channelMark;
 
         flashVars["channelGUID"] ||= "d3a603c8017548938c30c3f13a2d7741";
-
-        _serverPath = serverPath;
-        _contentPath = (contentPath || serverPath);
 
         super(flashVars);
     }
@@ -67,6 +63,7 @@ public class SN_Blank extends SocialNetwork {
 
     override public function getUserParams():Object {
 //        return {auth_key: g.sessionKey};
+        return {};
     }
 
     override public function saveScreenshotToAlbum(oid:String):void {
