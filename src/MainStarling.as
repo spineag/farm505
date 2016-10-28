@@ -2,7 +2,6 @@
  * Created by andriy.grynkiv on 16/03/14.
  */
 package {
-import data.AllData;
 import loaders.DataPath;
 import loaders.EmbedAssets;
 import loaders.LoadAnimationManager;
@@ -10,9 +9,7 @@ import loaders.LoadComponents;
 import loaders.LoaderManager;
 import manager.Vars;
 import manager.hitArea.ManagerHitArea;
-
 import server.DirectServer;
-
 import starling.display.Sprite;
 import starling.utils.AssetManager;
 
@@ -47,10 +44,6 @@ public class MainStarling extends Sprite {
                 loadVersion();
             }
         });
-    }
-
-    private function initGame():void {
-        new EmbedAssets(loadVersion);
     }
 
     private function loadVersion():void {

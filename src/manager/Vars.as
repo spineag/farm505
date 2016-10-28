@@ -225,6 +225,7 @@ public class Vars {
 
     private function initVariables():void {
 //        try {
+            cont.hideAll(true);
             startPreloader.setProgress(77);
 
             event = new OwnEvent();
@@ -446,6 +447,7 @@ public class Vars {
 
     private function afterLoadAll():void {
 //        try {
+            cont.onLoadAll();
             startPreloader.setProgress(100);
             if (currentGameScale != 1) {
                 optionPanel.makeScaling(currentGameScale, false, true);

@@ -2,30 +2,24 @@
  * Created by user on 5/14/15.
  */
 package map {
-import build.ridge.Ridge;
-
 import data.BuildType;
-
 import manager.*;
-
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import flash.geom.Point;
 import mouse.ToolsModifier;
-import starling.core.Starling;
 import starling.display.Sprite;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
-
 import utils.CSprite;
 
 public class Containers {
     public var SHIFT_MAP_X:int;
     public var SHIFT_MAP_Y:int;
 
-    public var mainCont:Sprite;
+    private var _mainCont:Sprite;
     public var backgroundCont:Sprite;
     public var gridDebugCont:Sprite;
     public var tailCont:CSprite;
@@ -56,7 +50,7 @@ public class Containers {
         SHIFT_MAP_X = 185 * g.scaleFactor;
         SHIFT_MAP_Y = 590 * g.scaleFactor;
 
-        mainCont = new Sprite();
+        _mainCont = new Sprite();
         gameCont = new Sprite();
         backgroundCont = new Sprite();
         gridDebugCont = new Sprite();
@@ -78,7 +72,7 @@ public class Containers {
         mouseCont = new Sprite();
         interfaceContMapEditor = new Sprite();
 
-        mainCont.addChild(gameCont);
+        _mainCont.addChild(gameCont);
         gameCont.addChild(backgroundCont);
         gameCont.addChild(gridDebugCont);
         gameCont.addChild(tailCont);
@@ -87,19 +81,19 @@ public class Containers {
         gameCont.addChild(craftAwayCont);
         gameCont.addChild(animationsCont);
         gameCont.addChild(cloudsCont);
-        mainCont.addChild(hintGameCont);
-        mainCont.addChild(animationsContBot);
-        mainCont.addChild(interfaceCont);
-        mainCont.addChild(interfaceContMapEditor);
-        mainCont.addChild(animationsContTop);
-        mainCont.addChild(hintContUnder);
-        mainCont.addChild(windowsCont);
-        mainCont.addChild(animationsResourceCont);
-        mainCont.addChild(hintCont);
-        mainCont.addChild(popupCont);
-        mainCont.addChild(mouseCont);
+        _mainCont.addChild(hintGameCont);
+        _mainCont.addChild(animationsContBot);
+        _mainCont.addChild(interfaceCont);
+        _mainCont.addChild(interfaceContMapEditor);
+        _mainCont.addChild(animationsContTop);
+        _mainCont.addChild(hintContUnder);
+        _mainCont.addChild(windowsCont);
+        _mainCont.addChild(animationsResourceCont);
+        _mainCont.addChild(hintCont);
+        _mainCont.addChild(popupCont);
+        _mainCont.addChild(mouseCont);
 
-        g.mainStage.addChild(mainCont);
+        g.mainStage.addChild(_mainCont);
 
         addGameContListener(true);
         contentCont.nameIt = 'contentCont_csprite';
@@ -107,6 +101,24 @@ public class Containers {
         
         craftAwayCont.touchable = false;
         craftAwayCont.visible = false;
+    }
+    
+    public function onLoadAll():void {
+        hideAll(false);
+        _mainCont.addChildAt(gameCont, 0);
+    }
+    
+    public function hideAll(v:Boolean):void {
+        hintGameCont.visible = !v;
+        animationsContBot.visible = !v;
+        interfaceCont.visible = !v;
+        interfaceContMapEditor.visible = !v;
+        animationsContTop.visible = !v;
+        hintContUnder.visible = !v;
+        windowsCont.visible = !v;
+        animationsResourceCont.visible = !v;
+        hintCont.visible = !v;
+        mouseCont.visible = !v;
     }
 
     public function addGameContListener(value:Boolean):void {

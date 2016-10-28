@@ -13,6 +13,9 @@ import flash.events.UncaughtErrorEvent;
 import flash.system.Security;
 import flash.utils.clearTimeout;
 import flash.utils.setTimeout;
+
+import loaders.EmbedAssets;
+
 import manager.ManagerResize;
 import map.Containers;
 import manager.Vars;
@@ -96,6 +99,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
         g.realGameTilesWidth *= g.scaleFactor;
         ///// END OF PART FOR GAME SCALE FACTOR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   :)
 
+        new EmbedAssets(null);
         g.cont = new Containers();
         g.startPreloader = new StartPreloader();
         g.startPreloader.showIt();

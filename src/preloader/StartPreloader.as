@@ -5,6 +5,7 @@ package preloader {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.starling.StarlingArmatureDisplay;
+import dragonBones.starling.StarlingFactory;
 
 import loaders.EmbedAssets;
 
@@ -40,10 +41,6 @@ public class StartPreloader {
 
     public function StartPreloader() {
         _source = new Sprite();
-        var gameDispatcher:FarmDispatcher;
-        gameDispatcher = new FarmDispatcher(g.mainStage);
-        gameDispatcher.addEnterFrame(onEnterFrameGlobal);
-        new EmbedAssets(null);
         _texture = Texture.fromBitmap(new PreloaderTexture());
         var xml:XML = XML(new PreloaderTextureXML());
         _preloaderAtlas = new TextureAtlas(_texture, xml);
@@ -73,10 +70,6 @@ public class StartPreloader {
         g.cont.popupCont.addChild(_source);
     }
 
-    private function onEnterFrameGlobal():void {
-        WorldClock.clock.advanceTime(-1);
-    }
-
     public function setProgress(a:int):void {
         _quad.scaleX = a;
         _txt.text = String(a + '%');
@@ -89,8 +82,6 @@ public class StartPreloader {
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
-            _source.dispose();
-            _source = null;
         }
         if (_texture) _texture.dispose();
         if (_preloaderAtlas)_preloaderAtlas.dispose();
@@ -99,6 +90,12 @@ public class StartPreloader {
         if (_preloaderLine) _preloaderLine.dispose();
         if (_armature) _armature.dispose();
         _armature = null;
+        _source.dispose();
+        _source = null;
+        if (g.allData.factory['preloader']) {
+            (g.allData.factory['preloader'] as StarlingFactory).clear();
+            delete g.allData.factory['preloader'];
+        }
     }
 }
 }
