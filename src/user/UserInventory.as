@@ -217,25 +217,64 @@ public class UserInventory {
         var newCount:int = 0;
         switch (typeCurrency) {
             case DataMoney.HARD_CURRENCY:
-                newCount = g.user.hardCurrency + count;
+                g.user.hardCurrency += count;
+                newCount = g.user.hardCurrency;
                 break;
             case DataMoney.SOFT_CURRENCY:
-                newCount = g.user.softCurrencyCount + count;
+                g.user.softCurrencyCount += count;
+                newCount = g.user.softCurrencyCount;
                 break;
             case DataMoney.BLUE_COUPONE:
-                newCount = g.user.blueCouponCount + count;
+                g.user.blueCouponCount += count;
+                newCount = g.user.blueCouponCount;
                 break;
             case DataMoney.YELLOW_COUPONE:
-                newCount = g.user.yellowCouponCount + count;
+                g.user.yellowCouponCount += count;
+                newCount = g.user.yellowCouponCount;
                 break;
             case DataMoney.RED_COUPONE:
-                newCount = g.user.redCouponCount + count;
+                g.user.redCouponCount += count;
+                newCount = g.user.redCouponCount ;
                 break;
             case DataMoney.GREEN_COUPONE:
-                newCount = g.user.greenCouponCount + count;
+                g.user.greenCouponCount += count;
+                newCount = g.user.greenCouponCount;
                 break;
         }
             g.directServer.addUserMoney(typeCurrency, newCount, null);
+    }
+
+    public function updateMoneyTxt(typeCurrency:int):void {
+        switch (typeCurrency) {
+            case DataMoney.HARD_CURRENCY:
+                if (!g.userValidates.checkInfo('hardCount', g.user.hardCurrency)) return;
+                g.soundManager.playSound(SoundConst.COINS_PLUS);
+                g.userValidates.updateInfo('hardCount', g.user.hardCurrency);
+                g.softHardCurrency.checkHard();
+                break;
+            case DataMoney.SOFT_CURRENCY:
+                if (!g.userValidates.checkInfo('softCount', g.user.softCurrencyCount)) return;
+                g.soundManager.playSound(SoundConst.COINS_PLUS);
+                g.userValidates.updateInfo('softCount', g.user.softCurrencyCount);
+                g.softHardCurrency.checkSoft();
+                break;
+            case DataMoney.BLUE_COUPONE:
+                if (!g.userValidates.checkInfo('blueCount', g.user.blueCouponCount)) return;
+                g.userValidates.updateInfo('blueCount', g.user.blueCouponCount);
+                break;
+            case DataMoney.YELLOW_COUPONE:
+                if (!g.userValidates.checkInfo('yellowCount', g.user.yellowCouponCount)) return;
+                g.userValidates.updateInfo('yellowCount', g.user.yellowCouponCount);
+                break;
+            case DataMoney.RED_COUPONE:
+                if (!g.userValidates.checkInfo('redCount', g.user.redCouponCount)) return;
+                g.userValidates.updateInfo('redCount', g.user.redCouponCount);
+                break;
+            case DataMoney.GREEN_COUPONE:
+                if (!g.userValidates.checkInfo('greenCount', g.user.greenCouponCount)) return;
+                g.userValidates.updateInfo('greenCount', g.user.greenCouponCount);
+                break;
+        }
     }
 
     public function addNewElementsAfterGettingNewLevel():void {

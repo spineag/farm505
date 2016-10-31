@@ -194,18 +194,19 @@ public class Train extends WorldObject{
         _hitArea = g.managerHitArea.getHitArea(_source, 'aerial_tram', ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
         if (g.isAway) {
+            createBrokenTrain();
             _arriveAnim = new ArrivedAnimation(_source);
             if (_arriveAnim) _arriveAnim.visible = true;
-//            if (_stateBuild == STATE_UNACTIVE) {
-//                createBrokenTrain();
+            if (_stateBuild == STATE_UNACTIVE) {
+                createBrokenTrain();
 //                _arriveAnim = new ArrivedAnimation(_source);
-//            } else if (_stateBuild == STATE_READY) {
+            } else if (_stateBuild == STATE_READY) {
 //                _arriveAnim = new ArrivedAnimation(_source);
-//                onArrivedKorzina();
-//            } else if (_stateBuild == STATE_WAIT_BACK) {
+                onArrivedKorzina();
+            } else if (_stateBuild == STATE_WAIT_BACK) {
 //                _arriveAnim = new ArrivedAnimation(_source);
-//                makeIdleAnimation();
-//            }
+                makeIdleAnimation();
+            }
         } else {
             if (_stateBuild == STATE_UNACTIVE) {
                 createBrokenTrain();
