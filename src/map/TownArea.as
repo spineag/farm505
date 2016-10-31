@@ -1,5 +1,7 @@
 ﻿package map {
 import additional.lohmatik.Lohmatik;
+import additional.mouse.MouseHero;
+
 import build.TownAreaBuildSprite;
 import build.WorldObject;
 import build.ambar.Ambar;
@@ -130,7 +132,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects is MouseHero) continue;
                 if (_cityObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityObjects[i]);
             }
@@ -145,7 +147,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects is MouseHero) continue;
                 if (_cityObjects[i].dataBuild.id == id)
                     ar.push(_cityObjects[i]);
             }
@@ -1368,6 +1370,7 @@ public class TownArea extends Sprite {
         _freePlace.deleteAway();
         _freePlace.fillAway();
         if (g.isAway) {
+            g.managerMouseHero.removeMouse();
             while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
             removeAwayTownAreaSortCheking();
             g.managerOrderCats.removeAwayCats();
@@ -1486,6 +1489,7 @@ public class TownArea extends Sprite {
         _awayPreloader = null;
         if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         startDecorAnimation();
+        g.managerMouseHero.addMouse();
 
         g.user.calculateReasonForHelpAway();
     }
@@ -1803,7 +1807,7 @@ public class TownArea extends Sprite {
     }
 
     public function backHome():void {
-        if (g.managerHelpers) g.managerHelpers.checkIt();
+        g.managerMouseHero.removeMouse();
         g.hideAllHints();
         while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
         g.cont.craftAwayCont.visible = false;
@@ -1838,6 +1842,7 @@ public class TownArea extends Sprite {
         g.managerCats.onGoAway(false);
         if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         g.managerLohmatic.onBackHome();
+        if (g.managerHelpers) g.managerHelpers.checkIt();
     }
 
     private function startDecorAnimation():void {
@@ -1919,7 +1924,7 @@ public class TownArea extends Sprite {
 
     private function getAwayBuildingByDbId(dbId:int):WorldObject {
         for (var i:int=0; i<_cityAwayObjects.length; i++) {
-            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityObjects[i] is Lohmatik) continue;
+            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityObjects[i] is Lohmatik || _cityObjects is MouseHero) continue;
             if (_cityAwayObjects[i].dbBuildingId == dbId)
             return _cityAwayObjects[i];
         }
@@ -1930,7 +1935,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityObjects[i] is Lohmatik) continue;
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityObjects[i] is Lohmatik  || _cityObjects is MouseHero) continue;
                 if (_cityAwayObjects[i].dataBuild.id == id)
                     ar.push(_cityAwayObjects[i]);
             }
@@ -1945,7 +1950,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik) continue;
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik  || _cityObjects is MouseHero) continue;
                 if (_cityAwayObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityAwayObjects[i]);
             }
@@ -1954,6 +1959,22 @@ public class TownArea extends Sprite {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
         }
         return ar;
+    }
+
+    public function addAwayMouseHero(m:MouseHero):void {
+        if (_cityAwayObjects.indexOf(m) == -1) _cityAwayObjects.push(m);
+        if (!_cont.contains(m.source)) {
+            var p:Point = g.matrixGrid.getXYFromIndex(new Point(m.posX, m.posY));
+            m.source.x = int(p.x);
+            m.source.y = int(p.y);
+            _cont.addChild(m.source);
+            zSort();
+        }
+    }
+
+    public function removeAwayMouseHero(m:MouseHero):void {
+        if (_cityAwayObjects.indexOf(m) > -1) _cityAwayObjects.splice(_cityAwayObjects.indexOf(m), 1);
+        if (_cont.contains(m.source)) _cont.removeChild(m.source);
     }
 
 //   --------------------- END AWAY SECTION -----------------------------------

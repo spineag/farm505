@@ -53,6 +53,7 @@ public class User extends Someone {
     public var sessionKey:String;
     public var fabricItemNotification:Array = [];
     public var bornDate:String;
+    public var countAwayMouse:int;
     private var g:Vars = Vars.getInstance();
 
     public function User() {
@@ -61,6 +62,7 @@ public class User extends Someone {
         arrTempUsers = [];
         arrNoAppFriend = [];
         lastVisitAmbar = true;
+        countAwayMouse = 0;
         neighbor = new NeighborBot();
     }
 
