@@ -15,9 +15,7 @@ public class ManagerLohmatik {
     public function ManagerLohmatik() {
         _timerCounter = 0;
         _arr = [];
-        if (g.user.isMegaTester || g.user.isTester) {
             addLohmatics();
-        }
     }
 
     private function addLohmatics():void {
@@ -96,7 +94,6 @@ public class ManagerLohmatik {
     }
 
     public function onGoAway():void {
-        if (g.user.isMegaTester || g.user.isTester) {
             g.gameDispatcher.removeFromTimer(onTimer);
             if (_arr.length) {
                 for (var i:int = 0; i < _arr.length; i++) {
@@ -104,14 +101,11 @@ public class ManagerLohmatik {
                 }
             }
             _arr.length = 0;
-        }
     }
 
     public function onBackHome():void {
-        if (g.user.isMegaTester || g.user.isTester) {
             if (_timerCounter <= 0) _timerCounter = 15 * 60;
             g.gameDispatcher.addToTimer(onTimer);
-        }
     }
 }
 }
