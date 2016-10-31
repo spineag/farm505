@@ -134,6 +134,7 @@ public class DropItem {
                         break;
                 }
                 g.userInventory.addMoney(prise.id, prise.count,false);
+//                g.userInventory.updateMoneyTxt(prise.id, prise.count,false);
                 if (g.managerTips) g.managerTips.calculateAvailableTips();
             }
         };

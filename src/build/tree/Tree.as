@@ -618,8 +618,8 @@ public class Tree extends WorldObject {
                         newX = g.cont.gameCont.x + (_source.x + _source.width / 17) * g.currentGameScale;
                         newY = g.cont.gameCont.y + (_source.y - _source.height / 1.4) * g.currentGameScale;
                     } else {
-                        newX = g.cont.gameCont.x + (_source.x + _source.width / 19) * g.currentGameScale;
-                        newY = g.cont.gameCont.y + (_source.y - _source.height / 2.4) * g.currentGameScale;
+                        newX = g.cont.gameCont.x + (_source.x + _source.width / 17) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 1.6) * g.currentGameScale;
                     }
                 } else if (_dataBuild.id == 154) { // Лемон
                     if (_state == ASK_FIX) makeWateringIcon(true);
@@ -634,7 +634,7 @@ public class Tree extends WorldObject {
                         newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
                     } else {
                         newX = g.cont.gameCont.x + (_source.x + _source.width / 25) * g.currentGameScale;
-                        newY = g.cont.gameCont.y + (_source.y - _source.height / 2.4) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 1.6) * g.currentGameScale;
                     }
                 } else if (_dataBuild.id == 155) { // Апельсин
                     if (_state == ASK_FIX) makeWateringIcon(true);
@@ -649,7 +649,7 @@ public class Tree extends WorldObject {
                         newY = g.cont.gameCont.y + (_source.y - _source.height /1.3) * g.currentGameScale;
                     } else {
                         newX = g.cont.gameCont.x + (_source.x + _source.width / 19) * g.currentGameScale;
-                        newY = g.cont.gameCont.y + (_source.y - _source.height / 1.9) * g.currentGameScale;
+                        newY = g.cont.gameCont.y + (_source.y - _source.height / 1.6) * g.currentGameScale;
                     }
                 } else if (_dataBuild.id == 41) { //Малина
                     if (_state == ASK_FIX) makeWateringIcon(true);
@@ -752,8 +752,8 @@ public class Tree extends WorldObject {
                     newX = g.cont.gameCont.x + (_source.x + _source.width / 17) * g.currentGameScale;
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 1.4) * g.currentGameScale;
                 } else {
-                    newX = g.cont.gameCont.x + (_source.x + _source.width / 19) * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 2.4) * g.currentGameScale;
+                    newX = g.cont.gameCont.x + (_source.x + _source.width / 17) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.6) * g.currentGameScale;
                 }
             } else if (_dataBuild.id == 154) { // Лемон
                 if (_state == ASK_FIX) makeWateringIcon(true);
@@ -768,7 +768,7 @@ public class Tree extends WorldObject {
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 1.3) * g.currentGameScale;
                 } else {
                     newX = g.cont.gameCont.x + (_source.x + _source.width / 25) * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 2.4) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.6) * g.currentGameScale;
                 }
             } else if (_dataBuild.id == 155) { // Апельсин
                 if (_state == ASK_FIX) makeWateringIcon(true);
@@ -783,7 +783,7 @@ public class Tree extends WorldObject {
                     newY = g.cont.gameCont.y + (_source.y - _source.height /1.3) * g.currentGameScale;
                 } else {
                     newX = g.cont.gameCont.x + (_source.x + _source.width / 19) * g.currentGameScale;
-                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.9) * g.currentGameScale;
+                    newY = g.cont.gameCont.y + (_source.y - _source.height / 1.6) * g.currentGameScale;
                 }
             } else if (_dataBuild.id == 26) { // Вишня
                 if (_state == ASK_FIX) makeWateringIcon(true);
@@ -1036,13 +1036,31 @@ public class Tree extends WorldObject {
                         watering.pivotY = watering.height / 2;
                         watering.y = -_source.height / 2 - watering.height - 80;
                         watering.x = -10;
-                    }else if (_dataBuild.id == 26) { // Вишня
+                    } else if (_dataBuild.id == 26) { // Вишня
                         im.y = -_source.height / 2 - im.height + 20;
                         im.x = 5;
                         watering.pivotX = watering.width / 2;
                         watering.pivotY = watering.height / 2;
                         watering.y = -_source.height / 2 - watering.height - 60;
                         watering.x = -5;
+                    } else if (_dataBuild.id == 153) {
+                        im.y = -_source.height / 2 - im.height - 30;
+                        watering.pivotX = watering.width / 2;
+                        watering.pivotY = watering.height / 2;
+                        watering.y = -_source.height / 2 - watering.height - 110;
+                        watering.x = -10;
+                    } else if (_dataBuild.id == 154) {
+                        im.y = -_source.height / 2 - im.height - 30;
+                        watering.pivotX = watering.width / 2;
+                        watering.pivotY = watering.height / 2;
+                        watering.y = -_source.height / 2 - watering.height - 110;
+                        watering.x = -10;
+                    } else if (_dataBuild.id == 155) {
+                        im.y = -_source.height / 2 - im.height - 30;
+                        watering.pivotX = watering.width / 2;
+                        watering.pivotY = watering.height / 2;
+                        watering.y = -_source.height / 2 - watering.height - 110;
+                        watering.x = -10;
                     }
                     if (_state == FIXED) {
                         watering.visible = false;
@@ -1052,9 +1070,21 @@ public class Tree extends WorldObject {
                         im.y = -_source.height / 2 - im.height - 80;
                         _wateringIcon.addChild(im);
                         if (_dataBuild.id == 25) { //Яблоня
-                        }else if (_dataBuild.id == 26) { // Вишня
+                        } else if (_dataBuild.id == 26) { // Вишня
                             im.y = -_source.height / 2 - im.height - 60;
                             im.x = 6;
+
+                        } else if (_dataBuild.id == 153) {
+                            im.y = -_source.height / 2 - im.height - 110;
+//                            im.x = 2;
+
+                        } else if (_dataBuild.id == 154) {
+                            im.y = -_source.height / 2 - im.height - 110;
+//                            im.x = 2;
+
+                        } else if (_dataBuild.id == 155) {
+                            im.y = -_source.height / 2 - im.height - 110;
+//                            im.x = 2;
 
                         }
                     }
@@ -1098,6 +1128,12 @@ public class Tree extends WorldObject {
                 if (_wateringIcon) _wateringIcon.y = 64;
             } else if (_dataBuild.id == 42) { //Черника
                 if (_wateringIcon) _wateringIcon.y = 24;
+            } else if (_dataBuild.id == 153) {
+                if (_wateringIcon) _wateringIcon.y = 64;
+            } else if (_dataBuild.id == 154) {
+                if (_wateringIcon) _wateringIcon.y = 64;
+            } else if (_dataBuild.id == 155) {
+                if (_wateringIcon) _wateringIcon.y = 64;
             }
         }
     }

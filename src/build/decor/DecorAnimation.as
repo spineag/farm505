@@ -355,6 +355,7 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function stopAnimation():void {
+        if (!_dataBuild) return;
         _decorWork = false;
         if (_heroCat) _heroCat = null;
         if (_armature) {
