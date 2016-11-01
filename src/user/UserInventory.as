@@ -247,15 +247,11 @@ public class UserInventory {
     public function updateMoneyTxt(typeCurrency:int):void {
         switch (typeCurrency) {
             case DataMoney.HARD_CURRENCY:
-                if (!g.userValidates.checkInfo('hardCount', g.user.hardCurrency)) return;
                 g.soundManager.playSound(SoundConst.COINS_PLUS);
-                g.userValidates.updateInfo('hardCount', g.user.hardCurrency);
                 g.softHardCurrency.checkHard();
                 break;
             case DataMoney.SOFT_CURRENCY:
-                if (!g.userValidates.checkInfo('softCount', g.user.softCurrencyCount)) return;
                 g.soundManager.playSound(SoundConst.COINS_PLUS);
-                g.userValidates.updateInfo('softCount', g.user.softCurrencyCount);
                 g.softHardCurrency.checkSoft();
                 break;
             case DataMoney.BLUE_COUPONE:

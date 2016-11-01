@@ -133,8 +133,8 @@ public class DropItem {
                         g.couponePanel.animationBuy();
                         break;
                 }
-                g.userInventory.addMoney(prise.id, prise.count,false);
-//                g.userInventory.updateMoneyTxt(prise.id, prise.count,false);
+//                g.userInventory.addMoney(prise.id, prise.count,false);
+                g.userInventory.updateMoneyTxt(prise.id);
                 if (g.managerTips) g.managerTips.calculateAvailableTips();
             }
         };
