@@ -36,15 +36,15 @@ public class SocialNetworkSwitch {
             case SN_VK_ID:
                 SECRET_KEY = SECRET_KEY_VK;
                 if (isDebug) {
-//                    flashVars["api_id"] = "5448769";
-//                    flashVars["viewer_id"] = "191561520";
-//                    flashVars["sid"] = "be299b76dfa1adcf70a4ec1ac44902f48cd788bb80b67a6f0d9c6423cec67e24fc65efbe7a6ddb8f936f9";
-//                    flashVars["secret"] = "722e04ea65";
-
                     flashVars["api_id"] = "5448769";
-                    flashVars["viewer_id"] = "8726902";
-                    flashVars["sid"] = "001770cb869652e0f160952d890b821ca4c04e3f0689318af4d13c543e7a3cce00c1268d031db612a2257";
-                    flashVars["secret"] = "0d07042c83";
+                    flashVars["viewer_id"] = "191561520";
+                    flashVars["sid"] = "72151d161e90f12b8d6e29eea26c0211730739cd92ad8d9d82e117a2ebb828404a6ecfad18fd64fa2353a";
+                    flashVars["secret"] = "98544332c4";
+//
+//                    flashVars["api_id"] = "5448769";
+//                    flashVars["viewer_id"] = "8726902";
+//                    flashVars["sid"] = "001770cb869652e0f160952d890b821ca4c04e3f0689318af4d13c543e7a3cce00c1268d031db612a2257";
+//                    flashVars["secret"] = "0d07042c83";
                 }
 
                 flashVars["access_key"] = MD5.hash(flashVars["api_id"] + flashVars["viewer_id"] + SECRET_KEY);

@@ -815,6 +815,11 @@ public class DirectServer {
             g.user.level = int(ob.level);
             g.userValidates.updateInfo('level', g.user.level);
             g.user.checkUserLevel();
+            if (ob.mouse_day) {
+                g.managerMouseHero.fillFromServer(ob.mouse_day, ob.mouse_count);
+            } else {
+                g.user.countAwayMouse = 0;
+            }
             g.managerDailyBonus.fillFromServer(ob.daily_bonus_day, int(ob.count_daily_bonus));
             g.managerChest.fillFromServer(ob.chest_day, int(ob.count_chest));
             
@@ -6266,6 +6271,55 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('releaseUserQuestAward: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function useHeroMouse(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USE_HERO_MOUSE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'useHeroMouse', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.count = g.user.countAwayMouse;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.count)+SECRET);
+        request.data = variables;
+        iconMouse.startConnect();
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteUseHeroMouse);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteUseHeroMouse(e:Event):void { completeUseHeroMouse(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('useHeroMouse error:' + error.errorID);
+        }
+    }
+
+    private function completeUseHeroMouse(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('UseHeroMouse: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'UseHeroMouse: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'UseHeroMouse OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('UseHeroMouse: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }

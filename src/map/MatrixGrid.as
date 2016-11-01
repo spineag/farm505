@@ -95,7 +95,10 @@ public class MatrixGrid {
         var point3d:Point3D = IsoUtils.screenToIso(point);
         var bufX:int = int(point3d.x / FACTOR + 1/2);
         var bufY:int = int(point3d.z / FACTOR + 1/2);
-
+        if (bufX < 0) bufX = 0;
+        if (bufY < 0) bufY = 0;
+        if (bufX > _matrixSize) bufX = _matrixSize;
+        if (bufY > _matrixSize) bufY = _matrixSize;
         return new Point(bufX, bufY);
     }
 
@@ -103,7 +106,10 @@ public class MatrixGrid {
         var point3d:Point3D = IsoUtils.screenToIso(point);
         var bufX:int = int(point3d.x / FACTOR);
         var bufY:int = int(point3d.z / FACTOR);
-
+        if (bufX < 0) bufX = 0;
+        if (bufY < 0) bufY = 0;
+        if (bufX > _matrixSize) bufX = _matrixSize;
+        if (bufY > _matrixSize) bufY = _matrixSize;
         return new Point(bufX, bufY);
     }
 

@@ -119,6 +119,12 @@ public class TownArea extends Sprite {
     public function get awayDiagonalsObject():Object {
         return _objAwayBuildingsDiagonals;
     }
+    
+    public function get freePlaceAway():Array {
+        if (_freePlace) {
+            return _freePlace.arrAway;
+        } else return [];
+    }
 
     public function addNonWorldObjectToCityObjects(c:*):void {
         if (_cityObjects.indexOf(c) == -1) _cityObjects.push(c);
@@ -132,7 +138,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects is MouseHero) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects[i] is MouseHero) continue;
                 if (_cityObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityObjects[i]);
             }
@@ -147,7 +153,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects is MouseHero) continue;
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects[i] is MouseHero) continue;
                 if (_cityObjects[i].dataBuild.id == id)
                     ar.push(_cityObjects[i]);
             }
@@ -1924,7 +1930,7 @@ public class TownArea extends Sprite {
 
     private function getAwayBuildingByDbId(dbId:int):WorldObject {
         for (var i:int=0; i<_cityAwayObjects.length; i++) {
-            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityObjects[i] is Lohmatik || _cityObjects is MouseHero) continue;
+            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is Lohmatik || _cityAwayObjects[i] is MouseHero) continue;
             if (_cityAwayObjects[i].dbBuildingId == dbId)
             return _cityAwayObjects[i];
         }
@@ -1935,7 +1941,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityObjects[i] is Lohmatik  || _cityObjects is MouseHero) continue;
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is Lohmatik  || _cityAwayObjects[i] is MouseHero) continue;
                 if (_cityAwayObjects[i].dataBuild.id == id)
                     ar.push(_cityAwayObjects[i]);
             }
@@ -1950,7 +1956,7 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik  || _cityObjects is MouseHero) continue;
+                if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat || _cityAwayObjects[i] is AddNewHero || _cityAwayObjects[i] is Lohmatik  || _cityAwayObjects[i] is MouseHero) continue;
                 if (_cityAwayObjects[i].dataBuild.buildType == buildType)
                     ar.push(_cityAwayObjects[i]);
             }
