@@ -26,6 +26,7 @@ public class ManagerMouse {
         if (g.user.isMegaTester || g.user.isTester) {
             if (g.user.countAwayMouse > 4) return;
             if (!g.isAway) return;
+            if (Math.random() < .6) return;
             if (g.allData.factory['mouse_yobar']) {
                 onLoad();
             } else {
