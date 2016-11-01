@@ -82,6 +82,7 @@ public class Lohmatik {
 
     private function onClick():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        _source.endClickCallback = null;
         _source.isTouchable = false;
         _callbackOnAnimation = null;
         _build.scale = 1;

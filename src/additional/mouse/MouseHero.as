@@ -19,6 +19,9 @@ import manager.hitArea.OwnHitArea;
 
 import resourceItem.DropItem;
 
+import starling.display.Image;
+import starling.display.Quad;
+
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -44,9 +47,15 @@ public class MouseHero {
     protected var _currentPath:Array;
     private var _hitArea:OwnHitArea;
     private var _callbackOnAnimation:Function;
+    private var _hoverAhtungCallback:Function;
+    private var _hoverAhtung:CSprite;
+    private var _isHoverAhtung:Boolean;
+    private var _countAhtung:int = 3;
+    private var _needRunQuick:Boolean = false;
 
-    public function MouseHero(f:Function) {
+    public function MouseHero(f:Function, fHover:Function) {
         _clickCallback = f;
+        _hoverAhtungCallback = fHover;
         _isBack = false;
         _clickCallback = f;
         _source = new CSprite();
@@ -62,6 +71,39 @@ public class MouseHero {
         _posX = 20;
         _posY = 22;
         g.townArea.addAwayMouseHero(this);
+        var q:Quad = new Quad(300, 300);
+        q.x = -150;
+        q.y = -150;
+        q.alpha = 0;
+        _hoverAhtung = new CSprite();
+        _hoverAhtung.addChild(q);
+        _source.addChildAt(_hoverAhtung, 0);
+        _hoverAhtung.hoverCallback = onHoverAhtung;
+        _hoverAhtung.outCallback = onOutAhtung;
+        _isHoverAhtung = false;
+    }
+
+    private function onHoverAhtung():void {
+        if (!_hoverAhtung) return;
+        if (_isHoverAhtung) return;
+        _isHoverAhtung = true;
+        _countAhtung--;
+        if (_hoverAhtungCallback!=null) _hoverAhtungCallback.apply();
+        if (_countAhtung < 1) {
+            _hoverAhtungCallback = null;
+            _source.removeChild(_hoverAhtung);
+            _hoverAhtung.deleteIt();
+            _hoverAhtung = null;
+            _isHoverAhtung = false;
+        }
+    }
+
+    private function onOutAhtung():void {
+        _isHoverAhtung = false;
+    }
+
+    public function needRunQuick():void {
+        _needRunQuick = true;
     }
 
     public function get depth():Number {
@@ -74,7 +116,7 @@ public class MouseHero {
 
     private function onClick():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
-        g.user.countAwayMouse++;
+        _source.endClickCallback = null;
         _source.isTouchable = false;
         _callbackOnAnimation = null;
         _build.scale = 1;
@@ -206,6 +248,14 @@ public class MouseHero {
     public function stopAnimation():void {
         _armature.animation.gotoAndStopByFrame('front');
     }
+    
+    public function stopAll():void {
+        TweenMax.killTweensOf(_source);
+        _currentPath = [];
+        if (_armature && !_armature.hasEventListener(EventObject.COMPLETE)) _armature.addEventListener(EventObject.COMPLETE, onCompleteAnimation);
+        if (_armature && !_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.addEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
+        _callbackOnAnimation = null;
+    }
 
     public function goWithPath(arr:Array, callbackOnWalking:Function):void {
         _currentPath = arr;
@@ -217,6 +267,7 @@ public class MouseHero {
             if (_currentPath.length) {
                 gotoPoint(_currentPath.shift(), _callbackOnAnimation);
             } else {
+                _needRunQuick = false;
                 if (_callbackOnAnimation != null) {
                     _callbackOnAnimation.apply();
                     _callbackOnAnimation = null;
@@ -236,6 +287,7 @@ public class MouseHero {
             if (_currentPath.length) {
                 gotoPoint(_currentPath.shift(), callback);
             } else {
+                _needRunQuick = false;
                 stopAnimation();
                 if (callback != null) {
                     callback.apply();
@@ -286,6 +338,7 @@ public class MouseHero {
             _source.scaleX = 1;
             Cc.error('Mouse gotoPoint:: wrong front-back logic');
         }
+        if (_needRunQuick) koef *= .5;
         new TweenMax(_source, koef/4, { x: pXY.x, y: pXY.y, ease: Linear.easeNone, onComplete: f1, onCompleteParams: [callback]});
     }
 }

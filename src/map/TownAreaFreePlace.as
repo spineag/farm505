@@ -14,6 +14,12 @@ public class TownAreaFreePlace {
         _length = l;
         fillArr();
     }
+    
+    public function get arrAway():Array {
+        if (_arrAway) {
+            return _arrAway;
+        } else return [];
+    }
 
     private function fillArr():void {
         var j:int;
@@ -81,5 +87,6 @@ public class TownAreaFreePlace {
         p.y = int(arr[1]);
         return p;
     }
+
 }
 }
