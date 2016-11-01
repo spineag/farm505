@@ -218,26 +218,32 @@ public class UserInventory {
         switch (typeCurrency) {
             case DataMoney.HARD_CURRENCY:
                 g.user.hardCurrency += count;
+                g.userValidates.updateInfo('hardCount', g.user.hardCurrency);
                 newCount = g.user.hardCurrency;
                 break;
             case DataMoney.SOFT_CURRENCY:
                 g.user.softCurrencyCount += count;
+                g.userValidates.updateInfo('softCount', g.user.softCurrencyCount);
                 newCount = g.user.softCurrencyCount;
                 break;
             case DataMoney.BLUE_COUPONE:
                 g.user.blueCouponCount += count;
+                g.userValidates.updateInfo('blueCount', g.user.blueCouponCount);
                 newCount = g.user.blueCouponCount;
                 break;
             case DataMoney.YELLOW_COUPONE:
                 g.user.yellowCouponCount += count;
+                g.userValidates.updateInfo('yellowCount', g.user.yellowCouponCount);
                 newCount = g.user.yellowCouponCount;
                 break;
             case DataMoney.RED_COUPONE:
                 g.user.redCouponCount += count;
+                g.userValidates.updateInfo('redCount', g.user.redCouponCount);
                 newCount = g.user.redCouponCount ;
                 break;
             case DataMoney.GREEN_COUPONE:
                 g.user.greenCouponCount += count;
+                g.userValidates.updateInfo('greenCount', g.user.greenCouponCount);
                 newCount = g.user.greenCouponCount;
                 break;
         }
