@@ -253,6 +253,7 @@ public class Vars {
             managerWallPost = new ManagerWallPost();
             managerInviteFriend = new ManagerInviteFriend();
             managerTimerSkip = new ManagerTimerSkip();
+            managerMouseHero = new ManagerMouse();
 
             new ManagerFilters();
             ownMouse = new OwnMouse();
@@ -523,7 +524,6 @@ public class Vars {
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();
             managerLohmatic = new ManagerLohmatik();
-            managerMouseHero = new ManagerMouse();
 
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
