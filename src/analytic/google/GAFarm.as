@@ -7,10 +7,14 @@ import flash.net.URLRequestMethod;
 
 import manager.Vars;
 
+import social.SocialNetwork;
+import social.SocialNetworkSwitch;
+
 import starling.events.Event;
 
 public class GAFarm {
     private static const ACCOUNT_VK:String = "UA-78805451-1";
+    private static const ACCOUNT_OK:String = "UA-78805451-2";
     private static const GA_URL:String = 'http://www.google-analytics.com/collect';
     private var _isActive:Boolean = false;
 
@@ -56,7 +60,11 @@ public class GAFarm {
         var loader:URLLoader = new URLLoader();
         var url:String = GA_URL;
         url += '?' + 'v=1';
-        url += '&' + 'tid=' + ACCOUNT_VK;
+        if (g.socialNetworkID = SocialNetworkSwitch.SN_VK_ID) {
+            url += '&' + 'tid=' + ACCOUNT_VK;
+        } else if (g.socialNetworkID = SocialNetworkSwitch.SN_OK_ID) {
+            url += '&' + 'tid=' + ACCOUNT_OK;
+        }
         url += '&' + 'cid=' + g.user.userGAcid;
         url += '&' + 't=' + 'event';
         url += '&' + 'ec=' + category;
