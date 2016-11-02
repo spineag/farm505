@@ -2,45 +2,67 @@
  * Created by user on 10/26/16.
  */
 package ui.stock {
-import flash.display.Bitmap;
-
+import dragonBones.Armature;
+import dragonBones.animation.WorldClock;
+import dragonBones.starling.StarlingArmatureDisplay;
 import manager.Vars;
-
-import starling.display.Image;
-
-import starling.textures.Texture;
-
 import utils.CSprite;
-
 import windows.WindowsManager;
 
 public class StockPanel {
     private var _source:CSprite;
     private var g:Vars = Vars.getInstance();
+    private var _armature:Armature;
+    private var _timer:int;
 
     public function StockPanel() {
         _source = new CSprite();
         _source.endClickCallback = onClick;
-        _source.hoverCallback = function():void { g.hint.showIt("Акция") };
-        _source.outCallback = function():void { g.hint.hideIt() };
+        _source.hoverCallback = function ():void {
+            g.hint.showIt("Акция")
+        };
+        _source.outCallback = function ():void {
+            g.hint.hideIt()
+        };
         onResize();
-//        g.cont.interfaceCont.addChild(_source);
-//        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/action_icon.png',onLoad);
+        if (g.user.isTester) {
+        g.cont.interfaceCont.addChild(_source);
+        loadTipsIcon();
+        }
     }
 
 
-    private function onLoad(bitmap:Bitmap):void {
-        var im:Image = new Image(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/action_icon.png'].create() as Bitmap));
-        _source.addChild(im);
+    private function loadTipsIcon():void {
+        var st:String = 'animations_json/action_icon';
+        g.loadAnimation.load(st, 'action_icon', onLoad);
+    }
+
+    private function onLoad():void {
+        _armature =  g.allData.factory['action_icon'].buildArmature('cat');
+        WorldClock.clock.add(_armature);
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
+        _armature.animation.gotoAndPlayByFrame('idle');
+        _timer = 20;
+        g.gameDispatcher.addToTimer(animation);
     }
 
     public function onResize():void {
-        _source.y = 120;
-        _source.x = g.managerResize.stageWidth - 108;
+        _source.y = 20;
+        _source.x = g.managerResize.stageWidth - 240;
     }
 
     private function onClick():void {
         g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, false);
+    }
+
+    private function animation():void {
+        _timer--;
+        if (_timer <= 0) {
+            g.gameDispatcher.removeFromTimer(animation);
+            _armature.animation.gotoAndPlayByFrame('idle');
+            _timer = 20;
+            g.gameDispatcher.addToTimer(animation);
+        }
     }
 }
 }
