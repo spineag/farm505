@@ -41,6 +41,7 @@ public class DirectServer {
 
     private function addDefault(variables:URLVariables):URLVariables {
         variables.sessionKey = g.user.sessionKey;
+        variables.channelId = g.socialNetworkID;
         return variables;
     }
 
