@@ -38,6 +38,7 @@ public class Lohmatik {
     private var _callbackOnAnimation:Function;
     protected var _currentPath:Array;
     private var _hitArea:OwnHitArea;
+    private var _scale:Number;
 
     public function Lohmatik(f:Function) {
         _isBack = false;
@@ -46,6 +47,8 @@ public class Lohmatik {
         _armature = g.allData.factory['lohmatik'].buildArmature("cat");
         _build = new Sprite();
         _build.addChild(_armature.display as StarlingArmatureDisplay);
+        _scale = .5 + (int(Math.random()*5)/10);
+        _build.scale = _scale;
         _source.addChild(_build);
         _source.releaseContDrag = true;
         _source.endClickCallback = onClick;
@@ -53,6 +56,7 @@ public class Lohmatik {
         WorldClock.clock.add(_armature);
         _hitArea = g.managerHitArea.getHitArea(_source, 'lohmatik', ManagerHitArea.TYPE_SIMPLE);
         _source.registerHitArea(_hitArea);
+
     }
 
     private function changeSkin():void {
@@ -85,7 +89,7 @@ public class Lohmatik {
         _source.endClickCallback = null;
         _source.isTouchable = false;
         _callbackOnAnimation = null;
-        _build.scale = 1;
+        _build.scale = _scale;
         TweenMax.killTweensOf(_source);
         if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation);
         if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation);
@@ -268,13 +272,13 @@ public class Lohmatik {
                 flipIt(false);
             }
         } else {
-            _source.scaleX = 1;
+            _build.scaleX = _scale;
             Cc.error('Lohmatik gotoPoint:: wrong front-back logic');
         }
         new TweenMax(_source, koef/4, { x: pXY.x, y: pXY.y, ease: Linear.easeNone, onComplete: f1, onCompleteParams: [callback]});
     }
 
-    private function flipIt(v:Boolean):void { if (v) _build.scaleX = -1; else _build.scaleX = 1; }
+    private function flipIt(v:Boolean):void { if (v) _build.scaleX = -_scale; else _build.scaleX = _scale; }
     public function get posX():int { return _posX; }
     public function get posY():int { return _posY; }
     public function get source():CSprite { return _source; }

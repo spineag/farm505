@@ -29,7 +29,6 @@ public class SN_Vkontakte extends SocialNetwork {
     public function SN_Vkontakte(flashVars:Object, pathArg:String) {
         flashVars["channelGuid"] ||= "d3a603c8017548938c30c3f13a2d7741";
         flashVars["applicationGuid"] ||= '42815205f51644a1abe3774fb9a68d22';
-        //flashVars["sessionKEY"] ||= GUID.create();
 
         _apiConnection = new APIConnection(flashVars);
         _apiConnection.addEventListener(CustomEvent.WALL_SAVE, wallPostSaveHandler);
