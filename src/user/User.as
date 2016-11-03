@@ -164,6 +164,7 @@ public class User extends Someone {
             obj.timeStart = arr[i].time_start;
             obj.numberCell = int(arr[i].number_cell);
             obj.timeInPapper = int(arr[i].time_in_papper);
+//            obj.needHelpCount =
             marketItems.push(obj);
         }
     }

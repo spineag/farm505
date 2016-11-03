@@ -60,9 +60,9 @@ public class GAFarm {
         var loader:URLLoader = new URLLoader();
         var url:String = GA_URL;
         url += '?' + 'v=1';
-        if (g.socialNetworkID = SocialNetworkSwitch.SN_VK_ID) {
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             url += '&' + 'tid=' + ACCOUNT_VK;
-        } else if (g.socialNetworkID = SocialNetworkSwitch.SN_OK_ID) {
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             url += '&' + 'tid=' + ACCOUNT_OK;
         }
         url += '&' + 'cid=' + g.user.userGAcid;

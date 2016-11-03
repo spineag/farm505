@@ -184,51 +184,6 @@ public class WOOrderItem {
             _clockImage.visible = false;
             _delImage.visible = false;
         }
-//        if (afterSale) {
-//            if (_leftSeconds > 0) {
-//                _txtName.visible = false;
-//                _txtXP.visible = false;
-//                _txtCoins.visible = false;
-//                _coinsImage.visible = false;
-//                _starImage.visible = false;
-//                _check.visible = false;
-//                g.userTimer.setOrder(_order);
-//                g.gameDispatcher.addToTimer(renderLeftTimeOrder);
-//                _delImage.visible = false;
-//                _clockImage.visible = true;
-//            } else {
-//                _leftSeconds = -1;
-//                _txtName.visible = true;
-//                _txtXP.visible = true;
-//                _txtCoins.visible = true;
-//                _coinsImage.visible = true;
-//                _starImage.visible = true;
-//                _clockImage.visible = false;
-//                _delImage.visible = false;
-//            }
-//        } else {
-//            if (_leftSeconds > 0) {
-//                _txtName.visible = false;
-//                _txtXP.visible = false;
-//                _txtCoins.visible = false;
-//                _coinsImage.visible = false;
-//                _starImage.visible = false;
-//                _check.visible = false;
-//                g.userTimer.setOrder(_order);
-//                g.gameDispatcher.addToTimer(renderLeftTime);
-//                _clockImage.visible = false;
-//                _delImage.visible = true;
-//            } else {
-//                _leftSeconds = -1;
-//                _txtName.visible = true;
-//                _txtXP.visible = true;
-//                _txtCoins.visible = true;
-//                _coinsImage.visible = true;
-//                _starImage.visible = true;
-//                _delImage.visible = false;
-//                _clockImage.visible = false;
-//            }
-//        }
         if (rech)source.scaleX = source.scaleY = 0;
     }
 
@@ -255,8 +210,8 @@ public class WOOrderItem {
         _leftSeconds--;
         if (_leftSeconds <= 19 && !_recheck) {
             _recheck = true;
-            if (_txtName && _order.delOb)_wo.timerSkip(_order);
-            else  {
+            if (_txtName && _order.delOb) _wo.timerSkip(_order);
+            else {
                 g.userTimer.newCatOrder();
                 g.managerOrder.checkForFullOrder();
             }

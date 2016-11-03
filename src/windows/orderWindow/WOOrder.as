@@ -585,6 +585,7 @@ public class WOOrder extends WindowMain{
             if (_activeOrderItem == orderItem) {
                 onItemClick(_activeOrderItem);
             }
+            g.managerOrder.checkForFullOrder();
             g.gameDispatcher.addToTimer(onTimer);
         }
     }
