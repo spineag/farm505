@@ -31,7 +31,7 @@ public class TutorialMult {
     private var _startCallback:Function;
     private var _endCallback:Function;
     private var _armature:Armature;
-    private var _tempBG:Quad;
+    private var _tempBG:TutorialMultBG;
     private var _boneBlueSprite:Sprite;
     private var _tempBlack:Sprite;
     private var _arrCats:Array;
@@ -78,14 +78,8 @@ public class TutorialMult {
         }
         _boneBlue = _armature.getSlot('blue');
         _boneBlueSprite = new Sprite();
-        _tempBG = new Quad(g.managerResize.stageWidth + 500, g.managerResize.stageHeight + 500);
-        _tempBG.setVertexColor(0, 0x7FAFB3);
-        _tempBG.setVertexColor(1, 0x7FAFB3);
-        _tempBG.setVertexColor(2, 0xA4C6C8);
-        _tempBG.setVertexColor(3, 0xA4C6C8);
-        _tempBG.x = -_tempBG.width/2;
-        _tempBG.y = -_tempBG.height/2;
-        _boneBlueSprite.addChild(_tempBG);
+        _tempBG = new TutorialMultBG();
+        _boneBlueSprite.addChild(_tempBG.source);
         _boneBlue.display = _boneBlueSprite;
         createCatSprite();
         _boneBlack = _armature.getSlot('black');
@@ -161,9 +155,7 @@ public class TutorialMult {
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle3);
         _boneBlue.display = null;
         _boneBlue = null;
-        _boneBlueSprite.removeChild(_tempBG);
-        _tempBG.dispose();
-        _tempBG = null;
+        _boneBlueSprite.removeChild(_tempBG.source);
         showCats();
         _armature.addEventListener(EventObject.COMPLETE, onIdle4);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onIdle4);
@@ -176,10 +168,7 @@ public class TutorialMult {
         _armature.addEventListener(EventObject.COMPLETE, onIdle5);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onIdle5);
         _armature.animation.gotoAndPlayByFrame('idle5');
-        _tempBG = new Quad(g.managerResize.stageWidth + 500, g.managerResize.stageHeight + 500, 0xF5F3E4);
-        _tempBG.x = -_tempBG.width/2;
-        _tempBG.y = -_tempBG.height/2;
-        _tempBlack.addChild(_tempBG);
+        _tempBlack.addChild(_tempBG.source);
         _tempBlack.alpha = 0;
         TweenMax.to(_tempBlack, 10, {alpha:1, ease:Linear.easeNone, useFrames:true, delay: 21});
     }
@@ -253,7 +242,7 @@ public class TutorialMult {
         (g.pBitmaps['tutorial_mult_map'] as PBitmap).deleteIt();
         delete g.pBitmaps['tutorial_mult_map'];
         _catsSprite.dispose();
-        _tempBG.dispose();
+        _tempBG.deleteIt();
         _boneBlueSprite.dispose();
         _armature.dispose();
     }
