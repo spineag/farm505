@@ -40,48 +40,9 @@ public class DirectServer {
     private var SECRET:String = '505';
 
     private function addDefault(variables:URLVariables):URLVariables {
-        variables.sessionKey = g.user.sessionKey;
+        if (g.user && g.user.sessionKey) variables.sessionKey = g.user.sessionKey;
         variables.channelId = g.socialNetworkID;
         return variables;
-    }
-
-    public function makeTest(callback:Function=null):void {
-        var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_TEST);
-        var variables:URLVariables = new URLVariables();
-
-        Cc.ch('server', 'test', 1);
-        variables = addDefault(variables);
-        variables.userId = g.user.userId;
-        request.data = variables;
-        request.method = URLRequestMethod.POST;
-        loader.addEventListener(Event.COMPLETE, onCompleteTest);
-        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
-        function onCompleteTest(e:Event):void { completeTest(e.target.data, callback); }
-        try {
-            loader.load(request);
-        } catch (error:Error) {
-            Cc.error('test error:' + error.errorID);
-        }
-    }
-
-    private function completeTest(response:String, callback:Function = null):void {
-        var d:Object;
-        try {
-            d = JSON.parse(response);
-        } catch (e:Error) {
-            Cc.error('test: wrong JSON:' + String(response));
-            return;
-        }
-
-        if (d.id == 0) {
-            Cc.ch('server', 'test OK', 5);
-            if (callback != null) {
-                callback.apply();
-            }
-        } else {
-            Cc.error('test: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
-        }
     }
 
     public function getVersion(callback:Function):void {
@@ -89,6 +50,9 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_VERSION);
 
         Cc.ch('server', 'start getVersion', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteVersion);
         loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
@@ -127,6 +91,9 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_LEVEL);
 
         Cc.ch('server', 'start getDataLevel', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAllLevels);
         loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
@@ -191,6 +158,9 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_ANIMAL);
 
         Cc.ch('server', 'start getDataAnimal', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteAnimal);
@@ -258,6 +228,9 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_RECIPE);
 
         Cc.ch('server', 'start getDataRecipe', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteRecipe);
@@ -313,6 +286,9 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_RESOURCE);
 
         Cc.ch('server', 'start getDataResource', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteResource);
@@ -380,6 +356,9 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_CATS);
 
         Cc.ch('server', 'start getDataCats', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteCats);
@@ -434,6 +413,9 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_BUY_MONEY);
 
         Cc.ch('server', 'start getDataBuyMoney', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetDataBuyMoney);
@@ -492,6 +474,9 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_BUILDING);
 
         Cc.ch('server', 'start getDataBuilding', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteBuilding);
@@ -3230,7 +3215,7 @@ public class DirectServer {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_LOCKED_LAND);
         var variables:URLVariables = new URLVariables();
-
+        variables = addDefault(variables);
         variables.userId = g.user.userId;
         request.data = variables;
         Cc.ch('server', 'start getDataLockedLand', 1);
@@ -3714,7 +3699,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'ME_addWild', 1);
-//        variables = addDefault(variables);
+        variables.channelId = g.socialNetworkID;
         variables.userId = g.user.userId;
         variables.posX = posX;
         variables.posY = posY;
@@ -3770,7 +3755,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'ME_removeWild', 1);
-//        variables = addDefault(variables);
+        variables.channelId = g.socialNetworkID;
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         request.data = variables;
@@ -3823,7 +3808,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'ME_moveWild', 1);
-//        variables = addDefault(variables);
+        variables.channelId = g.socialNetworkID;
         variables.userId = g.user.userId;
         variables.posX = posX;
         variables.posY = posY;
@@ -3878,7 +3863,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'ME_flipWild', 1);
-//        variables = addDefault(variables);
+        variables.channelId = g.socialNetworkID;
         variables.userId = g.user.userId;
         variables.dbId = dbId;
         variables.isFlip = isFlip;
@@ -4113,7 +4098,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'ME_moveMapBuilding', 1);
-//        variables = addDefault(variables);
+        variables.channelId = g.socialNetworkID;
         variables.userId = g.user.userId;
         variables.buildId = id;
         variables.posX = posX;
@@ -5023,7 +5008,7 @@ public class DirectServer {
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'ME_addOutGameTile', 1);
-//        variables = addDefault(variables);
+        variables.channelId = g.socialNetworkID;
         variables.userId = g.user.userId;
         variables.posX = posX;
         variables.posY = posY;
@@ -5078,7 +5063,7 @@ public class DirectServer {
 
         Cc.ch('server', 'ME_deleteOutGameTile', 1);
         variables = addDefault(variables);
-//        variables.userId = g.user.userId;
+        variables.channelId = g.socialNetworkID;
         variables.posX = posX;
         variables.posY = posY;
         request.data = variables;
@@ -6333,6 +6318,7 @@ public class DirectServer {
         Cc.ch('server', 'setUserLevelToVK', 1);
         variables.level = g.user.level;
         variables.id = g.user.userSocialId;
+        variables.channelId = g.socialNetworkID;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         try {
