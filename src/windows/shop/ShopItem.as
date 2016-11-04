@@ -85,6 +85,7 @@ public class ShopItem {
 
         _nameTxt = new CTextField(145, 60, '');
         _nameTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _nameTxt.y  = -10;
         _nameTxt.cacheIt = false;
         source.addChild(_nameTxt);
 
@@ -412,7 +413,7 @@ public class ShopItem {
         if (!_data) return;
         if (_data.buildType == BuildType.FABRICA ) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-                createLockedSprite();
+//                createLockedSprite();
                 _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -455,7 +456,7 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.FARM) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-                createLockedSprite();
+//                createLockedSprite();
                 _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -469,7 +470,7 @@ public class ShopItem {
                 }
                 if (arr.length >= maxCountAtCurrentLevel) {
                     if (g.user.level < _data.blockByLevel[arr.length]) {
-                        createLockedSprite();
+//                        createLockedSprite();
                         _txtAvailable.visible = true;
                         _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[arr.length]) + ' уровне';
                         _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -508,7 +509,7 @@ public class ShopItem {
                     arr = g.townArea.getCityObjectsById(_data.id);
                 }
                 if (_data.blockByLevel[0] > g.user.level) {
-                    createLockedSprite();
+//                    createLockedSprite();
                     _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                     _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -550,7 +551,7 @@ public class ShopItem {
             var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
             if (dataFarm && dataFarm.blockByLevel) {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
-                    createLockedSprite();
+//                    createLockedSprite();
                     _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(dataFarm.blockByLevel[0]) + ' уровне';
                     _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -602,7 +603,7 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.TREE) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-                createLockedSprite();
+//                createLockedSprite();
                 _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _im.filter = ManagerFilters.getButtonDisableFilter();
