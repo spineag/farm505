@@ -20,7 +20,7 @@ import starling.core.Starling;
 import utils.Multipart;
 
 public class SN_OK extends SocialNetwork {
-    private static const API_SECRET_KEY:String = "5A776514280BFC40FB4373D7"; //.....
+    private static const API_SECRET_KEY:String = "864364A475EBF25367549586";
 
     private var _friendsRest:Array;
     private var _wallRequest:Object;
@@ -83,7 +83,7 @@ public class SN_OK extends SocialNetwork {
     }
 
     override public function get urlApp():String {
-        return "http://www.odnoklassniki.ru/game/birdstown";
+        return "https://ok.ru/game/1248696832";
     }
 
     override public function getProfile(uid:String):void {
