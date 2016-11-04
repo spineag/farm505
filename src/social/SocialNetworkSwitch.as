@@ -52,9 +52,14 @@ public class SocialNetworkSwitch {
                 g.user.userSocialId =  flashVars["viewer_id"];
                 break;
             case SN_OK_ID:
+                    // Application ID: 1248696832.
+//                     Публичный ключ приложения: CBALJOGLEBABABABA
+//                     Секретный ключ приложения:  864364A475EBF25367549586
+//                     Ссылка на приложение: http://www.odnoklassniki.ru/game/1248696832
+
                 if (isDebug) {
                     flashVars["uid"] = "555480938615";
-                    g.socialNetwork = new SN_Blank(flashVars, "ok", "http://bt.ok.joyrocks.com/", "http://i1.bt.ok.joyrocks.com/");
+                    g.socialNetwork = new SN_Blank(flashVars, "ok", "https://505.ninja/", "https://505.ninja/");
                 } else {
                     g.socialNetwork = new SN_OK(flashVars);
                 }
