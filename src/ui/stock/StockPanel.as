@@ -31,7 +31,6 @@ public class StockPanel {
         }
     }
 
-
     private function loadTipsIcon():void {
         var st:String = 'animations_json/action_icon';
         g.loadAnimation.load(st, 'action_icon', onLoad);
@@ -47,7 +46,7 @@ public class StockPanel {
     }
 
     public function onResize():void {
-        _source.y = 20;
+        _source.y = 12;
         _source.x = g.managerResize.stageWidth - 240;
     }
 
@@ -60,7 +59,7 @@ public class StockPanel {
         if (_timer <= 0) {
             g.gameDispatcher.removeFromTimer(animation);
             _armature.animation.gotoAndPlayByFrame('idle');
-            _timer = 20;
+            _timer = 12;
             g.gameDispatcher.addToTimer(animation);
         }
     }
