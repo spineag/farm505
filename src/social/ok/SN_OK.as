@@ -88,7 +88,12 @@ public class SN_OK extends SocialNetwork {
 
     override public function getProfile(uid:String):void {
         super.getProfile(uid);
-        Users.getInfo([uid], ["first_name", "last_name", "pic_5", "gender", "birthday"], getProfileHandler);
+        try {
+            Users.getInfo([uid], ["first_name", "last_name", "pic_5", "gender", "birthday"], getProfileHandler);
+        } catch (e:Error) {
+            Cc.error('OK getProfile:: ' + e.message);
+            Cc.stackch('error', e);
+        }
     }
 
     private function getProfileHandler(e:Object):void {

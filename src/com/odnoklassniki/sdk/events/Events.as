@@ -1,5 +1,7 @@
 package com.odnoklassniki.sdk.events 
 {
+	import com.odnoklassniki.Odnoklassniki;
+
 import com.odnoklassniki.Odnoklassniki;
 
 public class Events

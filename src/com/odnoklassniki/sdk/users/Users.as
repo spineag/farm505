@@ -1,5 +1,6 @@
 package com.odnoklassniki.sdk.users 
 {
+
 import com.odnoklassniki.Odnoklassniki;
 
 public class Users

@@ -1,5 +1,6 @@
 package com.odnoklassniki.sdk.discussions 
 {
+
 import com.odnoklassniki.Odnoklassniki;
 
 public class Discussions

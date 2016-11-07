@@ -1,5 +1,6 @@
 package com.odnoklassniki.events
 {
+	
 	import flash.events.Event;
 	
 	public class ApiCallbackEvent extends Event

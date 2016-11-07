@@ -1,15 +1,18 @@
 package com.odnoklassniki.net
 {
-	import com.adobe.serialization.json.JSONDecoder;
-	import com.odnoklassniki.net.PostRequest;
-	import com.adobe.images.PNGEncoder;
-	import com.odnoklassniki.Odnoklassniki;
-	import flash.display.Bitmap;
+import com.adobe.images.PNGEncoder;
+import com.adobe.json.JSON;
+import com.junkbyte.console.Cc;
+
+import com.odnoklassniki.Odnoklassniki;
+
+import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.SecurityErrorEvent;
+	import flash.net.FileReference;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.net.URLRequestHeader;
@@ -19,6 +22,7 @@ package com.odnoklassniki.net
 
 	public class OdnoklassnikiRequest
 	{
+
 		protected var urlLoader:URLLoader;
 		protected var urlRequest:URLRequest;
 		protected var _data:Object;
@@ -183,19 +187,24 @@ package com.odnoklassniki.net
 
 			urlLoader.addEventListener(ProgressEvent.PROGRESS, onProgress, false, 0, true);
 
+			Cc.ch('social', 'OdnoklassnikiRequest: request for method: ' + _method);
             urlLoader.load(urlRequest);
 		}
 
 		private function onComplete(e:Event):void
 		{
 			if(_format == "JSON"){
-				_data = com.adobe.serialization.json.JSONDecoder(urlLoader.data);
 				try {
+					_data = com.adobe.json.JSON.decode(urlLoader.data);
 					_data.method = _method;
-				}catch(e:Error){}
+				}catch(e:Error){
+					Cc.error('OdnoklassnikiRequest: onComplete error: ' + e.errorID);
+				}
 			}else{
 				_data = urlLoader.data;
 			}
+			Cc.ch('social', 'OdnoklassnikiRequest responce:');
+			Cc.obj('social', _data);
 			complete();
 		}
 
@@ -208,10 +217,12 @@ package com.odnoklassniki.net
 		}
 
 		private function onIOError(e:IOErrorEvent):void {
+			Cc.error('OdnoklassnikiRequest IOErrorEvent: ' + e.errorID);
 			failed();
 		}
 
 		private function onSecurityError(e:SecurityErrorEvent):void {
+			Cc.error('OdnoklassnikiRequest SecurityErrorEvent: ' + e.errorID);
 			failed();
 		}
 

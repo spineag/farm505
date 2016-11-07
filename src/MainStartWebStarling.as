@@ -76,7 +76,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
     private function onRootCreated(event:starling.events.Event):void {
         ConsoleWrapper.getInstance().init(g.mainStage, this as Sprite);
         g.flashVars = stage.loaderInfo.parameters;
-        Cc.obj('social', g.flashVars, 'vars from vk: ', 1);
+        Cc.obj('social', g.flashVars, 'vars from social network: ', 1);
         g.isDebug = stage.loaderInfo.url.substr(0, 4).toLowerCase() == 'file';
         g.useHttps = g.isDebug ? false : (g.flashVars['protocol'] == 'https');
         Cc.ch('info', 'isDebug = ' + g.isDebug);

@@ -1,8 +1,8 @@
 package com.odnoklassniki.sdk.photos 
 {
-	import com.adobe.serialization.json.JSONEncoder;
-import com.odnoklassniki.Odnoklassniki;
+import com.adobe.json.JSON;
 import com.odnoklassniki.sdk.errors.Errors;
+import com.odnoklassniki.Odnoklassniki;
 
 public class Photos
 	{
@@ -32,7 +32,7 @@ public class Photos
 			
 			if (uid) send_obj.uid = uid;
 			if (aid) send_obj.uid = aid;
-			if (photos) send_obj.photos = com.adobe.serialization.json.JSONEncoder(photos);
+			if (photos) send_obj.photos = com.adobe.json.JSON.encode(photos);
 			
 			url = (!url) ? "http://apimobile.odnoklassniki.ru/" : url;
 			

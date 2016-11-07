@@ -1,6 +1,7 @@
 package com.odnoklassniki.sdk.stream 
 {
-	import com.adobe.serialization.json.JSONEncoder;
+
+import com.adobe.json.JSON;
 import com.odnoklassniki.Odnoklassniki;
 import com.odnoklassniki.events.ApiCallbackEvent;
 
@@ -29,8 +30,8 @@ public class Stream
 			
 			_request = { method : "stream.publish", message : publish_message};
 			if (uid) _request.uid = uid;
-			if (attachment) _request.attachment = com.adobe.serialization.json.JSONEncoder(attachment);
-			if (action_links) _request.action_links = com.adobe.serialization.json.JSONEncoder(action_links);
+			if (attachment) _request.attachment = com.adobe.json.JSON.encode(attachment);
+			if (action_links) _request.action_links = com.adobe.json.JSON.encode(action_links);
 			
 			_request = Odnoklassniki.getSignature(_request, true);
 			Odnoklassniki.showConfirmation("stream.publish", confirmation_message, _request.sig);

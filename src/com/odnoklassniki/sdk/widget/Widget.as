@@ -1,6 +1,6 @@
 package com.odnoklassniki.sdk.widget 
 {
-	import com.odnoklassniki.Odnoklassniki;
+import com.odnoklassniki.Odnoklassniki;
 
 public class Widget
 	{

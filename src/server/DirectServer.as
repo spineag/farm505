@@ -6329,7 +6329,7 @@ public class DirectServer {
     }
 
     private function onIOError(e:IOErrorEvent):void {
-        Cc.error('IOError:: ' + e.text);
+        Cc.error('IOError on Auth User:: ' + e.text);
     }
 
     private function wrongDataFromServer(st:String):void {

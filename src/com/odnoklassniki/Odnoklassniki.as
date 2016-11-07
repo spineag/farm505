@@ -1,10 +1,9 @@
-package com.odnoklassniki
+package com.odnoklassniki 
 {
-import com.adobe.serialization.json.JSONEncoder;
+import com.odnoklassniki.net.OdnoklassnikiRequest;
+import com.adobe.json.JSON;
 import com.odnoklassniki.core.OdnoklassnikiSession;
 import com.odnoklassniki.events.ApiServerEvent;
-import com.odnoklassniki.net.OdnoklassnikiRequest;
-
 import flash.display.DisplayObject;
 	import flash.display.LoaderInfo;
 	import flash.events.EventDispatcher;
@@ -155,7 +154,7 @@ import flash.display.DisplayObject;
 		// PUBLIC METHODS
 		public static function showPermissions(... permissions ) : void
 		{
-			getInstance().send("showPermissions", [com.adobe.serialization.json.JSONEncoder(permissions)]);
+			getInstance().send("showPermissions", [com.adobe.json.JSON.encode(permissions)]);
 		}
 		
 		public static function showInvite(text : String = null, params : String = null) : void

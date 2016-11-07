@@ -1,5 +1,6 @@
 package com.odnoklassniki.sdk.friends 
 {
+
 import com.odnoklassniki.Odnoklassniki;
 
 public class Friends

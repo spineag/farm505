@@ -61,8 +61,10 @@ public class SocialNetworkSwitch {
                     flashVars["uid"] = "555480938615";
                     g.socialNetwork = new SN_Blank(flashVars, "ok", "https://505.ninja/", "https://505.ninja/");
                 } else {
+                    flashVars["uid"] = flashVars["logged_user_id"];
                     g.socialNetwork = new SN_OK(flashVars);
                 }
+                g.user.userSocialId =  flashVars["uid"];
                 break;
 //            case MainGame.SN_MAILRU_ID:
 //                if (isDebug) {
