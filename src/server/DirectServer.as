@@ -637,7 +637,29 @@ public class DirectServer {
                     }
 
                 if (g.user.isTester) g.dataBuilding.objectBuilding[obj.id] = obj;
-                    else if (d.message[i].visible == 0 ) g.dataBuilding.objectBuilding[obj.id] = obj;
+                else if (d.message[i].visible == 0 ) {
+                    var startDayNumber:int = int(d.message[i].start_action);
+                    var endDayNumber:int = int(d.message[i].end_action);
+                    var curDayNumber:int = new Date().getTime()/1000;
+
+                    obj.visibleAction = false;
+                    if (startDayNumber == 0 && endDayNumber == 0) {
+                        obj.visibleAction = true;
+                    } else {
+                        if (startDayNumber != 0 && startDayNumber <= curDayNumber) {
+                            if (endDayNumber > curDayNumber || endDayNumber == 0) {
+                                obj.visibleAction = true;
+                            }
+                            else {
+                                obj.visibleAction = false;
+                            }
+                        } else if (startDayNumber > curDayNumber) {
+                            obj.visibleAction = false;
+                        }
+
+                    }
+                    g.dataBuilding.objectBuilding[obj.id] = obj;
+                }
             }
             g.allData.sortDecorData();
             if (callback != null) {
