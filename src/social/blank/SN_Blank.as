@@ -22,8 +22,8 @@ public class SN_Blank extends SocialNetwork {
         super.getProfileSuccess(_paramsUser);
     }
 
-    override public function getFriends():void {
-        super.getFriends();
+    override public function getAllFriends():void {
+        super.getAllFriends();
         super.getFriendsSuccess(0);
     }
 

@@ -99,7 +99,6 @@ public class User extends Someone {
 
     public function friendAppUser():void {
         g.socialNetwork.getAppUsers();
-//        g.socialNetwork.getFriends();
     }
 
     public function addFriendInfo(ob:Object):void {

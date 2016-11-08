@@ -7,6 +7,8 @@ import data.DataMoney;
 import manager.ManagerWallPost;
 import manager.Vars;
 
+import social.SocialNetworkSwitch;
+
 import utils.Link;
 
 import windows.WindowsManager;
@@ -30,6 +32,7 @@ public class ManagerQuest {
     }
 
     public function fromServer(ar:Array):void {
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) return;
         var ob:Object;
         for (var i:int=0; i<ar.length; i++) {
             ob = {};
@@ -45,6 +48,7 @@ public class ManagerQuest {
     }
 
     public function checkQuestsOnStart():void {
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) return;
         var qArr:Array = _qAllData.arrQuests;
         for (var i:int = 0; i < qArr.length; i++) {
             if (qArr[i].level <= g.user.level && !qArr[i].isAdded) {

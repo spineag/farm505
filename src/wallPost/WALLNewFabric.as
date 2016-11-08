@@ -10,6 +10,8 @@ import loaders.PBitmap;
 
 import manager.Vars;
 
+import social.SocialNetworkSwitch;
+
 import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -64,7 +66,13 @@ public class WALLNewFabric {
         var rbd:BitmapData = new BitmapData(sp.width, sp.height);
         rbd.draw(sp);
         var rb:Bitmap = new Bitmap(rbd);
-        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Мы построили новую фабрику! Теперь в Долине Рукоделия еще больше прибыльного производства!'),rb,'interfaceAtlas');
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Мы построили новую фабрику! Теперь в Долине Рукоделия еще больше прибыльного производства!'),rb,'interfaceAtlas');
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Ура! Мы построили новую фабрику! Теперь в Долине Рукоделия еще больше прибыльного производства!'),
+                    null, st + 'wall/wall_new_fabric.jpg');
+        }
+        
         (g.pBitmaps[st + 'iconAtlas.png' + g.getVersion('iconAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'iconAtlas.png' + g.getVersion('iconAtlas')];
         delete  g.pXMLs[st + 'iconAtlas.xml' + g.getVersion('iconAtlas')];

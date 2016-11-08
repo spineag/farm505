@@ -125,8 +125,8 @@ public class SN_Vkontakte extends SocialNetwork {
         forSimpleDevelopers();
     }
 
-    override public function getFriends():void {
-        super.getFriends();
+    override public function getAllFriends():void {
+        super.getAllFriends();
         _apiConnection.api("friends.get", {fields: "first_name,last_name,photo_100", https: 1}, getFriendsHandler, onError);
     }
 
@@ -146,22 +146,17 @@ public class SN_Vkontakte extends SocialNetwork {
         super.getFriendsSuccess(e.length);
     }
 
-    private var friendsNoApp:Array;
-    private var friendsApp:Array;
-    private var _timerRender:uint = 0;
-    private const COUNT_PER_ONCE_IN_GAME:int = 400;
-
     // friends in App
-    override public function getFriendsByIDs(friends:Array):void {
+    override protected function getFriendsByIDs(friends:Array):void {
         var arr:Array;
 
-        friendsApp = friends;
-        if (friendsApp.length > COUNT_PER_ONCE_IN_GAME) {
-            arr = friendsApp.slice(0, COUNT_PER_ONCE_IN_GAME);
-            friendsApp.splice(0, COUNT_PER_ONCE_IN_GAME);
+        _friendsApp = friends;
+        if (_friendsApp.length > COUNT_PER_ONCE) {
+            arr = _friendsApp.slice(0, COUNT_PER_ONCE);
+            _friendsApp.splice(0, COUNT_PER_ONCE);
         } else {
-            arr = friendsApp.slice();
-            friendsApp = [];
+            arr = _friendsApp.slice();
+            _friendsApp = [];
         }
 
         super.getFriendsByIDs(arr);
@@ -173,9 +168,8 @@ public class SN_Vkontakte extends SocialNetwork {
         }
     }
 
-    public function getFriendsByIDsWithDelay(ids:Array):void {
+    private function getFriendsByIDsWithDelay(ids:Array):void {
         var arr:Array = [];
-
         for (var i:int = 0; i < ids.length; i++) {
             arr.push(ids[i]);
         }
@@ -187,25 +181,24 @@ public class SN_Vkontakte extends SocialNetwork {
            g.user.addFriendInfo(e[i]);
         }
 
-        if (friendsApp.length) {
-            getFriendsByIDs(friendsApp);
+        if (_friendsApp.length) {
+            getFriendsByIDs(_friendsApp);
         } else {
             super.getFriendsByIDsSuccess(e);
         }
     }
 
-    private const COUNT_PER_ONCE:int = 100;
     // friends not in App
     override public function getNoAppFriendsByIDs(friends:Array):void {
         var arr:Array;
 
-        friendsNoApp = friends;
-        if (friendsNoApp.length > COUNT_PER_ONCE) {
-            arr = friendsNoApp.slice(0, COUNT_PER_ONCE);
-            friendsNoApp.splice(0, COUNT_PER_ONCE);
+        _friendsNoApp = friends;
+        if (_friendsNoApp.length > COUNT_PER_ONCE) {
+            arr = _friendsNoApp.slice(0, COUNT_PER_ONCE);
+            _friendsNoApp.splice(0, COUNT_PER_ONCE);
         } else {
-            arr = friendsNoApp.slice();
-            friendsNoApp = [];
+            arr = _friendsNoApp.slice();
+            _friendsNoApp = [];
         }
 
         super.getNoAppFriendsByIDs(arr);
@@ -237,10 +230,9 @@ public class SN_Vkontakte extends SocialNetwork {
             setFriendInfo(buffer.uid, buffer.first_name, buffer.last_name, buffer.photo_100);
         }
 
-        if (friendsNoApp.length) {
-            getNoAppFriendsByIDs(friendsNoApp);
+        if (_friendsNoApp.length) {
+            getNoAppFriendsByIDs(_friendsNoApp);
         } else {
-            //g.user.checkEmptyNoAppFriends();
             super.getFriendsByIDsSuccess(bufferIds);
         }
     }
@@ -274,29 +266,29 @@ public class SN_Vkontakte extends SocialNetwork {
     }
 
     private function getAppUsersHandler(e:Object):void { // создает массив друзей в игре
-        _appFriends = e as Array;
+        _friendsApp = e as Array;
         var f:Friend;
-        for (var i:int=0; i<_appFriends.length; i++) {
+        for (var i:int=0; i<_friendsApp.length; i++) {
             f = new Friend();
-            f.userSocialId = _appFriends[i];
+            f.userSocialId = _friendsApp[i];
             g.user.arrFriends.push(f);
         }
         super.getAppUsersSuccess(e);
-        this.getFriendsByIDs(_appFriends);
+        this.getFriendsByIDs(_friendsApp);
     }
 
     override public function getUsersOnline():void {
         super.getUsersOnline();
-        _paramsFriends = [];
+        _friendsApp = [];
         _apiConnection.api("friends.getOnline", {https: 1}, getUsersOnlineHandler, onError);
     }
 
     private function getUsersOnlineHandler(e:Object):void {
         for (var key:String in e) {
-            _paramsFriends.push(String(e[key]));
+            _friendsApp.push(String(e[key]));
         }
 
-        super.getUsersOnlineSuccess(_paramsFriends);
+        super.getUsersOnlineSuccess(_friendsApp);
     }
 
     override public function wallPost(uid:String, message:String, image:DisplayObject, url:String = null, title:String = null, posttype:String = null, idObj:String = '0'):void {

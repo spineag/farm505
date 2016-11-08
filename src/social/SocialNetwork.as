@@ -12,11 +12,13 @@ import manager.Vars;
 
 public class SocialNetwork extends EventDispatcher {
     protected var URL_AVATAR_BLANK:String = null;
+    protected const COUNT_PER_ONCE:int = 200;
 
     protected var _flashVars:Object;
-    protected var _paramsFriends:Array;
-    protected var _appFriends:Array;
     protected var _paramsUser:Object;
+    protected var _friendsNoApp:Array;
+    protected var _friendsApp:Array;
+    protected var _timerRender:uint = 0;
 
     protected static var g:Vars = Vars.getInstance();
 
@@ -88,9 +90,9 @@ public class SocialNetwork extends EventDispatcher {
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_PROFILES));
     }
 
-    public function getFriends():void {
+    public function getAllFriends():void {
         Cc.ch('social', "SocialNetwork:: request to get info about friends of current user");
-        _paramsFriends = [];
+        _friendsApp = [];
     }
 
     protected function setFriendInfo(socUID:String, firstName:String, lastName:String = "", photo:String = ""):void {
@@ -113,7 +115,7 @@ public class SocialNetwork extends EventDispatcher {
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_FRIENDS));
     }
 
-    public function getFriendsByIDs(ids:Array):void {
+    protected function getFriendsByIDs(ids:Array):void {
         Cc.ch('social', "SocialNetwork:: request to get info by ids about " + ids.length + " friends of current user");
     }
 
@@ -146,18 +148,18 @@ public class SocialNetwork extends EventDispatcher {
 
     public function getAppUsers():void {
         Cc.ch('social', "SocialNetwork:: request to get info about app friends of current user");
-        _appFriends = [];
+        _friendsApp = [];
     }
 
     protected function getAppUsersSuccess(e:Object):void {
         Cc.ch('social', "SocialNetwork:: request to get info about friends of current user completed successfully");
-        Cc.ch("info", "SocialNetwork:: got " + _appFriends.length + " app friends", 18);
+        Cc.ch("info", "SocialNetwork:: got " + _friendsApp.length + " app friends", 18);
         //_friendsIDs = _paramsFriends.concat();
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_APP_USERS, false, false));
     }
 
     public function getUsersOnline():void {
-        _paramsFriends = [];
+        _friendsApp = [];
     }
 
     public function getTempUsersInfoById(arr:Array, callback:Function):void { }
@@ -352,10 +354,6 @@ public class SocialNetwork extends EventDispatcher {
         return _friendsIDs || [];
     }
 
-    public function get appFriends():Array {
-        return _appFriends;
-    }
-    
     public function setUserLevel():void {}
 }
 }

@@ -8,6 +8,8 @@ import loaders.PBitmap;
 
 import manager.Vars;
 
+import social.SocialNetworkSwitch;
+
 import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -32,8 +34,12 @@ public class WALLOpenCave {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_open_cave.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
-//        var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
-        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Проход в шахту расчищен! Теперь мы можем самостоятельно добывать руду в Долине Рукоделия!'),bitmap,'interfaceAtlas');
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Проход в шахту расчищен! Теперь мы можем самостоятельно добывать руду в Долине Рукоделия!'),bitmap,'interfaceAtlas');
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Проход в шахту расчищен! Теперь мы можем самостоятельно добывать руду в Долине Рукоделия!'),
+                    null, st + 'wall/wall_open_cave.jpg');
+        }
         (g.pBitmaps[st + 'wall/wall_open_cave.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_open_cave.jpg'];
     }
