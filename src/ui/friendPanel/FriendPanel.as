@@ -2,6 +2,7 @@ package ui.friendPanel {
 import com.greensock.TweenMax;
 import com.greensock.easing.Back;
 import com.greensock.easing.Linear;
+import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 
@@ -234,6 +235,7 @@ public class FriendPanel {
 
     private function fillFriends():void {
         clearItems();
+        Cc.ch('social', 'friendUI: fill friends');
         if (_activeTabType == TYPE_NORMAL) {
             _arrFriends = g.user.arrFriends.slice();
         } else if (_activeTabType == TYPE_NEED_HELP) {
@@ -249,6 +251,7 @@ public class FriendPanel {
             var im:Image;
             var txt:CTextField;
             if (_arrFriends.length == 0) {
+                Cc.ch('social', 'friendUI: fill 3 add');
                 bt = new CButton();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
                 bt.addDisplayObject(im);
@@ -291,6 +294,7 @@ public class FriendPanel {
                 _source.addChild(bt);
                 bt.clickCallback = inviteFriends;
             } else if (_arrFriends.length == 1) {
+                Cc.ch('social', 'friendUI: fill 2 add');
                 bt = new CButton();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
                 bt.addDisplayObject(im);
@@ -319,6 +323,7 @@ public class FriendPanel {
                 _source.addChild(bt);
                 bt.clickCallback = inviteFriends;
             } else if (_arrFriends.length == 2) {
+                Cc.ch('social', 'friendUI: fill 1 add');
                 bt = new CButton();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
                 bt.addDisplayObject(im);
@@ -349,6 +354,7 @@ public class FriendPanel {
     }
 
     private function sortFriend():void {
+        Cc.ch('social', 'friendUI: sortFriend');
         var item:FriendItem;
         _arrItems = [];
         _shift = 0;
@@ -489,6 +495,7 @@ public class FriendPanel {
     }
 
     public function noFriends():void {
+        Cc.ch('social', 'friendUI: no friends');
         var item:FriendItem;
         _arrItems = [];
         _shift = 0;

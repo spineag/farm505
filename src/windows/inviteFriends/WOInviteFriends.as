@@ -70,7 +70,7 @@ public class WOInviteFriends extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void{
         createFriend();
-        g.socialNetwork.getFriends();
+        g.socialNetwork.getAllFriends();
         super.showIt();
     }
 

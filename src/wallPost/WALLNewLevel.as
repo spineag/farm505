@@ -14,6 +14,9 @@ import manager.ManagerFabricaRecipe;
 
 import manager.ManagerFilters;
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
@@ -62,7 +65,12 @@ public class WALLNewLevel {
         t.y = 235;
         t.filters = [new GlowFilter(ManagerFilters.BROWN_COLOR)];
         bitmap.bitmapData.draw(sp);
-        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),bitmap,'interfaceAtlas');
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),bitmap,'interfaceAtlas');
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),
+                    null, st + 'wall/wall_new_level.jpg');
+        }
         (g.pBitmaps[st + 'wall/wall_new_level.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_new_level.jpg'];
     }

@@ -15,8 +15,13 @@ import flash.events.Event;
 import flash.external.ExternalInterface;
 import flash.net.URLLoader;
 import flash.utils.ByteArray;
+import flash.utils.getTimer;
+
 import social.SocialNetwork;
 import starling.core.Starling;
+
+import user.Friend;
+
 import utils.Multipart;
 
 public class SN_OK extends SocialNetwork {
@@ -25,7 +30,6 @@ public class SN_OK extends SocialNetwork {
     private var _friendsRest:Array;
     private var _wallRequest:Object;
 
-    private var _isLonely:Boolean = false;
     private var _isAlbum:Boolean = false;
     private var _idAlbum:String;
     private var _oid:String;
@@ -111,8 +115,8 @@ public class SN_OK extends SocialNetwork {
         }
     }
 
-    override public function getFriends():void {
-        super.getFriends();
+    override public function getAllFriends():void {
+        super.getAllFriends();
         Friends.get(getFriendsHandler, Odnoklassniki.session.uid);
     }
 
@@ -120,7 +124,6 @@ public class SN_OK extends SocialNetwork {
         var friends:Array = e as Array;
 
         if (!friends.length) {
-            _isLonely = true;
             super.getFriendsSuccess(0);
             return;
         }
@@ -145,7 +148,7 @@ public class SN_OK extends SocialNetwork {
             if (key != "method") {
                 buffer = e[key];
                 setFriendInfo(buffer.uid, buffer.first_name, buffer.last_name, buffer.pic_5);
-                _paramsFriends.push(buffer);
+                _friendsApp.push(buffer);
             }
         }
 
@@ -156,46 +159,85 @@ public class SN_OK extends SocialNetwork {
         }
     }
 
+    // friends in App
     override public function getAppUsers():void {
         super.getAppUsers();
-
-        if (_isLonely) {
-            super.getAppUsersSuccess(_paramsFriends);
-            return;
-        }
-
         Friends.getAppUsers(getAppUsersHandler);
     }
 
     private function getAppUsersHandler(e:Object):void {
-        _paramsFriends = e["uids"] as Array;
-        super.getAppUsersSuccess(_paramsFriends);
+        _friendsApp = e["uids"] as Array;
+        var f:Friend;
+        for (var i:int=0; i<_friendsApp.length; i++) {
+            f = new Friend();
+            f.userSocialId = _friendsApp[i];
+            g.user.arrFriends.push(f);
+        }
+        super.getAppUsersSuccess(_friendsApp);
+        if (_friendsApp.length) this.getFriendsByIDs(_friendsApp);
+    }
+
+    override protected function getFriendsByIDs(friends:Array):void {
+        var arr:Array;
+
+        _friendsApp = friends;
+        if (_friendsApp.length > COUNT_PER_ONCE) {
+            arr = _friendsApp.slice(0, COUNT_PER_ONCE);
+            _friendsApp.splice(0, COUNT_PER_ONCE);
+        } else {
+            arr = _friendsApp.slice();
+            _friendsApp = [];
+        }
+
+        super.getFriendsByIDs(arr);
+        if (getTimer() - _timerRender < 1000) {
+            g.gameDispatcher.addToTimerWithParams(getFriendsByIDsWithDelay, 1000, 1, arr);
+        } else {
+            _timerRender = getTimer();
+            getFriendsByIDsWithDelay(arr);
+        }
+    }
+
+    private function getFriendsByIDsWithDelay(ids:Array):void {
+        var arr:Array = [];
+        for (var i:int = 0; i < ids.length; i++) {
+            arr.push(ids[i]);
+        }
+//        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getFriendsByIdsHandler, onError);
+        Users.getInfo(arr, ["first_name", "last_name", "pic_5"], getFriendsByIdsHandler);
+    }
+
+    private function getFriendsByIdsHandler(e:Array):void {
+        for (var i:int = 0; i < e.length; i++) {
+            g.user.addFriendInfo(e[i]);
+        }
+        if (_friendsApp.length) {
+            getFriendsByIDs(_friendsApp);
+        } else {
+            super.getFriendsByIDsSuccess(e);
+        }
     }
 
     override public function getUsersOnline():void {
         super.getUsersOnline();
 
-        if (_isLonely) {
-            super.getUsersOnlineSuccess(null);
-            return;
-        }
-
         Friends.getOnline(getUsersOnlineHandler);
     }
 
     private function getUsersOnlineHandler(e:Object):void {
-        _paramsFriends = e as Array;
-        super.getUsersOnlineSuccess(_paramsFriends);
+        _friendsApp = e as Array;
+        super.getUsersOnlineSuccess(_friendsApp);
     }
 
+    // https://apiok.ru/dev/methods/rest/mediatopic/mediatopic.post
     override public function wallPost(uid:String, message:String, image:DisplayObject, url:String = null, title:String = null, posttype:String = null, idObj:String = '0'):void {
-        _wallRequest = {method: "stream.publish", message: message + " Прислал " + g.user.name + " " + g.user.lastName};
+        _wallRequest = {method: "stream.publish", message: message};
         if (uid) {
             _wallRequest.uid = uid;
         }
 
-        url = url || "ok/icon.jpg";
-        title = title || "Птичий городок";
+//        url = url || "ok/icon.jpg";
+        title = title || "Умелые Лапки";
 
         _wallRequest.attachment = JSONuse.encode({caption: title, media: [
             {href: "link", src: url, "type": "image"}
