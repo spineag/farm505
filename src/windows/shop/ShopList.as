@@ -101,43 +101,53 @@ public class ShopList {
         _decor = false;
         if (arr[0].buildType == BuildType.FABRICA) {
             for (j = 0; j < arr.length; j++) {
-                arAdded = g.townArea.getCityObjectsById(arr[j].id);
-                maxCount = 0;
-                for (i = 0; arr[j].blockByLevel.length; i++) {
-                    if (arr[j].blockByLevel[i] <= g.user.level) {
-                        maxCount++;
-                    } else break;
-                }
-                curCount = arAdded.length;
-                if (curCount == arr[j].blockByLevel.length) {
-                    arr[j].indexQueue = arr[j].blockByLevel[0] + 1000;
-                } else if (curCount >= maxCount) {
-                    arr[j].indexQueue = arr[j].blockByLevel[maxCount] + 500;
-                } else {
-                    arr[j].indexQueue = int(arr[j].blockByLevel[curCount]);
-                }
-            }
-            g.user.decorShop = false;
-            g.user.decorShiftShop = 0;
-            arr.sortOn("indexQueue", Array.NUMERIC);
-        } else if (arr[0].buildType == BuildType.TREE) {
-            for (j = 0; j < arr.length; j++) {
-                arAdded = g.townArea.getCityObjectsById(arr[j].id);
-                maxCount = 0;
-                for (i = 0; arr[j].blockByLevel.length; i++) {
-                    if (arr[j].blockByLevel[i] <= g.user.level) {
-                        maxCount += arr[j].countUnblock;
-                    } else break;
-                }
-                curCount = arAdded.length;
-                if (curCount >= maxCount) {
-                    if (i == arr[j].blockByLevel.length) {
+                if (arr[j].visibleAction) {
+                    arAdded = g.townArea.getCityObjectsById(arr[j].id);
+                    maxCount = 0;
+                    for (i = 0; arr[j].blockByLevel.length; i++) {
+                        if (arr[j].blockByLevel[i] <= g.user.level) {
+                            maxCount++;
+                        } else break;
+                    }
+                    curCount = arAdded.length;
+                    if (curCount == arr[j].blockByLevel.length) {
                         arr[j].indexQueue = arr[j].blockByLevel[0] + 1000;
+                    } else if (curCount >= maxCount) {
+                        arr[j].indexQueue = arr[j].blockByLevel[maxCount] + 500;
                     } else {
-                        arr[j].indexQueue = arr[j].blockByLevel[i] + 500;
+                        arr[j].indexQueue = int(arr[j].blockByLevel[curCount]);
                     }
                 } else {
-                    arr[j].indexQueue = int(arr[j].blockByLevel[i]);
+                    arr.splice(j, 1);
+                }
+            }
+                g.user.decorShop = false;
+                g.user.decorShiftShop = 0;
+                arr.sortOn("indexQueue", Array.NUMERIC);
+
+        } else if (arr[0].buildType == BuildType.TREE) {
+            for (j = 0; j < arr.length; j++) {
+                if (arr[j].visibleAction) {
+                    arAdded = g.townArea.getCityObjectsById(arr[j].id);
+                    maxCount = 0;
+                    for (i = 0; arr[j].blockByLevel.length; i++) {
+                        if (arr[j].blockByLevel[i] <= g.user.level) {
+                            maxCount += arr[j].countUnblock;
+                        } else break;
+                    }
+                    curCount = arAdded.length;
+                    if (curCount >= maxCount) {
+                        if (i == arr[j].blockByLevel.length) {
+                            arr[j].indexQueue = arr[j].blockByLevel[0] + 1000;
+                        } else {
+                            arr[j].indexQueue = arr[j].blockByLevel[i] + 500;
+                        }
+                    } else {
+                        arr[j].indexQueue = int(arr[j].blockByLevel[i]);
+                    }
+
+                } else {
+                    arr.splice(j,1);
                 }
             }
             g.user.decorShop = false;
@@ -198,7 +208,11 @@ public class ShopList {
                 arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL || arr[0].buildType == BuildType.DECOR_FENCE_ARKA ||
                 arr[0].buildType == BuildType.DECOR_FENCE_GATE) {
             for (j = 0; j < arr.length; j++) {
-                arr[j].indexQueue = int(arr[j].blockByLevel[0]);
+                if (arr[j].visibleAction) {
+                    arr[j].indexQueue = int(arr[j].blockByLevel[0]);
+                } else {
+                    arr.splice(j,1);
+                }
             }
             if (!g.user.decorShop) g.user.decorShop = true;
             arr.sortOn("indexQueue", Array.NUMERIC);
