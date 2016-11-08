@@ -119,6 +119,7 @@ public class ShopList {
                     }
                 } else {
                     arr.splice(j, 1);
+                    j--;
                 }
             }
                 g.user.decorShop = false;
@@ -148,6 +149,7 @@ public class ShopList {
 
                 } else {
                     arr.splice(j,1);
+                    j--;
                 }
             }
             g.user.decorShop = false;
@@ -207,11 +209,12 @@ public class ShopList {
         } else if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_ANIMATION || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
                 arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL || arr[0].buildType == BuildType.DECOR_FENCE_ARKA ||
                 arr[0].buildType == BuildType.DECOR_FENCE_GATE) {
-            for (j = 0; j < arr.length; j++) {
+            for (j = 0; j <arr.length; j++) {
                 if (arr[j].visibleAction) {
                     arr[j].indexQueue = int(arr[j].blockByLevel[0]);
                 } else {
                     arr.splice(j,1);
+                    j--;
                 }
             }
             if (!g.user.decorShop) g.user.decorShop = true;
