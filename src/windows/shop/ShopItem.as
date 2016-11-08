@@ -70,10 +70,6 @@ public class ShopItem {
     private var _radioButton:DecorRadioButton;
 
     public function ShopItem(data:Object, wo:WOShop, pos:int) {
-//        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_FULL_FENСE
-//                || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_TAIL|| _data.buildType == BuildType.FABRICA || _data.buildType == BuildType.FARM || data.buildType == BuildType.TREE) {
-//            if (!_data.visibleAction) return;
-//        }
         _arrImages = [];
         _positionInList = pos;
         _wo = wo;
