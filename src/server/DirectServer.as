@@ -635,7 +635,7 @@ public class DirectServer {
                             g.allData.addToDecorGroup(obj);
                         }
                     }
-
+                obj.visibleAction = true;
                 if (g.user.isTester) g.dataBuilding.objectBuilding[obj.id] = obj;
                 else if (d.message[i].visible == 0 ) {
                     var startDayNumber:int = int(d.message[i].start_action);
