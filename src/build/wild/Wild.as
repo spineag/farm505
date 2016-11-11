@@ -222,7 +222,7 @@ public class Wild extends WorldObject{
                 g.treeHint.managerHide(callbackClose);
                 return;
             }
-            if (_isOnHover)  {
+//            if (_isOnHover)  {
                 onOut();
                 g.wildHint.onDelete = wildDelete;
                 var newX:int;
@@ -273,7 +273,7 @@ public class Wild extends WorldObject{
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
                 }
                 g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId,_dataBuild.name,onOut);
-            }
+//            }
         } else {
             Cc.error('Wild:: unknown g.toolsModifier.modifierType')
         }

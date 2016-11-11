@@ -259,6 +259,10 @@
             <filename>well_white.png</filename>
             <filename>well_yellow.png</filename>
             <filename>white_fence</filename>
+            <filename>fir_3.png</filename>
+            <filename>fir_4.png</filename>
+            <filename>garden_gnome_blue_hat.png</filename>
+            <filename>garden_gnome_red_hat.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
