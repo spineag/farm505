@@ -256,6 +256,7 @@ public class SN_OK extends SocialNetwork {
 
     override public function showInviteWindow():void {
 //        Odnoklassniki.showInvite("Приглашаю посетить игру Умелые Лапки.");
+        ExternalInterface.call("showInviteWindowAll");
     }
 
     override public function showOrderWindow(e:Object):void {

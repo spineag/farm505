@@ -143,7 +143,7 @@ public class SN_Vkontakte extends SocialNetwork {
             }
             if (b) addNoAppFriend(e[key]);
         }
-        super.getFriendsSuccess(e.length);
+        super.getFriendsSuccess('x');
     }
 
     // friends in App

@@ -4,6 +4,8 @@
 package windows.inviteFriends {
 import manager.ManagerFilters;
 
+import social.SocialNetworkEvent;
+
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -69,12 +71,16 @@ public class WOInviteFriends extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void{
-        createFriend();
-        g.socialNetwork.getAllFriends();
-        super.showIt();
+        if (g.user.arrNoAppFriend.length) {
+            createFriend();
+        } else {
+            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS, createFriend);
+            g.socialNetwork.getAllFriends();
+        }
     }
 
-    private function createFriend():void {
+    private function createFriend(e:SocialNetworkEvent=null):void {
+        if (g.socialNetwork.hasEventListener(SocialNetworkEvent.GET_FRIENDS)) g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS, createFriend);
         var item:WOInviteFriendsItem;
         for (var i:int = 0; i < g.user.arrNoAppFriend.length; i++) {
             item = new WOInviteFriendsItem(g.user.arrNoAppFriend[i]);
@@ -84,6 +90,7 @@ public class WOInviteFriends extends WindowMain {
         _source.addChild(_scrollSprite.source);
         _scrollSprite.source.x = -140;
         _scrollSprite.source.y = -150;
+        super.showIt();
     }
 
     private function onClick():void {
@@ -93,7 +100,7 @@ public class WOInviteFriends extends WindowMain {
                 arr.push(_arrItem[i].data.userSocialId);
             }
         }
-        g.socialNetwork.requestBoxArray(arr,'ЭЙ БРАТТТТ ФЮЮЮЮЮЮ ДАВАЙ ИГРАТЬ БРААТТ','1');
+        g.socialNetwork.requestBoxArray(arr,'Приглашаю играть со мной в Умелых Лапках!','1');
     }
 
 
