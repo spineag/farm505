@@ -118,7 +118,7 @@ public class WOMarket  extends WindowMain {
         _btnRefresh.x = -320;
         _btnRefresh.y = 155;
 //        _source.addChild(_btnRefresh);
-        _btnRefresh.endClickCallback = makeRefresh;
+//        _btnRefresh.endClickCallback = makeRefresh;
         _btnRefresh.hoverCallback =  function():void { };
         _callbackClickBG = hideIt;
 //        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
@@ -418,8 +418,12 @@ public class WOMarket  extends WindowMain {
                 else _arrItems[i].friendAdd(false);
             }
             for (i = 0; i < _curUser.marketItems.length; i++) {
-                if (_curUser.marketItems[i].numberCell == _arrItems.length)  _arrItems[_curUser.marketItems[i].numberCell-1].fillFromServer(_curUser.marketItems[i], _curUser);
-                else _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
+                if (_curUser.marketItems[i].numberCell == _arrItems.length) {
+                    _arrItems[_curUser.marketItems[i].numberCell-1].fillFromServer(_curUser.marketItems[i], _curUser);
+                }
+                else {
+                    _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
+                }
             }
 
             if (_shiftFriend != 0) goToItemFromPaper();
@@ -469,7 +473,9 @@ public class WOMarket  extends WindowMain {
 
     public function refreshMarket():void {
         for (var i:int=0; i< _arrItems.length; i++) {
-            if(!_arrItems[i].number) break;
+            if(!_arrItems[i].number) {
+                break;
+            }
             _arrItems[i].unFillIt();
         }
         g.directServer.getUserMarketItem(_curUser.userSocialId, fillItems);
