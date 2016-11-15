@@ -234,23 +234,23 @@ public class SN_OK extends SocialNetwork {
 
     // https://apiok.ru/dev/methods/rest/mediatopic/mediatopic.post
     override public function wallPost(uid:String, message:String, image:DisplayObject, url:String = null, title:String = null, posttype:String = null, idObj:String = '0'):void {
-        _wallRequest = {method: "stream.publish", message: message};
-        if (uid) {
-            _wallRequest.uid = uid;
-        }
-
-//        url = url || "ok/icon.jpg";
-        title = title || "Умелые Лапки";
-
-        _wallRequest.attachment = JSONuse.encode({caption: title, media: [
-            {href: "link", src: url, "type": "image"}
-        ]});
-        _wallRequest.action_links = JSONuse.encode([
-            {text: "Посмотреть..."}
-        ]);
+//        _wallRequest = {method: "stream.publish", message: message};
+//        if (uid) {
+//            _wallRequest.uid = uid;
+//        }
+//        title = title || "Умелые Лапки";
+//
+//        _wallRequest.attachment = JSONuse.encode({caption: title, media: [
+//            {href: "link", src: url, "type": "image"}
+//        ]});
+//        _wallRequest.action_links = JSONuse.encode([
+//            {text: "Посмотреть..."}
+//        ]);
 //        _wallRequest = Odnoklassniki.getSignature(_wallRequest, false);
 //        Odnoklassniki.showConfirmation("stream.publish", message, _wallRequest.sig);
         super.wallPost(uid, message, image, url, title, posttype);
+
+        ExternalInterface.call("makeWallPost", uid, message, url);
     }
 
     override public function requestBox(uid:String, message:String, requestKey:String):void {
