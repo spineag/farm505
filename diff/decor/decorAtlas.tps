@@ -263,6 +263,7 @@
             <filename>fir_4.png</filename>
             <filename>garden_gnome_blue_hat.png</filename>
             <filename>garden_gnome_red_hat.png</filename>
+            <filename>sled.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

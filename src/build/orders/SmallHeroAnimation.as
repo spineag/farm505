@@ -76,9 +76,12 @@ public class SmallHeroAnimation {
 
     private function fEnd(e:Event=null):void {
         if (_isHas) {
-            _arma.animation.gotoAndPlayByFrame('idle_6');
+//            _arma.animation.gotoAndPlayByFrame('idle_6');
+            _arma.animation.gotoAndPlayByFrame('tabl_on');
+
         } else {
-            _arma.animation.gotoAndPlayByFrame(_arrLabels[int(Math.random()*7)]);
+//            _arma.animation.gotoAndPlayByFrame(_arrLabels[int(Math.random()*7)]);
+            _arma.animation.gotoAndPlayByFrame('tabl');
         }
     }
 

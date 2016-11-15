@@ -302,6 +302,7 @@
             <filename>fir_4_icon.png</filename>
             <filename>garden_gnome_blue_hat_icon.png</filename>
             <filename>garden_gnome_red_hat_icon.png</filename>
+            <filename>sled_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
