@@ -2,6 +2,9 @@ package social.ok {
 import com.adobe.images.JPGEncoder;
 import com.adobe.serialization.json.JSONuse;
 import com.junkbyte.console.Cc;
+
+import data.DataMoney;
+
 import flash.display.Bitmap;
 import flash.display.DisplayObject;
 import flash.events.Event;
@@ -231,23 +234,23 @@ public class SN_OK extends SocialNetwork {
 
     // https://apiok.ru/dev/methods/rest/mediatopic/mediatopic.post
     override public function wallPost(uid:String, message:String, image:DisplayObject, url:String = null, title:String = null, posttype:String = null, idObj:String = '0'):void {
-        _wallRequest = {method: "stream.publish", message: message};
-        if (uid) {
-            _wallRequest.uid = uid;
-        }
-
-//        url = url || "ok/icon.jpg";
-        title = title || "Умелые Лапки";
-
-        _wallRequest.attachment = JSONuse.encode({caption: title, media: [
-            {href: "link", src: url, "type": "image"}
-        ]});
-        _wallRequest.action_links = JSONuse.encode([
-            {text: "Посмотреть..."}
-        ]);
+//        _wallRequest = {method: "stream.publish", message: message};
+//        if (uid) {
+//            _wallRequest.uid = uid;
+//        }
+//        title = title || "Умелые Лапки";
+//
+//        _wallRequest.attachment = JSONuse.encode({caption: title, media: [
+//            {href: "link", src: url, "type": "image"}
+//        ]});
+//        _wallRequest.action_links = JSONuse.encode([
+//            {text: "Посмотреть..."}
+//        ]);
 //        _wallRequest = Odnoklassniki.getSignature(_wallRequest, false);
 //        Odnoklassniki.showConfirmation("stream.publish", message, _wallRequest.sig);
         super.wallPost(uid, message, image, url, title, posttype);
+
+        ExternalInterface.call("makeWallPost", uid, message, url);
     }
 
     override public function requestBox(uid:String, message:String, requestKey:String):void {
@@ -260,38 +263,30 @@ public class SN_OK extends SocialNetwork {
     }
 
     override public function showOrderWindow(e:Object):void {
-//        var currencyName:String = e.isMoney ? g.language.buildingHint.money : g.language.buildingHint.bucks;
-//        currencyName = " " + currencyName + " ";
-//        var bonusText:String = uint(e.bonus) > 0 ? "+" + String(e.bonus) + " " + g.language.addCoinsWindow.superPrice : "";
-//        var param:Object = {};
-//        param.service_id = e.id;
-//        param.service_name = uint(e.count) + currencyName + bonusText;
-//        param.ok_price = e.price;
-//
-//        if (e.pack && e.pack.length > 0) {
-//            param.service_name = "";
-//            for (var i:int = 0; i < e.pack.length; i++) {
-//                var object:Object = e.pack[i];
-//
-//                i && (param.service_name += " + ");
-//
-//                switch (object.resource_id){
-//                    case "1":
-//                        param.service_name += object.resource_count + " " + g.language.buildingHint.money;
-//                        break;
-//                    case "2":
-//                        param.service_name += object.resource_count + " " + g.language.buildingHint.bucks;
-//                        break;
-//                    case "7":
-//                        param.service_name += g.language.starterPackWindow.energy;
-//                        break;
-//                }
-//
-//            }
-//        }
-
-//        ExternalInterface.call("makePayment", 0, e.price, param.service_name, e.id);
-//
+        var st:String ='';
+        try {
+            var ar:Array = g.allData.dataBuyMoney;
+            for (var i:int = 0; i < ar.length; i++) {
+                if (ar[i].id == e.id) {
+                    e.type = ar[i].typeMoney;
+                    e.price = ar[i].cost;
+                    e.count = ar[i].count;
+                    st += String(e.count) + ' ';
+                    if (e.type == DataMoney.SOFT_CURRENCY) st += 'монет';
+                        else st += 'рубинов';
+                    break;
+                }
+            }
+            if (!e.type) {
+                Cc.error('OK showOrderWindow:: unknown money pack');
+            } else {
+                Cc.ch('social', 'try makePayment:');
+                Cc.obj('social', e);
+                ExternalInterface.call("makePayment", st, 'Хорошая идея!', e.id, e.price);
+            }
+        } catch(e:Error) {
+            Cc.error('OK showOrderWindow:: error: ' + e.message);
+        }
 //        Odnoklassniki.showPayment(param.service_name, param.service_name, e.id, e.price, null, null, null, "true");
     }
 
@@ -317,20 +312,20 @@ public class SN_OK extends SocialNetwork {
     }
 
     private function onGetAlbums(data:Object):void {
-        var arr:Array = data.albums;
-        for (var i:int = 0; i < arr.length; i++) {
-            if (arr[i].title == "Птичий Городок") {
-                _isAlbum = true;
-                _idAlbum = String(arr[i].aid);
-                Cc.ch("OK", "album is finding with id: " + _idAlbum,+  2);
-                uploadScreenshot();
-                return;
-            }
-        }
-        if (!_isAlbum) {
-            Cc.ch("OK", "create album", 9);
-//            Photos.createAlbum("Птичий Городок", "public", onCreateAlbum);
-        }
+//        var arr:Array = data.albums;
+//        for (var i:int = 0; i < arr.length; i++) {
+//            if (arr[i].title == "Птичий Городок") {
+//                _isAlbum = true;
+//                _idAlbum = String(arr[i].aid);
+//                Cc.ch("OK", "album is finding with id: " + _idAlbum,+  2);
+//                uploadScreenshot();
+//                return;
+//            }
+//        }
+//        if (!_isAlbum) {
+//            Cc.ch("OK", "create album", 9);
+////            Photos.createAlbum("Птичий Городок", "public", onCreateAlbum);
+//        }
     }
 
     private function onCreateAlbum(data:String):void {
@@ -346,36 +341,36 @@ public class SN_OK extends SocialNetwork {
     }
 
     private function takeUploadUrl(data:Object):void {
-        var loader:URLLoader = new URLLoader();
-        var _bitmapScreenShot:Bitmap;
-        var url:String;
-
-        Cc.obj("OK", data, "takeUploadUrl data: ", 6);
-        if (!data.upload_url) {
-            return;
-        }
-
-        url = data.upload_url;
-
-        _idPhoto = data.photo_ids[0];
-
-        _bitmapScreenShot = makeScreenShot();
-        if (!_bitmapScreenShot) {
-            return;
-        }
-
-        var form:Multipart = new Multipart(url);
-        var enc:JPGEncoder = new JPGEncoder(80);
-        var jpg:ByteArray = enc.encode(_bitmapScreenShot.bitmapData);
-        form.addFile("file1", jpg, "application/octet-stream", "Screenshot.jpg");
-
-        loader.addEventListener(Event.COMPLETE, photoLoadedToOKAlbum);
-        try {
-            Cc.ch("OK", "after loading", 5);
-            loader.load(form.request);
-        } catch (error:Error) {
-            Cc.ch("OK", "Problem with save screenshot to album on OK: " + error.message, 9);
-        }
+//        var loader:URLLoader = new URLLoader();
+//        var _bitmapScreenShot:Bitmap;
+//        var url:String;
+//
+//        Cc.obj("OK", data, "takeUploadUrl data: ", 6);
+//        if (!data.upload_url) {
+//            return;
+//        }
+//
+//        url = data.upload_url;
+//
+//        _idPhoto = data.photo_ids[0];
+//
+//        _bitmapScreenShot = makeScreenShot();
+//        if (!_bitmapScreenShot) {
+//            return;
+//        }
+//
+//        var form:Multipart = new Multipart(url);
+//        var enc:JPGEncoder = new JPGEncoder(80);
+//        var jpg:ByteArray = enc.encode(_bitmapScreenShot.bitmapData);
+//        form.addFile("file1", jpg, "application/octet-stream", "Screenshot.jpg");
+//
+//        loader.addEventListener(Event.COMPLETE, photoLoadedToOKAlbum);
+//        try {
+//            Cc.ch("OK", "after loading", 5);
+//            loader.load(form.request);
+//        } catch (error:Error) {
+//            Cc.ch("OK", "Problem with save screenshot to album on OK: " + error.message, 9);
+//        }
     }
 
     private function photoLoadedToOKAlbum(e:Event):void {

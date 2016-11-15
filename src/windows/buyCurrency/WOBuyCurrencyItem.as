@@ -15,6 +15,7 @@ import manager.Vars;
 import resourceItem.DropItem;
 
 import social.SocialNetworkEvent;
+import social.SocialNetworkSwitch;
 
 import starling.core.Starling;
 
@@ -82,7 +83,13 @@ public class WOBuyCurrencyItem {
 
         _btn = new CButton();
         _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-        _txtBtn = new CTextField(120, 30, String(cost) + ' голосов');
+        var valuta:String;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            valuta = ' голосов';
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            valuta = ' OK';
+        }
+        _txtBtn = new CTextField(120, 30, String(cost) + valuta);
         _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtBtn.y = 6;
         _btn.addChild(_txtBtn);
