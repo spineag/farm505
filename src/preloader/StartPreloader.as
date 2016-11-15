@@ -36,6 +36,8 @@ public class StartPreloader {
     private var _armature:Armature;
     private var _quad:Quad;
     private var _txt:CTextField;
+    private var _leftIm:Quad;
+    private var _rightIm:Quad;
 
     private var g:Vars = Vars.getInstance();
 
@@ -67,12 +69,39 @@ public class StartPreloader {
     }
 
     public function showIt():void {
+        onResize();
         g.cont.popupCont.addChild(_source);
     }
 
     public function setProgress(a:int):void {
         _quad.scaleX = a;
         _txt.text = String(a + '%');
+    }
+
+    public function onResize():void {
+        _source.x = g.managerResize.stageWidth/2 - 500;
+        addIms();
+    }
+
+    private function addIms():void {
+        if (_leftIm) {
+            if (_source.contains(_leftIm)) _source.removeChild(_leftIm);
+            _leftIm.dispose();
+        }
+        if (_rightIm) {
+            if (_source.contains(_rightIm)) _source.removeChild(_rightIm);
+            _rightIm.dispose();
+        }
+        var w:int = g.managerResize.stageWidth;
+        if (w < 1000 + 10) return;
+        _leftIm = new Quad(int(w/2 - 500) + 1, 640);
+        _leftIm.x = -_leftIm.width;
+        _source.addChild(_leftIm);
+        _rightIm = new Quad(int(w/2 - 500) + 1, 640);
+        _rightIm.x = 1000;
+        _source.addChild(_rightIm);
+        _leftIm.touchable = false;
+        _rightIm.touchable = false;
     }
 
     public function hideIt():void {

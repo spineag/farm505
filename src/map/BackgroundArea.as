@@ -40,35 +40,8 @@ public class BackgroundArea {
     }
 
     private function fillBG():void {
-//        var arr:Array = g.matrixGrid.matrix;
-//        var arr2:Array;
-//        var tile:BackgroundTile;
-//        var p:Point;
-
-//        for (var i:int = 0; i < arr.length; i++) {
-//            arr2 = arr[i];
-//            for (var j:int = 0; j < arr2.length; j++) {
-//                tile = new BackgroundTile((i+j)%2 + 1, arr2[j].inGame);
-//                p = new Point(i, j);
-//                tile.graphicsSource.pivotX = tile.graphicsSource.width/2;
-//                setTileFromIndex(tile, p);
-//                _cont.addChild(tile.graphicsSource);
-//            }
-//        }
-
         loadBG();
     }
-
-//    private function setTileFromIndex(tile:BackgroundTile, point:Point):void {
-//        var pos:Point3D = new Point3D();
-//        pos.x = point.x * g.matrixGrid.FACTOR;
-//        pos.z = point.y * g.matrixGrid.FACTOR;
-//        var isoPoint:Point = IsoUtils.isoToScreen(pos);
-//        tile.graphicsSource.x = isoPoint.x;
-//        tile.graphicsSource.y = isoPoint.y;
-//        tile.posX = point.x;
-//        tile.posY = point.y;
-//    }
 
     private function loadBG():void {
         var st:String = g.dataPath.getGraphicsPath() + 'map/';

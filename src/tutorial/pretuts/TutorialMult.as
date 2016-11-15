@@ -26,6 +26,9 @@ import starling.textures.Texture;
 import utils.DrawToBitmap;
 
 public class TutorialMult {
+    private var _source:Sprite;
+    private var _leftIm:Quad;
+    private var _rightIm:Quad;
     private var _isLoad:Boolean;
     private var _needStart:Boolean;
     private var _startCallback:Function;
@@ -62,10 +65,12 @@ public class TutorialMult {
     }
 
     private function startMult():void {
+        _source = new Sprite();
         _armature = g.allData.factory['tutorial_mult'].buildArmature('mult');
-        (_armature.display as StarlingArmatureDisplay).x = g.managerResize.stageWidth/2;
-        (_armature.display as StarlingArmatureDisplay).y = g.managerResize.stageHeight/2;
-        g.cont.popupCont.addChild(_armature.display as StarlingArmatureDisplay);
+        (_armature.display as StarlingArmatureDisplay).x = 500;
+        (_armature.display as StarlingArmatureDisplay).y = 320;
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
+        g.cont.popupCont.addChild(_source);
         if (_startCallback != null) {
             _startCallback.apply();
         }
@@ -104,6 +109,34 @@ public class TutorialMult {
         _armature.addEventListener(EventObject.COMPLETE, onIdle1);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onIdle1);
         _armature.animation.gotoAndPlayByFrame('idle');
+        
+        onResize();
+    }
+
+    public function onResize():void {
+        _source.x = g.managerResize.stageWidth/2 - 500;
+        addIms();
+    }
+
+    private function addIms():void {
+        if (_leftIm) {
+            if (_source.contains(_leftIm)) _source.removeChild(_leftIm);
+            _leftIm.dispose();
+        }
+        if (_rightIm) {
+            if (_source.contains(_rightIm)) _source.removeChild(_rightIm);
+            _rightIm.dispose();
+        }
+        var w:int = g.managerResize.stageWidth;
+        if (w < 1000 + 10) return;
+        _leftIm = new Quad(int(w/2 - 500) + 1, 640);
+        _leftIm.x = -_leftIm.width;
+        _source.addChild(_leftIm);
+        _rightIm = new Quad(int(w/2 - 500) + 1, 640);
+        _rightIm.x = 1000;
+        _source.addChild(_rightIm);
+        _leftIm.touchable = false;
+        _rightIm.touchable = false;
     }
 
     private function onIdle1(e:Event=null):void {
@@ -234,7 +267,8 @@ public class TutorialMult {
 
     public function deleteIt():void {
         WorldClock.clock.remove(_armature);
-        g.cont.popupCont.removeChild(_armature.display as Sprite);
+        g.cont.popupCont.removeChild(_source);
+        _source.removeChild(_armature.display as Sprite);
         (g.allData.factory['tutorial_mult'] as StarlingFactory).clear();
         delete g.allData.factory['tutorial_mult'];
         (g.pBitmaps['tutorial_mult_map'] as PBitmap).deleteIt();
@@ -243,6 +277,7 @@ public class TutorialMult {
         _tempBG.deleteIt();
         _boneBlueSprite.dispose();
         _armature.dispose();
+        _source.dispose();
     }
 }
 }

@@ -2167,6 +2167,8 @@ public class ManagerTutorial {
         }
 
         checkDefaults();
+        if (_mult) _mult.onResize();
+        if (_cloud) _cloud.onResize();
 
         var p:Point = new Point();
         var ob:Object;

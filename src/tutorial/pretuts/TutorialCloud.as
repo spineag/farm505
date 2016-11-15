@@ -10,6 +10,7 @@ import loaders.PBitmap;
 import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
+import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
@@ -27,6 +28,8 @@ public class TutorialCloud {
     private var _btn:CButton;
     private var _isClickable:Boolean;
     private var g:Vars = Vars.getInstance();
+    private var _leftIm:Quad;
+    private var _rightIm:Quad;
 
     public function TutorialCloud(f:Function) {
         _callback = f;
@@ -64,6 +67,33 @@ public class TutorialCloud {
         _txtPage.y = 460;
         _source.addChild(_txtPage);
         applyCallback();
+        onResize();
+    }
+
+    public function onResize():void {
+        _source.x = g.managerResize.stageWidth/2 - 500;
+        addIms();
+    }
+
+    private function addIms():void {
+        if (_leftIm) {
+            if (_source.contains(_leftIm)) _source.removeChild(_leftIm);
+            _leftIm.dispose();
+        }
+        if (_rightIm) {
+            if (_source.contains(_rightIm)) _source.removeChild(_rightIm);
+            _rightIm.dispose();
+        }
+        var w:int = g.managerResize.stageWidth;
+        if (w < 1000 + 10) return;
+        _leftIm = new Quad(int(w/2 - 500) + 1, 640);
+        _leftIm.x = -_leftIm.width;
+        _source.addChild(_leftIm);
+        _rightIm = new Quad(int(w/2 - 500) + 1, 640);
+        _rightIm.x = 1000;
+        _source.addChild(_rightIm);
+        _leftIm.touchable = false;
+        _rightIm.touchable = false;
     }
 
     private function applyCallback():void {

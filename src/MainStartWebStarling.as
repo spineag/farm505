@@ -83,7 +83,6 @@ public class MainStartWebStarling extends flash.display.Sprite{
         g.user = new User();
         g.user.userGAcid = String(g.flashVars['gacid']);
         Cc.ch('analytic', 'gacid from flashvars:: ' + g.user.userGAcid);
-        g.managerResize = new ManagerResize();
 
         game = star.root as MainStarling;
         game.addEventListener(MainStarling.LOADED, onLoaded);
@@ -101,6 +100,8 @@ public class MainStartWebStarling extends flash.display.Sprite{
 
         new EmbedAssets(null);
         g.cont = new Containers();
+        g.managerResize = new ManagerResize();
+        g.managerResize.checkResizeOnStart();
         g.startPreloader = new StartPreloader();
         g.startPreloader.showIt();
 

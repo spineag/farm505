@@ -12,14 +12,20 @@ public class ManagerResize {
     private var g:Vars = Vars.getInstance();
     private var _stageWidth:int;
     private var _stageHeight:int;
+    private const DEFAULT_WIDTH:int = 1000;
+    private const DEFAULT_HEIGHT:int = 640;
 
     public function ManagerResize() {
-        _stageWidth = 1000;
-        _stageHeight = 640;
+        _stageWidth = DEFAULT_WIDTH;
+        _stageHeight = DEFAULT_HEIGHT;
         g.mainStage.addEventListener(ResizeEvent.RESIZE, onStageResize);
     }
+    
+    public function checkResizeOnStart():void {
+        onStageResize();
+    }
 
-    private function onStageResize(e:Event):void {
+    private function onStageResize(e:Event=null):void {
         Cc.info('event onStageResize');
         _stageWidth = Starling.current.nativeStage.stageWidth;
         _stageHeight = Starling.current.nativeStage.stageHeight;
@@ -45,6 +51,7 @@ public class ManagerResize {
             if (g.managerCutScenes.isCutScene) g.managerCutScenes.onResize();
             if (g.managerHelpers) g.managerHelpers.onResize();
             if (g.managerVisibleObjects) g.managerVisibleObjects.onResize();
+            if (g.startPreloader) g.startPreloader.onResize();
         } catch (e:Error) {
             Cc.stackch('error', 'error at makeResizeForGame::', 10);
         }
