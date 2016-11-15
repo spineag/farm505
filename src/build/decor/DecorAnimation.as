@@ -209,12 +209,15 @@ public class DecorAnimation extends WorldObject{
                 var fEndOver:Function = function (e:Event = null):void {
                     armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                     armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-                    releaseHeroCatWoman();
                     chooseAnimationArray(null,armature, heroCat);
                 };
                 armature.addEventListener(EventObject.COMPLETE, fEndOver);
                 armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                releaseHeroCatWoman(armature,heroCat);
                 armature.animation.gotoAndPlayByFrame('start');
+            } else {
+                releaseHeroCatWoman();
+                chooseAnimationArray(null,armature, heroCat);
             }
         }
     }
@@ -298,11 +301,11 @@ public class DecorAnimation extends WorldObject{
                     _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                     _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
                     _armature.addEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
-                    releaseHeroCatWoman();
                     chooseAnimation();
                 };
                 _armature.addEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                releaseHeroCatWoman();
                 _armature.animation.gotoAndPlayByFrame('start');
             } else {
                 _armature.addEventListener(EventObject.COMPLETE, chooseAnimation);
@@ -428,101 +431,128 @@ public class DecorAnimation extends WorldObject{
         }
     }
 
-    private function releaseHeroCatWoman():void {
-        if (_heroCat) {
-            if (_heroCat.typeMan == BasicCat.MAN) {
+    private function releaseHeroCatWoman(armature:Armature = null, heroCar:HeroCat = null):void {
+        if (heroCar) {
+            if (heroCar.typeMan == BasicCat.MAN) {
                 if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
-                    releaseManBackTexture();
-                else releaseManFrontTexture();
-            } else if (_heroCat.typeMan == BasicCat.WOMAN) {
+                    releaseManBackTexture(armature);
+                else releaseManFrontTexture(armature);
+            } else if (heroCar.typeMan == BasicCat.WOMAN) {
                 if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
-                    releaseWomanBackTexture();
-                else releaseWomanFrontTexture();
+                    releaseWomanBackTexture(armature);
+                else releaseWomanFrontTexture(armature);
             }
         } else {
-            if (g.isAway) {
-                if (Math.random() < .5) {
+            if (_heroCat) {
+                if (_heroCat.typeMan == BasicCat.MAN) {
                     if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
                         releaseManBackTexture();
                     else releaseManFrontTexture();
-                } else {
+                } else if (_heroCat.typeMan == BasicCat.WOMAN) {
                     if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
                         releaseWomanBackTexture();
                     else releaseWomanFrontTexture();
+                }
+            } else {
+                if (g.isAway) {
+                    if (Math.random() < .5) {
+                        if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                            releaseManBackTexture();
+                        else releaseManFrontTexture();
+                    } else {
+                        if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                            releaseWomanBackTexture();
+                        else releaseWomanFrontTexture();
+                    }
                 }
             }
         }
     }
 
-    private function releaseManFrontTexture():void {
+    private function releaseManFrontTexture(armature:Armature = null):void {
         if (!_armature) return;
-        changeTexture("head", "head");
-        changeTexture("body", "body");
-        changeTexture("handLeft", "hand_l");
-        changeTexture("legLeft", "leg_l");
-        changeTexture("handRight", "hand_r");
-        changeTexture("legRight", "leg_r");
-        changeTexture("tail", "tail");
+        changeTexture("head", "head",armature);
+        changeTexture("body", "body",armature);
+        changeTexture("handLeft", "hand_l",armature);
+        changeTexture("legLeft", "leg_l",armature);
+        changeTexture("handRight", "hand_r",armature);
+        changeTexture("legRight", "leg_r",armature);
+        changeTexture("tail", "tail",armature);
         if (_dataBuild.id == 10) {
-            changeTexture("handRight2", "hand_r");
+            changeTexture("handRight2", "hand_r",armature);
         }
-        var viyi:Bone = _armature.getBone('viyi'); {
+        var viyi:Bone;
+        if (armature)  viyi = armature.getBone('viyi');
+        else viyi = _armature.getBone('viyi');
             if (viyi) {
                 viyi.visible = false;
             }
-        }
     }
 
-    private function releaseManBackTexture():void {
-        changeTexture("head", "head_b");
-        changeTexture("body", "body_b");
-        changeTexture("handLeft", "hand_l_b");
-        changeTexture("legLeft", "leg_l_b");
-        changeTexture("handRight", "hand_r_b");
-        changeTexture("legRight", "leg_r_b");
-        changeTexture("tail", "tail");
+    private function releaseManBackTexture(armature:Armature = null):void {
+        changeTexture("head", "head_b",armature);
+        changeTexture("body", "body_b",armature);
+        changeTexture("handLeft", "hand_l_b",armature);
+        changeTexture("legLeft", "leg_l_b",armature);
+        changeTexture("handRight", "hand_r_b",armature);
+        changeTexture("legRight", "leg_r_b",armature);
+        changeTexture("tail", "tail",armature);
         if (_dataBuild.id == 10) {
-            changeTexture("handRight2", "hand_r_b");
+            changeTexture("handRight2", "hand_r_b",armature);
         }
     }
 
-    private function releaseWomanFrontTexture():void {
+    private function releaseWomanFrontTexture(armature:Armature = null):void {
         if (!_armature) return;
-        changeTexture("head", "head_w");
-        changeTexture("body", "body_w");
-        changeTexture("handLeft", "hand_w_l");
-        changeTexture("legLeft", "leg_w_r");
-        changeTexture("handRight", "hand_w_r");
-        changeTexture("legRight", "leg_w_r");
-        changeTexture("tail", "tail_w");
+        changeTexture("head", "head_w",armature);
+        changeTexture("body", "body_w",armature);
+        changeTexture("handLeft", "hand_w_l",armature);
+        changeTexture("legLeft", "leg_w_r",armature);
+        changeTexture("handRight", "hand_w_r",armature);
+        changeTexture("legRight", "leg_w_r",armature);
+        changeTexture("tail", "tail_w",armature);
         if (_dataBuild.id == 10) {
-            changeTexture("handRight2", "hand_w_r");
+            changeTexture("handRight2", "hand_w_r",armature);
         }
-        var viyi:Bone = _armature.getBone('viyi'); {
+        var viyi:Bone;
+        if (armature)  viyi = armature.getBone('viyi');
+        else viyi = _armature.getBone('viyi');
             if (viyi) {
                 viyi.visible = true;
             }
-        }
+
     }
 
-    private function releaseWomanBackTexture():void {
-        changeTexture("head", "head_w_b");
-        changeTexture("body", "body_w_b");
-        changeTexture("handLeft", "hand_w_l_b");
+    private function releaseWomanBackTexture(armature:Armature = null):void {
+        changeTexture("head", "head_w_b",armature);
+        changeTexture("body", "body_w_b",armature);
+        changeTexture("handLeft", "hand_w_l_b",armature);
         changeTexture("legLeft", "leg_w_l_b");
-        changeTexture("handRight", "hand_w_r_b");
-        changeTexture("legRight", "leg_w_r_b");
-        changeTexture("tail", "tail_w");
+        changeTexture("handRight", "hand_w_r_b",armature);
+        changeTexture("legRight", "leg_w_r_b",armature);
+        changeTexture("tail", "tail_w",armature);
     }
 
-    private function changeTexture(oldName:String, newName:String):void {
-        var im:Image = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
-        if (_armature) var b:Slot = _armature.getSlot(oldName);
-        if (im && b) {
-            b.displayList = null;
-            b.display = im;
+    private function changeTexture(oldName:String, newName:String,armature:Armature = null):void {
+        var im:Image;
+        if (armature) {
+            im = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
+            if (armature) var b:Slot = armature.getSlot(oldName);
+            if (im && b) {
+                b.displayList = null;
+                b.display = im;
+            } else {
+                Cc.error('DecorAnimation changeTexture:: null Bone for oldName= ' + oldName + ' for decorId= ' + String(_dataBuild.id));
+            }
         } else {
-            Cc.error('DecorAnimation changeTexture:: null Bone for oldName= '+oldName + ' for fabricaId= '+String(_dataBuild.id));
+            im = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
+            if (_armature) var b:Slot = _armature.getSlot(oldName);
+            if (im && b) {
+                b.displayList = null;
+                b.display = im;
+            } else {
+                Cc.error('DecorAnimation changeTexture:: null Bone for oldName= ' + oldName + ' for decorId= ' + String(_dataBuild.id));
+            }
         }
     }
 

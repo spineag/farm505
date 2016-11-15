@@ -796,14 +796,14 @@ public class WOMarket  extends WindowMain {
     public function checkArrow():void {
         _txtNumberPage.text = String(_countPage + '/' + _countAllPage);
         if (_shift == 0) {
-            _leftBtn.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+            if (_leftBtn) _leftBtn.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
         } else {
-            _leftBtn.filter = null;
+            if (_leftBtn) _leftBtn.filter = null;
         }
         if ((_shift+4)*2 >= _arrItems.length) {
-            _rightBtn.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
+            if (_rightBtn) _rightBtn.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
         } else {
-            _rightBtn.filter = null;
+            if (_rightBtn) _rightBtn.filter = null;
         }
     }
 
