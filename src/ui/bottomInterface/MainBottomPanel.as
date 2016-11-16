@@ -372,12 +372,13 @@ public class MainBottomPanel {
     }
 
     public function onResize():void {
+        if (!_source) return;
         _source.x = g.managerResize.stageWidth - 271;
         _source.y = g.managerResize.stageHeight - 83;
     }
 
     public function onResizePanelFriend():void {
-        _friendBoard.x = g.managerResize.stageWidth/2 - 121;
+        if (_friendBoard) _friendBoard.x = g.managerResize.stageWidth/2 - 121;
     }
 
     public function cancelBoolean(b:Boolean):void {

@@ -35,20 +35,20 @@ public class ManagerResize {
         g.mainStage.stageHeight = _stageHeight;
 
         try {
-            g.cont.onResize();
-            g.bottomPanel.onResize();
-            g.bottomPanel.onResizePanelFriend();
-            g.craftPanel.onResize();
-            g.friendPanel.onResize();
-            g.toolsPanel.onResize();
-            g.xpPanel.onResize();
-            g.catPanel.onResize();
-            g.windowsManager.onResize();
-            g.optionPanel.onResize();
-            g.stock.onResize();
+            if (g.cont) g.cont.onResize();
+            if (g.bottomPanel) g.bottomPanel.onResize();
+            if (g.bottomPanel) g.bottomPanel.onResizePanelFriend();
+            if (g.craftPanel) g.craftPanel.onResize();
+            if (g.friendPanel) g.friendPanel.onResize();
+            if (g.toolsPanel) g.toolsPanel.onResize();
+            if (g.xpPanel) g.xpPanel.onResize();
+            if (g.catPanel) g.catPanel.onResize();
+            if (g.windowsManager) g.windowsManager.onResize();
+            if (g.optionPanel) g.optionPanel.onResize();
+            if (g.stock) g.stock.onResize();
             if (g.managerTips) g.managerTips.onResize();
-            if (g.managerTutorial.isTutorial) g.managerTutorial.onResize();
-            if (g.managerCutScenes.isCutScene) g.managerCutScenes.onResize();
+            if (g.managerTutorial && g.managerTutorial.isTutorial) g.managerTutorial.onResize();
+            if (g.managerCutScenes && g.managerCutScenes.isCutScene) g.managerCutScenes.onResize();
             if (g.managerHelpers) g.managerHelpers.onResize();
             if (g.managerVisibleObjects) g.managerVisibleObjects.onResize();
             if (g.startPreloader) g.startPreloader.onResize();

@@ -94,6 +94,7 @@ public class ToolsPanel {
     }
 
     public function onResize():void {
+        if (!_source) return;
         if (_source.visible) {
             _source.x = g.managerResize.stageWidth - 480;
         } else {

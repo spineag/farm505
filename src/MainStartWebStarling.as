@@ -19,6 +19,9 @@ import loaders.EmbedAssets;
 import manager.ManagerResize;
 import map.Containers;
 import manager.Vars;
+
+import map.MatrixGrid;
+
 import preloader.StartPreloader;
 import starling.core.Starling;
 import starling.events.Event;
@@ -100,6 +103,8 @@ public class MainStartWebStarling extends flash.display.Sprite{
 
         new EmbedAssets(null);
         g.cont = new Containers();
+        g.matrixGrid = new MatrixGrid();
+        g.matrixGrid.createMatrix();
         g.managerResize = new ManagerResize();
         g.managerResize.checkResizeOnStart();
         g.startPreloader = new StartPreloader();
