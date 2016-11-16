@@ -79,6 +79,7 @@ public class StartPreloader {
     }
 
     public function onResize():void {
+        if (!_source) return;
         _source.x = g.managerResize.stageWidth/2 - 500;
         addIms();
     }

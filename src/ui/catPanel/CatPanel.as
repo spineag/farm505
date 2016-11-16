@@ -67,6 +67,7 @@ public class CatPanel {
     }
 
     public function onResize():void {
+        if (!_source) return;
         _source.y = 77;
         _source.x = g.managerResize.stageWidth - 108;
     }

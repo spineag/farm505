@@ -315,6 +315,7 @@ public class OptionPanel {
     }
 
     public function onResize():void {
+        if (!_source) return;
         _source.x = g.managerResize.stageWidth;
         _source.y = g.managerResize.stageHeight - 493;
         if (_source.visible) _source.x -= 58;

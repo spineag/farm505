@@ -74,6 +74,7 @@ public class XPPanel {
     }
 
     public function onResize():void {
+        if (!_source) return;
         _source.y = 17;
         _source.x = g.managerResize.stageWidth - 170;
     }

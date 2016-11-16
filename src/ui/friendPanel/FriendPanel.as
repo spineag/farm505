@@ -154,6 +154,7 @@ public class FriendPanel {
     }
 
     public function onResize():void {
+        if (!_source) return;
         _source.x = g.managerResize.stageWidth - 740;
         if (_source.visible) {
             _source.y = g.managerResize.stageHeight - 89;

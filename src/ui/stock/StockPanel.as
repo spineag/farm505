@@ -46,6 +46,7 @@ public class StockPanel {
     }
 
     public function onResize():void {
+        if (!_source) return;
         _source.y = 12;
         _source.x = g.managerResize.stageWidth - 240;
     }

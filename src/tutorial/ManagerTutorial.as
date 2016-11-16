@@ -2158,6 +2158,7 @@ public class ManagerTutorial {
 
     public function onResize():void {
         Cc.info('tuts: onResize with _subStep: ' + _subStep);
+        if (_subStep < 1) return;
         if (black) {
             removeBlack();
             addBlack();

@@ -245,8 +245,6 @@ public class Vars {
             userTimer = new UserTimer();
             gameDispatcher = new FarmDispatcher(mainStage);
 
-            matrixGrid = new MatrixGrid();
-            matrixGrid.createMatrix();
             townArea = new TownArea();
             farmGrid = new FarmGrid();
             managerDailyBonus = new ManagerDailyBonus();

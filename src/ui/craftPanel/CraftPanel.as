@@ -72,7 +72,7 @@ public class CraftPanel {
     }
 
     public function onResize():void {
-        _source.x = g.managerResize.stageWidth/2;
+        if (_source) _source.x = g.managerResize.stageWidth/2;
     }
 
     public function showIt(place:int):void {
