@@ -35,6 +35,7 @@ import loaders.DataPath;
 
 import loaders.LoadAnimationManager;
 import loaders.LoaderManager;
+import loaders.allLoadMb.AllLoadMb;
 
 import manager.hitArea.ManagerHitArea;
 import map.BackgroundArea;
@@ -124,6 +125,7 @@ public class Vars {
     public var managerPaper:ManagerPaper;
     public var managerChest:ManagerChest;
     public var lateAction:ManagerLateAction;
+    public var loadMb:AllLoadMb;
     public var load:LoaderManager;
     public var loadAnimation:LoadAnimationManager;
     public var pBitmaps:Object;
@@ -511,9 +513,9 @@ public class Vars {
                 startPreloader.hideIt();
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
-                if ((user as User).level >= 4 && (user as User).level < 10) {
-                    if (!managerTips) managerTips = new ManagerTips();
-                }
+//                if ((user as User).level >= 4 && (user as User).level < 10) {
+//                    if (!managerTips) managerTips = new ManagerTips();
+//                }
                 if ((user as User).level >= 5) {
                     managerQuest.checkQuestsOnStart();
                     managerQuest.checkQuestContPosition();

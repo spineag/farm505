@@ -535,9 +535,10 @@ public class DecorAnimation extends WorldObject{
 
     private function changeTexture(oldName:String, newName:String,armature:Armature = null):void {
         var im:Image;
+        var b:Slot;
         if (armature) {
             im = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
-            if (armature) var b:Slot = armature.getSlot(oldName);
+            if (armature) b = armature.getSlot(oldName);
             if (im && b) {
                 b.displayList = null;
                 b.display = im;
@@ -546,7 +547,7 @@ public class DecorAnimation extends WorldObject{
             }
         } else {
             im = new Image(g.allData.atlas['customisationAtlas'].getTexture(newName));
-            if (_armature) var b:Slot = _armature.getSlot(oldName);
+            if (_armature) b = _armature.getSlot(oldName);
             if (im && b) {
                 b.displayList = null;
                 b.display = im;

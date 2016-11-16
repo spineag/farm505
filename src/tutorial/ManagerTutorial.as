@@ -2124,7 +2124,7 @@ public class ManagerTutorial {
             cat = null;
         }
         TUTORIAL_ON = false;
-        if (!g.managerTips) g.managerTips = new ManagerTips(true);
+//        if (!g.managerTips) g.managerTips = new ManagerTips(true);
         if (g.managerOrder) g.managerOrder.showSmallHeroAtOrder(true);
     }
 

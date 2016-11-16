@@ -7,6 +7,8 @@ import loaders.EmbedAssets;
 import loaders.LoadAnimationManager;
 import loaders.LoadComponents;
 import loaders.LoaderManager;
+import loaders.allLoadMb.AllLoadMb;
+
 import manager.Vars;
 import manager.hitArea.ManagerHitArea;
 import server.DirectServer;
@@ -24,6 +26,7 @@ public class MainStarling extends Sprite {
     public function start() : void
     {
         g.dataPath = new DataPath();
+        g.loadMb = new AllLoadMb();
         g.load = LoaderManager.getInstance();
         g.pBitmaps = {};
         g.pXMLs = {};

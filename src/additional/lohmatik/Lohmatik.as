@@ -15,6 +15,9 @@ import flash.geom.Point;
 import manager.Vars;
 import manager.hitArea.ManagerHitArea;
 import manager.hitArea.OwnHitArea;
+
+import media.SoundConst;
+
 import resourceItem.DropItem;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -70,6 +73,16 @@ public class Lohmatik {
         }
     }
 
+    public function goLohToXYPoint(p:Point, time:int, callbackOnWalking:Function):void {
+        new TweenMax(_source, time, {x:p.x, y:p.y, ease:Linear.easeNone, onComplete: onGotLohToXYPoint, onCompleteParams:[callbackOnWalking]});
+    }
+
+    private function onGotLohToXYPoint(f:Function) :void {
+        if (f != null) {
+            f.apply(null, [this]);
+        }
+    }
+
     public function setPosition(p:Point):void {
         _posX = p.x;
         _posY = p.y;
@@ -86,6 +99,7 @@ public class Lohmatik {
 
     private function onClick():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        g.soundManager.playSound(SoundConst.TOY_CLICK);
         _source.endClickCallback = null;
         _source.isTouchable = false;
         _callbackOnAnimation = null;

@@ -1,6 +1,8 @@
 package loaders {
 import com.deadreckoned.assetmanager.Asset;
 
+import loaders.allLoadMb.AllLoadMb;
+
 import manager.*;
 
 import com.deadreckoned.assetmanager.AssetManager;
@@ -21,7 +23,7 @@ public class LoaderManager {
 
     private var _loader:AssetManager = AssetManager.getInstance();
     private var _callbacks:Object;
-
+//    private var _loadMb:AllLoadMb;
     //если элемент пошел на загрузку, но еще не загрузился
     private var additionalQueue:Object = new Object();
 
@@ -43,6 +45,7 @@ public class LoaderManager {
 
         _loaders = [];
         _callbacks = {};
+//        _loadMb = new AllLoadMb();
         _loader.loadSequentially = true;
         _loaderQueue = _loader.createQueue('loader');
         _loaderQueue.loadSequentially = false;
@@ -95,6 +98,8 @@ public class LoaderManager {
         }
 
         if (additionalQueue[url]) additionalQueue[url] = null;
+
+        loadMb(url);
     }
 
     public function loadXML(url:String, callback:Function = null, ...callbackParams):void {
@@ -134,6 +139,7 @@ public class LoaderManager {
         }
 
         if (additionalQueue[url]) additionalQueue[url] = null;
+        loadMb(url);
     }
 
     public function loadJSON(url:String, callback:Function = null, ...callbackParams):void {
@@ -171,6 +177,7 @@ public class LoaderManager {
         }
 
         if (additionalQueue[url]) additionalQueue[url] = null;
+        loadMb(url);
     }
 
     public function loadAtlas(url:String, name:String, f:Function, ...params):void {
@@ -186,13 +193,19 @@ public class LoaderManager {
                 if (f!=null) f.apply(null, params);
             }
         };
-        g.load.loadImage(st + '.png', fOnLoad);
-        g.load.loadXML(st + '.xml', fOnLoad);
+        loadImage(st + '.png', fOnLoad);
+        loadXML(st + '.xml', fOnLoad);
     }
 
     public function loadSWFModule(url:String, callback:Function, ...callbackParams):void {
         setCallback(url, callback, callbackParams);
         _loaderQueue.add(url, {type: AssetManager.TYPE_SWF, priority: 8, onComplete: loadedSWFModule, onCompleteParams: [url], onError: errorHandler, onErrorParams: [url]});
+    }
+
+    public function loadMb(url:String):void {
+        g.loadMb._array.push(_loader.get(url).bytesTotal);
+//        trace(_loader.get(url).bytesTotal);
+//        return _loader.get(url).bytesTotal;
     }
 
     private function loadedSWFModule(url:String):void {

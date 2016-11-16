@@ -748,6 +748,7 @@ public class TownArea extends Sprite {
         if (isNewAtMap || updateAfterMove) {
             if (worldObject is Fabrica || worldObject is Farm || worldObject is Decor || worldObject is DecorAnimation) {
                 g.managerCats.checkAllCatsAfterPasteBuilding(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+                g.managerLohmatic.checkAllLohAfterPasteBuilding(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
             }
         }
 

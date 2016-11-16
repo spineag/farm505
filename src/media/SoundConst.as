@@ -29,6 +29,6 @@ public class SoundConst {
    public static const RAW_PIG:int = 22;
    public static const DEFAULT_WINDOW:int = 23;
    public static const XP_PLUS:int = 24;
-
+   public static const TOY_CLICK:int = 25;
 }
 }
