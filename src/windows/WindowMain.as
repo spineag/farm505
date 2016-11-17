@@ -7,6 +7,8 @@ import manager.Vars;
 
 import media.SoundConst;
 
+import social.SocialNetworkSwitch;
+
 import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Quad;
@@ -51,16 +53,22 @@ public class WindowMain {
     public function showIt():void {
         if (SOUND_OPEN) g.soundManager.playSound(SOUND_OPEN);
         g.hideAllHints();//?
+        _isShowed = true;
         if (_source) {
             createBlackBG();
             _source.x = g.managerResize.stageWidth / 2;
             _source.y = g.managerResize.stageHeight / 2;
             g.cont.addGameContListener(false);
             g.cont.windowsCont.addChild(_source);
-            _source.scaleX = _source.scaleY = .8;
-            TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, alpha: 1, onComplete: onShowingWindow});
+//            if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+//                _source.scale = .8;
+//                TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, alpha: 1, onComplete: onShowingWindow});
+//            } else {
+                _source.scale = 1;
+                _source.alpha = 1;
+                onShowingWindow();
+//            }
         }
-        _isShowed = true;
     }
 
     private function onShowingWindow():void {
@@ -78,9 +86,13 @@ public class WindowMain {
     }
 
     public function hideIt():void {
-        if (g.cont.windowsCont.contains(_source))
-            TweenMax.to(_source, .1, {scaleX:.8, scaleY:.8, alpha:0, onComplete:onHideAnimation});
-        else onHideAnimation();
+//        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+//            if (g.cont.windowsCont.contains(_source))
+//                TweenMax.to(_source, .1, {scaleX: .8, scaleY: .8, alpha: 0, onComplete: onHideAnimation});
+//            else onHideAnimation();
+//        } else {
+            onHideAnimation();
+//        }
     }
 
     public function hideItQuick():void {
