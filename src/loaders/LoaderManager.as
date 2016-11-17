@@ -203,9 +203,7 @@ public class LoaderManager {
     }
 
     public function loadMb(url:String):void {
-        g.loadMb._array.push(_loader.get(url).bytesTotal);
-//        trace(_loader.get(url).bytesTotal);
-//        return _loader.get(url).bytesTotal;
+        g.loadMb.array.push(_loader.get(url).bytesTotal);
     }
 
     private function loadedSWFModule(url:String):void {

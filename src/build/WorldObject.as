@@ -385,7 +385,7 @@ public class WorldObject {
             _isoView = null;
         }
         if (_preloader) {
-            _source.removeChild(_preloader.source);
+            if (_source)_source.removeChild(_preloader.source);
             _preloader.deleteIt();
             _preloader = null;
         }
