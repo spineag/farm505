@@ -5407,6 +5407,7 @@ public class DirectServer {
         Cc.ch('server', 'updateUserCutScenesData', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
+        
         variables.cutScene = g.user.cutScenes.join('&');
         variables.hash = MD5.hash(String(g.user.userId)+String(variables.cutScene)+SECRET);
         request.data = variables;
