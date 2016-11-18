@@ -257,15 +257,14 @@ public class MainBottomPanel {
                     if (g.user.buyShopTab == WOShop.VILLAGE)
                     shopTab = WOShop.ANIMAL;
                 }
-
-                g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
-                if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
-                    g.managerHelpers.onOpenShop();
-                }
                 if (g.managerTutorial.isTutorial) {
                     if (_tutorialCallback != null) {
                         _tutorialCallback.apply();
                     }
+                }
+                g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
+                if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
+                    g.managerHelpers.onOpenShop();
                 }
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
