@@ -3,6 +3,10 @@
  */
 package windows {
 import com.greensock.TweenMax;
+
+import flash.events.TimerEvent;
+import flash.utils.Timer;
+
 import manager.Vars;
 
 import media.SoundConst;
@@ -76,13 +80,26 @@ public class WindowMain {
             onWoShowCallback.apply();
             onWoShowCallback = null;
         } 
-        if (g.managerTutorial.isTutorial) g.managerTutorial.checkTutorialCallbackOnShowWindow();
+        if (g.managerTutorial.isTutorial)  createDelay(.2, g.managerTutorial.checkTutorialCallbackOnShowWindow);
         if (g.managerCutScenes.isCutScene) {
             if ((g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_MARKET) && _windowType == WindowsManager.WO_MARKET) ||
                 (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && _windowType == WindowsManager.WO_SHOP) ||
                 (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_PAPPER) && _windowType == WindowsManager.WO_PAPPER) )
-                g.managerCutScenes.checkCutSceneCallback();
+                createDelay(.2, g.managerCutScenes.checkCutSceneCallback);
         }
+    }
+
+    private function createDelay(delay:Number, f:Function):void {
+        var func:Function = function():void {
+            timer.removeEventListener(TimerEvent.TIMER, func);
+            timer = null;
+            if (f != null) {
+                f.apply();
+            }
+        };
+        var timer:Timer = new Timer(delay*1000, 1);
+        timer.addEventListener(TimerEvent.TIMER, func);
+        timer.start();
     }
 
     public function hideIt():void {
