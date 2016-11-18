@@ -2,6 +2,8 @@
  * Created by user on 2/15/16.
  */
 package utils {
+import com.junkbyte.console.Cc;
+
 import flash.utils.ByteArray;
 
 public class Utils {
@@ -53,13 +55,37 @@ public class Utils {
                 case '1101': st+='D'; break;
                 case '1110': st+='E'; break;
                 case '1111': st+='F'; break;
+                default: Cc.error('Utils.convert2to16:: unknown at switch: ' + ar[k]);
             }
         }
         return st;
     }
 
     public static function convert16to2(st:String):String {
-
+        var i:int = st.length;
+        var st2:String = '';
+        for (var k:int=0; k<i; k++) {
+            switch (st.charAt(k)) {
+                case '0': st2 += '0000'; break;
+                case '1': st2 += '0001'; break;
+                case '2': st2 += '0010'; break;
+                case '3': st2 += '0011'; break;
+                case '4': st2 += '0100'; break;
+                case '5': st2 += '0101'; break;
+                case '6': st2 += '0110'; break;
+                case' 7': st2 += '0111'; break;
+                case '8': st2 += '1000'; break;
+                case '9': st2 += '1001'; break;
+                case 'A': st2 += '1010'; break;
+                case 'B': st2 += '1011'; break;
+                case 'C': st2 += '1100'; break;
+                case 'D': st2 += '1101'; break;
+                case 'E': st2 += '1110'; break;
+                case 'F': st2 += '1111'; break;
+                default: Cc.error('Utils.convert16to2:: unknown at switch: ' + st.charAt(k));
+            }
+        }
+        return st2;
     }
 }
 }
