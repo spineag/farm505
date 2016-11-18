@@ -25,7 +25,6 @@ public class ResourceItem {
     public var currentRecipeID:int;
     public var placeBuild:int;
     public var idFromServer:String; // в табличке user_recipe_fabrica
-
     public function ResourceItem() {}
 
     public function fillIt(dataResource:Object):void {

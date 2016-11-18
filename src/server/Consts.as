@@ -114,5 +114,6 @@ public class Consts {
     public static var INQ_RELEASE_USER_QUEST:String = 'releaseUserQuest.php';
     public static var INQ_RELEASE_USER_QUEST_AWARD:String = 'releaseUserQuestAward.php';
     public static var INQ_USE_HERO_MOUSE:String = 'useMouseHero.php';
+    public static var INQ_TEST_USER_FABRICA_RECIPE:String = 'testGetTimeFabric.php';
 }
 }

@@ -60,6 +60,8 @@ import social.SocialNetworkSwitch;
 import starling.core.Starling;
 import starling.display.Stage;
 
+import temp.TestTime;
+
 import temp.catCharacters.DataCat;
 import temp.dataTemp.DataAnimal;
 import temp.dataTemp.DataLevel;
@@ -450,6 +452,7 @@ public class Vars {
 
     private function afterLoadAll():void {
 //        try {
+            var test:TestTime = new TestTime();
             cont.onLoadAll();
             startPreloader.setProgress(100);
             if (currentGameScale != 1) {
