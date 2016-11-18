@@ -5,7 +5,7 @@ package temp {
 import data.DataMoney;
 
 public class DropResourceVariaty {
-    public static const DROP_VARIATY:int = 3; // == 0,02 %
+    public static const DROP_VARIATY:int = 3; // == 2 %
     public static const DROP_TYPE_RESOURSE:String = 'resource';
     public static const DROP_TYPE_MONEY:String = 'money';
 
