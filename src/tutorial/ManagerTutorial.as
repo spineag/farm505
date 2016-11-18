@@ -80,8 +80,7 @@ public class ManagerTutorial {
 
     public function checkTutorialCallbackOnShowWindow():void {
         if (_onShowWindowCallback != null) {
-            createDelay(.5, _onShowWindowCallback);
-//            _onShowWindowCallback.apply();
+            _onShowWindowCallback.apply();
         }
     }
 

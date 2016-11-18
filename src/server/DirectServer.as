@@ -26,6 +26,7 @@ import manager.ManagerPlantRidge;
 import manager.ManagerTree;
 import manager.Vars;
 import mouse.ServerIconMouse;
+import social.SocialNetworkSwitch;
 import user.Someone;
 import utils.Utils;
 import windows.WindowsManager;
@@ -533,7 +534,7 @@ public class DirectServer {
                     obj.image = d.message[i].image;
                     obj.xpForBuild = int(d.message[i].xp_for_build);
                     obj.buildType = int(d.message[i].build_type);
-                
+
                 // temp
 //                if (obj.id == 75) {
 //                    obj.buildType = BuildType.DECOR_FENCE_GATE;
@@ -575,66 +576,66 @@ public class DirectServer {
                     obj.innerX.push(-22 * g.scaleFactor); obj.innerY.push(-148 * g.scaleFactor); // main (top) part of gate
                     obj.innerX.push(-61 * g.scaleFactor); obj.innerY.push(-201 * g.scaleFactor); // second part of gate
                 }
-                
-                    if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
-                    if (d.message[i].currency) {
-                        obj.currency = String(d.message[i].currency).split('&');
-                        for (k = 0; k < obj.currency.length; k++) obj.currency[k] = int(obj.currency[k]);
-                    }
-                    if (d.message[i].cost) {
-                        obj.cost = String(d.message[i].cost).split('&');
-                        for (k = 0; k < obj.cost.length; k++) obj.cost[k] = int(obj.cost[k]);
-                    }
-                    if (d.message[i].delta_cost) obj.deltaCost = int(d.message[i].delta_cost);
-                    if (d.message[i].block_by_level) {
-                        obj.blockByLevel = String(d.message[i].block_by_level).split('&');
-                        for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
-                    }
-                    if (d.message[i].cost_skip) obj.priceSkipHard = int(d.message[i].cost_skip);
-                    if (d.message[i].filter) obj.filterType = int(d.message[i].filter);
-                    if (d.message[i].build_time) {
-                        obj.buildTime = String(d.message[i].build_time).split('&');
-                        for (k = 0; k < obj.buildTime.length; k++) obj.buildTime[k] = int(obj.buildTime[k]);
-                    }
-                    if (d.message[i].count_unblock) obj.countUnblock = int(d.message[i].count_unblock);
 
-                    if (d.message[i].craft_resource_id) obj.craftIdResource = int(d.message[i].craft_resource_id);
-                    if (d.message[i].count_craft_resource) {
-                        obj.countCraftResource = String(d.message[i].count_craft_resource).split('&');
-                        for (k = 0; k < obj.countCraftResource.length; k++) obj.countCraftResource[k] = int(obj.countCraftResource[k]);
-                    }
+                if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
+                if (d.message[i].currency) {
+                    obj.currency = String(d.message[i].currency).split('&');
+                    for (k = 0; k < obj.currency.length; k++) obj.currency[k] = int(obj.currency[k]);
+                }
+                if (d.message[i].cost) {
+                    obj.cost = String(d.message[i].cost).split('&');
+                    for (k = 0; k < obj.cost.length; k++) obj.cost[k] = int(obj.cost[k]);
+                }
+                if (d.message[i].delta_cost) obj.deltaCost = int(d.message[i].delta_cost);
+                if (d.message[i].block_by_level) {
+                    obj.blockByLevel = String(d.message[i].block_by_level).split('&');
+                    for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
+                }
+                if (d.message[i].cost_skip) obj.priceSkipHard = int(d.message[i].cost_skip);
+                if (d.message[i].filter) obj.filterType = int(d.message[i].filter);
+                if (d.message[i].build_time) {
+                    obj.buildTime = String(d.message[i].build_time).split('&');
+                    for (k = 0; k < obj.buildTime.length; k++) obj.buildTime[k] = int(obj.buildTime[k]);
+                }
+                if (d.message[i].count_unblock) obj.countUnblock = int(d.message[i].count_unblock);
 
-                    if (d.message[i].instrument_id) obj.removeByResourceId = int(d.message[i].instrument_id);
-                    if (d.message[i].start_count_resources) obj.startCountResources = int(d.message[i].start_count_resources);
-                    if (d.message[i].delta_count_resources) obj.deltaCountResources = int(d.message[i].delta_count_resources);
-                    if (d.message[i].start_count_instruments) obj.startCountInstrumets = int(d.message[i].start_count_instruments);
-                    if (d.message[i].delta_count_instruments) obj.deltaCountAfterUpgrade = int(d.message[i].delta_count_instruments);
-                    if (d.message[i].up_instrument_id_1) obj.upInstrumentId1 = int(d.message[i].up_instrument_id_1);
-                    if (d.message[i].up_instrument_id_2) obj.upInstrumentId2 = int(d.message[i].up_instrument_id_2);
-                    if (d.message[i].up_instrument_id_3) obj.upInstrumentId3 = int(d.message[i].up_instrument_id_3);
-                    if (d.message[i].max_count) obj.maxAnimalsCount = int(d.message[i].max_count);
-                    if (d.message[i].image_active) obj.imageActive = d.message[i].image_active;
-                    if (d.message[i].cat_need) obj.catNeed = Boolean(int(d.message[i].cat_need));
-                    if (d.message[i].resource_id) {
-                        obj.idResource = String(d.message[i].resource_id).split('&');
-                        for (k = 0; k < obj.idResource.length; k++) obj.idResource[k] = int(obj.idResource[k]);
+                if (d.message[i].craft_resource_id) obj.craftIdResource = int(d.message[i].craft_resource_id);
+                if (d.message[i].count_craft_resource) {
+                    obj.countCraftResource = String(d.message[i].count_craft_resource).split('&');
+                    for (k = 0; k < obj.countCraftResource.length; k++) obj.countCraftResource[k] = int(obj.countCraftResource[k]);
+                }
+
+                if (d.message[i].instrument_id) obj.removeByResourceId = int(d.message[i].instrument_id);
+                if (d.message[i].start_count_resources) obj.startCountResources = int(d.message[i].start_count_resources);
+                if (d.message[i].delta_count_resources) obj.deltaCountResources = int(d.message[i].delta_count_resources);
+                if (d.message[i].start_count_instruments) obj.startCountInstrumets = int(d.message[i].start_count_instruments);
+                if (d.message[i].delta_count_instruments) obj.deltaCountAfterUpgrade = int(d.message[i].delta_count_instruments);
+                if (d.message[i].up_instrument_id_1) obj.upInstrumentId1 = int(d.message[i].up_instrument_id_1);
+                if (d.message[i].up_instrument_id_2) obj.upInstrumentId2 = int(d.message[i].up_instrument_id_2);
+                if (d.message[i].up_instrument_id_3) obj.upInstrumentId3 = int(d.message[i].up_instrument_id_3);
+                if (d.message[i].max_count) obj.maxAnimalsCount = int(d.message[i].max_count);
+                if (d.message[i].image_active) obj.imageActive = d.message[i].image_active;
+                if (d.message[i].cat_need) obj.catNeed = Boolean(int(d.message[i].cat_need));
+                if (d.message[i].resource_id) {
+                    obj.idResource = String(d.message[i].resource_id).split('&');
+                    for (k = 0; k < obj.idResource.length; k++) obj.idResource[k] = int(obj.idResource[k]);
+                }
+                if (d.message[i].raw_resource_id) {
+                    obj.idResourceRaw = String(d.message[i].raw_resource_id).split('&');
+                    for (k = 0; k < obj.idResourceRaw.length; k++) obj.idResourceRaw[k] = int(obj.idResourceRaw[k]);
+                }
+                if (d.message[i].variaty) {
+                    obj.variaty = String(d.message[i].variaty).split('&');
+                    for (k = 0; k < obj.variaty.length; k++) obj.variaty[k] = Number(obj.variaty[k]);
+                }
+                if (d.message[i].visible) obj.visibleTester = Boolean(int(d.message[i].visible));
+                if (d.message[i].color) obj.color = String(d.message[i].color);
+                if (d.message[i].group) {
+                    if (int(d.message[i].group) > 0) {
+                        obj.group = int(d.message[i].group);
+                        g.allData.addToDecorGroup(obj);
                     }
-                    if (d.message[i].raw_resource_id) {
-                        obj.idResourceRaw = String(d.message[i].raw_resource_id).split('&');
-                        for (k = 0; k < obj.idResourceRaw.length; k++) obj.idResourceRaw[k] = int(obj.idResourceRaw[k]);
-                    }
-                    if (d.message[i].variaty) {
-                        obj.variaty = String(d.message[i].variaty).split('&');
-                        for (k = 0; k < obj.variaty.length; k++) obj.variaty[k] = Number(obj.variaty[k]);
-                    }
-                    if (d.message[i].visible) obj.visibleTester = Boolean(int(d.message[i].visible));
-                    if (d.message[i].color) obj.color = String(d.message[i].color);
-                    if (d.message[i].group) {
-                        if (int(d.message[i].group) > 0) {
-                            obj.group = int(d.message[i].group);
-                            g.allData.addToDecorGroup(obj);
-                        }
-                    }
+                }
                 obj.visibleAction = true;
                 if (g.user.isTester) g.dataBuilding.objectBuilding[obj.id] = obj;
                 else if (d.message[i].visible == 0 ) {
@@ -803,12 +804,12 @@ public class DirectServer {
                 g.soundManager.enabledSound(false);
             }
             if (int(ob.time_paper) == 0) g.userTimer.timerAtPapper = 0;
-                else g.userTimer.timerAtPapper = 300 - (int(new Date().getTime() / 1000) - int(ob.time_paper));
+            else g.userTimer.timerAtPapper = 300 - (int(new Date().getTime() / 1000) - int(ob.time_paper));
             if (g.userTimer.timerAtPapper > 300) g.userTimer.timerAtPapper = 300;
             if (g.userTimer.timerAtPapper > 0)  g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
 
             if (int(ob.in_papper) == 0) g.userTimer.papperTimerAtMarket = 0;
-                else g.userTimer.papperTimerAtMarket = 300 - (int(new Date().getTime() / 1000) - int(ob.in_papper));
+            else g.userTimer.papperTimerAtMarket = 300 - (int(new Date().getTime() / 1000) - int(ob.in_papper));
             if (g.userTimer.papperTimerAtMarket > 300) g.userTimer.papperTimerAtMarket = 300;
             if (g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
 
@@ -830,7 +831,7 @@ public class DirectServer {
             }
             g.managerDailyBonus.fillFromServer(ob.daily_bonus_day, int(ob.count_daily_bonus));
             g.managerChest.fillFromServer(ob.chest_day, int(ob.count_chest));
-            
+
             g.user.countCats = int(ob.count_cats);
             g.userValidates.updateInfo('countCats', g.user.countCats);
             if (ob.scale) {
@@ -838,9 +839,11 @@ public class DirectServer {
             }
             if (ob.cut_scene) {
                 Cc.info('User cutscenes:: ' + ob.cut_scene);
-                g.user.cutScenes = String(ob.cut_scene).split('&');
-                for (i = 0; i < g.user.cutScenes.length; i++) {
-                    g.user.cutScenes[i] = int(g.user.cutScenes[i]);
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+                    g.user.cutScenes = Utils.intArray( String(ob.cut_scene).split('&') );
+                } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+                    g.user.cutScenes = Utils.intArray( Utils.convert16to2(ob.cut_scene).split('') );
+                    Cc.info('g.user.cutScenes: ' + g.user.cutScenes.join(' - '));
                 }
             } else {
                 g.user.cutScenes = [];
@@ -2555,7 +2558,7 @@ public class DirectServer {
 
         if (!tr || tr.stateBuild < 4) {
             Cc.ch('server', 'getUserTrain:: train.stateBuild < 4', 1);
-           if (tr) tr.fillItDefault();
+            if (tr) tr.fillItDefault();
             if (callback != null) {
                 callback.apply();
             }
@@ -5407,8 +5410,12 @@ public class DirectServer {
         Cc.ch('server', 'updateUserCutScenesData', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        
-        variables.cutScene = g.user.cutScenes.join('&');
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            variables.cutScene = g.user.cutScenes.join('&');
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            variables.cutScene = Utils.convert2to16(g.user.cutScenes.join(''));
+            Cc.info('OK updateUserCutSceneData variables.cutScene: ' + variables.cutScene);
+        }
         variables.hash = MD5.hash(String(g.user.userId)+String(variables.cutScene)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -6414,7 +6421,7 @@ public class DirectServer {
 
     private function internetNotWork(ev:Event):void {
         if (g.windowsManager) g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
-            else new PreloadInfoTab('Ошибка соединения.');
+        else new PreloadInfoTab('Ошибка соединения.');
         Cc.error('no inet');
     }
 }
