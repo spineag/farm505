@@ -80,7 +80,8 @@ public class ManagerTutorial {
 
     public function checkTutorialCallbackOnShowWindow():void {
         if (_onShowWindowCallback != null) {
-            _onShowWindowCallback.apply();
+            createDelay(.5, _onShowWindowCallback);
+//            _onShowWindowCallback.apply();
         }
     }
 
@@ -593,6 +594,7 @@ public class ManagerTutorial {
     }
 
     private function initScene_7():void {
+        Cc.info('subStep 0');
         _currentAction = TutorialAction.NONE;
         if (!texts) texts = (new TutorialTexts()).objText;
         if (!cat) {
@@ -605,9 +607,11 @@ public class ManagerTutorial {
         cat.showBubble(texts[g.user.tutorialStep][_subStep]);
         g.bottomPanel.animateShowingMainPanel();
         createDelay(1.1, subStep7_1);
+        _tutorialCallback = null;
     }
 
     private function subStep7_1():void {
+        Cc.info('subStep 1');
         _subStep = 1;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
@@ -622,6 +626,7 @@ public class ManagerTutorial {
     }
 
     private function subStep7_2():void {
+        Cc.info('subStep 2');
         g.bottomPanel.deleteArrow();
         cat.hideBubble();
         _subStep = 2;
@@ -634,6 +639,7 @@ public class ManagerTutorial {
 
     private function subStep7_3():void {
         _subStep = 3;
+        Cc.info('subStep 3');
         _onShowWindowCallback = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
@@ -648,6 +654,7 @@ public class ManagerTutorial {
     }
 
     private function subStep7_4():void {
+        Cc.info('subStep 4');
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
         if ((arr[0] as Farm).arrAnimals.length >= 4) {
             _tutorialCallback = null;
@@ -658,6 +665,7 @@ public class ManagerTutorial {
     }
 
     private function subStep7_5():void {
+        Cc.info('subStep 5');
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         if (_dustRectangle) {
@@ -679,6 +687,7 @@ public class ManagerTutorial {
     }
 
     private function subStep7_6():void {
+        Cc.info('subStep 6');
         cutScene.hideIt(deleteCutScene, initScenes);
         removeBlack();
     }
