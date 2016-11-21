@@ -138,11 +138,17 @@ public class MouseHero {
     }
 
     public function giveAward():void {
-        if (g.user.countAwayMouse < 5) {
-            flyAwards();
-        } else {
+        var k:Number = Math.random();
+        flyAwards();
+        if (k <= .3) {
             flyInstrument();
         }
+//        if (g.user.countAwayMouse < 5) {
+//
+//
+//        } else {
+//
+//        }
         showBoom();
         new TweenMax(_source, .7, {alpha:0, ease: Linear.easeNone});
     }

@@ -44,6 +44,12 @@ public class ManagerFabricaRecipe {
         }
         resItem.fillIt(g.dataResource.objectResources[g.dataRecipe.objectRecipe[int(ob.recipe_id)].idResource]);
         resItem.idFromServer = ob.id;
+//        if (int(ob.time_work) > 0) {
+//            curFabrica.onRecipeFromServer(resItem, g.dataRecipe.objectRecipe[int(ob.recipe_id)], int(ob.time_work), int(ob.delay));
+//        } else if (int(ob.time_work) <= 0 || int(ob.delay) <= 0){
+//            curFabrica.craftResource(resItem);
+//        }
+
         if (int(ob.delay) > int(ob.time_work)) {
             curFabrica.onRecipeFromServer(resItem, g.dataRecipe.objectRecipe[int(ob.recipe_id)], 0, int(ob.delay) - int(ob.time_work));
         } else if (int(ob.delay) + resItem.buildTime <= int(ob.time_work)) {

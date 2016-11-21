@@ -37,6 +37,8 @@ public class SmallHeroAnimation {
         _arma = arma;
         _armaClip = arma.display as StarlingArmatureDisplay;
         _armaClipCont.addChild(_armaClip);
+        (_arma.display as StarlingArmatureDisplay).y = 5;
+        (_arma.display as StarlingArmatureDisplay).x = 26;
         b.display = _armaClipCont;
         _armaClip.touchable = false;
         if (g.managerTutorial && g.managerTutorial.isTutorial) {

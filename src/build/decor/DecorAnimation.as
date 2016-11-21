@@ -41,6 +41,7 @@ public class DecorAnimation extends WorldObject{
     private var _decorWork:Boolean;
     private var _decorAnimation:int;
     private var  _awayAnimation:Boolean = false;
+    private var _catRun:Boolean = true;
 
     public function DecorAnimation(_data:Object) {
         super(_data);
@@ -136,7 +137,16 @@ public class DecorAnimation extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            if ( _decorWork) return;
+            if (_decorWork && _catRun) {
+                var fEndOver:Function = function(e:Event=null):void {
+                    _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                };
+                _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndPlayByFrame('over');
+                return;
+            } else if (_decorWork) return;
             if (!_dataBuild.catNeed) {
                 var ob:Object = g.allData.factory[_dataBuild.url].allDragonBonesData[_dataBuild.url];
                 var oldBones:Vector.<String> = ob.armatureNames;
@@ -155,6 +165,7 @@ public class DecorAnimation extends WorldObject{
                             armature.animation.gotoAndPlayByFrame('idle');
                             _build.addChild(armature.display as StarlingArmatureDisplay);
                             _armatureArray.push(armature);
+                            _catRun = true;
                             g.managerCats.goCatToPoint(heroCat, new Point(posX, posY), onHeroAnimationArray, armature, heroCat);
                         }
                     }
@@ -194,6 +205,7 @@ public class DecorAnimation extends WorldObject{
     private function onHeroAnimation():void {
         if (!_dataBuild.catNeed) {
             if (_heroCat) {
+                _catRun = false;
                 startAnimation();
                 _heroCat.visible = false;
             }
@@ -204,6 +216,7 @@ public class DecorAnimation extends WorldObject{
 
     private function onHeroAnimationArray(armature:Armature,heroCat:HeroCat):void {
         if (heroCat) {
+            _catRun = false;
             heroCat.visible = false;
             if (armature.animation.hasAnimation('start')) {
                 var fEndOver:Function = function (e:Event = null):void {
