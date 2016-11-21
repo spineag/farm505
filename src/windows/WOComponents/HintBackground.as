@@ -190,6 +190,20 @@ public class HintBackground extends Sprite {
         im.y = h - im.height;
         im.tileGrid = im.tileGrid;
         _bg.addChildAt(im, 0);
+            // double image to fix artifacts
+            im = new Image(tex.getTexture('hint_up'));
+            im.tileGrid = new Rectangle();
+            im.width = w - arr[0].width - arr[2].width + 4;
+            im.x = arr[0].width - 2;
+            im.tileGrid = im.tileGrid;
+            _bg.addChildAt(im, 0);
+            im = new Image(tex.getTexture('hint_down'));
+            im.tileGrid = new Rectangle();
+            im.width = w - arr[0].width - arr[2].width + 2 + 4;
+            im.x = arr[0].width - 1 - 2;
+            im.y = h - im.height;
+            im.tileGrid = im.tileGrid;
+            _bg.addChildAt(im, 0);
 
         // left and right
         im = new Image(tex.getTexture('hint_left'));
@@ -214,6 +228,15 @@ public class HintBackground extends Sprite {
         im.y = arr[0].height;
         im.tileGrid = im.tileGrid;
         _bg.addChildAt(im, 0);
+            // double image to fix artifacts
+            im = new Image(tex.getTexture('hint_center'));
+            im.tileGrid = new Rectangle();
+            im.width = w - arr[0].width - arr[2].width + 4;
+            im.height = h - arr[0].height - arr[1].height;
+            im.x = arr[0].width - 2;
+            im.y = arr[0].height;
+            im.tileGrid = im.tileGrid;
+            _bg.addChildAt(im, 0);
 
         arr.length = 0;
     }

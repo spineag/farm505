@@ -5,6 +5,9 @@ package windows.WOComponents {
 import flash.geom.Rectangle;
 
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import starling.display.BlendMode;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -60,7 +63,19 @@ public class CartonBackground extends Sprite{
         im.y = 0;
         im.tileGrid = im.tileGrid;
         addChildAt(im, 0);
+        if (g.socialNetworkID != SocialNetworkSwitch.SN_VK_ID) {
+            // double image to fix artifacts
+            im = new Image(te);
+            im.tileGrid = new Rectangle();
+            im.width = w - arr[0].width - arr[2].width + 6;
+            im.height = h;
+            im.x = arr[0].width - 3;
+            im.y = 0;
+            im.tileGrid = im.tileGrid;
+            addChildAt(im, 0);
+        }
 
+        // left
         im = new Image(te);
         im.tileGrid = new Rectangle();
         im.width = arr[0].width;
@@ -70,6 +85,7 @@ public class CartonBackground extends Sprite{
         im.tileGrid = im.tileGrid;
         addChildAt(im, 0);
 
+        // right
         im = new Image(te);
         im.tileGrid = new Rectangle();
         im.width = arr[0].width;

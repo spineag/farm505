@@ -4,6 +4,9 @@
 package windows.WOComponents {
 import flash.geom.Rectangle;
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.TextureAtlas;
@@ -62,6 +65,23 @@ public class WindowMine extends Sprite {
         im.y = arr[0].y + h - arr[1].height;
         im.tileGrid = im.tileGrid;
         addChildAt(im, 0);
+        if (g.socialNetworkID != SocialNetworkSwitch.SN_VK_ID) {
+            // double image to fix artifacts
+            im = new Image(tex.getTexture('build_window_top'));
+            im.tileGrid = new Rectangle();
+            im.width = w - arr[0].width - arr[2].width + 6;
+            im.x = arr[0].x + arr[0].width - 3;
+            im.y = arr[0].y;
+            im.tileGrid = im.tileGrid;
+            addChildAt(im, 0);
+            im = new Image(tex.getTexture('build_window_down'));
+            im.tileGrid = new Rectangle();
+            im.width = w - arr[0].width - arr[2].width + 6;
+            im.x = arr[0].x + arr[0].width - 3;
+            im.y = arr[0].y + h - arr[1].height;
+            im.tileGrid = im.tileGrid;
+            addChildAt(im, 0);
+        }
         
         // left and right
         im = new Image(tex.getTexture('build_window_left'));
