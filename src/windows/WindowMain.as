@@ -70,7 +70,7 @@ public class WindowMain {
 //            } else {
                 _source.scale = 1;
                 _source.alpha = 1;
-                onShowingWindow();
+            createDelay(.2, onShowingWindow);
 //            }
         }
     }
@@ -80,12 +80,12 @@ public class WindowMain {
             onWoShowCallback.apply();
             onWoShowCallback = null;
         } 
-        if (g.managerTutorial.isTutorial)  createDelay(.2, g.managerTutorial.checkTutorialCallbackOnShowWindow);
+        if (g.managerTutorial.isTutorial)  g.managerTutorial.checkTutorialCallbackOnShowWindow();
         if (g.managerCutScenes.isCutScene) {
             if ((g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_MARKET) && _windowType == WindowsManager.WO_MARKET) ||
                 (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && _windowType == WindowsManager.WO_SHOP) ||
                 (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_PAPPER) && _windowType == WindowsManager.WO_PAPPER) )
-                createDelay(.2, g.managerCutScenes.checkCutSceneCallback);
+                g.managerCutScenes.checkCutSceneCallback();
         }
     }
 
@@ -108,7 +108,8 @@ public class WindowMain {
 //                TweenMax.to(_source, .1, {scaleX: .8, scaleY: .8, alpha: 0, onComplete: onHideAnimation});
 //            else onHideAnimation();
 //        } else {
-            onHideAnimation();
+        createDelay(.2, onHideAnimation);
+//            onHideAnimation();
 //        }
     }
 
