@@ -284,6 +284,9 @@ public class ManagerCutScenes {
     }
 
     private function releaseDecor():void {
+        decor_4();
+        return;
+
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseDecor);
             return;
@@ -350,6 +353,12 @@ public class ManagerCutScenes {
     }
 
     private function releaseToInventoryDecor():void {
+        _cutSceneCallback = null;
+        g.user.cutScenes[3] = 1;
+        saveUserCutScenesData();
+        createDelay(.7, toInventory_4);
+        return;
+
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseToInventoryDecor);
             return;
@@ -415,6 +424,9 @@ public class ManagerCutScenes {
     }
 
     private function releaseFromInventoryDecor():void {
+        fromInventory_5();
+        return;
+
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseFromInventoryDecor);
             return;
