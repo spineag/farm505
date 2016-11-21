@@ -4,6 +4,9 @@
 package windows.WOComponents {
 import flash.geom.Rectangle;
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
@@ -64,6 +67,22 @@ public class CartonBackgroundIn extends Sprite{
         im.y = h - arr[1].height;
         im.tileGrid = im.tileGrid;
         addChildAt(im, 0);
+        if (g.socialNetworkID != SocialNetworkSwitch.SN_VK_ID) {
+            // double image to fix artifacts
+            im = new Image(te1);
+            im.tileGrid = new Rectangle();
+            im.width = w - arr[0].width - arr[2].width + 6;
+            im.x = arr[0].width - 3;
+            im.tileGrid = im.tileGrid;
+            addChildAt(im, 0);
+            im = new Image(te2);
+            im.tileGrid = new Rectangle();
+            im.width = w - arr[0].width - arr[2].width + 6;
+            im.x = arr[0].width - 3;
+            im.y = h - arr[1].height;
+            im.tileGrid = im.tileGrid;
+            addChildAt(im, 0);
+        }
 
         // left and right
         te1 = tex.getTexture('shop_window_cl');
@@ -91,6 +110,17 @@ public class CartonBackgroundIn extends Sprite{
         im.y = arr[0].height;
         im.tileGrid = im.tileGrid;
         addChildAt(im, 0);
+        if (g.socialNetworkID != SocialNetworkSwitch.SN_VK_ID) {
+            // double image to fix artifacts
+            im = new Image(te1);
+            im.tileGrid = new Rectangle();
+            im.width = w - arr[0].width - arr[2].width + 6;
+            im.height = h - arr[0].height - arr[1].height;
+            im.x = arr[0].width - 3;
+            im.y = arr[0].height;
+            im.tileGrid = im.tileGrid;
+            addChildAt(im, 0);
+        }
 
         arr.length = 0;
         touchable = false;

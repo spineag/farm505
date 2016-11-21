@@ -28,6 +28,12 @@ public class HorizontalPlawka extends Sprite{
         imC.width = w - lW - imR.width;
         imC.x = lW;
         addChild(imC);
+            // double image to fix artifacts
+        imC = new Image(ct);
+        imC.tileGrid = new Rectangle();
+        imC.width = w - lW - imR.width + 4;
+        imC.x = lW - 2;
+        addChild(imC);
     }
 
     public function deleteIt():void {

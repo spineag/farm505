@@ -5,6 +5,9 @@ package windows.WOComponents {
 import flash.geom.Rectangle;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.utils.Align;
@@ -57,6 +60,16 @@ public class Birka extends Sprite{
         im.y = -_curH + 34;
         im.height = _curH - 76;
         _bg.addChildAt(im, 0);
+
+        if (g.socialNetworkID != SocialNetworkSwitch.SN_VK_ID) {
+            // double image to fix artifacts
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('birka_c'));
+            im.tileGrid = new Rectangle();
+            im.x = -im.width;
+            im.y = -_curH + 34 - 5;
+            im.height = _curH - 76 + 10;
+            _bg.addChildAt(im, 0);
+        }
 
 //        var cCount:int = Math.ceil((_curH - 80)/43) + 1;
 //        for (var i:int=0; i < cCount; i++) {
