@@ -41,17 +41,121 @@ public class ManagerChest {
 
     private function generateChestItems():void {
         var obj:Object = {};
-        if (Math.random()<.2) {
-            obj.count = 100;
-            obj.id = 0;
-            obj.type = SOFT_MONEY;
+        var aR:Number = Math.random();
+        var iR:Number = Math.random();
+
+        if (aR < .2) {
+            if (iR < .16) {
+                obj.count = 1;
+                obj.id = 7;
+                obj.type = INSTRUMENT;
+            } else if (iR <.32) {
+                obj.count = 1;
+                obj.id = 9;
+                obj.type = INSTRUMENT;
+            } else if (iR < .48){
+                obj.count = 1;
+                obj.id = 2;
+                obj.type = INSTRUMENT;
+            } else if (iR < .64) {
+                obj.count = 1;
+                obj.id = 8;
+                obj.type = INSTRUMENT;
+            } else if (iR < .8) {
+                obj.count = 1;
+                obj.id = 4;
+                obj.type = INSTRUMENT;
+            } else {
+                obj.count = 1;
+                obj.id = 3;
+                obj.type = INSTRUMENT;
+            }
+        } else if (aR < .3) {
+            if (iR < .25) {
+                if (g.userInventory.getCountResourceById(1) > 5 &&  Math.random() < .5) {
+                     obj = instrumentRandom();
+                } else {
+                    obj.count = 1;
+                    obj.id = 1;
+                    obj.type = INSTRUMENT;
+                }
+            } else if (iR <.5) {
+                if (g.userInventory.getCountResourceById(124) > 5 &&  Math.random() < .5) {
+                    obj = instrumentRandom();
+                } else {
+                    obj.count = 1;
+                    obj.id = 124;
+                    obj.type = INSTRUMENT;
+                }
+            } else if (iR < .75){
+                if (g.userInventory.getCountResourceById(6) > 5 &&  Math.random() < .5) {
+                    obj = instrumentRandom();
+                } else {
+                    obj.count = 1;
+                    obj.id = 6;
+                    obj.type = INSTRUMENT;
+                }
+            } else if (iR < .9) {
+                if (g.userInventory.getCountResourceById(5) > 5 &&  Math.random() < .5) {
+                    obj = instrumentRandom();
+                } else {
+                    obj.count = 1;
+                    obj.id = 5;
+                    obj.type = INSTRUMENT;
+                }
+            } else {
+                if (g.userInventory.getCountResourceById(125) > 5 &&  Math.random() < .5) {
+                    obj = instrumentRandom();
+                } else {
+                    obj.count = 1;
+                    obj.id = 125;
+                    obj.type = INSTRUMENT;
+                }
+            }
         } else {
-            var arr:Array = [1, 5, 6, 124, 125, 2, 3, 4, 7, 8, 9];
-            obj.id = arr[int(Math.random()*arr.length)];
-            obj.count = 1;
-            obj.type = INSTRUMENT;
+            if (iR < .7) {
+                obj.count = 100;
+                obj.id = 0;
+                obj.type = SOFT_MONEY;
+            } else if (iR< .9) {
+                obj.count = 1;
+                obj.id = 0;
+                obj.type = HARD_MONEY;
+            } else {
+                obj.count = 3;
+                obj.id = 0;
+                obj.type = HARD_MONEY;
+            }
         }
         _data = obj;
+    }
+
+    private function instrumentRandom():Object {
+        var obj:Object = {};
+        var iR:int = Math.random();
+        if (iR < .25) {
+            obj.count = 1;
+            obj.id = 1;
+            obj.type = INSTRUMENT;
+        } else if (iR <.5) {
+            obj.count = 1;
+            obj.id = 124;
+            obj.type = INSTRUMENT;
+        } else if (iR < .75){
+            obj.count = 1;
+            obj.id = 6;
+            obj.type = INSTRUMENT;
+        } else if (iR < .9) {
+            obj.count = 1;
+            obj.id = 5;
+            obj.type = INSTRUMENT;
+        } else {
+            obj.count = 1;
+            obj.id = 125;
+            obj.type = INSTRUMENT;
+        }
+
+        return obj;
     }
 
     public function createChest(away:Boolean = false):void {

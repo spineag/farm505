@@ -232,7 +232,6 @@
             <filename>pumpkin.png</filename>
             <filename>sunflower</filename>
             <filename>swamp_decor.png</filename>
-            <filename>tail1.png</filename>
             <filename>track_autumn_1.png</filename>
             <filename>track_autumn.png</filename>
             <filename>track_blue_cross.png</filename>

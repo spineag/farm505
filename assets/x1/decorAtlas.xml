@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:da8d8e88bb2a0eb2821aa2f72d92b972:35dd82728feae9a5a9c95e205442b365:8e467b6e9f38a55d4cabd49280944c60$ -->
+<!-- $TexturePacker:SmartUpdate:843bbd297aa47a3ef909d99a36cfb112:16f394812bf48e73274a3902739f2708:8e467b6e9f38a55d4cabd49280944c60$ -->
 <TextureAtlas imagePath="decorAtlas.png" width="1068" height="1015">
     <SubTexture name="Chair_1" x="1011" y="882" width="30" height="37" frameX="-4" frameY="-7" frameWidth="35" frameHeight="46"/>
     <SubTexture name="Chair_2" x="1021" y="560" width="34" height="45" frameX="0" frameY="0" frameWidth="35" frameHeight="46"/>
@@ -118,7 +118,6 @@
     <SubTexture name="sunflower_pink" x="569" y="575" width="66" height="106" frameX="-1" frameY="0" frameWidth="68" frameHeight="106"/>
     <SubTexture name="sunflower_red" x="532" y="683" width="66" height="106" frameX="-1" frameY="0" frameWidth="68" frameHeight="106"/>
     <SubTexture name="swamp_decor" x="365" y="690" width="100" height="40"/>
-    <SubTexture name="tail1" x="419" y="987" width="43" height="22"/>
     <SubTexture name="track_autumn" x="568" y="416" width="88" height="49"/>
     <SubTexture name="track_autumn_1" x="481" y="964" width="88" height="49"/>
     <SubTexture name="track_blue" x="571" y="964" width="88" height="49"/>

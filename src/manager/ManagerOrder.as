@@ -173,7 +173,7 @@ public class ManagerOrder {
         var arrTemp:Array = new Array();
         var arr:Array = new Array();
         var countResources:int;
-        var k:int;
+        var k:Number;
         var i:int=0;
         var id:String;
         var level:int = g.user.level;

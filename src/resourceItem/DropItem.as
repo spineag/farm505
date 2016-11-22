@@ -19,6 +19,8 @@ import manager.ManagerFilters;
 
 import manager.Vars;
 
+import social.SocialNetworkSwitch;
+
 import starling.core.Starling;
 
 import starling.display.Image;
@@ -141,8 +143,13 @@ public class DropItem {
         var tempX:int = _source.x - 140 + int(Math.random()*140);
         var tempY:int = _source.y - 40 + int(Math.random()*140);
         var v:int;
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 350;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 420;
             else v = 460;
+        } else {
+            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 350;
+            else v = 460;
+        }
         var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
 
         if (fromSize != 50) {

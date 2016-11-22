@@ -14,6 +14,8 @@ import manager.Vars;
 
 import resourceItem.ResourceItem;
 
+import social.SocialNetworkSwitch;
+
 import starling.animation.Tween;
 import starling.core.Starling;
 
@@ -74,8 +76,13 @@ public class XPStar {
         var tempY:int = _source.y + 30 + int(Math.random()*20);
         var dist:int = int(Math.sqrt((_source.x - endX)*(_source.x - endX) + (_source.y - endY)*(_source.y - endY)));
         var v:Number;
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 350;
-        else v = 460;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 420;
+            else v = 460;
+        } else {
+            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 350;
+            else v = 460;
+        }
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endX, y:endY}], ease:Linear.easeOut ,onComplete: f1, delay:.5});
     }
 
