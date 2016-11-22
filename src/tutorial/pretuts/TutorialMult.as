@@ -8,22 +8,16 @@ import dragonBones.Armature;
 import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
-import dragonBones.factories.BaseFactory;
 import dragonBones.starling.StarlingArmatureDisplay;
 import dragonBones.starling.StarlingFactory;
-
 import flash.display.Bitmap;
-
 import loaders.PBitmap;
-
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.textures.Texture;
-
-import utils.DrawToBitmap;
 
 public class TutorialMult {
     private var _source:Sprite;
