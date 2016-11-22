@@ -4,6 +4,8 @@
 package windows.levelUp {
 import data.BuildType;
 import data.DataMoney;
+
+import flash.display.Bitmap;
 import flash.display.StageDisplayState;
 import flash.geom.Rectangle;
 import manager.ManagerFilters;
@@ -15,6 +17,7 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Color;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
@@ -51,8 +54,111 @@ public class WOLevelUp extends WindowMain {
         _woHeight = 409;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
+//        var st:String = g.dataPath.getGraphicsPath();
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/new_level.png',onLoad);
+//        var bg:Image;
+//        bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newlevel_window_fon'));
+//        bg.x = -_woWidth/2 + 10;
+//        bg.y = -_woHeight/2 + 15;
+//        _source.addChild(bg);
+//        createExitButton(hideIt);
+//        _callbackClickBG = hideIt;
+//        _count = 1;
+//        var im:Image;
+//        _contClipRect = new Sprite();
+//        _contImage = new Sprite();
+//        _arrCells = [];
+//        _arrItems = [];
+//        _source.addChild(_contClipRect);
+//        _contClipRect.mask = new Quad(440,280);
+//        _contClipRect.x = -_woWidth/2 + 55;
+//        _contClipRect.y = 55;
+//        _txtNewLvl = new CTextField(200,100,"НОВЫЙ УРОВЕНЬ");
+//        _txtNewLvl.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+//        _txtNewLvl.leading = -3;
+//        _txtNewObject = new CTextField(400,100,"ДОСТУПНЫ НОВЫЕ ОБЪЕКТЫ");
+//        _txtNewObject.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+//        _txtLevel = new CTextField(300,100,"");
+//        _txtLevel.setFormat(CTextField.BOLD72, 51, Color.WHITE, ManagerFilters.BROWN_COLOR);
+//        _txtContinue = new CTextField(110,100,"РАССКАЗАТЬ");
+//        _txtContinue.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+//        _txtContinue.x = 3;
+//        _txtHard = new CTextField(50,50,' +'+String(_count));
+//        _txtHard.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+//        if (g.user.level <= 5) {
+//            _contBtn = new CButton();
+//            _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
+//            _txtContinue.text = 'ПРОДОЛЖИТЬ';
+//            _txtContinue.y = -26;
+//            _txtContinue.x = 36;
+//            _contBtn.addChild(_txtContinue);
+//            _contBtn.y = _woHeight / 2;
+//            _contBtn.clickCallback = onClickNext;
+//            _source.addChild(_contBtn);
+//        } else {
+//            _contBtn = new CButton();
+//            _contBtn.addButtonTexture(172, 45, CButton.BLUE, true);
+//            _imageHard = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
+//            MCScaler.scale(_imageHard, 25, 25);
+//
+//            _txtContinue.y = -26;
+//            _txtHard.x = 93;
+//            _imageHard.x = 135;
+//            _imageHard.y = 12;
+//            _contBtn.addChild(_imageHard);
+//            _contBtn.addChild(_txtHard);
+//            _contBtn.addChild(_txtContinue);
+//            _contBtn.y = _woHeight / 2;
+//            _contBtn.clickCallback = onClickShare;
+//            _source.addChild(_contBtn);
+//
+//        }
+//        _leftArrow = new CButton();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
+//        MCScaler.scale(im,61,26);
+//        im.x = im.width;
+//        _leftArrow.addDisplayObject(im);
+//        _leftArrow.setPivots();
+//        _leftArrow.x = -_woWidth/2 - 9 + _leftArrow.width/2;
+//        _leftArrow.y = 75 + _leftArrow.height/2;
+//        _source.addChild(_leftArrow);
+//        _leftArrow.clickCallback = onLeftClick;
+//
+//        _rightArrow = new CButton();
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('button_yel_left'));
+//        MCScaler.scale(im,61,26);
+//        im.scaleX *= -1;
+//        _rightArrow.addDisplayObject(im);
+//        _rightArrow.setPivots();
+//        _rightArrow.x = _woWidth/2 - 20 + _rightArrow.width/2;
+//        _rightArrow.y = 75 + _rightArrow.height/2;
+//        _source.addChild(_rightArrow);
+//        _rightArrow.clickCallback = onRightClick;
+//
+//        _source.addChild(_txtNewLvl);
+//        _source.addChild(_txtLevel);
+//        _source.addChild(_txtNewObject);
+//
+//        _contClipRect.addChild(_contImage);
+//
+//        _txtNewLvl.x = -100;
+//        _txtNewLvl.y = -55;
+//        _txtNewObject.x = -200;
+//        _txtNewObject.y = 110;
+//        _txtLevel.x = -152;
+//        _txtLevel.y = -118;
+//        _callbackClickBG = null;
+    }
+
+    private function onLoad(bitmap:Bitmap):void {
+        var st:String = g.dataPath.getGraphicsPath();
+        bitmap = g.pBitmaps[st + 'qui/new_level.png'].create() as Bitmap;
+        photoFromTexture(Texture.fromBitmap(bitmap));
+    }
+
+    private function photoFromTexture(tex:Texture):void {
         var bg:Image;
-        bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newlevel_window_fon'));
+        bg = new Image(tex);
         bg.x = -_woWidth/2 + 10;
         bg.y = -_woHeight/2 + 15;
         _source.addChild(bg);
@@ -143,15 +249,26 @@ public class WOLevelUp extends WindowMain {
         _txtLevel.x = -152;
         _txtLevel.y = -118;
         _callbackClickBG = null;
-    }
 
-    override public function showItParams(callback:Function, params:Array):void {
+
         if (g.user.level >= 17) g.couponePanel.openPanel(true);
         _txtLevel.text = String(g.user.level);
         createList();
         onWoShowCallback = onShow;
-        super.showIt();
+//        super.showIt();
         _source.y -= 40;
+
+        super.showIt();
+    }
+
+
+    override public function showItParams(callback:Function, params:Array):void {
+//        if (g.user.level >= 17) g.couponePanel.openPanel(true);
+//        _txtLevel.text = String(g.user.level);
+//        createList();
+//        onWoShowCallback = onShow;
+////        super.showIt();
+//        _source.y -= 40;
     }
     
     private function onShow():void {

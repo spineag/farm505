@@ -29,7 +29,9 @@ import manager.hitArea.ManagerHitArea;
 import mouse.ToolsModifier;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.events.Event;
+import starling.utils.Color;
 
 import windows.WindowsManager;
 
@@ -138,12 +140,12 @@ public class DecorAnimation extends WorldObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_decorWork && _catRun) {
-                var fEndOver:Function = function(e:Event=null):void {
-                    _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
-                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                var click:Function = function(e:Event=null):void {
+                    _armature.removeEventListener(EventObject.COMPLETE, click);
+                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, click);
                 };
-                _armature.addEventListener(EventObject.COMPLETE, fEndOver);
-                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.addEventListener(EventObject.COMPLETE, click);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, click);
                 _armature.animation.gotoAndPlayByFrame('over');
                 return;
             } else if (_decorWork) return;

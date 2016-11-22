@@ -259,7 +259,6 @@
             <filename>minus.png</filename>
             <filename>neighbor.jpg</filename>
             <filename>new_m.png</filename>
-            <filename>newlevel_window_fon.png</filename>
             <filename>op_bt_a_off.png</filename>
             <filename>op_bt_a_on.png</filename>
             <filename>op_bt_fs_off.png</filename>
