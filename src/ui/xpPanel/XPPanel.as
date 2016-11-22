@@ -157,6 +157,5 @@ public class XPPanel {
         tween.scaleTo(0.6);
         g.starling.juggler.add(tween);
     }
-
 }
 }
