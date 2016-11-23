@@ -280,12 +280,10 @@
             <filename>order_window_left.png</filename>
             <filename>order_window_paket.png</filename>
             <filename>order_window_right_top.png</filename>
-            <filename>order_window_right.png</filename>
             <filename>particle_yelow.png</filename>
             <filename>particles</filename>
             <filename>plawka7.png</filename>
             <filename>plus_button.png</filename>
-            <filename>pokormit.png</filename>
             <filename>product_particle.png</filename>
             <filename>production</filename>
             <filename>progress_bar_center.png</filename>
@@ -307,10 +305,8 @@
             <filename>shop_window_decor.png</filename>
             <filename>shop_window_fabric.png</filename>
             <filename>shop_window_limit.png</filename>
-            <filename>shop_window_lock.png</filename>
             <filename>shop_window_plants.png</filename>
             <filename>shop_window_tr.png</filename>
-            <filename>sobrat.png</filename>
             <filename>star_medium.png</filename>
             <filename>star_particle.png</filename>
             <filename>star_small.png</filename>
@@ -321,17 +317,12 @@
             <filename>storage_window_prl_r.png</filename>
             <filename>storage_window_scr_c.png</filename>
             <filename>storage_window_scr_line.png</filename>
-            <filename>tutorial_arrow_stroke.png</filename>
             <filename>tutorial_ko.png</filename>
             <filename>tutorial_nyam.png</filename>
             <filename>ui</filename>
-            <filename>uskorit.png</filename>
             <filename>visitor_back.png</filename>
             <filename>wait.png</filename>
             <filename>watering_can.png</filename>
-            <filename>wheels_of_fortune _str.png</filename>
-            <filename>wheels_of_fortune_disk.png</filename>
-            <filename>wheels_of_fortune_text.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>yellow_tile.png</filename>
             <filename>newspaper_icon_small.png</filename>
@@ -344,6 +335,7 @@
             <filename>bottom_newspaper.png</filename>
             <filename>centre_newspaper.png</filename>
             <filename>top_newspaper.png</filename>
+            <filename>order_window_right.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

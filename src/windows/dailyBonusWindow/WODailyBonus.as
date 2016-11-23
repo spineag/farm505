@@ -4,11 +4,17 @@
 package windows.dailyBonusWindow {
 import com.greensock.TweenMax;
 import com.greensock.easing.Quad;
+
+import flash.display.Bitmap;
+
+import loaders.PBitmap;
+
 import manager.ManagerFilters;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
@@ -25,6 +31,7 @@ public class WODailyBonus extends WindowMain {
     private var _txtBtnBuy2:CTextField;
     private var _isAnimate:Boolean;
     private var _curActivePosition:int;
+    private var _namePng:String;
 
     public function WODailyBonus() {
         super();
@@ -33,7 +40,56 @@ public class WODailyBonus extends WindowMain {
         _woHeight = 500;
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
-        createKoleso();
+
+
+//        createKoleso();
+    }
+
+    private function onLoad(bitmap:Bitmap):void {
+        var st:String = g.dataPath.getGraphicsPath();
+        bitmap = g.pBitmaps[st + _namePng].create() as Bitmap;
+        photoFromTexture(Texture.fromBitmap(bitmap));
+    }
+
+    private function photoFromTexture(tex:Texture):void {
+        var im:Image;
+        switch (_namePng){
+            case 'qui/wheels_of_fortune_disk.png':
+                im = new Image(tex);
+                im.x = -im.width/2;
+                im.y = -im.height/2;
+                _koleso = new Sprite();
+                _koleso.addChild(im);
+                _koleso.x = 0;
+                _koleso.y = 14;
+                _source.addChild(_koleso);
+                _namePng = 'qui/wheels_of_fortune_text.png';
+                g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
+                 break;
+            case 'qui/wheels_of_fortune_text.png':
+                im = new Image(tex);
+                im.x = -186;
+                im.y = -284;
+                im.touchable = false;
+                _source.addChild(im);
+                _namePng = 'qui/wheels_of_fortune_str.png';
+                g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
+                break;
+            case 'qui/wheels_of_fortune_str.png':
+                im = new Image(tex);
+                im.x = -71;
+                im.y = -238;
+                im.touchable = false;
+                _source.addChild(im);
+                createKoleso();
+                _koleso.rotation = 0;
+                _curActivePosition = 0;
+                fillItems();
+                checkBtns();
+                onWoShowCallback = onShow;
+                super.showIt();
+                break;
+        }
     }
 
     private function onClickExit(e:Event=null):void {
@@ -42,12 +98,21 @@ public class WODailyBonus extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        _koleso.rotation = 0;
-        _curActivePosition = 0;
-        fillItems();
-        checkBtns();
-        onWoShowCallback = onShow;
-        super.showIt();
+        _namePng = 'qui/wheels_of_fortune_disk.png';
+        g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
+//        _namePng = 'qui/wheels_of_fortune_text.png';
+//        trace(_namePng);
+//        g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
+//        _namePng = 'qui/wheels_of_fortune_str.png';
+//        trace(_namePng);
+//        g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
+//        createKoleso();
+//        _koleso.rotation = 0;
+//        _curActivePosition = 0;
+//        fillItems();
+//        checkBtns();
+//        onWoShowCallback = onShow;
+//        super.showIt();
     }
     private function onShow():void {
         _txtBtnBuy.updateIt();
@@ -55,6 +120,15 @@ public class WODailyBonus extends WindowMain {
     }
 
     override protected function deleteIt():void {
+//        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_disk.png'] as PBitmap).deleteIt();
+//        delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_disk.png'];
+//        g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_disk.png'] =  null;
+//        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_text.png'] as PBitmap).deleteIt();
+//        delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_text.png'];
+//        g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_text.png'] = null;
+//        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_str.png'] as PBitmap).deleteIt();
+//        delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_str.png'];
+//        g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_str.png'] = null;
         clearItems();
         _source.removeChild(_btnBuy);
         _btnBuy.deleteIt();
@@ -66,26 +140,26 @@ public class WODailyBonus extends WindowMain {
     }
 
     private function createKoleso():void {
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wheels_of_fortune_disk'));
-        im.x = -im.width/2;
-        im.y = -im.height/2;
-        _koleso = new Sprite();
-        _koleso.addChild(im);
-        _koleso.x = 0;
-        _koleso.y = 14;
-        _source.addChild(_koleso);
-
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wheels_of_fortune_text'));
-        im.x = -186;
-        im.y = -284;
-        im.touchable = false;
-        _source.addChild(im);
-
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wheels_of_fortune _str'));
-        im.x = -71;
-        im.y = -238;
-        im.touchable = false;
-        _source.addChild(im);
+        var im:Image;
+//        im.x = -im.width/2;
+//        im.y = -im.height/2;
+//        _koleso = new Sprite();
+//        _koleso.addChild(im);
+//        _koleso.x = 0;
+//        _koleso.y = 14;
+//        _source.addChild(_koleso);
+//
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wheels_of_fortune_text'));
+//        im.x = -186;
+//        im.y = -284;
+//        im.touchable = false;
+//        _source.addChild(im);
+//
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wheels_of_fortune _str'));
+//        im.x = -71;
+//        im.y = -238;
+//        im.touchable = false;
+//        _source.addChild(im);
 
         _btnFree = new CButton();
         _btnFree.addButtonTexture(146, 40, CButton.BLUE, true);
