@@ -3,6 +3,9 @@
  */
 package manager {
 
+import flash.filters.BlurFilter;
+
+import starling.filters.BlurFilter;
 import starling.filters.ColorMatrixFilter;
 import starling.filters.DropShadowFilter;
 import starling.filters.GlowFilter;
@@ -109,6 +112,11 @@ public class ManagerFilters {
     public static function get BUILDING_HOVER_FILTER():ColorMatrixFilter {
         var f:ColorMatrixFilter = new ColorMatrixFilter();
         f.adjustBrightness(.1);
+        return f;
+    }
+
+    public static function get HARD_BLUR():starling.filters.BlurFilter  {
+        var f:starling.filters.BlurFilter = new starling.filters.BlurFilter(2, 2);
         return f;
     }
     

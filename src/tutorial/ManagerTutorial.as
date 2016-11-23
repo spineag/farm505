@@ -32,6 +32,7 @@ import starling.utils.Color;
 import tutorial.pretuts.TutorialCloud;
 
 import tutorial.pretuts.TutorialMult;
+import tutorial.pretuts.TutorialMultNew;
 import tutorial.tips.ManagerTips;
 
 import utils.SimpleArrow;
@@ -63,7 +64,7 @@ public class ManagerTutorial {
     private var _tutorialPlaceBuilding:TutorialPlace;
     private var _arrow:SimpleArrow;
     private var _cloud:TutorialCloud;
-    private var _mult:TutorialMult;
+    private var _mult:TutorialMultNew;
     private var _afterTutorialWindow:AfterTutorialWindow;
 
     public function ManagerTutorial() {
@@ -203,7 +204,7 @@ public class ManagerTutorial {
 
     private function initScene_1():void {
         _cloud = new TutorialCloud(subStep1_1);
-        _mult = new TutorialMult();
+        _mult = new TutorialMultNew();
     }
 
     private function subStep1_1():void {
