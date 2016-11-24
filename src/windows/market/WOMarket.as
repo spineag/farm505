@@ -4,6 +4,8 @@
 package windows.market {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
+import com.junkbyte.console.Cc;
+
 import manager.ManagerFilters;
 import media.SoundConst;
 import social.SocialNetworkEvent;
@@ -12,10 +14,6 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.filters.BlurFilter;
-import starling.filters.DropShadowFilter;
-import starling.filters.GlowFilter;
-import starling.text.TextField;
 import starling.utils.Color;
 import user.NeighborBot;
 import user.Someone;
@@ -245,9 +243,8 @@ public class WOMarket  extends WindowMain {
                 else createMarketTabBtns(true);
             }
             else createMarketTabBtns();
-
             checkPapperTimer();
-            choosePerson(params[0]);
+            choosePerson(_curUser);
         }
         _timer = 15;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
@@ -420,12 +417,10 @@ public class WOMarket  extends WindowMain {
             for (i = 0; i < _curUser.marketItems.length; i++) {
                 if (_curUser.marketItems[i].numberCell == _arrItems.length) {
                     _arrItems[_curUser.marketItems[i].numberCell-1].fillFromServer(_curUser.marketItems[i], _curUser);
-                }
-                else {
+                } else {
                     _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
                 }
             }
-
             if (_shiftFriend != 0) goToItemFromPaper();
         }
     }
@@ -580,8 +575,7 @@ public class WOMarket  extends WindowMain {
             if (paper) {
                 if (_curUser.name == null ) _txtName.text = 'Игрок продает:';
                 else _txtName.text = _curUser.name + ' продает:';
-            }
-            else {
+            } else {
                 if (_arrFriends[_shiftFriend].name == null ) _txtName.text = 'Игрок продает:';
                 else _txtName.text = _arrFriends[_shiftFriend].name + ' продает:';
             }
@@ -667,9 +661,15 @@ public class WOMarket  extends WindowMain {
     }
 
     public function choosePerson(_person:Someone):void {
+        if (!_person) {
+            Cc.error('WOMarket choosePerson:: no _person');
+            return;
+        }
         clearItems();
         _shift = 0;
-        new TweenMax(_contItemCell, .5, {x: -_shift * 125, ease: Linear.easeNone});
+        if (_contItemCell) {
+            new TweenMax(_contItemCell, .5, {x: -_shift * 125, ease: Linear.easeNone});
+        }
         _countPage = 1;
         _curUser = _person;
         _timer = 15;

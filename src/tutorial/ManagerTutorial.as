@@ -64,7 +64,7 @@ public class ManagerTutorial {
     private var _tutorialPlaceBuilding:TutorialPlace;
     private var _arrow:SimpleArrow;
     private var _cloud:TutorialCloud;
-    private var _mult:TutorialMultNew;
+    private var _mult:TutorialMult;
     private var _afterTutorialWindow:AfterTutorialWindow;
 
     public function ManagerTutorial() {
@@ -204,7 +204,7 @@ public class ManagerTutorial {
 
     private function initScene_1():void {
         _cloud = new TutorialCloud(subStep1_1);
-        _mult = new TutorialMultNew();
+        _mult = new TutorialMult();
     }
 
     private function subStep1_1():void {

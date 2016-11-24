@@ -152,7 +152,6 @@ public class TutorialMultNew {
         _armature.addEventListener(EventObject.COMPLETE, onIdle3);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onIdle3);
         _armature.animation.gotoAndPlayByFrame('idle_3');
-//        TweenMax.to(_imTempBlured, 20, {alpha:0, ease:Linear.easeNone, useFrames:true, delay: 15});
         TweenMax.to(_tempBlured, 25, {alpha:0, ease:Linear.easeNone, useFrames:true});
     }
 
