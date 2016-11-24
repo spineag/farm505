@@ -37,6 +37,14 @@ public class DrawToBitmap {
         return result;
     }
 
+    public static function stageScreenShot(starling:Starling):BitmapData {
+        var stage:Stage = g.mainStage;
+        var result:BitmapData = new BitmapData(stage.width, stage.height, true);
+        var painter:Painter = starling.painter;
+        painter.context.drawToBitmapData(result);
+        return result;
+    }
+
     public static function drawToBitmap(starling:Starling, displayObject:DisplayObject):Bitmap {
         var resultBitmap:Bitmap = new Bitmap(copyToBitmapData(starling, displayObject));
         return resultBitmap;
@@ -100,8 +108,3 @@ public class DrawToBitmap {
 }
 
 
-//var texture:RenderTexture = new RenderTexture(100, 100);
-//texture.draw(sprite);
-//
-//var image:Image = new Image(texture);
-//addChild(image);
