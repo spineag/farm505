@@ -192,6 +192,16 @@
         </struct>
         <key>fileList</key>
         <array>
+            <filename>sunflower</filename>
+            <filename>umbrella</filename>
+            <filename>trampoline</filename>
+            <filename>witch_pot</filename>
+            <filename>cactus_round</filename>
+            <filename>builds</filename>
+            <filename>beach_chair</filename>
+            <filename>cat_nail</filename>
+            <filename>balabas</filename>
+            <filename>tent</filename>
             <filename>alive_fence_icon.png</filename>
             <filename>amanita_1_red_icon.png</filename>
             <filename>amanita_2_red_icon.png</filename>
@@ -203,17 +213,13 @@
             <filename>arch_pink_icon.png</filename>
             <filename>arch_white_icon.png</filename>
             <filename>bakery_icon.png</filename>
-            <filename>balabas_blue_icon.png</filename>
             <filename>barrel_icon.png</filename>
             <filename>bbq_grill_icon.png</filename>
-            <filename>beach_chair_red_icon.png</filename>
             <filename>beehive_icon.png</filename>
             <filename>blue_fence_icon.png</filename>
             <filename>blueberry_icon.png</filename>
             <filename>bridge_icon.png</filename>
-            <filename>builds</filename>
             <filename>cat_icon.png</filename>
-            <filename>cat_nail_icon.png</filename>
             <filename>chair_1_icon.png</filename>
             <filename>chair_2_icon.png</filename>
             <filename>cherry_icon.png</filename>
@@ -232,29 +238,43 @@
             <filename>feed_mill_icon.png</filename>
             <filename>fir_1_icon.png</filename>
             <filename>fir_2_icon.png</filename>
+            <filename>fir_3_icon.png</filename>
+            <filename>fir_4_icon.png</filename>
             <filename>fryer_icon.png</filename>
+            <filename>garden_gnome_blue_hat_icon.png</filename>
+            <filename>garden_gnome_red_hat_icon.png</filename>
             <filename>gate_alive_closed_icon.png</filename>
             <filename>gate_blue_closed_icon.png</filename>
             <filename>gate_pink_closed_icon.png</filename>
             <filename>gate_white_closed_icon.png</filename>
+            <filename>ghost_icon.png</filename>
             <filename>ice_cream_maker_icon.png</filename>
             <filename>jam_machine_icon.png</filename>
             <filename>jeweler_icon.png</filename>
             <filename>juice_press_icon.png</filename>
+            <filename>kakao_icon.png</filename>
+            <filename>lemon_icon.png</filename>
             <filename>loom_icon.png</filename>
-            <filename>picnic_pink_icon.png</filename>
+            <filename>orange_icon.png</filename>
             <filename>pie_oven_icon.png</filename>
             <filename>pig_icon.png</filename>
             <filename>pink_fence_icon.png</filename>
             <filename>pizza_maker_icon.png</filename>
+            <filename>pumpkin_1_icon.png</filename>
+            <filename>pumpkin_2_icon.png</filename>
+            <filename>pumpkin_3_icon.png</filename>
+            <filename>pumpkin_icon.png</filename>
             <filename>raspberry_icon.png</filename>
             <filename>ridge_icon.png</filename>
+            <filename>scarecrow_icon.png</filename>
             <filename>sheep_icon.png</filename>
             <filename>sklad_icon.png</filename>
+            <filename>sled_icon.png</filename>
             <filename>smelter_icon.png</filename>
             <filename>smoke_house_icon.png</filename>
             <filename>sugar_mill_icon.png</filename>
             <filename>swamp_decor_icon.png</filename>
+            <filename>teleskope_icon.png</filename>
             <filename>toy_factory_icon.png</filename>
             <filename>track_autumn_1_icon.png</filename>
             <filename>track_autumn_icon.png</filename>
@@ -276,34 +296,11 @@
             <filename>trees_5_icon.png</filename>
             <filename>trees_6_icon.png</filename>
             <filename>trees_7_icon.png</filename>
-            <filename>white_fence_icon.png</filename>
-            <filename>yogurt_machine_icon.png</filename>
-            <filename>tent_icon.png</filename>
             <filename>well_white_icon.png</filename>
             <filename>well_yellow_icon.png</filename>
-            <filename>teleskope_icon.png</filename>
-            <filename>ghost_icon.png</filename>
-            <filename>kakao_icon.png</filename>
-            <filename>lemon_icon.png</filename>
-            <filename>orange_icon.png</filename>
-            <filename>sunflower</filename>
-            <filename>beach_chair</filename>
-            <filename>pumpkin_1_icon.png</filename>
-            <filename>pumpkin_2_icon.png</filename>
-            <filename>pumpkin_3_icon.png</filename>
-            <filename>pumpkin_icon.png</filename>
-            <filename>cactus_round</filename>
-            <filename>trampoline</filename>
-            <filename>umbrella</filename>
-            <filename>witch_pot</filename>
-            <filename>scarecrow_icon.png</filename>
-            <filename>picnic_blue_icon.png</filename>
-            <filename>fir_3_icon.png</filename>
-            <filename>fir_4_icon.png</filename>
-            <filename>garden_gnome_blue_hat_icon.png</filename>
-            <filename>garden_gnome_red_hat_icon.png</filename>
-            <filename>sled_icon.png</filename>
-            <filename>balabas_yellow_icon.png</filename>
+            <filename>white_fence_icon.png</filename>
+            <filename>yogurt_machine_icon.png</filename>
+            <filename>picnic</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
