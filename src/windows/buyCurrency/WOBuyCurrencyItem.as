@@ -10,6 +10,8 @@ import data.DataMoney;
 
 import flash.display.StageDisplayState;
 import flash.geom.Point;
+import flash.geom.Rectangle;
+
 import manager.ManagerFilters;
 import manager.Vars;
 import resourceItem.DropItem;
@@ -56,12 +58,18 @@ public class WOBuyCurrencyItem {
         _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_r'));
         _im.x = 593 - _im.width;
         _bg.addChild(_im);
-        for (var i:int=0; i<8; i++) {
-            _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_c'));
-            _im.x = 58*(i+1);
-            _bg.addChild(_im);
-        }
-        _im.width = 71;
+        _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_c'));
+        _im.tileGrid = new Rectangle();
+        _im.width = 477 + 2;
+        _im.x = 58 - 1;
+        _bg.addChildAt(_im, 0);
+        _im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('carton_line_c'));
+        _im.tileGrid = new Rectangle();
+        _im.width = 477 + 6;
+        _im.x = 58 - 3;
+        _im.height -=2;
+        _im.y = 1;
+        _bg.addChildAt(_im, 0);
         source.addChild(_bg);
 
         if (_currency == DataMoney.HARD_CURRENCY) {

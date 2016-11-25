@@ -76,6 +76,8 @@ public class FriendPanel {
         createAddFriendBtn();
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
         _count = 0;
+        _arrFriends = [];
+        noFriends();
     }
 
     private function createTabs():void {

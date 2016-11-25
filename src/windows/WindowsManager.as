@@ -250,6 +250,7 @@ public class WindowsManager {
                 Cc.error('WindowsManager:: unknown window type: ' + type);
                 break;
         }
+        Cc.info('try open wo: ' + type);
         wo.showItParams(callback, params);
         _currentWindow = wo;
         if (g.managerHelpers) g.managerHelpers.stopIt();

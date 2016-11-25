@@ -252,6 +252,7 @@ public class SN_Vkontakte extends SocialNetwork {
                 callback.apply(null, [ar]);
             }
         };
+        super.getTempUsersInfoById(arr, callback);
         _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, f1, onError);
     }
 

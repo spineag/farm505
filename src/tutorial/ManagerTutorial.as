@@ -32,6 +32,7 @@ import starling.utils.Color;
 import tutorial.pretuts.TutorialCloud;
 
 import tutorial.pretuts.TutorialMult;
+import tutorial.pretuts.TutorialMultNew;
 import tutorial.tips.ManagerTips;
 
 import utils.SimpleArrow;

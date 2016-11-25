@@ -18,6 +18,33 @@ import starling.textures.Texture;
 public class DrawToBitmap {
     private static var g:Vars = Vars.getInstance();
 
+    public static function copyToBitmapDataWithRectangle(starling:Starling, disp:DisplayObject, rect:Rectangle):BitmapData {
+        var result:BitmapData = new BitmapData(rect.width, rect.height, true);
+        var stage:Stage = g.mainStage;
+        var painter:Painter = starling.painter;
+
+        painter.pushState();
+        painter.state.renderTarget = null;
+        painter.state.setProjectionMatrix(rect.x, rect.y, stage.stageWidth, stage.stageHeight, stage.stageWidth, stage.stageHeight, stage.cameraPosition);
+        painter.clear();
+        disp.setRequiresRedraw();
+        disp.render(painter);
+        painter.finishMeshBatch();
+        painter.context.drawToBitmapData(result);
+        painter.context.present();
+        painter.popState();
+
+        return result;
+    }
+
+    public static function stageScreenShot(starling:Starling):BitmapData {
+        var stage:Stage = g.mainStage;
+        var result:BitmapData = new BitmapData(stage.width, stage.height, true);
+        var painter:Painter = starling.painter;
+        painter.context.drawToBitmapData(result);
+        return result;
+    }
+
     public static function drawToBitmap(starling:Starling, displayObject:DisplayObject):Bitmap {
         var resultBitmap:Bitmap = new Bitmap(copyToBitmapData(starling, displayObject));
         return resultBitmap;
@@ -81,8 +108,3 @@ public class DrawToBitmap {
 }
 
 
-//var texture:RenderTexture = new RenderTexture(100, 100);
-//texture.draw(sprite);
-//
-//var image:Image = new Image(texture);
-//addChild(image);

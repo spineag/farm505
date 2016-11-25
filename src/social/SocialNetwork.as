@@ -162,7 +162,9 @@ public class SocialNetwork extends EventDispatcher {
         _friendsApp = [];
     }
 
-    public function getTempUsersInfoById(arr:Array, callback:Function):void { }
+    public function getTempUsersInfoById(arr:Array, callback:Function):void { 
+        Cc.ch('social', 'SocialNetwork:: getTempUsersInfoById');
+    }
 
     protected function getUsersOnlineSuccess(e:Object):void {
         //dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_USERS_ONLINE, false, false, _paramsFriends));

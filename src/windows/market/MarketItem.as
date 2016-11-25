@@ -366,16 +366,22 @@ public class MarketItem {
         if (isFill == 0 || isFill == 2) return;
         if (_inPapper) {
             if ((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper) * (-1) <= 10800) {
-                _papperBtn.visible = true;
-                _imCheck.visible = true;
-                _papperBtn.alpha = .8;
+                if (_papperBtn) {
+                    _papperBtn.visible = true;
+                    _papperBtn.alpha = .8;
+                }
+                if (_imCheck) _imCheck.visible = true;
             } else {
-                _papperBtn.visible = false;
+                if (_papperBtn) {
+                    _papperBtn.visible = false;
+                    _papperBtn.alpha = 1;
+                }
                 _imCheck.visible = false;
-                _papperBtn.alpha = 1;
                 g.directServer.updateMarketPapper(number, false, null);
             }
-        } else _papperBtn.visible = _wo.booleanPaper;
+        } else {
+            if (_papperBtn) _papperBtn.visible = _wo.booleanPaper;
+        }
     }
 
     private function onDelete():void {
@@ -632,7 +638,11 @@ public class MarketItem {
                 _txtPlawka.visible = false;
 //                _quadGreen.visible = true;
 //                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
-                showSaleImage(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.cost);
+                try {
+                    showSaleImage(g.dataResource.objectResources[_dataFromServer.resourceId], _dataFromServer.cost);
+                } catch (e:Error) {
+                    Cc.error('at showScaleImage');
+                }
                 _plawkabuy.visible = false;
                 _txtAdditem.visible = false;
             } else { // sale anyway item
@@ -683,7 +693,7 @@ public class MarketItem {
         if (_imageCont) unFillIt();
         var im:Image;
         _data = data;
-        _papperBtn.visible = false;
+        if(_papperBtn) _papperBtn.visible = false;
         if (_data) {
             if (_data.buildType == BuildType.PLANT) {
                 im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));
@@ -698,27 +708,32 @@ public class MarketItem {
             MCScaler.scale(im, 45, 45);
             im.x = 2;
             im.y = 90;
-            _imageCont.addChild(im);
+            if (_imageCont) _imageCont.addChild(im);
         } else {
             Cc.error('MarketItem fillIt:: empty _data');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketItem');
             return;
         }
-        _txtPlawka.visible = true;
-        _txtPlawka.y = 45;
-        _txtAdditem.visible = false;
+        if (_txtPlawka) {
+            _txtPlawka.visible = true;
+            _txtPlawka.y = 45;
+        }
+        if (_txtAdditem) _txtAdditem.visible = false;
         _countMoney = cost;
-        _coin.y = 85;
-        _coin.x = _bg.width/2;
-
-        _costTxt.y = 105;
-        _costTxt.x = _bg.width/2 + 12;
-        _plawkaCoins.visible = true;
-        _costTxt.text = String(cost);
+        if (_coin) {
+            _coin.y = 85;
+            _coin.x = _bg.width / 2;
+        }
+        if (_costTxt) {
+            _costTxt.y = 105;
+            _costTxt.x = _bg.width / 2 + 12;
+        }
+        if (_plawkaCoins) _plawkaCoins.visible = true;
+        if (_costTxt) _costTxt.text = String(cost);
         if (_isUser) {
             visiblePapperTimer();
         }
-        _costTxt.text = String(_dataFromServer.cost);
+//        _costTxt.text = String(_dataFromServer.cost); ?? double
         if (_dataFromServer.buyerSocialId == 1) {
             _personBuyer = g.user.neighbor;
         } else {
@@ -737,53 +752,64 @@ public class MarketItem {
                 }
             }
         }
-        if (_personBuyer is NeighborBot && !_personBuyerTemp) {
+        if (_personBuyer && _personBuyer is NeighborBot && !_personBuyerTemp) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
+            if (!_imageCont) {
+                Cc.error('MarketItem:: showScaleImage:: no _imageCont');
+                return;
+            }
             if (!_personBuyer) {
-                if (_person.photo) {
-                    _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                if (_avaDefault) {
                     MCScaler.scale(_avaDefault, 75, 75);
                     _avaDefault.pivotX = _avaDefault.width/2;
                     _avaDefault.pivotY = _avaDefault.height/2;
                     _avaDefault.x = _bg.width/2 - 9;
                     _avaDefault.y = _bg.height/2 - 30;
-//                    source.addChildAt(_avaDefault,1);
                     _imageCont.addChild(_avaDefault);
+                } else {
+                    Cc.error('MarketItem:: no default_avatar_big');
                 }
-                g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId], onGettingUserInfo);
-            }
-            else {
+                if (_personBuyerTemp && _personBuyerTemp.buyerSocialId) g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId], onGettingUserInfo);
+                else Cc.error('MarkertItem:: No _personBuyerTemp || _personBuyerTemp.buyerSocialId');
+            } else {
                 if (_personBuyer.photo) {
-                    if (_person.photo) {
-                        _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                    _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                    if (_avaDefault) {
                         MCScaler.scale(_avaDefault, 75, 75);
                         _avaDefault.pivotX = _avaDefault.width/2;
                         _avaDefault.pivotY = _avaDefault.height/2;
                         _avaDefault.x = _bg.width/2 - 9;
                         _avaDefault.y = _bg.height/2 - 30;
-//                        source.addChildAt(_avaDefault,1);
                         _imageCont.addChild(_avaDefault);
-
+                    } else {
+                        Cc.error('MarketItem:: no default_avatar_big');
                     }
-                    g.load.loadImage(_personBuyer.photo, onLoadPhoto);
+                    if (_personBuyer && _personBuyer.photo) g.load.loadImage(_personBuyer.photo, onLoadPhoto);
+                    else Cc.error('MarkertItem:: No _personBuyer || _personBuyer.buyerSocialId');
                 } else {
-                    if (_person.photo) {
-                        _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-                        MCScaler.scale(_avaDefault, 75, 75);
-                        _avaDefault.pivotX = _avaDefault.width/2;
-                        _avaDefault.pivotY = _ava.height/2;
-                        _avaDefault.x = _bg.width/2 - 9;
-                        _avaDefault.y = _bg.height/2 - 30;
-//                        source.addChildAt(_avaDefault,1);
-                        _imageCont.addChild(_avaDefault);
-
+                    var t:Texture = g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big');
+                    if (t) {
+                        _avaDefault = new Image(t);
+                        if (_avaDefault) {
+                            MCScaler.scale(_avaDefault, 75, 75);
+                            _avaDefault.pivotX = _avaDefault.width / 2;
+                            _avaDefault.pivotY = _avaDefault.height / 2;
+                            _avaDefault.x = _bg.width / 2 - 9;
+                            _avaDefault.y = _bg.height / 2 - 30;
+                            _imageCont.addChild(_avaDefault);
+                        } else {
+                            Cc.error('MarketItem:: no default_avatar_big');
+                        }
+                    } else {
+                        Cc.error('MarketItem:: no default_avatar_big texture');
                     }
-                    g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId], onGettingUserInfo);
+                    if (_personBuyer && _personBuyer.userSocialId) g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId], onGettingUserInfo);
+                    else Cc.error('MarkertItem:: No _personBuyer || _personBuyer.buyerSocialId');
                 }
             }
         }
-
 
         _btnGoAwaySaleItem = new CButton();
         _btnGoAwaySaleItem.addButtonTexture(70, 24, CButton.BLUE, true);
@@ -801,19 +827,18 @@ public class MarketItem {
 //        txt.x = 4;
 ////        txt.y = 5;
 //        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
+        Cc.info('showScaleImage 19');
         _btnGoAwaySaleItem.x = 55;
         _btnGoAwaySaleItem.y = 10;
         source.addChild(_btnGoAwaySaleItem);
         _btnGoAwaySaleItem.visible = false;
         var f1:Function = function ():void {
-
             if (_personBuyer) {
                 if (g.visitedUser && g.visitedUser == _personBuyer) return;
                 g.townArea.goAway(_personBuyer);
             }
             else {
                 var person:Someone;
-                person = new Someone();
                 person = g.user.getSomeoneBySocialId(_personBuyerTemp.buyerSocialId);
                 person.level = 15;
                 if (g.visitedUser && g.visitedUser == person) return;
@@ -877,6 +902,7 @@ public class MarketItem {
     }
 
     private function onGettingUserInfo(ar:Array):void {
+        Cc.info('on user info');
         if (!_personBuyer) {
             _personBuyerTemp.photo = ar[0].photo_100;
             g.load.loadImage(_personBuyerTemp.photo, onLoadPhoto);
@@ -887,6 +913,7 @@ public class MarketItem {
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
+        Cc.info('on load photo 1');
         if (!bitmap) {
             if (!_personBuyer)  bitmap = g.pBitmaps[_personBuyerTemp.photo].create() as Bitmap;
             else bitmap = g.pBitmaps[_personBuyer.photo].create() as Bitmap;
@@ -895,21 +922,27 @@ public class MarketItem {
             Cc.error('FriendItem:: no photo for userId: ' + _personBuyerTemp.buyerSocialId + 'or ' + _personBuyer.userSocialId);
             return;
         }
+        Cc.info('on load photo 2');
         photoFromTexture(Texture.fromBitmap(bitmap));
+        Cc.info('on load photo 3');
     }
 
     private function photoFromTexture(tex:Texture):void {
         if (_avaDefault) _avaDefault = null;
         if (source) source.removeChild(_avaDefault);
-        _ava = new Image(tex);
-        _ava.visible = true;
-        MCScaler.scale(_ava, 75, 75);
-        _ava.pivotX = _ava.width/2;
-        _ava.pivotY = _ava.height/2;
-        _ava.x = _bg.width/2 - 9;
-        _ava.y = _bg.height/2 - 30;
-//        source.addChildAt(_ava,1);
-        _imageCont.addChild(_ava);
+        if (tex) {
+            _ava = new Image(tex);
+            _ava.visible = true;
+            MCScaler.scale(_ava, 75, 75);
+            _ava.pivotX = _ava.width/2;
+            _ava.pivotY = _ava.height/2;
+            _ava.x = _bg.width/2 - 9;
+            _ava.y = _bg.height/2 - 30;
+    //        source.addChildAt(_ava,1);
+            _imageCont.addChild(_ava);
+        } else {
+            Cc.error('MarketItem photoFromTexture:: no texture(')
+        }
     }
 
     public function getItemProperties():Object {
