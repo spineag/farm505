@@ -11,6 +11,9 @@ import dragonBones.starling.StarlingArmatureDisplay;
 import manager.Vars;
 import starling.display.Sprite;
 import starling.events.Event;
+import starling.utils.Color;
+
+import utils.CTextField;
 
 public class MultCat {
     private var _source:Sprite;
@@ -18,7 +21,7 @@ public class MultCat {
     private var _armature:Armature;
     private var g:Vars = Vars.getInstance();
 
-    public function MultCat(_x:int, _y:int, p:Sprite) {
+    public function MultCat(_x:int, _y:int, p:Sprite, n:int = 0) {
         _source = new Sprite();
         _armature = g.allData.factory['cat_main'].buildArmature('cat');
         (_armature.display as StarlingArmatureDisplay).scale = 2;
@@ -28,6 +31,13 @@ public class MultCat {
         _parent = p;
         _parent.addChild(_source);
         _source.scaleX = _source.scaleY = .37;
+        if (g.isDebug) {
+//            var txt:CTextField = new CTextField(50,50,String(n));
+//            txt.setFormat(CTextField.BOLD30, 40, Color.RED);
+//            txt.x = -25;
+//            txt.y = -20;
+//            _source.addChild(txt);
+        }
     }
 
     public function flipIt():void {

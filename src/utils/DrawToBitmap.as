@@ -5,11 +5,8 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import manager.Vars;
-
-import starling.core.Starling;
 import starling.core.Starling;
 import starling.display.DisplayObject;
-import starling.display.Image;
 import starling.display.Stage;
 import starling.rendering.Painter;
 import starling.textures.RenderTexture;
@@ -37,11 +34,19 @@ public class DrawToBitmap {
         return result;
     }
 
-    public static function stageScreenShot(starling:Starling):BitmapData {
+    public static function stageScreenShot():BitmapData {
         var stage:Stage = g.mainStage;
         var result:BitmapData = new BitmapData(stage.width, stage.height, true);
-        var painter:Painter = starling.painter;
-        painter.context.drawToBitmapData(result);
+        stage.drawToBitmapData(result);
+        return result;
+    }
+
+    public static function stageScreenShotByRect(rect:Rectangle):BitmapData {
+        var stage:Stage = g.mainStage;
+        var r:BitmapData = new BitmapData(stage.width, stage.height, true);
+        stage.drawToBitmapData(r);
+        var result:BitmapData = new BitmapData(rect.width, rect.height);
+        result.copyPixels(r, rect, new Point(rect.x, rect.y));
         return result;
     }
 

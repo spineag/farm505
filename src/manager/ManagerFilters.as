@@ -116,7 +116,7 @@ public class ManagerFilters {
     }
 
     public static function get HARD_BLUR():starling.filters.BlurFilter  {
-        var f:starling.filters.BlurFilter = new starling.filters.BlurFilter(2, 2);
+        var f:starling.filters.BlurFilter = new starling.filters.BlurFilter(7, 7);
         return f;
     }
     

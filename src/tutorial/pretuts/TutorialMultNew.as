@@ -10,15 +10,11 @@ import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
 import dragonBones.starling.StarlingFactory;
-
-import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.geom.Rectangle;
-
 import loaders.PBitmap;
 import manager.ManagerFilters;
 import manager.Vars;
-import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -73,7 +69,6 @@ public class TutorialMultNew {
 
         _contF1 = new Sprite();
         _contF2 = new Sprite();
-        _contF2.visible = false;
         _contCats = new Sprite();
         var b:Slot = _armature.getSlot('f1');
         b.displayList = null;
@@ -90,20 +85,17 @@ public class TutorialMultNew {
         var rect:Rectangle = new Rectangle();
         rect.width = 1000;
         rect.height = 640;
-        var bd:BitmapData = DrawToBitmap.copyToBitmapDataWithRectangle(Starling.current, _source, rect); // should use more bigger field!!!!
+        rect.x = g.managerResize.stageWidth/2 - 1000/2;
+        var bd:BitmapData = DrawToBitmap.stageScreenShotByRect(rect);
         var im:Image = new Image(Texture.fromBitmapData(bd));
-        im.width = 1100;
-        im.height = 700;
-        im.x = -50;
-        im.y = -30;
         _tempBlured = new Sprite();
         _tempBlured.addChild(im);
-        im = new Image(Texture.fromBitmapData(bd));
-        _tempBlured.addChild(im);
         _tempBlured.filter = ManagerFilters.HARD_BLUR;
-        _tempBlured.x = -500;
-        _tempBlured.y = -320;
+        _tempBlured.x = -500 + 16;
+        _tempBlured.y = -320 + 16;
         _contF1.addChild(_tempBlured);
+//        _tempBlured.alpha = 0;
+//        TweenMax.to(_tempBlured, 10, {alpha:1, ease:Linear.easeNone, useFrames:true});
 
         _armature.addEventListener(EventObject.COMPLETE, onIdle1);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onIdle1);
@@ -152,17 +144,16 @@ public class TutorialMultNew {
         _armature.addEventListener(EventObject.COMPLETE, onIdle3);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onIdle3);
         _armature.animation.gotoAndPlayByFrame('idle_3');
-        TweenMax.to(_tempBlured, 25, {alpha:0, ease:Linear.easeNone, useFrames:true});
+        TweenMax.to(_tempBlured, 30, {alpha:0, ease:Linear.easeNone, useFrames:true});
     }
 
     private function onIdle3(e:Event=null):void {
         _armature.removeEventListener(EventObject.COMPLETE, onIdle3);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle3);
         _contF1.visible = false;
-        _tempBlured.filter.dispose();
-        _tempBlured.filter = null;
         _contF1.removeChild(_tempBlured);
-        while (_tempBlured.numChildren) _tempBlured.removeChildAt(0);
+        _tempBlured.dispose();
+        _tempBlured = null;
         showCats();
         _armature.addEventListener(EventObject.COMPLETE, onIdle4);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onIdle4);
@@ -174,21 +165,19 @@ public class TutorialMultNew {
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle4);
         _armature.animation.gotoAndStopByFrame('idle_5');
 
-        var bm:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
-        var im:Image = new Image(Texture.fromBitmap(bm));
-        im.width = 1100;
-        im.height = 700;
-        im.x = -550;
-        im.y = -350;
+        var rect:Rectangle = new Rectangle();
+        rect.width = 1000;
+        rect.height = 640;
+        rect.x = g.managerResize.stageWidth/2 - 1000/2;
+        var bd:BitmapData = DrawToBitmap.stageScreenShotByRect(rect);
+        var im:Image = new Image(Texture.fromBitmapData(bd));
+        _tempBlured = new Sprite();
         _tempBlured.addChild(im);
-        im = new Image(Texture.fromBitmap(bm));
-        _tempBlured.addChild(im);
-        im.x = -500;
-        im.y = -320;
         _tempBlured.filter = ManagerFilters.HARD_BLUR;
+        _tempBlured.x = -500 + 16;
+        _tempBlured.y = -320 + 16;
         _contF2.addChild(_tempBlured);
-        _contF2.alpha = 0;
-        _contF2.visible = true;
+        _tempBlured.alpha = 0;
         TweenMax.to(_tempBlured, 20, {alpha:1, ease:Linear.easeNone, useFrames:true});
 
         _armature.addEventListener(EventObject.COMPLETE, onIdle5);
@@ -209,38 +198,38 @@ public class TutorialMultNew {
         _armature.removeEventListener(EventObject.COMPLETE, onIdle6);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle6);
         if (_endCallback != null) {
-//            _endCallback.apply();
+            _endCallback.apply();
         }
     }
 
     private function showCats():void {
         _arrCats = [];
-        var cat:MultCat = new MultCat(-577, 213, _contCats);
+        var cat:MultCat = new MultCat(-577, 213, _contCats, 1);
         cat.flipIt();
-        cat.moveTo(-322, 146, 0);
+        cat.moveTo(-320, 156, 0);
         _arrCats.push(cat);
-        cat = new MultCat(1, 79, _contCats);
-        cat.moveTo(-164, 68, .1);
+        cat = new MultCat(1, 79, _contCats, 2);
+        cat.moveTo(-159, 58, .1);
         _arrCats.push(cat);
-        cat = new MultCat(472, 248, _contCats);
-        cat.moveTo(274, 120, .3);
+        cat = new MultCat(472, 270, _contCats, 3);
+        cat.moveTo(274, 165, .3);
         _arrCats.push(cat);
-        cat = new MultCat(171, 275, _contCats);
-        cat.moveTo(-23, 283, .3);
+        cat = new MultCat(171, 275, _contCats, 4);
+        cat.moveTo(-23, 273, .3);
         _arrCats.push(cat);
-        cat = new MultCat(446, 30, _contCats);
-        cat.moveTo(284, 46, .3);
+        cat = new MultCat(470, 65, _contCats, 5);
+        cat.moveTo(300, 65, .3);
         _arrCats.push(cat);
-        cat = new MultCat(-360, -30, _contCats);
+        cat = new MultCat(-360, -30, _contCats, 6);
         cat.flipIt();
-        cat.moveTo(-298, 73, .4);
+        cat.moveTo(-300, 70, .4);
         _arrCats.push(cat);
-        cat = new MultCat(191, -113, _contCats);
-        cat.moveTo(105, -57, .5);
+        cat = new MultCat(191, -113, _contCats, 7);
+        cat.moveTo(110, -60, .5);
         _arrCats.push(cat);
-        cat = new MultCat(-390, 185, _contCats);
+        cat = new MultCat(-390, 185, _contCats, 8);
         cat.flipIt();
-        cat.moveTo(-181, 297, .7);
+        cat.moveTo(-181, 270, .7);
         _arrCats.push(cat);
     }
 
@@ -252,6 +241,8 @@ public class TutorialMultNew {
     }
 
     public function deleteIt():void {
+        _contF2.removeChild(_tempBlured);
+        _tempBlured.dispose();
         WorldClock.clock.remove(_armature);
         g.cont.popupCont.removeChild(_source);
         _source.removeChild(_armature.display as Sprite);
