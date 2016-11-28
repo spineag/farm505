@@ -324,7 +324,7 @@ public class Vars {
         managerCats.addAllHeroCats();
         startPreloader.setProgress(84);
         if (managerTutorial.isTutorial) {
-            loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial);
+            loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial); // no need for loading this
         } else {
             directServer.getDataAnimal(onDataAnimal);
         }

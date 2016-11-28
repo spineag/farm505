@@ -146,7 +146,7 @@ public class WOFabricaWorkListItem {
         }
         if (_type == BIG_CELL) {
             _btnSkip.visible = true;
-            if (g.managerTutorial.isTutorial)  _txtSkip.text = String(0);
+            if (g.managerTutorial.isTutorial)  _txtSkip.text = String(0);  // no for new tuts
             else {
                 _txtSkip.text = String(g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard));
                 _priceSkip = g.managerTimerSkip.newCount(_resource.buildTime, _resource.leftTime, _resource.priceSkipHard);
@@ -266,7 +266,7 @@ public class WOFabricaWorkListItem {
     }
 
     public function showBuyPropose(buyCount:int, callback:Function):void {
-        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.managerTutorial.isBlockForTutorial || g.managerCutScenes.isCutScene) return;
         if (_type == SMALL_CELL) {
             _source.visible = true;
             _txt.visible = false;

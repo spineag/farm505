@@ -41,9 +41,11 @@ public class ManagerTutorial extends IManagerTutorial {
 
     public function ManagerTutorial() {
        super();
+        _useNewTuts = false;
     }
 
     override protected function initScenes():void {
+        _needBlockForTutorial = true;
         var curFunc:Function;
         try {
         Cc.info('init tutorial scene for step: ' + g.user.tutorialStep);
@@ -241,7 +243,6 @@ public class ManagerTutorial extends IManagerTutorial {
         }
         if (!texts) texts = (new TutorialTexts()).objText;
         _tutorialObjects = g.townArea.getCityObjectsByType(BuildType.RIDGE);
-        if (_tutorialObjects)
         var p:Point = new Point();
         p.x = (_tutorialObjects[0] as WorldObject).posX;
         p.y = (_tutorialObjects[0] as WorldObject).posY;
@@ -2063,6 +2064,7 @@ public class ManagerTutorial extends IManagerTutorial {
         TUTORIAL_ON = false;
 //        if (!g.managerTips) g.managerTips = new ManagerTips(true);
         if (g.managerOrder) g.managerOrder.showSmallHeroAtOrder(true);
+        super.clearAll();
     }
 
     private function addCatToPos(_x:int, _y:int):void {

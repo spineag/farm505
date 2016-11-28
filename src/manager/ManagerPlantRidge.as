@@ -251,7 +251,7 @@ public class ManagerPlantRidge {
     }
 
     public function onStartActivePlanting(isStart:Boolean):void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         if (isStart) {
             g.gameDispatcher.addEnterFrame(checkForPlanting);
         } else {
@@ -262,7 +262,7 @@ public class ManagerPlantRidge {
     }
 
     private function checkForPlanting():void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         _tempPoint.x = g.ownMouse.mouseX;
         _tempPoint.y = g.ownMouse.mouseY;
         _tempPoint = g.cont.contentCont.globalToLocal(_tempPoint);
@@ -277,7 +277,7 @@ public class ManagerPlantRidge {
     }
 
     public function onStartCraftPlanting(isStart:Boolean):void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         g.cont.contentCont.releaseContDrag = !isStart;
         g.cont.tailCont.releaseContDrag = !isStart;
         g.cont.deleteDragPoint();

@@ -145,8 +145,7 @@ public class TimerHint {
         _isShow = true;
         _timer = timer;
         _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
-        if (g.managerTutorial.isTutorial) _txtCost.text = String(0);
-        else _txtCost.text = String(g.managerTimerSkip.newCount(timeAll,timer,cost));
+        _txtCost.text = String(g.managerTimerSkip.newCount(timeAll,timer,cost));
         _txtName.text = name;
         g.cont.hintContUnder.addChild(_source);
         g.gameDispatcher.addToTimer(onTimer);

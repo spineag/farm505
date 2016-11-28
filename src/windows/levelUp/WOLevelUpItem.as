@@ -200,7 +200,7 @@ public class WOLevelUpItem {
 
     private function onHover():void {
         if (_onHover) return;
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         if (_data.coins) return;
         if (_data.hard) return;
 

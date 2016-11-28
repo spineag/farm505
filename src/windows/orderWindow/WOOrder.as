@@ -158,7 +158,7 @@ public class WOOrder extends WindowMain{
     }
 
     private function onClickExit(e:Event=null):void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         hideIt();
     }
 
@@ -449,7 +449,7 @@ public class WOOrder extends WindowMain{
                 _btnSkipDelete.visible = false;
             } else {
                 stopCatsAnimations();
-            if (!g.managerTutorial.isTutorial) emptyCarCustomer();
+            if (!g.managerTutorial.isBlockForTutorial) emptyCarCustomer();
                 _txtOrder.text = 'ЗАКАЗ УДАЛЕН';
             }
 
@@ -490,7 +490,7 @@ public class WOOrder extends WindowMain{
     }
 
     private function deleteOrder():void {
-        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.managerTutorial.isBlockForTutorial || g.managerCutScenes.isCutScene) return;
         if (_activeOrderItem) {
             g.hint.hideIt();
             _rightBlock.visible = false;
@@ -591,7 +591,7 @@ public class WOOrder extends WindowMain{
     }
 
     private function skipDelete():void {
-        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.managerTutorial.isBlockForTutorial || g.managerCutScenes.isCutScene) return;
         var n:int;
         if (g.user.level <= 6) n = ManagerOrder.COST_FIRST_SKIP_WAIT;
         else if (g.user.level <= 9) n = ManagerOrder.COST_SECOND_SKIP_WAIT;

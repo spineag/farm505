@@ -270,7 +270,7 @@ public class MainBottomPanel {
                 break;
             case 'cancel':
                 if (g.managerCutScenes.isCutScene) return;
-                if (g.managerTutorial.isTutorial) return;
+                if (g.managerTutorial.isBlockForTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -301,7 +301,7 @@ public class MainBottomPanel {
 
                     } else return;
                 }
-                if (g.managerTutorial.isTutorial) return;
+                if (g.managerTutorial.isBlockForTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -315,7 +315,7 @@ public class MainBottomPanel {
             case 'option':
                 g.managerHelpers.onUserAction();
                 if (g.managerCutScenes.isCutScene) return;
-                if (g.managerTutorial.isTutorial) return;
+                if (g.managerTutorial.isBlockForTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     cancelBoolean(false);
@@ -331,7 +331,7 @@ public class MainBottomPanel {
                 break;
             case 'order':
                 if (g.managerCutScenes.isCutScene) return;
-                if (g.managerTutorial.isTutorial) return;
+                if (g.managerTutorial.isBlockForTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     cancelBoolean(false);
@@ -343,7 +343,7 @@ public class MainBottomPanel {
                 break;
             case 'ambar':
                 if (g.managerCutScenes.isCutScene) return;
-                if (g.managerTutorial.isTutorial) return;
+                if (g.managerTutorial.isBlockForTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     g.toolsModifier.modifierType = ToolsModifier.NONE;

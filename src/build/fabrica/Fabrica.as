@@ -237,7 +237,7 @@ public class Fabrica extends WorldObject {
         }
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            if (!g.managerTutorial.isTutorial) onOut();
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();

@@ -67,7 +67,7 @@ public class Sklad extends WorldObject{
     }
 
     private function onClick():void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         if (g.managerCutScenes.isCutScene) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (g.selectedBuild) {

@@ -269,7 +269,7 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onClickExit(e:Event=null):void {
-        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.managerTutorial.isBlockForTutorial || g.managerCutScenes.isCutScene) return;
         _timer = 15;
         g.gameDispatcher.removeFromTimer(refreshMarketTemp);
         super.hideIt();
@@ -452,7 +452,7 @@ public class WOMarket  extends WindowMain {
     }
 
     private function makeRefresh():void {
-        if (g.managerCutScenes.isCutScene || g.managerTutorial.isTutorial) return;
+        if (g.managerCutScenes.isCutScene || g.managerTutorial.isBlockForTutorial) return;
         for (var i:int=0; i< _arrItems.length; i++) {
             _arrItems[i].unFillIt();
         }
@@ -726,7 +726,7 @@ public class WOMarket  extends WindowMain {
     }
 
     private function btnFriend (hideCallback:Boolean = false):void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         if (g.managerCutScenes.isCutScene) return;
         if (hideCallback) {
             _ma.hideIt();

@@ -201,7 +201,7 @@ public class WOBuyPlantItem {
         if (!_dataPlant) return;
         if (_isOnHover) return;
         source.filter = ManagerFilters.YELLOW_STROKE;
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         _isOnHover = true;
         g.resourceHint.hideIt();
         g.resourceHint.showIt(_dataPlant.id, source.x, 48, source, true);

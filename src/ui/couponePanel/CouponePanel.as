@@ -158,7 +158,7 @@ public class CouponePanel {
     }
 
     private function onClick():void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) return;
         var tween:Tween = new Tween(_contCoupone, 0.2);
         tween.moveTo(-100,0);

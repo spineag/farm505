@@ -167,7 +167,7 @@ public class Containers {
             return;
         }
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
-            if (!_isDragged && !g.managerTutorial.isTutorial) {
+            if (!_isDragged && !g.managerTutorial.isBlockForTutorial) {
                 if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE) {
                     g.bottomPanel.cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -196,7 +196,7 @@ public class Containers {
 
     public function dragGameCont(mouseP:Point):void {
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) return;
-        if (g.managerTutorial.isTutorial) {
+        if (g.managerTutorial.isTutorial) { // no for new tuts
             if (g.managerTutorial.currentAction == TutorialAction.PUT_FABRICA || g.managerTutorial.currentAction == TutorialAction.PUT_FARM) {
 
             } else {

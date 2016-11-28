@@ -186,7 +186,7 @@ public class ManagerAnimal {
     }
 
     public function onStartFeedAnimal(isStart:Boolean):void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         if (!activeFeedAnimalId && isStart) {
             Cc.error('startFeedAnimal:: activeFeedAnimalId == 0');
             return;

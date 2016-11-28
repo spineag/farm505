@@ -160,7 +160,6 @@ public class Ridge extends WorldObject{
             }
         } else {
             _stateRidge = EMPTY;
-
             var arr:Array = g.user.userDataCity.plants;
             for (var i:int = 0; i < arr.length; i++) {
                 if (int(arr[i].dbId) == dbBuildingId) {
@@ -324,7 +323,7 @@ public class Ridge extends WorldObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             return;
         } else if (g.toolsModifier.modifierType == ToolsModifier.ADD_NEW_RIDGE) {
-            if (!g.managerTutorial.isTutorial) onOut();
+            onOut();
             if (g.selectedBuild) {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
@@ -356,7 +355,7 @@ public class Ridge extends WorldObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                if (g.managerTutorial.isTutorial) return;
+                if (g.managerTutorial.isBlockForTutorial) return;
                 onOut();
 
                 if (!lastBuyResource) {

@@ -85,7 +85,7 @@ public class Wild extends WorldObject{
         if (g.selectedBuild) return;
         super.onHover();
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.managerTutorial.isBlockForTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (_curLockedLand && !g.isActiveMapEditor) return;
         if (_delete) return;
         if(_isOnHover) return;
@@ -100,7 +100,7 @@ public class Wild extends WorldObject{
 
     override public function onOut():void {
         super.onOut();
-        if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
+        if (g.managerTutorial.isBlockForTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (_delete) return;
         _isOnHover = false;
 //            if (!_isOnHover) g.wildHint.hideIt();
@@ -166,7 +166,7 @@ public class Wild extends WorldObject{
 
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         if (_delete) return;
         if (g.selectedBuild) {
             if (g.selectedBuild == this && g.isActiveMapEditor) {

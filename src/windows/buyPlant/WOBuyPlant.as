@@ -49,7 +49,7 @@ public class WOBuyPlant extends WindowMain {
     }
 
     private function onClickExit(e:Event=null):void {
-        if (g.managerTutorial.isTutorial) return;
+        if (g.managerTutorial.isBlockForTutorial) return;
         if (g.managerCutScenes.isCutScene) return;
         hideIt();
     }
