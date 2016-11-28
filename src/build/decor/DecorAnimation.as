@@ -377,8 +377,7 @@ public class DecorAnimation extends WorldObject{
         _decorWork = false;
         if (_heroCat) _heroCat = null;
         if (_armature) {
-            if (_dataBuild.catNeed) _armature.animation.gotoAndPlayByFrame('idle');
-            else _armature.animation.gotoAndStopByTime('idle');
+            _armature.animation.gotoAndPlayByFrame('idle');
         }
         if (_armature) _armature.removeEventListener(EventObject.COMPLETE, chooseAnimation);
         if (_armature) _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
