@@ -4,7 +4,10 @@
 package utils {
 import com.junkbyte.console.Cc;
 
+import flash.events.TimerEvent;
+
 import flash.utils.ByteArray;
+import flash.utils.Timer;
 
 public class Utils {
     public static function intArray(ar:Array):Array {
@@ -86,6 +89,19 @@ public class Utils {
             }
         }
         return st2;
+    }
+
+    public static function createDelay(delay:Number, f:Function):void {
+        var func:Function = function():void {
+            timer.removeEventListener(TimerEvent.TIMER, func);
+            timer = null;
+            if (f != null) {
+                f.apply();
+            }
+        };
+        var timer:Timer = new Timer(delay*1000, 1);
+        timer.addEventListener(TimerEvent.TIMER, func);
+        timer.start();
     }
 }
 }

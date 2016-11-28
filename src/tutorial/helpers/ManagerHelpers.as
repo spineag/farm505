@@ -13,6 +13,9 @@ import flash.utils.Timer;
 
 import manager.Vars;
 import mouse.ToolsModifier;
+
+import utils.Utils;
+
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;
 import windows.shop.WOShop;
@@ -326,19 +329,6 @@ public class ManagerHelpers {
         if (!_isStoped) checkIt();
     }
 
-    private function createDelay(delay:Number, f:Function):void {
-        var func:Function = function():void {
-            timer.removeEventListener(TimerEvent.TIMER, func);
-            timer = null;
-            if (f != null) {
-                f.apply();
-            }
-        };
-        var timer:Timer = new Timer(delay*1000, 1);
-        timer.addEventListener(TimerEvent.TIMER, func);
-        timer.start();
-    }
-    
     public function onOpenShop():void {
 
         if (_helper) _helper.deleteHelper();
@@ -357,7 +347,7 @@ public class ManagerHelpers {
     }
 
     public function onOpenFabricaWithDelay():void {
-        createDelay(.7, onOpenFabrica);
+        Utils.createDelay(.7, onOpenFabrica);
     }
 
     private function onOpenFabrica():void {

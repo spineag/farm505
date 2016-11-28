@@ -37,9 +37,9 @@ public class SocialNetworkSwitch {
                 SECRET_KEY = SECRET_KEY_VK;
                 if (isDebug) {
                     flashVars["api_id"] = "5448769";
-                    flashVars["viewer_id"] = "168207096";
-                    flashVars["sid"] = "8efb8e8efc94a5f4d163d8a59cde7d767ac9598275043cf576a6e61d446ee39a9f45c144c27eb7f7826b7";
-                    flashVars["secret"] = "3380722a54";
+                    flashVars["viewer_id"] = "191561520";
+                    flashVars["sid"] = "3ca847d7113b81b19adf0d55c1bd1341d68979830f18d6741552eb8dab4b786dfa2cb6d85416b4d7302b2";
+                    flashVars["secret"] = "edcc408dab";
 //
 //                    flashVars["api_id"] = "5448769";
 //                    flashVars["viewer_id"] = "8726902";

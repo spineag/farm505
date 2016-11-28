@@ -22,6 +22,7 @@ import starling.textures.TextureAtlas;
 import ui.tips.TipsPanel;
 
 import utils.SimpleArrow;
+import utils.Utils;
 
 import windows.WindowsManager;
 import windows.shop.WOShop;
@@ -323,7 +324,7 @@ public class ManagerTips {
         try {
             if (ob.type == TIP_BUY_HERO) {
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.VILLAGE);
-                createDelay(.7, atBuyCat);
+                Utils.createDelay(.7, atBuyCat);
             } else if (ob.type == TIP_RAW_ANIMAL) {
                 for (var i:int = 0; i < ob.array.length; i++) {
                     (ob.array[i] as Animal).addArrow(5);
@@ -350,18 +351,6 @@ public class ManagerTips {
         }
     }
 
-    private function createDelay(delay:Number, f:Function):void {
-        var func:Function = function():void {
-            timer.removeEventListener(TimerEvent.TIMER, func);
-            timer = null;
-            if (f != null) {
-                f.apply();
-            }
-        };
-        var timer:Timer = new Timer(delay*1000, 1);
-        timer.addEventListener(TimerEvent.TIMER, func);
-        timer.start();
-    }
 
 }
 }

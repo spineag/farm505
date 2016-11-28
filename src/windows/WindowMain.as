@@ -23,6 +23,7 @@ import tutorial.managerCutScenes.ManagerCutScenes;
 
 import utils.CButton;
 import utils.CSprite;
+import utils.Utils;
 
 public class WindowMain {
     protected var _source:Sprite;
@@ -70,7 +71,7 @@ public class WindowMain {
 //            } else {
                 _source.scale = 1;
                 _source.alpha = 1;
-            createDelay(.2, onShowingWindow);
+            Utils.createDelay(.2, onShowingWindow);
 //            }
         }
     }
@@ -89,26 +90,13 @@ public class WindowMain {
         }
     }
 
-    private function createDelay(delay:Number, f:Function):void {
-        var func:Function = function():void {
-            timer.removeEventListener(TimerEvent.TIMER, func);
-            timer = null;
-            if (f != null) {
-                f.apply();
-            }
-        };
-        var timer:Timer = new Timer(delay*1000, 1);
-        timer.addEventListener(TimerEvent.TIMER, func);
-        timer.start();
-    }
-
     public function hideIt():void {
 //        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
 //            if (g.cont.windowsCont.contains(_source))
 //                TweenMax.to(_source, .1, {scaleX: .8, scaleY: .8, alpha: 0, onComplete: onHideAnimation});
 //            else onHideAnimation();
 //        } else {
-        createDelay(.2, onHideAnimation);
+        Utils.createDelay(.2, onHideAnimation);
 //            onHideAnimation();
 //        }
     }
