@@ -2,8 +2,6 @@
  * Created by user on 2/29/16.
  */
 package tutorial {
-import analytic.AnalyticManager;
-
 import build.WorldObject;
 import build.chestBonus.Chest;
 import build.fabrica.Fabrica;
@@ -18,24 +16,17 @@ import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
 import heroes.OrderCat;
-import manager.Vars;
 import mouse.ToolsModifier;
-
 import particle.tuts.DustRectangle;
 import heroes.TutorialCat;
-
 import starling.core.Starling;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.utils.Color;
-
 import tutorial.pretuts.TutorialCloud;
-
-import tutorial.pretuts.TutorialMult;
 import tutorial.pretuts.TutorialMultNew;
-import tutorial.tips.ManagerTips;
-
 import utils.SimpleArrow;
+import utils.Utils;
 
 import windows.WindowsManager;
 import windows.fabricaWindow.WOFabrica;
@@ -43,72 +34,16 @@ import windows.market.WOMarket;
 import windows.orderWindow.WOOrder;
 import windows.shop.WOShop;
 
-public class ManagerTutorial {
-    private var TUTORIAL_ON:Boolean = true;
-
-    private const MAX_STEPS:uint = 100;
-    private var g:Vars = Vars.getInstance();
+public class ManagerTutorial extends IManagerTutorial {
     private var cat:TutorialCat;
-    private var cutScene:CutScene;
-    private var _subStep:int;
-    private var texts:Object;
-    private var black:Sprite;
-    private var _tutorialObjects:Array;
-    private var _currentAction:int;
-    private var _tutorialResourceIDs:Array;
-    private var _dustRectangle:DustRectangle;
-    private var _tutorialCallback:Function;
-    private var _onShowWindowCallback:Function;
-    private var _airBubble:AirTextBubble;
-    private var _counter:int;
     private var _tutorialPlaceBuilding:TutorialPlace;
-    private var _arrow:SimpleArrow;
     private var _cloud:TutorialCloud;
-    private var _mult:TutorialMultNew;
-    private var _afterTutorialWindow:AfterTutorialWindow;
 
     public function ManagerTutorial() {
-        _tutorialObjects = [];
-        _currentAction = TutorialAction.NONE;
-        _tutorialResourceIDs = [];
+       super();
     }
 
-    public function checkTutorialCallback():void {
-        if (_tutorialCallback != null) {
-            _tutorialCallback.apply();
-        }
-    }
-
-    public function checkTutorialCallbackOnShowWindow():void {
-        if (_onShowWindowCallback != null) {
-            _onShowWindowCallback.apply();
-        }
-    }
-
-    public function get currentAction():int {
-        return _currentAction;
-    }
-
-    public function get subStep():int {
-        return _subStep;
-    }
-
-    public function isTutorialResource(id:int):Boolean {
-        return _tutorialResourceIDs.indexOf(id) > -1;
-    }
-
-    public function get isTutorial():Boolean {
-        return TUTORIAL_ON && g.user.tutorialStep < MAX_STEPS;
-    }
-
-    private function updateTutorialStep():void {
-        Cc.info('update tutorial step: ' + g.user.tutorialStep);
-        g.directServer.updateUserTutorialStep(null);
-        if (g.analyticManager)
-            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TUTORIAL, {id:g.user.tutorialStep});
-    }
-
-    public function initScenes():void {
+    override protected function initScenes():void {
         var curFunc:Function;
         try {
         Cc.info('init tutorial scene for step: ' + g.user.tutorialStep);
@@ -544,7 +479,7 @@ public class ManagerTutorial {
         chick.tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         _subStep = 5;
-        createDelay(.3, subStep5_6);
+        Utils.createDelay(.3, subStep5_6);
     }
 
     private function subStep5_6():void {
@@ -605,7 +540,7 @@ public class ManagerTutorial {
         cat.playDirectLabel('idle3', true, playCatIdle);
         cat.showBubble(texts[g.user.tutorialStep][_subStep]);
         g.bottomPanel.animateShowingMainPanel();
-        createDelay(1.1, subStep7_1);
+        Utils.createDelay(1.1, subStep7_1);
         _tutorialCallback = null;
     }
 
@@ -1145,14 +1080,14 @@ public class ManagerTutorial {
         cat.playDirectLabel('idle3', true, playCatIdle);
         cat.showBubble(texts[g.user.tutorialStep][_subStep]);
         g.managerOrder.checkOrderForTutorial(subStep12_5);
-        createDelay(3, subStep12_3);
+        Utils.createDelay(3, subStep12_3);
     }
 
     private function subStep12_3():void {
         _subStep = 3;
         cat.hideBubble();
         g.cont.moveCenterToPos(40, 1, false, 2);
-        createDelay(4, subStep12_4);
+        Utils.createDelay(4, subStep12_4);
     }
 
     private function subStep12_4():void {
@@ -1659,7 +1594,7 @@ public class ManagerTutorial {
         _tutorialCallback = null;
         g.user.tutorialStep = 21;
         updateTutorialStep();
-        createDelay(1, subStep20_5);
+        Utils.createDelay(1, subStep20_5);
     }
 
     private function subStep20_5():void {
@@ -1683,7 +1618,7 @@ public class ManagerTutorial {
                 cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['ok'], subStep21_3);
             } else {
                 g.windowsManager.currentWindow.hideIt();
-                createDelay(.7, subStep21_1a);
+                Utils.createDelay(.7, subStep21_1a);
             }
         } else {
             subStep21_1a();
@@ -1834,7 +1769,7 @@ public class ManagerTutorial {
             _arrow.deleteIt();
             _arrow = null;
         }
-        createDelay(.7, subStep22_5);
+        Utils.createDelay(.7, subStep22_5);
     }
 
     private function subStep22_5():void {
@@ -1896,7 +1831,7 @@ public class ManagerTutorial {
         cutScene.showIt(texts[g.user.tutorialStep][_subStep]);
         _currentAction = TutorialAction.VISIT_NEIGHBOR;
         g.friendPanel.showIt();
-        createDelay(1, subStep24_1);
+        Utils.createDelay(1, subStep24_1);
     }
 
     private function subStep24_1():void {
@@ -1944,7 +1879,7 @@ public class ManagerTutorial {
         _subStep = 5;
         (_tutorialObjects[0] as WorldObject).hideArrow();
         _tutorialResourceIDs = [124, 1, 5, 6, 125];
-        createDelay(.7, subStep24_6);
+        Utils.createDelay(.7, subStep24_6);
     }
 
     private function subStep24_6():void {
@@ -2019,7 +1954,7 @@ public class ManagerTutorial {
         g.user.tutorialStep = 25;
         _tutorialResourceIDs = [];
         _tutorialObjects = [];
-        createDelay(.5, initScenes);
+        Utils.createDelay(.5, initScenes);
     }
 
     private function initScene_25():void {
@@ -2114,12 +2049,12 @@ public class ManagerTutorial {
     }
 
 
-    public function checkDefaults():void {
+    override public function checkDefaults():void {
         if (g.user.tutorialStep < 6) g.bottomPanel.hideMainPanel();
         if (g.user.tutorialStep < 23) g.friendPanel.hideIt(true);
     }
 
-    private function clearAll():void {
+    override protected function clearAll():void {
         if (cat) {
             cat.removeFromMap();
             cat.deleteIt();
@@ -2140,25 +2075,7 @@ public class ManagerTutorial {
         if (cat) cat.playDirectLabel('idle', false, null);
     }
 
-    private function addBlack():void {
-        if (!black) {
-            var q:Quad = new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK);
-            black = new Sprite();
-            black.addChild(q);
-            black.alpha = .3;
-            g.cont.popupCont.addChildAt(black, 0);
-        }
-    }
-
-    private function removeBlack():void {
-        if (black) {
-            if (g.cont.popupCont.contains(black)) g.cont.popupCont.removeChild(black);
-            black.dispose();
-            black = null;
-        }
-    }
-
-    public function onResize():void {
+    override public function onResize():void {
         Cc.info('tuts: onResize with _subStep: ' + _subStep);
         if (_subStep < 1) return;
         if (black) {
@@ -2636,36 +2553,6 @@ public class ManagerTutorial {
         }
 
     }
-
-    private function deleteCutScene():void {
-        if (cutScene) {
-            cutScene.deleteIt();
-            cutScene = null;
-        }
-    }
-
-    public function isTutorialBuilding(wo:WorldObject):Boolean {
-        return _tutorialObjects.indexOf(wo) > -1;
-    }
-
-    public function addTutorialWorldObject(w:WorldObject):void {
-        _tutorialObjects.push(w);
-    }
-
-    private function createDelay(delay:Number, f:Function):void {
-        var func:Function = function():void {
-            timer.removeEventListener(TimerEvent.TIMER, func);
-            timer = null;
-            if (f != null) {
-                f.apply();
-            }
-        };
-        var timer:Timer = new Timer(delay*1000, 1);
-        timer.addEventListener(TimerEvent.TIMER, func);
-        timer.start();
-    }
-
-    private function emptyFunction(...params):void {}
 }
 }
 

@@ -23,6 +23,9 @@ import tutorial.CutScene;
 import particle.tuts.DustRectangle;
 import utils.SimpleArrow;
 import heroes.TutorialCat;
+
+import utils.Utils;
+
 import windows.WindowsManager;
 import windows.buyPlant.WOBuyPlant;
 import windows.market.MarketItem;
@@ -145,7 +148,7 @@ public class ManagerCutScenes {
         var f:Function = function():void {
             releaseAddToPapper(it);
         };
-        createDelay(.7, f);
+        Utils.createDelay(.7, f);
     }
 
     private function checkTypeFunctions():void {
@@ -356,7 +359,7 @@ public class ManagerCutScenes {
         _cutSceneCallback = null;
         g.user.cutScenes[3] = 1;
         saveUserCutScenesData();
-        createDelay(.7, toInventory_4);
+        Utils.createDelay(.7, toInventory_4);
         return;
 
         if (!g.allData.factory['tutorialCatBig']) {
@@ -376,7 +379,7 @@ public class ManagerCutScenes {
         }
         _cutSceneBuildings.length = 1;
         g.bottomPanel.showToolsForCutScene();
-        createDelay(.7, toInventory_1);
+        Utils.createDelay(.7, toInventory_1);
     }
 
     private function toInventory_1():void {
@@ -416,7 +419,7 @@ public class ManagerCutScenes {
         _cutSceneCallback = null;
         g.user.cutScenes[3] = 1;
         saveUserCutScenesData();
-        createDelay(.7, toInventory_4);
+        Utils.createDelay(.7, toInventory_4);
     }
 
     private function toInventory_4():void {
@@ -445,7 +448,7 @@ public class ManagerCutScenes {
             fromInventory_1();
         } else {
             g.bottomPanel.showToolsForCutScene();
-            createDelay(.7, fromInventory_1);
+            Utils.createDelay(.7, fromInventory_1);
         }
     }
 
@@ -472,7 +475,7 @@ public class ManagerCutScenes {
             _arrow = null;
         }
         _cutScene.hideIt(deleteCutScene);
-        createDelay(.5, fromInventory_3);
+        Utils.createDelay(.5, fromInventory_3);
     }
 
     private function fromInventory_3():void {
@@ -532,7 +535,7 @@ public class ManagerCutScenes {
             return;
         }
         g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 220, _cutSceneBuildings[0].source.y - 80, false, 1);
-        createDelay(1, availableTrain_1);
+        Utils.createDelay(1, availableTrain_1);
     }
 
     private function availableTrain_1():void {
@@ -587,7 +590,7 @@ public class ManagerCutScenes {
             }
         }
         g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 220, _cutSceneBuildings[0].source.y - 80, false, .7);
-        createDelay(.7, openTrain_1);
+        Utils.createDelay(.7, openTrain_1);
     }
 
     private function openTrain_1():void {
@@ -604,7 +607,7 @@ public class ManagerCutScenes {
         _cutSceneBuildings = [];
         _cutSceneCallback = null;
         if (_cutScene) _cutScene.hideIt(deleteCutScene);
-        createDelay(.5, openTrain_2a);
+        Utils.createDelay(.5, openTrain_2a);
     }
 
     private function openTrain_2a():void {
@@ -714,7 +717,7 @@ public class ManagerCutScenes {
     public function isWOPlantCutSceneAvailable():void {
         if (!_properties || !_properties[7] || _properties[7].level > g.user.level || g.user.cutScenes[7]) return;
         _curCutScenePropertie = _properties[7];
-        createDelay(.7, releaseWOPlant);
+        Utils.createDelay(.7, releaseWOPlant);
     }
 
 
@@ -862,19 +865,6 @@ public class ManagerCutScenes {
     public function isCutSceneBuilding(wo:WorldObject):Boolean {
         if(_cutSceneBuildings)  return _cutSceneBuildings.indexOf(wo) > -1;
         else return false;
-    }
-
-    private function createDelay(delay:Number, f:Function):void {
-        var func:Function = function():void {
-            timer.removeEventListener(TimerEvent.TIMER, func);
-            timer = null;
-            if (f != null) {
-                f.apply();
-            }
-        };
-        var timer:Timer = new Timer(delay*1000, 1);
-        timer.addEventListener(TimerEvent.TIMER, func);
-        timer.start();
     }
 
     public function onResize():void {

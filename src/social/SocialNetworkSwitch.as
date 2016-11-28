@@ -38,8 +38,8 @@ public class SocialNetworkSwitch {
                 if (isDebug) {
                     flashVars["api_id"] = "5448769";
                     flashVars["viewer_id"] = "191561520";
-                    flashVars["sid"] = "2ecaf4e95203dd74876b210533ca643d3faf1f1145a9c1ff1ff98fe814e7db969f289b03b2ff8e20ea39f";
-                    flashVars["secret"] = "9b6410d0f2";
+                    flashVars["sid"] = "3ca847d7113b81b19adf0d55c1bd1341d68979830f18d6741552eb8dab4b786dfa2cb6d85416b4d7302b2";
+                    flashVars["secret"] = "edcc408dab";
 //
 //                    flashVars["api_id"] = "5448769";
 //                    flashVars["viewer_id"] = "8726902";

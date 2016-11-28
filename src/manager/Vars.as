@@ -71,6 +71,8 @@ import temp.dataTemp.DataBuildings;
 import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
+
+import tutorial.IManagerTutorial;
 import tutorial.ManagerTutorial;
 import tutorial.helpers.ManagerHelpers;
 import tutorial.managerCutScenes.ManagerCutScenes;
@@ -194,7 +196,7 @@ public class Vars {
 
     public var analyticManager:AnalyticManager;
     public var managerCats:ManagerCats;
-    public var managerTutorial:ManagerTutorial;
+    public var managerTutorial:IManagerTutorial;
     public var managerButterfly:ManagerButterfly;
     public var managerHelpers:ManagerHelpers;
     public var soundManager:SoundManager;
@@ -250,7 +252,7 @@ public class Vars {
             townArea = new TownArea();
             farmGrid = new FarmGrid();
             managerDailyBonus = new ManagerDailyBonus();
-            managerTutorial = new ManagerTutorial();
+            managerTutorial = new ManagerTutorial(); // ManagerTutorialNew !!!
             managerCutScenes = new ManagerCutScenes();
             managerWallPost = new ManagerWallPost();
             managerInviteFriend = new ManagerInviteFriend();
@@ -508,7 +510,7 @@ public class Vars {
                     startPreloader = null;
                 }
                 managerOrder.showSmallHeroAtOrder(false);
-                managerTutorial.initScenes();
+                managerTutorial.onGameStart();
                 managerTutorial.checkDefaults();
             } else {
                 startPreloader.hideIt();
