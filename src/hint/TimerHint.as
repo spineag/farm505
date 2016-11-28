@@ -110,6 +110,7 @@ public class TimerHint {
         if(_isShow) return;
         if (timer <=0) return;
         _onOutCallback = out;
+        _closeTime = 1;
         var quad:Quad;
         if (ridge) {
             _quad = new Quad(int(_bg.width), int(_bg.height), Color.WHITE);
@@ -253,6 +254,7 @@ public class TimerHint {
 
     public function managerHide(callback:Function = null):void {
         if (_isShow) {
+            _closeTime = 1;
             var tween:Tween = new Tween(_source, 0.1);
             tween.scaleTo(0);
             tween.onComplete = function ():void {
