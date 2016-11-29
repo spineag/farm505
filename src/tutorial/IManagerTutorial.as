@@ -29,7 +29,6 @@ public class IManagerTutorial {
     protected var _arrow:SimpleArrow;
     protected var _mult:TutorialMultNew;
     protected var _afterTutorialWindow:AfterTutorialWindow;
-    protected var _needBlockForTutorial:Boolean;
     protected var _useNewTuts:Boolean;
 
     public function IManagerTutorial() {
@@ -57,7 +56,6 @@ public class IManagerTutorial {
     public function get subStep():int { return _subStep; }
     public function isTutorialResource(id:int):Boolean { return _tutorialResourceIDs.indexOf(id) > -1; }
     public function get isTutorial():Boolean { return TUTORIAL_ON && g.user.tutorialStep < MAX_STEPS; }
-    public function get isBlockForTutorial():Boolean { return _needBlockForTutorial; }
     public function checkDefaults():void {}
     public function onResize():void {}
     public function isTutorialBuilding(wo:WorldObject):Boolean { return _tutorialObjects.indexOf(wo) > -1; }
@@ -65,7 +63,6 @@ public class IManagerTutorial {
     protected function emptyFunction(...params):void {}
 
     protected function clearAll():void {
-        _needBlockForTutorial = false;
     }
 
     protected function deleteCutScene():void {

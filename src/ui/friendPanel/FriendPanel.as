@@ -116,7 +116,7 @@ public class FriendPanel {
     }
 
     private function onTabClick():void {
-        if (g.managerTutorial.isBlockForTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_activeTabType == TYPE_NORMAL) {
             _shift = 0;
             animList();
@@ -151,7 +151,7 @@ public class FriendPanel {
 
     private function inviteFriends():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isBlockForTutorial) return;
+        if (g.managerTutorial.isTutorial) return;
         g.socialNetwork.showInviteWindow();
     }
 
@@ -400,7 +400,7 @@ public class FriendPanel {
 
     private function onLeftClick():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isBlockForTutorial) return;
+        if (g.managerTutorial.isTutorial) return;
         var newCount:int = 5;
         if (_shift - newCount < 0) newCount = _shift;
         _shift -= newCount;
@@ -429,7 +429,7 @@ public class FriendPanel {
 
     private function onRightClick():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isBlockForTutorial) return;
+        if (g.managerTutorial.isTutorial) return;
         var newCount:int = 5;
         if (_shift + newCount + 5 >= _arrFriends.length) newCount = _arrFriends.length - _shift - 5;
         var item:FriendItem;

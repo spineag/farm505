@@ -385,7 +385,7 @@ public class MarketItem {
     }
 
     private function onDelete():void {
-        if (g.managerTutorial.isBlockForTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
 
         var f1:Function = function():void {
             for (var i:int = 0; i < g.user.marketItems.length; i++) {
@@ -434,7 +434,7 @@ public class MarketItem {
         var i:int;
         if (isFill == 1) {//заполненная
             if (_isUser) {
-                if (g.managerTutorial.isBlockForTutorial) return;
+                if (g.managerTutorial.isTutorial) return;
                 //тут нужно показать поп-ап про то что за 1 диамант забираем ресурсы с базара
             } else {
                 if (_plawkaSold.visible == true) return;
@@ -469,7 +469,7 @@ public class MarketItem {
                 g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
             }
         } else if (isFill == 0) { // пустая
-            if (g.managerTutorial.isBlockForTutorial) return;
+            if (g.managerTutorial.isTutorial) return;
             if (_isUser) {
                 _wo.onItemClickAndOpenWOChoose(this);
                 _onHover = false;
@@ -478,7 +478,7 @@ public class MarketItem {
         } else if (isFill == 3){ // недоступна по лвлу
 
         } else {
-            if (g.managerTutorial.isBlockForTutorial) return;
+            if (g.managerTutorial.isTutorial) return;
             if (_isUser) { // купленная
                 g.directServer.deleteUserMarketItem(_dataFromServer.id, null);
                 for (i=0; i<g.user.marketItems.length; i++) {

@@ -266,7 +266,7 @@ public class WOFabricaWorkListItem {
     }
 
     public function showBuyPropose(buyCount:int, callback:Function):void {
-        if (g.managerTutorial.isBlockForTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_type == SMALL_CELL) {
             _source.visible = true;
             _txt.visible = false;

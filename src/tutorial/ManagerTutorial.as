@@ -45,7 +45,6 @@ public class ManagerTutorial extends IManagerTutorial {
     }
 
     override protected function initScenes():void {
-        _needBlockForTutorial = true;
         var curFunc:Function;
         try {
         Cc.info('init tutorial scene for step: ' + g.user.tutorialStep);

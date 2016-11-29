@@ -24,7 +24,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
 
     public function ManagerTutorialNew() {
         super();
-        _needBlockForTutorial = false;
         _useNewTuts = true;
     }
 
@@ -40,6 +39,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
                 case 3: curFunc = initScene_3; break;
                 case 4: curFunc = initScene_4; break;
                 case 5: curFunc = initScene_5; break;
+                case 6: curFunc = initScene_6; break;
 
                 default: Cc.error('unknown tuts step'); break;
             }
@@ -53,7 +53,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_1():void {
-        _needBlockForTutorial = true;
         _mult = new TutorialMultNew();
         _mult.showMult(subStep1_1, subStep1_2);
     }
@@ -74,7 +73,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_2():void {
-        _needBlockForTutorial = true;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         var st:String = texts[g.user.tutorialStep][_subStep];
@@ -150,6 +148,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_5():void {
+        _tutorialCallback = null;
         _tutorialObjects = [];
         var ar:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
         for (var i:int=0; i<ar.length; i++) {
@@ -174,7 +173,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
 
     private function subStep5_1(r:Ridge=null):void {
         r.hideArrow();
-
+        initScene_5();
     }
 
     private function subStep5_10():void {
@@ -184,6 +183,9 @@ public class ManagerTutorialNew extends IManagerTutorial{
         initScenes();
     }
 
+    private function initScene_6():void {
+        
+    }
 
 }
 }

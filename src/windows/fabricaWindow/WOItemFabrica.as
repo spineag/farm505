@@ -176,7 +176,7 @@ public class WOItemFabrica {
         if (_isOnHover) return;
         _isOnHover = true;
         source.filter = ManagerFilters.YELLOW_STROKE;
-        if (g.managerTutorial.isBlockForTutorial) return;
+        if (g.managerTutorial.isTutorial) return;
         var point:Point = new Point(0, 0);
         var pointGlobal:Point = source.localToGlobal(point);
         if (_dataRecipe.blockByLevel > g.user.level) g.resourceHint.showIt(_dataRecipe.id,source.x,source.y,source,false,true);

@@ -98,7 +98,7 @@ public class Lohmatik {
     }
 
     private function onClick():void {
-        if (g.managerTutorial.isBlockForTutorial || g.managerCutScenes.isCutScene) return;
+        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         g.soundManager.playSound(SoundConst.TOY_CLICK);
         _source.endClickCallback = null;
         _source.isTouchable = false;

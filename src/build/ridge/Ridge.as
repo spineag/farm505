@@ -355,7 +355,7 @@ public class Ridge extends WorldObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-                if (g.managerTutorial.isBlockForTutorial) return;
+                if (g.managerTutorial.isTutorial) return;
                 onOut();
 
                 if (!lastBuyResource) {

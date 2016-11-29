@@ -167,7 +167,7 @@ public class Containers {
             return;
         }
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE || g.toolsModifier.modifierType == ToolsModifier.CRAFT_PLANT) {
-            if (!_isDragged && !g.managerTutorial.isBlockForTutorial) {
+            if (!_isDragged && !g.managerTutorial.isTutorial) {
                 if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE) {
                     g.bottomPanel.cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;

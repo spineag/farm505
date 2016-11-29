@@ -43,7 +43,7 @@ public class WOFabrica extends WindowMain {
     }
 
     private function onClickExit(e:Event = null):void {
-        if (g.managerTutorial.isBlockForTutorial) return;
+        if (g.managerTutorial.isTutorial) return;
         hideIt();
     }
 

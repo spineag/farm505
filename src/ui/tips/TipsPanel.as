@@ -89,7 +89,7 @@ public class TipsPanel {
             Cc.error('tipsPanel onClick: tipsAtlas is not loaded yet');
             return;
         }
-        if (g.managerCutScenes.isCutScene || g.managerTutorial.isBlockForTutorial || g.isAway) return;
+        if (g.managerCutScenes.isCutScene || g.managerTutorial.isTutorial || g.isAway) return;
         g.windowsManager.openWindow(WindowsManager.WO_TIPS);
     }
 
