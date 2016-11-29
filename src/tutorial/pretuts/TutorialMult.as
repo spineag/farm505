@@ -19,6 +19,8 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.textures.Texture;
 
+import utils.Utils;
+
 public class TutorialMult {
     private var _source:Sprite;
     private var _leftIm:Quad;
@@ -210,6 +212,10 @@ public class TutorialMult {
         deleteCats();
         _armature.removeEventListener(EventObject.COMPLETE, onIdle6);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle6);
+        Utils.createDelay(2, onEndMult);
+    }
+    
+    private function onEndMult():void {
         if (_endCallback != null) {
             _endCallback.apply();
         }

@@ -2,22 +2,16 @@
  * Created by user on 11/28/16.
  */
 package tutorial.newTuts {
-import build.WorldObject;
+import build.farm.Animal;
+import build.farm.Farm;
 import build.ridge.Ridge;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import flash.geom.Point;
-
 import tutorial.CutScene;
 import tutorial.IManagerTutorial;
 import tutorial.TutorialAction;
 import tutorial.pretuts.TutorialMultNew;
-
-import utils.Utils;
-
 import windows.WindowsManager;
 
 public class ManagerTutorialNew extends IManagerTutorial{
@@ -40,6 +34,8 @@ public class ManagerTutorialNew extends IManagerTutorial{
                 case 4: curFunc = initScene_4; break;
                 case 5: curFunc = initScene_5; break;
                 case 6: curFunc = initScene_6; break;
+                case 7: curFunc = initScene_7; break;
+                case 8: curFunc = initScene_8; break;
 
                 default: Cc.error('unknown tuts step'); break;
             }
@@ -119,7 +115,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         var r:Ridge = _tutorialObjects[0] as Ridge;
         p.x = r.posX;
         p.y = r.posY;
-        g.cont.moveCenterToPos(p.x, p.y, false, 2);
+        g.cont.moveCenterToPos(p.x, p.y, false, .5);
         r.showArrow();
         r.tutorialCallback = initScene_3;
     }
@@ -148,6 +144,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_5():void {
+        _tutorialResourceIDs = [31];
         _tutorialCallback = null;
         _tutorialObjects = [];
         var ar:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
@@ -163,7 +160,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
             var r:Ridge = _tutorialObjects[0] as Ridge;
             p.x = r.posX;
             p.y = r.posY;
-            g.cont.moveCenterToPos(p.x, p.y, false, 2);
+            g.cont.moveCenterToPos(p.x, p.y, false, .5);
             r.showArrow();
             r.tutorialCallback = subStep5_1;
         } else {
@@ -179,12 +176,148 @@ public class ManagerTutorialNew extends IManagerTutorial{
     private function subStep5_10():void {
         _subStep = 10;
         g.user.tutorialStep = 6;
+        _tutorialResourceIDs = [];
         updateTutorialStep();
         initScenes();
     }
 
     private function initScene_6():void {
-        
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
+        if (!arr.length) {
+            Cc.error('ManagerTutorialNew substep6_2: no farm');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tuts 6_2');
+            return;
+        }
+        if ((arr[0] as Farm).isAnyCrafted) {
+            subStep6_4();
+        } else {
+            arr = (arr[0] as Farm).arrAnimals;
+            for (var i:int = 0; i<arr.length; i++) {
+                if ((arr[i] as Animal).state == Animal.WORK) {
+                    subStep6_4();
+                    return;
+                }
+            }
+            _currentAction = TutorialAction.ANIMAL_FEED;
+            _tutorialObjects.push(arr[0]);
+            if (!cutScene) cutScene = new CutScene();
+            if (!texts) texts = (new TutorialTextsNew()).objText;
+            cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep6_1, 0);
+            addBlack();
+        }
+    }
+
+    private function subStep6_1():void {
+        _subStep=1;
+        removeBlack();
+        cutScene.hideIt(deleteCutScene, subStep6_2);
+    }
+
+    private function subStep6_2():void {
+        _subStep=2;
+        g.cont.moveCenterToPos(28, 11, false, 1);
+        (_tutorialObjects[0] as Animal).playDirectIdle();
+        (_tutorialObjects[0] as Animal).addArrow();
+        (_tutorialObjects[0] as Animal).tutorialCallback = subStep6_3;
+    }
+
+    private function subStep6_3(chick:Animal):void {
+        chick.removeArrow();
+        chick.tutorialCallback = null;
+        subStep6_4();
+    }
+
+    private function subStep6_4():void {
+        _subStep = 4;
+        g.user.tutorialStep = 7;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_7():void {
+        if (!_tutorialObjects.length) {
+            var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
+            if (!arr.length) {
+                Cc.error('ManagerTutorialNew substep7_2: no farm');
+                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tuts 7_2');
+                return;
+            }
+            if ((arr[0] as Farm).isAnyCrafted) {
+                subStep7_4();
+            } else {
+                g.cont.moveCenterToPos(28, 11, false, 1);
+                arr = (arr[0] as Farm).arrAnimals;
+                for (var i:int = 0; i<arr.length; i++) {
+                    if ((arr[i] as Animal).state == Animal.WORK) {
+                        _tutorialObjects.push(arr[i]);
+                        break;
+                    }
+                }
+                if (!_tutorialObjects.length) {
+                    subStep7_4();
+                    return;
+                }
+            }
+        }
+        if (!cutScene) cutScene = new CutScene();
+        if (!texts) texts = (new TutorialTextsNew()).objText;
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep7_1, 0);
+        addBlack();
+    }
+
+    private function subStep7_1():void {
+        _subStep=1;
+        removeBlack();
+        cutScene.hideIt(deleteCutScene, subStep7_2);
+    }
+
+    private function subStep7_2():void {
+        _subStep = 2;
+        _currentAction = TutorialAction.ANIMAL_SKIP;
+        (_tutorialObjects[0] as Animal).playDirectIdle();
+        (_tutorialObjects[0] as Animal).addArrow();
+        (_tutorialObjects[0] as Animal).tutorialCallback = subStep7_3;
+    }
+
+    private function subStep7_3(ch:Animal):void {
+        _subStep = 3;
+        ch.removeArrow();
+        ch.tutorialCallback = null;
+        _currentAction = TutorialAction.NONE;
+        subStep7_4();
+    }
+
+    private function subStep7_4():void {
+        _tutorialObjects = [];
+        _subStep = 4;
+        g.user.tutorialStep = 8;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_8():void {
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
+        for (var i:int=0; i<arr.length; i++) {
+            if ((arr[i] as Farm).isAnyCrafted) {
+                _tutorialObjects.push(arr[i]);
+                break;
+            }
+        }
+        if (_tutorialObjects.length) {
+            g.cont.moveCenterToPos(28, 11, false, 1);
+            _currentAction = TutorialAction.ANIMAL_CRAFT;
+            (_tutorialObjects[0] as Farm).addArrowToCraftItem(subStep8_1);
+        } else {
+            subStep8_1();
+        }
+    }
+
+    private function subStep8_1():void {
+        g.user.tutorialStep = 101;
+        updateTutorialStep();
+        TUTORIAL_ON = false;
+        if (g.managerOrder) g.managerOrder.showSmallHeroAtOrder(true);
+        super.clearAll();
     }
 
 }

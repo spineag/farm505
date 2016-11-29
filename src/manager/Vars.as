@@ -76,6 +76,7 @@ import tutorial.IManagerTutorial;
 import tutorial.ManagerTutorial;
 import tutorial.helpers.ManagerHelpers;
 import tutorial.managerCutScenes.ManagerCutScenes;
+import tutorial.newTuts.ManagerTutorialNew;
 import tutorial.tips.ManagerTips;
 
 import ui.bottomInterface.MainBottomPanel;

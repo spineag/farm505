@@ -8,6 +8,7 @@ import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import dragonBones.events.EventObject;
+import flash.geom.Point;
 import hint.MouseHint;
 import manager.ManagerFilters;
 import manager.Vars;
@@ -336,8 +337,6 @@ public class Animal {
             }
         }
     }
-
-import flash.geom.Point;
 
 public function onEndClick(last:Boolean = false):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();

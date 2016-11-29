@@ -15,6 +15,12 @@ public class TutorialTextsNew {
 
         _objText[4] = {};
         _objText[4][0] ='Все просто. Садишь одну - через время получаешь две!';
+
+        _objText[6] = {};
+        _objText[6][0] = 'Самое время покормить наших курочек!';
+
+        _objText[7] = {};
+        _objText[7][0] = 'Нажми "ускорить" чтобы курочка снеслась быстрее.'
     }
 
     public function get objText():Object { return _objText }
