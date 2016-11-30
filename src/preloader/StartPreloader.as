@@ -17,6 +17,7 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.textures.TextureAtlas;
+import starling.utils.Color;
 
 import utils.CTextField;
 import utils.FarmDispatcher;
@@ -46,9 +47,9 @@ public class StartPreloader {
         _texture = Texture.fromBitmap(new PreloaderTexture());
         var xml:XML = XML(new PreloaderTextureXML());
         _preloaderAtlas = new TextureAtlas(_texture, xml);
-        _bg = new Image(_preloaderAtlas.getTexture('preloader_window'));
+        _bg = new Image(_preloaderAtlas.getTexture('preloader_winter'));
         _source.addChild(_bg);
-        _quad = new Quad(3.2, 3, 0xc0e8ff);
+        _quad = new Quad(3.2, 3, 0x33a2f4);
         _quad.x = 327;
         _quad.y = 599;
         _source.addChild(_quad);

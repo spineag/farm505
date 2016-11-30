@@ -3,6 +3,7 @@
  */
 package manager {
 import build.WorldObject;
+import build.train.Train;
 import build.wild.Wild;
 
 import flash.geom.Point;
@@ -73,6 +74,8 @@ public class ManagerVisibleObjects {
         var rect:Rectangle = someBuild.rect;
         if (!rect) return true;
         if (!rect.width || !rect.height) return true;
+        if (someBuild is Train) return true;
+
 
         if (someBuild is WorldObject && (someBuild as WorldObject).flip) {
             _p1.x = rect.x + rect.width;

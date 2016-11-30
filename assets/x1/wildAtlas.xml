@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:87f32ee9dc7bd2f046f0116fa27d3fca:ab073a0edd15c6f6e36caa647947959f:acd9378c26fec4c35b90314369efd81a$ -->
-<TextureAtlas imagePath="wildAtlas.png" width="422" height="256">
-    <SubTexture name="bow_dark_green_1" x="184" y="210" width="34" height="37" frameX="-1" frameY="0" frameWidth="35" frameHeight="37"/>
-    <SubTexture name="bow_dark_green_2" x="384" y="99" width="36" height="36" frameX="-2" frameY="0" frameWidth="40" frameHeight="36"/>
-    <SubTexture name="bow_dark_green_3" x="335" y="214" width="37" height="30"/>
-    <SubTexture name="dry_log_1" x="2" y="179" width="83" height="75" frameX="-2" frameY="0" frameWidth="88" frameHeight="75"/>
-    <SubTexture name="dry_log_2" x="308" y="99" width="74" height="56" frameX="0" frameY="0" frameWidth="75" frameHeight="56"/>
-    <SubTexture name="fir_big" x="221" y="155" width="73" height="98"/>
-    <SubTexture name="fir_small" x="87" y="179" width="51" height="73"/>
-    <SubTexture name="oak_big" x="112" y="2" width="107" height="153"/>
+<!-- $TexturePacker:SmartUpdate:95c25adc00d3ba73017cab19d7343ae5:75ea9dd026ffa206165468f9d0a945f9:acd9378c26fec4c35b90314369efd81a$ -->
+<TextureAtlas imagePath="wildAtlas.png" width="427" height="256">
+    <SubTexture name="bow_dark_green_1" x="384" y="143" width="34" height="37" frameX="-1" frameY="0" frameWidth="35" frameHeight="37"/>
+    <SubTexture name="bow_dark_green_2" x="384" y="105" width="36" height="36" frameX="-2" frameY="0" frameWidth="40" frameHeight="36"/>
+    <SubTexture name="bow_dark_green_3" x="386" y="182" width="37" height="30"/>
+    <SubTexture name="dry_log_1" x="112" y="160" width="83" height="75" frameX="-2" frameY="0" frameWidth="88" frameHeight="75"/>
+    <SubTexture name="dry_log_2" x="308" y="130" width="74" height="56" frameX="0" frameY="0" frameWidth="75" frameHeight="56"/>
+    <SubTexture name="fir_big" x="308" y="30" width="73" height="98"/>
+    <SubTexture name="fir_small" x="197" y="160" width="54" height="72"/>
+    <SubTexture name="oak_big" x="112" y="2" width="107" height="156"/>
     <SubTexture name="oak_small" x="221" y="30" width="85" height="123"/>
     <SubTexture name="ribbon_dark_green" x="221" y="2" width="199" height="26" frameX="0" frameY="-7" frameWidth="204" frameHeight="40"/>
-    <SubTexture name="stone_big_1" x="140" y="157" width="68" height="51"/>
-    <SubTexture name="stone_big_2" x="296" y="157" width="61" height="55"/>
-    <SubTexture name="stone_small_1" x="359" y="157" width="49" height="46"/>
-    <SubTexture name="stone_small_2" x="140" y="210" width="42" height="35"/>
-    <SubTexture name="stump" x="296" y="214" width="37" height="36" frameX="-1" frameY="-2" frameWidth="40" frameHeight="40"/>
-    <SubTexture name="swamp" x="308" y="30" width="105" height="67" frameX="-1" frameY="0" frameWidth="113" frameHeight="69"/>
-    <SubTexture name="wild_tree" x="2" y="2" width="108" height="175" frameX="0" frameY="0" frameWidth="108" frameHeight="177"/>
+    <SubTexture name="stone_big_1" x="253" y="203" width="68" height="51"/>
+    <SubTexture name="stone_big_2" x="323" y="188" width="61" height="55"/>
+    <SubTexture name="stone_small_1" x="253" y="155" width="49" height="46"/>
+    <SubTexture name="stone_small_2" x="383" y="30" width="42" height="35"/>
+    <SubTexture name="stump" x="383" y="67" width="37" height="36" frameX="-1" frameY="-2" frameWidth="40" frameHeight="40"/>
+    <SubTexture name="swamp" x="2" y="178" width="103" height="66"/>
+    <SubTexture name="wild_tree" x="2" y="2" width="108" height="174"/>
 </TextureAtlas>

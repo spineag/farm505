@@ -301,6 +301,10 @@
             <filename>white_fence_icon.png</filename>
             <filename>yogurt_machine_icon.png</filename>
             <filename>picnic</filename>
+            <filename>../../../../winter_decor/snowman_icon.png</filename>
+            <filename>new_year_boot_icon.png</filename>
+            <filename>new_year_tree_1_icon.png</filename>
+            <filename>new_year_tree_2_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

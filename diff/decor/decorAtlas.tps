@@ -263,6 +263,7 @@
             <filename>garden_gnome_blue_hat.png</filename>
             <filename>garden_gnome_red_hat.png</filename>
             <filename>sled.png</filename>
+            <filename>new_year_boot.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
