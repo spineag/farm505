@@ -40,6 +40,7 @@ public class SN_OK extends SocialNetwork {
             ExternalInterface.addCallback('getUsersInfoHandler', getUsersInfoHandler);
             ExternalInterface.addCallback('getAppUsersHandler', getAppUsersHandler);
             ExternalInterface.addCallback('getFriendsByIdsHandler', getFriendsByIdsHandler);
+            ExternalInterface.addCallback('onPaymentCallback', onPaymentCallback);
         }
         super(flashVars);
     }
@@ -290,6 +291,14 @@ public class SN_OK extends SocialNetwork {
 //        Odnoklassniki.showPayment(param.service_name, param.service_name, e.id, e.price, null, null, null, "true");
     }
 
+    private function onPaymentCallback(result:String):void {
+        if (result =='ok') {
+            super.orderSuccess();
+        } else {
+            super.orderCancel();
+        }
+    }
+
     override public function saveScreenshotToAlbum(oid:String):void {
         _oid = oid;
         Cc.ch("OK", "check hasAppPermission for PHOTO CONTENT", 2);
@@ -428,13 +437,5 @@ public class SN_OK extends SocialNetwork {
 //                }
 //        }
 //    }
-
-    private function streamCall(e:Object):void {
-//        Cc.ch("social", e + "\n" + Debugger.debugObject(e), 6);
-    }
-
-    private function showPayment(e:Object):void {
-//        g.woAddCoins.handler.init();
-    }
 }
 }

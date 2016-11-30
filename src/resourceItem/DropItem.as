@@ -84,7 +84,7 @@ public class DropItem {
                     endPoint = g.couponePanel.getPoint();
                     break;
             }
-            g.userInventory.dropItem(prise.id, prise.count);
+            g.userInventory.dropItemMoney(prise.id, prise.count);
         }
         if (!_image) {
             Cc.error('DropItem:: no image for type: ' + prise.id);

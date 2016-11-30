@@ -212,7 +212,7 @@ public class UserInventory {
             g.directServer.addUserMoney(typeCurrency, newCount, null);
     }
 
-    public function dropItem(typeCurrency:int, count:int):void {
+    public function dropItemMoney(typeCurrency:int, count:int):void {
         if (count == 0) return;
         var newCount:int = 0;
         switch (typeCurrency) {
@@ -247,7 +247,7 @@ public class UserInventory {
                 newCount = g.user.greenCouponCount;
                 break;
         }
-            g.directServer.addUserMoney(typeCurrency, newCount, null);
+        g.directServer.addUserMoney(typeCurrency, newCount, null);
     }
 
     public function updateMoneyTxt(typeCurrency:int):void {
