@@ -163,7 +163,7 @@ public class WOBuyCurrencyItem {
         } else {
             if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
                 g.optionPanel.makeFullScreen();
-                g.windowsManager.hideWindow(WindowsManager.WO_BUY_CURRENCY);
+//                g.windowsManager.hideWindow(WindowsManager.WO_BUY_CURRENCY); ??
             }
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
