@@ -17,6 +17,7 @@ import windows.cave.WOBuyCave;
 import windows.cave.WOCave;
 import windows.chestWindow.WOChest;
 import windows.dailyBonusWindow.WODailyBonus;
+import windows.dailyGiftWindow.WODailyGift;
 import windows.fabricaWindow.WOFabrica;
 import windows.gameError.WOGameError;
 import windows.inviteFriends.WOInviteFriends;
@@ -90,6 +91,7 @@ public class WindowsManager {
     public static const POST_DONE_TRAIN:String = 'post_done_train';
     public static const POST_DONE_ORDER:String = 'post_done_order';
     public static const WO_SERVER_NO_WORK:String = 'server_no_work';
+    public static const WO_DAILY_GIFT:String = 'daily_gift';
     public static const WO_TIPS:String = 'tips';
     public static const WO_QUEST:String = 'quest';
 
@@ -245,7 +247,9 @@ public class WindowsManager {
             case WO_QUEST:
                 wo = new WOQuest();
                 break;
-
+            case WO_DAILY_GIFT:
+                wo = new WODailyGift();
+                break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);
                 break;

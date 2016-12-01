@@ -470,6 +470,53 @@ public class DirectServer {
         }
     }
 
+
+    public function getDailyGift(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_DAILY_GIFT);
+
+        Cc.ch('server', 'start getDailyGift', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetDailyGift);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetDailyGift(e:Event):void { completeGetDailyGift(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getDailyGift error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeGetDailyGift(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getDailyGift: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDailyGift: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getDailyGift OK', 5);
+            g.windowsManager.openWindow(WindowsManager.WO_DAILY_GIFT,null,d.message);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getDailyGift: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataBuyMoney: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
     public function getDataBuilding(callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_BUILDING);
@@ -794,6 +841,21 @@ public class DirectServer {
             g.userValidates.updateInfo('blueCount', g.user.blueCouponCount);
             g.user.globalXP = int(ob.xp);
             g.user.allNotification = int(ob.notification_new);
+
+//            var mili = 1000;
+//            var secs = 60;
+//            var mins = 60;
+//            var hours = 24;
+//            var day = hours * mins * secs * mili;
+//            var tomorrow = new Date();
+//            var yesterday = new Date();
+//            var today = new Date();
+//            var time15 = new Date();
+//            time15.setTime(time15.getTime() - (day*15));
+//            trace(time15);
+
+            g.user.dayDailyGift  = int(ob.day_daily_gift);
+            g.user.countDailyGift  = int(ob.count_daily_gift);
             if (!g.isDebug) {
                 if (ob.music == '1') g.soundManager.enabledMusic(true);
                 else g.soundManager.enabledMusic(false);
@@ -5612,6 +5674,59 @@ public class DirectServer {
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
         }
     }
+
+
+    public function updateDailyGift(count:int):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_DAILY_GIFT);
+        var variables:URLVariables = new URLVariables();
+        Cc.ch('server', 'updateDailyGift', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.countDailyGift = count;
+        variables.hash = MD5.hash(String(g.user.userId)+String(count)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteDailyGift);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteDailyGift(e:Event):void { completeDailyGift(e.target.data); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateDailyGift error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeDailyGift(response:String):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateDailyGift: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateDailyGift: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateDailyGift OK', 5);
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateDailyGift: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserPapperBuy: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+
+
+
 
     public function getUserPapperBuy(callback:Function):void {
         var loader:URLLoader = new URLLoader();
