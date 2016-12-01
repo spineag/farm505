@@ -54,6 +54,8 @@ public class User extends Someone {
     public var fabricItemNotification:Array = [];
     public var bornDate:String;
     public var countAwayMouse:int;
+    public var dayDailyGift:int;
+    public var countDailyGift:int;
     private var g:Vars = Vars.getInstance();
 
     public function User() {

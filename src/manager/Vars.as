@@ -517,9 +517,16 @@ public class Vars {
                 startPreloader.hideIt();
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
-//                if ((user as User).level >= 4 && (user as User).level < 10) {
-//                    if (!managerTips) managerTips = new ManagerTips();
-//                }
+                if ((user as User).isTester) {
+                    if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
+                    else {
+                        var todayDailyGift:Date = new Date((user as User).dayDailyGift * 1000);
+                        var today:Date = new Date();
+                        if ((user as User).level >= 5 && todayDailyGift.date != today.date) {
+                            directServer.getDailyGift(null);
+                        }
+                    }
+                }
                 if ((user as User).level >= 5) {
                     managerQuest.checkQuestsOnStart();
                     managerQuest.checkQuestContPosition();

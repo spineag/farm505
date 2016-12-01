@@ -336,6 +336,9 @@
             <filename>centre_newspaper.png</filename>
             <filename>top_newspaper.png</filename>
             <filename>order_window_right.png</filename>
+            <filename>coins_icon.png</filename>
+            <filename>rubins_icon.png</filename>
+            <filename>check_big.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
