@@ -27,8 +27,7 @@ public class ManagerResize {
 
     private function onStageResize(e:Event=null):void {
         Cc.info('event onStageResize');
-        _stageWidth = Starling.current.nativeStage.stageWidth;
-        _stageHeight = Starling.current.nativeStage.stageHeight;
+        rechekProp();
 
         Starling.current.viewPort = new Rectangle(0, 0, _stageWidth, _stageHeight);
         g.mainStage.stageWidth = _stageWidth;
@@ -59,5 +58,11 @@ public class ManagerResize {
 
     public function get stageWidth():int { return _stageWidth; }
     public function get stageHeight():int { return _stageHeight; }
+    
+    public function rechekProp():void {
+        _stageWidth = Starling.current.nativeStage.stageWidth;
+        _stageHeight = Starling.current.nativeStage.stageHeight;
+
+    }
 }
 }

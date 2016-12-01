@@ -197,7 +197,7 @@ public class WOBuyCurrencyItem {
         var obj:Object;
         obj = {};
         obj.count = _countGameMoney;
-        var p:Point = new Point(_im.x, _im.y);
+        var p:Point = new Point(0, 0);
         p = _im.localToGlobal(p);
         obj.id =  _currency;
         new DropItem(p.x + 30, p.y + 30, obj);

@@ -21,6 +21,7 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.textures.Texture;
 import utils.DrawToBitmap;
+import utils.Utils;
 
 public class TutorialMultNew {
     private var _source:Sprite;
@@ -62,6 +63,8 @@ public class TutorialMultNew {
         (_armature.display as StarlingArmatureDisplay).x = 500;
         (_armature.display as StarlingArmatureDisplay).y = 320;
         _source.addChild(_armature.display as StarlingArmatureDisplay);
+        g.managerResize.rechekProp();
+        onResize();
         g.cont.popupCont.addChild(_source);
         if (_startCallback != null) {
             _startCallback.apply();
@@ -85,7 +88,7 @@ public class TutorialMultNew {
         var rect:Rectangle = new Rectangle();
         rect.width = 1000;
         rect.height = 640;
-        rect.x = g.managerResize.stageWidth/2 - 1000/2;
+        rect.x = g.managerResize.stageWidth/2 - 500;
         var bd:BitmapData = DrawToBitmap.stageScreenShotByRect(rect);
         var im:Image = new Image(Texture.fromBitmapData(bd));
         _tempBlured = new Sprite();
@@ -94,14 +97,10 @@ public class TutorialMultNew {
         _tempBlured.x = -500 + 16;
         _tempBlured.y = -320 + 16;
         _contF1.addChild(_tempBlured);
-//        _tempBlured.alpha = 0;
-//        TweenMax.to(_tempBlured, 10, {alpha:1, ease:Linear.easeNone, useFrames:true});
 
         _armature.addEventListener(EventObject.COMPLETE, onIdle1);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onIdle1);
         _armature.animation.gotoAndPlayByFrame('idle');
-
-        onResize();
     }
 
     public function onResize():void {
@@ -197,6 +196,10 @@ public class TutorialMultNew {
         deleteCats();
         _armature.removeEventListener(EventObject.COMPLETE, onIdle6);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle6);
+        Utils.createDelay(2, onEndMult);
+    }
+
+    private function onEndMult():void {
         if (_endCallback != null) {
             _endCallback.apply();
         }

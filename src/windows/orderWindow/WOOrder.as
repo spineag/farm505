@@ -333,6 +333,7 @@ public class WOOrder extends WindowMain{
         p = _source.localToGlobal(p);
         new XPStar(p.x, p.y, _activeOrderItem.getOrder().xp);
         p = new Point(186, 147);
+        p = _source.localToGlobal(p);
         prise.id = DataMoney.SOFT_CURRENCY;
         prise.count = _activeOrderItem.getOrder().coins;
         new DropItem(p.x, p.y, prise);

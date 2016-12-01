@@ -46,7 +46,7 @@ public class DrawToBitmap {
         var r:BitmapData = new BitmapData(stage.width, stage.height, true);
         stage.drawToBitmapData(r);
         var result:BitmapData = new BitmapData(rect.width, rect.height);
-        result.copyPixels(r, rect, new Point(rect.x, rect.y));
+        result.copyPixels(r, rect, new Point(0, 0));
         return result;
     }
 
