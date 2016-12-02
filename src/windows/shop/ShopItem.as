@@ -438,8 +438,9 @@ public class ShopItem {
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[maxCountAtCurrentLevel]) + ' уровне';
                     _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(_data.blockByLevel.length);
-                    createShopLimitSprite();
-                    _shopLimitSprite.y = 50;
+//                    createShopLimitSprite();
+//                    _shopLimitSprite.y = 50;
+                    _im.filter = ManagerFilters.getButtonDisableFilter();
                 } else {
                     _nameTxt.text = _data.name;
                     _countTxt.visible = true;
