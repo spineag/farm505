@@ -8,6 +8,9 @@ import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
 
 import manager.Vars;
+
+import media.SoundConst;
+
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -94,6 +97,8 @@ public class RemoveWildAnimation {
         _armature.addEventListener(EventObject.COMPLETE, onBoom);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onBoom);
         _armature.animation.gotoAndPlayByFrame("start");
+        g.soundManager.playSound(SoundConst.DELETE_WILD);
+
     }
 
     private function onBoom(e:Event=null):void {

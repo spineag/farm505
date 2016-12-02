@@ -65,6 +65,7 @@ public class WOOrder extends WindowMain{
     private var _activeOrderItem:WOOrderItem;
     private var _txtTimer:CTextField;
     private var _waitForAnswer:Boolean;
+    private var _clickItem:Boolean;
     private var _btnSkipDelete:CButton;
     private var _armatureCustomer:Armature;
     private var _armatureSeller:Armature;
@@ -376,6 +377,7 @@ public class WOOrder extends WindowMain{
             _arrOrders[order.placeNumber] = order;
             if (_activeOrderItem == orderItem) {
                 onItemClick(_activeOrderItem, true);
+                _clickItem = false;
             }
         }
         var i:int;
@@ -424,7 +426,7 @@ public class WOOrder extends WindowMain{
         if (_activeOrderItem) _activeOrderItem.activateIt(false);
         if (recheck > -1 && _activeOrderItem != item) return;
         clearResourceItems();
-
+        _clickItem = true;
         _activeOrderItem = item;
         fillResourceItems(_activeOrderItem.getOrder());
         _activeOrderItem.activateIt(true);
@@ -1065,7 +1067,7 @@ public class WOOrder extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.POST_DONE_ORDER);
             g.directServer.updateWallOrderItem(null);
             g.user.wallOrderItem = false;
-        } else {
+        } else if (!_clickItem) {
             hideIt();
         }
 

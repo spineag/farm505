@@ -121,7 +121,7 @@ public class MapEditorInterface {
 
         _arrWilds = [];
         for(var id:String in obj) {
-            if (obj[id].buildType == BuildType.WILD || obj[id].buildType == BuildType.CAT_HOUSE) {
+            if (obj[id].buildType == BuildType.WILD || obj[id].buildType == BuildType.CAT_HOUSE || obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.DECOR_ANIMATION) {
                 item = new MapEditorInterfaceItem(Utils.objectDeepCopy(obj[id]));
                 item.source.y = 20;
                 item.source.x = i * 80;
