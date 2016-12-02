@@ -18,6 +18,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 
 import utils.CSprite;
+import utils.Utils;
 
 public class HeroCat extends BasicCat{
     private var _catImage:Sprite;
@@ -385,6 +386,19 @@ public class HeroCat extends BasicCat{
 // SIMPLE IDLE
     public function showSimpleIdle():void {
        _animation.playIt('idle');
+    }
+
+// JUMP CAT
+    public function jumpCat():void {
+        var f2:Function = function ():void {
+            makeFreeCatIdle();
+        };
+        var f1:Function = function ():void {
+        showFront(true);
+        killAllAnimations();
+        _animation.playIt('jump_funny',true,f2);
+        };
+        Utils.createDelay(int(Math.random() * 2) + 2,f1);
     }
 
 }

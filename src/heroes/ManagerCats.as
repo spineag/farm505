@@ -12,6 +12,9 @@ import heroes.BasicCat;
 import manager.AStar.AStar;
 import manager.Vars;
 import tutorial.TutorialAction;
+
+import utils.Utils;
+
 import windows.WindowsManager;
 
 public class ManagerCats {
@@ -186,6 +189,7 @@ public class ManagerCats {
     }
 
     public function onBuyCatFromShop():void {
+        g.managerCats.jumpCatsFunny();
         g.user.countCats++;
         g.directServer.buyHeroCat(null);
         addNewHeroFromShop();
@@ -350,7 +354,18 @@ public class ManagerCats {
         cat.makeFreeCatIdle();
     }
 
+    public function jumpCatsFunny(f:Function = null):void {
+        for (var i:int = 0; i < _catsArray.length; i++) {
+            if (_catsArray[i].isFree) {
+                _catsArray[i].jumpCat();
+            }
+        }
+        if (f != null) {
+            f.apply();
+            f = null;
+        }
 
+    }
     
     
 }

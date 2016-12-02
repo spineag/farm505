@@ -118,7 +118,7 @@ public class PostOpenFabric  extends WindowMain {
     }
 
     override public function hideIt():void {
-//        g.windowsManager.uncasheWindow();
+        g.managerCats.jumpCatsFunny();
         super.hideIt();
     }
 

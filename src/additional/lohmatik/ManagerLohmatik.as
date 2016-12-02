@@ -20,6 +20,7 @@ public class ManagerLohmatik {
 
     private function addLohmatics():void {
         if (g.isAway) return;
+        if (g.user.level < 5) return;
         if (g.allData.factory['lohmatik']) {
             onLoad();
         } else {

@@ -70,12 +70,17 @@ public class PostOpenTrain extends WindowMain {
         createExitButton(hideIt);
     }
 
+    override public function hideIt():void {
+        g.managerCats.jumpCatsFunny();
+        super.hideIt();
+    }
+
     private function onClick():void {
         if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
         }
         g.managerWallPost.openWindow(ManagerWallPost.OPEN_TRAIN,null,100,9);
-        super.hideIt();
+        hideIt();
     }
 
     override protected function deleteIt():void {

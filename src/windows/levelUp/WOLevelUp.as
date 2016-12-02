@@ -353,7 +353,7 @@ public class WOLevelUp extends WindowMain {
                             if (obj[id].buildType == BuildType.FABRICA) g.user.fabricaNotification++;
                         }
                     }
-                } else if (g.user.level == obj[id].blockByLevel) {
+                } else if (g.user.level == obj[id].blockByLevel && obj[id].visibleAction) {
                     if (obj[id].buildType != BuildType.CAVE && obj[id].buildType != BuildType.TRAIN && obj[id].buildType != BuildType.PAPER && obj[id].buildType != BuildType.DAILY_BONUS
                             && obj[id].buildType != BuildType.ORDER && obj[id].buildType != BuildType.MARKET) {
                         g.user.decorNotification++;
