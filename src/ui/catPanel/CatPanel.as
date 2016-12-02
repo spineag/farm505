@@ -86,11 +86,10 @@ public class CatPanel {
     }
 
     private function onClick():void {
-        g.directServer.getDailyGift(null);
-//        if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096 || int(g.user.userSocialId) == 202427318) {
-//            g.user.level++;
-//            g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-//        }
+        if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096 || int(g.user.userSocialId) == 202427318) {
+            g.user.level++;
+            g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+        }
 //        g.directServer.addUserXP(1,null);
 //        var _dataBuild:Object = g.dataBuilding.objectBuilding[9];
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);

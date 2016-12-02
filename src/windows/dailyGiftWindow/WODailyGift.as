@@ -44,7 +44,6 @@ import windows.WindowsManager;
 
 public class WODailyGift extends WindowMain {
     private var _woBG:WindowBackground;
-    private var _birka:Birka;
     private var _cont:Sprite;
     private var _btnGet:CButton;
     private var _arrayItem:Array;
@@ -55,40 +54,39 @@ public class WODailyGift extends WindowMain {
     public function WODailyGift() {
         super();
         _windowType = WindowsManager.WO_DAILY_GIFT;
-        _woHeight = 630;
-        _woWidth = 900;
+        _woHeight = 550;
+        _woWidth = 800;
         _sprItem = new Sprite();
 
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        _birka = new Birka('НА нахуй', _source, _woWidth, _woHeight);
-        createExitButton(onClickExit);
-        _callbackClickBG = onClickExit;
         _cont = new Sprite();
         _source.addChild(_cont);
-        var c:CartonBackground = new CartonBackground(800, 530);
-        c.x = -_woWidth/2 + 50;
-        c.y = -_woHeight/2 + 50 ;
+        var c:CartonBackground = new CartonBackground(735, 485);
+        c.x = -_woWidth/2 + 30;
+        c.y = -_woHeight/2 + 30 ;
         _cont.filter = ManagerFilters.SHADOW;
         _cont.addChild(c);
+        createExitButton(onClickExit);
+        _callbackClickBG = onClickExit;
         _btnGet = new CButton();
-        _btnGet.addButtonTexture(140,40,CButton.GREEN,true);
-        var _txt:CTextField = new CTextField(140,40,'Получить');
-        _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _btnGet.addButtonTexture(160,40,CButton.GREEN,true);
+        var _txt:CTextField = new CTextField(160,40,'Получить');
+        _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnGet.addChild(_txt);
-        _btnGet.y = 280;
+        _btnGet.y = 270;
         _source.addChild(_btnGet);
         _btnGet.clickCallback = onClick;
         _txt = new CTextField(680, 340, "Ежедневный подарок");
         _txt.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -350;
-        _txt.y = -400;
+        _txt.y = -393;
         _source.addChild(_txt);
 
         _txt = new CTextField(600,40, "Заходите каждый день что бы получить новую награду");
         _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -300;
-        _txt.y = -215;
+        _txt.y = -208;
         _source.addChild(_txt);
         _itemToday = {};
     }
@@ -117,7 +115,7 @@ public class WODailyGift extends WindowMain {
             _sprItem.addChild(source);
         }
         _sprItem.x = -340;
-        _sprItem.y = -160;
+        _sprItem.y = -168;
         _source.addChild(_sprItem);
         super.showIt();
     }
@@ -183,7 +181,7 @@ public class WODailyGift extends WindowMain {
             im.y = bg.width/2 - 20;
         }
         source.addChild(im);
-        var txt = new CTextField(130,40, "День " + (number+1));
+        var txt:CTextField = new CTextField(130,40, "День " + (number+1));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.y = -5;
         source.addChild(txt);
@@ -192,7 +190,12 @@ public class WODailyGift extends WindowMain {
         txt.y = 95;
         source.addChild(txt);
         if (number < g.user.countDailyGift-1) {
-            source.filter = ManagerFilters.SHADOW_LIGHT;
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check_big'));
+            MCScaler.scale(im,im.height-20,im.width-20);
+            im.x = 35;
+            im.y = 35;
+            source.addChild(im);
+            source.alpha = .5;
         }
 
         if (number == g.user.countDailyGift-1) {

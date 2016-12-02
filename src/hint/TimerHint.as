@@ -117,15 +117,15 @@ public class TimerHint {
             quad = new Quad(int(height * g.currentGameScale), int(height * g.currentGameScale), Color.GREEN);
             quad.pivotX = int(quad.width/2);
             _source.addChildAt(quad,0);
-            quad.alpha = 0;
+//            quad.alpha = 0;
         } else if (animal) {
             _quad = new Quad(int(_bg.width), int(_bg.height), Color.WHITE);
             quad = new Quad(int(height * g.currentGameScale), int(height * g.currentGameScale), Color.GREEN);
             quad.pivotX = int(quad.width/2);
             _source.addChildAt(quad,0);
-            quad.alpha = 0;
+//            quad.alpha = 0;
         } else _quad = new Quad(int(_bg.width), int(_bg.height + height/2 * g.currentGameScale), Color.WHITE);
-        _quad.alpha = 0;
+//        _quad.alpha = 0;
         _quad.x = -int(_bg.width/2);
         _quad.y = -int(_bg.height);
         _source.addChildAt(_quad,0);
@@ -144,6 +144,7 @@ public class TimerHint {
         g.starling.juggler.add(tween);
 
         _isShow = true;
+        _isOnHover = true;
         _timer = timer;
         _txtTimer.text = TimeUtils.convertSecondsForHint(_timer);
         _txtCost.text = String(g.managerTimerSkip.newCount(timeAll,timer,cost));
@@ -220,6 +221,7 @@ public class TimerHint {
     }
 
     private function onHover():void {
+        if (_isOnHover) return;
         _isOnHover = true;
     }
 
@@ -245,7 +247,8 @@ public class TimerHint {
         }
         g.userInventory.addMoney(1,-int(_txtCost.text));
         _isOnHover = false;
-        managerHide();
+//        managerHide();
+        hideIt();
         if (_callbackSkip != null) {
             _callbackSkip.apply(null);
         }

@@ -144,8 +144,13 @@ public class DropItem {
         var tempY:int = _source.y - 40 + int(Math.random()*140);
         var v:int;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 420;
-            else v = 460;
+            if (prise.id == DataMoney.HARD_CURRENCY || prise.id == DataMoney.SOFT_CURRENCY || prise.id == DataMoney.GREEN_COUPONE || prise.id == DataMoney.RED_COUPONE || prise.id == DataMoney.YELLOW_COUPONE || prise.id == DataMoney.BLUE_COUPONE) {
+                if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 460;
+                else v = 460;
+            } else {
+                if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 420;
+                else v = 460;
+            }
         } else {
             if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 350;
             else v = 460;

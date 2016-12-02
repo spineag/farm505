@@ -77,7 +77,7 @@ public class XPStar {
         var dist:int = int(Math.sqrt((_source.x - endX)*(_source.x - endX) + (_source.y - endY)*(_source.y - endY)));
         var v:Number;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 420;
+            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 460;
             else v = 460;
         } else {
             if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 350;

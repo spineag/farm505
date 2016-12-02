@@ -842,17 +842,7 @@ public class DirectServer {
             g.user.globalXP = int(ob.xp);
             g.user.allNotification = int(ob.notification_new);
 
-//            var mili = 1000;
-//            var secs = 60;
-//            var mins = 60;
-//            var hours = 24;
-//            var day = hours * mins * secs * mili;
-//            var tomorrow = new Date();
-//            var yesterday = new Date();
-//            var today = new Date();
-//            var time15 = new Date();
-//            time15.setTime(time15.getTime() - (day*15));
-//            trace(time15);
+//
 
             g.user.dayDailyGift  = int(ob.day_daily_gift);
             g.user.countDailyGift  = int(ob.count_daily_gift);

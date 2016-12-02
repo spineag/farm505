@@ -211,7 +211,7 @@ public class CraftItem {
         var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
         var v:Number;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 410;
+            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 400;
             else v = 430;
         } else {
             if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 300;
