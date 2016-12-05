@@ -253,7 +253,11 @@ public class Vars {
             townArea = new TownArea();
             farmGrid = new FarmGrid();
             managerDailyBonus = new ManagerDailyBonus();
-            managerTutorial = new ManagerTutorial(); // ManagerTutorialNew !!!
+            if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester) {
+                managerTutorial = new ManagerTutorialNew();
+            } else {
+                managerTutorial = new ManagerTutorial();
+            }
             managerCutScenes = new ManagerCutScenes();
             managerWallPost = new ManagerWallPost();
             managerInviteFriend = new ManagerInviteFriend();

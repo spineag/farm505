@@ -14,15 +14,11 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import flash.events.TimerEvent;
 import flash.geom.Point;
-import flash.utils.Timer;
 import heroes.OrderCat;
 import mouse.ToolsModifier;
 import particle.tuts.DustRectangle;
 import heroes.TutorialCat;
 import starling.core.Starling;
-import starling.display.Quad;
-import starling.display.Sprite;
-import starling.utils.Color;
 import tutorial.pretuts.TutorialCloud;
 import tutorial.pretuts.TutorialMultNew;
 import utils.SimpleArrow;
@@ -36,7 +32,6 @@ import windows.shop.WOShop;
 
 public class ManagerTutorial extends IManagerTutorial {
     private var cat:TutorialCat;
-    private var _tutorialPlaceBuilding:TutorialPlace;
     private var _cloud:TutorialCloud;
 
     public function ManagerTutorial() {

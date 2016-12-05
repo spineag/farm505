@@ -942,9 +942,16 @@ public class ShopItem {
                 showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.costNew[curCount]));
                 g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.costNew[curCount]));
             }
+            if (g.managerTutorial.isTutorial && g.managerTutorial.useNewTuts) {
+                if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL && g.managerTutorial.isTutorialResource(_data.id)) {
+                    g.managerTutorial.checkTutorialCallback();
+                } else {
+                    return;
+                }
+            }
             for (i = 0; i < arr.length; i++) {
                 if (arr[i] is Farm  &&  arr[i].dataBuild.id == _data.buildId  &&  !arr[i].isFull) {
-                    if (!g.managerTutorial.isTutorial) {
+                    if (!g.managerTutorial.isTutorial || (g.managerTutorial.isTutorial && g.managerTutorial.useNewTuts)) {
                         (arr[i] as Farm).addAnimal();
                         g.bottomPanel.cancelBoolean(false);
                     } else {
@@ -953,18 +960,16 @@ public class ShopItem {
                         g.bottomPanel.cancelBoolean(false);
                         _wo.updateMoneyCounts();
                     }
-
                     break;
                 }
             }
-            if (g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.isTutorial && !g.managerTutorial.useNewTuts) {
                 if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL && g.managerTutorial.isTutorialResource(_data.id)) {
                     g.managerTutorial.checkTutorialCallback();
                 } else {
                     return;
                 }
             }
-            Cc.error('ShopItem:: no such Farm :(');
         }
     }
 

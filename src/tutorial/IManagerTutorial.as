@@ -1,6 +1,8 @@
 package tutorial {
 import analytic.AnalyticManager;
 import build.WorldObject;
+import build.tutorialPlace.TutorialPlace;
+
 import com.junkbyte.console.Cc;
 import manager.Vars;
 import particle.tuts.DustRectangle;
@@ -30,6 +32,7 @@ public class IManagerTutorial {
     protected var _mult:TutorialMultNew;
     protected var _afterTutorialWindow:AfterTutorialWindow;
     protected var _useNewTuts:Boolean;
+    protected var _tutorialPlaceBuilding:TutorialPlace;
 
     public function IManagerTutorial() {
         _tutorialObjects = [];
@@ -50,7 +53,7 @@ public class IManagerTutorial {
     }
 
     public function onGameStart():void { initScenes(); }
-    public function useNewTuts():Boolean { return _useNewTuts; }
+    public function get useNewTuts():Boolean { return _useNewTuts; }
     protected function initScenes():void {}
     public function get currentAction():int { return _currentAction; }
     public function get subStep():int { return _subStep; }

@@ -272,7 +272,7 @@ public class Farm extends WorldObject{
                 g.starling.juggler.add(tween);
             };
 
-            if (!g.managerTutorial.isTutorial && !isFromServer) {
+            if ((!g.managerTutorial.isTutorial || g.managerTutorial.isTutorial && g.managerTutorial.useNewTuts) && !isFromServer) {
                 arm = g.allData.factory['explode_an'].buildArmature("expl_fabric");
                 (arm.display as StarlingArmatureDisplay).x = p.x;
                 (arm.display as StarlingArmatureDisplay).y = p.y - 20;
