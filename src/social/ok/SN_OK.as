@@ -250,7 +250,7 @@ public class SN_OK extends SocialNetwork {
 //        ]);
 //        _wallRequest = Odnoklassniki.getSignature(_wallRequest, false);
 //        Odnoklassniki.showConfirmation("stream.publish", message, _wallRequest.sig);
-        super.wallPost(uid, message, image, url, title, posttype);
+        super.wallPostBitmap(uid, message, image, url, title, posttype);
 
         ExternalInterface.call("makeWallPost", uid, message, url);
     }

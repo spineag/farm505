@@ -2,6 +2,8 @@
  * Created by user on 5/23/16.
  */
 package wallPost {
+import com.junkbyte.console.Cc;
+
 import flash.display.Bitmap;
 import flash.filters.GlowFilter;
 import flash.text.TextField;
@@ -68,8 +70,12 @@ public class WALLNewLevel {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),bitmap,'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),
-                    null, st + 'wall/wall_new_level.jpg');
+            try {
+                g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),
+                        null, st + 'wall/wall_new_level.jpg');
+            } catch (e:Error) {
+                Cc.error('error during wallpost');
+            }
         }
         (g.pBitmaps[st + 'wall/wall_new_level.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_new_level.jpg'];
