@@ -279,7 +279,7 @@ public class Vars {
 
             socialNetwork = new SocialNetwork(flashVars);
             if (isDebug) {
-                socialNetworkID = SocialNetworkSwitch.SN_OK_ID;
+                socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
             } else {
                 socialNetworkID = int(flashVars['channel']);
             }
