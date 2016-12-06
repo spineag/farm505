@@ -5,6 +5,8 @@ package loaders {
 import data.AllData;
 import dragonBones.starling.StarlingFactory;
 
+import flash.display.Bitmap;
+
 import flash.text.Font;
 
 import manager.*;

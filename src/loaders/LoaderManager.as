@@ -75,14 +75,14 @@ public class LoaderManager {
 
     private function loadedImage(url:String, callback:Function, callbackParams:Array):void {
         var bitmapData:BitmapData;
-        var image:Bitmap;
+        var b:Bitmap;
         bitmapData = _loader.get(url).asset;
-        image = new Bitmap(bitmapData, 'auto', true);
+        b = new Bitmap(bitmapData, 'auto', true);
         Cc.ch('load', 'on load image: ' + url);
 
-        g.pBitmaps[url] = new PBitmap(image);
+        g.pBitmaps[url] = new PBitmap(b);
         if (callback != null) {
-            if (image != null) {
+            if (b != null) {
                 callback.apply(null, [g.pBitmaps[url].create() as Bitmap].concat(callbackParams));
             } else {
                 Cc.error(url, 'load with some problem.')

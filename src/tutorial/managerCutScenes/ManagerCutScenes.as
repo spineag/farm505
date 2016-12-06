@@ -156,29 +156,36 @@ public class ManagerCutScenes {
         try {
             switch (_curCutScenePropertie.id_action) {
                 case ID_ACTION_SHOW_MARKET:
+                    g.windowsManager.closeAllWindows();
                     if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     releaseMarket();
                     break;
                 case ID_ACTION_SHOW_PAPPER:
+                    g.windowsManager.closeAllWindows();    
                     if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     releasePapper();
                     break;
                 case ID_ACTION_BUY_DECOR:
+                    g.windowsManager.closeAllWindows();    
                     if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     releaseDecor();
                     break;
                 case ID_ACTION_TO_INVENTORY_DECOR:
+                    g.windowsManager.closeAllWindows();
                     if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     releaseToInventoryDecor();
                     break;
                 case ID_ACTION_FROM_INVENTORY_DECOR:
+                    g.windowsManager.closeAllWindows();
                     releaseFromInventoryDecor();
                     break;
                 case ID_ACTION_TRAIN_AVAILABLE:
+                    g.windowsManager.closeAllWindows();
 //                    if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     releaseAvailableTrain();
                     break;
                 case ID_ACTION_OPEN_TRAIN:
+                    g.windowsManager.closeAllWindows();
 //                    if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     releaseOpenTrain();
                     break;

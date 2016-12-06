@@ -7,10 +7,16 @@ import dragonBones.animation.WorldClock;
 import dragonBones.starling.StarlingArmatureDisplay;
 import dragonBones.starling.StarlingFactory;
 
+import flash.display.Bitmap;
+
 import loaders.EmbedAssets;
+import loaders.PBitmap;
 
 import manager.ManagerFilters;
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -27,6 +33,10 @@ public class StartPreloader {
     private const PreloaderTexture:Class;
     [Embed(source="../../assets/preloaderAtlas.xml", mimeType="application/octet-stream")]
     private const PreloaderTextureXML:Class;
+    [Embed(source="../../assets/embeds/uho1.jpg", mimeType = "application/octet-stream")]
+    private const Uho1:Class;
+    [Embed(source="../../assets/embeds/uho2.jpg", mimeType = "application/octet-stream")]
+    private const Uho2:Class;
 
     private var _source:Sprite;
     private var _bg:Image;
@@ -37,12 +47,13 @@ public class StartPreloader {
     private var _armature:Armature;
     private var _quad:Quad;
     private var _txt:CTextField;
-    private var _leftIm:Quad;
-    private var _rightIm:Quad;
+    private var _leftIm:Image;
+    private var _rightIm:Image;
 
     private var g:Vars = Vars.getInstance();
 
     public function StartPreloader() {
+        createBitmap();
         _source = new Sprite();
         _texture = Texture.fromBitmap(new PreloaderTexture());
         var xml:XML = XML(new PreloaderTextureXML());
@@ -58,6 +69,15 @@ public class StartPreloader {
         _source.addChild(_txt);
         _txt.x = _bg.width/2 - 46;
         _txt.y = _bg.height/2 + 182;
+        addIms();
+    }
+
+    private function createBitmap():void {
+        var b:Bitmap;
+        b = new Uho1();
+        g.pBitmaps['uho1'] = new PBitmap(b);
+        b = new Uho2();
+        g.pBitmaps['uho2'] = new PBitmap(b);
     }
 
     private function create():void {
@@ -82,28 +102,32 @@ public class StartPreloader {
     public function onResize():void {
         if (!_source) return;
         _source.x = g.managerResize.stageWidth/2 - 500;
-        addIms();
     }
 
     private function addIms():void {
-        if (_leftIm) {
-            if (_source.contains(_leftIm)) _source.removeChild(_leftIm);
-            _leftIm.dispose();
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            if (g.pBitmaps['uho1']) {
+                (g.pBitmaps['uho1'] as PBitmap).deleteIt();
+                delete g.pBitmaps['uho1'];
+            }
+            if (g.pBitmaps['uho2']) {
+                (g.pBitmaps['uho2'] as PBitmap).deleteIt();
+                delete g.pBitmaps['uho2'];
+            }
+            return;
         }
-        if (_rightIm) {
-            if (_source.contains(_rightIm)) _source.removeChild(_rightIm);
-            _rightIm.dispose();
+        if (!_leftIm) {
+            _leftIm = new Image(Texture.fromBitmap(g.pBitmaps['uho1'].create() as Bitmap));
+            _leftIm.x = -_leftIm.width + 2;
+            _source.addChild(_leftIm);
+            _leftIm.touchable = false;
         }
-        var w:int = g.managerResize.stageWidth;
-        if (w < 1000 + 10) return;
-        _leftIm = new Quad(int(w/2 - 500) + 1, 640);
-        _leftIm.x = -_leftIm.width;
-        _source.addChild(_leftIm);
-        _rightIm = new Quad(int(w/2 - 500) + 1, 640);
-        _rightIm.x = 1000;
-        _source.addChild(_rightIm);
-        _leftIm.touchable = false;
-        _rightIm.touchable = false;
+        if (!_rightIm) {
+            _rightIm = new Image(Texture.fromBitmap(g.pBitmaps['uho2'].create() as Bitmap));
+            _rightIm.x = 1000;
+            _source.addChild(_rightIm);
+            _rightIm.touchable = false;
+        }
     }
 
     public function hideIt():void {
