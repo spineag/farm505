@@ -33,9 +33,9 @@ public class StartPreloader {
     private const PreloaderTexture:Class;
     [Embed(source="../../assets/preloaderAtlas.xml", mimeType="application/octet-stream")]
     private const PreloaderTextureXML:Class;
-    [Embed(source="../../assets/embeds/uho1.jpg", mimeType = "application/octet-stream")]
+    [Embed(source="../../assets/embeds/uho1.jpg")]
     private const Uho1:Class;
-    [Embed(source="../../assets/embeds/uho2.jpg", mimeType = "application/octet-stream")]
+    [Embed(source="../../assets/embeds/uho2.jpg")]
     private const Uho2:Class;
 
     private var _source:Sprite;
@@ -53,7 +53,6 @@ public class StartPreloader {
     private var g:Vars = Vars.getInstance();
 
     public function StartPreloader() {
-        createBitmap();
         _source = new Sprite();
         _texture = Texture.fromBitmap(new PreloaderTexture());
         var xml:XML = XML(new PreloaderTextureXML());
@@ -69,6 +68,7 @@ public class StartPreloader {
         _source.addChild(_txt);
         _txt.x = _bg.width/2 - 46;
         _txt.y = _bg.height/2 + 182;
+        createBitmap();
         addIms();
     }
 

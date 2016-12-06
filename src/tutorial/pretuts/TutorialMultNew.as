@@ -10,11 +10,16 @@ import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
 import dragonBones.starling.StarlingArmatureDisplay;
 import dragonBones.starling.StarlingFactory;
+
+import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.geom.Rectangle;
 import loaders.PBitmap;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -25,8 +30,8 @@ import utils.Utils;
 
 public class TutorialMultNew {
     private var _source:Sprite;
-    private var _leftIm:Quad;
-    private var _rightIm:Quad;
+    private var _leftIm:Image;
+    private var _rightIm:Image;
     private var _isLoad:Boolean;
     private var _needStart:Boolean;
     private var _startCallback:Function;
@@ -65,6 +70,7 @@ public class TutorialMultNew {
         _source.addChild(_armature.display as StarlingArmatureDisplay);
         g.managerResize.rechekProp();
         onResize();
+        addIms();
         g.cont.popupCont.addChild(_source);
         if (_startCallback != null) {
             _startCallback.apply();
@@ -105,28 +111,32 @@ public class TutorialMultNew {
 
     public function onResize():void {
         _source.x = g.managerResize.stageWidth/2 - 500;
-        addIms();
     }
 
     private function addIms():void {
-        if (_leftIm) {
-            if (_source.contains(_leftIm)) _source.removeChild(_leftIm);
-            _leftIm.dispose();
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            if (g.pBitmaps['uho1']) {
+                (g.pBitmaps['uho1'] as PBitmap).deleteIt();
+                delete g.pBitmaps['uho1'];
+            }
+            if (g.pBitmaps['uho2']) {
+                (g.pBitmaps['uho2'] as PBitmap).deleteIt();
+                delete g.pBitmaps['uho2'];
+            }
+            return;
         }
-        if (_rightIm) {
-            if (_source.contains(_rightIm)) _source.removeChild(_rightIm);
-            _rightIm.dispose();
+        if (!_leftIm) {
+            _leftIm = new Image(Texture.fromBitmap(g.pBitmaps['uho1'].create() as Bitmap));
+            _leftIm.x = -_leftIm.width + 2;
+            _source.addChild(_leftIm);
+            _leftIm.touchable = false;
         }
-        var w:int = g.managerResize.stageWidth;
-        if (w < 1000 + 10) return;
-        _leftIm = new Quad(int(w/2 - 500) + 1, 640);
-        _leftIm.x = -_leftIm.width;
-        _source.addChild(_leftIm);
-        _rightIm = new Quad(int(w/2 - 500) + 1, 640);
-        _rightIm.x = 1000;
-        _source.addChild(_rightIm);
-        _leftIm.touchable = false;
-        _rightIm.touchable = false;
+        if (!_rightIm) {
+            _rightIm = new Image(Texture.fromBitmap(g.pBitmaps['uho2'].create() as Bitmap));
+            _rightIm.x = 1000;
+            _source.addChild(_rightIm);
+            _rightIm.touchable = false;
+        }
     }
 
     private function onIdle1(e:Event=null):void {

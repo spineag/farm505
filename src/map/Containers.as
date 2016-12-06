@@ -154,8 +154,8 @@ public class Containers {
             if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.PLANT_SEED;
             _startDragPoint = te.touches[0].getLocation(g.mainStage); //te.touches[0].globalX;
             _startDragPointCont = new Point(gameCont.x, gameCont.y);
-            g.ownMouse.showClickCursor();
-            g.mouseHint.hideIt();
+            if (g.ownMouse) g.ownMouse.showClickCursor();
+            if (g.mouseHint) g.mouseHint.hideIt();
         } else if (te.getTouch(gameCont, TouchPhase.HOVER)) {}
     }
 

@@ -69,6 +69,9 @@ public class TutorialMult {
         (_armature.display as StarlingArmatureDisplay).x = 500;
         (_armature.display as StarlingArmatureDisplay).y = 320;
         _source.addChild(_armature.display as StarlingArmatureDisplay);
+        g.managerResize.rechekProp();
+        onResize();
+        addIms();
         g.cont.popupCont.addChild(_source);
         if (_startCallback != null) {
             _startCallback.apply();
@@ -108,9 +111,6 @@ public class TutorialMult {
         _armature.addEventListener(EventObject.COMPLETE, onIdle1);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onIdle1);
         _armature.animation.gotoAndPlayByFrame('idle');
-        
-        onResize();
-        addIms();
     }
 
     public function onResize():void {

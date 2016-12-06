@@ -101,6 +101,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
         g.realGameTilesWidth *= g.scaleFactor;
         ///// END OF PART FOR GAME SCALE FACTOR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   :)
 
+        g.pBitmaps = {};
         new EmbedAssets(null);
         g.cont = new Containers();
         g.matrixGrid = new MatrixGrid();
