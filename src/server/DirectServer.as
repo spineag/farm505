@@ -3639,15 +3639,17 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
+            var k:int;
             Cc.ch('server', 'getAllCityData OK', 5);
             p.userDataCity.objects = new Array();
             for (var i:int = 0; i < d.message['building'].length; i++) {
-                if (!g.dataBuilding.objectBuilding[int(d.message['building'][i].building_id)]) {
-                    Cc.error('no in g.dataBuilding.objectBuilding such id: ' + int(d.message['building'][i].building_id));
+                ob = {};
+                k = int(d.message['building'][i].building_id);
+                if (!g.dataBuilding.objectBuilding[k]) {
+                    Cc.error(' completeGetAllCityData:: no in g.dataBuilding.objectBuilding for building with building_id: ' + k);
                     continue;
                 }
-                ob = {};
-                ob.buildId = g.dataBuilding.objectBuilding[int(d.message['building'][i].building_id)].id;
+                ob.buildId = g.dataBuilding.objectBuilding[k].id;
                 ob.posX = int(d.message['building'][i].pos_x);
                 ob.posY = int(d.message['building'][i].pos_y);
                 ob.dbId = int(d.message['building'][i].id);
@@ -3697,7 +3699,12 @@ public class DirectServer {
             }
             for (i = 0; i < d.message['wild'].length; i++) {
                 ob = {};
-                ob.buildId = g.dataBuilding.objectBuilding[int(d.message['wild'][i].building_id)].id;
+                k = int(d.message['wild'][i].building_id);
+                if (!g.dataBuilding.objectBuilding[k]) {
+                    Cc.error(' completeGetAllCityData:: no in g.dataBuilding.objectBuilding for wild with building_id: ' + k);
+                    continue;
+                }
+                ob.buildId = g.dataBuilding.objectBuilding[k].id;
                 ob.posX = int(d.message['wild'][i].pos_x);
                 ob.posY = int(d.message['wild'][i].pos_y);
                 ob.dbId = int(d.message['wild'][i].id);
