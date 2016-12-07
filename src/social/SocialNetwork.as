@@ -191,7 +191,7 @@ public class SocialNetwork extends EventDispatcher {
     }
 
     public function wallPostBitmap(uid:String, message:String, image:Bitmap, url:String = null, title:String = null, posttype:String = null):void {
-        Cc.ch('social', "SocialNetwork:: wallpostBitmap for uid " + uid + ".\nMessage: " + message + "\nImage: " + image + "\nURL: " + url + "\nTitle: " + title + "\nType: " + posttype);
+        Cc.ch('social', "SocialNetwork:: wallpostBitmap for uid " + uid + " with message: " + message);
         //v.plugins.sendActivity("posting", "show", {uids: [g.socialNetwork.currentUID, uid].join(","), typeObj: posttype, idObj: '0'});
         clearScreen();
     }

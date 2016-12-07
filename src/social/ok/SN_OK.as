@@ -235,7 +235,6 @@ public class SN_OK extends SocialNetwork {
 
     // https://apiok.ru/dev/methods/rest/mediatopic/mediatopic.post
     override public function wallPostBitmap(uid:String, message:String, image:Bitmap, url:String = null, title:String = null, posttype:String = null):void {
-        return;
 //        _wallRequest = {method: "stream.publish", message: message};
 //        if (uid) {
 //            _wallRequest.uid = uid;

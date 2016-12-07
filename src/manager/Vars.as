@@ -215,6 +215,8 @@ public class Vars {
     public var managerVisibleObjects:ManagerVisibleObjects;
     public var managerResize:ManagerResize;
 
+    public var testersArrayVK:Array = ['191561520', '14663166', '33979940'];
+
     public static function getInstance():Vars {
         if (!_instance) {
             _instance = new Vars(new SingletonEnforcer());
@@ -253,7 +255,14 @@ public class Vars {
             townArea = new TownArea();
             farmGrid = new FarmGrid();
             managerDailyBonus = new ManagerDailyBonus();
-            if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester) {
+            socialNetwork = new SocialNetwork(flashVars);
+            if (isDebug) {
+                socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
+            } else {
+                socialNetworkID = int(flashVars['channel']);
+            }
+            SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
+            if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && testersArrayVK.indexOf((user as User).userSocialId) > -1) {
                 managerTutorial = new ManagerTutorialNew();
             } else {
                 managerTutorial = new ManagerTutorial();
@@ -277,13 +286,6 @@ public class Vars {
             soundManager = new SoundManager();
             managerQuest = new ManagerQuest();
 
-            socialNetwork = new SocialNetwork(flashVars);
-            if (isDebug) {
-                socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
-            } else {
-                socialNetworkID = int(flashVars['channel']);
-            }
-            SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
             socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
             socialNetwork.init();
 //        } catch (e:Error) {
