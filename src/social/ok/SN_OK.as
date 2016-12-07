@@ -235,23 +235,11 @@ public class SN_OK extends SocialNetwork {
 
     // https://apiok.ru/dev/methods/rest/mediatopic/mediatopic.post
     override public function wallPostBitmap(uid:String, message:String, image:Bitmap, url:String = null, title:String = null, posttype:String = null):void {
-//        _wallRequest = {method: "stream.publish", message: message};
-//        if (uid) {
-//            _wallRequest.uid = uid;
-//        }
-//        title = title || "Умелые Лапки";
-//
-//        _wallRequest.attachment = JSONuse.encode({caption: title, media: [
-//            {href: "link", src: url, "type": "image"}
-//        ]});
-//        _wallRequest.action_links = JSONuse.encode([
-//            {text: "Посмотреть..."}
-//        ]);
-//        _wallRequest = Odnoklassniki.getSignature(_wallRequest, false);
-//        Odnoklassniki.showConfirmation("stream.publish", message, _wallRequest.sig);
         super.wallPostBitmap(uid, message, image, url, title, posttype);
 
         ExternalInterface.call("makeWallPost", uid, message, url);
+        
+        //__fapi__callback_3("error",null, {"error_code":100,"error_msg":"PARAM : Invalid parameter attachment value  : [[object Object]]","error_data":null});
     }
 
     override public function requestBox(uid:String, message:String, requestKey:String):void {
