@@ -74,16 +74,12 @@ public class XPStar {
         var tempX:int;
         _source.x < endX ? tempX = _source.x + 70 : tempX = _source.x - 70;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
-        var dist:int = int(Math.sqrt((_source.x - endX)*(_source.x - endX) + (_source.y - endY)*(_source.y - endY)));
-        var v:Number;
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 460;
-            else v = 460;
-        } else {
-            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 350;
-            else v = 460;
-        }
-        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endX, y:endY}], ease:Linear.easeOut ,onComplete: f1, delay:.5});
+        var dist:int = int(Math.sqrt((_source.x - tempX)*(_source.x - tempX) + (_source.y - tempY)*(_source.y - tempY)));
+        dist += int(Math.sqrt((tempX - endX)*(tempX - endX) + (tempY - endY)*(tempY - endY)));
+        var t:Number = dist/1000 * 2;
+        if (t > 2) t -= .6;
+        if (t > 3) t -= 1;
+        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endX, y:endY}], ease:Linear.easeOut ,onComplete: f1, delay:.3});
     }
 
     

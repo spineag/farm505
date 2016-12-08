@@ -142,25 +142,15 @@ public class DropItem {
         };
         var tempX:int = _source.x - 140 + int(Math.random()*140);
         var tempY:int = _source.y - 40 + int(Math.random()*140);
-        var v:int;
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            if (prise.id == DataMoney.HARD_CURRENCY || prise.id == DataMoney.SOFT_CURRENCY || prise.id == DataMoney.GREEN_COUPONE || prise.id == DataMoney.RED_COUPONE || prise.id == DataMoney.YELLOW_COUPONE || prise.id == DataMoney.BLUE_COUPONE) {
-                if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 460;
-                else v = 460;
-            } else {
-                if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 420;
-                else v = 460;
-            }
-        } else {
-            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 350;
-            else v = 460;
-        }
-        var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
-
+        var dist:int = int(Math.sqrt((_source.x - tempX)*(_source.x - tempX) + (_source.y - tempY)*(_source.y - tempY)));
+        dist += int(Math.sqrt((tempX - endPoint.x)*(tempX - endPoint.x) + (tempY - endPoint.y)*(tempY - endPoint.y)));
+        var t:Number = dist/1000 * 2;
+        if (t > 2) t -= .6;
+        if (t > 3) t -= 1;
         if (fromSize != 50) {
             var scale:Number = _image.scaleX / (fromSize/50);
-            new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:scale, scaleY:scale, ease:Linear.easeOut ,onComplete: f1, delay: delay});
-        } else new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay: delay});
+            new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:scale, scaleY:scale, ease:Linear.easeOut ,onComplete: f1, delay: delay});
+        } else new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay: delay});
     }
 }
 }
