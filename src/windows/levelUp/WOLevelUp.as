@@ -11,6 +11,9 @@ import flash.geom.Rectangle;
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
 import media.SoundConst;
+
+import social.SocialNetworkSwitch;
+
 import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Image;
@@ -186,7 +189,7 @@ public class WOLevelUp extends WindowMain {
         _txtContinue.x = 3;
         _txtHard = new CTextField(50,50,' +'+String(_count));
         _txtHard.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        if (g.user.level <= 5) {
+        if (g.user.level <= 5 || g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID && !g.user.isTester) {
             _contBtn = new CButton();
             _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
             _txtContinue.text = 'ПРОДОЛЖИТЬ';

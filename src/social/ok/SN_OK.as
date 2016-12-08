@@ -236,9 +236,7 @@ public class SN_OK extends SocialNetwork {
     // https://apiok.ru/dev/methods/rest/mediatopic/mediatopic.post
     override public function wallPostBitmap(uid:String, message:String, image:Bitmap, url:String = null, title:String = null, posttype:String = null):void {
         super.wallPostBitmap(uid, message, image, url, title, posttype);
-
         ExternalInterface.call("makeWallPost", uid, message, url);
-        
         //__fapi__callback_3("error",null, {"error_code":100,"error_msg":"PARAM : Invalid parameter attachment value  : [[object Object]]","error_data":null});
     }
 

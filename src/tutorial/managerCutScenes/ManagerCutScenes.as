@@ -152,41 +152,48 @@ public class ManagerCutScenes {
     }
 
     private function checkTypeFunctions():void {
+        if (isCutScene) return;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         try {
             switch (_curCutScenePropertie.id_action) {
                 case ID_ACTION_SHOW_MARKET:
-                    g.windowsManager.closeAllWindows();
                     if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
+                    isCutScene = true;
+                     g.windowsManager.closeAllWindows();
                     releaseMarket();
                     break;
                 case ID_ACTION_SHOW_PAPPER:
-                    g.windowsManager.closeAllWindows();    
                     if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
+                    isCutScene = true;
                     releasePapper();
                     break;
                 case ID_ACTION_BUY_DECOR:
-                    g.windowsManager.closeAllWindows();    
                     if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
+                    isCutScene = true;
+                    g.windowsManager.closeAllWindows();
                     releaseDecor();
                     break;
                 case ID_ACTION_TO_INVENTORY_DECOR:
-                    g.windowsManager.closeAllWindows();
                     if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
+                    isCutScene = true;
+                    g.windowsManager.closeAllWindows();
                     releaseToInventoryDecor();
                     break;
                 case ID_ACTION_FROM_INVENTORY_DECOR:
+                    isCutScene = true;
                     g.windowsManager.closeAllWindows();
                     releaseFromInventoryDecor();
                     break;
                 case ID_ACTION_TRAIN_AVAILABLE:
-                    g.windowsManager.closeAllWindows();
 //                    if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
+                    isCutScene = true;
+                    g.windowsManager.closeAllWindows();
                     releaseAvailableTrain();
                     break;
                 case ID_ACTION_OPEN_TRAIN:
-                    g.windowsManager.closeAllWindows();
 //                    if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
+                    isCutScene = true;
+                    g.windowsManager.closeAllWindows();
                     releaseOpenTrain();
                     break;
             }
@@ -200,7 +207,6 @@ public class ManagerCutScenes {
     }
 
     private function releaseMarket():void {
-        g.toolsModifier.modifierType = ToolsModifier.NONE;
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.MARKET);
         if (_cutSceneBuildings.length) {
             if (g.managerTips) g.managerTips.setUnvisible(true);
@@ -211,6 +217,7 @@ public class ManagerCutScenes {
             g.managerCats.goCatToPoint(_cat, new Point(44, 0), market_1);
             g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 3);
         } else {
+            isCutScene = false;
             Cc.error('cutScene for market - no market building');
         }
     }
@@ -244,13 +251,13 @@ public class ManagerCutScenes {
         g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
         g.user.cutScenes[0] = 1;
         saveUserCutScenesData();
+        isCutScene = false;
         checkCutScene(REASON_NEW_LEVEL);
     }
 
     private function releasePapper():void {
         if (g.managerTips) g.managerTips.setUnvisible(true);
         _cutSceneStep = 1;
-        g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.PAPER);
         if (_cat) {
@@ -303,7 +310,6 @@ public class ManagerCutScenes {
         }
         _cutSceneStep = 1;
         Cc.ch('info', 'try cutScene: releaseDecor');
-        g.toolsModifier.modifierType = ToolsModifier.NONE;
         isCutScene = true;
         _cutScene = new CutScene();
         _cutScene.showIt(_curCutScenePropertie.text);
@@ -359,6 +365,7 @@ public class ManagerCutScenes {
         _cutSceneCallback = null;
         g.user.cutScenes[2] = 1;
         saveUserCutScenesData();
+        isCutScene = false;
         checkCutScene(REASON_NEW_LEVEL);
     }
 
@@ -430,6 +437,7 @@ public class ManagerCutScenes {
     }
 
     private function toInventory_4():void {
+        isCutScene = false;
         checkCutScene(REASON_NEW_LEVEL);
     }
 

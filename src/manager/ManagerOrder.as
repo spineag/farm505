@@ -958,8 +958,10 @@ public class ManagerOrder {
             order.coins = 0;
             order.xp = 0;
             for (k = 0; k < order.resourceIds.length; k++) {
-                order.coins += g.dataResource.objectResources[order.resourceIds[k]].orderPrice * order.resourceCounts[k];
-                order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
+                if (order.resourceIds[k]) {
+                    order.coins += g.dataResource.objectResources[order.resourceIds[k]].orderPrice * order.resourceCounts[k];
+                    order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
+                }
             }
             order.startTime = int(new Date().getTime() / 1000);
             if (place == -1) {
