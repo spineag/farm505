@@ -41,6 +41,7 @@ public class SN_OK extends SocialNetwork {
             ExternalInterface.addCallback('getAppUsersHandler', getAppUsersHandler);
             ExternalInterface.addCallback('getFriendsByIdsHandler', getFriendsByIdsHandler);
             ExternalInterface.addCallback('onPaymentCallback', onPaymentCallback);
+            ExternalInterface.addCallback('getTempUsersInfoByIdCallback', getTempUsersInfoByIdCallback);
         }
         super(flashVars);
     }
@@ -105,7 +106,6 @@ public class SN_OK extends SocialNetwork {
     override public function getAllFriends():void {
         super.getAllFriends();
         ExternalInterface.call("getAllFriends", g.user.userSocialId);
-//        Friends.get(getFriendsHandler, Odnoklassniki.session.uid);
     }
 
     private function getAllFriendsHandler(e:Object = null):void {
@@ -119,7 +119,6 @@ public class SN_OK extends SocialNetwork {
         }
 
         _friendsRest = friends.slice(100);
-//        Users.getInfo(friends.slice(0, 100), ["first_name", "last_name", "pic_5"], getFriendsLoaded);
         ExternalInterface.call("getUsersInfo", friends.slice(0, 100), ["first_name", "last_name", "pic_5"]);
     }
 
@@ -152,10 +151,34 @@ public class SN_OK extends SocialNetwork {
         }
     }
 
+    override public function getTempUsersInfoById(arr:Array, callback:Function):void {
+//        var f1:Function = function(e:Array):void {
+//            var ar:Array = [];
+//            var buffer:Object;
+//            for (var i:int=0; i < e.length; i++) {
+//                buffer = e[i];
+//                buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ? URL_AVATAR_BLANK : buffer.photo_100;
+//                ar.push(buffer);
+//            }
+//
+//            g.user.addTempUsersInfo(ar);
+//            if (callback != null) {
+//                callback.apply(null, [ar]);
+//            }
+//        };
+        super.getTempUsersInfoById(arr, callback);
+//        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, f1, onError);
+        ExternalInterface.call("getTempUsersInfoById", arr);
+    }
+
+    private function getTempUsersInfoByIdCallback(e:Object):void {
+        Cc.ch('social', 'OK: getTempUsersInfoByIdCallback:');
+        if (e) Cc.obj('social', e);
+    }
+
     // friends in App
     override public function getAppUsers():void {
         super.getAppUsers();
-//        Friends.getAppUsers(getAppUsersHandler);
         ExternalInterface.call("getAppUsers", g.user.userSocialId);
     }
 
