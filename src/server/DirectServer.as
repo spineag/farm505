@@ -900,6 +900,17 @@ public class DirectServer {
             } else {
                 g.user.cutScenes = [];
             }
+            if (ob.mini_scene) {
+                Cc.info('User miniscenes:: ' + ob.mini_scene);
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+                    g.user.miniScenes = Utils.intArray( String(ob.mini_scene).split('&') );
+                } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+                    g.user.miniScenes = Utils.intArray( Utils.convert16to2(ob.mini_scene).split('') );
+                    Cc.info('g.user.miniScenes: ' + g.user.miniScenes.join(' - '));
+                }
+            } else {
+                g.user.miniScenes = [];
+            }
             if (ob.is_tester && int(ob.is_tester) > 0) {
                 g.user.isTester = true;
                 if (int(ob.is_tester) > 1) {
@@ -5498,7 +5509,7 @@ public class DirectServer {
         } catch (e:Error) {
             Cc.error('updateUserCutScenesData: wrong JSON:' + String(response));
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateMarketPapper: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMiniScene: wrong JSON:' + String(response));
             return;
         }
 
@@ -5511,7 +5522,58 @@ public class DirectServer {
         } else {
             Cc.error('updateUserCutScenesData: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserCutScenesData: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserMiniScenesData():void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_MINI_SCENE_DATA);
+        var variables:URLVariables = new URLVariables();
+        Cc.ch('server', 'updateUserMiniScenesData', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            variables.miniScene = g.user.miniScenes.join('&');
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            variables.miniScene = Utils.convert2to16(g.user.miniScenes.join(''));
+            Cc.info('OK updateUserMiniSceneData variables.miniScene: ' + variables.miniScene);
+        }
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.miniScene)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserMiniScenesData);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteUpdateUserMiniScenesData(e:Event):void { completeUpdateUserMiniScenesData(e.target.data); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserMiniScenesData error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateUserMiniScenesData(response:String):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserMiniScenesData: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMiniScene: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserMiniScenesData OK', 5);
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserMiniScenesData: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
 

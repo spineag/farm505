@@ -35,6 +35,7 @@ public class User extends Someone {
     public var tutorialStep:int;
     public var lastVisitAmbar:Boolean;
     public var cutScenes:Array;
+    public var miniScenes:Array;
     public var villageNotification:int;
     public var fabricaNotification:int;
     public var plantNotification:int;

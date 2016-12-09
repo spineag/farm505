@@ -76,6 +76,7 @@ import tutorial.IManagerTutorial;
 import tutorial.ManagerTutorial;
 import tutorial.helpers.ManagerHelpers;
 import tutorial.managerCutScenes.ManagerCutScenes;
+import tutorial.miniScenes.ManagerMiniScenes;
 import tutorial.newTuts.ManagerTutorialNew;
 import tutorial.tips.ManagerTips;
 
@@ -140,6 +141,7 @@ public class Vars {
     public var managerOrderCats:ManagerOrderCats;
     public var managerDailyBonus:ManagerDailyBonus;
     public var managerCutScenes:ManagerCutScenes;
+    public var managerMiniScenes:ManagerMiniScenes;
     public var managerWallPost:ManagerWallPost;
     public var managerInviteFriend:ManagerInviteFriend;
     public var managerTimerSkip:ManagerTimerSkip;
@@ -272,6 +274,8 @@ public class Vars {
             managerInviteFriend = new ManagerInviteFriend();
             managerTimerSkip = new ManagerTimerSkip();
             managerMouseHero = new ManagerMouse();
+            managerMiniScenes = new ManagerMiniScenes();
+            managerMiniScenes.updateMiniScenesLengthOnGameStart();
 
             new ManagerFilters();
             ownMouse = new OwnMouse();

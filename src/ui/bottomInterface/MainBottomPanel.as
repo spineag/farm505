@@ -20,6 +20,8 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 
+import tutorial.miniScenes.ManagerMiniScenes;
+
 import utils.CTextField;
 
 import utils.SimpleArrow;
@@ -245,6 +247,8 @@ public class MainBottomPanel {
                 } else if (g.managerCutScenes.isCutScene) {
                     shopTab = WOShop.DECOR;
                     g.managerCutScenes.checkCutSceneCallback();
+                } else if (g.managerMiniScenes.isReason(ManagerMiniScenes.BUY_BUILD)) {
+                    shopTab = WOShop.FABRICA;
                 } else if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     g.user.decorShiftShop = 0;
                     g.user.decorShop = false;

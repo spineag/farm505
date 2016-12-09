@@ -156,6 +156,7 @@ public class Order extends WorldObject{
                 g.lateAction.releaseOnTimer(.7, showBtnCellArrow);
             }
             g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
+            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isMiniSceneBuilding(this)) g.managerMiniScenes.checkMiniSceneCallback();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
