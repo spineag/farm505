@@ -45,7 +45,7 @@ public class ManagerMiniScenes {
     private var _onHideWindowCallback:Function;
 
     public function ManagerMiniScenes() {
-        _properties = (new MiniSceneProperties()).properties;
+        _properties = (new MiniSceneProps()).properties;
         _miniSceneBuildings = [];
         _miniSceneResourceIDs = [];
     }
