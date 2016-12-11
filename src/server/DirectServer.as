@@ -908,6 +908,7 @@ public class DirectServer {
                     g.user.miniScenes = Utils.intArray( Utils.convert16to2(ob.mini_scene).split('') );
                     Cc.info('g.user.miniScenes: ' + g.user.miniScenes.join(' - '));
                 }
+                if (!g.user.miniScenes) g.user.miniScenes = [];
             } else {
                 g.user.miniScenes = [];
             }

@@ -753,7 +753,7 @@ public class ShopItem {
             _countCost = g.dataCats[g.managerCats.curCountCats].cost;
             _data.cost = _countCost;
         }
-
+        if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.deleteArrowAndDust();
         var ob:Object;
         if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL
                 || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_FENCE_ARKA) {

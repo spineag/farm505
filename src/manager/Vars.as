@@ -275,7 +275,6 @@ public class Vars {
             managerTimerSkip = new ManagerTimerSkip();
             managerMouseHero = new ManagerMouse();
             managerMiniScenes = new ManagerMiniScenes();
-            managerMiniScenes.updateMiniScenesLengthOnGameStart();
 
             new ManagerFilters();
             ownMouse = new OwnMouse();
@@ -337,7 +336,9 @@ public class Vars {
         if (managerTutorial.isTutorial) {
             loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial); // no need for loading this
         } else {
-            directServer.getDataAnimal(onDataAnimal);
+            if ((user as User).level == 3) {
+                onLoadCatTutorial();
+            } else directServer.getDataAnimal(onDataAnimal);
         }
     }
     
@@ -527,6 +528,7 @@ public class Vars {
                 startPreloader.hideIt();
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
+                managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
                 if ((user as User).isTester) {
                     if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
                     else {
@@ -542,7 +544,7 @@ public class Vars {
                     managerQuest.checkQuestContPosition();
                 }
             }
-
+            managerMiniScenes.updateMiniScenesLengthOnGameStart();
             managerButterfly = new ManagerButterfly();
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();

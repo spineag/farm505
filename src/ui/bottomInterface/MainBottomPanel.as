@@ -234,6 +234,7 @@ public class MainBottomPanel {
                     cancelBoolean(false);
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                 }
+                if (g.managerMiniScenes.isMiniScene) deleteArrow();    
                 g.toolsPanel.hideRepository();
                 var shopTab:int = WOShop.VILLAGE;
                 if (g.managerTutorial.isTutorial) {

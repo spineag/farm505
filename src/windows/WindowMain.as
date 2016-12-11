@@ -112,6 +112,7 @@ public class WindowMain {
         g.cont.addGameContListener(true);
         removeBlackBG();
         if (!isCashed) deleteIt();
+        if ((g.user.level == 3 || g.user.level == 4) && _windowType == WindowsManager.WO_LEVEL_UP) g.managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
         if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.checkMiniCutSceneCallbackOnHideWindow();
         g.windowsManager.onHideWindow(this);
     }

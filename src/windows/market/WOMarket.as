@@ -266,6 +266,7 @@ public class WOMarket  extends WindowMain {
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].updateTextField();
         }
+        if (_curUser is NeighborBot) g.managerMiniScenes.atNeighborBuyInstrument();
     }
 
     private function onClickExit(e:Event=null):void {

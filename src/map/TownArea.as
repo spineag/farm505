@@ -44,6 +44,8 @@ import resourceItem.UseMoneyMessage;
 import starling.display.Sprite;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
+import tutorial.miniScenes.ManagerMiniScenes;
+
 import ui.xpPanel.XPStar;
 import user.NeighborBot;
 import user.Someone;
@@ -1385,6 +1387,7 @@ public class TownArea extends Sprite {
             g.managerOrderCats.removeAwayCats();
             clearAwayCity();
         } else {
+            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.managerMiniScenes.checkMiniSceneCallback();
             g.managerLohmatic.onGoAway();
             g.cont.craftAwayCont.visible = true;
             g.cont.craftCont.visible = false;
@@ -1501,6 +1504,7 @@ public class TownArea extends Sprite {
         g.managerMouseHero.addMouse();
 
         g.user.calculateReasonForHelpAway();
+        if (p is NeighborBot) g.managerMiniScenes.onGoAwayToNeighbor();
     }
 
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {

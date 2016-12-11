@@ -107,7 +107,9 @@ public class Market extends WorldObject{
 
             if (g.managerCutScenes.isCutScene && g.managerCutScenes.closeMarket) return;
 
-            if (g.user.level < int(_dataBuild.blockByLevel) + isNotAway) {
+            if (g.testersArrayVK.indexOf(g.user.userSocialId) > -1) {
+
+            } else if (g.user.level < int(_dataBuild.blockByLevel) + isNotAway) {
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);

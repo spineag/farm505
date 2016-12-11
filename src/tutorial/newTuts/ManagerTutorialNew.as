@@ -37,7 +37,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
         var curFunc:Function;
         _subStep = 0;
         _currentAction = TutorialAction.NONE;
-        trace('tutorial step: ' + g.user.tutorialStep);
         try {
             Cc.info('init tutorial scene for step: ' + g.user.tutorialStep);
             switch (g.user.tutorialStep) {

@@ -26,7 +26,8 @@ public class ManagerMiniScenes {
     public static const REASON_NEW_LEVEL:int = 1;  // use after getting new level
     public static const AFTER_PREV_MINISCENE:int = 2;  // use after ending prev miniSCene
     public static const ON_GO_NEIGHBOR:int = 3;
-    public static const BUY_BUILD:int = 4;
+    public static const GO_NEIGHBOR:int = 4;
+    public static const BUY_BUILD:int = 5;
 
     private var g:Vars = Vars.getInstance();
     private var _properties:Array;
@@ -39,7 +40,6 @@ public class ManagerMiniScenes {
     private var _miniSceneResourceIDs:Array;
     private var _miniSceneBuildings:Array;
     private var _miniSceneCallback:Function;
-    private var _miniSceneStep:int;
     public var isMiniScene:Boolean = false;
     private var _onShowWindowCallback:Function;
     private var _onHideWindowCallback:Function;
@@ -54,6 +54,17 @@ public class ManagerMiniScenes {
         if (_curMiniScenePropertie) {
             return _curMiniScenePropertie.reason == reason;
         } else return false;
+    }
+
+    public function deleteArrowAndDust():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 
     public function checkMiniCutSceneCallbackOnShowWindow():void {
@@ -140,13 +151,29 @@ public class ManagerMiniScenes {
     }
 
     public function checkAvailableMiniScenesOnNewLevel():void {
-        checkForAvailableLevels();
-        if (g.isAway) return;
-        var countActions:int = _properties.length;
-        var l:int;
-        for (l=0; l<countActions; l++) {
-            if (g.user.miniScenes[l] == 0) { // if == 1 - its mean, that miniScene was showed
-                if (_properties[l].reason == REASON_NEW_LEVEL) {
+        if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
+        if (g.user.level > 3) {
+            checkForAvailableLevels();
+            if (isMiniScene) {
+                isMiniScene = false;
+                removeBlack();
+                if (_cutScene) _cutScene.hideIt(deleteCutScene);
+                deleteArrowAndDust();
+                if (_airBubble) _airBubble.hideIt();
+                _airBubble = null;
+                _miniSceneBuildings = [];
+                _miniSceneCallback = null;
+                _miniSceneResourceIDs = [];
+                _onHideWindowCallback = null;
+                _onHideWindowCallback = null;
+            }
+        } else if (g.user.level == 3) {
+            checkForAvailableLevels();
+            if (g.isAway) return;
+            var countActions:int = _properties.length;
+            var l:int;
+            for (l = 0; l < countActions; l++) {
+                if (g.user.miniScenes[l] == 0) { // if == 1 - its mean, that miniScene was showed
                     if (_properties[l].level == g.user.level) {
                         _curMiniScenePropertie = _properties[l];
                         forReleaseMini();
@@ -158,16 +185,16 @@ public class ManagerMiniScenes {
     }
 
     private function forReleaseMini():void {
-        if (g.testersArrayVK.indexOf(g.user.userSocialId) > -1) return;
+        if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
         if (!_curMiniScenePropertie) return;
         switch (_curMiniScenePropertie.id) {
             case 1: openOrderBuilding(); break;
             case 2: firstOrderBuyer(); break;
             case 3: buildBulo4na(); break;
             case 4: letsGoToNeighbor(); break;
-            case 5: atNeighbor(); break;
-            case 6: atNeighborBuyInstrument(); break;
-            default: Cc.error('unknown id for miniScene');
+//            case 5: atNeighbor(); break;
+//            case 6: atNeighborBuyInstrument(); break;
+//            default: Cc.error('unknown id for miniScene');
         }
     }
 
@@ -183,6 +210,7 @@ public class ManagerMiniScenes {
         g.user.miniScenes[0] = 1;
         saveUserMiniScenesData();
         _curMiniScenePropertie = _properties[1];
+        isMiniScene = false;
         forReleaseMini();
     }
 
@@ -191,6 +219,7 @@ public class ManagerMiniScenes {
             buyer_15();
             return;
         }
+        isMiniScene = true;
         if (!_miniSceneBuildings.length) {
             _miniSceneBuildings = g.townArea.getCityObjectsByType(BuildType.ORDER);
         }
@@ -229,14 +258,7 @@ public class ManagerMiniScenes {
 
     private function buyer_4():void {
         _miniSceneCallback = null;
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteArrowAndDust();
         _onHideWindowCallback = buyer_5;
     }
 
@@ -246,6 +268,7 @@ public class ManagerMiniScenes {
     }
 
     private function buyer_15():void {
+        isMiniScene = false;
         g.user.miniScenes[1] = 1;
         saveUserMiniScenesData();
         _curMiniScenePropertie = _properties[2];
@@ -253,6 +276,7 @@ public class ManagerMiniScenes {
     }
 
     private function buildBulo4na():void {
+        isMiniScene = true;
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curMiniScenePropertie.text);
         _miniSceneResourceIDs = [1];
@@ -263,6 +287,7 @@ public class ManagerMiniScenes {
     }
 
     private function bulo4na_1():void {
+        deleteArrowAndDust();
         _cutScene.hideIt(deleteCutScene);
         _onShowWindowCallback = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
@@ -277,18 +302,21 @@ public class ManagerMiniScenes {
     }
 
     public function onPasteFabrica(buildId:int):void {
-        if (g.testersArrayVK.indexOf(g.user.userSocialId) > -1) return;
+        deleteArrowAndDust();
+        if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
         if (_miniSceneResourceIDs.indexOf(buildId) == -1) return;
         _miniSceneResourceIDs = [];
         if (g.user.miniScenes[2] == 0) {
             g.user.miniScenes[2] = 1;
             saveUserMiniScenesData();
             _curMiniScenePropertie = _properties[3];
+            isMiniScene = false;
             letsGoToNeighbor();
         }
     }
 
     private function letsGoToNeighbor():void {
+        isMiniScene = true;
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', letGo_1);
         addBlack();
@@ -307,17 +335,21 @@ public class ManagerMiniScenes {
     }
 
     private function letGo_2():void {
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteArrowAndDust();
+        isMiniScene = false;
     }
 
 //    g.directServer.getUserNeighborMarket(null);    ?????
 
+    public function onGoAwayToNeighbor():void {
+        if (g.user.miniScenes[4] == 0 && g.isAway) atNeighbor();
+    }
+
     private function atNeighbor():void {
-        if (g.testersArrayVK.indexOf(g.user.userSocialId) > -1) return;
+        if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
+        isMiniScene = true;
         if (g.user.miniScenes[4] == 0) {
+            _curMiniScenePropertie = _properties[4];
             if (!_cutScene) _cutScene = new CutScene();
             _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', atN_1);
             addBlack();
@@ -331,13 +363,15 @@ public class ManagerMiniScenes {
         (_miniSceneBuildings[0] as WorldObject).showArrow();
         g.cont.moveCenterToXY((_miniSceneBuildings[0] as Market).source.x-100, (_miniSceneBuildings[0] as Market).source.y, false, 1.5);
         g.user.miniScenes[4] = 1;
+        isMiniScene = false;
         saveUserMiniScenesData();
     }
 
     public function atNeighborBuyInstrument():void {
         if (!g.isAway) return;
-        if (g.testersArrayVK.indexOf(g.user.userSocialId) > -1) return;
+        if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
         if (g.user.miniScenes[5] == 0) {
+            isMiniScene = true;
             _curMiniScenePropertie = _properties[5];
             if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
                 _airBubble = new AirTextBubble();
@@ -355,6 +389,11 @@ public class ManagerMiniScenes {
     }
 
     public function ins_1():void {
+        if (_airBubble) _airBubble.hideIt();
+        _airBubble = null;
+        g.user.miniScenes[5] = 1;
+        isMiniScene = false;
+        saveUserMiniScenesData();
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -363,6 +402,7 @@ public class ManagerMiniScenes {
             _arrow.deleteIt();
             _arrow = null;
         }
+        isMiniScene = false;
         _miniSceneCallback = null;
     }
 }
