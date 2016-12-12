@@ -215,6 +215,10 @@ public class ManagerMiniScenes {
     }
 
     private function firstOrderBuyer():void {
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', firstOrderBuyer);
+            return;
+        }
         if (g.managerOrder.countOrders) {
             buyer_15();
             return;
@@ -276,19 +280,28 @@ public class ManagerMiniScenes {
     }
 
     private function buildBulo4na():void {
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', buildBulo4na);
+            return;
+        }
         isMiniScene = true;
         if (!_cutScene) _cutScene = new CutScene();
-        _cutScene.showIt(_curMiniScenePropertie.text);
+        _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', bulo4na_1);
+        addBlack();
+    }
+
+    private function bulo4na_1():void {
+        removeBlack();
+        _cutScene.hideIt(deleteCutScene);
         _miniSceneResourceIDs = [1];
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         g.bottomPanel.addArrow('shop');
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-        _onShowWindowCallback = bulo4na_1;
+        _onShowWindowCallback = bulo4na_2;
     }
 
-    private function bulo4na_1():void {
+    private function bulo4na_2():void {
         deleteArrowAndDust();
-        _cutScene.hideIt(deleteCutScene);
         _onShowWindowCallback = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_miniSceneResourceIDs[0]);
@@ -316,6 +329,10 @@ public class ManagerMiniScenes {
     }
 
     private function letsGoToNeighbor():void {
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', letsGoToNeighbor);
+            return;
+        }
         isMiniScene = true;
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', letGo_1);
@@ -347,6 +364,10 @@ public class ManagerMiniScenes {
 
     private function atNeighbor():void {
         if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', atNeighbor);
+            return;
+        }
         isMiniScene = true;
         if (g.user.miniScenes[4] == 0) {
             _curMiniScenePropertie = _properties[4];
@@ -370,6 +391,10 @@ public class ManagerMiniScenes {
     public function atNeighborBuyInstrument():void {
         if (!g.isAway) return;
         if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', atNeighborBuyInstrument);
+            return;
+        }
         if (g.user.miniScenes[5] == 0) {
             isMiniScene = true;
             _curMiniScenePropertie = _properties[5];
@@ -394,14 +419,7 @@ public class ManagerMiniScenes {
         g.user.miniScenes[5] = 1;
         isMiniScene = false;
         saveUserMiniScenesData();
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+       deleteArrowAndDust();
         isMiniScene = false;
         _miniSceneCallback = null;
     }
