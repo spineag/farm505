@@ -37,8 +37,9 @@ public class WALLOpenCave {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Проход в шахту расчищен! Теперь мы можем самостоятельно добывать руду в Долине Рукоделия!'),bitmap,'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            st = 'https://505.ninja/content/wall/ok/wall_OK_4.jpg';
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Проход в шахту расчищен! Теперь мы можем самостоятельно добывать руду в Долине Рукоделия!'),
-                    null, st + 'wall/wall_open_cave.jpg');
+                    null, st);
         }
         (g.pBitmaps[st + 'wall/wall_open_cave.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_open_cave.jpg'];

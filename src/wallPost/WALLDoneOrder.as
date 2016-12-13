@@ -38,8 +38,9 @@ public class WALLDoneOrder {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Ура! Заказ Лавки в Умелых Лапках готов! За мою хорошую работу Жители Долины Рукоделия меня щедро отблагодарили!'), 
                     bitmap, 'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            st = 'https://505.ninja/content/wall/ok/wall_OK_1.jpg';
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Ура! Заказ Лавки в Умелых Лапках готов! За мою хорошую работу Жители Долины Рукоделия меня щедро отблагодарили!'),
-                    null, st + 'wall/wall_done_order.jpg');
+                    null, st);
         }
         (g.pBitmaps[st + 'wall/wall_done_order.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_done_order.jpg'];

@@ -39,8 +39,9 @@ public class WALLOpenLand {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Новая территория открыта! Теперь моя Долина Рукоделия в игре Умелые Лапки стала еще больше!'),bitmap,'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            st = 'https://505.ninja/content/wall/ok/wall_OK_6.jpg';
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Новая территория открыта! Теперь моя Долина Рукоделия в игре Умелые Лапки стала еще больше!'),
-                    null, st + 'wall/wall_new_land.jpg');
+                    null, st);
         }
 //        (g.pBitmaps[st + 'wall/wall_new_land.jpg'] as PBitmap).deleteIt();
 //        delete g.pBitmaps[st + 'wall/wall_new_land.jpg'];

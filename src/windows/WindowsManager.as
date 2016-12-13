@@ -220,15 +220,12 @@ public class WindowsManager {
                 wo = new WOInviteFriends();
                 break;
             case POST_OPEN_LAND:
-                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID && !g.user.isTester) return;
                 wo = new PostOpenLand();
                 break;
             case POST_OPEN_TRAIN:
-                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID && !g.user.isTester) return;
                 wo = new PostOpenTrain();
                 break;
             case POST_OPEN_CAVE:
-                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID && !g.user.isTester) return;
                 wo = new PostOpenCave();
                 break;
             case POST_OPEN_FABRIC:
@@ -236,11 +233,9 @@ public class WindowsManager {
                 wo = new PostOpenFabric();
                 break;
             case POST_DONE_ORDER:
-                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID && !g.user.isTester) return;
                 wo = new PostDoneOrder();
                 break;
             case POST_DONE_TRAIN:
-                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID && !g.user.isTester) return;
                 wo = new PostDoneTrain();
                 break;
             case WO_ANOTHER_GAME_ERROR:

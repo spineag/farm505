@@ -38,8 +38,9 @@ public class WALLOpenTrain {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Канатная дорога открыта! Теперь, загружая корзинку и выполняя заказы, я буду получать еще больше опыта, монет и ваучеров!'),bitmap,'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+            st = 'https://505.ninja/content/wall/ok/wall_OK_3.jpg';
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Канатная дорога открыта! Теперь, загружая корзинку и выполняя заказы, я буду получать еще больше опыта, монет и ваучеров!'),
-                    null, st + 'wall/wall_open_train.jpg');
+                    null, st);
         }
         (g.pBitmaps[st + 'wall/wall_open_train.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_open_train.jpg'];
