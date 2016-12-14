@@ -1,31 +1,17 @@
 package social.ok {
-import com.adobe.images.JPGEncoder;
-import com.adobe.serialization.json.JSONuse;
 import com.junkbyte.console.Cc;
-
 import data.DataMoney;
-
 import flash.display.Bitmap;
-import flash.display.DisplayObject;
-import flash.events.Event;
 import flash.external.ExternalInterface;
-import flash.net.URLLoader;
-import flash.utils.ByteArray;
 import flash.utils.getTimer;
+import quest.QuestData;
 import social.SocialNetwork;
 import user.Friend;
-import utils.Multipart;
 
 public class SN_OK extends SocialNetwork {
     private static const API_SECRET_KEY:String = "864364A475EBF25367549586";
 
     private var _friendsRest:Array;
-    private var _wallRequest:Object;
-
-    private var _isAlbum:Boolean = false;
-    private var _idAlbum:String;
-    private var _oid:String;
-    private var _idPhoto:String;
 
     public function SN_OK(flashVars:Object) {
         flashVars["channelGUID"] ||= "6697c149-8270-48fb-b3e5-8cea9f04e307";
@@ -42,18 +28,10 @@ public class SN_OK extends SocialNetwork {
             ExternalInterface.addCallback('getFriendsByIdsHandler', getFriendsByIdsHandler);
             ExternalInterface.addCallback('onPaymentCallback', onPaymentCallback);
             ExternalInterface.addCallback('getTempUsersInfoByIdCallback', getTempUsersInfoByIdCallback);
+            ExternalInterface.addCallback('isInGroupCallback', isInGroupCallback);
         }
         super(flashVars);
     }
-
-//    override public function init():void {
-//        ExternalInterface.call("initSocialNetwork", API_SECRET_KEY);
-//    }
-//
-////    private function onConnect(e:ApiServerEvent):void {
-//    private function onConnect():void {
-//        super.init();
-//    }
 
     override public function get currentUID():String {
         return _flashVars["logged_user_id"];
@@ -82,7 +60,6 @@ public class SN_OK extends SocialNetwork {
 
     override public function getProfile(uid:String):void {
         super.getProfile(uid);
-//        Users.getInfo([uid], ["first_name", "last_name", "pic_5", "gender", "birthday"], getProfileHandler);
         ExternalInterface.call("getProfile", uid, ["first_name", "last_name", "pic_5", "gender", "birthday"]);
     }
 
@@ -112,12 +89,10 @@ public class SN_OK extends SocialNetwork {
         Cc.ch('social', 'OK: getAllFriendsHandler:');
         if (e) Cc.obj('social', e);
         var friends:Array = e as Array;
-
         if (!friends.length) {
             super.getFriendsSuccess(0);
             return;
         }
-
         _friendsRest = friends.slice(100);
         ExternalInterface.call("getUsersInfo", friends.slice(0, 100), ["first_name", "last_name", "pic_5"]);
     }
@@ -126,16 +101,13 @@ public class SN_OK extends SocialNetwork {
         Cc.ch('social', 'OK: getUsersInfoHandler:');
         Cc.obj('social', e);
         var buffer:Object;
-
         if (!e) {
             super.getFriendsSuccess(0);
             return;
         }
-
         if (e.error_code) {
             Cc.obj('error', e, "OK get friends error:");
         }
-
         for (var key:String in e) {
             if (key != "method") {
                 buffer = e[key];
@@ -143,7 +115,6 @@ public class SN_OK extends SocialNetwork {
                 _friendsApp.push(buffer);
             }
         }
-
         if (_friendsRest.length) {
             getAllFriendsHandler(_friendsRest);
         } else {
@@ -152,22 +123,7 @@ public class SN_OK extends SocialNetwork {
     }
 
     override public function getTempUsersInfoById(arr:Array, callback:Function):void {
-//        var f1:Function = function(e:Array):void {
-//            var ar:Array = [];
-//            var buffer:Object;
-//            for (var i:int=0; i < e.length; i++) {
-//                buffer = e[i];
-//                buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ? URL_AVATAR_BLANK : buffer.photo_100;
-//                ar.push(buffer);
-//            }
-//
-//            g.user.addTempUsersInfo(ar);
-//            if (callback != null) {
-//                callback.apply(null, [ar]);
-//            }
-//        };
         super.getTempUsersInfoById(arr, callback);
-//        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, f1, onError);
         ExternalInterface.call("getTempUsersInfoById", arr);
     }
 
@@ -198,7 +154,6 @@ public class SN_OK extends SocialNetwork {
 
     override protected function getFriendsByIDs(friends:Array):void {
         var arr:Array;
-
         _friendsApp = friends;
         if (_friendsApp.length > COUNT_PER_ONCE) {
             arr = _friendsApp.slice(0, COUNT_PER_ONCE);
@@ -207,7 +162,6 @@ public class SN_OK extends SocialNetwork {
             arr = _friendsApp.slice();
             _friendsApp = [];
         }
-
         super.getFriendsByIDs(arr);
         if (getTimer() - _timerRender < 1000) {
             g.gameDispatcher.addToTimerWithParams(getFriendsByIDsWithDelay, 1000, 1, arr);
@@ -222,7 +176,6 @@ public class SN_OK extends SocialNetwork {
         for (var i:int = 0; i < ids.length; i++) {
             arr.push(ids[i]);
         }
-//        Users.getInfo(arr, ["first_name", "last_name", "pic_5"], getFriendsByIdsHandler);
         ExternalInterface.call("getFriendsByIds", arr, ["first_name", "last_name", "pic_5"]);
     }
 
@@ -247,8 +200,6 @@ public class SN_OK extends SocialNetwork {
 
     override public function getUsersOnline():void {
         super.getUsersOnline();
-
-//        Friends.getOnline(getUsersOnlineHandler);
     }
 
     private function getUsersOnlineHandler(e:Object):void {
@@ -256,11 +207,9 @@ public class SN_OK extends SocialNetwork {
         super.getUsersOnlineSuccess(_friendsApp);
     }
 
-    // https://apiok.ru/dev/methods/rest/mediatopic/mediatopic.post
     override public function wallPostBitmap(uid:String, message:String, image:Bitmap, url:String = null, title:String = null, posttype:String = null):void {
         super.wallPostBitmap(uid, message, image, url, title, posttype);
         ExternalInterface.call("makeWallPost", uid, message, url);
-        //__fapi__callback_3("error",null, {"error_code":100,"error_msg":"PARAM : Invalid parameter attachment value  : [[object Object]]","error_data":null});
     }
 
     override public function requestBox(uid:String, message:String, requestKey:String):void {
@@ -268,7 +217,6 @@ public class SN_OK extends SocialNetwork {
     }
 
     override public function showInviteWindow():void {
-//        Odnoklassniki.showInvite("Приглашаю посетить игру Умелые Лапки.");
         ExternalInterface.call("showInviteWindowAll");
     }
 
@@ -297,7 +245,6 @@ public class SN_OK extends SocialNetwork {
         } catch(e:Error) {
             Cc.error('OK showOrderWindow:: error: ' + e.message);
         }
-//        Odnoklassniki.showPayment(param.service_name, param.service_name, e.id, e.price, null, null, null, "true");
     }
 
     private function onPaymentCallback(result:String):void {
@@ -308,143 +255,20 @@ public class SN_OK extends SocialNetwork {
         }
     }
 
-    override public function saveScreenshotToAlbum(oid:String):void {
-        _oid = oid;
-        Cc.ch("OK", "check hasAppPermission for PHOTO CONTENT", 2);
-//        Users.hasAppPermission("PHOTO CONTENT", isAppPermission, g.user.userSocialId);
+    public override function checkIsInSocialGroup():void {
+//        _apiConnection.api("groups.isMember", {group_id: idSocialGroup, user_id: g.user.userSocialId}, getIsInGroupHandler, onError);
+        ExternalInterface.call("isInGroup", idSocialGroup, g.user.userSocialId);
+        super.checkIsInSocialGroup();
     }
 
-    private function isAppPermission(response:Boolean):void {
-        Cc.ch("OK", "ask for permission PHOTO_CONTENT response: " + response, 2);
-        if (response) {
-            findAlbum(_oid);
-            super.saveScreenshotToAlbum(_oid);
-        }
-        else {
-//            Odnoklassniki.showPermissions(["PHOTO CONTENT"]);
+    private function isInGroupCallback(e:String):void {
+        if (e == '1') {
+            g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_ADD_TO_GROUP);
+//        } else {
+//            Link.openURL(urlSocialGroup);
         }
     }
 
-    private function findAlbum(oid:String):void {
-//        Photos.getAlbums(onGetAlbums, oid);
-    }
 
-    private function onGetAlbums(data:Object):void {
-//        var arr:Array = data.albums;
-//        for (var i:int = 0; i < arr.length; i++) {
-//            if (arr[i].title == "Птичий Городок") {
-//                _isAlbum = true;
-//                _idAlbum = String(arr[i].aid);
-//                Cc.ch("OK", "album is finding with id: " + _idAlbum,+  2);
-//                uploadScreenshot();
-//                return;
-//            }
-//        }
-//        if (!_isAlbum) {
-//            Cc.ch("OK", "create album", 9);
-////            Photos.createAlbum("Птичий Городок", "public", onCreateAlbum);
-//        }
-    }
-
-    private function onCreateAlbum(data:String):void {
-        Cc.ch("OK", "onCreateAlbum data:" + data, 5);
-        _idAlbum = data;
-        _isAlbum = true;
-        uploadScreenshot();
-    }
-
-    private function uploadScreenshot():void {
-        Cc.ch("OK", "social before loading", 5);
-//        Odnoklassniki.callRestApi("photosV2.getUploadUrl", takeUploadUrl, Odnoklassniki.getSendObject({ uid:g.user.userSocialId, aid:_idAlbum }) );
-    }
-
-    private function takeUploadUrl(data:Object):void {
-//        var loader:URLLoader = new URLLoader();
-//        var _bitmapScreenShot:Bitmap;
-//        var url:String;
-//
-//        Cc.obj("OK", data, "takeUploadUrl data: ", 6);
-//        if (!data.upload_url) {
-//            return;
-//        }
-//
-//        url = data.upload_url;
-//
-//        _idPhoto = data.photo_ids[0];
-//
-//        _bitmapScreenShot = makeScreenShot();
-//        if (!_bitmapScreenShot) {
-//            return;
-//        }
-//
-//        var form:Multipart = new Multipart(url);
-//        var enc:JPGEncoder = new JPGEncoder(80);
-//        var jpg:ByteArray = enc.encode(_bitmapScreenShot.bitmapData);
-//        form.addFile("file1", jpg, "application/octet-stream", "Screenshot.jpg");
-//
-//        loader.addEventListener(Event.COMPLETE, photoLoadedToOKAlbum);
-//        try {
-//            Cc.ch("OK", "after loading", 5);
-//            loader.load(form.request);
-//        } catch (error:Error) {
-//            Cc.ch("OK", "Problem with save screenshot to album on OK: " + error.message, 9);
-//        }
-    }
-
-    private function photoLoadedToOKAlbum(e:Event):void {
-        var obj:Object = JSONuse.decode(e.target.data);
-
-        Cc.obj("OK", obj.photos, "save to album", 7);
-        Cc.obj("OK", obj.photos[_idPhoto], "obj.photos 222:", 2);
-        Cc.ch("OK", "token 333:" + obj.photos[_idPhoto].token, 6);
-
-//        Odnoklassniki.callRestApi("photosV2.commit", onCompleteSave, Odnoklassniki.getSendObject({ photo_id:_idPhoto, token:obj.photos[_idPhoto].token, comment:urlApp}) );
-    }
-
-    private function onCompleteSave(data:Object):void {
-        _isAlbum = false;
-        Cc.obj("social", data, "Screenshot already saved to the album", 1);
-    }
-
-//    private function callbackHandler(e:ApiCallbackEvent):void {
-//        Cc.infoch("social", "Odnoklassniki callback:\n" + e.method + "\n" + e.data + "\n" + e.result);
-//        switch (e.method) {
-//            case "showPayment":
-//                if (e.result == "ok") {
-//                    super.orderSuccess();
-//                } else {
-//                    super.orderFail();
-//                }
-//                break;
-//            case "showNotification":
-//                if (e.result == "ok") {
-//                    super.wallSave();
-//                } else {
-//                    super.wallCancel();
-//                }
-//                break;
-//            case "showInvite":
-//                super.inviteBoxComplete();
-//                break;
-//            case "showConfirmation":
-//                if (e.result == "ok") {
-//                    _wallRequest["resig"] = e.data;
-////                    Odnoklassniki.callRestApi("stream.publish", streamCall, _wallRequest);
-//                    super.wallSave();
-//                } else {
-//                    streamCall({ "cancel": "notification has been canceled" });
-//                    super.wallCancel();
-//                }
-//                break;
-//            case "showPermissions":
-//                if (e.result == "ok") {
-//                    Cc.ch("OK", "OK for PHOTO CONTENT permission", 6);
-//                    findAlbum(_oid);
-//                    super.saveScreenshotToAlbum(_oid);
-//                } else {
-//                    Cc.ch("OK", "user don\"t set PHOTO CONTENT permission", 9);
-//                }
-//        }
-//    }
 }
 }

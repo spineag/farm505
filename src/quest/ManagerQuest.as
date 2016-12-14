@@ -32,7 +32,7 @@ public class ManagerQuest {
     }
 
     public function fromServer(ar:Array):void {
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) return;
+        if (!g.user.isMegaTester) return;
         var ob:Object;
         for (var i:int=0; i<ar.length; i++) {
             ob = {};
@@ -48,7 +48,7 @@ public class ManagerQuest {
     }
 
     public function checkQuestsOnStart():void {
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) return;
+        if (!g.user.isMegaTester) return;
         var qArr:Array = _qAllData.arrQuests;
         for (var i:int = 0; i < qArr.length; i++) {
             if (qArr[i].level <= g.user.level && !qArr[i].isAdded) {
