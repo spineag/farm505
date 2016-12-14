@@ -3,6 +3,7 @@
  */
 package build.lockedLand {
 import build.WorldObject;
+import build.decor.Decor;
 import build.wild.Wild;
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
@@ -27,6 +28,7 @@ import windows.WindowsManager;
 public class LockedLand extends WorldObject {
     private var _dataLand:Object;
     private var _arrWilds:Array;
+    private var _arrDecors:Array;
     private var _topRibbon:Sprite;
     private var _bottomRibbon:Sprite;
     private var _armatureOpen:Armature;
@@ -39,6 +41,7 @@ public class LockedLand extends WorldObject {
             return;
         }
         _arrWilds = [];
+        _arrDecors = [];
         _dataLand = g.allData.lockedLandData[_data.dbId];
         if (!_dataLand && !g.isAway) {
             Cc.error('no dataLand for LockedLand _data.dbId: ' + _data.dbId);
@@ -116,15 +119,27 @@ public class LockedLand extends WorldObject {
         return _depth;
     }
 
-    public function addWild(w:Wild, _x:int, _y:int):void {
-        _arrWilds.push(w);
-        if (g.isActiveMapEditor) {
-            g.cont.contentCont.addChild(w.source);
-        } else {
-            w.source.x = _x - _source.x;
-            w.source.y = _y - _source.y;
-            w.updateDepth();
-            _build.addChild(w.source);
+    public function addWild(w:Wild, d:Decor = null, _x:int = 0, _y:int = 0):void {
+        if (w == null) {
+            _arrDecors.push(d);
+            if (g.isActiveMapEditor) {
+                g.cont.contentCont.addChild(d.source);
+            } else {
+                d.source.x = _x - _source.x;
+                d.source.y = _y - _source.y;
+                d.updateDepth();
+                _build.addChild(d.source);
+            }
+        }else {
+            _arrWilds.push(w);
+            if (g.isActiveMapEditor) {
+                g.cont.contentCont.addChild(w.source);
+            } else {
+                w.source.x = _x - _source.x;
+                w.source.y = _y - _source.y;
+                w.updateDepth();
+                _build.addChild(w.source);
+            }
         }
     }
 
@@ -133,6 +148,11 @@ public class LockedLand extends WorldObject {
         _arrWilds.sortOn('depth', Array.NUMERIC);
         for (var i:int = 0; i < _arrWilds.length; i++) {
             _build.setChildIndex(_arrWilds[i].source, i);
+        }
+
+        _arrWilds.sortOn('depth', Array.NUMERIC);
+        for (i = 0; i < _arrDecors.length; i++) {
+            _build.setChildIndex(_arrDecors[i].source, i);
         }
     }
 
@@ -215,6 +235,13 @@ public class LockedLand extends WorldObject {
         }
         _dataLand = null;
         _arrWilds.length = 0;
+
+        for (i =0; i<_arrDecors.length; i++) {
+            g.townArea.pasteBuild(_arrDecors[i], _arrDecors[i].source.x + _x, _arrDecors[i].source.y + _y, false, false);
+            (_arrDecors[i] as Decor).removeLockedLand();
+        }
+        _dataLand = null;
+        _arrDecors.length = 0;
     }
 
     override public function clearIt():void {
@@ -293,14 +320,29 @@ public class LockedLand extends WorldObject {
             _arrWilds[i].source.y += _source.y;
             g.cont.contentCont.addChild(_arrWilds[i].source);
         }
+
+        for (i=0; i< _arrDecors.length; i++) {
+            _build.removeChild(_arrDecors[i].source);
+            _arrDecors[i].source.x += _source.x;
+            _arrDecors[i].source.y += _source.y;
+            g.cont.contentCont.addChild(_arrDecors[i].source);
+        }
     }
 
-    public function activateOnMapEditor(w:Wild):void {
-        _build.removeChild(w.source);
-        w.source.x += _source.x;
-        w.source.y += _source.y;
-        g.cont.contentCont.addChild(w.source);
-        _arrWilds.splice(_arrWilds.indexOf(w), 1);
+    public function activateOnMapEditor(w:Wild,d:Decor = null):void {
+        if (w != null) {
+            _build.removeChild(w.source);
+            w.source.x += _source.x;
+            w.source.y += _source.y;
+            g.cont.contentCont.addChild(w.source);
+            _arrWilds.splice(_arrWilds.indexOf(w), 1);
+        } else {
+            _build.removeChild(d.source);
+            d.source.x += _source.x;
+            d.source.y += _source.y;
+            g.cont.contentCont.addChild(d.source);
+            _arrDecors.splice(_arrDecors.indexOf(d), 1);
+        }
     }
 
     public function onCloseMapEditor():void {
@@ -309,6 +351,13 @@ public class LockedLand extends WorldObject {
             _arrWilds[i].source.x -= _source.x;
             _arrWilds[i].source.y -= _source.y;
             _build.addChild(_arrWilds[i].source);
+        }
+
+        for (i=0; i< _arrDecors.length; i++) {
+            g.cont.contentCont.removeChild(_arrDecors[i].source);
+            _arrDecors[i].source.x -= _source.x;
+            _arrDecors[i].source.y -= _source.y;
+            _build.addChild(_arrDecors[i].source);
         }
     }
 

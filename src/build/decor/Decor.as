@@ -5,6 +5,8 @@ package build.decor {
 import analytic.AnalyticManager;
 
 import build.WorldObject;
+import build.lockedLand.LockedLand;
+
 import com.junkbyte.console.Cc;
 
 import dragonBones.animation.WorldClock;
@@ -28,6 +30,7 @@ import windows.WindowsManager;
 
 public class Decor extends WorldObject{
     private var _isHover:Boolean;
+    private var _curLockedLand:LockedLand;
 
     public function Decor(_data:Object) {
         super(_data);
@@ -46,6 +49,19 @@ public class Decor extends WorldObject{
         }
     }
 
+    public function setLockedLand(l:LockedLand):void {
+        _curLockedLand = l;
+    }
+
+    public function get isAtLockedLand():Boolean {
+        if (_curLockedLand) return true;
+        else return false;
+    }
+
+    public function removeLockedLand():void {
+        _curLockedLand = null;
+    }
+
     override public function onHover():void {
         if (g.selectedBuild) return;
         if (_isHover) return;
@@ -60,17 +76,34 @@ public class Decor extends WorldObject{
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TEST, {id:2}); // temp
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            onOut();
-            if (g.selectedBuild) {
-                if (g.selectedBuild == this) {
-                    g.toolsModifier.onTouchEnded();
-                } else return;
-            } else {
+
+            if (g.isActiveMapEditor) {
+                if (_curLockedLand) {
+                    _curLockedLand.activateOnMapEditor(null, this);
+                    _curLockedLand = null;
+                }
+                onOut();
                 g.townArea.moveBuild(this);
+            } else if (!_curLockedLand) {
+                onOut();
+                if (g.selectedBuild) {
+                    if (g.selectedBuild == this) {
+                        g.toolsModifier.onTouchEnded();
+                    } else return;
+                } else {
+                    g.townArea.moveBuild(this);
+                }
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-            onOut();
-            g.townArea.deleteBuild(this);
+            if (g.isActiveMapEditor) {
+                if (_curLockedLand) {
+                    _curLockedLand.activateOnMapEditor(null,this);
+                    _curLockedLand = null;
+                }
+                onOut();
+                g.directServer.ME_removeWild(_dbBuildingId, null);
+                g.townArea.deleteBuild(this);
+            }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             onOut();
             releaseFlip();
