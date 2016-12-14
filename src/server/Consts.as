@@ -118,5 +118,6 @@ public class Consts {
     public static var INQ_TEST_USER_FABRICA_RECIPE:String = 'testGetTimeFabric.php';
     public static var INQ_GET_DAILY_GIFT:String = 'getDailyGift.php';
     public static var INQ_UPDATE_DAILY_GIFT:String = 'updateDailyGift.php';
+    public static var INQ_GET_TEXT_HELP:String = 'getTextHelp.php';
 }
 }

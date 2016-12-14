@@ -26,7 +26,7 @@ public class WOFabricNumber {
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_bt_number'));
         source.addChild(im);
         txt = new CTextField(32, 32, String(n));
-        txt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR, Color.WHITE)
+        txt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR, Color.WHITE);
         txt.y = 20;
         txt.x = 2;
         source.addChild(txt);

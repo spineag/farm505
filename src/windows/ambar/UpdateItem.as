@@ -3,13 +3,22 @@
  */
 package windows.ambar {
 import data.DataMoney;
+
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 import manager.Vars;
+
+import resourceItem.DropItem;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
+
+import temp.DropResourceVariaty;
+
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
@@ -138,6 +147,13 @@ public class UpdateItem {
     private function onBuy():void {
         if (g.user.hardCurrency >= _countForBuy * g.dataResource.objectResources[_resourceId].priceHard) {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countForBuy * g.dataResource.objectResources[_resourceId].priceHard);
+            var p:Point = new Point(source.x, source.y);
+            p = source.parent.localToGlobal(p);
+            var prise:Object = {};
+            prise.id = _resourceId;
+            prise.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
+            prise.count = _countForBuy;
+            new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
             g.userInventory.addResource(_resourceId, _countForBuy);
             updateIt(_resourceId, _isAmbarItem);
             _wo.smallUpdate();

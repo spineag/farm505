@@ -15,6 +15,8 @@ import loaders.PBitmap;
 import manager.ManagerFilters;
 import manager.Vars;
 
+import server.DirectServer;
+
 import social.SocialNetworkSwitch;
 
 import starling.display.Image;
@@ -61,7 +63,7 @@ public class StartPreloader {
         _source.addChild(_bg);
         _quad = new Quad(3.2, 3, 0x33a2f4);
         _quad.x = 327;
-        _quad.y = 599;
+        _quad.y = 569;
         _source.addChild(_quad);
         _txt = new CTextField(75,50,'0');
         _txt.setFormat(CTextField.BOLD24, 24, 0x0659b6);
@@ -70,6 +72,7 @@ public class StartPreloader {
         _txt.y = _bg.height/2 + 182;
         createBitmap();
         addIms();
+
     }
 
     private function createBitmap():void {
@@ -129,6 +132,14 @@ public class StartPreloader {
             _rightIm.touchable = false;
         }
     }
+
+    public function textHelp(str:String):void {
+        var txt:CTextField = new CTextField(1000, 640,str);
+        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt.y = 275;
+        _source.addChild(txt);
+    }
+
 
     public function hideIt():void {
         if (_armature) WorldClock.clock.remove(_armature);

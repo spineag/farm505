@@ -144,12 +144,12 @@ public class WOFabrica extends WindowMain {
                 if (_list.arrRecipes.length == 9) {
                         g.windowsManager.cashWindow = this;
                         super.hideIt();
-                        g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.arrRecipes[0].priceSkipHard,_list.arrRecipes[0].resourceID, fExit, true);
+                        g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, g.managerTimerSkip.newCount(_list.arrRecipes[0].buildTime, _list.arrRecipes[0].leftTime, _list.arrRecipes[0].priceSkipHard),_list.arrRecipes[0].resourceID, fExit, true);
                     return;
                 } else if (_list.arrRecipes.length == _list.maxCount){
                         g.windowsManager.cashWindow = this;
                         super.hideIt();
-                        g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, _list.priceForNewCell, 0, fExit, false);
+                        g.windowsManager.openWindow(WindowsManager.WO_NO_PLACES, onBuyNewCellFromWO, g.managerTimerSkip.newCount(_list.arrRecipes[0].buildTime, _list.arrRecipes[0].leftTime, _list.arrRecipes[0].priceSkipHard), 0, fExit, false);
                     return;
                 }
             if (!_fabrica.heroCat && g.managerCats.countFreeCats <= 0) {

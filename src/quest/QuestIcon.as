@@ -5,11 +5,14 @@ package quest {
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import flash.display.Bitmap;
+
+import manager.ManagerFilters;
 import manager.Vars;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
 import utils.CSprite;
+import utils.MCScaler;
 
 public class QuestIcon {
     private var g:Vars = Vars.getInstance();
@@ -57,12 +60,14 @@ public class QuestIcon {
         if (_isOnHover) return;
         _isOnHover = true;
         g.hint.showIt(_data.text);
+        _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
     }
 
     private function onOut():void {
         if (!_isOnHover) return;
         _isOnHover = false;
         g.hint.hideIt();
+        _source.filter = null;
     }
 
     private function onClick():void {

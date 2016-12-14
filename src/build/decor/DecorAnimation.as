@@ -176,6 +176,7 @@ public class DecorAnimation extends WorldObject{
                     if (_heroCat) {
                         _decorWork = true;
                         _heroCat.isFree = false;
+                        _catRun = true;
                         var fEndOver:Function = function(e:Event=null):void {
                             _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                             _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);

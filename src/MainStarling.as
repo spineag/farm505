@@ -51,6 +51,7 @@ public class MainStarling extends Sprite {
         g.directServer = new DirectServer();
         g.version = {};
         g.directServer.getVersion(loadComponents);
+        g.directServer.getTextHelp(null);
     }
 
     private function loadComponents():void {

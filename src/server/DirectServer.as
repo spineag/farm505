@@ -87,6 +87,49 @@ public class DirectServer {
         }
     }
 
+
+    public function getTextHelp(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_TEXT_HELP);
+
+        Cc.ch('server', 'start getTextHelp', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        loader.addEventListener(Event.COMPLETE, onCompleteGetTextHelp);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetTextHelp(e:Event):void { completeGetTextHelp(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getTextHelp error:' + error.errorID);
+        }
+    }
+
+    private function completeGetTextHelp(response:String, callback:Function = null):void {
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getTextHelp: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getTextHelp OK', 5);
+//            trace(d.message[d.message.length * Math.random()].text);
+            var randomPos:int  = int(Math.random() * d.message.length);
+            g.startPreloader.textHelp(String(d.message[randomPos].text));
+            if (callback != null) {
+                callback.apply();
+            }
+        } else {
+            Cc.error('getTextHelp: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+        }
+    }
+
+
     public function getDataLevel(callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_LEVEL);
