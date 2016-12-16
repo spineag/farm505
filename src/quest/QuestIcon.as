@@ -79,7 +79,7 @@ public class QuestIcon {
     public function setPosition(p:Sprite, pos:int):void {
         _parent = p;
         _positionInList = pos;
-        _source.y = _positionInList * ManagerQuest.DELTA_ICONS + 50;
+        _source.y = _positionInList * 110 + 50;
         _parent.addChild(_source);
     }
 
@@ -108,7 +108,7 @@ public class QuestIcon {
     
     public function moveToNewPosition(pos:int):void {
         _positionInList = pos;
-        TweenMax.to(_source, .5, {y: _positionInList * ManagerQuest.DELTA_ICONS + 50});
+        TweenMax.to(_source, .5, {y: _positionInList * 110 + 50});
     }
     
     public function deleteIt():void {

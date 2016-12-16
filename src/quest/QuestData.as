@@ -5,10 +5,6 @@ package quest {
 import data.DataMoney;
 
 public class QuestData {
-    public static const TYPE_ADD_TO_GROUP:int=1;
-    public static const TYPE_ADD_LEFT_MENU:int=2;
-    public static const TYPE_POST:int=3;
-
     private var _arr:Array;
 
     public function QuestData() {
@@ -21,7 +17,7 @@ public class QuestData {
 
         ob = {};
         ob.id = 1;
-        ob.type = TYPE_ADD_TO_GROUP;
+        ob.type = ManagerQuest.ADD_TO_GROUP;
         ob.text = 'Вступи в группу';
         ob.awardCount = 700;
         ob.awardType = DataMoney.SOFT_CURRENCY;
@@ -32,7 +28,7 @@ public class QuestData {
 
         ob = {};
         ob.id = 2;
-        ob.type = TYPE_ADD_LEFT_MENU;
+        ob.type = ManagerQuest.ADD_LEFT_MENU;
         ob.text = 'Добавь игру в меню';
         ob.awardCount = 1200;
         ob.awardType = DataMoney.SOFT_CURRENCY;
@@ -43,7 +39,7 @@ public class QuestData {
 
         ob = {};
         ob.id = 3;
-        ob.type = TYPE_POST;
+        ob.type = ManagerQuest.POST;
         ob.text = 'Расскажи друзьям об игре';
         ob.awardCount = 10;
         ob.awardType = DataMoney.HARD_CURRENCY;

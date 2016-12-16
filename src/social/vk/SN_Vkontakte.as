@@ -8,6 +8,10 @@ import flash.events.Event;
 import flash.external.ExternalInterface;
 import flash.utils.getTimer;
 import manager.Vars;
+
+import quest.ManagerQuest;
+
+import quest.ManagerQuest;
 import quest.QuestData;
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
@@ -583,13 +587,13 @@ public class SN_Vkontakte extends SocialNetwork {
 
     override public function checkLeftMenu():void {
         if (g.isDebug) {
-            g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_ADD_LEFT_MENU);
+            g.managerQuest.onFinishActionForQuestByType(ManagerQuest.ADD_LEFT_MENU);
         } else _apiConnection.api("getUserSettings", {}, onCheckLeftMenu, onError);
     }
 
     private function onCheckLeftMenu(value:int, needCheck:Boolean = true):void {
         if (Boolean(value & MASK_ADD_LEFT_MENU)) {
-            g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_ADD_LEFT_MENU);
+            g.managerQuest.onFinishActionForQuestByType(ManagerQuest.ADD_LEFT_MENU);
         } else {
             if (needCheck) {
                 _apiConnection.addEventListener(CustomEvent.SETTINGS_CHANGED, onSmthChanged);
@@ -614,7 +618,7 @@ public class SN_Vkontakte extends SocialNetwork {
 
     private function getIsInGroupHandler(e:String):void {
         if (e == '1') {
-            g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_ADD_TO_GROUP);
+            g.managerQuest.onFinishActionForQuestByType(ManagerQuest.ADD_TO_GROUP);
 //        } else {
 //            Link.openURL(urlSocialGroup);
         }
