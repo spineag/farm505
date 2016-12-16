@@ -3,6 +3,7 @@
  */
 package mouse {
 import build.WorldObject;
+import build.decor.Decor;
 import build.decor.DecorFence;
 import build.decor.DecorTail;
 import build.wild.Wild;
@@ -480,6 +481,7 @@ public class ToolsModifier {
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
             } else {
                 if (g.isActiveMapEditor && _activeBuilding is Wild) return;
+                if (g.isActiveMapEditor && _activeBuilding is Decor) return;
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
                 if (_moveGrid.isFree) {
                     _activeBuilding.source.filter = null;

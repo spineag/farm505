@@ -631,6 +631,41 @@ public class TownArea extends Sprite {
         if (_cont.contains(worldObject.source)) {
             _cont.removeChild(worldObject.source);
         }
+
+        if (worldObject is Decor) {
+            point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+            worldObject.posX = point.x;
+            worldObject.posY = point.y;
+            worldObject.source.x = int(_x);
+            worldObject.source.y = int(_y);
+            if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
+                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null,worldObject as Decor, _x, _y);
+                (worldObject as Decor).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
+                if (isNewAtMap && g.isActiveMapEditor)
+                    g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) {
+                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                }
+                return;
+            } else if (g.isActiveMapEditor) {
+                _cont.addChild(worldObject.source);
+                _cityObjects.push(worldObject);
+                worldObject.updateDepth();
+                fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+                for (var lk:int = worldObject.posY; lk < (worldObject.posY + worldObject.sizeY); lk++) {
+                    for (var pk:int = worldObject.posX; pk < (worldObject.posX + worldObject.sizeX); pk++) {
+                        fillTailMatrix(pk, lk, 0, 0, worldObject);
+                    }
+                }
+                if (isNewAtMap && g.isActiveMapEditor)
+                    g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) {
+                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                }
+                return;
+            }
+        }
+
         if (!isNewAtMap) {
             if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market || worldObject is Cave || worldObject is Paper ||
                     worldObject is Train || worldObject is DailyBonus || worldObject is LockedLand || worldObject is Wild || worldObject is CatHouse) {
@@ -650,7 +685,7 @@ public class TownArea extends Sprite {
             worldObject.source.x = int(_x);
             worldObject.source.y = int(_y);
             if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
-                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild, _x, _y);
+                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild,null, _x, _y);
                 (worldObject as Wild).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
             } else {
                 _cont.addChild(worldObject.source);
@@ -1631,7 +1666,7 @@ public class TownArea extends Sprite {
             worldObject.source.x = int(point.x);
             worldObject.source.y = int(point.y);
             if (_townAwayMatrix[worldObject.posY][worldObject.posX].build && _townAwayMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
-                (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild, point.x, point.y);
+                (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild,null, point.x, point.y);
                 (worldObject as Wild).setLockedLand(_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
             } else {
                 worldObject.updateDepth();
