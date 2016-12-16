@@ -151,7 +151,7 @@ public class ManagerMiniScenes {
     }
 
     public function checkAvailableMiniScenesOnNewLevel():void {
-        if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
+        if (!g.useNewTuts) return;
         if (g.user.level > 3) {
             checkForAvailableLevels();
             if (isMiniScene) {
@@ -185,7 +185,7 @@ public class ManagerMiniScenes {
     }
 
     private function forReleaseMini():void {
-        if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
+        if (!g.useNewTuts) return;
         if (!_curMiniScenePropertie) return;
         switch (_curMiniScenePropertie.id) {
             case 1: openOrderBuilding(); break;
@@ -316,7 +316,7 @@ public class ManagerMiniScenes {
 
     public function onPasteFabrica(buildId:int):void {
         deleteArrowAndDust();
-        if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
+        if (!g.useNewTuts) return;
         if (_miniSceneResourceIDs.indexOf(buildId) == -1) return;
         _miniSceneResourceIDs = [];
         if (g.user.miniScenes[2] == 0) {
@@ -363,7 +363,7 @@ public class ManagerMiniScenes {
     }
 
     private function atNeighbor():void {
-        if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
+        if (!g.useNewTuts) return;
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', atNeighbor);
             return;
@@ -390,7 +390,7 @@ public class ManagerMiniScenes {
 
     public function atNeighborBuyInstrument():void {
         if (!g.isAway) return;
-        if (g.testersArrayVK.indexOf(g.user.userSocialId) == -1) return;
+        if (!g.useNewTuts) return;
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', atNeighborBuyInstrument);
             return;

@@ -217,7 +217,8 @@ public class Vars {
     public var managerVisibleObjects:ManagerVisibleObjects;
     public var managerResize:ManagerResize;
 
-    public var testersArrayVK:Array = ['191561520', '14663166', '33979940'];
+    private var testersArrayVK:Array = ['191561520', '14663166', '33979940'];
+    public var useNewTuts:Boolean = false;
 
     public static function getInstance():Vars {
         if (!_instance) {
@@ -238,6 +239,8 @@ public class Vars {
 
     private function initVariables():void {
 //        try {
+        if (testersArrayVK.indexOf((user as User).userSocialId)) useNewTuts = true;
+
             cont.hideAll(true);
             startPreloader.setProgress(77);
 
@@ -264,7 +267,7 @@ public class Vars {
                 socialNetworkID = int(flashVars['channel']);
             }
             SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
-            if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && testersArrayVK.indexOf((user as User).userSocialId) > -1) {
+            if (useNewTuts) {
                 managerTutorial = new ManagerTutorialNew();
             } else {
                 managerTutorial = new ManagerTutorial();

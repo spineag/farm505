@@ -184,7 +184,7 @@ public class WOChestItem {
         var t:Number = dist/1000 * 2;
         if (t > 2) t -= .6;
         if (t > 3) t -= 1;
-        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay: delay});
+        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
     }
 
     private function flyItResource():void {
@@ -217,7 +217,7 @@ public class WOChestItem {
         var t:Number = dist/1000 * 2;
         if (t > 2) t -= .6;
         if (t > 3) t -= 1;
-        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay: delay});
+        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1});
     }
 
     private function deleteIt():void {
