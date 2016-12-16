@@ -6,6 +6,8 @@ import com.junkbyte.console.Cc;
 
 import flash.geom.Point;
 
+import quest.ManagerQuest;
+
 import quest.QuestData;
 
 import resourceItem.DropItem;
@@ -91,7 +93,7 @@ public class ManagerWallPost {
 
     public function callbackAward():void {
         if (_typePost == POST_FOR_QUEST) {
-            g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_POST);
+            g.managerQuest.onFinishActionForQuestByType(ManagerQuest.POST);
         } else {
             if (_type == 9) {
                 new XPStar(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2, _count);

@@ -5,6 +5,12 @@ package windows.quest {
 import manager.ManagerFilters;
 import manager.Vars;
 
+import quest.ManagerQuest;
+
+import quest.ManagerQuest;
+
+import quest.ManagerQuest;
+
 import quest.QuestData;
 
 import starling.display.Image;
@@ -58,19 +64,19 @@ public class WOQuestItem {
     public function fillIt(dQuest:Object):void {
         _dataQuest = dQuest;
         _txt.text = _dataQuest.text;
-        if (_dataQuest.type == QuestData.TYPE_ADD_LEFT_MENU) {
+        if (_dataQuest.type == ManagerQuest.ADD_LEFT_MENU) {
             _txtBtn.text = 'Добавить';
-        } else if (_dataQuest.type == QuestData.TYPE_ADD_TO_GROUP) {
+        } else if (_dataQuest.type == ManagerQuest.ADD_TO_GROUP) {
             _txtBtn.text = 'Вступить';
             g.managerQuest.checkInGroup();
-        } else if (_dataQuest.type == QuestData.TYPE_POST) {
+        } else if (_dataQuest.type == ManagerQuest.POST) {
             _txtBtn.text = 'Рассказать';
         }
         updateInfo();
     }
 
     private function onClick():void {
-        if (_dataQuest.type == QuestData.TYPE_POST) _btn.clickCallback = null;
+        if (_dataQuest.type == ManagerQuest.POST) _btn.clickCallback = null;
         g.managerQuest.checkOnClickAtWoQuestItem(_dataQuest);
     }
 

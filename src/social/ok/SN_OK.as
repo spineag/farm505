@@ -4,6 +4,8 @@ import data.DataMoney;
 import flash.display.Bitmap;
 import flash.external.ExternalInterface;
 import flash.utils.getTimer;
+
+import quest.ManagerQuest;
 import quest.QuestData;
 import social.SocialNetwork;
 import user.Friend;
@@ -263,7 +265,7 @@ public class SN_OK extends SocialNetwork {
 
     private function isInGroupCallback(e:String):void {
         if (e == '1') {
-            g.managerQuest.onFinishActionForQuestByType(QuestData.TYPE_ADD_TO_GROUP);
+            g.managerQuest.onFinishActionForQuestByType(ManagerQuest.ADD_TO_GROUP);
 //        } else {
 //            Link.openURL(urlSocialGroup);
         }
