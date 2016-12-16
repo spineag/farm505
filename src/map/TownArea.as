@@ -1,4 +1,5 @@
 ﻿package map {
+import additional.buyerNyashuk.BuyerNyashuk;
 import additional.lohmatik.Lohmatik;
 import additional.mouse.MouseHero;
 
@@ -2121,6 +2122,31 @@ public class TownArea extends Sprite {
 
     public function removeOrderCatFromAwayCityObjects(cat:OrderCat):void {
         if (_cityAwayObjects.indexOf(cat) > -1) _cityObjects.splice(_cityObjects.indexOf(cat), 1);
+    }
+    // ----------------- BUYER NYASHUK --------------------
+    public function addBuyerNyashukToCont(nya:BuyerNyashuk):void {
+        _cont.addChild(nya.source);
+    }
+
+    public function removeBuyerNyashukFromCont(nya:BuyerNyashuk):void {
+        _cont.removeChild(nya.source);
+    }
+
+    public function addBuyerNyashukToCityObjects(nya:BuyerNyashuk):void {
+        _cityObjects.push(nya);
+    }
+
+    public function removeBuyerNyashukFromCityObjects(nya:BuyerNyashuk):void {
+        if (_cityObjects.indexOf(nya) > -1) _cityObjects.splice(_cityObjects.indexOf(nya), 1);
+    }
+
+
+    public function addBuyerNyashukToAwayCityObjects(nya:BuyerNyashuk):void {
+        _cityAwayObjects.push(nya);
+    }
+
+    public function removeBuyerNyashukFromAwayCityObjects(nya:BuyerNyashuk):void {
+        if (_cityAwayObjects.indexOf(nya) > -1) _cityObjects.splice(_cityObjects.indexOf(nya), 1);
     }
 }
 }
