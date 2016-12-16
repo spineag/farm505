@@ -14,6 +14,7 @@ public class Someone {
     public var marketCell:int = -1;
     public var userDataCity:UserDataCity;
     public var needHelpCount:int;
+    public var isOpenOrder:Boolean = true;
 
     public function Someone() {
         needHelpCount = 0;

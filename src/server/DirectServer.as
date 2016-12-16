@@ -884,7 +884,7 @@ public class DirectServer {
             g.userValidates.updateInfo('blueCount', g.user.blueCouponCount);
             g.user.globalXP = int(ob.xp);
             g.user.allNotification = int(ob.notification_new);
-
+            g.user.isOpenOrder = Boolean(ob.open_order == '1');
 //
 
             g.user.dayDailyGift  = int(ob.day_daily_gift);
