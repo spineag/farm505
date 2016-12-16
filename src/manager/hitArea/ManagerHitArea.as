@@ -87,13 +87,13 @@ public class ManagerHitArea {
                         'blueberry1', 'blueberry2', 'blueberry3', 'raspberry1', 'raspberry2', 'raspberry3', 'newspaper', 'market', 'daily_bonus', 'cat_nail','confectionery',
                         'ice_cream_maker', 'jam_machine', 'jeweler', 'toy_factory', 'yogurt_machine', 'arbor', 'beach_chair', 'bridge', 'dandelion', 'teleskope', 'tent',
                         'trampoline', 'umbrella', 'well_white', 'well_yellow', 'ghost', 'witch_pot', 'scarecrow', 'picnic','kakao1', 'kakao2', 'kakao3',
-                        'lemon1', 'lemon2', 'lemon3', 'orange1', 'orange2', 'orange3', 'balabas', 'snowman', 'new_year_tree_1', 'new_year_tree_2'];
+                        'lemon1', 'lemon2', 'lemon3', 'orange1', 'orange2', 'orange3', 'balabas', 'snowman', 'new_year_tree_1', 'new_year_tree_2', 'red_n', 'blue_n'];
         var n:Array = ['order_area', 'aerial_tram', 'buildingBuild', 'sklad', 'chest', 'bbq_grill', 'bakery', 'dairy', 'feed_mill', 'fryer', 'juice_press', 'loom', 'pie_oven',
                         'pizza_maker', 'smelter', 'smoke_house', 'sugar_mill', 'mine', 'apple1', 'apple2', 'apple3', 'cherry1', 'cherry2', 'cherry3',
                         'blueberry1', 'blueberry2', 'blueberry3', 'raspberry1', 'raspberry2', 'raspberry3', 'newspaper', 'market', 'daily_bonus', 'cat_nail','confectionery',
                         'ice_cream_maker', 'jam_machine', 'jeweler', 'toy_factory', 'yogurt_machine', 'arbor', 'beach_chair', 'bridge', 'dandelion', 'teleskope', 'tent',
                         'trampoline', 'umbrella', 'well_white', 'well_yellow', 'ghost', 'witch_pot', 'scarecrow', 'picnic','kakao1', 'kakao2', 'kakao3',
-                        'lemon1', 'lemon2', 'lemon3', 'orange1', 'orange2', 'orange3', 'balabas', 'snowman', 'new_year_tree_1', 'new_year_tree_2'];
+                        'lemon1', 'lemon2', 'lemon3', 'orange1', 'orange2', 'orange3', 'balabas', 'snowman', 'new_year_tree_1', 'new_year_tree_2', 'red_n', 'blue_n'];
         for (var i:int=0; i<arr.length; i++) {
             if (response.hasDefinition(arr[i])) {
                 cl = response.getDefinition(arr[i]) as Class;

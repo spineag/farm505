@@ -3,6 +3,7 @@
  */
 package manager {
 import additional.butterfly.ManagerButterfly;
+//import additional.buyerNyashuk.ManagerBuyerNyashuk;
 import additional.lohmatik.ManagerLohmatik;
 import additional.mouse.ManagerMouse;
 
@@ -211,6 +212,7 @@ public class Vars {
     public var userTimer:UserTimer;
     public var managerDropResources:ManagerDropBonusResource;
     public var managerLohmatic:ManagerLohmatik;
+//    public var managerBuyerNyashuk:ManagerBuyerNyashuk;
     public var managerMouseHero:ManagerMouse;
     public var managerQuest:ManagerQuest;
     public var managerPendingRequest:ManagerPendingRequest;
@@ -549,6 +551,7 @@ public class Vars {
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();
             managerLohmatic = new ManagerLohmatik();
+//            managerBuyerNyashuk = new ManagerBuyerNyashuk();
 
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});

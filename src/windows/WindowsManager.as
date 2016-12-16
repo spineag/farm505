@@ -15,6 +15,7 @@ import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
 import windows.buyForHardCurrency.WOBuyForHardCurrency;
 import windows.buyPlant.WOBuyPlant;
+import windows.buyerNyashuk.WOBuyerNyashuk;
 import windows.cave.WOBuyCave;
 import windows.cave.WOCave;
 import windows.chestWindow.WOChest;
@@ -94,6 +95,7 @@ public class WindowsManager {
     public static const POST_DONE_ORDER:String = 'post_done_order';
     public static const WO_SERVER_NO_WORK:String = 'server_no_work';
     public static const WO_DAILY_GIFT:String = 'daily_gift';
+    public static const WO_BUYER_NYASHUK:String = 'buyer_nyashuk';
     public static const WO_TIPS:String = 'tips';
     public static const WO_QUEST:String = 'quest';
 
@@ -252,6 +254,9 @@ public class WindowsManager {
                 break;
             case WO_DAILY_GIFT:
                 wo = new WODailyGift();
+                break;
+            case WO_BUYER_NYASHUK:
+                wo = new WOBuyerNyashuk();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

@@ -5867,7 +5867,7 @@ public class DirectServer {
 
         if (d.id == 0) {
             Cc.ch('server', 'getUserPapperBuy OK', 5);
-            g.managerPaper.fillBot(d.message);
+//            g.managerBuyerNyashuk.fillBot(d.message);
             if (callback != null) {
                 callback.apply();
             }

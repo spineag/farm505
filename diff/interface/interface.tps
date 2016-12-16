@@ -320,7 +320,6 @@
             <filename>tutorial_ko.png</filename>
             <filename>tutorial_nyam.png</filename>
             <filename>ui</filename>
-            <filename>visitor_back.png</filename>
             <filename>wait.png</filename>
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>
@@ -339,6 +338,12 @@
             <filename>coins_icon.png</filename>
             <filename>rubins_icon.png</filename>
             <filename>check_big.png</filename>
+            <filename>nyash_blue.png</filename>
+            <filename>nyash_red.png</filename>
+            <filename>visitor_window_back.png</filename>
+            <filename>tutorial_arrow_pink.png</filename>
+            <filename>visitor_back.png</filename>
+            <filename>visitor_window_booble.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
