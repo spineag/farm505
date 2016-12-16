@@ -179,11 +179,12 @@ public class WOChestItem {
         }
         var tempX:int = _source.x - 70;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
-        var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
-        var v:int;
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 300;
-        else v = 420;
-        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut ,onComplete: f1});
+        var dist:int = int(Math.sqrt((_source.x - tempX)*(_source.x - tempX) + (_source.y - tempY)*(_source.y - tempY)));
+        dist += int(Math.sqrt((tempX - endPoint.x)*(tempX - endPoint.x) + (tempY - endPoint.y)*(tempY - endPoint.y)));
+        var t:Number = dist/1000 * 2;
+        if (t > 2) t -= .6;
+        if (t > 3) t -= 1;
+        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay: delay});
     }
 
     private function flyItResource():void {
@@ -211,11 +212,12 @@ public class WOChestItem {
         endPoint = g.craftPanel.pointXY();
         var tempX:int = _source.x - 70;
         var tempY:int = _source.y + 30 + int(Math.random()*20);
-        var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
-        var v:int;
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 300;
-        else v = 380;
-        new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut ,onComplete: f1});
+        var dist:int = int(Math.sqrt((_source.x - tempX)*(_source.x - tempX) + (_source.y - tempY)*(_source.y - tempY)));
+        dist += int(Math.sqrt((tempX - endPoint.x)*(tempX - endPoint.x) + (tempY - endPoint.y)*(tempY - endPoint.y)));
+        var t:Number = dist/1000 * 2;
+        if (t > 2) t -= .6;
+        if (t > 3) t -= 1;
+        new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay: delay});
     }
 
     private function deleteIt():void {
