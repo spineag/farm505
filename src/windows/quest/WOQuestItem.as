@@ -4,17 +4,8 @@
 package windows.quest {
 import manager.ManagerFilters;
 import manager.Vars;
-
 import quest.ManagerQuest;
-
-import quest.ManagerQuest;
-
-import quest.ManagerQuest;
-
-import quest.QuestData;
-
 import starling.display.Image;
-
 import starling.display.Sprite;
 import starling.utils.Color;
 import utils.CButton;

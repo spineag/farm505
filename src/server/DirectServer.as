@@ -964,7 +964,6 @@ public class DirectServer {
                 g.user.isMegaTester = false;
                 g.user.isTester = false;
             }
-            if (ob.quests) g.managerQuest.fromServer(ob.quests);
 
             if (callback != null) {
                 callback.apply();
@@ -6410,105 +6409,6 @@ public class DirectServer {
         }
     }
 
-    public function releaseUserQuest(questId:int, callback:Function):void {
-        var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_RELEASE_USER_QUEST);
-        var variables:URLVariables = new URLVariables();
-
-        Cc.ch('server', 'releaseUserQuest', 1);
-        variables = addDefault(variables);
-        variables.userId = g.user.userId;
-        variables.questId = questId;
-        variables.hash = MD5.hash(String(g.user.userId)+String(questId)+SECRET);
-        request.data = variables;
-        iconMouse.startConnect();
-        request.method = URLRequestMethod.POST;
-        loader.addEventListener(Event.COMPLETE, onCompleteReleaseUserQuest);
-        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
-        function onCompleteReleaseUserQuest(e:Event):void { completeReleaseUserQuest(e.target.data, callback); }
-        try {
-            loader.load(request);
-        } catch (error:Error) {
-            Cc.error('releaseUserQuest error:' + error.errorID);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
-        }
-    }
-
-    private function completeReleaseUserQuest(response:String, callback:Function = null):void {
-        iconMouse.endConnect();
-        var d:Object;
-        try {
-            d = JSON.parse(response);
-        } catch (e:Error) {
-            Cc.error('releaseUserQuest: wrong JSON:' + String(response));
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'releaseUserQuest: wrong JSON:' + String(response));
-            return;
-        }
-
-        if (d.id == 0) {
-            Cc.ch('server', 'releaseUserQuest OK', 5);
-            if (callback != null) {
-                callback.apply();
-            }
-        } else if (d.id == 13) {
-            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
-        } else if (d.id == 6) {
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
-        } else {
-            Cc.error('releaseUserQuest: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
-        }
-    }
-
-    public function releaseUserQuestAward(questId:int, callback:Function):void {
-        var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_RELEASE_USER_QUEST_AWARD);
-        var variables:URLVariables = new URLVariables();
-
-        Cc.ch('server', 'releaseUserQuestAward', 1);
-        variables = addDefault(variables);
-        variables.userId = g.user.userId;
-        variables.questId = questId;
-        variables.hash = MD5.hash(String(g.user.userId)+String(questId)+SECRET);
-        request.data = variables;
-        iconMouse.startConnect();
-        request.method = URLRequestMethod.POST;
-        loader.addEventListener(Event.COMPLETE, onCompleteReleaseUserQuestAward);
-        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
-        function onCompleteReleaseUserQuestAward(e:Event):void { completeReleaseUserQuestAward(e.target.data, callback); }
-        try {
-            loader.load(request);
-        } catch (error:Error) {
-            Cc.error('releaseUserQuest error:' + error.errorID);
-        }
-    }
-
-    private function completeReleaseUserQuestAward(response:String, callback:Function = null):void {
-        iconMouse.endConnect();
-        var d:Object;
-        try {
-            d = JSON.parse(response);
-        } catch (e:Error) {
-            Cc.error('releaseUserQuestAward: wrong JSON:' + String(response));
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'releaseUserQuest: wrong JSON:' + String(response));
-            return;
-        }
-
-        if (d.id == 0) {
-            Cc.ch('server', 'releaseUserQuestAward OK', 5);
-            if (callback != null) {
-                callback.apply();
-            }
-        } else if (d.id == 13) {
-            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
-        } else if (d.id == 6) {
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
-        } else {
-            Cc.error('releaseUserQuestAward: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
-        }
-    }
-
     public function useHeroMouse(callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_USE_HERO_MOUSE);
@@ -6625,6 +6525,54 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('setUserLevelToVK:' + error.errorID);
+        }
+    }
+
+    public function getUserQuests(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_QUESTS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserQuests', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteGetUserQuests);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteGetUserQuests(e:Event):void { completeGetUserQuests(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserQuests error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserQuests(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserQuests: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserQuests: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserQuests OK', 5);
+            if (callback != null) {
+                callback.apply(d);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getUserQuests: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
 

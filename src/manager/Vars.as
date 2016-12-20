@@ -219,7 +219,7 @@ public class Vars {
     public var managerVisibleObjects:ManagerVisibleObjects;
     public var managerResize:ManagerResize;
 
-    private var testersArrayVK:Array = ['191561520', '14663166', '33979940'];
+    private var testersArrayVK:Array = ['191561520', '14663166', '33979940', '201166703', '23038255'];
     public var useNewTuts:Boolean = false;
 
     public static function getInstance():Vars {
@@ -544,9 +544,8 @@ public class Vars {
                         }
                     }
                 }
-                if ((user as User).level >= 5) {
+                if ((user as User).level >= 3 && useNewTuts) {
                     managerQuest.checkQuestsOnStart();
-                    managerQuest.checkQuestContPosition();
                 }
             }
             managerMiniScenes.updateMiniScenesLengthOnGameStart();

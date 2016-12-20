@@ -8,11 +8,7 @@ import flash.events.Event;
 import flash.external.ExternalInterface;
 import flash.utils.getTimer;
 import manager.Vars;
-
 import quest.ManagerQuest;
-
-import quest.ManagerQuest;
-import quest.QuestData;
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
 import user.Friend;
