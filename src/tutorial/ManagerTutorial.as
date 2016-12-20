@@ -1074,7 +1074,7 @@ public class ManagerTutorial extends IManagerTutorial {
         _subStep = 2;
         cat.playDirectLabel('idle3', true, playCatIdle);
         cat.showBubble(texts[g.user.tutorialStep][_subStep]);
-        g.managerOrder.checkOrderForTutorial(subStep12_5);
+        g.managerOrder.addOrderForTutorial(subStep12_5);
         Utils.createDelay(3, subStep12_3);
     }
 

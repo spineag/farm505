@@ -193,7 +193,6 @@ public class Vars {
 
     public var server:Server;
     public var directServer:DirectServer;
-    public var useHttps:Boolean;
     public var startPreloader:StartPreloader;
     public var dataPath:DataPath;
     public var event:OwnEvent;

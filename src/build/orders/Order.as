@@ -39,18 +39,23 @@ public class Order extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
-        _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
-        makeAnimation();
         if (!g.isAway) {
             _source.endClickCallback = onClick;
             _hitArea = g.managerHitArea.getHitArea(_source, 'order_area', ManagerHitArea.TYPE_LOADED);
             _source.registerHitArea(_hitArea);
         }
-        createSmallHero();
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
-
+        if (!g.user.isOpenOrder && !g.isAway) {
+            _stateBuild = STATE_UNACTIVE;
+            _armature.animation.gotoAndPlayByFrame('top');
+        } else {
+            _stateBuild = STATE_ACTIVE;
+            _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
+            makeAnimation();
+            createSmallHero();
+        }
     }
 
     private function createSmallHero():void {
@@ -87,18 +92,20 @@ public class Order extends WorldObject{
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialBuilding(this)) return;
         if (!_isOnHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-            var fEndOver:Function = function(e:Event=null):void {
-                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
-                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-                _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
-                _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
-                makeAnimation();
-            };
-            _armature.removeEventListener(EventObject.COMPLETE, makeAnimation);
-            _armature.removeEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
-            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
-            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-            _armature.animation.gotoAndPlayByFrame('over');
+            if (_stateBuild == STATE_ACTIVE) {
+                var fEndOver:Function = function (e:Event = null):void {
+                    _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                    _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
+                    _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
+                    makeAnimation();
+                };
+                _armature.removeEventListener(EventObject.COMPLETE, makeAnimation);
+                _armature.removeEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
+                _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndPlayByFrame('over');
+            }
             g.hint.showIt(_dataBuild.name);
         }
         _isOnHover = true;
@@ -118,6 +125,21 @@ public class Order extends WorldObject{
     }
 
     private function onClick():void {
+        var p:Point;
+        if (_stateBuild == STATE_UNACTIVE) {
+            if (g.user.level < _dataBuild.blockByLevel) {
+                g.soundManager.playSound(SoundConst.EMPTY_CLICK);
+                p = new Point(_source.x, _source.y - 100);
+                p = _source.parent.localToGlobal(p);
+                new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
+                return;
+            } else {
+                g.directServer.openUserOrder(null);
+                _armature.addEventListener(EventObject.COMPLETE, onOpenOrder);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
+                _armature.animation.gotoAndPlayByFrame('top_l');
+            }
+        }
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.isTutorialBuilding(this)) {
                 g.managerTutorial.checkTutorialCallback();
@@ -146,7 +168,7 @@ public class Order extends WorldObject{
             if (_source.wasGameContMoved) return;
             if (g.user.level < _dataBuild.blockByLevel) {
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
-                var p:Point = new Point(_source.x, _source.y - 100);
+                p = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
                 new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
                 return;
@@ -160,6 +182,15 @@ public class Order extends WorldObject{
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
+    }
+
+    private function onOpenOrder(e:Event=null):void {
+        if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.checkMiniSceneCallback();
+        _stateBuild = STATE_ACTIVE;
+        _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
+        makeAnimation();
+        createSmallHero();
     }
     
     private function showBtnCellArrow():void {

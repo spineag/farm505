@@ -118,5 +118,6 @@ public class Consts {
     public static var INQ_UPDATE_DAILY_GIFT:String = 'updateDailyGift.php';
     public static var INQ_GET_TEXT_HELP:String = 'getTextHelp.php';
     public static var INQ_GET_USER_QUESTS:String = 'getUserQuests.php';
+    public static var INQ_OPEN_USER_ORDER:String = 'openUserOrder.php';
 }
 }

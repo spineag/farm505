@@ -200,18 +200,41 @@ public class ManagerMiniScenes {
 
     private function openOrderBuilding():void {
         if (g.isAway) return;
+        if (!g.allData.factory['tutorialCatBig']) {
+            g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', openOrderBuilding);
+            return;
+        }
         isMiniScene = true;
         _miniSceneBuildings = g.townArea.getCityObjectsByType(BuildType.ORDER);
-        // bla-bla-bla..
-        order_1();
+        
+        
+        
+        
+        
+        
+        
+        if ((_miniSceneBuildings[0] as Order).stateBuild == WorldObject.STATE_UNACTIVE) {
+            if (!_cutScene) _cutScene = new CutScene();
+            addBlack();
+            _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', order_1);
+        } else {
+            order_10();
+        }
     }
 
     private function order_1():void {
+        _cutScene.hideIt(deleteCutScene);
+        removeBlack();
+        g.cont.moveCenterToPos(_miniSceneBuildings[0].posX - 3, _miniSceneBuildings[0].posY - 3);
+        _miniSceneCallback = order_10;
+    }
+
+    private function order_10():void {
+        _miniSceneCallback = null;
+        g.managerOrder.addOrderForMiniScenes(firstOrderBuyer);
         g.user.miniScenes[0] = 1;
         saveUserMiniScenesData();
-        _curMiniScenePropertie = _properties[1];
         isMiniScene = false;
-        forReleaseMini();
     }
 
     private function firstOrderBuyer():void {
@@ -219,11 +242,12 @@ public class ManagerMiniScenes {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', firstOrderBuyer);
             return;
         }
-        if (g.managerOrder.countOrders) {
-            buyer_15();
+        if (!g.managerOrder.countOrders) {
+            g.managerOrder.addOrderForMiniScenes(firstOrderBuyer);
             return;
         }
         isMiniScene = true;
+        _curMiniScenePropertie = _properties[1];
         if (!_miniSceneBuildings.length) {
             _miniSceneBuildings = g.townArea.getCityObjectsByType(BuildType.ORDER);
         }
