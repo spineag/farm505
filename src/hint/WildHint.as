@@ -20,6 +20,8 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import tutorial.TutorialAction;
+
 import ui.xpPanel.XPStar;
 
 import utils.CButton;
@@ -178,6 +180,10 @@ public class WildHint {
             if (_deleteCallback != null) {
                 _deleteCallback.apply();
                 _deleteCallback = null;
+            }
+            if (g.managerTutorial.isTutorial && g.useNewTuts && g.managerTutorial.currentAction == TutorialAction.REMOVE_WILD) {
+                hideArrow();
+                g.managerTutorial.checkTutorialCallback();
             }
             managerHide();
         }

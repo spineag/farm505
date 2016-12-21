@@ -853,6 +853,9 @@ public class ManagerTutorialNew extends IManagerTutorial{
             subStep15_10();
             return;
         }
+        if (g.userInventory.getCountResourceById((_tutorialObjects[0] as Wild).dataBuild.removeByResourceId) <= 0) { // add it at new user start in php, not here
+            g.userInventory.addResource((_tutorialObjects[0] as Wild).dataBuild.removeByResourceId, 1);
+        }
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         addBlack();
@@ -875,7 +878,9 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep15_3():void {
-
+        g.user.tutorialStep = 16;
+        updateTutorialStep();
+        Utils.createDelay(2, subStep15_10);
     }
 
     private function subStep15_10():void {
@@ -883,8 +888,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
         _tutorialCallback = null;
         _tutorialObjects = [];
         _currentAction = TutorialAction.NONE;
-        g.user.tutorialStep = 16;
-        updateTutorialStep();
         initScenes();
     }
 
