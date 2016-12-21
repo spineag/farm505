@@ -48,7 +48,7 @@ public class Order extends WorldObject{
         _source.outCallback = onOut;
         if (!g.user.isOpenOrder && !g.isAway) {
             _stateBuild = STATE_UNACTIVE;
-            _armature.animation.gotoAndPlayByFrame('top');
+            _armature.animation.gotoAndStopByFrame('top');
         } else {
             _stateBuild = STATE_ACTIVE;
             _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
@@ -132,13 +132,14 @@ public class Order extends WorldObject{
                 p = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
                 new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
-                return;
             } else {
-                g.directServer.openUserOrder(null);
                 _armature.addEventListener(EventObject.COMPLETE, onOpenOrder);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
                 _armature.animation.gotoAndPlayByFrame('top_l');
+                hideArrow();
+                g.directServer.openUserOrder(null);
             }
+            return;
         }
         if (g.managerTutorial.isTutorial) {
             if (g.managerTutorial.isTutorialBuilding(this)) {
@@ -177,6 +178,7 @@ public class Order extends WorldObject{
             if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_ORDER) {
                 g.lateAction.releaseOnTimer(.7, showBtnCellArrow);
             }
+            hideArrow();
             g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
             if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isMiniSceneBuilding(this)) g.managerMiniScenes.checkMiniSceneCallback();
         } else {
@@ -185,12 +187,15 @@ public class Order extends WorldObject{
     }
 
     private function onOpenOrder(e:Event=null):void {
-        if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.checkMiniSceneCallback();
         _stateBuild = STATE_ACTIVE;
+        if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.checkMiniSceneCallback();
+        _armature.removeEventListener(EventObject.COMPLETE, onOpenOrder);
+        _armature.removeEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
         _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
         makeAnimation();
         createSmallHero();
+        animateSmallHero(true);
     }
     
     private function showBtnCellArrow():void {

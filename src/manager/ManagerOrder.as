@@ -129,7 +129,7 @@ public class ManagerOrder {
         order.resourceIds = ob.ids.split('&');
         order.resourceCounts = ob.counts.split('&');
 //        order.catName = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)].name;
-        order.catOb = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
+        order.catOb = g.dataOrderCats.getRandomCat();
         order.coins = int(ob.coins);
         order.xp = int(ob.xp);
         order.addCoupone = ob.add_coupone == '1';
@@ -967,7 +967,7 @@ public class ManagerOrder {
             }
 
 //             order.catName = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)].name;
-            order.catOb = g.dataOrderCats.arrCats[int(Math.random() * g.dataOrderCats.arrCats.length)];
+            order.catOb = g.dataOrderCats.getRandomCat();
             order.coins = 0;
             order.xp = 0;
             for (k = 0; k < order.resourceIds.length; k++) {
@@ -995,7 +995,7 @@ public class ManagerOrder {
         order.resourceCounts = [2];
         order.addCoupone = false;
 //         order.catName = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)].name;
-        order.catOb = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
+        order.catOb = g.dataOrderCats.getRandomCat();
         order.coins = g.dataResource.objectResources[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
         order.xp = g.dataResource.objectResources[order.resourceIds[0]].orderXP * order.resourceCounts[0];
         order.startTime = int(new Date().getTime()/1000);
@@ -1005,11 +1005,13 @@ public class ManagerOrder {
     }
 
     private function addNewMiniScenesOrder():void {
+        updateMaxCounts();
+
         var order:ManagerOrderItem = new ManagerOrderItem();
         order.resourceIds = [13];
         order.resourceCounts = [1];
         order.addCoupone = false;
-        order.catOb = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
+        order.catOb = g.dataOrderCats.getRandomCat();
         order.coins = g.dataResource.objectResources[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
         order.xp = g.dataResource.objectResources[order.resourceIds[0]].orderXP * order.resourceCounts[0];
         order.startTime = int(new Date().getTime()/1000);
@@ -1021,7 +1023,7 @@ public class ManagerOrder {
         order.resourceIds = [26];
         order.resourceCounts = [2];
         order.addCoupone = false;
-        order.catOb = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
+        order.catOb = g.dataOrderCats.getRandomCat();
         order.coins = g.dataResource.objectResources[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
         order.xp = g.dataResource.objectResources[order.resourceIds[0]].orderXP * order.resourceCounts[0];
         order.startTime = int(new Date().getTime()/1000);

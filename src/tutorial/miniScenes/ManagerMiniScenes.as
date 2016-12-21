@@ -7,6 +7,9 @@ import build.market.Market;
 import build.orders.Order;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+
+import heroes.OrderCat;
+
 import manager.Vars;
 import particle.tuts.DustRectangle;
 import starling.display.Quad;
@@ -153,7 +156,6 @@ public class ManagerMiniScenes {
     public function checkAvailableMiniScenesOnNewLevel():void {
         if (!g.useNewTuts) return;
         if (g.user.level > 3) {
-            checkForAvailableLevels();
             if (isMiniScene) {
                 isMiniScene = false;
                 removeBlack();
@@ -167,6 +169,7 @@ public class ManagerMiniScenes {
                 _onHideWindowCallback = null;
                 _onHideWindowCallback = null;
             }
+            checkForAvailableLevels();
         } else if (g.user.level == 3) {
             checkForAvailableLevels();
             if (g.isAway) return;
@@ -200,19 +203,16 @@ public class ManagerMiniScenes {
 
     private function openOrderBuilding():void {
         if (g.isAway) return;
+        if (g.user.level > _properties.level) {
+            order_10();
+            return;
+        }
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', openOrderBuilding);
             return;
         }
         isMiniScene = true;
         _miniSceneBuildings = g.townArea.getCityObjectsByType(BuildType.ORDER);
-        
-        
-        
-        
-        
-        
-        
         if ((_miniSceneBuildings[0] as Order).stateBuild == WorldObject.STATE_UNACTIVE) {
             if (!_cutScene) _cutScene = new CutScene();
             addBlack();
@@ -226,18 +226,26 @@ public class ManagerMiniScenes {
         _cutScene.hideIt(deleteCutScene);
         removeBlack();
         g.cont.moveCenterToPos(_miniSceneBuildings[0].posX - 3, _miniSceneBuildings[0].posY - 3);
+        (_miniSceneBuildings[0] as Order).showArrow();
         _miniSceneCallback = order_10;
     }
 
     private function order_10():void {
         _miniSceneCallback = null;
-        g.managerOrder.addOrderForMiniScenes(firstOrderBuyer);
+        isMiniScene = false;
         g.user.miniScenes[0] = 1;
         saveUserMiniScenesData();
-        isMiniScene = false;
+        if (!g.managerOrder.countOrders) g.managerOrder.addOrderForMiniScenes(firstOrderBuyer);
+            else firstOrderBuyer();
     }
 
-    private function firstOrderBuyer():void {
+    private function firstOrderBuyer(c:OrderCat=null):void {
+        if (isMiniScene) return;
+        _curMiniScenePropertie = _properties[1];
+        if (g.user.level > _properties.level) {
+            buyer_15();
+            return;
+        }
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', firstOrderBuyer);
             return;
@@ -247,7 +255,6 @@ public class ManagerMiniScenes {
             return;
         }
         isMiniScene = true;
-        _curMiniScenePropertie = _properties[1];
         if (!_miniSceneBuildings.length) {
             _miniSceneBuildings = g.townArea.getCityObjectsByType(BuildType.ORDER);
         }
@@ -274,11 +281,12 @@ public class ManagerMiniScenes {
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
             (g.windowsManager.currentWindow as WOOrder).setTextForCustomer('Здравствуйте! Хочу купить несколько яиц.');
             var ob:Object = (g.windowsManager.currentWindow as WOOrder).getSellBtnProperties();
-            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height - 20, ob.x, ob.y);
+//            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height - 20, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
             _arrow.scaleIt(.5);
             _arrow.animateAtPosition(ob.x, ob.y + 25);
-            _miniSceneCallback = buyer_4;
+            _arrow.activateTimer(3, buyer_4);
+//            _miniSceneCallback = buyer_4;
         } else {
             Cc.error('wo_order is not opened');
         }

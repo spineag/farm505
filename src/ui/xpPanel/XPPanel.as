@@ -105,7 +105,7 @@ public class XPPanel {
             g.directServer.updateUserLevel(null);
             g.userInventory.addNewElementsAfterGettingNewLevel();
             g.managerCats.calculateMaxCountCats();
-            g.managerOrder.checkOrders();
+            if (!g.useNewTuts || !g.user.level==3) g.managerOrder.checkOrders();
             if (g.user.level == 5) g.managerQuest.checkQuestsOnStart();
             if (g.user.level == g.dataBuilding.objectBuilding[45].blockByLevel)
                 g.managerDailyBonus.generateDailyBonusItems();

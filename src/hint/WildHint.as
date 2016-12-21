@@ -27,6 +27,7 @@ import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.SimpleArrow;
 
 import windows.WOComponents.HintBackground;
 import windows.WindowsManager;
@@ -50,8 +51,11 @@ public class WildHint {
     private var _quad:Quad;
     private var _buildType:int;
     private var _onOutCallback:Function;
+    private var _canHide:Boolean;
+    private var _arrow:SimpleArrow;
 
     public function WildHint() {
+        _canHide = true;
         _source = new CSprite();
         _source.nameIt = 'wildHint';
         _btn = new CButton();
@@ -132,6 +136,7 @@ public class WildHint {
     }
 
     public function hideIt():void {
+        if (!_canHide) return;
         if (_isOnHover) return;
         _closeTime = 1.5;
         g.gameDispatcher.addToTimer(closeTimer);
@@ -216,6 +221,23 @@ public class WildHint {
             };
             g.starling.juggler.add(tween);
             g.gameDispatcher.removeFromTimer(closeTimer);
+        }
+    }
+
+    public function addArrow():void {
+        _canHide = false;
+        if (_btn && !_arrow) {
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
+            _arrow.animateAtPosition(_btn.x, _btn.y - _btn.height/2 - 2);
+            _arrow.scaleIt(.7);
+        }
+    }
+
+    public function hideArrow():void {
+        _canHide = true;
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
         }
     }
 }

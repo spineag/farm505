@@ -412,11 +412,11 @@ public class WOOrder extends WindowMain{
                 }
             }
             if (order.placeNumber > -1) {
-                _arrItems[i].fillIt(order, order.placeNumber, onItemClick, b,order.cat);
+                _arrItems[i].fillIt(order, order.placeNumber, onItemClick, b, order.cat);
 //                _arrItems[i].animation(delay);
 //                delay += .1;
             } else {
-                Cc.error('WOOrder fillList:: order.place == -1');
+                Cc.error('WOOrder fillList:: order.placeNumber == -1');
             }
         }
     }

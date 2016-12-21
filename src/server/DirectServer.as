@@ -6529,6 +6529,11 @@ public class DirectServer {
     }
 
     public function getUserQuests(callback:Function):void {
+        if (callback != null) {
+            callback.apply();
+            return;
+        }
+
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_QUESTS);
         var variables:URLVariables = new URLVariables();
@@ -6564,7 +6569,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'getUserQuests OK', 5);
             if (callback != null) {
-                callback.apply(d);
+                callback.apply(null, [d]);
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);

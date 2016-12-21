@@ -20,6 +20,7 @@ public class DataCat {
     public static var NAPERSTOK:int = 13;
     public static var STESHOK:int = 14;
     private var _arrCats:Array;
+
     public function DataCat() {
         _arrCats = [];
         fillDataCat();
@@ -142,11 +143,10 @@ public class DataCat {
         obj.isWoman = false;
         obj.name = 'Стежок';
         _arrCats.push(obj);
-
     }
 
-    public function get arrCats():Array {
-        return _arrCats;
+    public function getRandomCat():Object {
+        return _arrCats[int(Math.random()*_arrCats.length)];
     }
 }
 }

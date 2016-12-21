@@ -9,6 +9,8 @@ import build.farm.Animal;
 import build.farm.Farm;
 import build.ridge.Ridge;
 import build.tutorialPlace.TutorialPlace;
+import build.wild.Wild;
+
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import flash.geom.Point;
@@ -56,6 +58,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
                 case 14: curFunc = initScene_14; break;
                 case 15: curFunc = initScene_15; break;
                 case 16: curFunc = initScene_16; break;
+                case 17: curFunc = initScene_17; break;
 
                 default: Cc.error('unknown tuts step'); break;
             }
@@ -839,36 +842,44 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_15():void {
+        var ar:Array = g.townArea.getCityObjectsById(57);
+        for (var i:int=0; i<ar.length; i++) {
+            if ((ar[i] as Wild).posX == 10 && (ar[i] as Wild).posX == 31) {
+                _tutorialObjects.push(ar[i]);
+                break;
+            }
+        }
+        if (!_tutorialObjects.length) {
+            subStep15_10();
+            return;
+        }
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
+        addBlack();
         cutScene.showIt(texts[g.user.tutorialStep][_subStep],texts['next'], subStep15_1);
+        g.cont.moveCenterToPos(9, 30, false, 1);
     }
 
     private function subStep15_1():void {
         _subStep = 1;
         cutScene.hideIt(deleteCutScene);
-        _tutorialObjects = [];
-        var chest:WorldObject = g.managerChest.makeTutorialChest();
-        _tutorialObjects.push(chest);
-        g.cont.moveCenterToPos(31, 31, false, 1);
-        Utils.createDelay(1, subStep15_2);
+        removeBlack();
+        _currentAction = TutorialAction.REMOVE_WILD;
+        _tutorialCallback = subStep15_2;
+        (_tutorialObjects[0] as Wild).showArrow();
     }
 
     private function subStep15_2():void {
-        _subStep = 2;
-        (_tutorialObjects[0] as Chest).showArrow();
-        _currentAction = TutorialAction.TAKE_CHEST;
+        (_tutorialObjects[0] as Wild).hideArrow();
         _tutorialCallback = subStep15_3;
     }
 
     private function subStep15_3():void {
-        _subStep = 3;
-        (_tutorialObjects[0] as Chest).hideArrow();
-        _tutorialCallback = subStep15_4;
+
     }
 
-    private function subStep15_4():void {
-        _subStep = 4;
+    private function subStep15_10():void {
+        _subStep = 10;
         _tutorialCallback = null;
         _tutorialObjects = [];
         _currentAction = TutorialAction.NONE;
@@ -877,17 +888,57 @@ public class ManagerTutorialNew extends IManagerTutorial{
         initScenes();
     }
 
+
     private function initScene_16():void {
-        _afterTutorialWindow = new AfterTutorialWindow();
-        Utils.createDelay(1.5, subStep16_1);
+        if (!cutScene) cutScene = new CutScene();
+        if (!texts) texts = (new TutorialTextsNew()).objText;
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep],texts['next'], subStep16_1);
     }
 
     private function subStep16_1():void {
         _subStep = 1;
-        _afterTutorialWindow.showIt(subStep16_2);
+        cutScene.hideIt(deleteCutScene);
+        _tutorialObjects = [];
+        var chest:WorldObject = g.managerChest.makeTutorialChest();
+        _tutorialObjects.push(chest);
+        g.cont.moveCenterToPos(31, 31, false, 1);
+        Utils.createDelay(1, subStep16_2);
     }
 
     private function subStep16_2():void {
+        _subStep = 2;
+        (_tutorialObjects[0] as Chest).showArrow();
+        _currentAction = TutorialAction.TAKE_CHEST;
+        _tutorialCallback = subStep16_3;
+    }
+
+    private function subStep16_3():void {
+        _subStep = 3;
+        (_tutorialObjects[0] as Chest).hideArrow();
+        _tutorialCallback = subStep16_4;
+    }
+
+    private function subStep16_4():void {
+        _subStep = 4;
+        _tutorialCallback = null;
+        _tutorialObjects = [];
+        _currentAction = TutorialAction.NONE;
+        g.user.tutorialStep = 17;
+        updateTutorialStep();
+        initScenes();
+    }
+
+    private function initScene_17():void {
+        _afterTutorialWindow = new AfterTutorialWindow();
+        Utils.createDelay(1.5, subStep17_1);
+    }
+
+    private function subStep17_1():void {
+        _subStep = 1;
+        _afterTutorialWindow.showIt(subStep17_2);
+    }
+
+    private function subStep17_2():void {
         _subStep = 2;
         g.user.tutorialStep = 101;
         updateTutorialStep();
