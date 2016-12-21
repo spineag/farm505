@@ -2,6 +2,8 @@
  * Created by user on 12/15/16.
  */
 package windows.buyerNyashuk {
+import additional.buyerNyashuk.BuyerNyashuk;
+
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
@@ -33,6 +35,7 @@ public class WOBuyerNyashuk extends WindowMain{
 
     private var _woBG:WindowBackground;
     private var _data:Object;
+    private var _nyashuk:BuyerNyashuk;
 
     public function WOBuyerNyashuk() {
         _windowType = WindowsManager.WO_SHOP;
@@ -99,6 +102,7 @@ public class WOBuyerNyashuk extends WindowMain{
                 break;
         }
         _data = params[1];
+        _nyashuk = params[2];
         fillItBot(_data);
         super.showIt();
     }
@@ -110,7 +114,7 @@ public class WOBuyerNyashuk extends WindowMain{
             return;
         }
         var dataResource:Object = {};
-        var txt:CTextField =  new CTextField(172,45,"Здарствуйте!");
+        var txt:CTextField =  new CTextField(172,45,"Здравствуйте!");
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = -165;
         txt.y = -120;
@@ -137,15 +141,16 @@ public class WOBuyerNyashuk extends WindowMain{
         _source.addChild(im);
 
         txt = new CTextField(40,40,"/" + _data.resourceCount);
-        txt.x = - 140;
+        txt.x = - 135;
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        txt.alignH = Align.LEFT;
         _source.addChild(txt);
 
         txt = new CTextField(40,40,String(g.userInventory.getCountResourceById(_data.resourceId)));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         if (g.userInventory.getCountResourceById(_data.resourceId) >= _data.resourceCount) txt.changeTextColor = ManagerFilters.LIGHT_GREEN_COLOR;
         else txt.changeTextColor = ManagerFilters.ORANGE_COLOR;
-        txt.x = - 170;
+        txt.x = - 179;
         txt.alignH = Align.RIGHT;
         _source.addChild(txt);
 
@@ -202,9 +207,12 @@ public class WOBuyerNyashuk extends WindowMain{
         new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2., 5);
         g.userInventory.addResource(_data.resourceId,-_data.resourceCount);
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
+        g.userTimer.buyerNyashuk(1800);
     }
 
     private function onClickDelete():void {
+        g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
+        g.userTimer.buyerNyashuk(60);
         _data.timeToNext = int(new Date().getTime()/1000);
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
         super.hideIt();

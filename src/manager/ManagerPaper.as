@@ -160,7 +160,7 @@ public class ManagerPaper {
     }
 
     public function getPaperItems():void {
-        g.directServer.getUserPapperBuy(getUserPapperBuy);
+//        g.directServer.getUserPapperBuy(getUserPapperBuy);
 
     }
 

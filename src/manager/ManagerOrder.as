@@ -12,6 +12,8 @@ import dragonBones.Bone;
 
 import flash.utils.getTimer;
 
+import social.SocialNetworkSwitch;
+
 import tutorial.TutorialAction;
 
 import utils.Utils;
@@ -203,7 +205,7 @@ public class ManagerOrder {
                     }
                 }
             } else countFastBuyer = 1;
-                if (countFastBuyer == 0) {
+                if (countFastBuyer == 0 && g.socialNetworkID != SocialNetworkSwitch.SN_OK_ID) {
                     arrTemp = g.userInventory.getResourcesForAmbarAndSklad();
                     if (arrTemp.length >= 1) {
                         for (i = 0; i < arrTemp.length; i++) {
