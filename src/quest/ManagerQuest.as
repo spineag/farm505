@@ -56,7 +56,7 @@ public class ManagerQuest {
         g.directServer.getUserQuests(onGetUserQuests);
     }
 
-    private function onGetUserQuests(d:XML=null):void {
+    private function onGetUserQuests(d:Object):void {
         
     }
     

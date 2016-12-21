@@ -6526,7 +6526,7 @@ public class DirectServer {
 
     public function getUserQuests(callback:Function):void {
         if (callback != null) {
-            callback.apply();
+            callback.apply(null, [{}]);
             return;
         }
 
