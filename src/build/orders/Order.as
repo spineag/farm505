@@ -127,11 +127,11 @@ public class Order extends WorldObject{
     private function onClick():void {
         var p:Point;
         if (_stateBuild == STATE_UNACTIVE) {
-            if (g.user.level < _dataBuild.blockByLevel) {
+            if (g.user.level < 3) {
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 p = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
+                new FlyMessage(p,"Будет доступно на 3 уровне");
             } else {
                 _armature.addEventListener(EventObject.COMPLETE, onOpenOrder);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
