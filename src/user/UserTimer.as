@@ -10,6 +10,7 @@ import windows.WindowsManager;
 public class UserTimer {
     public var papperTimerAtMarket:int;
     public var timerAtPapper:int;
+    public var timerAtNyashuk:int;
     public var _arrOrderItem:Array;
     private var _orderManagerItem:ManagerOrderItem;
     private var g:Vars = Vars.getInstance();
@@ -46,6 +47,20 @@ public class UserTimer {
 
     public function setOrder(manager:ManagerOrderItem):void {
         _arrOrderItem.push(manager);
+    }
+
+    public function buyerNyashuk(time:int):void {
+        timerAtNyashuk = time;
+        g.gameDispatcher.addToTimer(nyashukTimer);
+    }
+
+    private function nyashukTimer():void {
+        timerAtNyashuk--;
+        if (timerAtNyashuk <= 0) {
+            timerAtNyashuk = 0;
+            g.managerBuyerNyashuk.timeToNewNyashuk();
+            g.gameDispatcher.removeFromTimer(nyashukTimer);
+        }
     }
 
     public function newCatOrder():void {

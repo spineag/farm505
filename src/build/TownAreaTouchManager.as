@@ -2,6 +2,7 @@
  * Created by user on 6/8/16.
  */
 package build {
+import additional.buyerNyashuk.BuyerNyashuk;
 import additional.lohmatik.Lohmatik;
 import additional.mouse.MouseHero;
 
@@ -260,7 +261,7 @@ public class TownAreaTouchManager {
         var ar:Array = [];
         for (i=0; i< l; i++) {
             if (_arrTown[i] == _curBuild) continue;
-            if (_arrTown[i] is BasicCat || _arrTown[i] is OrderCat || _arrTown[i] is DecorFence || _arrTown[i] is DecorPostFence || _arrTown[i] is LockedLand || _arrTown[i] is AddNewHero || _arrTown[i] is Lohmatik || _arrTown[i] is MouseHero) continue;
+            if (_arrTown[i] is BasicCat || _arrTown[i] is OrderCat || _arrTown[i] is DecorFence || _arrTown[i] is DecorPostFence || _arrTown[i] is LockedLand || _arrTown[i] is AddNewHero || _arrTown[i] is Lohmatik || _arrTown[i] is MouseHero || _arrTown[i] is BuyerNyashuk) continue;
             if (!(_arrTown[i] as WorldObject).useIsometricOnly) continue;
             if ((_arrTown[i] as WorldObject).depth > _curBuild.depth) continue;
             if (containsPoint((_arrTown[i] as WorldObject).source as Sprite, (_arrTown[i] as WorldObject).rect, p)) ar.push(_arrTown[i]);

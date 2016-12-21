@@ -127,7 +127,8 @@ public class WOPapper extends WindowMain {
         if (g.userTimer.timerAtPapper <= 0) {
             g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
             startPapperTimer();
-            g.directServer.getUserPapperBuy(getUserPapper);
+//            g.directServer.getUserPapperBuy(getUserPapper);ё
+            g.directServer.getPaperItems(fillAfterRefresh);
             _btnRefreshBlue.setEnabled = false;
             _btnRefreshGreen.setEnabled = true;
             g.user.paperShift = 1;
@@ -386,8 +387,8 @@ public class WOPapper extends WindowMain {
         preloader();
         g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
         startPapperTimer();
-        g.directServer.getUserPapperBuy(getUserPapper);
-//        g.directServer.getPaperItems(fillAfterRefresh);
+//        g.directServer.getUserPapperBuy(getUserPapper);
+        g.directServer.getPaperItems(fillAfterRefresh);
         _btnRefreshBlue.setEnabled = false;
         _btnRefreshGreen.setEnabled = true;
         g.user.paperShift = 1;
@@ -405,7 +406,8 @@ public class WOPapper extends WindowMain {
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_PAPER_ID});
         g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
         startPapperTimer();
-        g.directServer.getUserPapperBuy(getUserPapper);
+//        g.directServer.getUserPapperBuy(getUserPapper);
+        g.directServer.getPaperItems(fillAfterRefresh);
         g.user.paperShift = 1;
     }
 

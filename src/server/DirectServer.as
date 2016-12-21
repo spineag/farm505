@@ -5827,10 +5827,6 @@ public class DirectServer {
         }
     }
 
-
-
-
-
     public function getUserPapperBuy(callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_PAPPER_BUY);
@@ -5867,7 +5863,7 @@ public class DirectServer {
 
         if (d.id == 0) {
             Cc.ch('server', 'getUserPapperBuy OK', 5);
-//            g.managerBuyerNyashuk.fillBot(d.message);
+            g.managerBuyerNyashuk.fillBot(d.message);
             if (callback != null) {
                 callback.apply();
             }
