@@ -81,7 +81,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
         g.flashVars = stage.loaderInfo.parameters;
         Cc.obj('social', g.flashVars, 'vars from social network: ', 1);
         g.isDebug = stage.loaderInfo.url.substr(0, 4).toLowerCase() == 'file';
-        g.useHttps = g.isDebug ? false : (g.flashVars['protocol'] == 'https');
+//        g.useHttps = g.isDebug ? false : (g.flashVars['protocol'] == 'https');
         Cc.ch('info', 'isDebug = ' + g.isDebug);
         g.user = new User();
         g.user.userGAcid = String(g.flashVars['gacid']);

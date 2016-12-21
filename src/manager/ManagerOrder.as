@@ -76,6 +76,7 @@ public class ManagerOrder {
 
     public function checkOrders():void {
         updateMaxCounts();
+        if (g.useNewTuts && g.user.level < 3) return;
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction <= TutorialAction.ORDER) return;
         if (_arrOrders.length < _curMaxCountOrders) {
             addNewOrders(_curMaxCountOrders - _arrOrders.length);
@@ -83,7 +84,19 @@ public class ManagerOrder {
         }
     }
 
-    public function checkOrderForTutorial(onArriveCallback:Function = null):void {
+    public function addOrderForMiniScenes(onArriveCallback:Function = null):void {
+        if (!g.useNewTuts) return;
+        _arrOrders.length = 0;
+        updateMaxCounts();
+        if (_arrOrders.length < _curMaxCountOrders) {
+            addNewMiniScenesOrder();
+            checkForNewCats(onArriveCallback);
+        }
+        checkOrders();
+    }
+
+    public function addOrderForTutorial(onArriveCallback:Function = null):void {
+        if (g.useNewTuts) return;
         if (g.managerTutorial.currentAction == TutorialAction.ORDER) {
             _arrOrders.length = 0;
             updateMaxCounts();
@@ -989,6 +1002,32 @@ public class ManagerOrder {
         order.xp = g.dataResource.objectResources[order.resourceIds[0]].orderXP * order.resourceCounts[0];
         order.startTime = int(new Date().getTime()/1000);
         order.placeNumber = 1;
+        _arrOrders.push(order);
+        g.directServer.addUserOrder(order, 0, null);
+    }
+
+    private function addNewMiniScenesOrder():void {
+        var order:ManagerOrderItem = new ManagerOrderItem();
+        order.resourceIds = [13];
+        order.resourceCounts = [1];
+        order.addCoupone = false;
+        order.catOb = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
+        order.coins = g.dataResource.objectResources[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
+        order.xp = g.dataResource.objectResources[order.resourceIds[0]].orderXP * order.resourceCounts[0];
+        order.startTime = int(new Date().getTime()/1000);
+        order.placeNumber = 1;
+        _arrOrders.push(order);
+        g.directServer.addUserOrder(order, 0, null);
+
+        order = new ManagerOrderItem();
+        order.resourceIds = [26];
+        order.resourceCounts = [2];
+        order.addCoupone = false;
+        order.catOb = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)];
+        order.coins = g.dataResource.objectResources[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
+        order.xp = g.dataResource.objectResources[order.resourceIds[0]].orderXP * order.resourceCounts[0];
+        order.startTime = int(new Date().getTime()/1000);
+        order.placeNumber = 2;
         _arrOrders.push(order);
         g.directServer.addUserOrder(order, 0, null);
     }

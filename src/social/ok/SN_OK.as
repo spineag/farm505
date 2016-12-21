@@ -6,7 +6,6 @@ import flash.external.ExternalInterface;
 import flash.utils.getTimer;
 
 import quest.ManagerQuest;
-import quest.QuestData;
 import social.SocialNetwork;
 import user.Friend;
 

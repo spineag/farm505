@@ -3,25 +3,13 @@
  */
 package manager {
 import com.junkbyte.console.Cc;
-
-import flash.geom.Point;
-
 import quest.ManagerQuest;
-
-import quest.QuestData;
-
 import resourceItem.DropItem;
-
-import starling.core.Starling;
-
 import ui.xpPanel.XPStar;
-
 import wallPost.WALLDoneOrder;
-
 import wallPost.WALLDoneTrain;
 import wallPost.WALLForQuest;
 import wallPost.WALLNewFabric;
-
 import wallPost.WALLNewLevel;
 import wallPost.WALLOpenCave;
 import wallPost.WALLOpenLand;

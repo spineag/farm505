@@ -112,12 +112,12 @@ public class Consts {
     public static var INQ_GET_AWAY_USER_TREE_WATERING:String = 'getAwayUserTreeWatering.php';
     public static var INQ_SET_USER_LEVEL_VK:String = 'social/setUserLevel_vk.php';
     public static var INQ_UPDATE_USER_TESTER:String = 'updateUserTester.php';
-    public static var INQ_RELEASE_USER_QUEST:String = 'releaseUserQuest.php';
-    public static var INQ_RELEASE_USER_QUEST_AWARD:String = 'releaseUserQuestAward.php';
     public static var INQ_USE_HERO_MOUSE:String = 'useMouseHero.php';
     public static var INQ_TEST_USER_FABRICA_RECIPE:String = 'testGetTimeFabric.php';
     public static var INQ_GET_DAILY_GIFT:String = 'getDailyGift.php';
     public static var INQ_UPDATE_DAILY_GIFT:String = 'updateDailyGift.php';
     public static var INQ_GET_TEXT_HELP:String = 'getTextHelp.php';
+    public static var INQ_GET_USER_QUESTS:String = 'getUserQuests.php';
+    public static var INQ_OPEN_USER_ORDER:String = 'openUserOrder.php';
 }
 }
