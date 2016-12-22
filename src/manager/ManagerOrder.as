@@ -49,7 +49,7 @@ public class ManagerOrder {
         _countCellOnLevel = [
             {level: 1, count: 0},
             {level: 2, count: 1},
-            {level: 4, count: 2},
+            {level: 3, count: 2},
             {level: 6, count: 3},
             {level: 7, count: 4},
             {level: 8, count: 5},
@@ -111,7 +111,7 @@ public class ManagerOrder {
     private function checkForNewCats(onArriveCallback:Function = null):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (!_arrOrders[i].cat) {
-                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(onArriveCallback,_arrOrders[i].catOb);
+                _arrOrders[i].cat = g.managerOrderCats.getNewCatForOrder(onArriveCallback,_arrOrders[i].catOb, i);
             }
         }
     }

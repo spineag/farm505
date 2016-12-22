@@ -400,7 +400,7 @@ public class WOOrder extends WindowMain{
         var b:Boolean;
         var order:ManagerOrderItem;
         var k:int;
-        var delay:Number = .1;
+//        var delay:Number = .1;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (i >= maxCount) return;
             b = true;
@@ -1076,6 +1076,7 @@ public class WOOrder extends WindowMain{
     public function setTextForCustomer(st:String):void {
         if (_bubble) {
             _bubble.deleteIt();
+            _bubble = null;
         }
 
         if (st != '') {

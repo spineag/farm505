@@ -595,8 +595,8 @@ public class OrderCat {
         }
     }
 
-    public function goCatToXYPoint(p:Point, time:int, callbackOnWalking:Function):void {
-        new TweenMax(_source, time, {x:p.x, y:p.y, ease:Linear.easeNone, onComplete: f2, onCompleteParams:[callbackOnWalking]});
+    public function goCatToXYPoint(p:Point, time:int, callbackOnWalking:Function, delay:int):void {
+        new TweenMax(_source, time, {x:p.x, y:p.y, ease:Linear.easeNone, onComplete: f2, delay: delay, onCompleteParams:[callbackOnWalking]});
     }
 
     private function f2(f:Function) :void {

@@ -293,6 +293,9 @@ public class ManagerMiniScenes {
     }
 
     private function buyer_4():void {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
+            (g.windowsManager.currentWindow as WOOrder).setTextForCustomer('');
+        }
         _miniSceneCallback = null;
         deleteArrowAndDust();
         _onHideWindowCallback = buyer_5;

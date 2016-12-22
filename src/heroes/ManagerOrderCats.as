@@ -126,12 +126,12 @@ public class ManagerOrderCats {
     private function goAwayPart2(cat:OrderCat):void {
         cat.flipIt(true);
         cat.showFront(true);
-        cat.goCatToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 2, goAwayPart3);
+        cat.goCatToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 2, goAwayPart3, 0);
     }
 
     private function goAwayPart3(cat:OrderCat, time:int = -1):void {
         if (time == -1) time = 20;
-        cat.goCatToXYPoint(new Point(3600*g.scaleFactor, 1760*g.scaleFactor), time, onGoAway);
+        cat.goCatToXYPoint(new Point(3600*g.scaleFactor, 1760*g.scaleFactor), time, onGoAway, 0);
     }
 
     private function onGoAway(cat:OrderCat):void {
@@ -175,12 +175,12 @@ public class ManagerOrderCats {
 
 
     // ------ new Cat arrived --------
-    public function getNewCatForOrder(onArriveCallback:Function = null,ob:Object = null):OrderCat{
+    public function getNewCatForOrder(onArriveCallback:Function = null,ob:Object = null, delay:int=0):OrderCat{
         var cat:OrderCat = new OrderCat(ob);
         cat.arriveCallback = onArriveCallback;
         cat.setPositionInQueue(getFreeQueuePosition());
         _arrCats.push(cat);
-        arriveNewCat(cat);
+        arriveNewCat(cat, delay);
         return cat;
     }
 
@@ -224,7 +224,7 @@ public class ManagerOrderCats {
         }
     }
 
-    private function arriveNewCat(cat:OrderCat):void {
+    private function arriveNewCat(cat:OrderCat, delay:int):void {
         cat.source.x = 3600*g.scaleFactor;
         cat.source.y = 1760*g.scaleFactor;
         g.townArea.addOrderCatToCont(cat);
@@ -233,7 +233,7 @@ public class ManagerOrderCats {
         cat.showFront(false);
         cat.runAnimation();
         cat.walkPosition = OrderCat.LONG_OUTTILE_WALKING;
-        cat.goCatToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 7, arrivePart1);
+        cat.goCatToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 7, arrivePart1, delay);
     }
 
     private function arrivePart1(cat:OrderCat):void {
@@ -244,12 +244,12 @@ public class ManagerOrderCats {
         cat.walkPosition = OrderCat.SHORT_OUTTILE_WALKING;
         if (g.managerTutorial.isTutorial) {
             cat.runAnimation();
-            cat.goCatToXYPoint(p, 1, arrivePart2);
+            cat.goCatToXYPoint(p, 1, arrivePart2, 0);
         } else {
 //            cat.walkAnimation();
             cat.runAnimation();
 //            cat.goCatToXYPoint(p, 2, arrivePart2);
-            cat.goCatToXYPoint(p, 1, arrivePart2);
+            cat.goCatToXYPoint(p, 1, arrivePart2, 0);
         }
     }
 
