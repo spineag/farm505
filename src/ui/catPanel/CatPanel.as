@@ -86,22 +86,6 @@ public class CatPanel {
     }
 
     private function onClick():void {
-//
-//        var ob:Object  = {};
-//                ob.buyerId = 2;
-//                ob.resourceId =109;
-//                ob.resourceCount = 6;
-//                ob.cost = g.dataResource.objectResources[109].visitorPrice * ob.resourceCount;
-//                ob.xp = 5;
-//                ob.type = g.dataResource.objectResources[109].buildType;
-//                ob.timeToNext = 0;
-//                ob.isBuyed = false;
-//                ob.isBotBuy = true;
-//                ob.visible = true;
-//        g.windowsManager.openWindow(WindowsManager.WO_BUYER_NYASHUK, null, 2, ob);
-
-
-
         if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096 || int(g.user.userSocialId) == 202427318) {
             g.user.level++;
             g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);

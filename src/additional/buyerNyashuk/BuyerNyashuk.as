@@ -56,7 +56,7 @@ public class BuyerNyashuk {
     protected var _depth:Number;
     protected var _source:CSprite;
     protected var _speedWalk:int = 1;
-    protected var _speedRun:int = 8;
+    protected var _speedRun:int = 1;
     private var _queuePosition:int;
     private var _currentPath:Array;
     public var walkPosition:int;
@@ -83,8 +83,6 @@ public class BuyerNyashuk {
         MCScaler.scale(im, im.height - 60, im.width - 60);
         im.pivotX = im.pivotY = im.width/2;
         _spriteTxt.addChild(im);
-//        _spriteTxt.x = -60;
-//        _spriteTxt.y = -60;
         if (id == 1) {
             if (g.allData.factory['blue_n']) onLoad();
             else g.loadAnimation.load('animations_json/x1/blue_n', 'blue_n', onLoad);
@@ -229,46 +227,13 @@ public class BuyerNyashuk {
         if (_source) _source.visible = needShow;
     }
 
-
     //  ------------------ ANIMATIONS -----------------------
 
     private var count:int;
     public function idleFrontAnimation():void {
-
         _armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
         _armature.animation.gotoAndPlayByFrame("idle_3");
-//        _txt = new CTextField(40, 40, "0");
-//        _txt.setFormat(CTextField.BOLD24, 22, Color.RED);
-//        _txt.x = -16;
-//        _txt.y = -12;
-//        _spriteTxt.addChild(_txt);
-
-//
-//        var k:int = int(Math.random() * 6);
-//        _armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
-//        _armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
-//            switch (k) {
-//                case 0:
-//                    _armature.animation.gotoAndPlayByFrame("idle_1");
-//                    break;
-//                case 1:
-//                    _armature.animation.gotoAndPlayByFrame("idle_2");
-//                    break;
-//                case 2:
-//                    _armature.animation.gotoAndPlayByFrame("idle_1");
-//                    break;
-//                case 3:
-//                    _armature.animation.gotoAndPlayByFrame("idle_2");
-//                    break;
-//                case 4:
-//                    _armature.animation.gotoAndPlayByFrame("idle_1");
-//                    break;
-//                case 5:
-//                    _armature.animation.gotoAndPlayByFrame("idle_2");
-//                    break;
-//        }
-
     }
 
     private function onFinishIdle(e:Event=null):void {
@@ -332,9 +297,6 @@ public class BuyerNyashuk {
         else _armature.animation.gotoAndPlayByFrame("run_b");
 //        armatureBack.animation.gotoAndPlayByFrame("run");
     }
-
-
-
 
     // --------------- WALKING --------------
 
@@ -406,10 +368,10 @@ public class BuyerNyashuk {
             Cc.error('OrderCat gotoPoint:: wrong front-back logic');
         }
         if (g.managerTutorial.isTutorial) {
-            new TweenMax(_source, koef/_speedRun, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
+            new TweenMax(_source, 6, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
         } else {
-            if (catGoAway) new TweenMax(_source, koef/_speedWalk, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
-            else new TweenMax(_source, koef/_speedWalk, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
+            if (catGoAway) new TweenMax(_source, 6, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
+            else new TweenMax(_source, 6, {x:pXY.x, y:pXY.y, ease:Linear.easeNone ,onComplete: f1, onCompleteParams: [callbackOnWalking]});
         }
     }
 

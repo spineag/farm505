@@ -25,7 +25,7 @@ public class ManagerBuyerNyashuk {
 
     public function ManagerBuyerNyashuk() {
         _arrayNya = [];
-        g.directServer.getUserPapperBuy(null);
+        if (g.user.isTester) g.directServer.getUserPapperBuy(null);
     }
 
     public function fillBot(ar:Array):void {
@@ -49,7 +49,7 @@ public class ManagerBuyerNyashuk {
                     ob.visible = Boolean(ar[i].visible);
                     _arr.push(ob);
 
-                } else if (ar[i].visible == false && (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1) >= 60) {//1800) {
+                } else if (ar[i].visible == false && (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1) >= 1800) {
                     newBot(false,ar[i]);
                 } else {
                     g.userTimer.buyerNyashuk((ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1));
@@ -62,7 +62,7 @@ public class ManagerBuyerNyashuk {
             _arrayNya.push(b);
         }
         _timer = 0;
-        g.gameDispatcher.addToTimer(timeToCreate);
+        if (g.user.isTester) g.gameDispatcher.addToTimer(timeToCreate);
 //        if (_arr.length > 0) addNyashukOnStartGame();
     }
 
@@ -76,6 +76,7 @@ public class ManagerBuyerNyashuk {
     }
 
     public function timeToNewNyashuk():void {
+        if (!g.user.isTester) return;
         var ob:Object = {};
         if (_arr.length == 0) ob.buyer_id = 1;
         else if (_arr[0].buyerId == 1) ob.buyer_id = 2;
@@ -230,7 +231,8 @@ public class ManagerBuyerNyashuk {
             } else {
                 nya.walkAnimation();
             }
-            goNyaToPoint(nya, new Point(nya.posX + 1, nya.posY), goAwayPart1,true, nya );
+//            goNyaToPoint(nya, new Point(nya.posX + 1, nya.posY), goAwayPart1,true, nya );
+            goAwayPart2(nya);
         } else {
 
             var onFinishArrive:Function = function():void {
@@ -263,12 +265,12 @@ public class ManagerBuyerNyashuk {
     private function goAwayPart2(nya:BuyerNyashuk):void {
         nya.flipIt(true);
         nya.showFront(true);
-        nya.goNyaToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 2, goAwayPart3);
+        nya.goNyaToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 6, goAwayPart3);
     }
 
     private function goAwayPart3(nya:BuyerNyashuk, time:int = -1):void {
-        if (time == -1) time = 20;
-        nya.goNyaToXYPoint(new Point(3600*g.scaleFactor, 1760*g.scaleFactor), time, onGoAway);
+        if (time == -1) time = 28;
+        nya.goNyaToXYPoint(new Point(3600*g.scaleFactor, 1760*g.scaleFactor), 28, onGoAway);
     }
 
     private function onGoAway(nya:BuyerNyashuk,id:int):void {
@@ -290,6 +292,12 @@ public class ManagerBuyerNyashuk {
 
         var f1:Function = function (arr:Array, goAway:Boolean):void {
             try {
+            if (arr.length == 1 || !arr) {
+                nya.forceStopAnimation();
+                nya.idleFrontAnimation();
+                nya.walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
+                return;
+            }
                 nya.goWithPath(arr, f2, goAway);
             } catch (e:Error) {
                 Cc.error('ManagerBuyerNyashuk goNyaToPoint f1 error: ' + e.errorID + ' - ' + e.message);
@@ -326,12 +334,12 @@ public class ManagerBuyerNyashuk {
         nya.showFront(false);
         nya.walkAnimation();
         nya.walkPosition = BuyerNyashuk.LONG_OUTTILE_WALKING;
-        nya.goNyaToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 7, arrivePart1);
+        nya.goNyaToXYPoint(new Point(1500*g.scaleFactor, 676*g.scaleFactor), 28, arrivePart1);
     }
 
     private function arrivePart1(nya:BuyerNyashuk,id:int):void {
-        nya.flipIt(false);
-        nya.showFront(true);
+        nya.flipIt(true);
+        nya.showFront(false);
         var p:Point;
         if (id == 1)  p = new Point(30, -5);
         else  p = new Point(28, -5);
@@ -339,12 +347,12 @@ public class ManagerBuyerNyashuk {
         nya.walkPosition = BuyerNyashuk.SHORT_OUTTILE_WALKING;
         if (g.managerTutorial.isTutorial) {
             nya.walkAnimation();
-            nya.goNyaToXYPoint(p, 1, arrivePart2);
+            nya.goNyaToXYPoint(p, 6, arrivePart2);
         } else {
 //            cat.walkAnimation();
             nya.walkAnimation();
 //            cat.goCatToXYPoint(p, 2, arrivePart2);
-            nya.goNyaToXYPoint(p, 1, arrivePart2);
+            nya.goNyaToXYPoint(p, 6, arrivePart2);
         }
     }
 
