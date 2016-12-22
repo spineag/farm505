@@ -5,6 +5,11 @@ package windows.levelUp {
 import data.BuildType;
 import data.DataMoney;
 
+import dragonBones.Armature;
+import dragonBones.Slot;
+import dragonBones.animation.WorldClock;
+import dragonBones.starling.StarlingArmatureDisplay;
+
 import flash.display.Bitmap;
 import flash.display.StageDisplayState;
 import flash.geom.Rectangle;
@@ -48,6 +53,7 @@ public class WOLevelUp extends WindowMain {
     private var _arrItems:Array;
     private var _shift:int;
     private var _woBG:WindowBackground;
+    private var _armature:Armature;
 
     public function WOLevelUp() {
         super ();
@@ -58,7 +64,9 @@ public class WOLevelUp extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
 //        var st:String = g.dataPath.getGraphicsPath();
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/new_level.png',onLoad);
+//        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/new_level.png',onLoad);
+        if (g.allData.factory['new_level']) onLoad();
+        else g.loadAnimation.load('animations_json/new_level', 'new_level', onLoad);
 //        var bg:Image;
 //        bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newlevel_window_fon'));
 //        bg.x = -_woWidth/2 + 10;
@@ -153,18 +161,18 @@ public class WOLevelUp extends WindowMain {
 //        _callbackClickBG = null;
     }
 
-    private function onLoad(bitmap:Bitmap):void {
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'qui/new_level.png'].create() as Bitmap;
-        photoFromTexture(Texture.fromBitmap(bitmap));
+    private function onLoad():void {
+        _armature = g.allData.factory['new_level'].buildArmature("cat");
+        _source.addChild(_armature.display as StarlingArmatureDisplay);
+        WorldClock.clock.add(_armature);
+        (_armature.display as StarlingArmatureDisplay).y = -15;
+//        var st:String = g.dataPath.getGraphicsPath();
+//        bitmap = g.pBitmaps[st + 'qui/new_level.png'].create() as Bitmap;
+//        photoFromTexture(Texture.fromBitmap(bitmap));
+        photoFromTexture();
     }
 
-    private function photoFromTexture(tex:Texture):void {
-        var bg:Image;
-        bg = new Image(tex);
-        bg.x = -_woWidth/2 + 10;
-        bg.y = -_woHeight/2 + 15;
-        _source.addChild(bg);
+    private function photoFromTexture():void {
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
         _count = 1;
@@ -177,13 +185,25 @@ public class WOLevelUp extends WindowMain {
         _contClipRect.mask = new Quad(440,280);
         _contClipRect.x = -_woWidth/2 + 55;
         _contClipRect.y = 55;
+
         _txtNewLvl = new CTextField(200,100,"НОВЫЙ УРОВЕНЬ");
         _txtNewLvl.setFormat(CTextField.BOLD18, 16, Color.WHITE);
         _txtNewLvl.leading = -3;
+        var sp:Sprite = new Sprite();
+        var b:Slot = _armature.getSlot('text');
+        if (b) {
+            b.displayList = null;
+            b.display = sp;
+        }
         _txtNewObject = new CTextField(400,100,"ДОСТУПНЫ НОВЫЕ ОБЪЕКТЫ");
         _txtNewObject.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtLevel = new CTextField(300,100,"");
         _txtLevel.setFormat(CTextField.BOLD72, 51, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        var b:Slot = _armature.getSlot('number');
+        if (b) {
+            b.displayList = null;
+            b.display = sp;
+        }
         _txtContinue = new CTextField(110,100,"РАССКАЗАТЬ");
         _txtContinue.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtContinue.x = 3;
@@ -245,13 +265,14 @@ public class WOLevelUp extends WindowMain {
 
         _contClipRect.addChild(_contImage);
 
-        _txtNewLvl.x = -100;
-        _txtNewLvl.y = -55;
+        _txtNewLvl.x = -104;
+        _txtNewLvl.y = -50;
         _txtNewObject.x = -200;
         _txtNewObject.y = 110;
-        _txtLevel.x = -152;
-        _txtLevel.y = -118;
+        _txtLevel.x = -154;
+        _txtLevel.y = -108;
         _callbackClickBG = null;
+        _armature.animation.gotoAndPlayByFrame('idle');
 
 
         if (g.user.level >= 17) g.couponePanel.openPanel(true);
@@ -475,13 +496,17 @@ public class WOLevelUp extends WindowMain {
             _arrCells[i].deleteIt();
         }
         _arrCells.length = 0;
+        if (_armature) {
+            _source.removeChild(_armature.display as Sprite);
+            _armature = null;
+        }
         if (_contBtn) {
             _source.removeChild(_contBtn);
             _contBtn.deleteIt();
             _contBtn = null;
         }
         if (_leftArrow) {
-            source.removeChild(_leftArrow);
+            _source.removeChild(_leftArrow);
             _leftArrow.deleteIt();
             _leftArrow = null;
         }

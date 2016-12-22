@@ -119,7 +119,7 @@ public class LockedLand extends WorldObject {
         return _depth;
     }
 
-    public function addWild(w:Wild, d:Decor = null, _x:int = 0, _y:int = 0):void {
+    public function addWild(w:Wild = null, d:Decor = null, _x:int = 0, _y:int = 0):void {
         if (w == null) {
             _arrDecors.push(d);
             if (g.isActiveMapEditor) {
@@ -145,14 +145,12 @@ public class LockedLand extends WorldObject {
 
     public function sortWilds():void {
         if (g.isActiveMapEditor) return;
-        _arrWilds.sortOn('depth', Array.NUMERIC);
-        for (var i:int = 0; i < _arrWilds.length; i++) {
-            _build.setChildIndex(_arrWilds[i].source, i);
-        }
-
-        _arrWilds.sortOn('depth', Array.NUMERIC);
-        for (i = 0; i < _arrDecors.length; i++) {
-            _build.setChildIndex(_arrDecors[i].source, i);
+        var arr:Array = [];
+        arr = _arrWilds;
+        arr.concat(_arrDecors);
+        arr.sortOn('depth', Array.NUMERIC);
+        for (var i:int = 0; i < arr.length; i++) {
+            _build.setChildIndex(arr[i].source, i);
         }
     }
 
