@@ -38,28 +38,25 @@ public class ManagerQuest {
         if (_questUI) _questUI.hideQuestsIcons(v);
     }
 
-    public function checkQuestsOnStart():void {
-//        var qArr:Array = _qAllData.arrQuests;
-//        for (var i:int = 0; i < qArr.length; i++) {
-//            if (qArr[i].level <= g.user.level && !qArr[i].isAdded) {
-//                if (_userQuests[qArr[i].id] && _userQuests[qArr[i].id].getAward) continue;
-//                qArr[i].isAdded = true;
-//                if (_userQuests[qArr[i].id] && _userQuests[qArr[i].id].isDone) qArr[i].isDone = true;
-//                else qArr[i].isDone = false;
-//                _quests.push(qArr[i]);
-//                _questUI.addQuest(qArr[i], onQuestIconClick);
-//                if (!_userQuests[qArr[i].id]) {
-//                    _userQuests[qArr[i].id] = qArr[i];
-//                }
-//            }
-//        }
-        g.directServer.getUserQuests(onGetUserQuests);
+    public function getQuestsOnStart():void {
+//        if (g.user.level < 4) return;
+//        g.directServer.getUserQuests(onGetUserQuests);
     }
 
     private function onGetUserQuests(d:Object):void {
-        
+        trace(d);
+        getNewQuests();
     }
-    
+
+    public function getNewQuests():void {
+//        if (g.user.level < 4) return;
+//        g.directServer.getUserNewQuests(onGetNewQuests);
+    }
+
+    private function onGetNewQuests(d:Object):void {
+        trace(d);
+    }
+
     private function onQuestIconClick(qData:Object):void {
         _currentOpenedQuestInWO = qData;
         g.windowsManager.openWindow(WindowsManager.WO_QUEST, null, qData);

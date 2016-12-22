@@ -471,6 +471,10 @@ public class WOLevelUp extends WindowMain {
             g.managerTutorial.checkTutorialCallback();
         }
         g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
+        if (g.user.level == 3 || g.user.level == 4) g.managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
+
+        g.managerQuest.getNewQuests();
+        
         for (var i:int=0; i<_arrCells.length; i++) {
             _arrCells[i].deleteIt();
         }

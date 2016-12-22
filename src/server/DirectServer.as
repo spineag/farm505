@@ -884,8 +884,6 @@ public class DirectServer {
             g.userValidates.updateInfo('blueCount', g.user.blueCouponCount);
             g.user.globalXP = int(ob.xp);
             g.user.allNotification = int(ob.notification_new);
-            g.user.isOpenOrder = Boolean(ob.open_order == '1');
-            if (g.useNewTuts && g.user.level < 3) g.user.isOpenOrder = false; // temp
 
             g.user.dayDailyGift  = int(ob.day_daily_gift);
             g.user.countDailyGift  = int(ob.count_daily_gift);
@@ -918,6 +916,9 @@ public class DirectServer {
 
             g.user.level = int(ob.level);
             g.userValidates.updateInfo('level', g.user.level);
+            g.user.isOpenOrder = Boolean(ob.open_order == '1');
+            if (g.useNewTuts && g.user.level <= 3) g.user.isOpenOrder = false; // temp
+            
             g.user.checkUserLevel();
             if (ob.mouse_day) {
                 g.managerMouseHero.fillFromServer(ob.mouse_day, ob.mouse_count);
@@ -6525,11 +6526,6 @@ public class DirectServer {
     }
 
     public function getUserQuests(callback:Function):void {
-        if (callback != null) {
-            callback.apply(null, [{}]);
-            return;
-        }
-
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_QUESTS);
         var variables:URLVariables = new URLVariables();
@@ -6573,6 +6569,55 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('getUserQuests: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function getUserNewQuests(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_NEW_QUESTS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserNewQuests', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.level = g.user.level;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserNewQuests);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetUserNewQuests(e:Event):void { completeGetUserNewQuests(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserNewQuests error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserNewQuests(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserNewQuests: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserNewQuests: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserNewQuests OK', 5);
+            if (callback != null) {
+                callback.apply(null, [d]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getUserNewQuests: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }

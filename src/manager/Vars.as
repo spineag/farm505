@@ -240,7 +240,7 @@ public class Vars {
 
     private function initVariables():void {
 //        try {
-        if (testersArrayVK.indexOf((user as User).userSocialId)) useNewTuts = true;
+        if (testersArrayVK.indexOf((user as User).userSocialId) > -1) useNewTuts = true;
 
             cont.hideAll(true);
             startPreloader.setProgress(77);
@@ -543,8 +543,8 @@ public class Vars {
                         }
                     }
                 }
-                if ((user as User).level >= 3 && useNewTuts) {
-                    managerQuest.checkQuestsOnStart();
+                if (useNewTuts) {
+                    managerQuest.getQuestsOnStart();
                 }
             }
             managerMiniScenes.updateMiniScenesLengthOnGameStart();
