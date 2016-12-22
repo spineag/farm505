@@ -199,7 +199,7 @@ public class WOLevelUp extends WindowMain {
         _txtNewObject.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtLevel = new CTextField(300,100,"");
         _txtLevel.setFormat(CTextField.BOLD72, 51, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        var b:Slot = _armature.getSlot('number');
+        b = _armature.getSlot('number');
         if (b) {
             b.displayList = null;
             b.display = sp;
