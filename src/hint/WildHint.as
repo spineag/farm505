@@ -234,7 +234,7 @@ public class WildHint {
         _canHide = false;
         if (_btn && !_arrow) {
             _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
-            _arrow.animateAtPosition(_btn.x, _btn.y - _btn.height/2 - 2);
+            _arrow.animateAtPosition(_btn.x + _btn.width/2, _btn.y - _btn.height/2 - 2);
             _arrow.scaleIt(.7);
         }
     }

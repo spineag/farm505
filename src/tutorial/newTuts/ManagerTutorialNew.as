@@ -844,7 +844,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     private function initScene_15():void {
         var ar:Array = g.townArea.getCityObjectsById(57);
         for (var i:int=0; i<ar.length; i++) {
-            if ((ar[i] as Wild).posX == 10 && (ar[i] as Wild).posX == 31) {
+            if ((ar[i] as Wild).posX == 10 && (ar[i] as Wild).posY == 31) {
                 _tutorialObjects.push(ar[i]);
                 break;
             }
@@ -878,13 +878,13 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep15_3():void {
-        g.user.tutorialStep = 16;
-        updateTutorialStep();
-        Utils.createDelay(2, subStep15_10);
+        Utils.createDelay(3, subStep15_10);
     }
 
     private function subStep15_10():void {
         _subStep = 10;
+        g.user.tutorialStep = 16;
+        updateTutorialStep();
         _tutorialCallback = null;
         _tutorialObjects = [];
         _currentAction = TutorialAction.NONE;
