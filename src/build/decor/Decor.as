@@ -60,6 +60,7 @@ public class Decor extends WorldObject{
 
     public function removeLockedLand():void {
         _curLockedLand = null;
+        g.directServer.deleteUserWild(_dbBuildingId, null);
     }
 
     override public function onHover():void {

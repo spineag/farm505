@@ -137,6 +137,14 @@ public class BuyerNyashuk {
         g.windowsManager.openWindow(WindowsManager.WO_BUYER_NYASHUK, null, _buyerId, _data,this);
     }
 
+    public function noClick():void {
+        _source.endClickCallback = null;
+    }
+
+    public function yesClick():void {
+        _source.endClickCallback = onClick;
+    }
+
     private function onHover():void {
         if (_isHover) return;
         _isHover = true;
@@ -267,11 +275,8 @@ public class BuyerNyashuk {
     public function stopAnimation():void {
         showFront(true);
         if (_armature) _armature.animation.gotoAndStopByFrame('idle');
-//        if (armatureBack) armatureBack.animation.gotoAndStopByFrame('idle');
         if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, onFinishIdle);
         if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
-//        if (armatureBack.hasEventListener(EventObject.COMPLETE)) armatureBack.removeEventListener(EventObject.COMPLETE, onFinishIdleBack);
-//        if (armatureBack.hasEventListener(EventObject.LOOP_COMPLETE)) armatureBack.removeEventListener(EventObject.LOOP_COMPLETE, onFinishIdleBack);
     }
 
     public function forceStopAnimation():void {
@@ -283,19 +288,16 @@ public class BuyerNyashuk {
     public function walkAnimation():void {
         if (_booleanFront) _armature.animation.gotoAndPlayByFrame("run");
         else _armature.animation.gotoAndPlayByFrame("run_b");
-//        armatureBack.animation.gotoAndPlayByFrame("walk");
     }
 
     public function walkPackAnimation():void {
         if (_booleanFront) _armature.animation.gotoAndPlayByFrame("run");
         else _armature.animation.gotoAndPlayByFrame("run_b");
-//        armatureBack.animation.gotoAndPlayByFrame("walk_pack");
     }
 
     public function runAnimation():void {
         if (_booleanFront) _armature.animation.gotoAndPlayByFrame("run");
         else _armature.animation.gotoAndPlayByFrame("run_b");
-//        armatureBack.animation.gotoAndPlayByFrame("run");
     }
 
     // --------------- WALKING --------------

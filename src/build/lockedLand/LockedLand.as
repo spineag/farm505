@@ -235,7 +235,7 @@ public class LockedLand extends WorldObject {
         _arrWilds.length = 0;
 
         for (i =0; i<_arrDecors.length; i++) {
-            g.townArea.pasteBuild(_arrDecors[i], _arrDecors[i].source.x + _x, _arrDecors[i].source.y + _y, false, false);
+            g.townArea.pasteBuild(_arrDecors[i], _arrDecors[i].source.x + _x, _arrDecors[i].source.y + _y, true, false,true);
             (_arrDecors[i] as Decor).removeLockedLand();
         }
         _dataLand = null;

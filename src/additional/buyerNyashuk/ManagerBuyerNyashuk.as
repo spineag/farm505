@@ -218,6 +218,7 @@ public class ManagerBuyerNyashuk {
             Cc.error('ManagerBuyerNyashuk onReleaseOrder:: nya == null');
             return;
         }
+        nya.noClick();
         var i:int = _arrayNya.indexOf(nya);
         if (i > -1) {
             _arrayNya.splice(i, 1);
@@ -379,6 +380,7 @@ public class ManagerBuyerNyashuk {
             nya.idleFrontAnimation();
             nya.walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
         }
+        nya.yesClick();
     }
 }
 }

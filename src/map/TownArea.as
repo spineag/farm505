@@ -642,6 +642,11 @@ public class TownArea extends Sprite {
             if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
                 (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, worldObject as Decor, _x, _y);
                 (worldObject as Decor).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
+                if (isNewAtMap && g.isActiveMapEditor)
+                    g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) {
+                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                }
                 return;
             } else if (g.isActiveMapEditor) {
                 _cont.addChild(worldObject.source);
