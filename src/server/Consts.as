@@ -120,5 +120,6 @@ public class Consts {
     public static var INQ_GET_USER_QUESTS:String = 'getUserQuests.php';
     public static var INQ_GET_USER_NEW_QUESTS:String = 'getUserNewQuests.php';
     public static var INQ_OPEN_USER_ORDER:String = 'openUserOrder.php';
+    public static var INQ_CHEST_YELLOW:String = 'getChestYellow.php';
 }
 }
