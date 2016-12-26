@@ -691,9 +691,9 @@ public class TownArea extends Sprite {
                 _cityObjects.push(worldObject);
                 worldObject.updateDepth();
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-                for (var lk:int = worldObject.posY; lk < (worldObject.posY + worldObject.sizeY); lk++) {
-                    for (var pk:int = worldObject.posX; pk < (worldObject.posX + worldObject.sizeX); pk++) {
-                        fillTailMatrix(pk, lk, 0, 0, worldObject);
+                for (var l2:int = worldObject.posY; l2 < (worldObject.posY + worldObject.sizeY); l2++) {
+                    for (var p2:int = worldObject.posX; p2 < (worldObject.posX + worldObject.sizeX); p2++) {
+                        fillTailMatrix(p2, l2, 0, 0, worldObject);
                     }
                 }
                 if (isNewAtMap && g.isActiveMapEditor)
