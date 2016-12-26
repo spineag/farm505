@@ -3,6 +3,7 @@
  */
 package mouse {
 import build.WorldObject;
+import build.chestYellow.ChestYellow;
 import build.decor.Decor;
 import build.decor.DecorFence;
 import build.decor.DecorTail;
@@ -482,6 +483,7 @@ public class ToolsModifier {
             } else {
                 if (g.isActiveMapEditor && _activeBuilding is Wild) return;
                 if (g.isActiveMapEditor && _activeBuilding is Decor) return;
+                if (g.isActiveMapEditor && _activeBuilding is ChestYellow) return;
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
                 if (_moveGrid.isFree) {
                     _activeBuilding.source.filter = null;

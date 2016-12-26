@@ -3,6 +3,7 @@
  */
 package build.lockedLand {
 import build.WorldObject;
+import build.chestYellow.ChestYellow;
 import build.decor.Decor;
 import build.wild.Wild;
 import com.greensock.TweenMax;
@@ -29,6 +30,7 @@ public class LockedLand extends WorldObject {
     private var _dataLand:Object;
     private var _arrWilds:Array;
     private var _arrDecors:Array;
+    private var _arrChest:Array;
     private var _topRibbon:Sprite;
     private var _bottomRibbon:Sprite;
     private var _armatureOpen:Armature;
@@ -42,6 +44,7 @@ public class LockedLand extends WorldObject {
         }
         _arrWilds = [];
         _arrDecors = [];
+        _arrChest = [];
         _dataLand = g.allData.lockedLandData[_data.dbId];
         if (!_dataLand && !g.isAway) {
             Cc.error('no dataLand for LockedLand _data.dbId: ' + _data.dbId);
@@ -119,9 +122,19 @@ public class LockedLand extends WorldObject {
         return _depth;
     }
 
-    public function addWild(w:Wild = null, d:Decor = null, _x:int = 0, _y:int = 0):void {
-        if (w == null) {
-            _arrDecors.push(d);
+    public function addWild(w:Wild = null, d:Decor = null, c:ChestYellow = null, _x:int = 0, _y:int = 0):void {
+        if (w != null) {
+            _arrDecors.push(w);
+            if (g.isActiveMapEditor) {
+                g.cont.contentCont.addChild(w.source);
+            } else {
+                w.source.x = _x - _source.x;
+                w.source.y = _y - _source.y;
+                w.updateDepth();
+                _build.addChild(w.source);
+            }
+        } else if (d != null) {
+            _arrWilds.push(d);
             if (g.isActiveMapEditor) {
                 g.cont.contentCont.addChild(d.source);
             } else {
@@ -130,15 +143,15 @@ public class LockedLand extends WorldObject {
                 d.updateDepth();
                 _build.addChild(d.source);
             }
-        }else {
-            _arrWilds.push(w);
+        } else if (c != null) {
+            _arrChest.push(c);
             if (g.isActiveMapEditor) {
-                g.cont.contentCont.addChild(w.source);
+                g.cont.contentCont.addChild(c.source);
             } else {
-                w.source.x = _x - _source.x;
-                w.source.y = _y - _source.y;
-                w.updateDepth();
-                _build.addChild(w.source);
+                c.source.x = _x - _source.x;
+                c.source.y = _y - _source.y;
+                c.updateDepth();
+                _build.addChild(c.source);
             }
         }
     }
@@ -148,6 +161,7 @@ public class LockedLand extends WorldObject {
         var arr:Array = [];
         arr = _arrWilds;
         arr.concat(_arrDecors);
+        arr.concat(_arrChest);
         arr.sortOn('depth', Array.NUMERIC);
         for (var i:int = 0; i < arr.length; i++) {
             _build.setChildIndex(arr[i].source, i);
@@ -240,6 +254,13 @@ public class LockedLand extends WorldObject {
         }
         _dataLand = null;
         _arrDecors.length = 0;
+
+        for (i =0; i<_arrDecors.length; i++) {
+            g.townArea.pasteBuild(_arrDecors[i], _arrDecors[i].source.x + _x, _arrDecors[i].source.y + _y, true, false,true);
+            (_arrDecors[i] as Decor).removeLockedLand();
+        }
+        _dataLand = null;
+        _arrDecors.length = 0;
     }
 
     override public function clearIt():void {
@@ -325,21 +346,33 @@ public class LockedLand extends WorldObject {
             _arrDecors[i].source.y += _source.y;
             g.cont.contentCont.addChild(_arrDecors[i].source);
         }
+        for (i=0; i< _arrChest.length; i++) {
+            _build.removeChild(_arrChest[i].source);
+            _arrChest[i].source.x += _source.x;
+            _arrChest[i].source.y += _source.y;
+            g.cont.contentCont.addChild(_arrChest[i].source);
+        }
     }
 
-    public function activateOnMapEditor(w:Wild,d:Decor = null):void {
+    public function activateOnMapEditor(w:Wild = null, d:Decor = null, c:ChestYellow = null):void {
         if (w != null) {
             _build.removeChild(w.source);
             w.source.x += _source.x;
             w.source.y += _source.y;
             g.cont.contentCont.addChild(w.source);
             _arrWilds.splice(_arrWilds.indexOf(w), 1);
-        } else {
+        } else  if (d != null){
             _build.removeChild(d.source);
             d.source.x += _source.x;
             d.source.y += _source.y;
             g.cont.contentCont.addChild(d.source);
             _arrDecors.splice(_arrDecors.indexOf(d), 1);
+        } else {
+            _build.removeChild(c.source);
+            c.source.x += _source.x;
+            c.source.y += _source.y;
+            g.cont.contentCont.addChild(c.source);
+            _arrDecors.splice(_arrDecors.indexOf(c), 1);
         }
     }
 
@@ -356,6 +389,13 @@ public class LockedLand extends WorldObject {
             _arrDecors[i].source.x -= _source.x;
             _arrDecors[i].source.y -= _source.y;
             _build.addChild(_arrDecors[i].source);
+        }
+
+        for (i=0; i< _arrChest.length; i++) {
+            g.cont.contentCont.removeChild(_arrChest[i].source);
+            _arrChest[i].source.x -= _source.x;
+            _arrChest[i].source.y -= _source.y;
+            _build.addChild(_arrChest[i].source);
         }
     }
 

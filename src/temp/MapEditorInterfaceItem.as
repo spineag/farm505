@@ -3,11 +3,17 @@
  */
 package temp {
 import build.WorldObject;
+
+import data.BuildType;
+
 import manager.Vars;
 import mouse.ToolsModifier;
 import starling.display.Image;
+import starling.display.Quad;
 import starling.text.TextField;
 import starling.text.TextFieldAutoSize;
+import starling.utils.Color;
+
 import utils.CSprite;
 import utils.MCScaler;
 
@@ -27,14 +33,22 @@ public class MapEditorInterfaceItem {
         _txt.x = 45 - _txt.width/2;
         _txt.y = 5;
         source.addChild(_txt);
-        _image = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
-        _image.pivotX = _image.width /2;
-        _image.pivotY = _image.height /2;
-        MCScaler.scale(_image, 50, 50);
-        _image.x = 45;
-        _image.y = 50;
-        source.addChild(_image);
-
+        if (_data.buildType == BuildType.CHEST_YELLOW) {
+            var quad:Quad = new Quad(50, 50, Color.YELLOW);
+            quad.pivotX = quad.width / 2;
+            quad.pivotY = quad.height / 2;
+            quad.x = 45;
+            quad.y = 50;
+            source.addChild(quad);
+        } else {
+            _image = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
+            _image.pivotX = _image.width / 2;
+            _image.pivotY = _image.height / 2;
+            MCScaler.scale(_image, 50, 50);
+            _image.x = 45;
+            _image.y = 50;
+            source.addChild(_image);
+        }
         source.endClickCallback = onEndClick;
     }
 

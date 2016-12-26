@@ -3764,6 +3764,10 @@ public class DirectServer {
                 ob.posY = int(d.message['wild'][i].pos_y);
                 ob.dbId = int(d.message['wild'][i].id);
                 ob.isFlip = int(d.message['wild'][i].is_flip);
+                if (d.message['wild'][i].chest_id) {
+                    trace(int(d.message['wild'][i].chest_id));
+                    ob.chestId = int(d.message['wild'][i].chest_id);
+                }
                 p.userDataCity.objects.push(ob);
             }
             if (callback != null) {
@@ -4094,6 +4098,7 @@ public class DirectServer {
                 if (dataBuild) {
                     dataBuild.dbId = dbId;
                     dataBuild.isFlip = int(d.message[i].is_flip);
+                    dataBuild.chestId = int(d.message[i].chest_id);
 
                     ob = {};
                     ob.buildId = dataBuild.id;
@@ -4101,6 +4106,7 @@ public class DirectServer {
                     ob.posY = int(d.message[i].pos_y);
                     ob.isFlip = int(d.message[i].is_flip);
                     ob.dbId = dbId;
+                    ob.chestId = int(d.message[i].chest_id);
                     g.user.userDataCity.objects.push(ob);
 
                     var build:WorldObject = g.townArea.createNewBuild(dataBuild, dbId);
@@ -6667,6 +6673,54 @@ public class DirectServer {
         } else {
             Cc.error('openUserORder: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function getChestYellow(id:int,callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CHEST_YELLOW);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getChestYellow', 1);
+        variables = addDefault(variables);
+        variables.id = id;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetChestYellow);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetChestYellow(e:Event):void { completeGetChestYellow(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getChestYellow error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeGetChestYellow(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getChestYellow: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getChestYellow: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getChestYellow OK', 5);
+            if (callback != null) {
+                callback.apply(null,[d.message]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userInfo: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
