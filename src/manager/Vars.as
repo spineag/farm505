@@ -240,8 +240,6 @@ public class Vars {
 
     private function initVariables():void {
 //        try {
-        if (testersArrayVK.indexOf((user as User).userSocialId) > -1) useNewTuts = true;
-
             cont.hideAll(true);
             startPreloader.setProgress(77);
 
@@ -268,6 +266,8 @@ public class Vars {
                 socialNetworkID = int(flashVars['channel']);
             }
             SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
+            if (testersArrayVK.indexOf((user as User).userSocialId) > -1) useNewTuts = true;
+
             if (useNewTuts) {
                 managerTutorial = new ManagerTutorialNew();
             } else {

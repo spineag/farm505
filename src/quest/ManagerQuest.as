@@ -39,7 +39,7 @@ public class ManagerQuest {
     }
 
     public function getQuestsOnStart():void {
-//        if (g.user.level < 4) return;
+        if (g.user.level < 4) return;
 //        g.directServer.getUserQuests(onGetUserQuests);
     }
 
@@ -49,7 +49,7 @@ public class ManagerQuest {
     }
 
     public function getNewQuests():void {
-//        if (g.user.level < 4) return;
+        if (g.user.level < 4) return;
 //        g.directServer.getUserNewQuests(onGetNewQuests);
     }
 
