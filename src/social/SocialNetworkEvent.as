@@ -7,6 +7,7 @@ public class SocialNetworkEvent extends Event {
     public static const GET_FRIENDS:String = "getFriends";
     public static const GET_FRIENDS_BY_IDS:String = "getFriendsByIDs";
     public static const GET_USERS_BY_IDS:String = "getUsersByIDs";
+    public static const GET_TEMP_USERS_BY_IDS:String = "getTempUsersByIDs";
     public static const GET_APP_USERS:String = "getAppUsers";
     public static const GET_USERS_ONLINE:String = "getUsersOnline";
     public static const WALL_SAVE:String = "wallSave";

@@ -7,6 +7,9 @@ import analytic.AnalyticManager;
 import data.DataMoney;
 import flash.utils.getTimer;
 import manager.ManagerFilters;
+
+import social.SocialNetworkEvent;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.text.TextField;
@@ -299,11 +302,13 @@ public class WOPapper extends WindowMain {
             if (!p.photo) userIds.push(ar[i].userSocialId);
         }
         if (userIds.length) {
-            g.socialNetwork.getTempUsersInfoById(userIds, onGettingInfo);
+            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
+            g.socialNetwork.getTempUsersInfoById(userIds);
         }
     }
 
-    private function onGettingInfo(ar:Array):void {
+    private function onGettingInfo(e:SocialNetworkEvent):void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
         if (_leftPage) _leftPage.updateAvatars();
         if (_rightPage) _rightPage.updateAvatars();
     }

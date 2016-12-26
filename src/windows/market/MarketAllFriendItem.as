@@ -6,6 +6,9 @@ import com.junkbyte.console.Cc;
 import flash.display.Bitmap;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import social.SocialNetworkEvent;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.text.TextField;
@@ -64,7 +67,8 @@ public class MarketAllFriendItem{
 
                 g.load.loadImage(_person.photo, onLoadPhoto);
             } else {
-                g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
+                g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                g.socialNetwork.getTempUsersInfoById([_person.userSocialId]);
             }
         }
         if (_person.userSocialId != g.user.userSocialId) {
@@ -91,10 +95,12 @@ public class MarketAllFriendItem{
         return _person;
     }
 
-    private function onGettingUserInfo(ar:Array):void {
-        _person.name = ar[0].first_name;
-        _person.lastName = ar[0].last_name;
-        _person.photo = ar[0].photo_100;
+    private function onGettingUserInfo(e:SocialNetworkEvent):void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+        if (!_person.name) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
+//        _person.name = ar[0].first_name;
+//        _person.lastName = ar[0].last_name;
+//        _person.photo = ar[0].photo_100;
         _txtPersonName.text = _person.name;
         g.load.loadImage(_person.photo, onLoadPhoto);
     }

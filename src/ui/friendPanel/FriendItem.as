@@ -9,6 +9,9 @@ import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
 import preloader.miniPreloader.FlashAnimatedPreloader;
+
+import social.SocialNetworkEvent;
+
 import starling.display.Image;
 import starling.text.TextField;
 import starling.textures.Texture;
@@ -63,9 +66,12 @@ public class FriendItem {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
             if (_person.photo) {
+                Cc.ch('social', 'FriendItem photo: ' + _person.photo);
                 g.load.loadImage(_person.photo, onLoadPhoto);
             } else {
-                g.socialNetwork.getTempUsersInfoById([_person.userSocialId], onGettingUserInfo);
+                Cc.ch('social', 'FriendItem no photo for uid: ' + _person.userSocialId);
+                g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                g.socialNetwork.getTempUsersInfoById([_person.userSocialId]);
             }
         }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
@@ -135,8 +141,9 @@ public class FriendItem {
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
+        Cc.ch('social', 'FriendItem on load photo: ' + _person.photo);
         if (!bitmap) {
-            bitmap = g.pBitmaps[person.photo].create() as Bitmap;
+            bitmap = g.pBitmaps[_person.photo].create() as Bitmap;
 //            if (_preloader) {
 //                source.removeChild(_preloader.source);
 //                _preloader.deleteIt();
@@ -156,10 +163,12 @@ public class FriendItem {
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
-    private function onGettingUserInfo(ar:Array):void {
-        _person.name = ar[0].first_name;
-        _person.lastName = ar[0].last_name;
-        _person.photo = ar[0].photo_100;
+    private function onGettingUserInfo(e:SocialNetworkEvent):void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+        if (!_person.name) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
+//        _person.name = ar[0].first_name;
+//        _person.lastName = ar[0].last_name;
+//        _person.photo = ar[0].photo_100;
         setName(_person.name);
         g.load.loadImage(_person.photo, onLoadPhoto);
     }
