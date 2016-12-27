@@ -282,6 +282,15 @@ public class SN_OK extends SocialNetwork {
         }
     }
 
+    override public function reloadGame():void {
+        try {
+            Cc.stackch("info", "SocialNetwork:: game reloading");
+            ExternalInterface.call("reloadGame");
+        } catch (e:Error) {
+            Cc.warn("SocialNetwork:: cannot reload game");
+        }
+    }
+
 
 }
 }
