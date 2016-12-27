@@ -124,7 +124,7 @@ public class LockedLand extends WorldObject {
 
     public function addWild(w:Wild = null, d:Decor = null, c:ChestYellow = null, _x:int = 0, _y:int = 0):void {
         if (w != null) {
-            _arrDecors.push(w);
+            _arrWilds.push(w);
             if (g.isActiveMapEditor) {
                 g.cont.contentCont.addChild(w.source);
             } else {
@@ -134,7 +134,7 @@ public class LockedLand extends WorldObject {
                 _build.addChild(w.source);
             }
         } else if (d != null) {
-            _arrWilds.push(d);
+            _arrDecors.push(d);
             if (g.isActiveMapEditor) {
                 g.cont.contentCont.addChild(d.source);
             } else {
@@ -161,7 +161,7 @@ public class LockedLand extends WorldObject {
         var arr:Array = [];
         arr = _arrWilds;
         arr.concat(_arrDecors);
-        arr.concat(_arrChest);
+//        arr.concat(_arrChest);
         arr.sortOn('depth', Array.NUMERIC);
         for (var i:int = 0; i < arr.length; i++) {
             _build.setChildIndex(arr[i].source, i);
@@ -245,25 +245,27 @@ public class LockedLand extends WorldObject {
             g.townArea.pasteBuild(_arrWilds[i], _arrWilds[i].source.x + _x, _arrWilds[i].source.y + _y, false, false);
             (_arrWilds[i] as Wild).removeLockedLand();
         }
-        _dataLand = null;
         _arrWilds.length = 0;
 
         for (i =0; i<_arrDecors.length; i++) {
             g.townArea.pasteBuild(_arrDecors[i], _arrDecors[i].source.x + _x, _arrDecors[i].source.y + _y, true, false,true);
             (_arrDecors[i] as Decor).removeLockedLand();
         }
-        _dataLand = null;
         _arrDecors.length = 0;
 
-        for (i =0; i<_arrDecors.length; i++) {
-            g.townArea.pasteBuild(_arrDecors[i], _arrDecors[i].source.x + _x, _arrDecors[i].source.y + _y, true, false,true);
-            (_arrDecors[i] as Decor).removeLockedLand();
+        for (i =0; i<_arrChest.length; i++) {
+            g.townArea.pasteBuild(_arrChest[i], _arrChest[i].source.x + _x, _arrChest[i].source.y + _y, false,false);
+            (_arrChest[i] as ChestYellow).removeLockedLand();
+        }
+        if (_arrChest.length > 0) {
+            if (!g.allData.factory['blue_n']) g.loadAnimation.load('animations_json/chest_interface_yellow', 'chest_interface_yellow',null);
         }
         _dataLand = null;
-        _arrDecors.length = 0;
+        _arrChest.length = 0;
     }
 
-    override public function clearIt():void {
+
+override public function clearIt():void {
         onOut();
         _source.touchable = false;
         _dataLand = null;
@@ -372,7 +374,7 @@ public class LockedLand extends WorldObject {
             c.source.x += _source.x;
             c.source.y += _source.y;
             g.cont.contentCont.addChild(c.source);
-            _arrDecors.splice(_arrDecors.indexOf(c), 1);
+            _arrChest.splice(_arrChest.indexOf(c), 1);
         }
     }
 

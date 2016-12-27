@@ -686,7 +686,7 @@ public class TownArea extends Sprite {
                     g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 }
                 return;
-            } else if (g.isActiveMapEditor) {
+            } else  {
                 _cont.addChild(worldObject.source);
                 _cityObjects.push(worldObject);
                 worldObject.updateDepth();
