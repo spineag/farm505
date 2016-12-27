@@ -14,6 +14,7 @@ import data.OwnEvent;
 import dragonBones.Bone;
 
 import dragonBones.animation.WorldClock;
+import dragonBones.events.EventObject;
 
 import manager.ManagerFilters;
 
@@ -22,6 +23,8 @@ import manager.hitArea.ManagerHitArea;
 import mouse.ToolsModifier;
 
 import starling.events.Event;
+
+import windows.WindowsManager;
 
 public class ChestYellow extends WorldObject{
     private var _curLockedLand:LockedLand;
@@ -53,20 +56,16 @@ public class ChestYellow extends WorldObject{
 
     public function removeLockedLand():void {
         _curLockedLand = null;
-        g.directServer.deleteUserWild(_dbBuildingId, null);
     }
 
     private function onClick():void {
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-
             if (g.isActiveMapEditor) {
                 if (_curLockedLand) {
                     _curLockedLand.activateOnMapEditor(null,null, this);
                     _curLockedLand = null;
                 }
-                onOut();
-                g.townArea.moveBuild(this);
             } else if (!_curLockedLand) {
                 onOut();
                 if (g.selectedBuild) {
@@ -98,38 +97,43 @@ public class ChestYellow extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-
+            g.directServer.getChestYellow(dataBuild.chestId,openCallback);
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
+    }
+
+    private function openCallback(ob:Object):void {
+        g.windowsManager.openWindow(WindowsManager.WO_CHEST_YELLOW, deleteThisBuild,ob);
 
     }
 
     private function deleteThisBuild():void {
-       g.townArea.deleteBuild(this);
+        g.townArea.deleteBuild(this);
+        g.directServer.deleteUserWild(_dbBuildingId, null);
     }
 
     override public function onHover():void {
         if (g.selectedBuild) return;
+        if (_isOnHover) return;
         super.onHover();
-        if (!_isOnHover) {
-            makeOverAnimation();
-            _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-        }
+        var fEndOver:Function = function(e:Event=null):void {
+            _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlayByFrame('idle');
+        };
+        _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+        _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+        _armature.animation.gotoAndPlayByFrame('over');
+        _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         _isOnHover = true;
-        g.hint.showIt(_dataBuild.name);
     }
 
     override public function onOut():void {
-        if (_source) {
-            super.onOut();
-            _isOnHover = false;
-            if (_source) {
-                if (_source.filter) _source.filter.dispose();
-                _source.filter = null;
-            }
-            g.hint.hideIt();
-        }
+        super.onOut();
+        _isOnHover = false;
+        _source.filter.dispose();
+        _source.filter = null;
     }
 
 
