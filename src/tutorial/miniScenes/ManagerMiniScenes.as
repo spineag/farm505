@@ -152,23 +152,26 @@ public class ManagerMiniScenes {
         }
         if (needUpdate) saveUserMiniScenesData();
     }
+    
+    public function checkDeleteMiniScene():void {
+        if (isMiniScene) {
+            isMiniScene = false;
+            removeBlack();
+            if (_cutScene) _cutScene.hideIt(deleteCutScene);
+            deleteArrowAndDust();
+            if (_airBubble) _airBubble.hideIt();
+            _airBubble = null;
+            _miniSceneBuildings = [];
+            _miniSceneCallback = null;
+            _miniSceneResourceIDs = [];
+            _onHideWindowCallback = null;
+            _onHideWindowCallback = null;
+        }
+    }
 
     public function checkAvailableMiniScenesOnNewLevel():void {
         if (!g.useNewTuts) return;
         if (g.user.level > 3) {
-            if (isMiniScene) {
-                isMiniScene = false;
-                removeBlack();
-                if (_cutScene) _cutScene.hideIt(deleteCutScene);
-                deleteArrowAndDust();
-                if (_airBubble) _airBubble.hideIt();
-                _airBubble = null;
-                _miniSceneBuildings = [];
-                _miniSceneCallback = null;
-                _miniSceneResourceIDs = [];
-                _onHideWindowCallback = null;
-                _onHideWindowCallback = null;
-            }
             checkForAvailableLevels();
         } else if (g.user.level == 3) {
             checkForAvailableLevels();

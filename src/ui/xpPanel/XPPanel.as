@@ -106,6 +106,7 @@ public class XPPanel {
             g.userInventory.addNewElementsAfterGettingNewLevel();
             g.managerCats.calculateMaxCountCats();
             if (!g.useNewTuts || !g.user.level==3) g.managerOrder.checkOrders();
+            if (g.useNewTuts && (g.user.level == 4 || g.user.level == 5)) g.managerMiniScenes.checkDeleteMiniScene();
             if (g.user.level == g.dataBuilding.objectBuilding[45].blockByLevel)
                 g.managerDailyBonus.generateDailyBonusItems();
             if (g.user.level == 8) {
