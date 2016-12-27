@@ -58,7 +58,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
                 case 14: curFunc = initScene_14; break;
                 case 15: curFunc = initScene_15; break;
                 case 16: curFunc = initScene_16; break;
-                case 17: curFunc = initScene_17; break;
+//                case 17: curFunc = initScene_17; break;
 
                 default: Cc.error('unknown tuts step'); break;
             }
@@ -926,23 +926,23 @@ public class ManagerTutorialNew extends IManagerTutorial{
         _tutorialCallback = null;
         _tutorialObjects = [];
         _currentAction = TutorialAction.NONE;
-        g.user.tutorialStep = 17;
-        updateTutorialStep();
-        initScenes();
-    }
-
-    private function initScene_17():void {
-        _afterTutorialWindow = new AfterTutorialWindow();
-        Utils.createDelay(1.5, subStep17_1);
-    }
-
-    private function subStep17_1():void {
-        _subStep = 1;
-        _afterTutorialWindow.showIt(subStep17_2);
-    }
-
-    private function subStep17_2():void {
-        _subStep = 2;
+//        g.user.tutorialStep = 17;
+//        updateTutorialStep();
+//        initScenes();
+//    }
+//
+//    private function initScene_17():void {
+//        _afterTutorialWindow = new AfterTutorialWindow();
+//        Utils.createDelay(1.5, subStep17_1);
+//    }
+//
+//    private function subStep17_1():void {
+//        _subStep = 1;
+//        _afterTutorialWindow.showIt(subStep17_2);
+//    }
+//
+//    private function subStep17_2():void {
+//        _subStep = 2;
         g.user.tutorialStep = 101;
         updateTutorialStep();
         TUTORIAL_ON = false;
