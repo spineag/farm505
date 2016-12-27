@@ -4,6 +4,8 @@
 package windows.paperWindow {
 import analytic.AnalyticManager;
 
+import com.junkbyte.console.Cc;
+
 import data.DataMoney;
 import flash.utils.getTimer;
 import manager.ManagerFilters;
@@ -297,10 +299,13 @@ public class WOPapper extends WindowMain {
     private function checkSocialInfoForArray(ar:Array):void {
         var userIds:Array = [];
         var p:Someone;
+
+        Cc.ch('social', 'WOPapper: ar.length: ' + ar.length);
         for (var i:int=0; i<ar.length; i++) {
             p = g.user.getSomeoneBySocialId(ar[i].userSocialId);
             if (!p.photo) userIds.push(ar[i].userSocialId);
         }
+        Cc.ch('social', 'WOPapper: userIds.length: ' + userIds.length);
         if (userIds.length) {
             g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
             g.socialNetwork.getTempUsersInfoById(userIds);

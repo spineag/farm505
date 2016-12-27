@@ -28,7 +28,7 @@ public class SN_OK extends SocialNetwork {
             ExternalInterface.addCallback('getAppUsersHandler', getAppUsersHandler);
             ExternalInterface.addCallback('getFriendsByIdsHandler', getFriendsByIdsHandler);
             ExternalInterface.addCallback('onPaymentCallback', onPaymentCallback);
-            ExternalInterface.addCallback('getTempUsersInfoByIdCallback', getTempUsersInfoByIdCallback);
+            ExternalInterface.addCallback('getTempUsersInfoByIdHandler', getTempUsersInfoByIdCallback);
             ExternalInterface.addCallback('isInGroupCallback', isInGroupCallback);
         }
         super(flashVars);
@@ -125,7 +125,7 @@ public class SN_OK extends SocialNetwork {
 
     override public function getTempUsersInfoById(arr:Array):void {
         super.getTempUsersInfoById(arr);
-        ExternalInterface.call("getTempUsersInfoById", arr);
+        ExternalInterface.call("getTempUsersInfoById", arr, ["first_name", "last_name", "pic_5"]);
     }
 
     private function getTempUsersInfoByIdCallback(e:Object):void {

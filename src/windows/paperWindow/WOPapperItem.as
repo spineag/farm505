@@ -150,6 +150,7 @@ public class WOPapperItem {
 
     public function updateAvatar():void {
         if (!_data) return;
+        if (!_p.photo) _p = g.user.getSomeoneBySocialId(_p.userSocialId);
         _txtUserName.text = _p.name + ' ' + _p.lastName;
         g.load.loadImage(_p.photo, onLoadPhoto);
     }
@@ -190,8 +191,8 @@ public class WOPapperItem {
             _txtUserName.text = _p.name + ' ' + _p.lastName;
             g.load.loadImage(_p.photo, onLoadPhoto);
         } else {
-            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-            g.socialNetwork.getTempUsersInfoById([_p.userSocialId]);
+//            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+//            g.socialNetwork.getTempUsersInfoById([_p.userSocialId]);
             _txtUserName.text = '. . .';
 //            var arr:Array = new Array();
 //            arr.push('Александр Лугинин');
@@ -225,12 +226,12 @@ public class WOPapperItem {
         _btnBuyBot.clickCallback = onClickVisit;
     }
 
-    private function onGettingUserInfo(e:SocialNetworkSwitch):void {
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-        if (!_p.name) _p = g.user.getSomeoneBySocialId(_p.userSocialId);
-        _txtUserName.text = _p.name + ' ' + _p.lastName;
-        g.load.loadImage(_p.photo, onLoadPhoto);
-    }
+//    private function onGettingUserInfo(e:SocialNetworkSwitch):void {
+//        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+//        if (!_p.name) _p = g.user.getSomeoneBySocialId(_p.userSocialId);
+//        _txtUserName.text = _p.name + ' ' + _p.lastName;
+//        g.load.loadImage(_p.photo, onLoadPhoto);
+//    }
 
     public function fillItBot(ob:Object):void {
         _data = ob;
