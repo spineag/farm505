@@ -11,6 +11,10 @@ import manager.ManagerFilters;
 import manager.Vars;
 import preloader.miniPreloader.FlashAnimatedPreloader;
 import resourceItem.DropItem;
+
+import social.SocialNetworkEvent;
+import social.SocialNetworkSwitch;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -146,6 +150,7 @@ public class WOPapperItem {
 
     public function updateAvatar():void {
         if (!_data) return;
+        if (!_p.photo) _p = g.user.getSomeoneBySocialId(_p.userSocialId);
         _txtUserName.text = _p.name + ' ' + _p.lastName;
         g.load.loadImage(_p.photo, onLoadPhoto);
     }
@@ -186,14 +191,16 @@ public class WOPapperItem {
             _txtUserName.text = _p.name + ' ' + _p.lastName;
             g.load.loadImage(_p.photo, onLoadPhoto);
         } else {
-//            _txtUserName.text = _p.name + ' ' + _p.lastName;
-            var arr:Array = new Array();
-            arr.push('Александр Лугинин');
-            arr.push('Вадим Бойцов');
-            arr.push('Вадим Чебаненко');
-            arr.push('Мария Головина');
-
-            _txtUserName.text =   String(arr[int(Math.random()*arr.length)]);
+//            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+//            g.socialNetwork.getTempUsersInfoById([_p.userSocialId]);
+            _txtUserName.text = '. . .';
+//            var arr:Array = new Array();
+//            arr.push('Александр Лугинин');
+//            arr.push('Вадим Бойцов');
+//            arr.push('Вадим Чебаненко');
+//            arr.push('Мария Головина');
+//
+//            _txtUserName.text = String(arr[int(Math.random()*arr.length)]);
         }
         if (_data.needHelp > 0) {
             _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
@@ -218,6 +225,13 @@ public class WOPapperItem {
         _btnBuyBot.y = 120;
         _btnBuyBot.clickCallback = onClickVisit;
     }
+
+//    private function onGettingUserInfo(e:SocialNetworkSwitch):void {
+//        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+//        if (!_p.name) _p = g.user.getSomeoneBySocialId(_p.userSocialId);
+//        _txtUserName.text = _p.name + ' ' + _p.lastName;
+//        g.load.loadImage(_p.photo, onLoadPhoto);
+//    }
 
     public function fillItBot(ob:Object):void {
         _data = ob;

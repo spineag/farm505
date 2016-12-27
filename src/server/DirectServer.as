@@ -916,7 +916,7 @@ public class DirectServer {
 
             g.user.level = int(ob.level);
             g.userValidates.updateInfo('level', g.user.level);
-            g.user.isOpenOrder = Boolean(ob.open_order == '1');
+//            g.user.isOpenOrder = Boolean(ob.open_order == '1');
             if (g.useNewTuts && g.user.level <= 3) g.user.isOpenOrder = false; // temp
             
             g.user.checkUserLevel();

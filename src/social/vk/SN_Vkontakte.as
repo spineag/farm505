@@ -237,23 +237,21 @@ public class SN_Vkontakte extends SocialNetwork {
         }
     }
 
-    override public function getTempUsersInfoById(arr:Array, callback:Function):void {
-        var f1:Function = function(e:Array):void {
-            var ar:Array = [];
-            var buffer:Object;
-            for (var i:int=0; i < e.length; i++) {
-                buffer = e[i];
-                buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ? URL_AVATAR_BLANK : buffer.photo_100;
-                ar.push(buffer);
-            }
+    override public function getTempUsersInfoById(arr:Array):void {
+        super.getTempUsersInfoById(arr);
+        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, getTempFriendsByIDsHandler, onError);
+    }
 
-            g.user.addTempUsersInfo(ar);
-            if (callback != null) {
-                callback.apply(null, [ar]);
-            }
-        };
-        super.getTempUsersInfoById(arr, callback);
-        _apiConnection.api("users.get", {fields: "first_name, last_name, photo_100", user_ids: arr.join(",")}, f1, onError);
+    private function getTempFriendsByIDsHandler(arr:Array):void {
+        var ar:Array = [];
+        var buffer:Object;
+        for (var i:int=0; i < arr.length; i++) {
+            buffer = arr[i];
+            buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ? URL_AVATAR_BLANK : buffer.photo_100;
+            ar.push(buffer);
+        }
+        g.user.addTempUsersInfo(ar);
+        super.getTempUsersInfoByIdSucces();
     }
 
     override public function getPostsByIds(postIds:String):void {

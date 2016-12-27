@@ -58,6 +58,7 @@ import server.Server;
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
+import social.SocialNetworkSwitch;
 import starling.core.Starling;
 import starling.display.Stage;
 
@@ -266,7 +267,7 @@ public class Vars {
                 socialNetworkID = int(flashVars['channel']);
             }
             SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
-            if (testersArrayVK.indexOf((user as User).userSocialId) > -1) useNewTuts = true;
+            if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && testersArrayVK.indexOf((user as User).userSocialId) > -1) useNewTuts = true;
 
             if (useNewTuts) {
                 managerTutorial = new ManagerTutorialNew();

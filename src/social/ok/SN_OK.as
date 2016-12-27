@@ -28,7 +28,7 @@ public class SN_OK extends SocialNetwork {
             ExternalInterface.addCallback('getAppUsersHandler', getAppUsersHandler);
             ExternalInterface.addCallback('getFriendsByIdsHandler', getFriendsByIdsHandler);
             ExternalInterface.addCallback('onPaymentCallback', onPaymentCallback);
-            ExternalInterface.addCallback('getTempUsersInfoByIdCallback', getTempUsersInfoByIdCallback);
+            ExternalInterface.addCallback('getTempUsersInfoByIdHandler', getTempUsersInfoByIdCallback);
             ExternalInterface.addCallback('isInGroupCallback', isInGroupCallback);
         }
         super(flashVars);
@@ -123,14 +123,26 @@ public class SN_OK extends SocialNetwork {
         }
     }
 
-    override public function getTempUsersInfoById(arr:Array, callback:Function):void {
-        super.getTempUsersInfoById(arr, callback);
-        ExternalInterface.call("getTempUsersInfoById", arr);
+    override public function getTempUsersInfoById(arr:Array):void {
+        super.getTempUsersInfoById(arr);
+        ExternalInterface.call("getTempUsersInfoById", arr, ["first_name", "last_name", "pic_5"]);
     }
 
     private function getTempUsersInfoByIdCallback(e:Object):void {
         Cc.ch('social', 'OK: getTempUsersInfoByIdCallback:');
         if (e) Cc.obj('social', e);
+        var ar:Array = [];
+        var ob:Object;
+        for (var key:String in e) {
+            ob = {};
+            ob.uid = e[key].uid;
+            ob.first_name = e[key].first_name;
+            ob.last_name = e[key].last_name;
+            ob.photo_100 = e[key].pic_5;
+            ar.push(ob);
+        }
+        g.user.addTempUsersInfo(ar);
+        super.getTempUsersInfoByIdSucces();
     }
 
     // friends in App
@@ -180,17 +192,17 @@ public class SN_OK extends SocialNetwork {
         ExternalInterface.call("getFriendsByIds", arr, ["first_name", "last_name", "pic_5"]);
     }
 
-    private function getFriendsByIdsHandler(e:Array):void {
+    private function getFriendsByIdsHandler(e:Object):void {
         Cc.ch('social', 'OK: getFriendsByIdsHandler:');
         Cc.obj('social', e);
         var ob:Object;
-        for (var i:int = 0; i < e.length; i++) {
+        for (var key:String in e) {
             ob = {};
-            ob.uid = e[i].uid;
-            ob.first_name = e[i].first_name;
-            ob.last_name = e[i].last_name;
-            ob.photo_100 = e[i].pic_5;
-            g.user.addFriendInfo(e[i]);
+            ob.uid = e[key].uid;
+            ob.first_name = e[key].first_name;
+            ob.last_name = e[key].last_name;
+            ob.photo_100 = e[key].pic_5;
+            g.user.addFriendInfo(ob);
         }
         if (_friendsApp.length) {
             getFriendsByIDs(_friendsApp);

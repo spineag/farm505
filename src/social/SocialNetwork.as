@@ -134,7 +134,7 @@ public class SocialNetwork extends EventDispatcher {
 
     protected function getUsersByIDsSuccess(params:Object = null):void {
         Cc.ch('social', "SocialNetwork:: request to get info about friends by ids of current user completed successfully");
-        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_USERS_BY_IDS, false, false, params));
+//        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_USERS_BY_IDS, false, false, params));
     }
 
     public function getPostsByIds(postIds:String):void {
@@ -143,7 +143,7 @@ public class SocialNetwork extends EventDispatcher {
 
     protected function getPostsByIdsHandler(params:Object = null):void {
         Cc.ch('social', "SocialNetwork:: request to get info about posts by ids of current user completed successfully with params: " + String(params));
-        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_POST_INFO, false, false, params));
+//        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_POST_INFO, false, false, params));
     }
 
     public function getAppUsers():void {
@@ -155,15 +155,20 @@ public class SocialNetwork extends EventDispatcher {
         Cc.ch('social', "SocialNetwork:: request to get info about friends of current user completed successfully");
         Cc.ch("info", "SocialNetwork:: got " + _friendsApp.length + " app friends", 18);
         //_friendsIDs = _paramsFriends.concat();
-        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_APP_USERS, false, false));
+//        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_APP_USERS, false, false));
     }
 
     public function getUsersOnline():void {
         _friendsApp = [];
     }
 
-    public function getTempUsersInfoById(arr:Array, callback:Function):void { 
+    public function getTempUsersInfoById(arr:Array):void {
         Cc.ch('social', 'SocialNetwork:: getTempUsersInfoById');
+    }
+
+    protected function getTempUsersInfoByIdSucces():void {
+        Cc.ch('social', 'SocialNetwork:: getTempUsersInfoByIdSucces');
+        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, false, false));
     }
 
     protected function getUsersOnlineSuccess(e:Object):void {

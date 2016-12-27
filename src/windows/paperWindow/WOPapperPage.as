@@ -135,8 +135,8 @@ public class WOPapperPage {
 
     public function fillItems(ar:Array):void {
         for (var i:int=0; i< ar.length; i++) {
-            if (ar[i].isBotBuy) _arrItems[i].fillItBot(ar[i]);
-            else _arrItems[i].fillIt(ar[i]);
+            if (ar[i].isBotBuy) (_arrItems[i] as WOPapperItem).fillItBot(ar[i]);
+            else (_arrItems[i] as WOPapperItem).fillIt(ar[i]);
         }
     }
 
@@ -161,7 +161,7 @@ public class WOPapperPage {
 
     public function updateAvatars():void {
         for (var i:int=0; i< _arrItems.length; i++) {
-            if(!_arrItems[i].isBotBuy) _arrItems[i].updateAvatar();
+            if(!_arrItems[i].isBotBuy) (_arrItems[i] as WOPapperItem).updateAvatar();
         }
     }
 

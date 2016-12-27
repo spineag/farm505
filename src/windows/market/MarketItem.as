@@ -13,6 +13,9 @@ import manager.Vars;
 import resourceItem.CraftItem;
 import resourceItem.DropItem;
 import resourceItem.ResourceItem;
+
+import social.SocialNetworkEvent;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -771,7 +774,10 @@ public class MarketItem {
                 } else {
                     Cc.error('MarketItem:: no default_avatar_big');
                 }
-                if (_personBuyerTemp && _personBuyerTemp.buyerSocialId) g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId], onGettingUserInfo);
+                if (_personBuyerTemp && _personBuyerTemp.buyerSocialId) {
+                    g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                    g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId]);
+                }
                 else Cc.error('MarkertItem:: No _personBuyerTemp || _personBuyerTemp.buyerSocialId');
             } else {
                 if (_personBuyer.photo) {
@@ -805,7 +811,10 @@ public class MarketItem {
                     } else {
                         Cc.error('MarketItem:: no default_avatar_big texture');
                     }
-                    if (_personBuyer && _personBuyer.userSocialId) g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId], onGettingUserInfo);
+                    if (_personBuyer && _personBuyer.userSocialId) {
+                        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                        g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId]);
+                    }
                     else Cc.error('MarkertItem:: No _personBuyer || _personBuyer.buyerSocialId');
                 }
             }
@@ -901,19 +910,23 @@ public class MarketItem {
         _isUser = user;
     }
 
-    private function onGettingUserInfo(ar:Array):void {
-        Cc.info('on user info');
+    private function onGettingUserInfo(e:SocialNetworkEvent):void {
         if (!_personBuyer) {
-            _personBuyerTemp.photo = ar[0].photo_100;
-            g.load.loadImage(_personBuyerTemp.photo, onLoadPhoto);
+            _personBuyerTemp.photo = g.user.getSomeoneBySocialId(_personBuyerTemp.buyerSocialId).photo;
+            if (_personBuyerTemp.photo) {
+                g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                g.load.loadImage(_personBuyerTemp.photo, onLoadPhoto);
+            }
         }  else {
-            _personBuyer.photo = ar[0].photo_100;
-            g.load.loadImage(_personBuyer.photo, onLoadPhoto);
+            if (!_personBuyer.name) _personBuyer = g.user.getSomeoneBySocialId(_personBuyer.userSocialId);
+            if (_personBuyer.photo) {
+                g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                g.load.loadImage(_personBuyer.photo, onLoadPhoto);
+            }
         }
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
-        Cc.info('on load photo 1');
         if (!bitmap) {
             if (!_personBuyer)  bitmap = g.pBitmaps[_personBuyerTemp.photo].create() as Bitmap;
             else bitmap = g.pBitmaps[_personBuyer.photo].create() as Bitmap;
@@ -922,23 +935,20 @@ public class MarketItem {
             Cc.error('FriendItem:: no photo for userId: ' + _personBuyerTemp.buyerSocialId + 'or ' + _personBuyer.userSocialId);
             return;
         }
-        Cc.info('on load photo 2');
         photoFromTexture(Texture.fromBitmap(bitmap));
-        Cc.info('on load photo 3');
     }
 
     private function photoFromTexture(tex:Texture):void {
-        if (_avaDefault) _avaDefault = null;
-        if (source) source.removeChild(_avaDefault);
+        if (source && source.contains(_avaDefault)) source.removeChild(_avaDefault);
+        _avaDefault.dispose();
+        _avaDefault = null;
         if (tex) {
             _ava = new Image(tex);
-            _ava.visible = true;
             MCScaler.scale(_ava, 75, 75);
-            _ava.pivotX = _ava.width/2;
-            _ava.pivotY = _ava.height/2;
-            _ava.x = _bg.width/2 - 9;
-            _ava.y = _bg.height/2 - 30;
-    //        source.addChildAt(_ava,1);
+//            _ava.pivotX = _ava.width/2;
+//            _ava.pivotY = _ava.height/2;
+            _ava.x = _bg.width/2 - _ava.width/2;
+            _ava.y = _bg.height/2 - _ava.height/2 - 20;
             _imageCont.addChild(_ava);
         } else {
             Cc.error('MarketItem photoFromTexture:: no texture(')

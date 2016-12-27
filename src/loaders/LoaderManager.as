@@ -55,7 +55,7 @@ public class LoaderManager {
     }
 
     public function loadImage(url:String, callback:Function = null, ...callbackParams):void {
-        if (url == '') return;
+        if (url == '' || url == null) return;
 
         Cc.ch('load', 'try to load image: ' + url);
         if (g.pBitmaps[url]) {
