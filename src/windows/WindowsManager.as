@@ -233,7 +233,6 @@ public class WindowsManager {
                 wo = new PostOpenCave();
                 break;
             case POST_OPEN_FABRIC:
-                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID && !g.user.isTester) return;
                 wo = new PostOpenFabric();
                 break;
             case POST_DONE_ORDER:

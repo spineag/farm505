@@ -71,8 +71,9 @@ public class WALLNewLevel {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),bitmap,'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             try {
+                st = "https://505.ninja/content/wall/ok/wall_OK_7_" + g.user.level + ".jpg";
                 g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Ура! У меня новый уровень в игре Умелые Лапки! Теперь мне доступно еще больше уникальных объектов!'),
-                        null, st + 'wall/wall_new_level.jpg');
+                        null, st);
             } catch (e:Error) {
                 Cc.error('error during wallpost');
             }
