@@ -61,17 +61,17 @@ public class WindowMain {
         _isShowed = true;
         if (_source) {
             createBlackBG();
-            _source.x = g.managerResize.stageWidth / 2;
-            _source.y = g.managerResize.stageHeight / 2;
+            _source.x = g.managerResize.stageWidth/2;
+            _source.y = -g.managerResize.stageHeight/2;
             g.cont.addGameContListener(false);
             g.cont.windowsCont.addChild(_source);
 //            if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
 //                _source.scale = .8;
-//                TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, alpha: 1, onComplete: onShowingWindow});
+                TweenMax.to(_source, .3, {y: g.managerResize.stageHeight/2, onComplete: onShowingWindow});
 //            } else {
-                _source.scale = 1;
-                _source.alpha = 1;
-            Utils.createDelay(.2, onShowingWindow);
+//                _source.scale = 1;
+//                _source.alpha = 1;
+//            Utils.createDelay(.2, onShowingWindow);
 //            }
         }
     }
@@ -97,9 +97,10 @@ public class WindowMain {
 //                TweenMax.to(_source, .1, {scaleX: .8, scaleY: .8, alpha: 0, onComplete: onHideAnimation});
 //            else onHideAnimation();
 //        } else {
-        Utils.createDelay(.2, onHideAnimation);
+//        Utils.createDelay(.2, onHideAnimation);
 //            onHideAnimation();
 //        }
+        TweenMax.to(_source, .3, {y:-g.managerResize.stageHeight/2, onComplete: onHideAnimation});
     }
 
     public function hideItQuick():void {
