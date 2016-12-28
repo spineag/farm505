@@ -30,6 +30,8 @@ public class SN_OK extends SocialNetwork {
             ExternalInterface.addCallback('onPaymentCallback', onPaymentCallback);
             ExternalInterface.addCallback('getTempUsersInfoByIdHandler', getTempUsersInfoByIdCallback);
             ExternalInterface.addCallback('isInGroupCallback', isInGroupCallback);
+            ExternalInterface.addCallback('wallPostSave', wallSavePublic);
+            ExternalInterface.addCallback('wallPostCancel', wallCancelPublic);
         }
         super(flashVars);
     }
@@ -223,6 +225,14 @@ public class SN_OK extends SocialNetwork {
     override public function wallPostBitmap(uid:String, message:String, image:Bitmap, url:String = null, title:String = null, posttype:String = null):void {
         super.wallPostBitmap(uid, message, image, url, title, posttype);
         ExternalInterface.call("makeWallPost", uid, message, url);
+    }
+
+    public function wallCancelPublic():void {
+        super.wallCancel();
+    }
+
+    public function wallSavePublic():void {
+        super.wallSave();
     }
 
     override public function requestBox(uid:String, message:String, requestKey:String):void {
