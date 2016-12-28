@@ -1,1 +1,1 @@
-{"SubTexture":[{"y":0,"width":201,"x":0,"height":166,"name":"ch_down"},{"y":168,"width":190,"x":0,"height":143,"name":"ch_top"}],"imagePath":"texture.png","name":"chest_interface_yellow"}
+{"SubTexture":[{"height":354,"y":0,"width":714,"name":"glow","x":0},{"height":331,"y":355,"width":402,"name":"box_d","x":0},{"height":286,"y":355,"width":380,"name":"box_t","x":403}],"name":"chest_interface_yellow","imagePath":"texture.png"}

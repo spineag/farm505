@@ -21,6 +21,7 @@ public class CatPanel {
     private var _source:CSprite;
     private var _txtCount:CTextField;
     private var _txtZero:CTextField;
+    public var catBuing:Boolean;
 
     private var g:Vars = Vars.getInstance();
     public function CatPanel() {

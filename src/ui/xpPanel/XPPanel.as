@@ -4,6 +4,7 @@
 package ui.xpPanel {
 
 import flash.filters.GlowFilter;
+import flash.geom.Point;
 
 import manager.ManagerFilters;
 
@@ -78,7 +79,9 @@ public class XPPanel {
         _source.y = 17;
         _source.x = g.managerResize.stageWidth - 170;
     }
-
+    public function getPanelPoints():Point {
+        return new Point(g.managerResize.stageWidth - 170,17);
+    }
     public function visualAddXP():void{
         animationStar();
         g.soundManager.playSound(SoundConst.XP_PLUS);
