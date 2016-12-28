@@ -127,7 +127,7 @@ public class ManagerHelpers {
     }
 
     private function lookForHelperReason():void {
-        var arr:Array =  _helperReason.reasons;
+        var arr:Array = _helperReason.reasons;
         var wasFinded:Boolean;
 
         for (var i:int = 0; i < arr.length; i++) {

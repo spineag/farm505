@@ -78,6 +78,7 @@ public class HelperReason {
 
     public function get reasons():Array {
         _arr.sort(randomize);
+        _arr.sort(randomize);
         return _arr.slice();
     }
 

@@ -105,18 +105,19 @@ public class StartPreloader {
     public function onResize():void {
         if (!_source) return;
         _source.x = g.managerResize.stageWidth/2 - 500;
+        if (g.managerResize.stageWidth > 1000 && !_leftIm) addIms();
     }
 
     private function addIms():void {
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            if (g.pBitmaps['uho1']) {
-                (g.pBitmaps['uho1'] as PBitmap).deleteIt();
-                delete g.pBitmaps['uho1'];
-            }
-            if (g.pBitmaps['uho2']) {
-                (g.pBitmaps['uho2'] as PBitmap).deleteIt();
-                delete g.pBitmaps['uho2'];
-            }
+        if (g.managerResize.stageWidth < 1004) {
+//            if (g.pBitmaps['uho1']) {
+//                (g.pBitmaps['uho1'] as PBitmap).deleteIt();
+//                delete g.pBitmaps['uho1'];
+//            }
+//            if (g.pBitmaps['uho2']) {
+//                (g.pBitmaps['uho2'] as PBitmap).deleteIt();
+//                delete g.pBitmaps['uho2'];
+//            }
             return;
         }
         if (!_leftIm) {

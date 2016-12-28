@@ -30,6 +30,8 @@ public class SN_OK extends SocialNetwork {
             ExternalInterface.addCallback('onPaymentCallback', onPaymentCallback);
             ExternalInterface.addCallback('getTempUsersInfoByIdHandler', getTempUsersInfoByIdCallback);
             ExternalInterface.addCallback('isInGroupCallback', isInGroupCallback);
+            ExternalInterface.addCallback('wallPostSave', wallSavePublic);
+            ExternalInterface.addCallback('wallPostCancel', wallCancelPublic);
         }
         super(flashVars);
     }
@@ -225,6 +227,14 @@ public class SN_OK extends SocialNetwork {
         ExternalInterface.call("makeWallPost", uid, message, url);
     }
 
+    public function wallCancelPublic():void {
+        super.wallCancel();
+    }
+
+    public function wallSavePublic():void {
+        super.wallSave();
+    }
+
     override public function requestBox(uid:String, message:String, requestKey:String):void {
         showInviteWindow();
     }
@@ -279,6 +289,15 @@ public class SN_OK extends SocialNetwork {
             g.managerQuest.onFinishActionForQuestByType(ManagerQuest.ADD_TO_GROUP);
 //        } else {
 //            Link.openURL(urlSocialGroup);
+        }
+    }
+
+    override public function reloadGame():void {
+        try {
+            Cc.stackch("info", "SocialNetwork:: game reloading");
+            ExternalInterface.call("reloadGame");
+        } catch (e:Error) {
+            Cc.warn("SocialNetwork:: cannot reload game");
         }
     }
 
