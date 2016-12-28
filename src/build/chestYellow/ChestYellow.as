@@ -87,25 +87,24 @@ public class ChestYellow extends WorldObject{
                 g.townArea.deleteBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-            onOut();
-            releaseFlip();
-            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         } else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
             // ничего не делаем вообще
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            g.directServer.getChestYellow(dataBuild.chestId,openCallback);
+            if (!g.allData.factory['chest_interface_yellow']) g.loadAnimation.load('animations_json/chest_interface_yellow', 'chest_interface_yellow', onLoad);
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
     }
 
+    private function onLoad():void {
+        g.directServer.getChestYellow(dataBuild.chestId,openCallback);
+    }
+
     private function openCallback(ob:Object):void {
         g.windowsManager.openWindow(WindowsManager.WO_CHEST_YELLOW, deleteThisBuild,ob);
-
     }
 
     private function deleteThisBuild():void {
@@ -132,8 +131,9 @@ public class ChestYellow extends WorldObject{
     override public function onOut():void {
         super.onOut();
         _isOnHover = false;
-        _source.filter.dispose();
-        _source.filter = null;
+        if (_source) {
+            _source.filter = null;
+        }
     }
 
 

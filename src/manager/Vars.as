@@ -534,7 +534,9 @@ public class Vars {
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
                 managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
-                if ((user as User).isTester) {
+//                if ((user as User).level >= 6) {
+//                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+//                } else {
                     if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
                     else {
                         var todayDailyGift:Date = new Date((user as User).dayDailyGift * 1000);
@@ -544,9 +546,9 @@ public class Vars {
                         }
                     }
                 }
-                if (useNewTuts) {
-                    managerQuest.getQuestsOnStart();
-                }
+//            }
+            if (useNewTuts) {
+                managerQuest.getQuestsOnStart();
             }
             managerMiniScenes.updateMiniScenesLengthOnGameStart();
             managerButterfly = new ManagerButterfly();

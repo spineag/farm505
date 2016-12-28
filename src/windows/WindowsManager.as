@@ -43,6 +43,7 @@ import windows.serverCrack.WOServerCrack;
 import windows.serverError.WOServerError;
 import windows.serverNoWork.WOSeverNoWork;
 import windows.shop.WOShop;
+import windows.starterPackWindow.WOStarterPack;
 import windows.tipsWindow.WOTips;
 import windows.train.WOTrain;
 import windows.train.WOTrainOrder;
@@ -100,6 +101,7 @@ public class WindowsManager {
     public static const WO_TIPS:String = 'tips';
     public static const WO_QUEST:String = 'quest';
     public static const WO_CHEST_YELLOW:String = 'chest_yellow';
+    public static const WO_STARTER_PACK:String = 'starter_pack';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -262,6 +264,9 @@ public class WindowsManager {
                 break;
             case WO_CHEST_YELLOW:
                 wo = new WOChestYellow();
+                break;
+            case WO_STARTER_PACK:
+                wo = new WOStarterPack();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

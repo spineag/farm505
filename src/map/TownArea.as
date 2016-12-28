@@ -1662,6 +1662,10 @@ public class TownArea extends Sprite {
             case BuildType.DECOR_FENCE_ARKA:
                 build = new DecorFenceArka(_data);
                 break;
+            case BuildType.CHEST_YELLOW:
+                build = new ChestYellow(_data);
+                break;
+
         }
 
         if (!build) {
@@ -1687,6 +1691,44 @@ public class TownArea extends Sprite {
             Cc.error('TownArea pasteAwayBuild:: empty worldObject');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
+        }
+        if (worldObject is Decor) {
+            point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
+            worldObject.posX = posX;
+            worldObject.posY = posY;
+            worldObject.source.x = int(point.x);
+            worldObject.source.y = int(point.y);
+            if (_townAwayMatrix[worldObject.posY][worldObject.posX].build && _townAwayMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
+                (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, worldObject as Decor,null, point.x, point.y);
+                (worldObject as Decor).setLockedLand(_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
+                return;
+            } else if (g.isActiveMapEditor) {
+                _cont.addChild(worldObject.source);
+                _cityAwayObjects.push(worldObject);
+                worldObject.updateDepth();
+                fillAwayMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+                return;
+            }
+        }
+
+        if (worldObject is ChestYellow) {
+            point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
+            worldObject.posX = posX;
+            worldObject.posY = posY;
+            worldObject.source.x = int(point.x);
+            worldObject.source.y = int(point.y);
+            if (_townAwayMatrix[worldObject.posY][worldObject.posX].build && _townAwayMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
+                (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, null, worldObject as ChestYellow, point.x, point.y);
+                (worldObject as ChestYellow).setLockedLand(_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
+
+                return;
+            } else  {
+                _cont.addChild(worldObject.source);
+                _cityAwayObjects.push(worldObject);
+                worldObject.updateDepth();
+                fillAwayMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+                return;
+            }
         }
             if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
                     worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus|| worldObject is LockedLand || worldObject is Wild ||

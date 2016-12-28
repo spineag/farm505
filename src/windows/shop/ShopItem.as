@@ -669,7 +669,8 @@ public class ShopItem {
                 }
             }
         } else if (_data.buildType == BuildType.CAT) {
-            curCount = g.managerCats.curCountCats;
+            if (g.catPanel.catBuing) curCount = g.managerCats.curCountCats +1 ;
+            else curCount = g.managerCats.curCountCats;
             maxCount = g.managerCats.maxCountCats;
             if (curCount >= maxCount) {
                 createShopLimitSprite();
@@ -750,7 +751,8 @@ public class ShopItem {
             } else return;
         }
         if (_data.buildType == BuildType.CAT) {
-            _countCost = g.dataCats[g.managerCats.curCountCats].cost;
+            if (g.catPanel.catBuing) _countCost = g.dataCats[g.managerCats.curCountCats+1].cost;
+            else _countCost = g.dataCats[g.managerCats.curCountCats].cost;
             _data.cost = _countCost;
         }
         if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.deleteArrowAndDust();
@@ -873,7 +875,9 @@ public class ShopItem {
             updateItem();
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -int(_data.cost));
 //            showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.cost));
+            g.catPanel.catBuing = true;
             g.managerCats.onBuyCatFromShop();
+
             if (g.managerTips) g.managerTips.calculateAvailableTips();
         } else if (_data.buildType != BuildType.ANIMAL) {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.BUY_FABRICA && g.managerTutorial.currentAction != TutorialAction.BUY_FARM) return;
@@ -1088,7 +1092,7 @@ public class ShopItem {
         var maxCount:int;
 
         if (_data.buildType == BuildType.CAT) {
-            curCount = g.managerCats.curCountCats;
+            curCount = g.managerCats.curCountCats+1;
             maxCount = g.managerCats.maxCountCats;
             if (curCount == maxCount) {
                 createShopLimitSprite();
@@ -1100,7 +1104,7 @@ public class ShopItem {
             } else {
                 _nameTxt.text = _data.name;
                 _countTxt.text = String(curCount) + '/' + String(maxCount);
-                _txtBtnBuyBlue.text = String(g.dataCats[g.managerCats.curCountCats].cost);
+                _txtBtnBuyBlue.text = String(g.dataCats[curCount].cost);
             }
         }
         _wo.updateMoneyCounts();

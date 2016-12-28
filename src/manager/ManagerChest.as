@@ -14,6 +14,7 @@ public class ManagerChest {
     public static const INSTRUMENT:int = 6;
     public static const MAX_CHEST:int = 5;
     public static const COST_OPEN:int = 5;
+    public static const XP:int = 6;
     private var _data:Object;
     private var _count:int;
     private var _chestBuildID:int = -1;

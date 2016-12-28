@@ -352,6 +352,7 @@ public class ManagerCats {
     private function onEndAdd(cat:HeroCat):void {
         cat.stopAnimation();
         cat.makeFreeCatIdle();
+        g.catPanel.catBuing = false;
     }
 
     public function jumpCatsFunny(f:Function = null):void {

@@ -257,9 +257,6 @@ public class LockedLand extends WorldObject {
             g.townArea.pasteBuild(_arrChest[i], _arrChest[i].source.x + _x, _arrChest[i].source.y + _y, false,false);
             (_arrChest[i] as ChestYellow).removeLockedLand();
         }
-        if (_arrChest.length > 0) {
-            if (!g.allData.factory['blue_n']) g.loadAnimation.load('animations_json/chest_interface_yellow', 'chest_interface_yellow',null);
-        }
         _dataLand = null;
         _arrChest.length = 0;
     }

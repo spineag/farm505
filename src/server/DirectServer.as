@@ -6724,6 +6724,53 @@ public class DirectServer {
         }
     }
 
+    public function getStarterPack(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_STARTER_PACK);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getChestYellow', 1);
+        variables = addDefault(variables);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetStarterPack);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetStarterPack(e:Event):void { completeGetStarterPack(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getChestYellow error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeGetStarterPack(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getChestYellow: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getChestYellow: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getChestYellow OK', 5);
+            if (callback != null) {
+                callback.apply(null,[d.message]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('userInfo: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'userInfo: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError on Auth User:: ' + e.text);
     }
