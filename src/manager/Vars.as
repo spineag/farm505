@@ -219,7 +219,7 @@ public class Vars {
     public var managerVisibleObjects:ManagerVisibleObjects;
     public var managerResize:ManagerResize;
 
-    private var testersArrayTuts:Array = ['191561520', '14663166', '33979940', '201166703', '23038255', '155912975' ,'272989922',  '102042944',  '206512584',  '34667267', '208452662', '201152139', '148154256', '122302536', '82812915'];
+    private var testersArrayTuts:Array = ['191561520', '14663166', '33979940', '201166703', '23038255', '155912975' ,'272989922',  '102042944',  '206512584',  '34667267', '208452662', '201152139', '148154256', '122302536', '82812915', '202427318'];
     private var testersArrayQuests:Array = ['191561520', '14663166', '33979940', '201166703', '23038255'];
     public var useNewTuts:Boolean = false;
     public var useQuests:Boolean = false;
