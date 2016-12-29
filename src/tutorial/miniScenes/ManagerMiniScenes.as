@@ -246,11 +246,11 @@ public class ManagerMiniScenes {
 
     private function order_3():void {
         g.cont.moveCenterToPos(40, 1, false, 2);
-        Utils.createDelay(3, order_4);
+        Utils.createDelay(5, order_4);
     }
 
     private function order_4():void {
-        g.cont.moveCenterToPos(31, 26, false, 2);
+        g.cont.moveCenterToPos(31, 26, false, 3);
     }
 
     private function firstOrderBuyer(c:OrderCat=null):void {
