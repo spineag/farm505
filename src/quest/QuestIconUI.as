@@ -4,6 +4,8 @@
 package quest {
 import manager.Vars;
 
+import starling.display.Image;
+
 import utils.CSprite;
 
 public class QuestIconUI {
@@ -15,13 +17,17 @@ public class QuestIconUI {
         _source.x = 70;
         g.cont.interfaceCont.addChild(_source);
         checkContPosition();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_quest_icon'));
+        im.x = -im.width/2;
+        im.y = -im.height/2;
+        _source.addChild(im);
     }
 
     public function checkContPosition():void {
         if (g.user.level > 16) {
-            _source.y = 210;
+            _source.y = 270;
         } else {
-            _source.y = 120;
+            _source.y = 180;
         }
     }
 

@@ -22,8 +22,12 @@ public class ManagerQuest {
 
     public function ManagerQuest() {
         if (!g.useQuests) return;
-        _questUI = new QuestIconUI();
         _userQuests = {};
+        addUI();
+    }
+
+    public function addUI():void {
+        if (g.user.level >= 5 && g.useQuests)  _questUI = new QuestIconUI();
     }
 
     public function hideQuestsIcons(v:Boolean):void {

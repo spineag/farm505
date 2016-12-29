@@ -50,7 +50,7 @@ public class ManagerVisibleObjects {
                         (ar[i] as WorldObject).showForOptimisation(false);
                     }
                 } else if (ar[i] is OrderCat) {
-                    if (isWorldObjectOnScreen(ar[i] as OrderCat)) {
+                    if (g.user.level < 4 || isWorldObjectOnScreen(ar[i] as OrderCat)) {
                         (ar[i] as OrderCat).showForOptimisation(true);
                     } else {
                         (ar[i] as OrderCat).showForOptimisation(false);

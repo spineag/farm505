@@ -207,7 +207,7 @@ public class ManagerMiniScenes {
     private function openOrderBuilding():void {
         if (g.isAway) return;
         if (g.user.level > _properties.level) {
-            order_10();
+            order_2();
             return;
         }
         if (!g.allData.factory['tutorialCatBig']) {
@@ -221,7 +221,7 @@ public class ManagerMiniScenes {
             addBlack();
             _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', order_1);
         } else {
-            order_10();
+            order_2();
         }
     }
 
@@ -230,16 +230,27 @@ public class ManagerMiniScenes {
         removeBlack();
         g.cont.moveCenterToPos(_miniSceneBuildings[0].posX - 3, _miniSceneBuildings[0].posY - 3);
         (_miniSceneBuildings[0] as Order).showArrow();
-        _miniSceneCallback = order_10;
+        _miniSceneCallback = order_2;
     }
 
-    private function order_10():void {
+    private function order_2():void {
         _miniSceneCallback = null;
         isMiniScene = false;
         g.user.miniScenes[0] = 1;
         saveUserMiniScenesData();
-        if (!g.managerOrder.countOrders) g.managerOrder.addOrderForMiniScenes(firstOrderBuyer);
-            else firstOrderBuyer();
+        if (!g.managerOrder.countOrders) {
+            g.managerOrder.addOrderForMiniScenes(firstOrderBuyer);
+            Utils.createDelay(1, order_3);
+        } else firstOrderBuyer();
+    }
+
+    private function order_3():void {
+        g.cont.moveCenterToPos(40, 1, false, 2);
+        Utils.createDelay(3, order_4);
+    }
+
+    private function order_4():void {
+        g.cont.moveCenterToPos(31, 26, false, 2);
     }
 
     private function firstOrderBuyer(c:OrderCat=null):void {
