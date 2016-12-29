@@ -38,6 +38,7 @@ import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
 import windows.paperWindow.WOPapper;
 import windows.quest.WOQuest;
+import windows.questList.WOQuestList;
 import windows.reloadPage.WOReloadGame;
 import windows.serverCrack.WOServerCrack;
 import windows.serverError.WOServerError;
@@ -100,6 +101,7 @@ public class WindowsManager {
     public static const WO_BUYER_NYASHUK:String = 'buyer_nyashuk';
     public static const WO_TIPS:String = 'tips';
     public static const WO_QUEST:String = 'quest';
+    public static const WO_QUEST_LIST:String = 'quest_list';
     public static const WO_CHEST_YELLOW:String = 'chest_yellow';
     public static const WO_STARTER_PACK:String = 'starter_pack';
 
@@ -254,6 +256,9 @@ public class WindowsManager {
                 break;
             case WO_QUEST:
                 wo = new WOQuest();
+                break;
+            case WO_QUEST_LIST:
+                wo = new WOQuestList();
                 break;
             case WO_DAILY_GIFT:
                 wo = new WODailyGift();

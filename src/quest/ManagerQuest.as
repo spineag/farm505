@@ -27,7 +27,11 @@ public class ManagerQuest {
     }
 
     public function addUI():void {
-        if (g.user.level >= 5 && g.useQuests)  _questUI = new QuestIconUI();
+        if (g.user.level >= 5 && g.useQuests) _questUI = new QuestIconUI(openWOList);
+    }
+
+    private function openWOList():void {
+        g.windowsManager.openWindow(WindowsManager.WO_QUEST_LIST, null);
     }
 
     public function hideQuestsIcons(v:Boolean):void {
@@ -53,10 +57,9 @@ public class ManagerQuest {
 //        trace(d);
     }
 
-    private function onQuestIconClick(qData:Object):void {
-        _currentOpenedQuestInWO = qData;
-        g.windowsManager.openWindow(WindowsManager.WO_QUEST, null, qData);
-    }
+
+
+
 
     private function onReleaseQuest(qData:Object):void {
         return;
