@@ -2,17 +2,8 @@
  * Created by andy on 9/9/16.
  */
 package quest {
-import data.DataMoney;
-
-import manager.ManagerWallPost;
 import manager.Vars;
-
-import social.SocialNetworkSwitch;
-
-import utils.Link;
-
 import windows.WindowsManager;
-import windows.quest.WOQuest;
 
 public class ManagerQuest {
     public static const ADD_TO_GROUP:int = 1;
@@ -25,36 +16,37 @@ public class ManagerQuest {
     public static const KILL_LOHMATICS:int = 8;
 
     private var g:Vars = Vars.getInstance();
-    private var _questUI:QuestUI;
+    private var _questUI:QuestIconUI;
     private var _userQuests:Object;
     private var _currentOpenedQuestInWO:Object;
 
     public function ManagerQuest() {
-        _questUI = new QuestUI();
+        if (!g.useQuests) return;
+        _questUI = new QuestIconUI();
         _userQuests = {};
     }
 
     public function hideQuestsIcons(v:Boolean):void {
-        if (_questUI) _questUI.hideQuestsIcons(v);
+        if (_questUI) _questUI.hideIt(v);
     }
 
     public function getQuestsOnStart():void {
         if (g.user.level < 4) return;
-        if (g.useNewTuts) g.directServer.getUserQuests(onGetUserQuests);
+        if (g.useQuests) g.directServer.getUserQuests(onGetUserQuests);
     }
 
     private function onGetUserQuests(d:Object):void {
-        trace(d);
+//        trace(d);
         getNewQuests();
     }
 
     public function getNewQuests():void {
         if (g.user.level < 4) return;
-        if (g.useNewTuts) g.directServer.getUserNewQuests(onGetNewQuests);
+        if (g.useQuests) g.directServer.getUserNewQuests(onGetNewQuests);
     }
 
     private function onGetNewQuests(d:Object):void {
-        trace(d);
+//        trace(d);
     }
 
     private function onQuestIconClick(qData:Object):void {
