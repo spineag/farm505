@@ -25,7 +25,7 @@ public class ManagerBuyerNyashuk {
 
     public function ManagerBuyerNyashuk() {
         _arrayNya = [];
-        if (g.user.isTester) g.directServer.getUserPapperBuy(null);
+        g.directServer.getUserPapperBuy(null);
     }
 
     public function fillBot(ar:Array):void {

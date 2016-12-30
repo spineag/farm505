@@ -94,6 +94,7 @@ public class ChestYellow extends WorldObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (!g.allData.factory['chest_interface_yellow']) g.loadAnimation.load('animations_json/chest_interface_yellow', 'chest_interface_yellow', onLoad);
+            else onLoad();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }

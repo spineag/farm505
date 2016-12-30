@@ -41,19 +41,25 @@ public class WOChestYellow extends WindowMain {
         _callback = callback;
         _data = params[0];
         var arr:Array = [];
-        var ob:Object ={};
-        ob.resource_id = _data.resource_id;
-        ob.resource_count = _data.resource_count;
-        ob.type = ManagerChest.RESOURCE;
-        arr.push(ob);
-        ob ={};
-        ob.money_count = _data.money_count;
-        ob.type = ManagerChest.SOFT_MONEY;
-        arr.push(ob);
-        ob ={};
-        ob.xp_count = _data.xp_count;
-        ob.type = ManagerChest.XP;
-        arr.push(ob);
+        if (_data.resource_id > 0) {
+            var ob:Object = {};
+            ob.resource_id = _data.resource_id;
+            ob.resource_count = _data.resource_count;
+            ob.type = ManagerChest.RESOURCE;
+            arr.push(ob);
+        }
+        if (_data.money_count > 0) {
+            ob = {};
+            ob.money_count = _data.money_count;
+            ob.type = ManagerChest.SOFT_MONEY;
+            arr.push(ob);
+        }
+        if (_data.xp_count > 0) {
+            ob ={};
+            ob.xp_count = _data.xp_count;
+            ob.type = ManagerChest.XP;
+            arr.push(ob);
+        }
             var fEndOver:Function = function():void {
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
