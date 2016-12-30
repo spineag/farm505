@@ -888,7 +888,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         _tutorialCallback = null;
         _tutorialObjects = [];
         _currentAction = TutorialAction.NONE;
-        initScenes();
+        Utils.createDelay(1, initScenes);
     }
 
 
