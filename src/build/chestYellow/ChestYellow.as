@@ -29,6 +29,7 @@ import windows.WindowsManager;
 public class ChestYellow extends WorldObject{
     private var _curLockedLand:LockedLand;
     private var _isOnHover:Boolean;
+    private var _click:Boolean;
 
     public function ChestYellow(data:Object) {
         super (data);
@@ -43,6 +44,7 @@ public class ChestYellow extends WorldObject{
         _hitArea = g.managerHitArea.getHitArea(_source, 'chest', ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
         WorldClock.clock.add(_armature);
+        _click = false;
     }
 
     public function setLockedLand(l:LockedLand):void {
@@ -93,7 +95,10 @@ public class ChestYellow extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
+            if (_click) return;
+            _click = true;
             if (!g.allData.factory['chest_interface_yellow']) g.loadAnimation.load('animations_json/chest_interface_yellow', 'chest_interface_yellow', onLoad);
+            else onLoad();
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }

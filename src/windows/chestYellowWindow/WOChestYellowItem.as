@@ -38,7 +38,11 @@ public class WOChestYellowItem {
         var im:Image;
         switch (_data.type) {
             case ManagerChest.RESOURCE:
-                im = new Image(g.allData.atlas[g.dataResource.objectResources[_data.resource_id].url].getTexture(g.dataResource.objectResources[_data.resource_id].imageShop));
+                    if (g.dataResource.objectResources[_data.resource_id].buildType == BuildType.PLANT) {
+                        im = new Image(g.allData.atlas[g.dataResource.objectResources[_data.resource_id].url].getTexture(g.dataResource.objectResources[_data.resource_id].imageShop + '_icon'));
+                    } else {
+                        im = new Image(g.allData.atlas[g.dataResource.objectResources[_data.resource_id].url].getTexture(g.dataResource.objectResources[_data.resource_id].imageShop));
+                    }
                 _txt = new CTextField(80, 60, '+' + String(_data.resource_count));
                 _txt.setFormat(CTextField.MEDIUM30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
                 break;

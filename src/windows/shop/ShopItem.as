@@ -379,9 +379,16 @@ public class ShopItem {
         }
 
         if (_data.buildType == BuildType.CAT) {
-            if (g.managerCats.curCountCats < g.managerCats.maxCountCats) {
-                _countCost = g.dataCats[g.managerCats.curCountCats].cost;
-                _data.cost = _countCost;
+            if (g.catPanel.catBuing) {
+                if (g.managerCats.curCountCats+1 < g.managerCats.maxCountCats) {
+                    _countCost = g.dataCats[g.managerCats.curCountCats+1].cost;
+                    _data.cost = _countCost;
+                }
+            } else {
+                if (g.managerCats.curCountCats < g.managerCats.maxCountCats) {
+                    _countCost = g.dataCats[g.managerCats.curCountCats].cost;
+                    _data.cost = _countCost;
+                }
             }
         } else {
             _countCost = _data.cost;

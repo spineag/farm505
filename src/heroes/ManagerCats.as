@@ -340,6 +340,7 @@ public class ManagerCats {
     private function onAdd(isWoman:int):void {
         var cat:HeroCat = new HeroCat(isWoman);
         _catsArray.push(cat);
+        g.catPanel.catBuing = false;
         cat.setPosition(new Point(31, 30));
         cat.addToMap();
         g.catPanel.checkCat();
@@ -352,7 +353,6 @@ public class ManagerCats {
     private function onEndAdd(cat:HeroCat):void {
         cat.stopAnimation();
         cat.makeFreeCatIdle();
-        g.catPanel.catBuing = false;
     }
 
     public function jumpCatsFunny(f:Function = null):void {

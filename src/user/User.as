@@ -57,6 +57,8 @@ public class User extends Someone {
     public var countAwayMouse:int;
     public var dayDailyGift:int;
     public var countDailyGift:int;
+    public var starterPack:Boolean;
+
     private var g:Vars = Vars.getInstance();
 
     public function User() {
