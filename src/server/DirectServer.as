@@ -6567,7 +6567,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'getUserQuests OK', 5);
             if (callback != null) {
-                callback.apply(null, [d]);
+                callback.apply(null, [d.message]);
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
@@ -6616,7 +6616,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'getUserNewQuests OK', 5);
             if (callback != null) {
-                callback.apply(null, [d]);
+                callback.apply(null, [d.message]);
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);

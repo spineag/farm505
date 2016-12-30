@@ -108,9 +108,9 @@ public class WOAmbarFilled extends WindowMain {
     }
     
     private function onShow():void {
-        _txtAmbarFilled.updateIt();
-        _txtBtn.updateIt();
-        _txtCount.updateIt();
+        if (_txtAmbarFilled) _txtAmbarFilled.updateIt();
+        if (_txtBtn) _txtBtn.updateIt();
+        if (_txtCount) _txtCount.updateIt();
     }
 
     override protected function deleteIt():void {
