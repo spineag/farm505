@@ -92,7 +92,7 @@ public class ManagerDropBonusResource {
                     obj = instrumentRandom();
                 } else {
                     obj.count = 1;
-                    obj.id = 1;
+                    obj.id = 124;
                     obj.variaty = 1;
                     obj.type = DROP_TYPE_RESOURSE;
                 }
@@ -101,7 +101,7 @@ public class ManagerDropBonusResource {
                     obj = instrumentRandom();
                 } else {
                     obj.count = 1;
-                    obj.id = 124;
+                    obj.id = 5;
                     obj.variaty = 1;
                     obj.type = DROP_TYPE_RESOURSE;
                 }
@@ -110,7 +110,7 @@ public class ManagerDropBonusResource {
                     obj = instrumentRandom();
                 } else {
                     obj.count = 1;
-                    obj.id = 6;
+                    obj.id = 1;
                     obj.variaty = 1;
                     obj.type = DROP_TYPE_RESOURSE;
                 }
@@ -119,7 +119,7 @@ public class ManagerDropBonusResource {
                     obj = instrumentRandom();
                 } else {
                     obj.count = 1;
-                    obj.id = 5;
+                    obj.id = 6;
                     obj.variaty = 1;
                     obj.type = DROP_TYPE_RESOURSE;
                 }

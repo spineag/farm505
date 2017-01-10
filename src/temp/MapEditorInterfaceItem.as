@@ -40,6 +40,14 @@ public class MapEditorInterfaceItem {
             quad.x = 45;
             quad.y = 50;
             source.addChild(quad);
+        } else if (_data.buildType == BuildType.DECOR_ANIMATION) {
+            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon'));
+            _image.pivotX = _image.width / 2;
+            _image.pivotY = _image.height / 2;
+            MCScaler.scale(_image, 50, 50);
+            _image.x = 45;
+            _image.y = 50;
+            source.addChild(_image);
         } else {
             _image = new Image(g.allData.atlas[_data.url].getTexture(_data.image));
             _image.pivotX = _image.width / 2;

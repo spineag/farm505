@@ -46,6 +46,7 @@ public class WOStarterPack extends WindowMain{
 
     public function WOStarterPack() {
         super();
+        if (g.user.starterPack) return;
         _decorSpr = new Sprite();
         _woHeight = 538;
         _woWidth = 732;

@@ -5,6 +5,8 @@ package build.decor {
 import analytic.AnalyticManager;
 
 import build.WorldObject;
+import build.lockedLand.LockedLand;
+
 import com.junkbyte.console.Cc;
 
 import dragonBones.Armature;
@@ -44,6 +46,7 @@ public class DecorAnimation extends WorldObject{
     private var _decorAnimation:int;
     private var  _awayAnimation:Boolean = false;
     private var _catRun:Boolean = true;
+    private var _curLockedLand:LockedLand;
 
     public function DecorAnimation(_data:Object) {
         super(_data);
@@ -103,13 +106,22 @@ public class DecorAnimation extends WorldObject{
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TEST, {id:2}); // temp
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-            onOut();
-            if (g.selectedBuild) {
-                if (g.selectedBuild == this) {
-                    g.toolsModifier.onTouchEnded();
-                } else return;
-            } else {
+            if (g.isActiveMapEditor) {
+                if (_curLockedLand) {
+                    _curLockedLand.activateOnMapEditor(null,null,null, this);
+                    _curLockedLand = null;
+                }
+                onOut();
                 g.townArea.moveBuild(this);
+            } else if (!_curLockedLand) {
+                onOut();
+                if (g.selectedBuild) {
+                    if (g.selectedBuild == this) {
+                        g.toolsModifier.onTouchEnded();
+                    } else return;
+                } else {
+                    g.townArea.moveBuild(this);
+                }
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
             onOut();
@@ -570,6 +582,20 @@ public class DecorAnimation extends WorldObject{
                 Cc.error('DecorAnimation changeTexture:: null Bone for oldName= ' + oldName + ' for decorId= ' + String(_dataBuild.id));
             }
         }
+    }
+
+    public function setLockedLand(l:LockedLand):void {
+        _curLockedLand = l;
+    }
+
+    public function get isAtLockedLand():Boolean {
+        if (_curLockedLand) return true;
+        else return false;
+    }
+
+    public function removeLockedLand():void {
+        _curLockedLand = null;
+        g.directServer.deleteUserWild(_dbBuildingId, null);
     }
 
     override public function clearIt():void {
