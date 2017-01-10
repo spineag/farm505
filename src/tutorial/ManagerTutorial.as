@@ -32,7 +32,7 @@ import windows.shop.WOShop;
 
 public class ManagerTutorial extends IManagerTutorial {
     private var cat:TutorialCat;
-    private var _cloud:TutorialCloud;
+//    private var _cloud:TutorialCloud;
 
     public function ManagerTutorial() {
        super();
@@ -134,31 +134,33 @@ public class ManagerTutorial extends IManagerTutorial {
     }
 
     private function initScene_1():void {
-        _cloud = new TutorialCloud(subStep1_1);
+//        _cloud = new TutorialCloud(subStep1_1);
         _mult = new TutorialMultNew();
+        subStep1_1();
     }
 
     private function subStep1_1():void {
-        g.startPreloader.hideIt();
-        g.startPreloader = null;
+//        g.startPreloader.hideIt();
+//        g.startPreloader = null;
         _subStep = 1;
-        if (!texts) texts = (new TutorialTexts()).objText;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_2, 1);
+        subStep1_5();
+//        if (!texts) texts = (new TutorialTexts()).objText;
+//        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_2, 1);
     }
 
     private function subStep1_2():void {
-        _subStep = 2;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_3, 2);
+//        _subStep = 2;
+//        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_3, 2);
     }
 
     private function subStep1_3():void {
-        _subStep = 3;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_4, 3);
+//        _subStep = 3;
+//        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_4, 3);
     }
 
     private function subStep1_4():void {
-        _subStep = 4;
-        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_5, 4);
+//        _subStep = 4;
+//        _cloud.showText(texts[g.user.tutorialStep][_subStep], subStep1_5, 4);
     }
 
     private function subStep1_5():void {
@@ -166,8 +168,10 @@ public class ManagerTutorial extends IManagerTutorial {
     }
 
     private function subStep1_6():void {
-        _cloud.deleteIt();
-        _cloud = null;
+//        _cloud.deleteIt();
+//        _cloud = null;
+        g.startPreloader.hideIt();
+        g.startPreloader = null;
     }
 
     private function subStep1_7():void {
@@ -2084,7 +2088,7 @@ public class ManagerTutorial extends IManagerTutorial {
 
         checkDefaults();
         if (_mult) _mult.onResize();
-        if (_cloud) _cloud.onResize();
+//        if (_cloud) _cloud.onResize();
 
         var p:Point = new Point();
         var ob:Object;
