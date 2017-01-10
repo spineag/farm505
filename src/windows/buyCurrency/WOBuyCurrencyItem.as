@@ -158,7 +158,7 @@ public class WOBuyCurrencyItem {
     }
 
     private function onClick():void {
-        if (g.isDebug) {
+        if (g.isDebug) {5
             onBuy();
         } else {
             if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {

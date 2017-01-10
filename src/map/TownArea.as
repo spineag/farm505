@@ -572,7 +572,8 @@ public class TownArea extends Sprite {
                 build = new Cave(_data);
                 break;
             case BuildType.CAT_HOUSE:
-                build = new CatHouse(_data);
+                if (g.user.isTester) build = new CatHouse(_data);
+//                else return;
                 break;
             case BuildType.DAILY_BONUS:
                 build = new DailyBonus(_data);
@@ -608,7 +609,7 @@ public class TownArea extends Sprite {
 
         if (!build) {
             Cc.error('TownArea:: BUILD is null for buildType: ' + _data.buildType);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+            if (g.windowsManager)g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return null;
         }
         (build as WorldObject).dbBuildingId = dbId;
@@ -628,7 +629,7 @@ public class TownArea extends Sprite {
         var point:Point;
         if (!worldObject) {
             Cc.error('TownArea pasteBuild:: empty worldObject');
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+            if (g.windowsManager) g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
             return;
         }
 
@@ -644,8 +645,42 @@ public class TownArea extends Sprite {
             worldObject.source.x = int(_x);
             worldObject.source.y = int(_y);
             if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
-                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, worldObject as Decor,null, _x, _y);
+                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, worldObject as Decor,null,null, _x, _y);
                 (worldObject as Decor).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
+                if (isNewAtMap && g.isActiveMapEditor)
+                    g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) {
+                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                }
+                return;
+            } else if (g.isActiveMapEditor) {
+                _cont.addChild(worldObject.source);
+                _cityObjects.push(worldObject);
+                worldObject.updateDepth();
+                fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+                for (var lk:int = worldObject.posY; lk < (worldObject.posY + worldObject.sizeY); lk++) {
+                    for (var pk:int = worldObject.posX; pk < (worldObject.posX + worldObject.sizeX); pk++) {
+                        fillTailMatrix(pk, lk, 0, 0, worldObject);
+                    }
+                }
+                if (isNewAtMap && g.isActiveMapEditor)
+                    g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) {
+                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
+                }
+                return;
+            }
+        }
+
+        if (worldObject is DecorAnimation) {
+            point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
+            worldObject.posX = point.x;
+            worldObject.posY = point.y;
+            worldObject.source.x = int(_x);
+            worldObject.source.y = int(_y);
+            if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
+                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, null, null, worldObject as DecorAnimation, _x, _y);
+                (worldObject as DecorAnimation).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
                 if (isNewAtMap && g.isActiveMapEditor)
                     g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
                 if (updateAfterMove && g.isActiveMapEditor) {
@@ -678,7 +713,7 @@ public class TownArea extends Sprite {
             worldObject.source.x = int(_x);
             worldObject.source.y = int(_y);
             if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
-                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, null, worldObject as ChestYellow, _x, _y);
+                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, null, worldObject as ChestYellow,null, _x, _y);
                 (worldObject as ChestYellow).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
                 if (isNewAtMap && g.isActiveMapEditor)
                     g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
@@ -724,7 +759,7 @@ public class TownArea extends Sprite {
             worldObject.source.x = int(_x);
             worldObject.source.y = int(_y);
             if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
-                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild,null,null, _x, _y);
+                (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild,null,null,null, _x, _y);
                 (worldObject as Wild).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
             } else {
                 _cont.addChild(worldObject.source);
@@ -1617,7 +1652,7 @@ public class TownArea extends Sprite {
                 build = new Ambar(_data);
                 break;
             case BuildType.CAT_HOUSE:
-                build = new CatHouse(_data);
+                if (g.user.isTester)build = new CatHouse(_data);
                 break;
             case BuildType.SKLAD:
                 build = new Sklad(_data);
@@ -1699,7 +1734,7 @@ public class TownArea extends Sprite {
             worldObject.source.x = int(point.x);
             worldObject.source.y = int(point.y);
             if (_townAwayMatrix[worldObject.posY][worldObject.posX].build && _townAwayMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
-                (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, worldObject as Decor,null, point.x, point.y);
+                (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, worldObject as Decor,null, null, point.x, point.y);
                 (worldObject as Decor).setLockedLand(_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
                 return;
             } else if (g.isActiveMapEditor) {
@@ -1718,7 +1753,7 @@ public class TownArea extends Sprite {
             worldObject.source.x = int(point.x);
             worldObject.source.y = int(point.y);
             if (_townAwayMatrix[worldObject.posY][worldObject.posX].build && _townAwayMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
-                (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, null, worldObject as ChestYellow, point.x, point.y);
+                (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, null, worldObject as ChestYellow, null, point.x, point.y);
                 (worldObject as ChestYellow).setLockedLand(_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
 
                 return;
@@ -1747,7 +1782,7 @@ public class TownArea extends Sprite {
             worldObject.source.x = int(point.x);
             worldObject.source.y = int(point.y);
             if (_townAwayMatrix[worldObject.posY][worldObject.posX].build && _townAwayMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
-                (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild,null,null, point.x, point.y);
+                (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(worldObject as Wild,null,null,null, point.x, point.y);
                 (worldObject as Wild).setLockedLand(_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
             } else {
                 worldObject.updateDepth();

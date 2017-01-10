@@ -538,6 +538,9 @@ public class Vars {
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
                 managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
+//                if (int((user as User).userSocialId) == 168207096) {
+//                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+//                }
 //                if ((user as User).level >= 6) {
 //                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
 //                } else {
