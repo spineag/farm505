@@ -219,7 +219,7 @@ public class Vars {
     public var managerVisibleObjects:ManagerVisibleObjects;
     public var managerResize:ManagerResize;
 
-    private var testersArrayTuts:Array = ['191561520', '14663166', '33979940', '201166703', '23038255', '155912975' ,'272989922', 
+    private var testersArrayTuts:Array = ['191561520', '14663166', '33979940', '201166703', '23038255', '155912975' ,'272989922',
         '102042944',  '206512584',  '34667267', '208452662', '201152139', '148154256', '122302536', '82812915', '202427318', '216083575', '382171121'];
     private var testersArrayQuests:Array = ['191561520'];
     public var useNewTuts:Boolean = false;
@@ -296,7 +296,6 @@ public class Vars {
             managerChest = new ManagerChest();
             townAreaTouchManager = new TownAreaTouchManager();
             soundManager = new SoundManager();
-            managerQuest = new ManagerQuest();
 
             socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
             socialNetwork.init();
@@ -467,6 +466,7 @@ public class Vars {
             friendPanel = new FriendPanel();
             toolsPanel = new ToolsPanel();
             stock = new StockPanel();
+            managerQuest = new ManagerQuest();
 //        } catch (e:Error) {
 //            Cc.stackch('error', 'initVariables2::', 10);
 //        }

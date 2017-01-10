@@ -8,6 +8,8 @@ import manager.Vars;
 import windows.WindowsManager;
 
 public class ManagerQuest {
+    public static const ICON_PATH:String = 'https://505.ninja/content/quest_icon/';
+
     public static const ADD_TO_GROUP:int = 1;
     public static const ADD_LEFT_MENU:int = 2;
     public static const POST:int = 3;
@@ -28,6 +30,10 @@ public class ManagerQuest {
         addUI();
     }
 
+    public function get userQuests():Array {
+        return _userQuests;
+    }
+
     public function addUI():void {
         if (g.user.level >= 5 && g.useQuests) _questUI = new QuestIconUI(openWOList);
     }
@@ -46,7 +52,7 @@ public class ManagerQuest {
     }
 
     private function onGetUserQuests(d:Object):void {
-//        trace(d);
+        addQuests(d, false);
         getNewQuests();
     }
 
@@ -56,24 +62,7 @@ public class ManagerQuest {
     }
 
     private function onGetNewQuests(d:Object):void {
-        if (d.quests.length) {
-            var q:QuestStructure;
-            var i:int;
-             for (i=0; i<d.quests.length; i++) {
-                 q = new QuestStructure();
-                 q.fillIt(d.quests[i]);
-                 _userQuests.push(q);
-             }
-            for (i=0; i<d.tasks.length; i++) {
-                q = getUserQuesrById(int(d.task.quest_id));
-                if (q) {
-                    q.addTask(d.task);
-                } else {
-                    Cc.error('ManagerQuests:: no quest with id: ' + d);
-                }
-            }
-        }
-
+        addQuests(d, true);
     }
 
     private function getUserQuesrById(id:int):QuestStructure {
@@ -81,6 +70,26 @@ public class ManagerQuest {
             if ((_userQuests[i] as QuestStructure).questId == id) return _userQuests[i];
         }
         return null;
+    }
+
+    private function addQuests(d:Object, isNew:Boolean):void {
+        if (d.quests.length) {
+            var q:QuestStructure;
+            var i:int;
+            for (i=0; i<d.quests.length; i++) {
+                q = new QuestStructure();
+                q.fillIt(d.quests[i]);
+                _userQuests.push(q);
+            }
+            for (i=0; i<d.tasks.length; i++) {
+                q = getUserQuesrById(int(d.tasks[i].quest_id));
+                if (q) {
+                    q.addTask(d.tasks[i]);
+                } else {
+                    Cc.error('ManagerQuests:: no quest with id: ' + d);
+                }
+            }
+        }
     }
 
 
