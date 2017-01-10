@@ -2,6 +2,8 @@
  * Created by andy on 9/9/16.
  */
 package quest {
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 import windows.WindowsManager;
 
@@ -17,12 +19,12 @@ public class ManagerQuest {
 
     private var g:Vars = Vars.getInstance();
     private var _questUI:QuestIconUI;
-    private var _userQuests:Object;
+    private var _userQuests:Array;
     private var _currentOpenedQuestInWO:Object;
 
     public function ManagerQuest() {
         if (!g.useQuests) return;
-        _userQuests = {};
+        _userQuests = [];
         addUI();
     }
 
@@ -39,7 +41,7 @@ public class ManagerQuest {
     }
 
     public function getQuestsOnStart():void {
-        if (g.user.level < 4) return;
+        if (g.user.level < 5) return;
         if (g.useQuests) g.directServer.getUserQuests(onGetUserQuests);
     }
 
@@ -49,15 +51,37 @@ public class ManagerQuest {
     }
 
     public function getNewQuests():void {
-        if (g.user.level < 4) return;
+        if (g.user.level < 5) return;
         if (g.useQuests) g.directServer.getUserNewQuests(onGetNewQuests);
     }
 
     private function onGetNewQuests(d:Object):void {
-//        trace(d);
+        if (d.quests.length) {
+            var q:QuestStructure;
+            var i:int;
+             for (i=0; i<d.quests.length; i++) {
+                 q = new QuestStructure();
+                 q.fillIt(d.quests[i]);
+                 _userQuests.push(q);
+             }
+            for (i=0; i<d.tasks.length; i++) {
+                q = getUserQuesrById(int(d.task.quest_id));
+                if (q) {
+                    q.addTask(d.task);
+                } else {
+                    Cc.error('ManagerQuests:: no quest with id: ' + d);
+                }
+            }
+        }
+
     }
 
-
+    private function getUserQuesrById(id:int):QuestStructure {
+        for (var i:int=0; i<_userQuests.length; i++) {
+            if ((_userQuests[i] as QuestStructure).questId == id) return _userQuests[i];
+        }
+        return null;
+    }
 
 
 
