@@ -13,6 +13,8 @@ import starling.display.Quad;
 import starling.text.TextField;
 import starling.utils.Color;
 
+import tutorial.TutorialAction;
+
 import utils.CTextField;
 import utils.SimpleArrow;
 import utils.CButton;
@@ -185,6 +187,7 @@ public class TimerHint {
         if (!_canHide && !force) return;
         if (_isOnHover && !force) return;
         if (!_isShow) return;
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) return;
         if (force) _closeTime = 0;
             else _closeTime = 1;
         g.gameDispatcher.addToTimer(closeTimer);
@@ -260,6 +263,8 @@ public class TimerHint {
 
     public function managerHide(callback:Function = null):void {
         if (_isShow) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) return;
+
             _closeTime = 1;
             var tween:Tween = new Tween(_source, 0.1);
             tween.scaleTo(0);

@@ -58,7 +58,7 @@ public class MiniSceneProps {
         obj = {};
         obj.id = 6;
         obj.prevId = 5; //
-        obj.reason = ManagerMiniScenes.AFTER_PREV_MINISCENE;
+        obj.reason = ManagerMiniScenes.BUY_INSTRUMENT;
         obj.level = 3;
         obj.text = "Инструмент лишним не бывает. Нажми, чтобы приобрести.";
         obj.text2 = "На рынках у друзей можно купить много чего интересного.";

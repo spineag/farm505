@@ -303,10 +303,11 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep7_3(ch:Animal):void {
+        _currentAction = TutorialAction.NONE;
+        if (g.timerHint) g.timerHint.managerHide();
         _subStep = 3;
         ch.removeArrow();
         ch.tutorialCallback = null;
-        _currentAction = TutorialAction.NONE;
         subStep7_4();
     }
 
@@ -878,6 +879,9 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep15_3():void {
+        _currentAction = TutorialAction.NONE;
+        _tutorialCallback = null;
+        if (g.wildHint) g.wildHint.managerHide();
         Utils.createDelay(3, subStep15_10);
     }
 
@@ -887,7 +891,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
         updateTutorialStep();
         _tutorialCallback = null;
         _tutorialObjects = [];
-        _currentAction = TutorialAction.NONE;
         Utils.createDelay(1, initScenes);
     }
 

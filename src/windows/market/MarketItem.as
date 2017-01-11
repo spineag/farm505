@@ -25,6 +25,7 @@ import starling.utils.Color;
 import temp.DropResourceVariaty;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
+import tutorial.miniScenes.ManagerMiniScenes;
 
 import user.NeighborBot;
 import user.Someone;
@@ -468,6 +469,8 @@ public class MarketItem {
                     if (g.managerTutorial.currentAction == TutorialAction.VISIT_NEIGHBOR)
                         g.managerTutorial.checkTutorialCallback();
                 }
+                if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.BUY_INSTRUMENT)) g.managerMiniScenes.checkMiniSceneCallback();
+
                 isFill = 2;
                 g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
             }

@@ -133,6 +133,7 @@ public class Order extends WorldObject{
                 p = _source.parent.localToGlobal(p);
                 new FlyMessage(p,"Будет доступно на 3 уровне");
             } else {
+                _stateBuild = STATE_ACTIVE;
                 _armature.addEventListener(EventObject.COMPLETE, onOpenOrder);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
                 _armature.animation.gotoAndPlayByFrame('top_l');
@@ -187,8 +188,7 @@ public class Order extends WorldObject{
     }
 
     private function onOpenOrder(e:Event=null):void {
-        _stateBuild = STATE_ACTIVE;
-        if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.checkMiniSceneCallback();
+        if (g.managerMiniScenes.isMiniScene && g.user.level == 3) g.managerMiniScenes.checkMiniSceneCallback();
         _armature.removeEventListener(EventObject.COMPLETE, onOpenOrder);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
         _armature.addEventListener(EventObject.COMPLETE, makeAnimation);

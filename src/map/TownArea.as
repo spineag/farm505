@@ -842,7 +842,7 @@ public class TownArea extends Sprite {
                 g.managerPlantRidge.onAddNewRidge(worldObject as Ridge);
             if (worldObject is Farm)
                 g.managerAnimal.onAddNewFarm(worldObject as Farm);
-            if (worldObject is Fabrica)
+            if (worldObject is Fabrica && g.managerMiniScenes.isMiniScene)
                 g.managerMiniScenes.onPasteFabrica((worldObject as Fabrica).dataBuild.id);
         } else {
             if (worldObject is DecorFence)

@@ -140,6 +140,7 @@ public class WildHint {
     public function hideIt():void {
         if (!_canHide) return;
         if (_isOnHover) return;
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.REMOVE_WILD) return;
         _closeTime = 1.5;
         g.gameDispatcher.addToTimer(closeTimer);
     }
@@ -209,6 +210,8 @@ public class WildHint {
 
     public function managerHide(callback:Function = null):void {
         if (_isShowed) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.REMOVE_WILD) return;
+
             var tween:Tween = new Tween(_source, 0.1);
             tween.scaleTo(0);
             tween.onComplete = function ():void {
