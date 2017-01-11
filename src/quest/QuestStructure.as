@@ -4,7 +4,7 @@
 package quest {
 public class QuestStructure {
     private var _tasks:Array;
-    private var _questUserDbId:int;
+    private var _questUserDbId:String;
     private var _questData:Object;
     private var _isGetAward:Boolean;
     private var _isDone:Boolean;
@@ -15,7 +15,7 @@ public class QuestStructure {
     }
 
     public function fillIt(ob:Object):void {
-        _questUserDbId = int(ob.id);
+        _questUserDbId = ob.id;
         _questData = ob.quest_data; // date_finish, date_start, description, icon_quest, id, level, only_testers, prev_quest_id, use_it
         _isGetAward = Boolean(ob.get_award == '1');
         _isDone = Boolean(ob.is_done == '1');
@@ -30,6 +30,10 @@ public class QuestStructure {
         var t:QuestTaskStructure = new QuestTaskStructure();
         t.fillIt(d);
         _tasks.push(t);
+    }
+
+    public function get iconPath():String {
+        return _questData.icon_quest;
     }
 }
 }

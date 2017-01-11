@@ -93,9 +93,11 @@ public class WOCave extends WindowMain {
             _arrItems[i].deleteIt();
         }
         _arrItems.length = 0;
-        if (_birka) _source.removeChild(_birka);
-        if (_birka) _birka.deleteIt();
-        if (_birka) _birka = null;
+        if (_birka) {
+            _source.removeChild(_birka);
+            _birka.deleteIt();
+            _birka = null;
+        }
         super.deleteIt();
     }
 }

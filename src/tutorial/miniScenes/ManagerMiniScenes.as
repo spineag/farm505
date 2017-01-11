@@ -31,6 +31,7 @@ public class ManagerMiniScenes {
     public static const ON_GO_NEIGHBOR:int = 3;
     public static const GO_NEIGHBOR:int = 4;
     public static const BUY_BUILD:int = 5;
+    public static const BUY_INSTRUMENT:int = 6;
 
     private var g:Vars = Vars.getInstance();
     private var _properties:Array;
@@ -357,7 +358,8 @@ public class ManagerMiniScenes {
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
-            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);   // change for arrow at shopItem
+            _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
+            _arrow.activateTimer(3, deleteArrowAndDust);
         } else {
             Cc.error('miniScene:: wo_SHOP is not opened');
         }
@@ -366,12 +368,11 @@ public class ManagerMiniScenes {
     public function onPasteFabrica(buildId:int):void {
         deleteArrowAndDust();
         if (!g.useNewTuts) return;
-        if (_miniSceneResourceIDs.indexOf(buildId) == -1) return;
+//        if (_miniSceneResourceIDs.indexOf(buildId) == -1) return;
         _miniSceneResourceIDs = [];
         if (g.user.miniScenes[2] == 0) {
             g.user.miniScenes[2] = 1;
             saveUserMiniScenesData();
-            _curMiniScenePropertie = _properties[3];
             isMiniScene = false;
             letsGoToNeighbor();
         }
@@ -383,6 +384,7 @@ public class ManagerMiniScenes {
             return;
         }
         isMiniScene = true;
+        _curMiniScenePropertie = _properties[3];
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', letGo_1);
         addBlack();
@@ -418,12 +420,10 @@ public class ManagerMiniScenes {
             return;
         }
         isMiniScene = true;
-        if (g.user.miniScenes[4] == 0) {
-            _curMiniScenePropertie = _properties[4];
-            if (!_cutScene) _cutScene = new CutScene();
-            _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', atN_1);
-            addBlack();
-        }
+        _curMiniScenePropertie = _properties[4];
+        if (!_cutScene) _cutScene = new CutScene();
+        _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', atN_1);
+        addBlack();
     }
 
     private function atN_1():void {
@@ -459,12 +459,23 @@ public class ManagerMiniScenes {
             } else {
                 Cc.error('wo_market is not opened');
             }
+        } else {
+            ins_2();
         }
     }
 
-    public function ins_1():void {
+    private function ins_1():void {
         if (_airBubble) _airBubble.hideIt();
         _airBubble = null;
+        _airBubble = new AirTextBubble();
+        _airBubble.showIt(_curMiniScenePropertie.text2, g.cont.popupCont, g.managerResize.stageWidth/2 - 150, g.managerResize.stageHeight/2, ins_2);
+    }
+
+    private function ins_2():void {
+        if (_airBubble) _airBubble.hideIt();
+        _airBubble = null;
+        g.user.miniScenes[3] = 1;
+        g.user.miniScenes[4] = 1;
         g.user.miniScenes[5] = 1;
         isMiniScene = false;
         saveUserMiniScenesData();

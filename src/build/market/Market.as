@@ -102,18 +102,17 @@ public class Market extends WorldObject{
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
             if (_source.wasGameContMoved) return;
-            var isNotAway:int = 1;
-            if (g.isAway) isNotAway = 0;
-
+            var isNotAway:int = 5;
+            if (g.isAway) isNotAway = 1;
             if (g.managerCutScenes.isCutScene && g.managerCutScenes.closeMarket) return;
 
             if (g.useNewTuts) {
 
-            } else if (g.user.level < int(_dataBuild.blockByLevel) + isNotAway) {
+            } else if (g.user.level < isNotAway) {
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,"Будет доступно на " + String(int(_dataBuild.blockByLevel) + isNotAway) + ' уровне');
+                new FlyMessage(p,"Будет доступно на " + isNotAway + " уровне");
                 return;
             }
             if (g.isAway && g.visitedUser) {
