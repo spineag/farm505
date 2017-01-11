@@ -692,9 +692,9 @@ public class TownArea extends Sprite {
                 _cityObjects.push(worldObject);
                 worldObject.updateDepth();
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-                for (var lk:int = worldObject.posY; lk < (worldObject.posY + worldObject.sizeY); lk++) {
-                    for (var pk:int = worldObject.posX; pk < (worldObject.posX + worldObject.sizeX); pk++) {
-                        fillTailMatrix(pk, lk, 0, 0, worldObject);
+                for (var l3:int = worldObject.posY; l3 < (worldObject.posY + worldObject.sizeY); l3++) {
+                    for (var p3:int = worldObject.posX; p3 < (worldObject.posX + worldObject.sizeX); p3++) {
+                        fillTailMatrix(p3, l3, 0, 0, worldObject);
                     }
                 }
                 if (isNewAtMap && g.isActiveMapEditor)
@@ -1652,7 +1652,8 @@ public class TownArea extends Sprite {
                 build = new Ambar(_data);
                 break;
             case BuildType.CAT_HOUSE:
-                if (g.user.isTester)build = new CatHouse(_data);
+                if (g.user.isTester) build = new CatHouse(_data);
+                    else return;
                 break;
             case BuildType.SKLAD:
                 build = new Sklad(_data);

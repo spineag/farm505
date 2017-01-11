@@ -184,6 +184,7 @@ public class ManagerOrder {
         var id:String;
         var level:int = g.user.level;
         var countFastBuyer:int = 0;
+
         for (i = 0; i < n; i++) {
             if (_arrOrders && !g.managerTutorial.isTutorial && level < 10 && _arrOrders.length > 0) {
                 order = new ManagerOrderItem();

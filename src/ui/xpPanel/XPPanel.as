@@ -35,7 +35,7 @@ public class XPPanel {
     private var _txtLevel:CTextField;
     private var _txtXPCount:CTextField;
     public var _imageStar:Image;
-    private var _count:int;
+    private var _countXP:int;
     private var g:Vars = Vars.getInstance();
 
     public function XPPanel() {
@@ -70,6 +70,7 @@ public class XPPanel {
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
         _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
+        _countXP = g.user.xp;
         checkXP();
         onResize();
     }
@@ -82,10 +83,12 @@ public class XPPanel {
     public function getPanelPoints():Point {
         return new Point(g.managerResize.stageWidth - 170,17);
     }
-    public function visualAddXP():void{
+    public function visualAddXP(count:int):void{
         animationStar();
+        _countXP += count;
         g.soundManager.playSound(SoundConst.XP_PLUS);
-        if (g.user.xp >= _maxXP){
+        if (_countXP >= _maxXP){
+            _countXP -= _maxXP;
             g.user.xp -= _maxXP;
             if (!g.userValidates.checkInfo('level', g.user.level)) return;
             g.userValidates.updateInfo('xp', g.user.xp);
@@ -133,18 +136,18 @@ public class XPPanel {
         if (!g.userValidates.checkInfo('xp', g.user.xp)) return;
         g.user.xp += count;
         g.user.globalXP += count;
-        g.userValidates.updateInfo('xp', g.user.xp);
-        g.directServer.addUserXP(g.user.globalXP, null);
+        g.userValidates.updateInfo('xp', int (g.user.xp ));
+        g.directServer.addUserXP(int (g.user.globalXP), null);
     }
 
     public function checkXP():void{
-        _bar.progress = ((g.user.xp)/_maxXP)*.9 + .1; // get 10% for better view
-        _txtXPCount.text = String(g.user.xp);
+        _bar.progress = ((_countXP)/_maxXP)*.9 + .1; // get 10% for better view
+        _txtXPCount.text = String(_countXP);
         _txtLevel.text = String(g.user.level);
     }
 
     private function onHover():void {
-        g.hint.showIt(_maxXP - g.user.xp + ' XP до ' + (g.user.level+1) + ' уровня','none', _source.x);
+        g.hint.showIt(_maxXP - _countXP + ' XP до ' + (g.user.level+1) + ' уровня','none', _source.x);
     }
 
     private function onOut():void {

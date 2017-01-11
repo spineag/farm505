@@ -68,7 +68,7 @@ public class XPStar {
                 _source.removeChildAt(0);
             }
             _source = null;
-            g.xpPanel.visualAddXP();
+            g.xpPanel.visualAddXP(_xp);
         };
         g.xpPanel.serverAddXP(_xp);
         var tempX:int;
