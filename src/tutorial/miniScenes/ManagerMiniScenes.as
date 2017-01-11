@@ -26,7 +26,7 @@ import windows.orderWindow.WOOrder;
 import windows.shop.WOShop;
 
 public class ManagerMiniScenes {
-    public static const REASON_NEW_LEVEL:int = 1;  // use after getting new level
+    public static const OPEN_ORDER:int = 1;  // use after getting new level
     public static const AFTER_PREV_MINISCENE:int = 2;  // use after ending prev miniSCene
     public static const ON_GO_NEIGHBOR:int = 3;
     public static const GO_NEIGHBOR:int = 4;
@@ -47,6 +47,7 @@ public class ManagerMiniScenes {
     public var isMiniScene:Boolean = false;
     private var _onShowWindowCallback:Function;
     private var _onHideWindowCallback:Function;
+    private var _counter:int;
 
     public function ManagerMiniScenes() {
         _properties = (new MiniSceneProps()).properties;
@@ -216,6 +217,7 @@ public class ManagerMiniScenes {
             return;
         }
         isMiniScene = true;
+        _curMiniScenePropertie = _properties[0];
         _miniSceneBuildings = g.townArea.getCityObjectsByType(BuildType.ORDER);
         if ((_miniSceneBuildings[0] as Order).stateBuild == WorldObject.STATE_UNACTIVE) {
             if (!_cutScene) _cutScene = new CutScene();
@@ -236,10 +238,12 @@ public class ManagerMiniScenes {
 
     private function order_2():void {
         _miniSceneCallback = null;
-        isMiniScene = false;
         g.user.miniScenes[0] = 1;
+        _curMiniScenePropertie = null;
         saveUserMiniScenesData();
+        _counter = 0;
         if (!g.managerOrder.countOrders) {
+            _counter = 2;
             g.managerOrder.addOrderForMiniScenes(firstOrderBuyer);
             Utils.createDelay(1, order_3);
         } else firstOrderBuyer();
@@ -255,7 +259,8 @@ public class ManagerMiniScenes {
     }
 
     private function firstOrderBuyer(c:OrderCat=null):void {
-        if (isMiniScene) return;
+        _counter--;
+        if (_counter > 0) return;
         _curMiniScenePropertie = _properties[1];
         if (g.user.level > _properties.level) {
             buyer_15();
@@ -465,6 +470,7 @@ public class ManagerMiniScenes {
     }
 
     private function ins_1():void {
+        deleteArrowAndDust();
         if (_airBubble) _airBubble.hideIt();
         _airBubble = null;
         _airBubble = new AirTextBubble();

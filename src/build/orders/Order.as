@@ -18,6 +18,8 @@ import starling.display.Sprite;
 import starling.events.Event;
 
 import tutorial.helpers.HelperReason;
+import tutorial.miniScenes.ManagerMiniScenes;
+
 import windows.WindowsManager;
 import windows.orderWindow.WOOrder;
 
@@ -175,6 +177,7 @@ public class Order extends WorldObject{
                 new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
                 return;
             }
+            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.OPEN_ORDER)) return;
             onOut();
             if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_ORDER) {
                 g.lateAction.releaseOnTimer(.7, showBtnCellArrow);

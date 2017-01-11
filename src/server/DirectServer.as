@@ -3816,7 +3816,6 @@ public class DirectServer {
                 ob.dbId = int(d.message['wild'][i].id);
                 ob.isFlip = int(d.message['wild'][i].is_flip);
                 if (d.message['wild'][i].chest_id) {
-                    trace(int(d.message['wild'][i].chest_id));
                     ob.chestId = int(d.message['wild'][i].chest_id);
                 }
                 p.userDataCity.objects.push(ob);

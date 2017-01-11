@@ -857,28 +857,32 @@ public class ManagerTutorialNew extends IManagerTutorial{
         if (g.userInventory.getCountResourceById((_tutorialObjects[0] as Wild).dataBuild.removeByResourceId) <= 0) { // add it at new user start in php, not here
             g.userInventory.addResource((_tutorialObjects[0] as Wild).dataBuild.removeByResourceId, 1);
         }
-        if (!cutScene) cutScene = new CutScene();
-        if (!texts) texts = (new TutorialTextsNew()).objText;
-        addBlack();
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep],texts['next'], subStep15_1);
         g.cont.moveCenterToPos(9, 30, false, 1);
+        Utils.createDelay(1.5, subStep15_1);
     }
 
     private function subStep15_1():void {
+        if (!cutScene) cutScene = new CutScene();
+        if (!texts) texts = (new TutorialTextsNew()).objText;
+        addBlack();
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep],texts['next'], subStep15_2);
+    }
+
+    private function subStep15_2():void {
         _subStep = 1;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
         _currentAction = TutorialAction.REMOVE_WILD;
-        _tutorialCallback = subStep15_2;
+        _tutorialCallback = subStep15_3;
         (_tutorialObjects[0] as Wild).showArrow();
     }
 
-    private function subStep15_2():void {
+    private function subStep15_3():void {
         (_tutorialObjects[0] as Wild).hideArrow();
-        _tutorialCallback = subStep15_3;
+        _tutorialCallback = subStep15_4;
     }
 
-    private function subStep15_3():void {
+    private function subStep15_4():void {
         _currentAction = TutorialAction.NONE;
         _tutorialCallback = null;
         if (g.wildHint) g.wildHint.managerHide();

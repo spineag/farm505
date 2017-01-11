@@ -18,7 +18,7 @@ public class MiniSceneProps {
 
         obj.id = 1;
         obj.prevId = 0; // prev mini scene id
-        obj.reason = ManagerMiniScenes.REASON_NEW_LEVEL;
+        obj.reason = ManagerMiniScenes.OPEN_ORDER;
         obj.level = 3;
         obj.text = "Пришло время открыть Лавку, чтобы радовать других отличными продуктами!";
         _prop.push(obj);
