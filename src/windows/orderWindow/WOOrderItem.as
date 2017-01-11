@@ -210,6 +210,7 @@ public class WOOrderItem {
         _leftSeconds--;
         if (_leftSeconds <= 19 && !_recheck) {
             _recheck = true;
+            if (!_order) return;
             if (_txtName && _order.delOb) {
                 _wo.timerSkip(_order);
                 g.managerOrder.checkForFullOrder();
