@@ -22,7 +22,7 @@ public class ManagerQuest {
     private var g:Vars = Vars.getInstance();
     private var _questUI:QuestIconUI;
     private var _userQuests:Array;
-    private var _currentOpenedQuestInWO:Object;
+    private var _currentOpenedQuestInWO:QuestStructure;
 
     public function ManagerQuest() {
         if (!g.useQuests) return;
@@ -92,6 +92,10 @@ public class ManagerQuest {
         }
     }
 
+    public function showWOForQuest(d:QuestStructure):void {
+        _currentOpenedQuestInWO = d;
+
+    }
 
 
     private function onReleaseQuest(qData:Object):void {

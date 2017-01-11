@@ -4,6 +4,8 @@
 package windows.questList {
 import com.greensock.TweenMax;
 
+import quest.QuestStructure;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -28,7 +30,7 @@ public class WOQuestList extends WindowMain{
         super();
         _items = [];
         _isAnim = false;
-        _windowType = WindowsManager.WO_BUY_PLANT;
+        _windowType = WindowsManager.WO_QUEST_LIST;
         _woWidth = 500;
         _woHeight = 150;
         _woBG = new WindowBackground(_woWidth, _woHeight);
@@ -36,10 +38,10 @@ public class WOQuestList extends WindowMain{
         _callbackClickBG = hideIt;
 
         _birka = new Birka('Задания', _source, _woWidth, _woHeight);
-        _birka.flipIt();
+        _birka.flipItY();
         _birka.source.rotation = Math.PI/2;
-        _birka.source.x = 50;
-        _birka.source.y = 155;
+        _birka.source.x = 40;
+        _birka.source.y = -75;
 
         _maskedContainer = new Sprite();
         _maskedContainer.mask = new Quad(360, 150);
@@ -63,19 +65,17 @@ public class WOQuestList extends WindowMain{
         var q:Array = g.managerQuest.userQuests;
         var it:WOQuestListItem;
         for (var i:int=0; i<q.length; i++) {
-            it = new WOQuestListItem(q[i]);
+            it = new WOQuestListItem(q[i], onItemClick);
             it.source.x = 60 + 120*i;
             it.source.y = 60;
             _cont.addChild(it.source);
             _items.push(it);
         }
-//        for (i=0; i<q.length; i++) {
-//            it = new WOQuestListItem(q[i]);
-//            it.source.x = 60 + 120*(i + q.length);
-//            it.source.y = 60;
-//            _cont.addChild(it.source);
-//            _items.push(it);
-//        }
+    }
+
+    private function onItemClick(d:QuestStructure):void {
+        super.hideIt();
+        g.managerQuest.showWOForQuest(d);
     }
 
     private function addArrows():void {
@@ -110,7 +110,7 @@ public class WOQuestList extends WindowMain{
         if (_shift <=0) return;
         _shift--;
         _isAnim = true;
-        TweenMax.to(_cont, .5, {x: 60 - _shift*120, onComplete:onAnim});
+        TweenMax.to(_cont, .3, {x: -_shift*120, onComplete:onAnim});
     }
 
     private function onRightClick():void {
@@ -119,7 +119,7 @@ public class WOQuestList extends WindowMain{
         if (_shift >= _items.length - 3) return;
         _shift++;
         _isAnim = true;
-        TweenMax.to(_cont, .5, {x: 60 - _shift*120, onComplete:onAnim});
+        TweenMax.to(_cont, .3, {x: -_shift*120, onComplete:onAnim});
     }
 
     private function onAnim():void {

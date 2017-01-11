@@ -120,6 +120,11 @@ public class Birka extends Sprite{
         _bg.x = -_bg.width;
     }
 
+    public function flipItY():void {
+        _bg.scaleY = -1;
+        _bg.y = -_bg.height;
+    }
+
     public function deleteIt():void {
         if (_parent.contains(_source)) _parent.removeChild(_source);
         _source.dispose();
