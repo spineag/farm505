@@ -638,6 +638,8 @@ public class TownArea extends Sprite {
             _cont.removeChild(worldObject.source);
         }
 
+        var i:int;
+        var j:int;
         if (worldObject is Decor) {
             point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
             worldObject.posX = point.x;
@@ -658,9 +660,9 @@ public class TownArea extends Sprite {
                 _cityObjects.push(worldObject);
                 worldObject.updateDepth();
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-                for (var lk:int = worldObject.posY; lk < (worldObject.posY + worldObject.sizeY); lk++) {
-                    for (var pk:int = worldObject.posX; pk < (worldObject.posX + worldObject.sizeX); pk++) {
-                        fillTailMatrix(pk, lk, 0, 0, worldObject);
+                for (i = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
+                    for (j = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
+                        fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
                 if (isNewAtMap && g.isActiveMapEditor)
@@ -692,9 +694,9 @@ public class TownArea extends Sprite {
                 _cityObjects.push(worldObject);
                 worldObject.updateDepth();
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-                for (var lk:int = worldObject.posY; lk < (worldObject.posY + worldObject.sizeY); lk++) {
-                    for (var pk:int = worldObject.posX; pk < (worldObject.posX + worldObject.sizeX); pk++) {
-                        fillTailMatrix(pk, lk, 0, 0, worldObject);
+                for (i = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
+                    for (j = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
+                        fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
                 if (isNewAtMap && g.isActiveMapEditor)
@@ -726,9 +728,9 @@ public class TownArea extends Sprite {
                 _cityObjects.push(worldObject);
                 worldObject.updateDepth();
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-                for (var l2:int = worldObject.posY; l2 < (worldObject.posY + worldObject.sizeY); l2++) {
-                    for (var p2:int = worldObject.posX; p2 < (worldObject.posX + worldObject.sizeX); p2++) {
-                        fillTailMatrix(p2, l2, 0, 0, worldObject);
+                for (i = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
+                    for (j = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
+                        fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
                 if (isNewAtMap && g.isActiveMapEditor)
@@ -766,9 +768,9 @@ public class TownArea extends Sprite {
                 _cityObjects.push(worldObject);
                 worldObject.updateDepth();
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-                for (var ik:int = worldObject.posY; ik < (worldObject.posY + worldObject.sizeY); ik++) {
-                    for (var jk:int = worldObject.posX; jk < (worldObject.posX + worldObject.sizeX); jk++) {
-                        fillTailMatrix(jk, ik, 0, 0, worldObject);
+                for (i = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
+                    for (j = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
+                        fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
             }
@@ -820,9 +822,9 @@ public class TownArea extends Sprite {
                 fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             }
             if (worldObject is Order || worldObject is LockedLand) {
-                for (var i:int = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
-                    for (var j:int = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
-                        fillTailMatrix(j, i,0,0, worldObject);
+                for (i = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
+                    for (j = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
+                        fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
             }
@@ -1000,6 +1002,7 @@ public class TownArea extends Sprite {
             Cc.error('TownArea.PasteBuild -- DecorTail wtf you do this');
         }
     }
+
     private function afterMoveReturn(build:WorldObject, _x:Number, _y:Number):void {// для ridge, tree, decorFence, decor,decorPostFence
         (build as WorldObject).source.filter = null;
         var cost:int;
@@ -1606,15 +1609,19 @@ public class TownArea extends Sprite {
         zAwaySort();
         decorAwayTailSort();
         sortAwayAtLockedLands();
-        _awayPreloader.deleteIt();
+        _awayPreloader.deleteIt(onDeleteAwayPreloader);
         _awayPreloader = null;
         if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         startDecorAnimation();
         g.managerMouseHero.addMouse();
 
         g.user.calculateReasonForHelpAway();
-        if (p is NeighborBot) g.managerMiniScenes.onGoAwayToNeighbor();
     }
+
+    private function onDeleteAwayPreloader():void {
+        if (g.visitedUser is NeighborBot) g.managerMiniScenes.onGoAwayToNeighbor();
+    }
+
 
     public function createAwayNewBuild(_data:Object, posX:int, posY:int, dbId:int, flip:int = 0):void {
         var build:WorldObject;

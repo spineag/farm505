@@ -100,7 +100,7 @@ public class WOQuestList extends WindowMain{
     }
 
     private function checkArrows():void {
-        _leftArrow.visible = Boolean(_shift < 1);
+        _leftArrow.visible = Boolean(_shift > 0);
         _rightArrow.visible = Boolean(_shift + 3 < _items.length);
     }
 

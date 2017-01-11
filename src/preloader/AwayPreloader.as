@@ -25,6 +25,7 @@ public class AwayPreloader {
     private var isShowing:Boolean;
     private var afterTimer:Boolean;
     private var counter:int;
+    private var _deleteCallback:Function;
 
     public function AwayPreloader() {
         _source = new Sprite();
@@ -59,8 +60,9 @@ public class AwayPreloader {
         g.managerButterfly.hideButterfly(true);
     }
 
-    public function deleteIt():void {
+    public function deleteIt(f:Function = null):void {
         isShowing = false;
+        _deleteCallback = f;
         if (afterTimer) {
             g.cont.windowsCont.removeChild(_source);
             WorldClock.clock.remove(_armature);
@@ -75,6 +77,10 @@ public class AwayPreloader {
                 g.managerTutorial.checkTutorialCallback();
             }
             g.managerButterfly.hideButterfly(false);
+            if (_deleteCallback != null) {
+                _deleteCallback.apply();
+                _deleteCallback = null;
+            }
         }
     }
 
