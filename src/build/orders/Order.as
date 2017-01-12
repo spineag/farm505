@@ -191,7 +191,11 @@ public class Order extends WorldObject{
     }
 
     private function onOpenOrder(e:Event=null):void {
-        if (g.managerMiniScenes.isMiniScene && g.user.level == 3) g.managerMiniScenes.checkMiniSceneCallback();
+        if (g.managerMiniScenes.isMiniScene && g.user.level == 3) {
+            g.managerMiniScenes.checkMiniSceneCallback();
+        } else {
+            
+        }
         _armature.removeEventListener(EventObject.COMPLETE, onOpenOrder);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
         _armature.addEventListener(EventObject.COMPLETE, makeAnimation);

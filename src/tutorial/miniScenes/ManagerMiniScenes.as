@@ -260,7 +260,7 @@ public class ManagerMiniScenes {
     private function firstOrderBuyer(c:OrderCat=null):void {
         _counter--;
         if (_counter > 0) return;
-        g.windowsManager.closeAllWindows();
+        if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
         _curMiniScenePropertie = _properties[1];
         if (g.user.level > _properties.level) {
             buyer_15();
