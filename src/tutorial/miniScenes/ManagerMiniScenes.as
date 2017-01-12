@@ -27,7 +27,7 @@ import windows.shop.WOShop;
 
 public class ManagerMiniScenes {
     public static const OPEN_ORDER:int = 1;  // use after getting new level
-    public static const AFTER_PREV_MINISCENE:int = 2;  // use after ending prev miniSCene
+    public static const BUY_ORDER:int = 2;  // use after ending prev miniSCene
     public static const ON_GO_NEIGHBOR:int = 3;
     public static const GO_NEIGHBOR:int = 4;
     public static const BUY_BUILD:int = 5;
@@ -305,7 +305,6 @@ public class ManagerMiniScenes {
             _arrow.scaleIt(.5);
             _arrow.animateAtPosition(ob.x, ob.y + 25);
             _arrow.activateTimer(3, buyer_4);
-//            _miniSceneCallback = buyer_4;
         } else {
             Cc.error('wo_order is not opened');
         }
@@ -317,22 +316,46 @@ public class ManagerMiniScenes {
         }
         _miniSceneCallback = null;
         deleteArrowAndDust();
-        _onHideWindowCallback = buyer_5;
+
     }
 
-    private function buyer_5():void {
+    public function onBuyOrder():void {
+        deleteArrowAndDust();
+        if (g.user.miniScenes[1] == 0) {
+            _miniSceneCallback = null;
+            g.user.miniScenes[1] = 1;
+            saveUserMiniScenesData();
+            if (g.user.level == 3) {
+                isMiniScene = true;
+                _onHideWindowCallback = buyer_6;
+            } else {
+                isMiniScene = false;
+            }
+        }
+    }
+
+    private function buyer_6():void {
         _onHideWindowCallback = null;
         buyer_15();
     }
 
     private function buyer_15():void {
+        if (g.user.miniScenes[1] == 0) {
+            _miniSceneCallback = null;
+            g.user.miniScenes[1] = 1;
+            saveUserMiniScenesData();
+        }
         isMiniScene = false;
-        g.user.miniScenes[1] = 1;
-        saveUserMiniScenesData();
         buildBulo4na();
     }
 
     private function buildBulo4na():void {
+        deleteArrowAndDust();
+        var ar:Array = g.townArea.getCityObjectsById(1);
+        if (ar.length) {
+            onPasteFabrica();
+            return;
+        }
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', buildBulo4na);
             return;
@@ -369,17 +392,16 @@ public class ManagerMiniScenes {
         }
     }
 
-    public function onPasteFabrica(buildId:int):void {
+    public function onPasteFabrica(buildId:int=0):void {
         deleteArrowAndDust();
         if (!g.useNewTuts) return;
-//        if (_miniSceneResourceIDs.indexOf(buildId) == -1) return;
         _miniSceneResourceIDs = [];
         if (g.user.miniScenes[2] == 0) {
             g.user.miniScenes[2] = 1;
             saveUserMiniScenesData();
             isMiniScene = false;
-            letsGoToNeighbor();
         }
+        if (g.user.miniScenes[3] == 0) letsGoToNeighbor();
     }
 
     private function letsGoToNeighbor():void {
@@ -414,7 +436,7 @@ public class ManagerMiniScenes {
 //    g.directServer.getUserNeighborMarket(null);    ?????
 
     public function onGoAwayToNeighbor():void {
-        if (g.user.miniScenes[4] == 0 && g.isAway) atNeighbor();
+        if (g.user.miniScenes[4] == 0 && g.isAway && g.user.level == 3) atNeighbor();
     }
 
     private function atNeighbor():void {

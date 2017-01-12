@@ -357,6 +357,8 @@ public class WOOrder extends WindowMain{
         g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
             g.managerTutorial.checkTutorialCallback();
+        } else {
+            g.managerMiniScenes.onBuyOrder();
         }
 
     }
