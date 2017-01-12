@@ -239,7 +239,6 @@ public class ManagerMiniScenes {
     private function order_2():void {
         _miniSceneCallback = null;
         g.user.miniScenes[0] = 1;
-        _curMiniScenePropertie = null;
         saveUserMiniScenesData();
         _counter = 0;
         if (!g.managerOrder.countOrders) {
@@ -261,6 +260,7 @@ public class ManagerMiniScenes {
     private function firstOrderBuyer(c:OrderCat=null):void {
         _counter--;
         if (_counter > 0) return;
+        g.windowsManager.closeAllWindows();
         _curMiniScenePropertie = _properties[1];
         if (g.user.level > _properties.level) {
             buyer_15();
@@ -301,7 +301,6 @@ public class ManagerMiniScenes {
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
             (g.windowsManager.currentWindow as WOOrder).setTextForCustomer('Здравствуйте! Хочу купить несколько яиц.');
             var ob:Object = (g.windowsManager.currentWindow as WOOrder).getSellBtnProperties();
-//            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height - 20, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
             _arrow.scaleIt(.5);
             _arrow.animateAtPosition(ob.x, ob.y + 25);
@@ -330,7 +329,6 @@ public class ManagerMiniScenes {
         isMiniScene = false;
         g.user.miniScenes[1] = 1;
         saveUserMiniScenesData();
-        _curMiniScenePropertie = _properties[2];
         buildBulo4na();
     }
 
@@ -340,6 +338,7 @@ public class ManagerMiniScenes {
             return;
         }
         isMiniScene = true;
+        _curMiniScenePropertie = _properties[2];
         if (!_cutScene) _cutScene = new CutScene();
         _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', bulo4na_1);
         addBlack();
