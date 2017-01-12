@@ -482,6 +482,7 @@ public class ManagerMiniScenes {
                 _arrow.scaleIt(.5);
                 _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height);
                 _miniSceneCallback = ins_1;
+                _onHideWindowCallback = ins_2;
             } else {
                 Cc.error('wo_market is not opened');
             }
