@@ -17,6 +17,8 @@ import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Color;
 import tutorial.TutorialAction;
+import tutorial.miniScenes.ManagerMiniScenes;
+
 import user.NeighborBot;
 import user.Someone;
 import utils.CSprite;
@@ -115,6 +117,7 @@ public class FriendItem {
     }
 
     private function visitPerson():void {
+        if (g.managerMiniScenes.isMiniScene && (g.managerMiniScenes.isReason(ManagerMiniScenes.BUY_ORDER) || g.managerMiniScenes.isReason(ManagerMiniScenes.OPEN_ORDER))) return;
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.visitedUser && g.visitedUser == _person) return;
         if (g.managerCutScenes.isCutScene) return;

@@ -26,7 +26,7 @@ public class MiniSceneProps {
         obj = {};
         obj.id = 2;
         obj.prevId = 1; //
-        obj.reason = ManagerMiniScenes.AFTER_PREV_MINISCENE;
+        obj.reason = ManagerMiniScenes.BUY_ORDER;
         obj.level = 3;
         obj.text = "Ура! Поздравляю с открытием! А вот и первые покупатели. Давай посмотрим чем мы можем их порадовать";
         _prop.push(obj);

@@ -177,7 +177,7 @@ public class Order extends WorldObject{
                 new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
                 return;
             }
-            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.OPEN_ORDER)) return;
+            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.OPEN_ORDER) && g.user.level == 3) return;
             onOut();
             if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_ORDER) {
                 g.lateAction.releaseOnTimer(.7, showBtnCellArrow);
@@ -191,7 +191,11 @@ public class Order extends WorldObject{
     }
 
     private function onOpenOrder(e:Event=null):void {
-        if (g.managerMiniScenes.isMiniScene && g.user.level == 3) g.managerMiniScenes.checkMiniSceneCallback();
+        if (g.managerMiniScenes.isMiniScene && g.user.level == 3) {
+            g.managerMiniScenes.checkMiniSceneCallback();
+        } else {
+            
+        }
         _armature.removeEventListener(EventObject.COMPLETE, onOpenOrder);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
         _armature.addEventListener(EventObject.COMPLETE, makeAnimation);

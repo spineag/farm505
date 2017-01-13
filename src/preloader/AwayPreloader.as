@@ -28,6 +28,7 @@ public class AwayPreloader {
     private var _deleteCallback:Function;
 
     public function AwayPreloader() {
+        _deleteCallback = null;
         _source = new Sprite();
         _armature = g.allData.factory['visit_preloader'].buildArmature("cat");
         _armatureSprite = new Sprite();
@@ -89,7 +90,7 @@ public class AwayPreloader {
         if (counter <0) {
             g.gameDispatcher.removeFromTimer(onTimer);
             afterTimer = true;
-            if (!isShowing) deleteIt();
+            if (!isShowing) deleteIt(_deleteCallback);
         }
     }
 }
