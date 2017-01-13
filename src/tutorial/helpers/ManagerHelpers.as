@@ -266,7 +266,7 @@ public class ManagerHelpers {
     private function checkForBuyAnimal():Boolean {
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
         for (var i:int=0; i<arr.length; i++) {
-            if (!(arr[i] as Farm).isFull && g.dataAnimal.objectAnimal[(arr[i] as Farm).dataAnimal.id].cost <= g.user.softCurrencyCount) {
+            if (!((arr[i] as Farm).isFull) && (g.user.softCurrencyCount >= (arr[i] as Farm).dataAnimal.cost)) {
                 _curReason.id = (arr[i] as Farm).dataAnimal.id;
                 _curReason.type = BuildType.ANIMAL;
                 return true;

@@ -169,7 +169,8 @@ public class WOBuyPlant extends WindowMain {
 //            super.hideIt();
         }
 //        g.windowsManager.uncasheWindow();
-        super.hideIt();
+        trace('sosai');
+        if (_birka )super.hideIt();
     }
 
     private function createBG():void {

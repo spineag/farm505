@@ -12,6 +12,8 @@ import manager.Vars;
 
 import starling.display.Stage;
 
+import temp.IsometricMouseCoordinates;
+
 import windows.WindowsManager;
 
 public class ConsoleWrapper {
@@ -19,6 +21,8 @@ public class ConsoleWrapper {
 
     private static var _instance:ConsoleWrapper;
     private var _isStats:Boolean = false;
+    private var _xYPosition:IsometricMouseCoordinates;
+    private var _xYPositionBool:Boolean;
 
     public static function getInstance():ConsoleWrapper {
         if (!_instance) {
@@ -31,6 +35,7 @@ public class ConsoleWrapper {
         if (!se) {
             throw(new Error("use ConsoleWrapper.getInstance() instead!!"));
         }
+        _xYPositionBool = false;
     }
 
     public function init(stage:Stage, parrent:Sprite):void {
@@ -49,6 +54,7 @@ public class ConsoleWrapper {
         Cc.bindKey(new KeyBind(Keyboard.F, true, false, true, true), makeFullscreen);
         Cc.bindKey(new KeyBind(Keyboard.I, true, false, true, true), showStats);
         Cc.bindKey(new KeyBind(Keyboard.T, true,false,true,true), makeTester);
+        Cc.bindKey(new KeyBind(Keyboard.X, true,false,true,true), showXY);
 //        Cc.bindKey(new KeyBind(Keyboard.R, false, false, true, true), removeUserData);
 
         //Cc.addSlashCommand("export", exportLogToHTML, "Save game log.", true);
@@ -111,6 +117,19 @@ public class ConsoleWrapper {
         else g.user.isTester = true;
         g.directServer.updateUserTester(null);
         Cc.info("Your isTester = " + g.user.isTester);
+    }
+
+    private function showXY():void {
+        if (_xYPositionBool) {
+            _xYPosition.stopIt();
+            _xYPositionBool = false;
+            g.cont.interfaceContMapEditor.removeChild(_xYPosition.source);
+        } else {
+            if (!_xYPosition) _xYPosition = new IsometricMouseCoordinates();
+            _xYPosition.startIt();
+            g.cont.interfaceContMapEditor.addChild(_xYPosition.source);
+            _xYPositionBool = true;
+        }
     }
 
     private function inspectObjects():void {
