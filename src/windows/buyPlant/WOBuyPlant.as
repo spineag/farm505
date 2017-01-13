@@ -169,7 +169,6 @@ public class WOBuyPlant extends WindowMain {
 //            super.hideIt();
         }
 //        g.windowsManager.uncasheWindow();
-        trace('sosai');
         if (_birka )super.hideIt();
     }
 

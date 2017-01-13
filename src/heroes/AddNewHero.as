@@ -60,7 +60,7 @@ public class AddNewHero {
     private function showCat():void {
         _armature = g.allData.factory['catsShow'].buildArmature('cat');
         _source.addChild(_armature.display as StarlingArmatureDisplay);
-        p = new Point(31, 30);
+        p = new Point(32, 30);
         p = g.matrixGrid.getXYFromIndex(p);
         _source.x = p.x;
         _source.y = p.y;
