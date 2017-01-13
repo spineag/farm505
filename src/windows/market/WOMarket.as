@@ -22,6 +22,8 @@ import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
+import utils.Utils;
+
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.WindowBackground;
@@ -266,7 +268,7 @@ public class WOMarket  extends WindowMain {
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].updateTextField();
         }
-        if (_curUser is NeighborBot) g.managerMiniScenes.atNeighborBuyInstrument();
+        if (_curUser is NeighborBot) Utils.createDelay(.5, g.managerMiniScenes.atNeighborBuyInstrument);
     }
 
     private function onClickExit(e:Event=null):void {

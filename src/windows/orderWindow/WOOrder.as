@@ -109,6 +109,10 @@ public class WOOrder extends WindowMain{
 
     override public function showItParams(callback:Function, params:Array):void {
         _arrOrders = g.managerOrder.arrOrders.slice();
+        if (!_arrOrders.length) {
+            Cc.error('WOOrder:: no any order');
+            return;
+        }
         fillList();
         var num:int;
         var delay:int;
@@ -160,6 +164,7 @@ public class WOOrder extends WindowMain{
 
     private function onClickExit(e:Event=null):void {
         if (g.managerTutorial.isTutorial) return;
+        g.managerMiniScenes.onHideOrder();
         hideIt();
     }
 

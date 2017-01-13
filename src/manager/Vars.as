@@ -270,7 +270,8 @@ public class Vars {
                 socialNetworkID = int(flashVars['channel']);
             }
             SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
-            if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && testersArrayTuts.indexOf((user as User).userSocialId) > -1) useNewTuts = true;
+//            if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && testersArrayTuts.indexOf((user as User).userSocialId) > -1) useNewTuts = true;
+            if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID) useNewTuts = true;
             if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && testersArrayQuests.indexOf((user as User).userSocialId) > -1) useQuests = true;
 
             if (useNewTuts) {

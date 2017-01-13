@@ -916,9 +916,7 @@ public class DirectServer {
 
             g.user.level = int(ob.level);
             g.userValidates.updateInfo('level', g.user.level);
-//            g.user.isOpenOrder = Boolean(ob.open_order == '1');
-            if (g.useNewTuts && g.user.level <= 3) g.user.isOpenOrder = false; // temp
-            
+
             g.user.checkUserLevel();
             if (ob.mouse_day) {
                 g.managerMouseHero.fillFromServer(ob.mouse_day, ob.mouse_count);
@@ -944,10 +942,16 @@ public class DirectServer {
             } else {
                 g.user.cutScenes = [];
             }
+            //            g.user.isOpenOrder = Boolean(ob.open_order == '1');
             if (ob.mini_scene) {
                 Cc.info('User miniscenes:: ' + ob.mini_scene);
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                     g.user.miniScenes = Utils.intArray( String(ob.mini_scene).split('&') );
+
+                    if (g.useNewTuts && g.user.level <= 3) {
+                        if (!g.user.miniScenes.length || g.user.miniScenes[0] == 0)
+                            g.user.isOpenOrder = false; // temp
+                    }
                 } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
                     g.user.miniScenes = Utils.intArray( Utils.convert16to2(ob.mini_scene).split('') );
                     Cc.info('g.user.miniScenes: ' + g.user.miniScenes.join(' - '));

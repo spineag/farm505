@@ -119,6 +119,7 @@ public class Market extends WorldObject{
             } else {
                 g.windowsManager.openWindow(WindowsManager.WO_MARKET, fillIt, g.user);
             }
+            hideArrow();
 
             onOut();
         } else {

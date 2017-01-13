@@ -186,7 +186,7 @@ public class Order extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_ORDERS, null);
             if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isMiniSceneBuilding(this)) g.managerMiniScenes.checkMiniSceneCallback();
         } else {
-            Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
+            Cc.error('TestBuild:: unknown g.toolsModifier.modifierType');
         }
     }
 
@@ -194,7 +194,7 @@ public class Order extends WorldObject{
         if (g.managerMiniScenes.isMiniScene && g.user.level == 3) {
             g.managerMiniScenes.checkMiniSceneCallback();
         } else {
-            
+            g.managerOrder.checkOrders();
         }
         _armature.removeEventListener(EventObject.COMPLETE, onOpenOrder);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
