@@ -10,7 +10,8 @@ import windows.WindowsManager;
 public class UserTimer {
     public var papperTimerAtMarket:int;
     public var timerAtPapper:int;
-    public var timerAtNyashuk:int;
+    public var timerAtNyashukRed:int;
+    public var timerAtNyashukBlue:int;
     public var _arrOrderItem:Array;
     private var _orderManagerItem:ManagerOrderItem;
     private var g:Vars = Vars.getInstance();
@@ -49,17 +50,31 @@ public class UserTimer {
         _arrOrderItem.push(manager);
     }
 
-    public function buyerNyashuk(time:int):void {
-        timerAtNyashuk = time;
-        g.gameDispatcher.addToTimer(nyashukTimer);
+    public function buyerNyashukRed(time:int):void {
+        timerAtNyashukRed = time;
+        g.gameDispatcher.addToTimer(nyashukTimerRed);
     }
 
-    private function nyashukTimer():void {
-        timerAtNyashuk--;
-        if (timerAtNyashuk <= 0) {
-            timerAtNyashuk = 0;
+    private function nyashukTimerRed():void {
+        timerAtNyashukRed--;
+        if (timerAtNyashukRed <= 0) {
+            timerAtNyashukRed = 0;
             g.managerBuyerNyashuk.timeToNewNyashuk();
-            g.gameDispatcher.removeFromTimer(nyashukTimer);
+            g.gameDispatcher.removeFromTimer(nyashukTimerRed);
+        }
+    }
+
+     public function buyerNyashukBlue(time:int):void {
+        timerAtNyashukBlue = time;
+        g.gameDispatcher.addToTimer(nyashukTimerBlue);
+    }
+
+    private function nyashukTimerBlue():void {
+        timerAtNyashukBlue--;
+        if (timerAtNyashukBlue <= 0) {
+            timerAtNyashukBlue = 0;
+            g.managerBuyerNyashuk.timeToNewNyashuk();
+            g.gameDispatcher.removeFromTimer(nyashukTimerBlue);
         }
     }
 

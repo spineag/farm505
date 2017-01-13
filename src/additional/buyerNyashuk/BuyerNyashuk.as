@@ -239,9 +239,16 @@ public class BuyerNyashuk {
 
     private var count:int;
     public function idleFrontAnimation():void {
+        var r:int = int(Math.random()*4);
         _armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
-        _armature.animation.gotoAndPlayByFrame("idle_3");
+        switch (r) {
+            case 0: _armature.animation.gotoAndPlayByFrame("idle_1"); break;
+            case 1: _armature.animation.gotoAndPlayByFrame("idle_3"); break;
+            case 2: _armature.animation.gotoAndPlayByFrame("idle_4"); break;
+            case 3: _armature.animation.gotoAndPlayByFrame("idle_6"); break;
+//            case 4: _armature.animation.gotoAndPlayByFrame("idle_5"); break;
+        }
     }
 
     private function onFinishIdle(e:Event=null):void {

@@ -207,14 +207,16 @@ public class WOBuyerNyashuk extends WindowMain{
         new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2., 5);
         g.userInventory.addResource(_data.resourceId,-_data.resourceCount);
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
-        g.userTimer.buyerNyashuk(1800);
+        if (_data.buyerId == 1) g.userTimer.buyerNyashukBlue(1800);
+        else  g.userTimer.buyerNyashukRed(1800);
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
         super.hideIt();
     }
 
     private function onClickDelete():void {
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
-        g.userTimer.buyerNyashuk(1800);
+        if (_data.buyerId == 1) g.userTimer.buyerNyashukBlue(1800);
+        else  g.userTimer.buyerNyashukRed(1800);
         _data.timeToNext = int(new Date().getTime()/1000);
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
         super.hideIt();
