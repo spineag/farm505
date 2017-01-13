@@ -319,6 +319,13 @@ public class ManagerMiniScenes {
 
     }
 
+    public function onHideOrder():void {
+        deleteArrowAndDust();
+        if (isMiniScene && _curMiniScenePropertie && _curMiniScenePropertie.reason == BUY_ORDER) {
+            isMiniScene = false;
+        }
+    }
+
     public function onBuyOrder():void {
         deleteArrowAndDust();
         if (g.user.miniScenes[1] == 0) {
