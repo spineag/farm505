@@ -563,7 +563,7 @@ public class Vars {
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();
             managerLohmatic = new ManagerLohmatik();
-            managerBuyerNyashuk = new ManagerBuyerNyashuk();
+            if ((user as User).level >= 5) managerBuyerNyashuk = new ManagerBuyerNyashuk();
 
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
