@@ -4,6 +4,7 @@
 package quest {
 public class QuestStructure {
     private var _tasks:Array;
+    private var _awards:Array;
     private var _questUserDbId:String;
     private var _questData:Object;
     private var _isGetAward:Boolean;
@@ -12,6 +13,7 @@ public class QuestStructure {
 
     public function QuestStructure() {
         _tasks = [];
+        _awards = [];
     }
 
     public function fillIt(ob:Object):void {
@@ -30,6 +32,12 @@ public class QuestStructure {
         var t:QuestTaskStructure = new QuestTaskStructure();
         t.fillIt(d);
         _tasks.push(t);
+    }
+
+    public function addAward(d:Object):void {
+        var aw:QuestAwardStructure = new QuestAwardStructure();
+        aw.fillIt(d);
+        _awards.push(aw);
     }
 
     public function get iconPath():String {

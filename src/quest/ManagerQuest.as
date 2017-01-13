@@ -86,8 +86,20 @@ public class ManagerQuest {
                 if (q) {
                     q.addTask(d.tasks[i]);
                 } else {
-                    Cc.error('ManagerQuests:: no quest with id: ' + d);
+                    Cc.error('ManagerQuests addQuest task:: no quest with id: ' + d);
                 }
+            }
+            if (d.awards) {
+                for (i = 0; i < d.awards.length; i++) {
+                    q = getUserQuesrById(int(d.awards[i].quest_id));
+                    if (q) {
+                        q.addAward(d.awards[i]);
+                    } else {
+                        Cc.error('ManagerQuests addQuest award:: no quest with id: ' + d);
+                    }
+                }
+            } else {
+                Cc.error('ManagerQuests addQuest award:: no awards');
             }
         }
     }
