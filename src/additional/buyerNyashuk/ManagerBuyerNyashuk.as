@@ -59,15 +59,8 @@ public class ManagerBuyerNyashuk {
                 }
             }
         } else newBot(true);
-//        var b:BuyerNyashuk;
-//        for (i = 0; i < _arr.length; i++) {
-//            getNewNyaForOrder(null,_arr[i],_arr[i].buyerId);
-////            b = new BuyerNyashuk( );
-//            _arrayNya.push(b);
-//        }
         _timer = 0;
         if (g.user.isTester) g.gameDispatcher.addToTimer(timeToCreate);
-//        if (_arr.length > 0) addNyashukOnStartGame();
     }
 
     private function timeToCreate():void {
