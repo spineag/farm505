@@ -27,7 +27,7 @@ public class ManagerQuest {
     public function ManagerQuest() {
         if (!g.useQuests) return;
         _userQuests = [];
-        addUI();
+        g.load.loadAtlas('questAtlas', 'questAtlas', addUI);
     }
 
     public function get userQuests():Array {
@@ -106,7 +106,7 @@ public class ManagerQuest {
 
     public function showWOForQuest(d:QuestStructure):void {
         _currentOpenedQuestInWO = d;
-
+        g.windowsManager.openWindow(WindowsManager.WO_QUEST, null, d);
     }
 
 

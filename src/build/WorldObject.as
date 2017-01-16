@@ -312,7 +312,7 @@ public class WorldObject {
         }
     }
 
-    private function createAtlasBuild1(onCreate:Function):void {
+    private function createAtlasBuild1(onCreate:Function=null):void {
         deleteIsoView();
         var im:Image = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
         im.x = _dataBuild.innerX;

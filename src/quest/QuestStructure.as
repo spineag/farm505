@@ -40,8 +40,10 @@ public class QuestStructure {
         _awards.push(aw);
     }
 
-    public function get iconPath():String {
-        return _questData.icon_quest;
-    }
+    public function get iconPath():String { return _questData.icon_quest; }
+    public function get id():int { return _questId; }
+    public function get description():String { return _questData.description; }
+    public function get awards():Array { return _awards; }
+
 }
 }

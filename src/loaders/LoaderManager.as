@@ -183,7 +183,7 @@ public class LoaderManager {
     public function loadAtlas(url:String, name:String, f:Function, ...params):void {
         var count:int = 2;
         var st:String = g.dataPath.getGraphicsPath() + url;
-        var fOnLoad:Function = function(smth:*):void {
+        var fOnLoad:Function = function(smth:*=null):void {
             count--;
             if (count<=0) {
                 g.allData.atlas[name] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + '.png'].create() as Bitmap), g.pXMLs[st + '.xml']);

@@ -2,8 +2,13 @@
  * Created by user on 9/12/16.
  */
 package windows.quest {
+import com.junkbyte.console.Cc;
+
 import flash.display.Bitmap;
 import manager.ManagerFilters;
+
+import quest.QuestStructure;
+
 import starling.display.Image;
 import starling.textures.Texture;
 import starling.utils.Color;
@@ -20,64 +25,61 @@ public class WOQuest extends WindowMain{
     private var _woBG:WindowBackground;
     private var _birka:Birka;
     private var _bgC:CartonBackground;
-    private var _dataQuest:Object;
-    private var _pl:HintBackground;
+    private var _dataQuest:QuestStructure;
     private var _txtInfo:CTextField;
-    private var _imageQuest:Image;
-    private var _btnOk:CButton;
-    private var _txtBtn:CTextField;
-    private var _questItem:WOQuestItem;
+//    private var _questItem:WOQuestItem;
     private var _award:WOQuestAward;
 
     public function WOQuest() {
         super();
         _windowType = WindowsManager.WO_QUEST;
         _woWidth = 550;
-        _woHeight = 400;
+        _woHeight = 600;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
         _birka = new Birka('Задание', _source, _woWidth, _woHeight);
 
-        _bgC = new CartonBackground(460, 188);
+        _bgC = new CartonBackground(480, 240);
         _bgC.filter =  ManagerFilters.SHADOW;
-        _bgC.x = -_woWidth/2 + 46;
-        _bgC.y = -_woHeight/2 + 181;
+        _bgC.x = -240;
+        _bgC.y = 15;
         _source.addChild(_bgC);
 
-        _pl = new HintBackground(310, 97, HintBackground.LONG_TRIANGLE, HintBackground.LEFT_CENTER);
-        _pl.x = -_woWidth/2 + 165;
-        _pl.y = -_woHeight/2 + 110;
-        _pl.addShadow();
-        _source.addChild(_pl);
-        _txtInfo = new CTextField(310,97,'Выполни следующее задание, чтобы получить награду');
-        _txtInfo.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
-        _pl.inSprite.addChild(_txtInfo);
+        _txtInfo = new CTextField(300, 100, '');
+        _txtInfo.setFormat(CTextField.MEDIUM30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
+        _txtInfo.x = -150;
+        _txtInfo.y = -310;
+        _txtInfo.touchable = false;
+        _source.addChild(_txtInfo);
 
-        _btnOk = new CButton();
-        _btnOk.addButtonTexture(158, 46, CButton.GREEN, true);
-        _txtBtn = new CTextField(158,46,'OK');
-        _txtBtn.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.GREEN_COLOR);
-        _btnOk.addChild(_txtBtn);
-        _btnOk.x = 0;
-        _btnOk.y = -_woHeight/2 + 390;
-        _source.addChild(_btnOk);
-        _btnOk.clickCallback = onClick;
-
-        _award = new WOQuestAward(_source);
-        _questItem = new WOQuestItem(_source);
+//        _questItem = new WOQuestItem(_source);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
         _dataQuest = params[0];
-        _imageQuest = new Image(Texture.fromBitmap(g.pBitmaps[g.dataPath.getQuestIconPath() + _dataQuest.iconUrl].create() as Bitmap));
-        _imageQuest.x = -_woWidth/2 + 65;
-        _imageQuest.y = -_woHeight/2 + 50;
-        _source.addChild(_imageQuest);
+        if (g.allData.atlas['questAtlas']) {
+            var im:Image;
+            if (_dataQuest.id % 2) im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_1'));
+            else im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_2'));
+            if (im) {
+                im.x = -im.width/2;
+                im.y = -300;
+                im.touchable = false;
+                _source.addChild(im);
+            } else {
+                Cc.error('WOQuest showItParams:: no image for bg quest');
+            }
+        } else {
+            Cc.error('WOQuest showItParams:: no questAtlas');
+        }
+        _txtInfo.text = _dataQuest.description;
+        _source.setChildIndex(_txtInfo, _source.numChildren-1);
 
-        _award.fillIt(_dataQuest);
-        _questItem.fillIt(_dataQuest);
+        _award = new WOQuestAward(_source, _dataQuest.awards);
+//        _award.fillIt(_dataQuest);
+//        _questItem.fillIt(_dataQuest);
         onWoShowCallback = onShow;
         updateInfo(false);
         super.showIt();
@@ -85,40 +87,37 @@ public class WOQuest extends WindowMain{
 
     private function onShow():void {
         _birka.updateTextField();
-        _txtBtn.updateIt();
         _txtInfo.updateIt();
-        _award.updateTextField();
-        _questItem.updateTextField();
+//        _award.updateTextField();
+//        _questItem.updateTextField();
     }
 
     private function onClick():void {
-        if (_dataQuest.isDone) {
-            _award.onGetAward();
-            g.managerQuest.onGetAwardFromQuest();
-        }
+//        if (_dataQuest.isDone) {
+//            _award.onGetAward();
+//            g.managerQuest.onGetAwardFromQuest();
+//        }
         super.hideIt();
     }
 
     public function updateInfo(needCheckItem:Boolean = true):void {
-        if (_dataQuest.isDone) {
-            _txtBtn.text = 'Забрать';
-        } else {
-            _txtBtn.text = 'ОК';
-        }
-        if (needCheckItem) _questItem.updateInfo();
+//        if (_dataQuest.isDone) {
+//            _txtBtn.text = 'Забрать';
+//        } else {
+//            _txtBtn.text = 'ОК';
+//        }
+//        if (needCheckItem) _questItem.updateInfo();
     }
 
     override protected function deleteIt():void {
         g.managerQuest.onHideWO();
         _birka.deleteIt();
-        _award.deleteIt();
-        _questItem.deleteIt();
-        _source.removeChild(_btnOk);
-        _btnOk.deleteIt();
-        _source.removeChild(_pl);
-        _pl.deleteIt();
-        _source.removeChild(_bgC);
-        _bgC.deleteIt();
+//        _award.deleteIt();
+//        _questItem.deleteIt();
+        if (_bgC) {
+            _source.removeChild(_bgC);
+            _bgC.deleteIt();
+        }
         super.deleteIt();
     }
 }

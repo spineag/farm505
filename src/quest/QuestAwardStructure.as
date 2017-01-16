@@ -17,5 +17,9 @@ public class QuestAwardStructure {
         _questId = int(d.quest_id);
         _typeResource = String(d.type_resource);
     }
+
+    public function get countResource():int { return _countResource; }
+    public function get idResource():int { return _idResource; }
+    public function get typeResource():String { return _typeResource; }
 }
 }
