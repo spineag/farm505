@@ -42,7 +42,7 @@ public class WOQuestAward {
 
         _txtAward = new CTextField(176,48,'Награда:');
         _txtAward.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
-        _txtAward.y = -20;
+        _txtAward.y = -3;
         _source.addChild(_txtAward);
 
         _arItems = [];
@@ -50,7 +50,15 @@ public class WOQuestAward {
         var c:int = ar.length;
         for (var i:int=0; i<c; i++) {
             it = new Item(ar[i]);
-
+            it.alignPivot();
+            it.y = 53;
+            _source.addChild(it);
+            _arItems.push(it);
+        }
+        switch (c) {
+            case 1: _arItems[0].x = 88; break;
+            case 2: _arItems[0].x = 45; _arItems[1].x = 126; _arItems[0].scale = _arItems[1].scale = .85; break;
+            case 3: _arItems[0].x = 27; _arItems[1].x = 84; _arItems[2].x = 141; _arItems[0].scale = _arItems[1].scale = _arItems[2].scale = .7; break;
         }
     }
 
@@ -71,6 +79,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.utils.Align;
 import utils.CTextField;
+import utils.MCScaler;
 
 internal class Item extends Sprite {
     private var g:Vars = Vars.getInstance();
@@ -79,21 +88,30 @@ internal class Item extends Sprite {
 
     public function Item(aw:QuestAwardStructure) {
         _aw = aw;
-        _txt = new CTextField(100,50,String(aw.countResource));
-        _txt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
+        _txt = new CTextField(45,30,String(aw.countResource));
+        _txt.setFormat(CTextField.MEDIUM30, 30, ManagerFilters.BLUE_COLOR);
         _txt.alignH = Align.RIGHT;
+        _txt.x = -47;
         addChild(_txt);
+        touchable = false;
 
         var im:Image;
         if (aw.typeResource == 'money') {
             switch (aw.idResource) {
-                case DataMoney.SOFT_CURRENCY: im = new Image(g.allData.atlas['coins_small']); break;
-                case DataMoney.HARD_CURRENCY: im = new Image(g.allData.atlas['rubins_small']); break;
-                case DataMoney.BLUE_COUPONE: im = new Image(g.allData.atlas['blue_coupone']); break;
-                case DataMoney.RED_COUPONE: im = new Image(g.allData.atlas['red_coupone']); break;
-                case DataMoney.GREEN_COUPONE: im = new Image(g.allData.atlas['green_coupone']); break;
-                case DataMoney.YELLOW_COUPONE: im = new Image(g.allData.atlas['yellow_coupone']); break;
+                case DataMoney.SOFT_CURRENCY: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small')); break;
+                case DataMoney.HARD_CURRENCY: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small')); break;
+                case DataMoney.BLUE_COUPONE: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone')); break;
+                case DataMoney.RED_COUPONE: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_coupone')); break;
+                case DataMoney.GREEN_COUPONE: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone')); break;
+                case DataMoney.YELLOW_COUPONE: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone')); break;
             }
+        }
+
+        if (im) {
+            MCScaler.scale(im, 50, 50);
+            im.y = 2;
+            im.x = 3;
+            addChild(im);
         }
     }
 

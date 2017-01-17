@@ -217,6 +217,7 @@ public class CTextField extends DisplayObjectContainer {
     public function set changeTextColor(color:uint):void { _txt.format.color = color; _format.color = color; }
     public function set changeSize(v:int):void { _txt.format.size = v; _format.size = v; }
     public function set leading(v:int):void { _txt.format.leading = v; _format.leading = v; }
+    public function set border(v:Boolean):void { _txt.border = v; }
     public function set cacheIt(v:Boolean):void {
         _cacheIt = v;
         if (_useBitmapFont || _colorStroke == 0xabcdef) return;

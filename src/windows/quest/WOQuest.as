@@ -27,14 +27,14 @@ public class WOQuest extends WindowMain{
     private var _bgC:CartonBackground;
     private var _dataQuest:QuestStructure;
     private var _txtInfo:CTextField;
-//    private var _questItem:WOQuestItem;
+    private var _questItem:WOQuestItem;
     private var _award:WOQuestAward;
 
     public function WOQuest() {
         super();
         _windowType = WindowsManager.WO_QUEST;
         _woWidth = 550;
-        _woHeight = 600;
+        _woHeight = 570;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(hideIt);
@@ -44,17 +44,15 @@ public class WOQuest extends WindowMain{
         _bgC = new CartonBackground(480, 240);
         _bgC.filter =  ManagerFilters.SHADOW;
         _bgC.x = -240;
-        _bgC.y = 15;
+        _bgC.y = 12;
         _source.addChild(_bgC);
 
         _txtInfo = new CTextField(300, 100, '');
         _txtInfo.setFormat(CTextField.MEDIUM30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
         _txtInfo.x = -150;
-        _txtInfo.y = -310;
+        _txtInfo.y = -295;
         _txtInfo.touchable = false;
         _source.addChild(_txtInfo);
-
-//        _questItem = new WOQuestItem(_source);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -65,7 +63,7 @@ public class WOQuest extends WindowMain{
             else im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_2'));
             if (im) {
                 im.x = -im.width/2;
-                im.y = -300;
+                im.y = -295;
                 im.touchable = false;
                 _source.addChild(im);
             } else {
@@ -78,8 +76,7 @@ public class WOQuest extends WindowMain{
         _source.setChildIndex(_txtInfo, _source.numChildren-1);
 
         _award = new WOQuestAward(_source, _dataQuest.awards);
-//        _award.fillIt(_dataQuest);
-//        _questItem.fillIt(_dataQuest);
+        _questItem = new WOQuestItem(_source, _dataQuest.tasks);
         onWoShowCallback = onShow;
         updateInfo(false);
         super.showIt();

@@ -19,5 +19,11 @@ public class QuestTaskStructure {
         _countDone = int(d.count_done);
         _taskData = d.task_data;   // adds, count_resource, description, icon_task, id, quest_id, type_action, type_resource
     }
+
+    public function get icon():String { return _taskData.icon_task; }
+    public function get countDone():int { return _countDone; }
+    public function get countNeed():int { return int(_taskData.count_resource); }
+    public function get typeResource():int { return int(_taskData.type_resource); }
+    public function get typeAction():int { return int(_taskData.type_action); }
 }
 }

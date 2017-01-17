@@ -44,6 +44,7 @@ public class QuestStructure {
     public function get id():int { return _questId; }
     public function get description():String { return _questData.description; }
     public function get awards():Array { return _awards; }
+    public function get tasks():Array { return _tasks; }
 
 }
 }
