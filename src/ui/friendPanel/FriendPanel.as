@@ -45,6 +45,7 @@ public class FriendPanel {
     private var _source:Sprite;
     private var _mask:Sprite;
     private var _cont:Sprite;
+    private var _addFriend:Sprite;
     private var _leftArrow:CButton;
     private var _rightArrow:CButton;
     private var _arrFriends:Array;
@@ -77,6 +78,8 @@ public class FriendPanel {
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
         _count = 0;
         _arrFriends = [];
+        _addFriend = new Sprite();
+        _source.addChild(_addFriend);
         noFriends();
     }
 
@@ -260,13 +263,13 @@ public class FriendPanel {
                 bt.addDisplayObject(im);
                 txt = new CTextField(64, 50, "Добавить друга");
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = -1;
+                txt.x = 4;
                 txt.y = 12;
                 bt.addChild(txt);
                 bt.setPivots();
                 bt.x = 237 + bt.width / 2;
                 bt.y = 6 + bt.height / 2;
-                _source.addChild(bt);
+                _addFriend.addChild(bt);
                 bt.clickCallback = inviteFriends;
 
                 bt = new CButton();
@@ -274,13 +277,13 @@ public class FriendPanel {
                 bt.addDisplayObject(im);
                 txt = new CTextField(60, 50, "Добавить друга");
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = 1;
+                txt.x = 4;
                 txt.y = 12;
                 bt.addChild(txt);
                 bt.setPivots();
                 bt.x = 303 + bt.width / 2;
                 bt.y = 6 + bt.height / 2;
-                _source.addChild(bt);
+                _addFriend.addChild(bt);
                 bt.clickCallback = inviteFriends;
 
                 bt = new CButton();
@@ -288,13 +291,13 @@ public class FriendPanel {
                 bt.addDisplayObject(im);
                 txt = new CTextField(60, 50, "Добавить друга");
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = 1;
+                txt.x = 4;
                 txt.y = 12;
                 bt.addChild(txt);
                 bt.setPivots();
                 bt.x = 369 + bt.width / 2;
                 bt.y = 6 + bt.height / 2;
-                _source.addChild(bt);
+                _addFriend.addChild(bt);
                 bt.clickCallback = inviteFriends;
             } else if (_arrFriends.length == 1) {
                 Cc.ch('social', 'friendUI: fill 2 add');
@@ -303,13 +306,13 @@ public class FriendPanel {
                 bt.addDisplayObject(im);
                 txt = new CTextField(60, 50, "Добавить друга");
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = 1;
+                txt.x = 4;
                 txt.y = 12;
                 bt.addChild(txt);
                 bt.setPivots();
                 bt.x = 303 + bt.width / 2;
                 bt.y = 6 + bt.height / 2;
-                _source.addChild(bt);
+                _addFriend.addChild(bt);
                 bt.clickCallback = inviteFriends;
 
                 bt = new CButton();
@@ -317,13 +320,13 @@ public class FriendPanel {
                 bt.addDisplayObject(im);
                 txt = new CTextField(60, 50, "Добавить друга");
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = 1;
+                txt.x = 4;
                 txt.y = 12;
                 bt.addChild(txt);
                 bt.setPivots();
                 bt.x = 369 + bt.width / 2;
                 bt.y = 6 + bt.height / 2;
-                _source.addChild(bt);
+                _addFriend.addChild(bt);
                 bt.clickCallback = inviteFriends;
             } else if (_arrFriends.length == 2) {
                 Cc.ch('social', 'friendUI: fill 1 add');
@@ -332,13 +335,13 @@ public class FriendPanel {
                 bt.addDisplayObject(im);
                 txt = new CTextField(60, 50, "Добавить друга");
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = 1;
+                txt.x = 4;
                 txt.y = 12;
                 bt.addChild(txt);
                 bt.setPivots();
                 bt.x = 369 + bt.width / 2;
                 bt.y = 6 + bt.height / 2;
-                _source.addChild(bt);
+                _addFriend.addChild(bt);
                 bt.clickCallback = inviteFriends;
             }
         }
@@ -392,6 +395,9 @@ public class FriendPanel {
         for (var i:int=0; i<_arrItems.length; i++) {
             _cont.removeChild(_arrItems[i].source);
             (_arrItems[i] as FriendItem).deleteIt();
+        }
+        while (_addFriend.numChildren) {
+            _addFriend.removeChildAt(0);
         }
         _arrItems.length = 0;
         _arrFriends.length = 0;

@@ -153,15 +153,20 @@ public class DecorAnimation extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-//            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
-//                var p:Point = new Point(_source.x, _source.y);
-//                p = _source.parent.localToGlobal(p);
-//                new FlyMessage(p, "Нет свободных помощников");
-//            } else {
-//                var p:Point = new Point(_source.x, _source.y);
-//                p = _source.parent.localToGlobal(p);
-//                new FlyMessage(p, "Нет свободных помощников");
-//            }
+            var h:HeroCat =  g.managerCats.getFreeCat();
+            if (!h) {
+                var p:Point;
+                if (g.managerCats.curCountCats == g.managerCats.maxCountCats && !_decorWork) {
+                    p = new Point(_source.x, _source.y);
+                    p = _source.parent.localToGlobal(p);
+                    new FlyMessage(p, "Нет свободных помощников");
+                } else {
+                    p = new Point(_source.x, _source.y);
+                    p = _source.parent.localToGlobal(p);
+                    new FlyMessage(p, "Нет свободных помощников");
+                }
+                return;
+            } else h = null;
             if (_decorWork && _catRun) {
                 var click:Function = function(e:Event=null):void {
                     _armature.removeEventListener(EventObject.COMPLETE, click);

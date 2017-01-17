@@ -948,17 +948,18 @@ public class DirectServer {
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                     g.user.miniScenes = Utils.intArray( String(ob.mini_scene).split('&') );
 
-                    if (g.useNewTuts && g.user.level <= 3) {
-                        if (!g.user.miniScenes.length || g.user.miniScenes[0] == 0)
-                            g.user.isOpenOrder = false; // temp
-                    }
                 } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
                     g.user.miniScenes = Utils.intArray( Utils.convert16to2(ob.mini_scene).split('') );
                     Cc.info('g.user.miniScenes: ' + g.user.miniScenes.join(' - '));
                 }
                 if (!g.user.miniScenes) g.user.miniScenes = [];
+
             } else {
                 g.user.miniScenes = [];
+            }
+            if (g.useNewTuts && g.user.level <= 3) {
+                if (!g.user.miniScenes.length || g.user.miniScenes[0] == 0)
+                    g.user.isOpenOrder = false; // temp
             }
             if (ob.is_tester && int(ob.is_tester) > 0) {
                 g.user.isTester = true;

@@ -3,6 +3,8 @@
  */
 package ui.xpPanel {
 
+import additional.buyerNyashuk.ManagerBuyerNyashuk;
+
 import flash.filters.GlowFilter;
 import flash.geom.Point;
 
@@ -93,6 +95,10 @@ public class XPPanel {
             if (!g.userValidates.checkInfo('level', g.user.level)) return;
             g.userValidates.updateInfo('xp', g.user.xp);
             g.user.level++;
+            if (g.user.level == 5) {
+                var managerBuyerNyashuk:ManagerBuyerNyashuk;
+                managerBuyerNyashuk= new ManagerBuyerNyashuk(true);
+            }
             g.userValidates.updateInfo('level', g.user.level);
             _txtLevel.text = String(g.user.level);
 //            if (g.windowsManager.currentWindow.windowType == WindowsManager.POST_OPEN_FABRIC) {

@@ -200,6 +200,7 @@ public class WOBuyerNyashuk extends WindowMain{
             g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBuy, {id:_data.resourceId}, 'market');
             return;
         }
+        super.hideIt();
         ob.id = DataMoney.SOFT_CURRENCY;
         ob.count = _data.cost;
         new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,ob);
@@ -210,7 +211,6 @@ public class WOBuyerNyashuk extends WindowMain{
         if (_data.buyerId == 1) g.userTimer.buyerNyashukBlue(1800);
         else  g.userTimer.buyerNyashukRed(1800);
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
-        super.hideIt();
     }
 
     private function onClickDelete():void {
@@ -220,6 +220,12 @@ public class WOBuyerNyashuk extends WindowMain{
         _data.timeToNext = int(new Date().getTime()/1000);
         g.directServer.updateUserPapperBuy(_data.buyerId,0,0,0,0,0,0);
         super.hideIt();
+    }
+
+    override protected function deleteIt():void {
+        _data = null;
+        _nyashuk = null;
+        super.deleteIt();
     }
 }
 }

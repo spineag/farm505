@@ -52,6 +52,7 @@ public class UserTimer {
 
     public function buyerNyashukRed(time:int):void {
         timerAtNyashukRed = time;
+        timerAtNyashukRed = 30;
         g.gameDispatcher.addToTimer(nyashukTimerRed);
     }
 
@@ -66,6 +67,7 @@ public class UserTimer {
 
      public function buyerNyashukBlue(time:int):void {
         timerAtNyashukBlue = time;
+        timerAtNyashukBlue = 30;
         g.gameDispatcher.addToTimer(nyashukTimerBlue);
     }
 
