@@ -139,10 +139,14 @@ public class BuyerNyashuk {
 
     public function noClick():void {
         _source.endClickCallback = null;
+        _source.hoverCallback = null;
+        _source.outCallback = null;
     }
 
     public function yesClick():void {
         _source.endClickCallback = onClick;
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
     }
 
     private function onHover():void {
@@ -239,7 +243,7 @@ public class BuyerNyashuk {
 
     private var count:int;
     public function idleFrontAnimation():void {
-        var r:int = int(Math.random()*4);
+        var r:int = int(Math.random()*5);
         _armature.addEventListener(EventObject.COMPLETE, onFinishIdle);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, onFinishIdle);
         switch (r) {
@@ -247,7 +251,7 @@ public class BuyerNyashuk {
             case 1: _armature.animation.gotoAndPlayByFrame("idle_3"); break;
             case 2: _armature.animation.gotoAndPlayByFrame("idle_4"); break;
             case 3: _armature.animation.gotoAndPlayByFrame("idle_6"); break;
-//            case 4: _armature.animation.gotoAndPlayByFrame("idle_5"); break;
+            case 4: _armature.animation.gotoAndPlayByFrame("idle_5"); break;
         }
     }
 

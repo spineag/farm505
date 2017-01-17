@@ -22,8 +22,9 @@ public class ManagerBuyerNyashuk {
     private var g:Vars = Vars.getInstance();
     private var _arrayNya:Array;
     private var _timer:int;
-
-    public function ManagerBuyerNyashuk() {
+    private var afterNewLvl:Boolean;
+    public function ManagerBuyerNyashuk(first:Boolean = false) {
+        afterNewLvl = first;
         _arrayNya = [];
         g.loadAnimation.load('animations_json/x1/red_n', 'red_n', null);
         g.loadAnimation.load('animations_json/x1/blue_n', 'blue_n', null);
@@ -51,7 +52,7 @@ public class ManagerBuyerNyashuk {
                     ob.visible = Boolean(ar[i].visible);
                     _arr.push(ob);
 
-                } else if (ar[i].visible == false && (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1) >= 1800) {
+            } else if (ar[i].visible == false && (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1) >= 1800) {
                     newBot(false,ar[i]);
                 } else {
                     if (ar[i].buyer_id == 1) g.userTimer.buyerNyashukBlue((ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1));
@@ -59,19 +60,32 @@ public class ManagerBuyerNyashuk {
                 }
             }
         } else newBot(true);
+        if (!afterNewLvl) {
+            var b:BuyerNyashuk;
+            for (i = 0; i < _arr.length; i++) {
+                b = new BuyerNyashuk(_arr[i].buyerId, _arr[i]);
+                _arrayNya.push(b);
+            }
+        }
         _timer = 0;
         if (g.user.isTester) g.gameDispatcher.addToTimer(timeToCreate);
     }
 
     private function timeToCreate():void {
         _timer++;
-        if (_timer >= 5) {
-            if (_arr.length > 0 && _timer == 5) getNewNyaForOrder(null, _arr[0], _arr[0].buyerId);
-            if (_arr.length == 2) {
-                if (_timer >= 7) {
+            if (_timer >= 5) {
+                if (!afterNewLvl) {
                     g.gameDispatcher.removeFromTimer(timeToCreate);
                     _timer = 0;
-                    getNewNyaForOrder(null, _arr[1], _arr[1].buyerId);
+                    addNyashukOnStartGame();
+                } else {
+                if (_arr.length > 0 && _timer == 5) getNewNyaForOrder(null, _arr[0], _arr[0].buyerId);
+                if (_arr.length == 2) {
+                    if (_timer >= 7) {
+                        g.gameDispatcher.removeFromTimer(timeToCreate);
+                        _timer = 0;
+                        getNewNyaForOrder(null, _arr[1], _arr[1].buyerId);
+                    }
                 }
             }
         }
@@ -343,8 +357,8 @@ public class ManagerBuyerNyashuk {
 
     private function arrivePart1(nya:BuyerNyashuk,id:int):void {
         var p:Point;
-        if (id == 1)  p = new Point(30, -5);
-        else  p = new Point(28, -5);
+        if (id == 1)  p = new Point(28, -5);
+        else  p = new Point(30, -5);
         p = g.matrixGrid.getXYFromIndex(p);
         nya.walkPosition = BuyerNyashuk.SHORT_OUTTILE_WALKING;
         nya.flipIt(true);

@@ -140,13 +140,12 @@ public class ResourceHint {
         if (g.dataResource.objectResources[_id].buildType == BuildType.PLANT) {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
-            _imageClock.x = -40;
+
             _txtName.text = String(g.dataResource.objectResources[_id].name);
             _txtName.x = -100;
             _txtName.y = 20;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime);
-//            _txtTime.x = 20;
-            _txtTime.y = 60;
+            _txtTime.y = 57;
             _txtText.x = -100;
             _txtText.y = 5;
             if(_bool) {
@@ -162,6 +161,8 @@ public class ResourceHint {
             wName = _txtName.textBounds.width + 40;
             if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
             else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+            _imageClock.x = -bg.width/2 + (bg.width - (_imageClock.width + _txtTime.textBounds.width + 5))/2;
+            _txtTime.x = _imageClock.x +_imageClock.width + 5;
             _source.addChild(bg);
             _source.addChild(_txtName);
             _source.addChild(_txtText);
@@ -209,19 +210,21 @@ public class ResourceHint {
                 _txtName.y = 20;
                 _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_id].buildTime);
 //                _txtTime.x = -10;
-                _txtTime.y = 60;
+                _txtTime.y = 57;
                 _txtText.text = "Растет на: " + objTrees[i].name;
                 _txtText.x = -100;
                 _txtText.y = 5;
-                if (_txtTime.textBounds.width >= 40) {
-                    _imageClock.x = -35;
-                }else {
-                    _imageClock.x = -30;
-                }
+//                if (_txtTime.textBounds.width >= 40) {
+//                    _imageClock.x = -35;
+//                }else {
+//                    _imageClock.x = -30;
+//                }
                 wText = _txtText.textBounds.width + 20;
                 wName = _txtName.textBounds.width + 40;
                 if (wText > wName) bg = new HintBackground(wText, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
                 else bg = new HintBackground(wName, 95, HintBackground.SMALL_TRIANGLE, HintBackground.TOP_CENTER);
+                _imageClock.x = -bg.width/2 + (bg.width - (_imageClock.width + _txtTime.textBounds.width + 5))/2;
+                _txtTime.x = _imageClock.x +_imageClock.width + 5;
                 _source.addChild(bg);
                 _source.addChild(_txtName);
                 _source.addChild(_txtText);
