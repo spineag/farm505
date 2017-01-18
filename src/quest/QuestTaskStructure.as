@@ -25,5 +25,7 @@ public class QuestTaskStructure {
     public function get countNeed():int { return int(_taskData.count_resource); }
     public function get typeResource():int { return int(_taskData.type_resource); }
     public function get typeAction():int { return int(_taskData.type_action); }
+    public function get isDone():Boolean { return _isDone; }
+    public function get description():String { return _taskData.description; }
 }
 }
