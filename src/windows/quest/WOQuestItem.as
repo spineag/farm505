@@ -2,15 +2,8 @@
  * Created by user on 9/12/16.
  */
 package windows.quest {
-import manager.ManagerFilters;
 import manager.Vars;
-import quest.ManagerQuest;
-import starling.display.Image;
 import starling.display.Sprite;
-import starling.utils.Color;
-import utils.CButton;
-import utils.CTextField;
-import windows.WOComponents.CartonBackgroundIn;
 
 public class WOQuestItem {
     private var _source:Sprite;
@@ -24,27 +17,6 @@ public class WOQuestItem {
         _source.x = -230;
         _source.y = 12;
         _parent.addChild(_source);
-//        _bg = new CartonBackgroundIn(410, 75);
-//        _source.addChild(_bg);
-//        _txt = new CTextField(295,75,'');
-//        _txt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BROWN_COLOR);
-//        _source.addChild(_txt);
-//
-//        _btn = new CButton();
-//        _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-//        _txtBtn = new CTextField(120,40,'');
-//        _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
-//        _btn.addChild(_txtBtn);
-//        _btn.x = 333;
-//        _btn.y = 40;
-//        _source.addChild(_btn);
-//        _btn.visible = false;
-//
-//        _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-//        _galo4ka.x = 333 - int(_galo4ka.width/2);
-//        _galo4ka.y = 40 - int(_galo4ka.height/2);
-//        _source.addChild(_galo4ka);
-//        _galo4ka.visible = false;
 
         _arItems = [];
         var c:int = ar.length;
@@ -53,6 +25,11 @@ public class WOQuestItem {
             it = new Item(c, ar[i]);
             _source.addChild(it);
             _arItems.push(it);
+        }
+        switch (c) {
+            case 1: _arItems[0].y = 120; break;
+            case 2: _arItems[0].y = 60; _arItems[1].y = 180; break;
+            case 3: _arItems[0].y = 40; _arItems[1].y = 120; _arItems[2].y = 200; break;
         }
     }
 
@@ -63,6 +40,11 @@ public class WOQuestItem {
 //    }
 
     public function deleteIt():void {
+        for (var i:int=0; i<_arItems.length; i++) {
+            _source.removeChild(_arItems[i]);
+            _arItems[i].deleteIt();
+        }
+        _arItems = [];
         _parent.removeChild(_source);
         _parent = null;
         _source.dispose();
@@ -70,15 +52,18 @@ public class WOQuestItem {
 }
 }
 
+import flash.display.Bitmap;
 import manager.ManagerFilters;
 import manager.Vars;
+import quest.ManagerQuest;
 import quest.QuestTaskStructure;
+import starling.display.Image;
 import starling.display.Sprite;
+import starling.textures.Texture;
 import starling.utils.Color;
-
 import utils.CButton;
 import utils.CTextField;
-
+import utils.MCScaler;
 import windows.WOComponents.CartonBackgroundIn;
 
 internal class Item extends Sprite {
@@ -89,36 +74,130 @@ internal class Item extends Sprite {
     private var _txtBtn:CTextField;
     private var _txt:CTextField;
     private var _countTxt:CTextField;
+    private var _c:int;
+    private var _galo4ka:Image;
 
     public function Item(c:int, t:QuestTaskStructure) {
         _task = t;
-        var h:int;
+        _c = c;
+
+
         if (c == 1) {
-            h = 160;
+            _bg = new CartonBackgroundIn(460, 160);
+            if (_task.isDone) {
+                _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                MCScaler.scale(_galo4ka, 50, 50);
+                _galo4ka.alignPivot();
+                _galo4ka.x = 390;
+            } else {
+                _btn = new CButton();
+                _btn.addButtonTexture(120, 40, CButton.GREEN, true);
+                _txtBtn = new CTextField(120,40,'Показать');
+                _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+                _btn.x = 390;
+                _btn.y = 25;
+                _countTxt = new CTextField(80, 30,'');
+                _countTxt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BROWN_COLOR);
+                _countTxt.y = -40;
+                _countTxt.x = 350;
+            }
+            _txt = new CTextField(220, 120, _task.description);
+            _txt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BROWN_COLOR);
+            _txt.y = -62;
+            _txt.x = 100;
         } else if (c==2) {
-            h = 100;
+            _bg = new CartonBackgroundIn(460, 100);
+            if (_task.isDone) {
+                _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                MCScaler.scale(_galo4ka, 50, 50);
+                _galo4ka.alignPivot();
+                _galo4ka.x = 390;
+            } else {
+                _btn = new CButton();
+                _btn.addButtonTexture(100, 40, CButton.GREEN, true);
+                _txtBtn = new CTextField(96, 40, 'Показать');
+                _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
+                _txtBtn.x = 2;
+                _btn.x = 397;
+                _countTxt = new CTextField(60, 30, '');
+                _countTxt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BROWN_COLOR);
+                _countTxt.y = -15;
+                _countTxt.x = 285;
+            }
+            _txt = new CTextField(210, 80, _task.description);
+            _txt.setFormat(CTextField.MEDIUM24, 20, ManagerFilters.BROWN_COLOR);
+            _txt.y = -40;
+            _txt.x = 75;
         } else if (c==3) {
-            h = 70;
+            _bg = new CartonBackgroundIn(460, 70);
+            if (_task.isDone) {
+                _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                MCScaler.scale(_galo4ka, 50, 50);
+                _galo4ka.alignPivot();
+                _galo4ka.x = 390;
+            } else {
+                _btn = new CButton();
+                _btn.addButtonTexture(80, 30, CButton.GREEN, true);
+                _txtBtn = new CTextField(76, 30, 'Показать');
+                _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+                _txtBtn.x = 2;
+                _btn.x = 410;
+                _countTxt = new CTextField(60, 30, '');
+                _countTxt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BROWN_COLOR);
+                _countTxt.y = -15;
+                _countTxt.x = 305;
+            }
+            _txt = new CTextField(240, 60, _task.description);
+            _txt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BROWN_COLOR);
+            _txt.y = -30;
+            _txt.x = 60;
         }
-        _bg = new CartonBackgroundIn(460, h);
-        _bg.y = -h/2;
+
+        _bg.touchable = false;
+        _txt.touchable = false;
+        _bg.y = -_bg.height/2;
         addChild(_bg);
-
-        _btn = new CButton();
-        _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-        _txtBtn = new CTextField(120,40,'Показать');
-        _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
-        _btn.addChild(_txtBtn);
-        _btn.x = 390;
-        addChild(_btn);
-
-        _txt = new CTextField(200, int(h*2/3),'34546 7 45 er f vcv h fgh dfhs dhsh sdh gsh fgfgh df dfh');
-        _txt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BROWN_COLOR);
-        _txt.y = -_txt.width/2;
-        _txt.x = 110;
+        if (_btn) {
+            _btn.addChild(_txtBtn);
+            addChild(_btn);
+        }
         addChild(_txt);
+        if (_countTxt) {
+            _countTxt.text = String(_task.countDone) + '/' + String(_task.countNeed);
+            _countTxt.touchable = false;
+            addChild(_countTxt);
+        }
 
-        
+        g.load.loadImage(ManagerQuest.ICON_PATH + _task.icon, onLoadIcon);
      }
+
+    private function onLoadIcon(bitmap:Bitmap):void {
+        var im:Image = new Image(Texture.fromBitmap(bitmap));
+        if (_c == 1) {
+            MCScaler.scale(im, 90, 90);
+            im.alignPivot();
+            im.x = 55;
+        } else if (_c == 2) {
+            MCScaler.scale(im, 70, 70);
+            im.alignPivot();
+            im.x = 45;
+        } else {
+            MCScaler.scale(im, 50, 50);
+            im.alignPivot();
+            im.x = 30;
+        }
+        im.touchable = false;
+        addChild(im);
+    }
+
+    public function deleteIt():void {
+        if (_btn) {
+            removeChild(_btn);
+            _btn.deleteIt();
+        }
+        removeChild(_bg);
+        _bg.deleteIt();
+        dispose();
+    }
 
 }
