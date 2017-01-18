@@ -155,7 +155,7 @@ public class ManagerQuest {
 //        _questUI.removeIconWithShiftAll(_currentOpenedQuestInWO.questIcon);
     }
     
-    public function onActionForTaskType(type:int, adds:Object):void {
+    public function onActionForTaskType(type:int, adds:Object=null):void {
         if (type == ADD_LEFT_MENU) {
 
         }
