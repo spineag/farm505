@@ -23,7 +23,7 @@ public class ManagerMouse {
     }
 
     public function addMouse():void {
-        if (g.user.isMegaTester || g.user.isTester) {
+//        if (g.user.isMegaTester || g.user.isTester) {
             if (g.user.countAwayMouse > 4) return;
             if (!g.isAway) return;
             if (Math.random() < .6) return;
@@ -32,7 +32,7 @@ public class ManagerMouse {
             } else {
                 g.loadAnimation.load('animations_json/x1/mouse', 'mouse_yobar', onLoad);
             }
-        }
+//        }
     }
 
     public function removeMouse():void {

@@ -2,11 +2,21 @@
  * Created by user on 8/25/15.
  */
 package windows.lastResource {
+import additional.buyerNyashuk.BuyerNyashuk;
+
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.DataMoney;
+
 import manager.ManagerFilters;
+
+import resourceItem.DropItem;
+
 import starling.text.TextField;
 import starling.utils.Color;
+
+import ui.xpPanel.XPStar;
+
 import utils.CButton;
 import utils.CTextField;
 
@@ -27,6 +37,7 @@ public class WOLastResource extends WindowMain {
     private var _txtYes:CTextField;
     private var _txtNo:CTextField;
     private var _window:String;
+    private var _nyashuk:BuyerNyashuk;
 
     public function WOLastResource() {
         super();
@@ -77,6 +88,7 @@ public class WOLastResource extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         _callbackBuy = callback;
         _dataResource = params[0];
+        if (params[2]) _nyashuk = params[2];
         if (!_dataResource) {
             Cc.error('WOLastResource showItParams:: empty _data');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'lastResource');
@@ -147,6 +159,15 @@ public class WOLastResource extends WindowMain {
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnYes.clickCallback = onClickMarket;
+                break;
+            case 'nyashuk':
+                item = new WOLastResourceItem();
+                item.fillWithResource(_dataResource.resourceId);
+                item.source.x = -25;
+                item.source.y = -20;
+                _source.addChild(item.source);
+                _arrItems.push(item);
+                _btnYes.clickCallback = onClickNyashuk;
                 break;
             case 'fabrica':
                 _paramsFabrica = params[2];
@@ -230,6 +251,21 @@ public class WOLastResource extends WindowMain {
             _callbackBuy.apply(null,[true]);
             _callbackBuy = null;
         }
+        super.hideIt();
+    }
+
+    private function onClickNyashuk():void {
+        var ob:Object = {};
+        ob.id = DataMoney.SOFT_CURRENCY;
+        ob.count = _dataResource.cost;
+        new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,ob);
+        _dataResource.visible = false;
+        new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2., 5);
+        g.userInventory.addResource(_dataResource.resourceId,-_dataResource.resourceCount);
+        g.directServer.updateUserPapperBuy(_dataResource.buyerId,0,0,0,0,0,0);
+        if (_dataResource.buyerId == 1) g.userTimer.buyerNyashukBlue(1800);
+        else  g.userTimer.buyerNyashukRed(1800);
+        g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
         super.hideIt();
     }
 

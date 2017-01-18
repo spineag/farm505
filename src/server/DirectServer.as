@@ -1096,7 +1096,7 @@ public class DirectServer {
 
         Cc.ch('server', 'updateUserTester', 1);
         variables = addDefault(variables);
-        variables.hash = MD5.hash(String(g.user.userId)+String(g.user.isTester)+SECRET);
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         variables.userId = g.user.userId;
         request.data = variables;
         request.method = URLRequestMethod.POST;
