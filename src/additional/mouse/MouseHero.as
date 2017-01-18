@@ -156,12 +156,12 @@ public class MouseHero {
     private function flyAwards():void {
         var obj:Object;
         obj = {};
-        obj.count = 2;
+        obj.count = 5;
         var p:Point = new Point(0, 0);
         p = _source.localToGlobal(p);
         obj.id =  DataMoney.SOFT_CURRENCY;
         new DropItem(p.x, p.y, obj);
-        new XPStar(p.x, p.y, 2);
+        new XPStar(p.x, p.y, 5);
     }
 
     private function flyInstrument():void {

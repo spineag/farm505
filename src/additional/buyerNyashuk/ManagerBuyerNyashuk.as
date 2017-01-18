@@ -68,7 +68,7 @@ public class ManagerBuyerNyashuk {
             }
         }
         _timer = 0;
-        if (g.user.isTester) g.gameDispatcher.addToTimer(timeToCreate);
+        g.gameDispatcher.addToTimer(timeToCreate);
     }
 
     private function timeToCreate():void {

@@ -2,8 +2,11 @@
  * Created by user on 12/28/16.
  */
 package windows.starterPackWindow {
+import analytic.AnalyticManager;
+
 import com.greensock.TweenMax;
 import com.greensock.easing.Back;
+import com.junkbyte.console.Cc;
 
 import data.BuildType;
 import data.DataMoney;
@@ -17,6 +20,8 @@ import manager.ManagerFilters;
 import manager.Vars;
 
 import resourceItem.DropItem;
+
+import social.SocialNetworkEvent;
 
 import social.SocialNetworkSwitch;
 
@@ -200,12 +205,44 @@ public class WOStarterPack extends WindowMain{
                 g.directServer.getDailyGift(null);
             }
         }
-        g.directServer.updateStarterPack(null);
      super.hideIt();
     }
 
     private function onClick():void {
+        if (g.isDebug) {
+            onBuy();
 
+        } else {
+            if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
+                g.optionPanel.makeFullScreen();
+//                g.windowsManager.hideWindow(WindowsManager.WO_BUY_CURRENCY); ??
+            }
+            g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
+            g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
+            g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
+            g.socialNetwork.showOrderWindow({id: 12});
+            Cc.info('try to buy packId: ' + 12);
+        }
+    }
+
+    private function orderWindowSuccessHandler(e:SocialNetworkEvent):void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
+        Cc.info('Seccuss for buy pack');
+//        if (_currency == DataMoney.HARD_CURRENCY) {
+//            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_HARD_FOR_REAL, {id: 13});
+//        } else {
+//            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_SOFT_FOR_REAL, {id: 13});
+//        }
+        onBuy();
+    }
+
+    private function orderWindowFailHandler(e:SocialNetworkEvent):void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
+        Cc.info('Fail for buy pack');
     }
 
     override protected function deleteIt():void {
@@ -213,6 +250,7 @@ public class WOStarterPack extends WindowMain{
     }
 
     private function onBuy():void {
+        g.directServer.updateStarterPack(null);
         var obj:Object;
         obj = {};
         obj.count = _data.soft_count;
@@ -246,7 +284,20 @@ public class WOStarterPack extends WindowMain{
             var v:Number;
             if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = .5;
             else v = .2;
-            new TweenMax(_decorSpr, v, {scaleX:.3, scaleY:.3, ease:Back.easeIn, onComplete:f});
+            var im:Image;
+            var spr:Sprite = new Sprite();
+            if (_data.object_type == BuildType.RESOURCE || _data.object_type == BuildType.INSTRUMENT || _data.object_type == BuildType.PLANT) {
+                im = new Image(g.allData.atlas[g.dataResource.objectResources[_data.object_id].url].getTexture(g.dataResource.objectResources[_data.object_id].imageShop));
+            } else if (_data.object_type == BuildType.DECOR_ANIMATION) {
+                im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.object_id].url + '_icon'));
+            } else if (_data.object_type == BuildType.DECOR) {
+                im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.object_id].image +'_icon'));
+            }
+            MCScaler.scale(im,110,110);
+            im.x = 160;
+            im.y = -145;
+            spr.addChild(im);
+            new TweenMax(spr, v, {scaleX:.3, scaleY:.3, ease:Back.easeIn, onComplete:f});
         }
     }
 

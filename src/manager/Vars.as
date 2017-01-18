@@ -538,12 +538,12 @@ public class Vars {
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
                 managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
-//                if (int((user as User).userSocialId) == 168207096) {
-//                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+                if (int((user as User).userSocialId) == 168207096 && (user as User).starterPack) {
+                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
 //                }
 //                if ((user as User).level >= 6) {
 //                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
-//                } else {
+                } else {
                     if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
                     else {
                         var todayDailyGift:Date = new Date((user as User).dayDailyGift * 1000);
@@ -553,7 +553,7 @@ public class Vars {
                         }
                     }
                 }
-//            }
+            }
             if (useNewTuts) {
                 managerQuest.getQuestsOnStart();
             }

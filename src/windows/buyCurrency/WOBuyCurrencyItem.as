@@ -158,8 +158,9 @@ public class WOBuyCurrencyItem {
     }
 
     private function onClick():void {
-        if (g.isDebug) {5
+        if (g.isDebug) {
             onBuy();
+            g.socialNetwork.showOrderWindow({id: _packId});
         } else {
             if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
                 g.optionPanel.makeFullScreen();

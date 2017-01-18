@@ -187,20 +187,18 @@ public class WOBuyerNyashuk extends WindowMain{
     private function onClickBuy(noResource:Boolean = false):void {
         var ob:Object = {};
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
-            g.windowsManager.cashWindow = this;
             ob.data = g.dataResource.objectResources[_data.resourceId];
             ob.count = _data.resourceCount - g.userInventory.getCountResourceById(_data.resourceId);
+            ob.dataNyashuk = _data;
             super.hideIt();
-            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickBuy, 'papper', ob);
+            g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickBuy, 'nyashuk', ob, _nyashuk);
             return;
         }
         if (!noResource && _data.type == BuildType.PLANT && g.userInventory.getCountResourceById(_data.resourceId) == _data.resourceCount &&  !g.userInventory.checkLastResource(_data.resourceId)) {
-            g.windowsManager.cashWindow = this;
             super.hideIt();
-            g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBuy, {id:_data.resourceId}, 'market');
+            g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBuy, _data, 'nyashuk', _nyashuk);
             return;
         }
-        super.hideIt();
         ob.id = DataMoney.SOFT_CURRENCY;
         ob.count = _data.cost;
         new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,ob);
@@ -211,6 +209,8 @@ public class WOBuyerNyashuk extends WindowMain{
         if (_data.buyerId == 1) g.userTimer.buyerNyashukBlue(1800);
         else  g.userTimer.buyerNyashukRed(1800);
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
+        super.hideIt();
+
     }
 
     private function onClickDelete():void {

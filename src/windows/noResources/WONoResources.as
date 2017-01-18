@@ -2,6 +2,8 @@
  * Created by user on 6/29/15.
  */
 package windows.noResources {
+import additional.buyerNyashuk.BuyerNyashuk;
+
 import analytic.AnalyticManager;
 
 import com.greensock.TweenMax;
@@ -11,6 +13,10 @@ import data.DataMoney;
 import manager.ManagerFilters;
 
 import media.SoundConst;
+
+import resourceItem.DropItem;
+
+import ui.xpPanel.XPStar;
 
 import utils.CButton;
 import utils.CTextField;
@@ -32,6 +38,7 @@ public class WONoResources extends WindowMain {
     private var _paramData:Object;
     private var _txtNoResource:CTextField;
     private var _text:CTextField;
+    private var _nyashuk:BuyerNyashuk;
 
     public function WONoResources() {
         super();
@@ -75,6 +82,7 @@ public class WONoResources extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         var item:WONoResourcesItem;
         _paramData = params[1];
+        if (params[2]) _nyashuk = params[2];
         _callbackBuy = callback;
         _text.text = 'Не хватает ингредиентов. Вы можете купить их за рубины и начать производство немедленно.';
         switch (params[0]) {
@@ -112,6 +120,18 @@ public class WONoResources extends WindowMain {
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _btnBuy.clickCallback = onClickMoney;
+                break;
+            case 'nyashuk':
+                _countOfResources = _paramData.count;
+                item = new WONoResourcesItem();
+                item.fillWithResource(_paramData.data.id, _paramData.count);
+                item.source.x =  - item.source.width/2;
+                item.source.y = 0;
+                _source.addChild(item.source);
+                _arrItems.push(item);
+                _countCost = _paramData.count * int(_paramData.data.priceHard);
+                _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+                _btnBuy.clickCallback = onClickNyashuk;
                 break;
             case 'order':
                 var countR:int;
@@ -283,6 +303,21 @@ public class WONoResources extends WindowMain {
             _callbackBuy.apply(null,[_paramData.data,_paramData.cost]);
             _callbackBuy = null;
         }
+    }
+
+    private function onClickNyashuk():void {
+        var ob:Object = {};
+        ob.id = DataMoney.SOFT_CURRENCY;
+        ob.count = _countOfResources;
+        new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,ob);
+        _paramData.dataNyashuk.visible = false;
+        new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2., 5);
+        g.userInventory.addResource(_paramData.data.id,-_countCost );
+        g.directServer.updateUserPapperBuy(_paramData.dataNyashuk.buyerId,0,0,0,0,0,0);
+        if (_paramData.dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(1800);
+        else  g.userTimer.buyerNyashukRed(1800);
+        g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
+        super.hideIt();
     }
 
     private function onClickAnimal():void {

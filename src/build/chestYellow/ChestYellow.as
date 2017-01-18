@@ -38,9 +38,11 @@ public class ChestYellow extends WorldObject{
     }
 
     private function onCreateBuild():void {
-        _source.hoverCallback = onHover;
-        _source.endClickCallback = onClick;
-        _source.outCallback = onOut;
+        if (!g.isAway) {
+            _source.hoverCallback = onHover;
+            _source.endClickCallback = onClick;
+            _source.outCallback = onOut;
+        }
         _hitArea = g.managerHitArea.getHitArea(_source, 'chest', ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
         WorldClock.clock.add(_armature);
@@ -62,6 +64,7 @@ public class ChestYellow extends WorldObject{
 
     private function onClick():void {
         if (g.isActiveMapEditor) return;
+        if (g.isAway) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             if (g.isActiveMapEditor) {
                 if (_curLockedLand) {
