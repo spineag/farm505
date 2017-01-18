@@ -3,20 +3,13 @@
  */
 package windows.quest {
 import com.junkbyte.console.Cc;
-
-import flash.display.Bitmap;
 import manager.ManagerFilters;
-
 import quest.QuestStructure;
-
 import starling.display.Image;
-import starling.textures.Texture;
 import starling.utils.Color;
-import utils.CButton;
 import utils.CTextField;
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
-import windows.WOComponents.HintBackground;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -60,7 +53,7 @@ public class WOQuest extends WindowMain{
         if (g.allData.atlas['questAtlas']) {
             var im:Image;
             if (_dataQuest.id % 2) im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_1'));
-            else im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_2'));
+                else im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_2'));
             if (im) {
                 im.x = -im.width/2;
                 im.y = -295;
@@ -78,39 +71,20 @@ public class WOQuest extends WindowMain{
         _award = new WOQuestAward(_source, _dataQuest.awards);
         _questItem = new WOQuestItem(_source, _dataQuest.tasks);
         onWoShowCallback = onShow;
-        updateInfo(false);
         super.showIt();
     }
 
     private function onShow():void {
         _birka.updateTextField();
         _txtInfo.updateIt();
-//        _award.updateTextField();
-//        _questItem.updateTextField();
     }
 
-    private function onClick():void {
-//        if (_dataQuest.isDone) {
-//            _award.onGetAward();
-//            g.managerQuest.onGetAwardFromQuest();
-//        }
-        super.hideIt();
-    }
-
-    public function updateInfo(needCheckItem:Boolean = true):void {
-//        if (_dataQuest.isDone) {
-//            _txtBtn.text = 'Забрать';
-//        } else {
-//            _txtBtn.text = 'ОК';
-//        }
-//        if (needCheckItem) _questItem.updateInfo();
-    }
 
     override protected function deleteIt():void {
         g.managerQuest.onHideWO();
         _birka.deleteIt();
-//        _award.deleteIt();
-//        _questItem.deleteIt();
+        _award.deleteIt();
+        _questItem.deleteIt();
         if (_bgC) {
             _source.removeChild(_bgC);
             _bgC.deleteIt();

@@ -3,8 +3,10 @@
  */
 package quest {
 import com.junkbyte.console.Cc;
-
+import data.DataMoney;
+import manager.ManagerWallPost;
 import manager.Vars;
+import utils.Link;
 import windows.WindowsManager;
 
 public class ManagerQuest {
@@ -131,20 +133,20 @@ public class ManagerQuest {
         g.gameDispatcher.removeFromTimer(checkWithTimer);
     }
 
-    public function checkOnClickAtWoQuestItem(qData:Object):void {
-//        switch (qData.type) {
-//            case ADD_LEFT_MENU:
-//                g.socialNetwork.checkLeftMenu();
-//                break;
-//            case ADD_TO_GROUP:
-//                Link.openURL(g.socialNetwork.urlSocialGroup);
-//                _timer = 3;
-//                g.gameDispatcher.addToTimer(checkWithTimer);
-//                break;
-//            case POST:
-//                g.managerWallPost.openWindow(ManagerWallPost.POST_FOR_QUEST,null,0,DataMoney.SOFT_CURRENCY);
-//                break;
-//        }
+    public function checkOnClickAtWoQuestItem(t:QuestTaskStructure):void {
+        switch (t.typeAction) {
+            case ADD_LEFT_MENU:
+                g.socialNetwork.checkLeftMenu();
+                break;
+            case ADD_TO_GROUP:
+                Link.openURL(g.socialNetwork.urlSocialGroup);
+                _timer = 3;
+                g.gameDispatcher.addToTimer(checkWithTimer);
+                break;
+            case POST:
+                g.managerWallPost.openWindow(ManagerWallPost.POST_FOR_QUEST, null, 0, DataMoney.SOFT_CURRENCY);
+                break;
+        }
     }
 
     public function onGetAwardFromQuest():void {
@@ -153,7 +155,10 @@ public class ManagerQuest {
 //        _questUI.removeIconWithShiftAll(_currentOpenedQuestInWO.questIcon);
     }
     
-    public function onFinishActionForQuestByType(type:int):void {
+    public function onActionForTaskType(type:int, adds:Object):void {
+        if (type == ADD_LEFT_MENU) {
+
+        }
 //        for (var i:int=0; i<_quests.length; i++) {
 //            if (_quests[i].type == type) {
 //                onReleaseQuest(_quests[i]);

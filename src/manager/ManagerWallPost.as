@@ -81,7 +81,7 @@ public class ManagerWallPost {
 
     public function callbackAward():void {
         if (_typePost == POST_FOR_QUEST) {
-            g.managerQuest.onFinishActionForQuestByType(ManagerQuest.POST);
+            g.managerQuest.onActionForTaskType(ManagerQuest.POST);
         } else {
             if (_type == 9) {
                 new XPStar(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2, _count);

@@ -33,12 +33,6 @@ public class WOQuestItem {
         }
     }
 
-
-//    private function onClick():void {
-//        if (_dataQuest.type == ManagerQuest.POST) _btn.clickCallback = null;
-//        g.managerQuest.checkOnClickAtWoQuestItem(_dataQuest);
-//    }
-
     public function deleteIt():void {
         for (var i:int=0; i<_arItems.length; i++) {
             _source.removeChild(_arItems[i]);
@@ -160,6 +154,7 @@ internal class Item extends Sprite {
         if (_btn) {
             _btn.addChild(_txtBtn);
             addChild(_btn);
+            _btn.clickCallback = onClick;
         }
         addChild(_txt);
         if (_countTxt) {
@@ -169,7 +164,7 @@ internal class Item extends Sprite {
         }
 
         g.load.loadImage(ManagerQuest.ICON_PATH + _task.icon, onLoadIcon);
-     }
+    }
 
     private function onLoadIcon(bitmap:Bitmap):void {
         var im:Image = new Image(Texture.fromBitmap(bitmap));
@@ -188,6 +183,11 @@ internal class Item extends Sprite {
         }
         im.touchable = false;
         addChild(im);
+    }
+
+    private function onClick():void {
+        if (_task.typeAction == ManagerQuest.POST) _btn.clickCallback = null;
+        g.managerQuest.checkOnClickAtWoQuestItem(_task);
     }
 
     public function deleteIt():void {

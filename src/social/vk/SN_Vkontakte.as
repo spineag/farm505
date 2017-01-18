@@ -542,9 +542,7 @@ public class SN_Vkontakte extends SocialNetwork {
 
 //        g.woAddCoins.indexActivateTabButton = 0;
 //        g.woAddCoins.handler.init();
-
     }
-
 
     private function getOffersInfo():void {
         Cc.ch("offer", "Send ExternalInterface.call(getOffers) request");
@@ -581,13 +579,13 @@ public class SN_Vkontakte extends SocialNetwork {
 
     override public function checkLeftMenu():void {
         if (g.isDebug) {
-            g.managerQuest.onFinishActionForQuestByType(ManagerQuest.ADD_LEFT_MENU);
+            g.managerQuest.onActionForTaskType(ManagerQuest.ADD_LEFT_MENU);
         } else _apiConnection.api("getUserSettings", {}, onCheckLeftMenu, onError);
     }
 
     private function onCheckLeftMenu(value:int, needCheck:Boolean = true):void {
         if (Boolean(value & MASK_ADD_LEFT_MENU)) {
-            g.managerQuest.onFinishActionForQuestByType(ManagerQuest.ADD_LEFT_MENU);
+            g.managerQuest.onActionForTaskType(ManagerQuest.ADD_LEFT_MENU);
         } else {
             if (needCheck) {
                 _apiConnection.addEventListener(CustomEvent.SETTINGS_CHANGED, onSmthChanged);
@@ -612,7 +610,7 @@ public class SN_Vkontakte extends SocialNetwork {
 
     private function getIsInGroupHandler(e:String):void {
         if (e == '1') {
-            g.managerQuest.onFinishActionForQuestByType(ManagerQuest.ADD_TO_GROUP);
+            g.managerQuest.onActionForTaskType(ManagerQuest.ADD_TO_GROUP);
 //        } else {
 //            Link.openURL(urlSocialGroup);
         }

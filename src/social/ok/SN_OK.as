@@ -286,7 +286,7 @@ public class SN_OK extends SocialNetwork {
 
     private function isInGroupCallback(e:String):void {
         if (e == '1') {
-            g.managerQuest.onFinishActionForQuestByType(ManagerQuest.ADD_TO_GROUP);
+            g.managerQuest.onActionForTaskType(ManagerQuest.ADD_TO_GROUP);
 //        } else {
 //            Link.openURL(urlSocialGroup);
         }
