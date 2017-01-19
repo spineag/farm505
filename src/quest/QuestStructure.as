@@ -18,7 +18,7 @@ public class QuestStructure {
 
     public function fillIt(ob:Object):void {
         _questUserDbId = ob.id;
-        _questData = ob.quest_data; // date_finish, date_start, description, icon_quest, id, level, only_testers, prev_quest_id, use_it
+        _questData = ob.quest_data; // date_finish, date_start, description, icon_quest, id, level, only_testers, prev_quest_id, use_it, name
         _isGetAward = Boolean(ob.get_award == '1');
         _isDone = Boolean(ob.is_done == '1');
         _questId = int(ob.quest_id);
@@ -39,12 +39,16 @@ public class QuestStructure {
         aw.fillIt(d);
         _awards.push(aw);
     }
-
+    
     public function get iconPath():String { return _questData.icon_quest; }
     public function get id():int { return _questId; }
+    public function get idDB():String { return _questUserDbId; }
     public function get description():String { return _questData.description; }
     public function get awards():Array { return _awards; }
     public function get tasks():Array { return _tasks; }
+    public function get questName():String { return _questData.name; }
+    public function get isDone():Boolean { return _isDone; }  
+    public function set isDone(v:Boolean):void { _isDone = v; }  
 
 }
 }

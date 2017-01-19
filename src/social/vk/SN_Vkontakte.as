@@ -92,6 +92,10 @@ public class SN_Vkontakte extends SocialNetwork {
         return "https://vk.com/club" + idSocialGroup;
     }
 
+    override public function get urlForAnySocialGroup():String {
+        return "https://vk.com/club";
+    }
+
     override public function get idSocialGroup():String {
         return "110081720";
     }
@@ -603,9 +607,9 @@ public class SN_Vkontakte extends SocialNetwork {
         }
     }
 
-    public override function checkIsInSocialGroup():void {
-        _apiConnection.api("groups.isMember", {group_id: idSocialGroup, user_id: g.user.userSocialId}, getIsInGroupHandler, onError);
-        super.checkIsInSocialGroup();
+    public override function checkIsInSocialGroup(id:String):void {
+        _apiConnection.api("groups.isMember", {group_id: id, user_id: g.user.userSocialId}, getIsInGroupHandler, onError);
+        super.checkIsInSocialGroup(id);
     }
 
     private function getIsInGroupHandler(e:String):void {

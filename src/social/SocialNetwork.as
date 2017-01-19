@@ -58,6 +58,10 @@ public class SocialNetwork extends EventDispatcher {
         return null;
     }
 
+    public function get urlForAnySocialGroup():String {
+        return "";
+    }
+
     public function get protocol():String {
         return "http";
     }
@@ -251,8 +255,8 @@ public class SocialNetwork extends EventDispatcher {
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.ORDER_WINDOW_FAIL, false, false));
     }
     
-    public function checkIsInSocialGroup():void {
-        Cc.ch('social', "SocialNetwork:: check is in social group");
+    public function checkIsInSocialGroup(id:String):void {
+        Cc.ch('social', "SocialNetwork:: check is in social group with id:" + id);
     }
 
     public function getUserParams():Object {

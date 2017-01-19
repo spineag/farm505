@@ -19,9 +19,10 @@ public class WOQuest extends WindowMain{
     private var _birka:Birka;
     private var _bgC:CartonBackground;
     private var _dataQuest:QuestStructure;
-    private var _txtInfo:CTextField;
+    private var _txtName:CTextField;
     private var _questItem:WOQuestItem;
     private var _award:WOQuestAward;
+    private var _txtDescription:CTextField;
 
     public function WOQuest() {
         super();
@@ -40,12 +41,20 @@ public class WOQuest extends WindowMain{
         _bgC.y = 12;
         _source.addChild(_bgC);
 
-        _txtInfo = new CTextField(300, 100, '');
-        _txtInfo.setFormat(CTextField.MEDIUM30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
-        _txtInfo.x = -150;
-        _txtInfo.y = -295;
-        _txtInfo.touchable = false;
-        _source.addChild(_txtInfo);
+        _txtName = new CTextField(300, 100, '');
+        _txtName.setFormat(CTextField.MEDIUM30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
+        _txtName.x = -150;
+        _txtName.y = -295;
+        _txtName.touchable = false;
+        _source.addChild(_txtName);
+
+        _txtDescription = new CTextField(270, 100, '');
+        _txtDescription.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BLUE_COLOR);
+        _txtDescription.x = -120;
+        _txtDescription.y = -200;
+        _txtDescription.border = true;
+        _txtDescription.touchable = false;
+        _source.addChild(_txtDescription);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -65,8 +74,10 @@ public class WOQuest extends WindowMain{
         } else {
             Cc.error('WOQuest showItParams:: no questAtlas');
         }
-        _txtInfo.text = _dataQuest.description;
-        _source.setChildIndex(_txtInfo, _source.numChildren-1);
+        _txtDescription.text = _dataQuest.description;
+        _txtName.text = _dataQuest.questName;
+        _source.setChildIndex(_txtDescription, _source.numChildren-1);
+        _source.setChildIndex(_txtName, _source.numChildren-1);
 
         _award = new WOQuestAward(_source, _dataQuest.awards);
         _questItem = new WOQuestItem(_source, _dataQuest.tasks);
@@ -76,7 +87,7 @@ public class WOQuest extends WindowMain{
 
     private function onShow():void {
         _birka.updateTextField();
-        _txtInfo.updateIt();
+        _txtName.updateIt();
     }
 
 

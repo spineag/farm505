@@ -6,6 +6,9 @@ import com.junkbyte.console.Cc;
 import data.DataMoney;
 import manager.ManagerWallPost;
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import utils.Link;
 import windows.WindowsManager;
 
@@ -25,6 +28,7 @@ public class ManagerQuest {
     private var _questUI:QuestIconUI;
     private var _userQuests:Array;
     private var _currentOpenedQuestInWO:QuestStructure;
+    private var _activeTask:QuestTaskStructure;
 
     public function ManagerQuest() {
         if (!g.useQuests) return;
@@ -136,14 +140,19 @@ public class ManagerQuest {
     public function checkOnClickAtWoQuestItem(t:QuestTaskStructure):void {
         switch (t.typeAction) {
             case ADD_LEFT_MENU:
-                g.socialNetwork.checkLeftMenu();
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+                    _activeTask = t;
+                    g.socialNetwork.checkLeftMenu();
+                }
                 break;
             case ADD_TO_GROUP:
-                Link.openURL(g.socialNetwork.urlSocialGroup);
+                _activeTask = t;
+                Link.openURL(g.socialNetwork.urlForAnySocialGroup + t.adds);
                 _timer = 3;
                 g.gameDispatcher.addToTimer(checkWithTimer);
                 break;
             case POST:
+                _activeTask = t;
                 g.managerWallPost.openWindow(ManagerWallPost.POST_FOR_QUEST, null, 0, DataMoney.SOFT_CURRENCY);
                 break;
         }
@@ -154,21 +163,56 @@ public class ManagerQuest {
 //        g.directServer.releaseUserQuestAward(_currentOpenedQuestInWO.id, null);
 //        _questUI.removeIconWithShiftAll(_currentOpenedQuestInWO.questIcon);
     }
+
+    private function checkQuestAfterFinishTask(questId:int):void {
+        var q:QuestStructure = getUserQuesrById(questId);
+        var tasks:Array = q.tasks;
+        for (var i:int=0; i<tasks.length; i++) {
+            if (!(tasks[i] as QuestTaskStructure).isDone) return;
+        }
+        // quest is done!!
+        q.isDone = true;
+//        g.directServer.releaseUserQuest(q.id, q.idDB, null);
+    }
     
     public function onActionForTaskType(type:int, adds:Object=null):void {
         if (type == ADD_LEFT_MENU) {
-
+            if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+                if (_activeTask && _activeTask.typeAction == ADD_LEFT_MENU) {
+                    _activeTask.upgradeCount();
+                    if (_activeTask.isDone) {
+                        checkQuestAfterFinishTask(_activeTask.questId);
+                    }
+                    _activeTask = null;
+                }
+            }
+        } else if (type == ADD_TO_GROUP) {
+            if (_activeTask && _activeTask.typeAction == ADD_TO_GROUP) {
+                _activeTask.upgradeCount();
+                if (_activeTask.isDone) {
+                    checkQuestAfterFinishTask(_activeTask.questId);
+                }
+                _activeTask = null;
+            }
+        } else if (type == POST) {
+            if (_activeTask && _activeTask.typeAction == POST) {
+                _activeTask.upgradeCount();
+                if (_activeTask.isDone) {
+                    checkQuestAfterFinishTask(_activeTask.questId);
+                }
+                _activeTask = null;
+            }
+        } else {
+            
         }
-//        for (var i:int=0; i<_quests.length; i++) {
-//            if (_quests[i].type == type) {
-//                onReleaseQuest(_quests[i]);
-//                break;
-//            }
-//        }
     }
 
     public function checkInGroup():void {
-//        g.socialNetwork.checkIsInSocialGroup();
+        if (_activeTask) {
+            g.socialNetwork.checkIsInSocialGroup(_activeTask.adds);
+        } else {
+            g.gameDispatcher.removeFromTimer(checkWithTimer);
+        }
     }
 
     private var _timer:int;

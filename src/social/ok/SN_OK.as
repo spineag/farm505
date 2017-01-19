@@ -278,10 +278,14 @@ public class SN_OK extends SocialNetwork {
         }
     }
 
-    public override function checkIsInSocialGroup():void {
+    override public function get urlForAnySocialGroup():String {
+        return "https://ok.ru/group/";
+    }
+
+    public override function checkIsInSocialGroup(id:String):void {
 //        _apiConnection.api("groups.isMember", {group_id: idSocialGroup, user_id: g.user.userSocialId}, getIsInGroupHandler, onError);
         ExternalInterface.call("isInGroup", idSocialGroup, g.user.userSocialId);
-        super.checkIsInSocialGroup();
+        super.checkIsInSocialGroup(id);
     }
 
     private function isInGroupCallback(e:String):void {

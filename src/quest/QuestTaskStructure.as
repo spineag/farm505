@@ -20,6 +20,13 @@ public class QuestTaskStructure {
         _taskData = d.task_data;   // adds, count_resource, description, icon_task, id, quest_id, type_action, type_resource
     }
 
+    public function upgradeCount():void {
+        _countDone++;
+        if (_countDone >= countNeed) {
+            _isDone = 1;
+        }
+    }
+
     public function get icon():String { return _taskData.icon_task; }
     public function get countDone():int { return _countDone; }
     public function get countNeed():int { return int(_taskData.count_resource); }
@@ -28,6 +35,7 @@ public class QuestTaskStructure {
     public function get questId():int { return _questId; }
     public function get isDone():Boolean { return _isDone; }
     public function get description():String { return _taskData.description; }
+    public function get adds():String { return _taskData.adds; }
 
 }
 }
