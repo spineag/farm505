@@ -315,6 +315,7 @@ public class WOShop extends WindowMain {
                     break;
             }
         }
+        g.bottomPanel.updateTextNotification();
     }
 
     private function createMoneyBlock():void {

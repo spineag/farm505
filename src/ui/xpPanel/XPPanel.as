@@ -96,8 +96,7 @@ public class XPPanel {
             g.userValidates.updateInfo('xp', g.user.xp);
             g.user.level++;
             if (g.user.level == 5) {
-                var managerBuyerNyashuk:ManagerBuyerNyashuk;
-                managerBuyerNyashuk= new ManagerBuyerNyashuk(true);
+                g.managerBuyerNyashuk = new ManagerBuyerNyashuk(true);
             }
             g.userValidates.updateInfo('level', g.user.level);
             _txtLevel.text = String(g.user.level);

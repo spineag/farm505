@@ -88,7 +88,6 @@ public class WOLastResource extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         _callbackBuy = callback;
         _dataResource = params[0];
-        if (params[2]) _nyashuk = params[2];
         if (!_dataResource) {
             Cc.error('WOLastResource showItParams:: empty _data');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'lastResource');
@@ -161,6 +160,7 @@ public class WOLastResource extends WindowMain {
                 _btnYes.clickCallback = onClickMarket;
                 break;
             case 'nyashuk':
+                _nyashuk = params[2];
                 item = new WOLastResourceItem();
                 item.fillWithResource(_dataResource.resourceId);
                 item.source.x = -25;

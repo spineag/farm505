@@ -167,6 +167,26 @@ public class TownArea extends Sprite {
         return ar;
     }
 
+    public function getMaxCountDecorColorObjectsByGroup(group:int):int {
+        var max:int = 0;
+        var arr:Array = [];
+        var id:String;
+        var obj:Object = g.userInventory.decorInventory;
+        for (id in obj) {
+            if (g.dataBuilding.objectBuilding[int(id)].group == group) max += obj[id].count;
+        }
+        for (var i:int = 0; i < _cityObjects.length; i++) {
+            if (_cityObjects[i] is Decor || _cityObjects[i] is DecorAnimation) {
+                if (_cityObjects[i].dataBuild.group == group) {
+                    arr =  getCityObjectsById(_cityObjects[i].dataBuild.id);
+                    max += arr.length;
+                }
+
+            }
+        }
+        return max;
+    }
+
     public function getCityTreeById(id:int, checkLastState:Boolean = false):Array {
         var ar:Array = [];
         try {
@@ -976,34 +996,60 @@ public class TownArea extends Sprite {
                 g.toolsModifier.startMove(build, afterMoveReturn, true);
                 return;
             }
-            arr = getCityObjectsById(worldObject.dataBuild.id);
-            if (worldObject.dataBuild.currency[0] == DataMoney.SOFT_CURRENCY && g.user.softCurrencyCount < (arr.length *  worldObject.dataBuild.deltaCost) + int( worldObject.dataBuild.cost)) {
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
-                g.bottomPanel.cancelBoolean(false);
-                g.buyHint.hideIt();
-                return;
-            } else if (worldObject.dataBuild.currency[0] == DataMoney.HARD_CURRENCY && g.user.hardCurrency < int( worldObject.dataBuild.cost)) {
-                g.toolsModifier.modifierType = ToolsModifier.NONE;
-                g.bottomPanel.cancelBoolean(false);
-                g.buyHint.hideIt();
-                return;
+            var decorMax:int = 0;
+            if (worldObject.dataBuild.color != null) {
+                decorMax =  getMaxCountDecorColorObjectsByGroup(worldObject.dataBuild.group);
             }
-            g.toolsModifier.modifierType = ToolsModifier.MOVE;
-            g.buyHint.showIt((arr.length *  worldObject.dataBuild.deltaCost) + int( worldObject.dataBuild.cost));
-            build = createNewBuild( worldObject.dataBuild);
-            g.selectedBuild = build;
-            (build as WorldObject).source.filter = null;
-            g.toolsModifier.startMove(build, afterMoveReturn, true);
-            g.bottomPanel.cancelBoolean(true);
+            arr = getCityObjectsById(worldObject.dataBuild.id);
+            if (decorMax >= arr.length) {
+                if (worldObject.dataBuild.currency[0] == DataMoney.SOFT_CURRENCY && g.user.softCurrencyCount < (decorMax * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost)) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.bottomPanel.cancelBoolean(false);
+                    g.buyHint.hideIt();
+                    return;
+                } else if (worldObject.dataBuild.currency[0] == DataMoney.HARD_CURRENCY && g.user.hardCurrency < int(worldObject.dataBuild.cost)) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.bottomPanel.cancelBoolean(false);
+                    g.buyHint.hideIt();
+                    return;
+                }
+                g.toolsModifier.modifierType = ToolsModifier.MOVE;
+                g.buyHint.showIt((decorMax * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
+                build = createNewBuild(worldObject.dataBuild);
+                g.selectedBuild = build;
+                (build as WorldObject).source.filter = null;
+                g.toolsModifier.startMove(build, afterMoveReturn, true);
+                g.bottomPanel.cancelBoolean(true);
 //            g.buyHint.hideIt();
-            return;
-
+                return;
+            } else {
+                    if (worldObject.dataBuild.currency[0] == DataMoney.SOFT_CURRENCY && g.user.softCurrencyCount < (arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost)) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    } else if (worldObject.dataBuild.currency[0] == DataMoney.HARD_CURRENCY && g.user.hardCurrency < int(worldObject.dataBuild.cost)) {
+                        g.toolsModifier.modifierType = ToolsModifier.NONE;
+                        g.bottomPanel.cancelBoolean(false);
+                        g.buyHint.hideIt();
+                        return;
+                    }
+                    g.toolsModifier.modifierType = ToolsModifier.MOVE;
+                    g.buyHint.showIt((arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
+                    build = createNewBuild(worldObject.dataBuild);
+                    g.selectedBuild = build;
+                    (build as WorldObject).source.filter = null;
+                    g.toolsModifier.startMove(build, afterMoveReturn, true);
+                    g.bottomPanel.cancelBoolean(true);
+//            g.buyHint.hideIt();
+                    return;
+            }
         } else if (isNewAtMap && worldObject is DecorTail){
             Cc.error('TownArea.PasteBuild -- DecorTail wtf you do this');
         }
     }
 
-    private function afterMoveReturn(build:WorldObject, _x:Number, _y:Number):void {// для ridge, tree, decorFence, decor,decorPostFence
+    private function afterMoveReturn(build:WorldObject, _x:Number, _y:Number):void {// для ridge, tree, decorFence, decor,decorPostFence, DecorAnimation
         (build as WorldObject).source.filter = null;
         var cost:int;
         g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -1024,7 +1070,10 @@ public class TownArea extends Sprite {
                 cost = (build as WorldObject).dataBuild.cost;
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
             } else {
-                cost = (arr.length) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
+                var decorMax:int = 0;
+                if ((build as WorldObject).dataBuild.color != null) decorMax =  getMaxCountDecorColorObjectsByGroup((build as WorldObject).dataBuild.group);
+                if (decorMax >= arr.length) cost = decorMax * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
+                else cost = (arr.length) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
             }
         } else {

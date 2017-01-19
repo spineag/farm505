@@ -7,6 +7,9 @@ import data.BuildType;
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import starling.core.Starling;
 import starling.display.Image;
 import starling.styles.DistanceFieldStyle;
@@ -87,10 +90,16 @@ public class CatPanel {
     }
 
     private function onClick():void {
-//        g.windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
-        if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096 || int(g.user.userSocialId) == 202427318) {
-            g.user.level++;
-            g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+        if ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
+          if (g.user.userSocialId == String(252433337505)) {
+              g.user.level++;
+              g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+          }
+        } else {
+            if (int(g.user.userSocialId) == 14663166 || int(g.user.userSocialId) == 201166703 || int(g.user.userSocialId) == 168207096 || int(g.user.userSocialId) == 202427318) {
+                g.user.level++;
+                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+            }
         }
 //        g.directServer.addUserXP(1,null);
 //        var _dataBuild:Object = g.dataBuilding.objectBuilding[9];
