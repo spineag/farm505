@@ -167,6 +167,9 @@ public class ShopItem {
             _btnActivationPink = null;
         }
         _data = activeItemData;
+        if (_countBoxTxt) {
+            _countBoxTxt.text = ' ';
+        }
         setInfo();
     }
     
@@ -507,6 +510,7 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR ||  _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL
                 || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE) {
+            var decorMax:int = 0;
             if (_data.blockByLevel) {
                 if ( _data.buildType == BuildType.DECOR_ANIMATION) {
                     _hand.visible = true;
@@ -516,6 +520,10 @@ public class ShopItem {
                 } else {
                     arr = g.townArea.getCityObjectsById(_data.id);
                 }
+                if (_data.color != null) {
+                    decorMax =  g.townArea.getMaxCountDecorColorObjectsByGroup(_data.group);
+                }
+
                 if (_data.blockByLevel[0] > g.user.level) {
 //                    createLockedSprite();
                     _txtAvailable.visible = true;
@@ -531,6 +539,8 @@ public class ShopItem {
                         _nameTxt.text = _data.name;
                         _countBoxTxt.visible = true;
                         _countBoxTxt.text = 'В ИНВЕНТАРЕ: ' + String(g.userInventory.decorInventory[_data.id].count);
+                        if (decorMax >= arr.length) _countCost = (decorMax * _data.deltaCost) + int(_data.cost);
+                        else  _countCost = (arr.length * _data.deltaCost) + int(_data.cost);
                         createButtons('yellow');
                     } else {
                         if (g.user.allNotification > 0 && g.user.decorNotification > 0 && g.user.level == _data.blockByLevel[0]) {
@@ -540,7 +550,8 @@ public class ShopItem {
                             if(!g.managerTutorial.isTutorial && !g.managerCutScenes.isCutScene) addArrow(_data.id);
 
                         }
-                        _countCost = (arr.length * _data.deltaCost) + int(_data.cost);
+                        if (decorMax >= arr.length) _countCost = (decorMax * _data.deltaCost) + int(_data.cost);
+                        else  _countCost = (arr.length * _data.deltaCost) + int(_data.cost);
                             if(_data.currency[0] == DataMoney.SOFT_CURRENCY) {
                                 createButtons('blue');
                                 _txtBtnBuyBlue.text = String(_countCost);
