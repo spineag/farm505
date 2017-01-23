@@ -36,6 +36,7 @@ public class QuestTaskStructure {
     public function get isDone():Boolean { return _isDone; }
     public function get description():String { return _taskData.description; }
     public function get adds():String { return _taskData.adds; }
+    public function get dbID():String { return _taskUserDbId; }
 
 }
 }

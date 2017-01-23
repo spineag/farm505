@@ -100,9 +100,7 @@ public class WOQuestFinishAward extends WindowMain {
 import com.greensock.TweenMax;
 import com.greensock.easing.Back;
 import com.greensock.easing.Linear;
-
 import data.BuildType;
-
 import data.DataMoney;
 import flash.display.StageDisplayState;
 import flash.geom.Point;
@@ -189,16 +187,19 @@ internal class Item extends Sprite {
     }
 
     private function flyItMoney(i:int):void {
-        var endPoint:Point;
+        var endPoint:Point = new Point();
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);
             g.userInventory.addMoney(_aw.idResource, _aw.countResource);
             deleteIt();
         };
+        endPoint.x = 0;
+        endPoint.y = 0;
+        endPoint = im.localToGlobal(endPoint);
         removeChild(im);
         _source.addChild(im);
-        _source.x = 0;
-        _source.y = 0;
+        _source.x = endPoint.x;
+        _source.y = endPoint.y;
         g.cont.animationsResourceCont.addChild(_source);
         if (_aw.idResource == DataMoney.SOFT_CURRENCY) {
             endPoint = g.softHardCurrency.getSoftCurrencyPoint();
@@ -217,17 +218,20 @@ internal class Item extends Sprite {
     }
 
     private function flyItResource(i:int):void {
-        var endPoint:Point;
+        var endPoint:Point = new Point();
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);
             g.userInventory.addResource(_aw.idResource, _aw.countResource);
             g.craftPanel.afterFlyWithId(_aw.idResource);
             deleteIt();
         };
+        endPoint.x = 0;
+        endPoint.y = 0;
+        endPoint = im.localToGlobal(endPoint);
         removeChild(im);
         _source.addChild(im);
-        _source.x = 0;
-        _source.y = 0;
+        _source.x = endPoint.x;
+        _source.y = endPoint.y;
         g.cont.animationsResourceCont.addChild(_source);
         if (g.dataResource.objectResources[_aw.idResource].placeBuild == BuildType.PLACE_SKLAD) {
             g.craftPanel.showIt(BuildType.PLACE_SKLAD);

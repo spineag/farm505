@@ -48,11 +48,10 @@ public class WOQuest extends WindowMain{
         _txtName.touchable = false;
         _source.addChild(_txtName);
 
-        _txtDescription = new CTextField(270, 100, '');
+        _txtDescription = new CTextField(270, 95, '');
         _txtDescription.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BLUE_COLOR);
         _txtDescription.x = -120;
         _txtDescription.y = -200;
-        _txtDescription.border = true;
         _txtDescription.touchable = false;
         _source.addChild(_txtDescription);
     }

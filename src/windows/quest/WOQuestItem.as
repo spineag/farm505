@@ -74,8 +74,6 @@ internal class Item extends Sprite {
     public function Item(c:int, t:QuestTaskStructure) {
         _task = t;
         _c = c;
-
-
         if (c == 1) {
             _bg = new CartonBackgroundIn(460, 160);
             if (_task.isDone) {
@@ -164,6 +162,15 @@ internal class Item extends Sprite {
         }
 
         g.load.loadImage(ManagerQuest.ICON_PATH + _task.icon, onLoadIcon);
+        if (_task.typeAction == ManagerQuest.POST) {
+            _txtBtn.text = 'Рассказать';
+        } else if (_task.typeAction == ManagerQuest.ADD_LEFT_MENU) {
+            _txtBtn.text = 'Добавить';
+        } else if (_task.typeAction == ManagerQuest.INVITE_FRIENDS) {
+            _txtBtn.text = 'Пригласить';
+        } else if (_task.typeAction == ManagerQuest.ADD_TO_GROUP) {
+            _txtBtn.text = 'Вступить';
+        }
     }
 
     private function onLoadIcon(bitmap:Bitmap):void {

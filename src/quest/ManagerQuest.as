@@ -6,9 +6,7 @@ import com.junkbyte.console.Cc;
 import data.DataMoney;
 import manager.ManagerWallPost;
 import manager.Vars;
-
 import social.SocialNetworkSwitch;
-
 import utils.Link;
 import windows.WindowsManager;
 
@@ -170,11 +168,18 @@ public class ManagerQuest {
         for (var i:int=0; i<tasks.length; i++) {
             if (!(tasks[i] as QuestTaskStructure).isDone) return;
         }
-        // quest is done!!
         q.isDone = true;
-//        g.directServer.releaseUserQuest(q.id, q.idDB, null);
+        g.directServer.completeUserQuest(q.id, q.idDB, null);
         g.windowsManager.closeAllWindows();
-        g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, null, q);
+        g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, q);
+    }
+
+    private function onGetAward(q:QuestStructure):void {
+        g.directServer.getUserQuestAward(q.id, q.idDB, onGetUserQuestAward);
+    }
+
+    private function onGetUserQuestAward():void {
+
     }
     
     public function onActionForTaskType(type:int, adds:Object=null):void {
@@ -182,6 +187,7 @@ public class ManagerQuest {
             if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                 if (_activeTask && _activeTask.typeAction == ADD_LEFT_MENU) {
                     _activeTask.upgradeCount();
+                    g.directServer.updateUserQuestTask(_activeTask, null);
                     if (_activeTask.isDone) {
                         checkQuestAfterFinishTask(_activeTask.questId);
                     }
@@ -191,6 +197,8 @@ public class ManagerQuest {
         } else if (type == ADD_TO_GROUP) {
             if (_activeTask && _activeTask.typeAction == ADD_TO_GROUP) {
                 _activeTask.upgradeCount();
+                g.gameDispatcher.removeFromTimer(checkWithTimer);
+                g.directServer.updateUserQuestTask(_activeTask, null);
                 if (_activeTask.isDone) {
                     checkQuestAfterFinishTask(_activeTask.questId);
                 }
@@ -199,6 +207,7 @@ public class ManagerQuest {
         } else if (type == POST) {
             if (_activeTask && _activeTask.typeAction == POST) {
                 _activeTask.upgradeCount();
+                g.directServer.updateUserQuestTask(_activeTask, null);
                 if (_activeTask.isDone) {
                     checkQuestAfterFinishTask(_activeTask.questId);
                 }
