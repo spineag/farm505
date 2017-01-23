@@ -26,6 +26,9 @@ import manager.ManagerPlantRidge;
 import manager.ManagerTree;
 import manager.Vars;
 import mouse.ServerIconMouse;
+
+import quest.QuestTaskStructure;
+
 import social.SocialNetworkSwitch;
 import user.Someone;
 import utils.Utils;
@@ -6679,6 +6682,158 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('getUserNewQuests: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function updateUserQuestTask(task:QuestTaskStructure, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_QUEST_TASK);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserQuestTask', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.taskId = task.dbID;
+        variables.countDone = task.countDone;
+        if (task.isDone) variables.isDone = '1';
+            else variables.isDone = '0';
+        variables.hash = MD5.hash(String(g.user.userId) + String(variables.taskId) + String(variables.countDone) + SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserQuestTask);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteUpdateUserQuestTask(e:Event):void { completeUpdateUserQuestTask(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('UpdateUserQuestTask error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserQuestTask(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('UpdateUserQuestTask: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'UpdateUserQuestTask: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'UpdateUserQuestTask OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('UpdateUserQuestTask: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function completeUserQuest(qId:int, qDBid:String, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_COMPLETE_USER_QUEST);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'completeUserQuest', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.questId = qId;
+        variables.dbID = qDBid;
+        variables.hash = MD5.hash(String(g.user.userId) + String(qId) + SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteCompleteUserQuest);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteCompleteUserQuest(e:Event):void { completeCompleteUserQuest(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('CompleteUserQuest error:' + error.errorID);
+        }
+    }
+
+    private function completeCompleteUserQuest(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('CompleteUserQuest: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'CompleteUserQuest: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'CompleteUserQuest OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('CompleteUserQuest: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function getUserQuestAward(qId:int, qDBid:String, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_QUEST_AWARD);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserQuestAward', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.questId = qId;
+        variables.dbID = qDBid;
+        variables.hash = MD5.hash(String(g.user.userId) + String(qId) + SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserQuestAward);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetUserQuestAward(e:Event):void { completeGetUserQuestAward(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('GetUserQuestAward error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserQuestAward(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('GetUserQuestAward: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'GetUserQuestAward: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'GetUserQuestAward OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('GetUserQuestAward: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }

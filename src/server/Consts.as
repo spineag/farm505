@@ -119,6 +119,9 @@ public class Consts {
     public static var INQ_GET_TEXT_HELP:String = 'getTextHelp.php';
     public static var INQ_GET_USER_QUESTS:String = 'getUserQuests.php';
     public static var INQ_GET_USER_NEW_QUESTS:String = 'getUserNewQuests.php';
+    public static var INQ_UPDATE_USER_QUEST_TASK:String = 'updateUserQuestTask.php';
+    public static var INQ_COMPLETE_USER_QUEST:String = 'completeUserQuest.php';
+    public static var INQ_GET_USER_QUEST_AWARD:String = 'getUserQuestAward.php';
     public static var INQ_OPEN_USER_ORDER:String = 'openUserOrder.php';
     public static var INQ_CHEST_YELLOW:String = 'getChestYellow.php';
     public static var INQ_STARTER_PACK:String = 'getStarterPack.php';
