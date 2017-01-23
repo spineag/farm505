@@ -87,7 +87,7 @@ public class DropItem {
             g.userInventory.dropItemMoney(prise.id, prise.count);
         }
         if (!_image) {
-            Cc.error('DropItem:: no image for type: ' + prise.id);
+            Cc.error('DropItem:: no image for type: ' + prise.id + ' ' + prise.type);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'dropItem');
             return;
         }

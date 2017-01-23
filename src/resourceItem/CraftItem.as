@@ -193,7 +193,8 @@ public class CraftItem {
         g.cont.animationsResourceCont.addChild(_source);
         if (bonusDrop) {
             if (g.managerDropResources.checkDrop()) {
-                g.managerDropResources.makeDrop(_source.x, _source.y);
+                if (g.user.level <= 10 && !g.managerTutorial.isTutorial) g.managerDropResources.createDrop(_source.x, _source.y);
+                else g.managerDropResources.createDrop(_source.x, _source.y);
             }
         }
         g.userInventory.addResource(_resourceItem.resourceID, count);

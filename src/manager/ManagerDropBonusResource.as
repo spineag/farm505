@@ -9,23 +9,138 @@ import data.DataMoney;
 import resourceItem.DropItem;
 import resourceItem.ResourceItem;
 
+import social.SocialNetworkSwitch;
+
 import temp.DropResourceVariaty;
 
 public class ManagerDropBonusResource {
-    public static const DROP_VARIATY:int = 3; // == 2 %
-    public static const DROP_TYPE_RESOURSE:String = 'resource';
-    public static const DROP_TYPE_MONEY:String = 'money';
+    public static const DROP_VARIATY:int = 3; // == 3 %
+    public static const DROP_VARIATY_5:int = 5; // == 5 %
 
+    private var _makeDrop:MakeDrop;
 //    private var arr:Array;
     private var g:Vars = Vars.getInstance();
 
 
     public function ManagerDropBonusResource() {
-//        arr = new DropResourceVariaty().resources;
     }
 
     public function checkDrop():Boolean {
-        return int(Math.random()*100) < DROP_VARIATY;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            if (g.user.level <= 10 && !g.managerTutorial.isTutorial) return int(Math.random()*100) < DROP_VARIATY_5 + 1;
+             else return int(Math.random()*100) < DROP_VARIATY + 1;
+        } else return int(Math.random()*100) < DROP_VARIATY + 1;
+
+    }
+    public function createDrop(_x:int, _y:int):void {
+        _makeDrop = new MakeDrop(_x, _y);
+    }
+}
+}
+
+import data.DataMoney;
+
+import manager.Vars;
+
+import resourceItem.DropItem;
+
+internal class MakeDrop {
+    public static const DROP_TYPE_RESOURSE:String = 'resource';
+    public static const DROP_TYPE_MONEY:String = 'money';
+    private var g:Vars = Vars.getInstance();
+    public function MakeDrop(_x:int, _y:int):void {
+        if (g.user.level <= 10 && !g.managerTutorial.isTutorial) makeDropForUpdateAmbar(_x, _y);
+        else makeDrop(_x, _y);
+    }
+
+    public function makeDropForUpdateAmbar(_x:int, _y:int):void {
+        var obj:Object = {};
+        if (g.userInventory.getCountResourceById(2) >= 1 && g.userInventory.getCountResourceById(3) >= 1 && g.userInventory.getCountResourceById(7) >= 1) {
+            makeDropForUpdateSklad(_x,_y);
+            return;
+        } else if (g.userInventory.getCountResourceById(2) < 1) {
+            obj.id = 2;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        } else if (g.userInventory.getCountResourceById(3) < 1) {
+            obj.id = 3;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        } else if (g.userInventory.getCountResourceById(7) < 1) {
+            obj.id = 7;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        }
+        if (!obj.id) {
+            obj.id = 124;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        }
+        trace('makeDropForUpdateAmbar' + " " + obj.id);
+        new DropItem(_x, _y, obj);
+    }
+
+    public function makeDropForUpdateSklad(_x:int, _y:int):void {
+        var obj:Object = {};
+        if (g.userInventory.getCountResourceById(4) >= 1 && g.userInventory.getCountResourceById(8) >= 1 && g.userInventory.getCountResourceById(9) >= 1) {
+            makeDropWildResource(_x,_y);
+            return;
+        } else if (g.userInventory.getCountResourceById(4) < 1) {
+            obj.id = 4;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        } else if (g.userInventory.getCountResourceById(8) < 1) {
+            obj.id = 8;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        } else if (g.userInventory.getCountResourceById(9) < 1) {
+            obj.id = 9;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        }
+        if (!obj.id) {
+            obj.id = 124;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        }
+        trace('makeDropForUpdateSklad '+ " " + obj.id);
+        new DropItem(_x, _y, obj);
+    }
+
+    public function makeDropWildResource(_x:int, _y:int):void {
+        var obj:Object = {};
+        var aR:Number = Math.random();
+        if (aR < .3) {
+            obj.id = 1;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        } else if (aR < .6) {
+            obj.id = 124;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        } else if (aR < .9) {
+            obj.id = 125;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        } else {
+            obj.id = 5;
+            obj.count = 1;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_RESOURSE;
+        }
+        trace('makeDropWildResource' + " " + obj.id);
+        new DropItem(_x, _y, obj);
     }
 
     public function makeDrop(_x:int, _y:int):void {
@@ -134,30 +249,14 @@ public class ManagerDropBonusResource {
                 }
             }
         } else {
-                obj.count = 100;
-                obj.id = DataMoney.SOFT_CURRENCY;
-                obj.variaty = 1;
-                obj.type = DROP_TYPE_MONEY;
+            obj.count = 100;
+            obj.id = DataMoney.SOFT_CURRENCY;
+            obj.variaty = 1;
+            obj.type = DROP_TYPE_MONEY;
         }
 
         var prise:Object = obj;
-
-
-
-//        if (!arr.length) return;
-//        var prise:Object = getDropPrise();
-//        if (g.user.level < 17) {
-//            if (prise.id == DataMoney.YELLOW_COUPONE || prise.id == DataMoney.BLUE_COUPONE || prise.id == DataMoney.RED_COUPONE || prise.id == DataMoney.GREEN_COUPONE) {
-//                prise.id = DataMoney.SOFT_CURRENCY;
-//                prise.count = 10;
-//                prise.type = 'money';
-//                prise.variaty = 1;
-//                prise = null;
-//                prise = getDropPrise();   // ??
-//            } else new DropItem(_x, _y, prise);
-//        } else new DropItem(_x, _y, prise);
         new DropItem(_x, _y, prise);
-
     }
 
     private function instrumentRandom():Object {
@@ -192,25 +291,4 @@ public class ManagerDropBonusResource {
 
         return obj;
     }
-
-//    private function getDropPrise():Object {
-//        var i:int;
-//        var sum:int = 0;
-//        var r:int;
-//
-//        for (i=0; i < arr.length; i++) {
-//            sum += arr[i].variaty;
-//        }
-//
-//        r = int(Math.random()*sum) + 1;
-//        sum = 0;
-//        for (i=0; i < arr.length; i++) {
-//            sum += arr[i].variaty;
-//            if (sum >= r) return arr[i];
-//        }
-//
-//        Cc.error('ManagerDropBonusResource:: Wrong with random');
-//        return arr[0];
-//    }
-}
 }

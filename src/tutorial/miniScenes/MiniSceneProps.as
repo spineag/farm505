@@ -36,7 +36,7 @@ public class MiniSceneProps {
         obj.prevId = 2; //
         obj.reason = ManagerMiniScenes.BUY_BUILD;
         obj.level = 3;
-        obj.text = "Самое время построить булочную!";
+        obj.text = "Скоро покупателей будет еще больше, самое время построить Булочную!";
         _prop.push(obj);
 
         obj = {};
@@ -44,7 +44,7 @@ public class MiniSceneProps {
         obj.prevId = 3; //
         obj.reason = ManagerMiniScenes.GO_NEIGHBOR;
         obj.level = 3;
-        obj.text = "Давай сходим в гости к соседу!";
+        obj.text = "Пока производство идет полным ходом зайдем в гости к соседу.";
         _prop.push(obj);
 
         obj = {};

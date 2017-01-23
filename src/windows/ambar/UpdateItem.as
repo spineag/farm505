@@ -154,7 +154,6 @@ public class UpdateItem {
             prise.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
             prise.count = _countForBuy;
             new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
-            g.userInventory.addResource(_resourceId, _countForBuy);
             updateIt(_resourceId, _isAmbarItem);
             _wo.smallUpdate();
             if (_buyCallback != null) {
