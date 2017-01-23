@@ -173,6 +173,8 @@ public class ManagerQuest {
         // quest is done!!
         q.isDone = true;
 //        g.directServer.releaseUserQuest(q.id, q.idDB, null);
+        g.windowsManager.closeAllWindows();
+        g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, null, q);
     }
     
     public function onActionForTaskType(type:int, adds:Object=null):void {

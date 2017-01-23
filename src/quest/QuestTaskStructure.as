@@ -23,7 +23,7 @@ public class QuestTaskStructure {
     public function upgradeCount():void {
         _countDone++;
         if (_countDone >= countNeed) {
-            _isDone = 1;
+            _isDone = true;
         }
     }
 

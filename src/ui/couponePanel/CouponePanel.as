@@ -179,7 +179,7 @@ public class CouponePanel {
         return p;
     }
 
-    public function animationBuy ():void {
+    public function animationBuy():void {
 
         var tween:Tween = new Tween(_imCoupone, 0.6);
         tween.scaleTo(2);
