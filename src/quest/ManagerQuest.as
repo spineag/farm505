@@ -39,7 +39,9 @@ public class ManagerQuest {
     }
 
     public function addUI():void {
-        if (g.user.level >= 5 && g.useQuests) _questUI = new QuestIconUI(openWOList);
+        if (g.user.level >= 5 && g.useQuests) {
+            _questUI = new QuestIconUI(openWOList);
+        }
     }
 
     private function openWOList():void {
@@ -67,6 +69,11 @@ public class ManagerQuest {
 
     private function onGetNewQuests(d:Object):void {
         addQuests(d, true);
+        if (_userQuests.length) {
+            if (!_questUI.isShow) _questUI.showItAnimate();
+        } else {
+            if (_questUI.isShow) _questUI.hideItAnimate();
+        }
     }
 
     private function getUserQuesrById(id:int):QuestStructure {
@@ -113,22 +120,6 @@ public class ManagerQuest {
         g.windowsManager.openWindow(WindowsManager.WO_QUEST, null, d);
     }
 
-
-    private function onReleaseQuest(qData:Object):void {
-        return;
-//        _userQuests[qData.id].isDone = true;
-//        g.directServer.releaseUserQuest(qData.id, null);
-//        if (_currentOpenedQuestInWO == qData) {
-//            if (_currentOpenedQuestInWO.questIcon) _currentOpenedQuestInWO.questIcon.updateInfo();
-//            if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_QUEST) {
-//                (g.windowsManager.currentWindow as WOQuest).updateInfo();
-//            }
-//            if (qData.type == ADD_TO_GROUP) {
-//                g.gameDispatcher.removeFromTimer(checkWithTimer);
-//            }
-//        }
-    }
-    
     public function checkQuestContPosition():void { if (_questUI) _questUI.checkContPosition(); }
     public function onHideWO():void {
         _currentOpenedQuestInWO = null;
@@ -156,12 +147,6 @@ public class ManagerQuest {
         }
     }
 
-    public function onGetAwardFromQuest():void {
-//        _userQuests[_currentOpenedQuestInWO.id].getAward = true;
-//        g.directServer.releaseUserQuestAward(_currentOpenedQuestInWO.id, null);
-//        _questUI.removeIconWithShiftAll(_currentOpenedQuestInWO.questIcon);
-    }
-
     private function checkQuestAfterFinishTask(questId:int):void {
         var q:QuestStructure = getUserQuesrById(questId);
         var tasks:Array = q.tasks;
@@ -179,7 +164,7 @@ public class ManagerQuest {
     }
 
     private function onGetUserQuestAward():void {
-
+        g.directServer.getUserNewQuests(onGetNewQuests);
     }
     
     public function onActionForTaskType(type:int, adds:Object=null):void {
@@ -187,10 +172,7 @@ public class ManagerQuest {
             if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                 if (_activeTask && _activeTask.typeAction == ADD_LEFT_MENU) {
                     _activeTask.upgradeCount();
-                    g.directServer.updateUserQuestTask(_activeTask, null);
-                    if (_activeTask.isDone) {
-                        checkQuestAfterFinishTask(_activeTask.questId);
-                    }
+                    g.directServer.updateUserQuestTask(_activeTask, onUpdateQuestTask);
                     _activeTask = null;
                 }
             }
@@ -198,23 +180,23 @@ public class ManagerQuest {
             if (_activeTask && _activeTask.typeAction == ADD_TO_GROUP) {
                 _activeTask.upgradeCount();
                 g.gameDispatcher.removeFromTimer(checkWithTimer);
-                g.directServer.updateUserQuestTask(_activeTask, null);
-                if (_activeTask.isDone) {
-                    checkQuestAfterFinishTask(_activeTask.questId);
-                }
+                g.directServer.updateUserQuestTask(_activeTask, onUpdateQuestTask);
                 _activeTask = null;
             }
         } else if (type == POST) {
             if (_activeTask && _activeTask.typeAction == POST) {
                 _activeTask.upgradeCount();
-                g.directServer.updateUserQuestTask(_activeTask, null);
-                if (_activeTask.isDone) {
-                    checkQuestAfterFinishTask(_activeTask.questId);
-                }
+                g.directServer.updateUserQuestTask(_activeTask, onUpdateQuestTask);
                 _activeTask = null;
             }
         } else {
             
+        }
+    }
+
+    private function onUpdateQuestTask(task:QuestTaskStructure):void {
+        if (task.isDone) {
+            checkQuestAfterFinishTask(task.questId);
         }
     }
 

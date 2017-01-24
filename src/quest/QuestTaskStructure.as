@@ -3,6 +3,7 @@
  */
 package quest {
 public class QuestTaskStructure {
+    private var _taskId:int;
     private var _questId:int;
     private var _taskData:Object;
     private var _isDone:Boolean;
@@ -13,6 +14,7 @@ public class QuestTaskStructure {
     }
 
     public function fillIt(d:Object):void {
+        _taskId = int(d.task_id);
         _questId = int(d.quest_id);
         _isDone = Boolean(d.is_done == '1');
         _taskUserDbId = d.id;
@@ -32,6 +34,7 @@ public class QuestTaskStructure {
     public function get countNeed():int { return int(_taskData.count_resource); }
     public function get typeResource():int { return int(_taskData.type_resource); }
     public function get typeAction():int { return int(_taskData.type_action); }
+    public function get taskId():int { return _taskId; }
     public function get questId():int { return _questId; }
     public function get isDone():Boolean { return _isDone; }
     public function get description():String { return _taskData.description; }
