@@ -29,6 +29,8 @@ import mouse.ServerIconMouse;
 
 import quest.QuestTaskStructure;
 
+import quest.QuestTaskStructure;
+
 import social.SocialNetworkSwitch;
 import user.Someone;
 import utils.Utils;
@@ -6694,7 +6696,7 @@ public class DirectServer {
         Cc.ch('server', 'updateUserQuestTask', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        variables.taskId = task.dbID;
+        variables.taskId = task.taskId;
         variables.countDone = task.countDone;
         if (task.isDone) variables.isDone = '1';
             else variables.isDone = '0';
@@ -6704,7 +6706,7 @@ public class DirectServer {
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserQuestTask);
         loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
-        function onCompleteUpdateUserQuestTask(e:Event):void { completeUpdateUserQuestTask(e.target.data, callback); }
+        function onCompleteUpdateUserQuestTask(e:Event):void { completeUpdateUserQuestTask(e.target.data, task, callback); }
         try {
             loader.load(request);
         } catch (error:Error) {
@@ -6712,7 +6714,7 @@ public class DirectServer {
         }
     }
 
-    private function completeUpdateUserQuestTask(response:String, callback:Function = null):void {
+    private function completeUpdateUserQuestTask(response:String, task:QuestTaskStructure, callback:Function = null):void {
         iconMouse.endConnect();
         var d:Object;
         try {
@@ -6726,7 +6728,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'UpdateUserQuestTask OK', 5);
             if (callback != null) {
-                callback.apply();
+                callback.apply(null, [task]);
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);

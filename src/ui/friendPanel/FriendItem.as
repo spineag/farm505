@@ -144,6 +144,10 @@ public class FriendItem {
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
+        if (!_person) {
+            Cc.error('FriendItem onLoadPhoto:: no _person');
+            return;
+        }
         Cc.ch('social', 'FriendItem on load photo: ' + _person.photo);
         if (!bitmap) {
             bitmap = g.pBitmaps[_person.photo].create() as Bitmap;
