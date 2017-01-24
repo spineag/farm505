@@ -24,6 +24,7 @@ import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
@@ -45,7 +46,7 @@ public class WOBuyCurrencyItem {
     private var _packId:int;
     private var g:Vars = Vars.getInstance();
 
-    public function WOBuyCurrencyItem(currency:int, count:int, bonus:Array, cost:int, packId:int) {
+    public function WOBuyCurrencyItem(currency:int, count:int, bonus:Array, cost:int, packId:int, sale:int) {
         _currency = currency;
         _packId = packId;
         _countGameMoney = count;
@@ -82,13 +83,22 @@ public class WOBuyCurrencyItem {
         _im.y = 9;
         _im.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_im);
-
-        _txtCount = new CTextField(135, 52, String(count));
-        _txtCount.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
+        if (sale > 0) _txtCount = new CTextField(135, 52, String(count - sale));
+        else  _txtCount = new CTextField(135, 52, String(count));
+        _txtCount.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCount.alignH = Align.LEFT;
         _txtCount.x = 70;
         _txtCount.y = 4;
         source.addChild(_txtCount);
-
+        var txt:CTextField;
+        if (sale > 0) {
+            txt = new CTextField(135, 52, '+ ' + String(sale));
+            txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.RED_COLOR);
+            txt.alignH = Align.LEFT;
+            txt.x = 70 + _txtCount.textBounds.width + 5;
+            txt.y = 4;
+            source.addChild(txt);
+        }
         _btn = new CButton();
         _btn.addButtonTexture(120, 40, CButton.GREEN, true);
         var valuta:String;
@@ -106,29 +116,39 @@ public class WOBuyCurrencyItem {
         source.addChild(_btn);
         _action = new Sprite();
         var im:Image;
-        var txt:CTextField;
-        if (bonus[0] == 1) {
-             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price'));
-            im.x = 280;
-            source.addChild(im);
-        } else if (bonus[0] == 2) {
-             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_sells'));
-            im.x = 280;
-            source.addChild(im);
-        }
-        if (bonus[1] > 0) {
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bonus'));
+        if (sale > 0) {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('sale_icon'));
             _action.addChild(im);
-             txt= new CTextField(60, 30, bonus[1] + '%');
+            txt = new CTextField(60, 30, 'Акция');
             txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
-            txt.y = 5;
-            _action.addChild(txt);
-            txt = new CTextField(60, 30, 'Выгода');
-            txt.y = 20;
-            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+            txt.y = 12;
             _action.addChild(txt);
             source.addChild(_action);
             _action.x = 350;
+        } else {
+            if (bonus[0] == 1) {
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price'));
+                im.x = 280;
+                source.addChild(im);
+            } else if (bonus[0] == 2) {
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_sells'));
+                im.x = 280;
+                source.addChild(im);
+            }
+            if (bonus[1] > 0) {
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('bonus'));
+                _action.addChild(im);
+                txt = new CTextField(60, 30, bonus[1] + '%');
+                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+                txt.y = 5;
+                _action.addChild(txt);
+                txt = new CTextField(60, 30, 'Выгода');
+                txt.y = 20;
+                txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+                _action.addChild(txt);
+                source.addChild(_action);
+                _action.x = 350;
+            }
         }
 
         _btn.clickCallback = onClick;

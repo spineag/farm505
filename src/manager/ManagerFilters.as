@@ -16,7 +16,8 @@ import starling.utils.Color;
 public class ManagerFilters {
     public static var BROWN_COLOR:int = 0x593b02;
     public static var ORANGE_COLOR:int = 0xd06d0a; 
-    public static var LIGHT_GREEN_COLOR:int = 0x40f61c;  
+    public static var RED_COLOR:int = 0xEE0014;
+    public static var LIGHT_GREEN_COLOR:int = 0x40f61c;
     public static var HARD_GREEN_COLOR:int = 0x10650a;
     public static var GREEN_COLOR:int = 0x29b21d;
     public static var YELLOW_COLOR:int = 0xa37b01;

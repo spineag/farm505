@@ -52,7 +52,7 @@ public class ManagerBuyerNyashuk {
                     ob.visible = Boolean(ar[i].visible);
                     _arr.push(ob);
 
-            } else if (ar[i].visible == false && (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1) >= 1800) {
+            } else if (ar[i].visible == false && (ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1) >= 1200) {
                     newBot(false,ar[i]);
                 } else {
                     if (ar[i].buyer_id == 1) g.userTimer.buyerNyashukBlue((ar[i].time_to_new - int(new Date().getTime()/1000)) * (-1));
@@ -109,7 +109,6 @@ public class ManagerBuyerNyashuk {
     }
 
     public function timeToNewNyashuk():void {
-        if (!g.user.isTester) return;
         var ob:Object = {};
         if (_arr.length == 0) ob.buyer_id = 1;
         else if (_arr[0].buyerId == 1) ob.buyer_id = 2;

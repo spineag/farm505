@@ -55,7 +55,7 @@ internal class MakeDrop {
 
     public function makeDropForUpdateAmbar(_x:int, _y:int):void {
         var obj:Object = {};
-        if (g.userInventory.getCountResourceById(2) >= 1 && g.userInventory.getCountResourceById(3) >= 1 && g.userInventory.getCountResourceById(7) >= 1) {
+        if ((g.userInventory.getCountResourceById(2) >= 1 && g.userInventory.getCountResourceById(3) >= 1 && g.userInventory.getCountResourceById(7) >= 1) || g.user.ambarLevel >= 2) {
             makeDropForUpdateSklad(_x,_y);
             return;
         } else if (g.userInventory.getCountResourceById(2) < 1) {
@@ -80,13 +80,12 @@ internal class MakeDrop {
             obj.variaty = 1;
             obj.type = DROP_TYPE_RESOURSE;
         }
-        trace('makeDropForUpdateAmbar' + " " + obj.id);
         new DropItem(_x, _y, obj);
     }
 
     public function makeDropForUpdateSklad(_x:int, _y:int):void {
         var obj:Object = {};
-        if (g.userInventory.getCountResourceById(4) >= 1 && g.userInventory.getCountResourceById(8) >= 1 && g.userInventory.getCountResourceById(9) >= 1) {
+        if ((g.userInventory.getCountResourceById(4) >= 1 && g.userInventory.getCountResourceById(8) >= 1 && g.userInventory.getCountResourceById(9) >= 1) || g.user.skladLevel >= 2) {
             makeDropWildResource(_x,_y);
             return;
         } else if (g.userInventory.getCountResourceById(4) < 1) {
@@ -111,7 +110,6 @@ internal class MakeDrop {
             obj.variaty = 1;
             obj.type = DROP_TYPE_RESOURSE;
         }
-        trace('makeDropForUpdateSklad '+ " " + obj.id);
         new DropItem(_x, _y, obj);
     }
 
@@ -139,7 +137,6 @@ internal class MakeDrop {
             obj.variaty = 1;
             obj.type = DROP_TYPE_RESOURSE;
         }
-        trace('makeDropWildResource' + " " + obj.id);
         new DropItem(_x, _y, obj);
     }
 

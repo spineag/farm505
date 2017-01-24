@@ -25,10 +25,8 @@ public class StockPanel {
             g.hint.hideIt()
         };
         onResize();
-        if (g.user.isTester) {
         g.cont.interfaceCont.addChild(_source);
         loadTipsIcon();
-        }
     }
 
     private function loadTipsIcon():void {

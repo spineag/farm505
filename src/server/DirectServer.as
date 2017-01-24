@@ -499,7 +499,7 @@ public class DirectServer {
                 obj.cost = int(d.message[i].cost_for_real);
                 obj.count = int(d.message[i].count_getted);
                 obj.url = d.message[i].url;
-
+                obj.sale = d.message[i].sale;
                 if (d.message[i].bonus) {
                     obj.bonus = String(d.message[i].bonus).split('&');
                     for (k = 0; k < obj.bonus.length; k++) obj.bonus[k] = int(obj.bonus[k]);
