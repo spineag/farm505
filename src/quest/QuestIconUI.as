@@ -34,12 +34,12 @@ public class QuestIconUI {
     }
 
     public function showItAnimate():void {
-        _source.scale = .3;
         if (!g.cont.interfaceCont.contains(_source)) {
+            _source.scale = .3;
             g.cont.interfaceCont.addChild(_source);
             var f2:Function = function ():void {
                 _isShow = true;
-                TweenMax.to(_source, 1, {scale: .1});
+                TweenMax.to(_source, .1, {scale: 1});
             };
             var f1:Function = function ():void {
                 TweenMax.to(_source, .1, {scale: .93, onComplete: f2})
