@@ -51,7 +51,27 @@ public class DropItem {
         }
 
         _source = new Sprite();
-        if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
+        if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION) {
+            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[prise.id].url + '_icon'));
+            endPoint = g.toolsPanel.pointXY();
+            var f4:Function = function (dbId:int):void {
+                g.userInventory.addToDecorInventory(prise.id, dbId);
+            };
+            var f:Function = function ():void {
+                g.directServer.buyAndAddToInventory(prise.id, f4);
+            };
+            f();
+        } else if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR) {
+            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[prise.id].image +'_icon'));
+            endPoint = g.toolsPanel.pointXY();
+            var f3:Function = function (dbId:int):void {
+                g.userInventory.addToDecorInventory(prise.id, dbId);
+            };
+            var f2:Function = function ():void {
+                g.directServer.buyAndAddToInventory(prise.id, f3);
+            };
+            f2();
+        } else if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
             _image = new Image(g.allData.atlas[g.dataResource.objectResources[prise.id].url].getTexture(g.dataResource.objectResources[prise.id].imageShop));
             endPoint = g.craftPanel.pointXY();
             g.craftPanel.showIt(BuildType.PLACE_SKLAD);

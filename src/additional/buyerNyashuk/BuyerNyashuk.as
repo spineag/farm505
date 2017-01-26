@@ -100,9 +100,11 @@ public class BuyerNyashuk {
         _build.addChild(_armature.display as StarlingArmatureDisplay);
         _source.addChild(_build);
         _source.releaseContDrag = true;
-        _source.endClickCallback = onClick;
-        _source.hoverCallback = onHover;
-        _source.outCallback = onOut;
+        if (!g.isAway) {
+            _source.endClickCallback = onClick;
+            _source.hoverCallback = onHover;
+            _source.outCallback = onOut;
+        }
         WorldClock.clock.add(_armature);
         if (_buyerId == 1)   _hitArea = g.managerHitArea.getHitArea(_source, 'blue_n', ManagerHitArea.TYPE_SIMPLE);
         else  _hitArea = g.managerHitArea.getHitArea(_source, 'red_n', ManagerHitArea.TYPE_SIMPLE);
@@ -144,9 +146,11 @@ public class BuyerNyashuk {
     }
 
     public function yesClick():void {
-        _source.endClickCallback = onClick;
-        _source.hoverCallback = onHover;
-        _source.outCallback = onOut;
+        if (!g.isAway) {
+            _source.endClickCallback = onClick;
+            _source.hoverCallback = onHover;
+            _source.outCallback = onOut;
+        }
     }
 
     private function onHover():void {

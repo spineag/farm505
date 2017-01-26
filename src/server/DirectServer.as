@@ -123,7 +123,6 @@ public class DirectServer {
 
         if (d.id == 0) {
             Cc.ch('server', 'getTextHelp OK', 5);
-//            trace(d.message[d.message.length * Math.random()].text);
             var randomPos:int  = int(Math.random() * d.message.length);
             g.startPreloader.textHelp(String(d.message[randomPos].text));
             if (callback != null) {
@@ -2716,6 +2715,7 @@ public class DirectServer {
     public function getUserTrain(callback:Function):void {
         var tr:Train = g.townArea.getCityObjectsByType(BuildType.TRAIN)[0];
         if (g.user.level < 17) {
+
             Cc.ch('server', 'getUserTrain:: g.user.level < 17', 1);
             if (tr) tr.fillItDefault();
             if (callback != null) {
@@ -4148,7 +4148,6 @@ public class DirectServer {
             Cc.error('GetUserWild: wrong JSON:' + String(response));
             return;
         }
-
         if (d.id == 0) {
             Cc.ch('server', 'getUserWild OK', 5);
             for (var i:int = 0; i < d.message.length; i++) {
@@ -4168,7 +4167,6 @@ public class DirectServer {
                     ob.dbId = dbId;
                     ob.chestId = int(d.message[i].chest_id);
                     g.user.userDataCity.objects.push(ob);
-
                     var build:WorldObject = g.townArea.createNewBuild(dataBuild, dbId);
                     g.townArea.pasteBuild(build, p.x, p.y, false);
                 }

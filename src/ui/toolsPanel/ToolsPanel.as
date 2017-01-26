@@ -202,5 +202,11 @@ public class ToolsPanel {
     public function set cutSceneCallback(f:Function):void {
         _cutSceneCallback = f;
     }
+
+    public function pointXY():Point {
+        var p:Point = new Point(-165,-5);
+        p = _source.localToGlobal(p);
+        return p;
+    }
 }
 }

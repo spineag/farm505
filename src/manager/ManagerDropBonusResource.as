@@ -26,11 +26,8 @@ public class ManagerDropBonusResource {
     }
 
     public function checkDrop():Boolean {
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             if (g.user.level <= 10 && !g.managerTutorial.isTutorial) return int(Math.random()*100) < DROP_VARIATY_5 + 1;
              else return int(Math.random()*100) < DROP_VARIATY + 1;
-        } else return int(Math.random()*100) < DROP_VARIATY + 1;
-
     }
     public function createDrop(_x:int, _y:int):void {
         _makeDrop = new MakeDrop(_x, _y);

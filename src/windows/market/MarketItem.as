@@ -663,7 +663,7 @@ public class MarketItem {
             isFill = 1;
             if (_person is NeighborBot) {
                 if (g.dataResource.objectResources[_dataFromServer.resourceId].buildType == BuildType.INSTRUMENT) {
-                    _dataFromServer.resourceCount = 3;
+                    _dataFromServer.resourceCount = 1;
                     _dataFromServer.cost *= 3;
                 }
             }

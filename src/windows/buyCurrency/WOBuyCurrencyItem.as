@@ -120,7 +120,7 @@ public class WOBuyCurrencyItem {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('sale_icon'));
             _action.addChild(im);
             txt = new CTextField(60, 30, 'Акция');
-            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+            txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PINK_COLOR);
             txt.y = 12;
             _action.addChild(txt);
             source.addChild(_action);

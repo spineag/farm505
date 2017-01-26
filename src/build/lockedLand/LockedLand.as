@@ -282,7 +282,7 @@ public class LockedLand extends WorldObject {
     }
 
 
-override public function clearIt():void {
+    override public function clearIt():void {
         onOut();
         _source.touchable = false;
         _dataLand = null;

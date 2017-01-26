@@ -1,1 +1,1 @@
-{"SubTexture":[{"height":108,"width":114,"x":0,"y":0,"name":"witch_p"},{"height":47,"width":47,"x":191,"y":42,"name":"blink"},{"height":40,"width":57,"x":191,"y":0,"name":"bulka"},{"height":73,"width":73,"x":116,"y":0,"name":"smog"}],"imagePath":"texture.png","name":"witch_pot"}
+{"name":"witch_pot_blue","SubTexture":[{"name":"witch_p","width":73,"y":75,"x":0,"height":69},{"name":"blink","width":47,"y":0,"x":75,"height":47},{"name":"bulka","width":57,"y":146,"x":0,"height":40},{"name":"smog","width":73,"y":0,"x":0,"height":73}],"imagePath":"texture.png"}

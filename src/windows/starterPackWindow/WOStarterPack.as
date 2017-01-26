@@ -34,6 +34,7 @@ import starling.display.Sprite;
 import starling.events.Event;
 
 import starling.textures.Texture;
+import starling.utils.Align;
 import starling.utils.Color;
 
 import temp.DropResourceVariaty;
@@ -51,7 +52,6 @@ public class WOStarterPack extends WindowMain{
 
     public function WOStarterPack() {
         super();
-        if (g.user.starterPack) return;
         _decorSpr = new Sprite();
         _woHeight = 538;
         _woWidth = 732;
@@ -83,21 +83,25 @@ public class WOStarterPack extends WindowMain{
         var txt:CTextField;
         var im:Image;
 
-        txt = new CTextField(350, 40, 'Уникальное предложение');
-        txt.setFormat(CTextField.BOLD30, 30, Color.RED, Color.WHITE);
-        txt.x = -165;
-        txt.y = -230;
+        txt = new CTextField(500, 70, 'Уникальное предложение');
+        txt.setFormat(CTextField.BOLD30, 35, Color.RED, Color.WHITE);
+        txt.alignH = Align.LEFT;
+        txt.x = -190;
+        txt.y = -250;
         _source.addChild(txt);
 
         txt = new CTextField(77, 40, String(_data.soft_count));
-        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -196;
+        txt.setFormat(CTextField.BOLD24, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt.alignH = Align.LEFT;
+        txt.x = -155 - txt.textBounds.width/2 ;
         txt.y = -40;
         _source.addChild(txt);
 
-        txt = new CTextField(77, 40, String(_data.hard_count));
-        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -17;
+        txt = new CTextField(50, 40, String(_data.hard_count));
+        txt.setFormat(CTextField.BOLD24, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt.alignH = Align.LEFT;
+        txt.x = 25 - txt.textBounds.width/2 ;
+//        txt.x = -17;
         txt.y = -40;
         _source.addChild(txt);
 
@@ -123,16 +127,18 @@ public class WOStarterPack extends WindowMain{
             im = new Image(g.allData.atlas[g.dataResource.objectResources[_data.object_id].url].getTexture(g.dataResource.objectResources[_data.object_id].imageShop));
             txt = new CTextField(120, 40, String(_data.object_count));
             txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            txt.x = 165;
-            txt.y = -40;
+            txt.alignH = Align.LEFT;
+            txt.x = 210 - txt.textBounds.width/2 ;
+            txt.y = -45;
             _source.addChild(txt);
             _source.addChild(im);
         } else if (_data.object_type == BuildType.DECOR_ANIMATION) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.object_id].url + '_icon'));
             txt = new CTextField(120, 40, String(g.dataBuilding.objectBuilding[_data.object_id].name));
             txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            txt.x = 165;
-            txt.y = -40;
+            txt.alignH = Align.LEFT;
+            txt.x = 210 - txt.textBounds.width/2 ;
+            txt.y = -45;
             _source.addChild(_decorSpr);
             _decorSpr.addChild(im);
             _source.addChild(txt);
@@ -140,15 +146,16 @@ public class WOStarterPack extends WindowMain{
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.object_id].image +'_icon'));
             txt = new CTextField(120, 40, String(g.dataBuilding.objectBuilding[_data.object_id].name));
             txt.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            txt.x = 150;
-            txt.y = -40;
+            txt.alignH = Align.LEFT;
+            txt.x = 210 - txt.textBounds.width/2 ;
+            txt.y = -45;
             _source.addChild(_decorSpr);
             _decorSpr.addChild(im);
             _source.addChild(txt);
         }
-        MCScaler.scale(im,110,110);
+        MCScaler.scale(im,105,105);
         im.x = 160;
-        im.y = -145;
+        im.y = -138;
 
 
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
@@ -180,6 +187,7 @@ public class WOStarterPack extends WindowMain{
         var quad:Quad = new Quad(160, 3, Color.RED);
         quad.x = -100;
         quad.y = 62;
+        quad.alpha = .6;
         _source.addChild(quad);
 
         var btn:CButton = new CButton();
@@ -211,17 +219,15 @@ public class WOStarterPack extends WindowMain{
     private function onClick():void {
         if (g.isDebug) {
             onBuy();
-
         } else {
             if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
                 g.optionPanel.makeFullScreen();
-//                g.windowsManager.hideWindow(WindowsManager.WO_BUY_CURRENCY); ??
             }
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-            g.socialNetwork.showOrderWindow({id: 12});
-            Cc.info('try to buy packId: ' + 12);
+            g.socialNetwork.showOrderWindow({id: 13});
+            Cc.info('try to buy packId: ' + 13);
         }
     }
 
@@ -230,11 +236,6 @@ public class WOStarterPack extends WindowMain{
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
         Cc.info('Seccuss for buy pack');
-//        if (_currency == DataMoney.HARD_CURRENCY) {
-//            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_HARD_FOR_REAL, {id: 13});
-//        } else {
-//            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_SOFT_FOR_REAL, {id: 13});
-//        }
         onBuy();
     }
 
@@ -275,30 +276,25 @@ public class WOStarterPack extends WindowMain{
             obj.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
             new DropItem(p.x + 30, p.y + 30, obj);
         } else if (_data.object_type == BuildType.DECOR_ANIMATION || _data.object_type == BuildType.DECOR) {
-            var f1:Function = function (dbId:int):void {
-                g.userInventory.addToDecorInventory(_data.object_id, dbId);
-            };
-            var f:Function = function ():void {
-                g.directServer.buyAndAddToInventory(_data.object_id, f1);
-            };
-            var v:Number;
-            if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = .5;
-            else v = .2;
-            var im:Image;
-            var spr:Sprite = new Sprite();
-            if (_data.object_type == BuildType.RESOURCE || _data.object_type == BuildType.INSTRUMENT || _data.object_type == BuildType.PLANT) {
-                im = new Image(g.allData.atlas[g.dataResource.objectResources[_data.object_id].url].getTexture(g.dataResource.objectResources[_data.object_id].imageShop));
-            } else if (_data.object_type == BuildType.DECOR_ANIMATION) {
-                im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.object_id].url + '_icon'));
+            if (_data.object_type == BuildType.DECOR_ANIMATION) {
+                obj = {};
+                obj.count = 0;
+                p = new Point(0, 0);
+                p = _source.localToGlobal(p);
+                obj.id =  _data.object_id;
+                obj.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
+                new DropItem(p.x + 30, p.y + 30, obj);
             } else if (_data.object_type == BuildType.DECOR) {
-                im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.object_id].image +'_icon'));
+                obj = {};
+                obj.count = 0;
+                p = new Point(0, 0);
+                p = _source.localToGlobal(p);
+                obj.id =  _data.object_id;
+                obj.type = DropResourceVariaty.DROP_TYPE_DECOR;
+                new DropItem(p.x + 30, p.y + 30, obj);
             }
-            MCScaler.scale(im,110,110);
-            im.x = 160;
-            im.y = -145;
-            spr.addChild(im);
-            new TweenMax(spr, v, {scaleX:.3, scaleY:.3, ease:Back.easeIn, onComplete:f});
         }
+        hideIt();
     }
 
 }
