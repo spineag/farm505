@@ -13,14 +13,27 @@ import windows.WindowsManager;
 public class ManagerQuest {
     public static const ICON_PATH:String = 'https://505.ninja/content/quest_icon/';
 
-    public static const ADD_TO_GROUP:int = 1;
-    public static const ADD_LEFT_MENU:int = 2;
-    public static const POST:int = 3;
-    public static const GET_PLANTS:int = 4;
-    public static const BUILD_BUILDING:int = 5;
-    public static const MAKE_PRODUCTS:int = 6;
-    public static const INVITE_FRIENDS:int = 7;
-    public static const KILL_LOHMATICS:int = 8;
+    public static const ADD_TO_GROUP:int = 1;      // +vstyputu v grypy
+    public static const ADD_LEFT_MENU:int = 2;     // +dodatu v live menu na VK
+    public static const POST:int = 3;              // +zapostut na stany
+    public static const CRAFT_PLANT:int = 4;       // zibratu rosluny
+    public static const BUILD_BUILDING:int = 5;    // pobydyvatu zdanie
+    public static const RAW_PRODUCTS:int = 6;      // zavantajutu na fabriky
+    public static const INVITE_FRIENDS:int = 7;    // zaprosutu dryziv
+    public static const KILL_LOHMATIC:int = 8;     // zlovutu lohmatuciv
+    public static const GRAFT_PRODUCT:int = 9;     // zibratu resurs fabriki
+    public static const RAW_PLANT:int = 10;        // posadutu rosluny
+    public static const RELEASE_ORDER:int = 11;    // zakaz lavku
+    public static const BUY_ANIMAL:int = 12;       // kyputu tvar'
+    public static const FEED_ANIMAL:int = 13;      // pogodyvatu tvar'
+    public static const REMOVE_WILD:int = 14;      // remove wild
+    public static const OPEN_TERRITORY:int = 15;   // open territory
+    public static const BUY_CAT:int = 16;          // buy cat
+    public static const NIASH_BUYER:int = 17;      // vukonatu zamovlennia niawuka-pokyptsia
+    public static const KILL_MOUSE:int = 18;       // zlovutu muwei
+    public static const BUY_PAPER:int = 19;        // kyputu v gazeti
+    public static const SET_IN_PAPER:int = 20;     // vustavutu v gazety
+
 
     private var g:Vars = Vars.getInstance();
     private var _questUI:QuestIconUI;
