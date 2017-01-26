@@ -200,6 +200,7 @@ public class WOStarterPack extends WindowMain{
         btn.y = 260;
         btn.x = 15;
     }
+
     override public function showItParams(callback:Function, params:Array):void {
         super.showIt();
     }
@@ -294,7 +295,7 @@ public class WOStarterPack extends WindowMain{
                 new DropItem(p.x + 30, p.y + 30, obj);
             }
         }
-        hideIt();
+        super.hideIt();
     }
 
 }

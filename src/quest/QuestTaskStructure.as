@@ -28,7 +28,7 @@ public class QuestTaskStructure {
         }
     }
 
-    public function get icon():String { return _taskData.icon_task; }
+    public function get icon():String { return _taskData.icon_task; } // if =='0' -> get from resource
     public function get countDone():int { return _countDone; }
     public function get countNeed():int { return int(_taskData.count_resource); }
     public function get typeResource():int { return int(_taskData.type_resource); }
