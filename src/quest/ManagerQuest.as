@@ -173,6 +173,7 @@ public class ManagerQuest {
     }
 
     private function onGetAward(q:QuestStructure):void {
+        if (_userQuests.indexOf(q) > -1) _userQuests.removeAt(_userQuests.indexOf(q));
         g.directServer.getUserQuestAward(q.id, q.idDB, onGetUserQuestAward);
     }
 
