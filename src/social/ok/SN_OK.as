@@ -246,16 +246,23 @@ public class SN_OK extends SocialNetwork {
     override public function showOrderWindow(e:Object):void {
         var st:String ='';
         try {
-            var ar:Array = g.allData.dataBuyMoney;
-            for (var i:int = 0; i < ar.length; i++) {
-                if (ar[i].id == e.id) {
-                    e.type = ar[i].typeMoney;
-                    e.price = ar[i].cost;
-                    e.count = ar[i].count;
-                    st += String(e.count) + ' ';
-                    if (e.type == DataMoney.SOFT_CURRENCY) st += 'монет';
+            if (e.id == 13) {
+                e.type = DataMoney.SOFT_CURRENCY;
+                e.price = 95;
+//                e.count = 10000;
+                st = 'Уникальное предложение!';
+            } else {
+                var ar:Array = g.allData.dataBuyMoney;
+                for (var i:int = 0; i < ar.length; i++) {
+                    if (ar[i].id == e.id) {
+                        e.type = ar[i].typeMoney;
+                        e.price = ar[i].cost;
+                        e.count = ar[i].count;
+                        st += String(e.count) + ' ';
+                        if (e.type == DataMoney.SOFT_CURRENCY) st += 'монет';
                         else st += 'рубинов';
-                    break;
+                        break;
+                    }
                 }
             }
             if (!e.type) {

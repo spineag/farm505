@@ -15,7 +15,7 @@ public class ManagerQuest {
 
     public static const ADD_TO_GROUP:int = 1;      // +vstyputu v grypy
     public static const ADD_LEFT_MENU:int = 2;     // +dodatu v live menu na VK
-    public static const POST:int = 3;              // +zapostut na stany
+    public static const POST:int = 3;              // +zapostutu na stiny
     public static const CRAFT_PLANT:int = 4;       // zibratu rosluny
     public static const BUILD_BUILDING:int = 5;    // pobydyvatu zdanie
     public static const RAW_PRODUCTS:int = 6;      // zavantajutu na fabriky
@@ -173,6 +173,7 @@ public class ManagerQuest {
     }
 
     private function onGetAward(q:QuestStructure):void {
+        if (_userQuests.indexOf(q) > -1) _userQuests.removeAt(_userQuests.indexOf(q));
         g.directServer.getUserQuestAward(q.id, q.idDB, onGetUserQuestAward);
     }
 
