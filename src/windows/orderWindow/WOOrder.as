@@ -719,8 +719,56 @@ public class WOOrder extends WindowMain{
             _rightBlockTimerBG = null;
         }
         _arrResourceItems.length = 0;
-        _txtName = null;
-        _txtXP = null;
+        if (_txtCoins) {
+            _rightBlock.removeChild(_txtCoins);
+            _txtCoins.deleteIt();
+            _txtCoins = null;
+        }
+        if (_txtOrder) {
+            _rightBlockTimer.removeChild(_txtOrder);
+            _txtOrder.deleteIt();
+            _txtOrder = null;
+        }
+        if (_txtTimer) {
+            _rightBlockTimer.removeChild(_txtTimer);
+            _txtTimer.deleteIt();
+            _txtTimer = null;
+        }
+        if (_txtCoupone) {
+            _rightBlock.removeChild(_txtCoupone);
+            _txtCoupone.deleteIt();
+            _txtCoupone = null;
+        }
+        if (_txtBtnSkip) {
+            _btnSkipDelete.removeChild(_txtBtnSkip);
+            _txtBtnSkip.deleteIt();
+            _txtBtnSkip = null;
+        }
+        if (_txtBtnSkip2){
+            _btnSkipDelete.removeChild(_txtBtnSkip2);
+            _txtBtnSkip2.deleteIt();
+            _txtBtnSkip2 = null;
+        }
+        if (_txtNagrada){
+            _rightBlock.removeChild(_txtNagrada);
+            _txtNagrada.deleteIt();
+            _txtNagrada = null;
+        }
+        if (_txtBtnBuy){
+            _btnSell.removeChild(_txtBtnBuy);
+            _txtBtnBuy.deleteIt();
+            _txtBtnBuy = null;
+        }
+        if (_txtName) {
+            _rightBlock.removeChild(_txtName);
+            _txtName.deleteIt();
+            _txtName = null;
+        }
+        if (_txtXP) {
+            _rightBlock.removeChild(_txtXP);
+            _txtXP.deleteIt();
+            _txtXP = null;
+        }
         if (_woBG) {
             _source.removeChild(_woBG);
             _woBG.deleteIt();

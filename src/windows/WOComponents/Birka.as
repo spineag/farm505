@@ -127,9 +127,13 @@ public class Birka extends Sprite{
 
     public function deleteIt():void {
         if (_parent.contains(_source)) _parent.removeChild(_source);
+        if (_txt) {
+            _source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
         _source.dispose();
         _source = null;
-        _txt = null;
         _bg = null;
         g = null;
     }

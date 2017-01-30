@@ -198,6 +198,11 @@ public class CTextField extends DisplayObjectContainer {
     public function set alignV(value:String): void { _format.verticalAlign = value; _txt.format.verticalAlign = value; }
     public function set deltaOwnX(v:int):void { _deltaOwnX = v; _txt.x = v; }
     public function set deltaOwnY(v:int):void { _deltaOwnY = v; _txt.y = v; }
+    public function deleteIt():void {
+    _txt.dispose();
+    _format = null;
+    _style = null;
+    }
     public function get textBounds():Rectangle { return _txt.textBounds; }
     public override function getBounds(targetSpace:DisplayObject, out:Rectangle=null):Rectangle { return _txt.getBounds(targetSpace, out); }
     public override function set width(value:Number):void { _width = value; _txt.width = value; }

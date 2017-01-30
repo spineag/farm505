@@ -289,6 +289,26 @@ public class WOLastResource extends WindowMain {
         for (var i:int=0; i<_arrItems.length; i++) {
             _arrItems[i].deleteIt();
         }
+        if (_txt) {
+            _source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
+        if (_txtAhtung) {
+            _source.removeChild(_txtAhtung);
+            _txtAhtung.deleteIt();
+            _txtAhtung = null;
+        }
+        if (_txtYes) {
+            _btnYes.removeChild(_txtYes);
+            _txtYes.deleteIt();
+            _txtYes = null;
+        }
+        if (_txtNo) {
+            _btnNo.removeChild(_txtNo);
+            _txtNo.deleteIt();
+            _txtNo = null;
+        }
         _arrItems.length = 0;
         _source.removeChild(_btnNo);
         _btnNo.deleteIt();

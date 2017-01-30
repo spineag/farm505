@@ -67,6 +67,8 @@ public class WOBuyCoupone extends WindowMain{
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;
+        _txt.deleteIt();
+        _txt = null;
         _source.removeChild(_Green.source);
         _source.removeChild(_Red.source);
         _source.removeChild(_Blue.source);

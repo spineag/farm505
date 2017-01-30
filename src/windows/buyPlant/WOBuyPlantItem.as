@@ -231,6 +231,11 @@ public class WOBuyPlantItem {
         g.resourceHint.hideIt();
         g.fabricHint.hideIt();
         removeArrow();
+        if (_txtNumber) {
+            source.removeChild(_txtNumber);
+            _txtNumber.deleteIt();
+            _txtNumber = null;
+        }
         _dataPlant = null;
         _clickCallback = null;
         source.deleteIt();

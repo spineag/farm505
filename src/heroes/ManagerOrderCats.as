@@ -20,6 +20,10 @@ public class ManagerOrderCats {
         _arrAwayCats = [];
     }
 
+    public function get arrCats():Array {
+        return _arrCats;
+    }
+
     public function addCatsOnStartGame():void {
         var arr:Array = g.managerOrder.arrOrders;
         var cat:OrderCat;

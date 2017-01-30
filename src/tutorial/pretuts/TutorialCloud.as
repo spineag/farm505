@@ -25,6 +25,7 @@ public class TutorialCloud {
     private var _source:Sprite;
     private var _bg:Image;
     private var _txt:CTextField;
+    private var _btnTxt:CTextField;
     private var _txtPage:CTextField;
     private var _txtSp:Sprite;
     private var _callback:Function;
@@ -59,9 +60,9 @@ public class TutorialCloud {
         _btn.addButtonTexture(120, 40, CButton.BLUE, true);
         _btn.x = 500;
         _btn.y = 520;
-        var btnTxt:CTextField = new CTextField(120, 40, 'Далее');
-        btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _btn.addChild(btnTxt);
+        _btnTxt = new CTextField(120, 40, 'Далее');
+        _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _btn.addChild(_btnTxt);
         _btn.clickCallback = onClick;
         _source.addChild(_btn);
         _txtPage = new CTextField(100, 30, '');
@@ -136,6 +137,18 @@ public class TutorialCloud {
 
     public function deleteIt():void {
         g.cont.popupCont.removeChild(_source);
+        if (_btnTxt) {
+            _btnTxt.deleteIt();
+            _btnTxt = null;
+        }
+        if (_txtPage) {
+            _txtPage.deleteIt();
+            _txtPage = null;
+        }
+        if (_txt) {
+            _txt.deleteIt();
+            _txt = null;
+        }
         _source.removeChild(_btn);
         _btn.deleteIt();
         _source.dispose();

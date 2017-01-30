@@ -106,6 +106,21 @@ public class WONoFreeCats extends WindowMain {
 
 
     override protected function deleteIt():void {
+        if (_txt1) {
+            _source.removeChild(_txt1);
+            _txt1.deleteIt();
+            _txt1 = null;
+        }
+        if (_txt2) {
+            _source.removeChild(_txt2);
+            _txt2.deleteIt();
+            _txt2 = null;
+        }
+        if (_txtBtn) {
+            _btn.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
         _source.removeChild(_btn);
         _btn.deleteIt();
         _btn = null;

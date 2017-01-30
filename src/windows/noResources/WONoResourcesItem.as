@@ -125,6 +125,11 @@ public class WONoResourcesItem {
         while (source.numChildren) {
             source.removeChildAt(0);
         }
+        if (_txtCount) {
+            _txtCount.deleteIt();
+            _txtCount = null;
+        }
+
     }
 
     private function onHover():void {

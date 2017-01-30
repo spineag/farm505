@@ -108,6 +108,8 @@ public class WOBuyCouponeItem {
         source.removeChild(_btn);
         _btn.deleteIt();
         _btn = null;
+        _txtBtn.deleteIt();
+        _txtBtn = null;
         source.removeChild(_imageCoupone);
         _imageCoupone.dispose();
         _imageCoupone = null;

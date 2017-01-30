@@ -166,6 +166,31 @@ public class WONoPlaces extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (_txtName) {
+            _source.removeChild(_txtName);
+            _txtName.deleteIt();
+            _txtName = null;
+        }
+        if (_txtText) {
+            _source.removeChild(_txtText);
+            _txtText.deleteIt();
+            _txtText = null;
+        }
+        if (_txtCost) {
+            _source.removeChild(_txtCost);
+            _txtCost.deleteIt();
+            _txtCost = null;
+        }
+        if (_txtAdd) {
+            _source.removeChild(_txtAdd);
+            _txtAdd.deleteIt();
+            _txtAdd = null;
+        }
+        if (_txtIcon) {
+            _source.removeChild(_txtIcon);
+            _txtIcon.deleteIt();
+            _txtIcon = null;
+        }
         _source.removeChild(_btn);
         _btn.deleteIt();
         _btn = null;

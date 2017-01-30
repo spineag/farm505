@@ -57,6 +57,8 @@ public class WOAnotherGame extends WindowMain {
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;
+        txt.deleteIt();
+        txt = null;
         super.deleteIt();
     }
 }

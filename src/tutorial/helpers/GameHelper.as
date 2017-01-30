@@ -136,11 +136,18 @@ public class GameHelper {
                 g.cont.hintGameCont.removeChild(_source);
                 while (_source.numChildren) _source.removeChildAt(0);
             }
+            if (_txtBtnShow) {
+                _txtBtnShow.deleteIt();
+                _txtBtnShow = null;
+            }
             if (_catHead) {
                 _catHead.dispose();
                 _catHead = null;
             }
-            if (_txt) _txt.dispose();
+            if (_txt)  {
+                _txt.deleteIt();
+                _txt = null;
+            }
             _bg = null;
             _source = null;
             if (_btnExit) {
@@ -177,6 +184,7 @@ public class GameHelper {
             case HelperReason.REASON_BUY_ANIMAL: releaseBuy(); break;
             case HelperReason.REASON_BUY_RIDGE: releaseBuy(); break;
             case HelperReason.REASON_CRAFT_ANY_PRODUCT: releaseTownBuild(); break;
+            case HelperReason.REASON_WILD_DELETE: releaseTownBuild(); break;
         }
     }
 

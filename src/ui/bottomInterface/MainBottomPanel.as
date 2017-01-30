@@ -59,6 +59,7 @@ public class MainBottomPanel {
     private var _arrow:SimpleArrow;
     private var _imNotification:Image;
     private var _txtNotification:CTextField;
+    private var _txtHome:CTextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -187,10 +188,10 @@ public class MainBottomPanel {
         im.x = 60;
         im.y = 6;
         _homeBtn.addDisplayObject(im);
-        var txt:CTextField = new CTextField(100, 70, "Домой");
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.ORANGE_COLOR);
-        txt.x = 105;
-        _homeBtn.addChild(txt);
+        _txtHome = new CTextField(100, 70, "Домой");
+        _txtHome.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+        _txtHome.x = 105;
+        _homeBtn.addChild(_txtHome);
         _homeBtn.x = 0 + _homeBtn.width/2;
         _homeBtn.y = 2 + _homeBtn.height/2;
         _source.addChild(_homeBtn);

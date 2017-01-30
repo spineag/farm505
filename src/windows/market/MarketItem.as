@@ -873,7 +873,7 @@ public class MarketItem {
         }
         if (isFill == 1 && _isUser)_delete.visible = true;
         if (_isUser && isFill == 2) {
-            _btnGoAwaySaleItem.visible = true;
+           if (_btnGoAwaySaleItem) _btnGoAwaySaleItem.visible = true;
         }
     }
 
@@ -1005,10 +1005,26 @@ public class MarketItem {
             _btnGoAwaySaleItem = null;
         }
         _imCheck = null;
-        _costTxt = null;
-        _countTxt = null;
-        _txtPlawka = null;
-        _txtAdditem = null;
+        if (_costTxt) {
+            _plawkaCoins.removeChild(_costTxt);
+            _costTxt.deleteIt();
+            _costTxt = null;
+        }
+        if (_countTxt) {
+            source.removeChild(_countTxt);
+            _countTxt.deleteIt();
+            _countTxt = null;
+        }
+        if (_txtPlawka) {
+            source.removeChild(_txtPlawka);
+            _txtPlawka.deleteIt();
+            _txtPlawka = null;
+        }
+        if (_txtAdditem) {
+            source.removeChild(_txtAdditem);
+            _txtAdditem.deleteIt();
+            _txtAdditem = null;
+        }
         _wo = null;
         source.dispose();
         source = null;

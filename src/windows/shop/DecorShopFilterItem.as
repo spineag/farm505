@@ -98,8 +98,11 @@ public class DecorShopFilterItem {
         _source.removeChild(_bg);
         _bg.filter = null;
         _bg.deleteIt();
-        _source.removeChild(_txt);
-        _txt.dispose();
+        if (_txt) {
+            _source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
         _parent = null;
         _callback = null;
         _source.deleteIt();

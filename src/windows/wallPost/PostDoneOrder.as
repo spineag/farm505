@@ -81,6 +81,11 @@ public class PostDoneOrder extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (txt) {
+            _btn.removeChild(txt);
+            txt.deleteIt();
+            txt = null;
+        }
         _btn = null;
         _source = null;
     }

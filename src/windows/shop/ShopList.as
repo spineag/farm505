@@ -478,6 +478,10 @@ public class ShopList {
             _itemsSprite.removeChild(_arrItems[i].source);
             _arrItems[i].deleteIt();
         }
+        if (_txtPageNumber) {
+            _txtPageNumber.deleteIt();
+            _txtPageNumber = null;
+        }
         _arrItems.length = 0;
         _source.removeChild(_leftArrow);
         _leftArrow.deleteIt();

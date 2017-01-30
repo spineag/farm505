@@ -109,6 +109,10 @@ public class TutorialTextBubble {
     public function deleteIt():void {
         if (_parent && _parent.contains(_source)) _parent.removeChild(_source);
         if (_source) _source.dispose();
+        if (_txt) {
+            _txt.deleteIt();
+            _txt = null;
+        }
         _source = null;
         _parent = null;
     }

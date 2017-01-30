@@ -189,7 +189,7 @@ public class ManagerCats {
     }
 
     public function onBuyCatFromShop():void {
-        g.managerCats.jumpCatsFunny();
+        jumpCatsFunny();
         g.user.countCats++;
         g.directServer.buyHeroCat(null);
         addNewHeroFromShop();
@@ -366,6 +366,24 @@ public class ManagerCats {
             f = null;
         }
 
+    }
+
+    public function helloCats(f:Function = null):void {
+        for (var i:int = 0; i < _catsArray.length; i++) {
+            if (_catsArray[i].isFree) {
+                _catsArray[i].helloCat();
+            }
+        }
+            var arr:Array = g.managerOrderCats.arrCats;
+            for (i = 0; i < arr.length; i++) {
+                arr[i].sayHIAnimation(null,true);
+            }
+
+//        Utils.createDelay(int(Math.random() * 2) + 2,f1);
+        if (f != null) {
+            f.apply();
+            f = null;
+        }
     }
     
     

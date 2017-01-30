@@ -389,14 +389,28 @@ public class HeroCat extends BasicCat{
     }
 
 // JUMP CAT
-    public function jumpCat():void {
+    public function jumpCat(hello:Boolean = false):void {
         var f2:Function = function ():void {
             makeFreeCatIdle();
         };
         var f1:Function = function ():void {
-        showFront(true);
-        killAllAnimations();
-        _animation.playIt('jump_funny',true,f2);
+            if (!hello) showFront(true);
+            if (!hello) killAllAnimations();
+            _animation.playIt('jump_funny',true,f2);
+        };
+        if (hello) f1();
+        else Utils.createDelay(int(Math.random() * 2) + 2,f1);
+    }
+
+    // JUMP CAT
+    public function helloCat():void {
+        var f2:Function = function ():void {
+            jumpCat(true);
+        };
+        var f1:Function = function ():void {
+            showFront(true);
+            killAllAnimations();
+            _animation.playIt('hi_3',true,f2);
         };
         Utils.createDelay(int(Math.random() * 2) + 2,f1);
     }

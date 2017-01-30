@@ -114,8 +114,11 @@ public class WOAmbarFilled extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        _txtAmbarFilled.deleteIt();
         _txtAmbarFilled = null;
+        _txtBtn.deleteIt();
         _txtBtn = null;
+        _txtCount.deleteIt();
         _txtCount = null;
         _source.removeChild(_btn);
         _btn.deleteIt();

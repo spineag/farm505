@@ -21,6 +21,7 @@ import utils.CTextField;
 public class UseMoneyMessage {
     private var source:Sprite;
     private var g:Vars = Vars.getInstance();
+    private var _txt:CTextField;
 
     public function UseMoneyMessage(p:Point, typeMoney:int, count:int, delay:Number = 0) {
         source = new Sprite();
@@ -30,11 +31,11 @@ public class UseMoneyMessage {
         else if (typeMoney == DataMoney.BLUE_COUPONE || typeMoney == DataMoney.GREEN_COUPONE || typeMoney == DataMoney.RED_COUPONE || typeMoney == DataMoney.YELLOW_COUPONE) st += 'ваучера';
         else st += 'монет';
 
-        var txt:CTextField = new CTextField(200,50, st);
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.x = -100;
-        txt.y = -25;
-        source.addChild(txt);
+        _txt = new CTextField(200,50, st);
+        _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txt.x = -100;
+        _txt.y = -25;
+        source.addChild(_txt);
         source.x = p.x;
         source.y = p.y;
         g.cont.animationsResourceCont.addChild(source);
@@ -44,6 +45,8 @@ public class UseMoneyMessage {
     private function onComplete():void {
         g.cont.animationsResourceCont.removeChild(source);
         while (source.numChildren) source.removeChildAt(0);
+        _txt.deleteIt();
+        _txt = null;
         source.dispose();
         source = null;
     }

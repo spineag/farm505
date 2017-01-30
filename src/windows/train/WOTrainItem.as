@@ -245,6 +245,16 @@ public class WOTrainItem {
     public function deleteIt():void {
         _im = null;
         _info = null;
+        if (_txtWhite) {
+            source.removeChild(_txtWhite);
+            _txtWhite.deleteIt();
+            _txtWhite = null;
+        }
+        if (_txtRed) {
+            source.removeChild(_txtRed);
+            _txtRed.deleteIt();
+            _txtRed = null;
+        }
         _txtWhite = null;
         _txtRed = null;
         _f = null;

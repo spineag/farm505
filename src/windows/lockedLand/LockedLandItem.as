@@ -38,6 +38,7 @@ public class LockedLandItem {
     private var _txtBtn:CTextField;
     private var _txtCount:CTextField;
     private var _txtInfo:CTextField;
+    private var _arrCTex:Array;
 
     public function LockedLandItem() {
         source = new Sprite();
@@ -165,17 +166,19 @@ public class LockedLandItem {
         icon.x = 41 - icon.width/2;
         icon.y = 34 - icon.height/2;
         source.addChild(icon);
+        _arrCTex = [];
         var txt:CTextField = new CTextField(150,40,'0/' +String(count));
         txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = -35;
         txt.y = 55;
         source.addChild(txt);
+        _arrCTex.push(txt);
         txt = new CTextField(200,60,'Пригласить ' +String(count) + ' друзей');
         txt.setFormat(CTextField.BOLD18, 16, ManagerFilters.BROWN_COLOR);
         txt.x = 90;
         txt.y = 15;
         source.addChild(txt);
-
+        _arrCTex.push(txt);
         if (0 > count) {
             _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
             _galo4ka.x = 351;
@@ -192,6 +195,7 @@ public class LockedLandItem {
             _btn.x = 362;
             _btn.y = 50;
             source.addChild(_btn);
+            _arrCTex.push(txt);
             var f1:Function = function ():void {
                 g.windowsManager.hideWindow(WindowsManager.WO_LOCKED_LAND);
                 g.windowsManager.openWindow(WindowsManager.WO_INVITE_FRIENDS, null, false);
@@ -210,10 +214,31 @@ public class LockedLandItem {
     public function deleteIt():void {
         if (_iconCoins) _iconCoins.filter = null;
         if (_galo4ka) _galo4ka.filter = null;
+        if (_arrCTex) {
+            for (var i:int = 0; i < _arrCTex.length; i++) {
+                _arrCTex[i].deleteIt();
+                _arrCTex[i] = null;
+            }
+        }
         if (_btn) {
             source.removeChild(_btn);
             _btn.deleteIt();
             _btn = null;
+        }
+        if (_txtCount) {
+            source.removeChild(_txtCount);
+            _txtCount.deleteIt();
+            _txtCount = null;
+        }
+        if (_txtBtn) {
+            _btn.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
+        if (_txtInfo) {
+            source.removeChild(_txtInfo);
+            _txtInfo.deleteIt();
+            _txtInfo = null;
         }
         source.removeChild(_bg);
         _bg.deleteIt();

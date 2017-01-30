@@ -338,6 +338,11 @@ public class ToolsModifier {
              _spriteForMove.removeChildAt(0);
         }
         if (_moveGrid) _moveGrid.clearIt();
+        if (_txtCount) {
+            _mouseIcon.removeChild(_txtCount);
+            _txtCount.deleteIt();
+            _txtCount = null;
+        }
         _moveGrid = null;
         _spriteForMove.removeChild(_activeBuilding.source);
         _spriteForMove = null;

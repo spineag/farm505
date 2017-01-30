@@ -235,6 +235,11 @@ public class WODailyBonusCraftItem {
 
     private function deleteIt():void {
         TweenMax.killTweensOf(_source);
+        if (txt) {
+            _source.removeChild(txt);
+            txt.deleteIt();
+            txt = null;
+        }
         _parent.removeChild(_source);
         _source.dispose();
         _source = null;

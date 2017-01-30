@@ -252,6 +252,11 @@ public class WOChestYellowItem {
     private function deleteIt():void {
         TweenMax.killTweensOf(source);
         _parent.removeChild(source);
+        if (_txt) {
+            source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
         source.dispose();
         source = null;
         _parent = null;

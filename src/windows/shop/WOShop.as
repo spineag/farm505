@@ -511,6 +511,40 @@ public class WOShop extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (_txtHardMoney) {
+            _source.removeChild(_txtHardMoney);
+            _txtHardMoney.deleteIt();
+            _txtHardMoney = null;
+        }
+        if (_txtSoftMoney) {
+            _source.removeChild(_txtSoftMoney);
+            _txtSoftMoney.deleteIt();
+            _txtSoftMoney = null;
+        }
+        if (_txtBlueMoney) {
+            _contCoupone.removeChild(_txtBlueMoney);
+            _txtBlueMoney.deleteIt();
+            _txtBlueMoney = null;
+        }
+        if (_txtGreenMoney) {
+            _contCoupone.removeChild(_txtGreenMoney);
+            _txtGreenMoney.deleteIt();
+            _txtGreenMoney = null;
+        }
+        if (_txtYellowMoney) {
+            _contCoupone.removeChild(_txtYellowMoney);
+            _txtYellowMoney.deleteIt();
+            _txtYellowMoney = null;
+        }
+        if (_txtRedMoney) {
+            _contCoupone.removeChild(_txtRedMoney);
+            _txtRedMoney.deleteIt();
+            _txtRedMoney = null;
+        }
+        if (_txtR) {
+            _txtR.deleteIt();
+            _txtR = null;
+        }
         if (_decorFilter) _decorFilter.deleteIt();
         if (_decorFilter) _decorFilter = null;
         if (_contCoupone) _contCoupone = null;
@@ -525,7 +559,6 @@ public class WOShop extends WindowMain {
         if (_source) _source.removeChild(_woBG);
         if (_woBG) _woBG.deleteIt();
         if (_woBG) _woBG = null;
-        if (_txtBlueMoney) _txtBlueMoney = _txtGreenMoney = _txtHardMoney = _txtRedMoney = _txtSoftMoney = _txtYellowMoney = null;
         if (_source) _source.removeChild(_pl1);
         if (_pl1) _pl1.deleteIt();
         if (_pl1) _pl1 = null;

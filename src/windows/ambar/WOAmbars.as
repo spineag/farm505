@@ -449,6 +449,34 @@ public class WOAmbars extends WindowMain {
         if (_mainSprite.contains(_tabAmbar)) _mainSprite.removeChild(_tabAmbar);
         if (_source.contains(_tabSklad)) _source.removeChild(_tabSklad);
         if (_mainSprite.contains(_tabSklad)) _mainSprite.removeChild(_tabSklad);
+        if (_txtAmbar) {
+            _txtAmbar.deleteIt();
+            _txtAmbar = null;
+        }
+        if (_txtSklad) {
+            _txtSklad.deleteIt();
+            _txtSklad = null;
+        }
+        if (_txtCount) {
+            _txtCount.deleteIt();
+            _txtCount = null;
+        }
+        if (_txtBtnShowUpdate) {
+            _txtBtnShowUpdate.deleteIt();
+            _txtBtnShowUpdate = null;
+        }
+        if (_txtBtnBack) {
+            _txtBtnBack.deleteIt();
+            _txtBtnBack = null;
+        }
+        if (_txtNeed) {
+            _txtNeed.deleteIt();
+            _txtNeed = null;
+        }
+        if (_txtBtnUpdate) {
+            _txtBtnUpdate.deleteIt();
+            _txtBtnUpdate = null;
+        }
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;

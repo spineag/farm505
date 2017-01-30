@@ -26,7 +26,7 @@ public class ManagerDropBonusResource {
     }
 
     public function checkDrop():Boolean {
-            if (g.user.level <= 10 && !g.managerTutorial.isTutorial) return int(Math.random()*100) < DROP_VARIATY_5 + 1;
+            if (g.user.level <= 7 && !g.managerTutorial.isTutorial) return int(Math.random()*100) < DROP_VARIATY_5 + 1;
              else return int(Math.random()*100) < DROP_VARIATY + 1;
     }
     public function createDrop(_x:int, _y:int):void {

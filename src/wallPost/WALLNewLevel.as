@@ -78,6 +78,8 @@ public class WALLNewLevel {
                 Cc.error('error during wallpost');
             }
         }
+        _txtLevel.deleteIt();
+        _txtLevel = null;
         (g.pBitmaps[st + 'wall/wall_new_level.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_new_level.jpg'];
     }

@@ -284,8 +284,11 @@ public class HintBackground extends Sprite {
     }
 
     public function deleteIt():void {
+        if (_txt) {
+            _txt.deleteIt();
+            _txt = null;
+        }
         dispose();
-        _txt = null;
         _bg = null;
         inSprite = null;
     }

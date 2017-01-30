@@ -97,6 +97,21 @@ public class WOMarketDeleteItem extends WindowMain{
     }
 
     override protected function deleteIt():void {
+        if (_txtInfo) {
+            _source.removeChild(_txtInfo);
+            _txtInfo.deleteIt();
+            _txtInfo = null;
+        }
+        if (_txt) {
+            _source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
+        if (_txtBtn) {
+            _b.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;

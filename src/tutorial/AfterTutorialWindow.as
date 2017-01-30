@@ -30,6 +30,7 @@ public class AfterTutorialWindow {
     private var _callback:Function;
     private var _needShow:Boolean;
     private var _image:Image;
+    private var _btnTex:CTextField;
 
     public function AfterTutorialWindow() {
         _source = new Sprite();
@@ -62,17 +63,19 @@ public class AfterTutorialWindow {
         _btn.clickCallback = onClick;
         g.cont.popupCont.addChild(_source);
         _source.addChild(_btn);
-        var txt:CTextField = new CTextField(110,100,"Далее");
-        txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.y = -28;
-        txt.x = 30;
-        _btn.addChild(txt);
+        _btnTex= new CTextField(110,100,"Далее");
+        _btnTex.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _btnTex.y = -28;
+        _btnTex.x = 30;
+        _btn.addChild(_btnTex);
     }
 
     public function hideIt():void {
         (g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/after_tutorial_window.png'] as PBitmap).deleteIt();
         delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/after_tutorial_window.png'];
         g.cont.popupCont.removeChild(_source);
+        _btnTex.deleteIt();
+        _btnTex = null;
         _image = null;
         _btn = null;
         _source = null;

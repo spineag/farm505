@@ -209,7 +209,16 @@ public class ShopTabBtn {
         _bg.deleteIt();
         _bg = null;
         _imNotification = null;
-        _txtNotification = null;
+        if (_txtTabName) {
+            _source.removeChild(_txtTabName);
+            _txtTabName.deleteIt();
+            _txtTabName = null;
+        }
+        if (_txtNotification) {
+            _source.removeChild(_txtNotification);
+            _txtNotification.deleteIt();
+            _txtNotification = null;
+        }
         _shopSource = null;
         _shopSprite = null;
         _source.deleteIt();

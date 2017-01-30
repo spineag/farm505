@@ -92,6 +92,16 @@ public class WOPapper extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (_txtTimer) {
+            _btnRefreshBlue.removeChild(_txtTimer);
+            _txtTimer.deleteIt();
+            _txtTimer = null;
+        }
+        if (_txtBtn) {
+            _btnRefreshGreen.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
         _rubinsSmall.filter = null;
         _source.removeChild(_leftPage.source);
         _source.removeChild(_rightPage.source);
@@ -380,12 +390,12 @@ public class WOPapper extends WindowMain {
     }
 
     private function onTimer():void {
-        if (g.userTimer.timerAtPapper > 0) _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.timerAtPapper);
+        if (g.userTimer.timerAtPapper > 0) if (_txtTimer)_txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.timerAtPapper);
         else {
             if (_btnRefreshGreen)_btnRefreshBlue.setEnabled = true;
             if (_btnRefreshGreen)_btnRefreshGreen.setEnabled = false;
-            _txtTimer.text = 'Обновить';
-            _txtTimer.x = 25;
+            if (_txtTimer) _txtTimer.text = 'Обновить';
+            if (_txtTimer) _txtTimer.x = 25;
             g.gameDispatcher.removeFromTimer(onTimer);
             g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
             g.user.paperShift = 1;

@@ -216,6 +216,10 @@ public class WOBuyCurrency extends WindowMain {
         if (_source.contains(_tabSoft)) _source.removeChild(_tabSoft);
         _tabHard.deleteIt();
         _tabHard = null;
+        _txtRubins.deleteIt();
+        _txtRubins = null;
+        _txtCoins.deleteIt();
+        _txtCoins = null;
         _tabSoft.deleteIt();
         _tabSoft = null;
         _source.removeChild(_woBG);

@@ -450,6 +450,26 @@ public class WOMarketChoose extends WindowMain {
         if (!_scrollSprite) return;
         unfillItems();
         unfillItems();
+        if (_txtAmbar) {
+            _txtAmbar.deleteIt();
+            _txtAmbar = null;
+        }
+        if (_txtSklad) {
+            _txtSklad.deleteIt();
+            _txtSklad = null;
+        }
+        if (_txtCount) {
+            _txtCount.deleteIt();
+            _txtCount = null;
+        }
+        if (_txtSellBtn) {
+            _txtSellBtn.deleteIt();
+            _txtSellBtn = null;
+        }
+        if (_txtPrice) {
+            _txtPrice.deleteIt();
+            _txtPrice = null;
+        }
         _tabAmbar.filter = null;
         _tabSklad.filter = null;
         _mainSprite.filter = null;

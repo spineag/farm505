@@ -151,6 +151,16 @@ public class WOPapperPage {
             source.removeChild(_arrItems[i].source);
             _arrItems[i].deleteIt();
         }
+        if (_txtTitle) {
+            _bg.removeChild(_txtTitle);
+            _txtTitle.deleteIt();
+            _txtTitle = null;
+        }
+        if (_txtPage) {
+            _bg.removeChild(_txtPage);
+            _txtPage.deleteIt();
+            _txtPage = null;
+        }
         _arrItems.length = 0;
         source.removeChild(_bg);
         _bg.deleteIt();

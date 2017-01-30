@@ -152,10 +152,18 @@ public class MarketFriendItem {
     public function deleteIt():void {
         _wo = null;
         _ava = null;
-        _txt = null;
+        if (_txt) {
+            source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
+        if (_txtBtn) {
+            _visitBtn.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
         _person = null;
         if (_visitBtn) {
-            source.removeChild(_visitBtn);
             _visitBtn.deleteIt();
             _visitBtn = null;
         }

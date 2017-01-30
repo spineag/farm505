@@ -91,10 +91,10 @@ public class CatPanel {
 
     private function onClick():void {
         if ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
-          if (g.user.userSocialId == '252433337505') {
-              g.user.level++;
-              g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-          }
+            if (g.user.userSocialId == '252433337505') {
+                g.user.level++;
+                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+            }
         } else {
             if (g.user.userSocialId == '14663166' || g.user.userSocialId == '201166703' || g.user.userSocialId == '168207096' || g.user.userSocialId == '202427318' || g.user.userSocialId == '191561520') {
                 g.user.level++;

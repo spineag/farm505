@@ -50,6 +50,7 @@ public class WODailyGift extends WindowMain {
     private var _sprItem:Sprite;
     private var _itemToday:Object;
     private var _point:Point;
+    private var _arrCTex:Array;
 
     public function WODailyGift() {
         super();
@@ -57,6 +58,7 @@ public class WODailyGift extends WindowMain {
         _woHeight = 550;
         _woWidth = 800;
         _sprItem = new Sprite();
+        _arrCTex = [];
 
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
@@ -82,12 +84,14 @@ public class WODailyGift extends WindowMain {
         _txt.x = -350;
         _txt.y = -393;
         _source.addChild(_txt);
+        _arrCTex.push(_txt);
 
-        _txt = new CTextField(600,40, "Заходите каждый день что бы получить новую награду");
+        _txt = new CTextField(600,40, "Заходите каждый день чтобы получить новую награду");
         _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -300;
         _txt.y = -208;
         _source.addChild(_txt);
+        _arrCTex.push(_txt);
         _itemToday = {};
     }
 
@@ -96,17 +100,17 @@ public class WODailyGift extends WindowMain {
         _arrayItem = params[0];
         var source:Sprite;
         var day:int = 24 * 60 * 60 * 1000;
-        var yesterday:Date = new Date();
-        var yesterdayDailyGift:Date = new Date(g.user.dayDailyGift * 1000);
-        yesterday.setTime(yesterday.getTime() - day);
+//        var yesterday:Date = new Date();
+//        var yesterdayDailyGift:Date = new Date(g.user.dayDailyGift * 1000);
+//        yesterday.setTime(yesterday.getTime() - day);
         g.user.countDailyGift++;
         if (g.user.countDailyGift > 15) {
             g.user.countDailyGift = 1;
         }
-
-        if (yesterday.date != yesterdayDailyGift.date) {
-            g.user.countDailyGift = 1;
-        }
+//
+//        if (yesterday.date != yesterdayDailyGift.date) {
+//            g.user.countDailyGift = 1;
+//        }
         for (var i:int = 0; i < _arrayItem.length; i++) {
             source = new Sprite();
             source.x = (i % 5) * 135;
@@ -119,6 +123,10 @@ public class WODailyGift extends WindowMain {
         _source.addChild(_sprItem);
         super.showIt();
     }
+    override public function hideIt():void {
+        g.managerCats.helloCats();
+        super.hideIt();
+    }
 
     private function onClickExit(e:Event = null):void {
         g.directServer.updateDailyGift(g.user.countDailyGift);
@@ -128,6 +136,10 @@ public class WODailyGift extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        for (var i:int = 0; i<_arrCTex.length; i++) {
+            _arrCTex[i].deleteIt();
+            _arrCTex[i] = null;
+        }
         super.deleteIt();
     }
 
@@ -185,10 +197,12 @@ public class WODailyGift extends WindowMain {
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.y = -5;
         source.addChild(txt);
+        _arrCTex.push(txt);
         txt = new CTextField(130,30, String(count));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.y = 95;
         source.addChild(txt);
+        _arrCTex.push(txt);
         if (number < g.user.countDailyGift-1) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check_big'));
             MCScaler.scale(im,im.height-20,im.width-20);

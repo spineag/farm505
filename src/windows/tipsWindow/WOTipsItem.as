@@ -147,10 +147,18 @@ public class WOTipsItem {
         _bg.deleteIt();
         _bg = null;
         source.removeChild(_btn);
-        _btn.removeChild(_txtBtn);
+        if (_txt) {
+            source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
+        if (_txtBtn) {
+            _btn.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
         _btn.deleteIt();
         _btn = null;
-        _txtBtn.dispose();
         source.dispose();
         _callback = null;
         _data = null;

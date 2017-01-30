@@ -77,6 +77,21 @@ public class WOGameError extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (_txt) {
+            _source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
+        if (_txtError) {
+            _source.removeChild(_txtError);
+            _txtError.deleteIt();
+            _txtError = null;
+        }
+        if (_txtBtn) {
+            _b.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;

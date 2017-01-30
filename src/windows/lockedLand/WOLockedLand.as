@@ -188,6 +188,15 @@ public class WOLockedLand extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (_txtInfo) {
+            _txtInfo.deleteIt();
+            _txtInfo = null;
+        }
+        if (_txtBtn) {
+            _btnOpen.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
         for (var i:int=0; i<_arrItems.length; i++) {
             _source.removeChild(_arrItems[i].source);
             _arrItems[i].deleteIt();

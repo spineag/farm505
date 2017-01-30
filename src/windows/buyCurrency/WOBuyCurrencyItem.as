@@ -45,12 +45,14 @@ public class WOBuyCurrencyItem {
     private var _countGameMoney:int;
     private var _packId:int;
     private var g:Vars = Vars.getInstance();
+    private var _arrCTex:Array;
 
     public function WOBuyCurrencyItem(currency:int, count:int, bonus:Array, cost:int, packId:int, sale:int) {
         _currency = currency;
         _packId = packId;
         _countGameMoney = count;
         _costRealMoney = cost;
+        _arrCTex = [];
         source = new Sprite();
         _bg = new Sprite();
         _bg.touchable = false;
@@ -98,6 +100,7 @@ public class WOBuyCurrencyItem {
             txt.x = 70 + _txtCount.textBounds.width + 5;
             txt.y = 4;
             source.addChild(txt);
+            _arrCTex.push(txt);
         }
         _btn = new CButton();
         _btn.addButtonTexture(120, 40, CButton.GREEN, true);
@@ -123,6 +126,7 @@ public class WOBuyCurrencyItem {
             txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PINK_COLOR);
             txt.y = 12;
             _action.addChild(txt);
+            _arrCTex.push(txt);
             source.addChild(_action);
             _action.x = 350;
         } else {
@@ -145,6 +149,7 @@ public class WOBuyCurrencyItem {
                 txt = new CTextField(60, 30, 'Выгода');
                 txt.y = 20;
                 txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
+                _arrCTex.push(txt);
                 _action.addChild(txt);
                 source.addChild(_action);
                 _action.x = 350;
@@ -169,6 +174,14 @@ public class WOBuyCurrencyItem {
         _btn = null;
         source.dispose();
         source = null;
+        _txtCount.deleteIt();
+        _txtCount = null;
+        for (var i:int = 0; i <_arrCTex.length; i++) {
+            _arrCTex[i].deleteIt();
+            _arrCTex[i] = null;
+        }
+        _txtBtn.deleteIt();
+        _txtBtn = null;
         while (_action.numChildren) {
             _action.removeChildAt(0);
         }

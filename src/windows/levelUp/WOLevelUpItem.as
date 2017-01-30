@@ -55,17 +55,16 @@ public class WOLevelUpItem {
         _txtCount.x = 15;
         _txtCount.y = 10;
         try {
-            _txtNew.text = 'НОВОЕ!';
             if (ob.coins) {
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
                 _txtCount.text = '+' + String(ob.countSoft);
-                _txtNew.text = '';
+//                _txtNew.text = '';
                 g.userInventory.addMoney(2,ob.countSoft)
             }
             if (ob.hard) {
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
                 _txtCount.text = '+' + String(ob.countHard);
-                _txtNew.text = '';
+//                _txtNew.text = '';
                 g.userInventory.addMoney(1,ob.countHard)
             }
 
@@ -75,7 +74,7 @@ public class WOLevelUpItem {
                     _image = new Image(g.allData.atlas[g.dataBuilding.objectBuilding[ob.id].url].getTexture(g.dataBuilding.objectBuilding[ob.id].image));
                 }
                 _txtCount.text = '+' + String(ob.count);
-                _txtNew.text = '';
+//                _txtNew.text = '';
                 _bolHouse = true;
                 var f1:Function = function (dbId:int):void {
                     g.userInventory.addToDecorInventory(ob.id, dbId);
@@ -91,35 +90,40 @@ public class WOLevelUpItem {
                     _image = new Image(g.allData.atlas[g.dataResource.objectResources[ob.id].url].getTexture(g.dataResource.objectResources[ob.id].imageShop));
                 }
                 _txtCount.text = '+' + String(ob.count);
-                _txtNew.text = '';
+//                _txtNew.text = '';
                 g.userInventory.addResource(ob.id,ob.count);
             }
 
             if (ob.catCount) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
                 _txtCount.text = String(ob.count);
-                _txtNew.text = '';
+//                _txtNew.text = '';
                 _data.id = -1;
             }
             if (ob.ridgeCount) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('ridge_icon'));
                 _txtCount.text = String(count);
-                _txtNew.text = '';
+//                _txtNew.text = '';
                 _data.id = -2;
             }
             if (ob.buildType == BuildType.FARM) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
+                _txtNew.text = 'НОВОЕ!';
             } else if (ob.buildType == BuildType.RIDGE) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
+                _txtNew.text = 'НОВОЕ!';
             } else if (ob.buildType == BuildType.FABRICA) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon'));
                 _bolHouse = true;
+                _txtNew.text = 'НОВОЕ!';
             } else if (ob.buildType == BuildType.TREE) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
+                _txtNew.text = 'НОВОЕ!';
             } else if (ob.buildType == BuildType.RESOURCE) {
+                _txtNew.text = 'НОВОЕ!';
                 obj = g.dataAnimal.objectAnimal;
                 for (id in obj) {
                    if (obj[id].idResourceRaw == ob.id){
@@ -133,6 +137,7 @@ public class WOLevelUpItem {
                 _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(ob.imageShop + '_icon'));
             } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
                     || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.DECOR) {
+                _txtNew.text = 'НОВОЕ!';
                 if (ob.image) {
                     var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon');
                     if (!texture) {
@@ -142,24 +147,30 @@ public class WOLevelUpItem {
                 _image = new Image(texture);
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.ANIMAL) {
+                _txtNew.text = 'НОВОЕ!';
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 _bolHouse = true;
                 _bolAnimal = true;
             } else if (ob.buildType == BuildType.INSTRUMENT) {
+                _txtNew.text = 'НОВОЕ!';
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
             } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
                  _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.CAVE) {
+                _txtNew.text = 'НОВОЕ!';
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.DAILY_BONUS) {
+                _txtNew.text = 'НОВОЕ!';
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('daily_bonus_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.ORDER) {
+                _txtNew.text = 'НОВОЕ!';
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('orders_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.DECOR_ANIMATION) {
+                _txtNew.text = 'НОВОЕ!';
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon'));
                 _bolHouse = true;
             }
@@ -191,8 +202,16 @@ public class WOLevelUpItem {
 
     public function deleteIt():void {
        source.deleteIt();
-        _txtCount = null;
-        _txtNew = null;
+        if (_txtCount) {
+            source.removeChild(_txtCount);
+            _txtCount.deleteIt();
+            _txtCount = null;
+        }
+       if (_txtNew) {
+           source.removeChild(_txtNew);
+           _txtNew.deleteIt();
+           _txtNew = null;
+       }
         _image = null;
         _imageBg = null;
         source = null;

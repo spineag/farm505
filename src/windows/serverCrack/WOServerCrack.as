@@ -80,6 +80,21 @@ public class WOServerCrack  extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (txt) {
+            _source.removeChild(txt);
+            txt.deleteIt();
+            txt = null;
+        }
+        if (_txtError) {
+            _source.removeChild(_txtError);
+            _txtError.deleteIt();
+            _txtError = null;
+        }
+        if (txt2) {
+            _b.removeChild(_txtError);
+            _txtError.deleteIt();
+            _txtError = null;
+        }
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;

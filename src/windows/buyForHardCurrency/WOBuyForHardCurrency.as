@@ -123,6 +123,12 @@ public class WOBuyForHardCurrency extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        _btnYes.removeChild(_txtYes);
+        _txtYes.deleteIt();
+        _txtYes = null;
+        _btnNo.removeChild(_txtNo);
+        _txtNo.deleteIt();
+        _txtNo = null;
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;

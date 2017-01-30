@@ -146,6 +146,11 @@ public class WOChest  extends WindowMain{
             WorldClock.clock.remove(_armature);
             _armature.dispose();
         }
+        if (_txtBtn) {
+            _btnOpen.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
         _armature = null;
         _woChestItem = null;
         _btnOpen = null;

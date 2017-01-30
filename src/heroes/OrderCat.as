@@ -26,6 +26,7 @@ import starling.events.Event;
 import temp.catCharacters.DataCat;
 import utils.IsoUtils;
 import utils.Point3D;
+import utils.Utils;
 
 public class OrderCat {
     public static var BLACK:int = 1;
@@ -501,8 +502,12 @@ public class OrderCat {
         armatureBack.animation.gotoAndPlayByFrame("run");
     }
 
-    public function sayHIAnimation(callback:Function):void {
+    public function sayHIAnimation(callback:Function, b:Boolean = false):void {
         _callbackHi= callback;
+        if (b) {
+            stopAnimation();
+            showFront(true);
+        }
         var onSayHI:Function = function(e:Event=null):void {
             if (armature.hasEventListener(EventObject.COMPLETE)) armature.removeEventListener(EventObject.COMPLETE, onSayHI);
             if (armature.hasEventListener(EventObject.LOOP_COMPLETE)) armature.removeEventListener(EventObject.LOOP_COMPLETE, onSayHI);
@@ -510,9 +515,14 @@ public class OrderCat {
                 _callbackHi.apply();
             }
         };
-        armature.addEventListener(EventObject.COMPLETE, onSayHI);
-        armature.addEventListener(EventObject.LOOP_COMPLETE, onSayHI);
-        armature.animation.gotoAndPlayByFrame('idle2');
+        var f1:Function = function ():void {
+            armature.addEventListener(EventObject.COMPLETE, onSayHI);
+            armature.addEventListener(EventObject.LOOP_COMPLETE, onSayHI);
+            armature.animation.gotoAndPlayByFrame('idle2');
+        };
+
+        if (b) Utils.createDelay(int(Math.random() * 2) + 2,f1);
+        else f1();
     }
 
 

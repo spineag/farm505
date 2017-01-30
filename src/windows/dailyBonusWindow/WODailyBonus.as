@@ -129,6 +129,16 @@ public class WODailyBonus extends WindowMain {
 //        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_str.png'] as PBitmap).deleteIt();
 //        delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_str.png'];
 //        g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_str.png'] = null;
+        if (_txtBtnBuy) {
+            _btnBuy.removeChild(_txtBtnBuy);
+            _txtBtnBuy.deleteIt();
+            _txtBtnBuy = null;
+        }
+        if (_txtBtnBuy2) {
+            _btnFree.removeChild(_txtBtnBuy2);
+            _txtBtnBuy2.deleteIt();
+            _txtBtnBuy2 = null;
+        }
         clearItems();
         _source.removeChild(_btnBuy);
         _btnBuy.deleteIt();

@@ -95,6 +95,11 @@ public class WOTips  extends WindowMain {
         for (var i:int=0; i<11; i++) {
             _arrTips[i].deleteIt();
         }
+        if (_txtList) {
+            _source.removeChild(_txtList);
+            _txtList.deleteIt();
+            _txtList = null;
+        }
         _arrTips.length = 0;
         _source.removeChild(_birka);
         _birka.deleteIt();

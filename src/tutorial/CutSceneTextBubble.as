@@ -23,6 +23,7 @@ public class CutSceneTextBubble {
     private var _parent:Sprite;
     private var _btn:CButton;
     private var _btnTxt:CTextField;
+    private var _txtBubble:CTextField;
     private var _btnExit:CButton;
     private var _type:int;
     private var _innerImage:Image;
@@ -89,8 +90,8 @@ public class CutSceneTextBubble {
 
     private function createBubble(st:String):void {
         var im:Image;
-        var txt:CTextField = new CTextField(278, 60, st);
-        txt.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
+        _txtBubble = new CTextField(278, 60, st);
+        _txtBubble.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
         switch (_type) {
             case BIG:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));
@@ -99,16 +100,16 @@ public class CutSceneTextBubble {
                 if (_innerImage) {
                     _innerImage.x = 201 - _innerImage.width/2;
                     _innerImage.y = -75 - _innerImage.height/2;
-                    txt.x = 62;
-                    txt.y = -180;
+                    _txtBubble.x = 62;
+                    _txtBubble.y = -180;
                 } else {
                     if (_btn) {
-                        txt.height = 132;
+                        _txtBubble.height = 132;
                     } else {
-                        txt.height = 172;
+                        _txtBubble.height = 172;
                     }
-                    txt.x = 62;
-                    txt.y = -180;
+                    _txtBubble.x = 62;
+                    _txtBubble.y = -180;
                 }
                 if (_btn) {
                     _btn.x = 203;
@@ -122,20 +123,20 @@ public class CutSceneTextBubble {
                 if (_btn) {
                     _btn.x = 203;
                     _btn.y = -10;
-                    txt.height = 106;
+                    _txtBubble.height = 106;
                 } else {
-                    txt.height = 146;
+                    _txtBubble.height = 146;
                 }
-                txt.x = 62;
-                txt.y = -142;
+                _txtBubble.x = 62;
+                _txtBubble.y = -142;
                 break;
             case SMALL:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
                 im.x = -15;
                 im.y = -116;
-                txt.height = 80;
-                txt.x = 62;
-                txt.y = -94;
+                _txtBubble.height = 80;
+                _txtBubble.x = 62;
+                _txtBubble.y = -94;
                 if (_btn) {
                     _btn.x = 203;
                     _btn.y = 0;
@@ -144,8 +145,8 @@ public class CutSceneTextBubble {
         }
         _source.addChild(im);
         if (_innerImage) _source.addChild(_innerImage);
-        txt.autoScale = true;
-        _source.addChild(txt);
+        _txtBubble.autoScale = true;
+        _source.addChild(_txtBubble);
         if (_btn) _source.addChild(_btn);
         if (_btnExit) {
             _btnExit.x = im.x + im.width - 20;
@@ -188,6 +189,10 @@ public class CutSceneTextBubble {
             if (_source.contains(_btn)) _source.removeChild(_btn);
             _btn.dispose();
             _btn = null;
+        }
+        if (_txtBubble) {
+            _txtBubble.deleteIt();
+            _txtBubble = null;
         }
         _source.dispose();
         _source = null;

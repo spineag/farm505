@@ -206,6 +206,11 @@ public class CountBlock {
 
     public function deleteIt():void {
 //        btnNull();
+        if (_txt) {
+            source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
         source.removeChild(_btnMinus);
         _btnMinus.deleteIt();
         _btnMinus = null;

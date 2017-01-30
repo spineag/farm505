@@ -545,12 +545,12 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onTimer():void {
-        if (g.userTimer.papperTimerAtMarket > 0) _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket);
+        if (g.userTimer.papperTimerAtMarket > 0) if (_txtTimerPaper) _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket);
         else {
             _btnPaper.visible = false;
             _booleanPaper = true;
             _contPaper.visible = false;
-            _txtTimerPaper.text = '';
+            if (_txtTimerPaper) _txtTimerPaper.text = '';
             g.gameDispatcher.removeFromTimer(onTimer);
             for (var i:int = 0; i < _curUser.marketItems.length; i++) {
                 if (_arrItems.length == 0 || _curUser != g.user) break;
@@ -890,6 +890,37 @@ public class WOMarket  extends WindowMain {
     override protected function deleteIt():void {
         if (isCashed) return;
         var i:int;
+        if (_txtName) {
+            _source.removeChild(_txtName);
+            _txtName.deleteIt();
+            _txtName = null;
+        }
+        if (_txtAllFriends) {
+            _btnFriends.removeChild(_txtAllFriends);
+            _txtAllFriends.deleteIt();
+            _txtAllFriends = null;
+        }
+        if (_txtNumberPage) {
+            _source.removeChild(_txtNumberPage);
+            _txtNumberPage.deleteIt();
+            _txtNumberPage = null;
+        }
+        if (_txtPaper) {
+            _btnPaper.removeChild(_txtPaper);
+            _txtPaper.deleteIt();
+            _txtPaper = null;
+        }
+        if (_txtTimerPaper) {
+            _contPaper.removeChild(_txtTimerPaper);
+            _txtTimerPaper.deleteIt();
+            _txtTimerPaper = null;
+        }
+        if (_txtToPaper) {
+            _contPaper.removeChild(_txtToPaper);
+            _txtToPaper.deleteIt();
+            _txtToPaper = null;
+        }
+
         deleteFriends();
         if (_arrItems) {
             for (i=0; i< _arrItems.length; i++) {

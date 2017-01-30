@@ -21,6 +21,7 @@ public class WODailyBonusItem {
     private var _source:Sprite;
     private var _parent:Sprite;
     private var im:Image;
+    private var _txt:CTextField;
 
     public function WODailyBonusItem(obj:Object, index:int, p:Sprite) {
         _parent = p;
@@ -106,16 +107,21 @@ public class WODailyBonusItem {
         _source.rotation = (Math.PI/6)*index;
         _parent.addChild(_source);
         if (obj.type == ManagerDailyBonus.HARD_MONEY || obj.type == ManagerDailyBonus.SOFT_MONEY) {
-            var txt:CTextField = new CTextField(60, 40, '+'+String(obj.count));
-            txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            txt.x = -20;
-            txt.y = -5;
-            _source.addChild(txt);
+            _txt = new CTextField(60, 40, '+'+String(obj.count));
+            _txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
+            _txt.x = -20;
+            _txt.y = -5;
+            _source.addChild(_txt);
         }
     }
 
     public function deleteIt():void {
         im.filter = null;
+        if (_txt) {
+            _source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
         _parent.removeChild(_source);
         _source.dispose();
         _parent = null;

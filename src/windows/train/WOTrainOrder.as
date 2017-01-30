@@ -165,6 +165,36 @@ public class WOTrainOrder extends WindowMain{
     override protected function deleteIt():void {
         _train = null;
         g.gameDispatcher.removeFromTimer(timerCheck);
+        if (_txtNow) {
+            _btn.removeChild(_txtNow);
+            _txtNow.deleteIt();
+            _txtNow = null;
+        }
+        if (_txtArrive) {
+            _source.removeChild(_txtArrive);
+            _txtArrive.deleteIt();
+            _txtArrive = null;
+        }
+        if (_txtCost) {
+            _btn.removeChild(_txtCost);
+            _txtCost.deleteIt();
+            _txtCost = null;
+        }
+        if (_txtNext) {
+            _source.removeChild(_txtNext);
+            _txtNext.deleteIt();
+            _txtNext = null;
+        }
+        if (_txtTime) {
+            _source.removeChild(_txtTime);
+            _txtTime.deleteIt();
+            _txtTime = null;
+        }
+        if (_txtTime2) {
+            _source.removeChild(_txtTime2);
+            _txtTime2.deleteIt();
+            _txtTime2 = null;
+        }
         if (item1)_contItem.removeChild(item1.source);
         if (item2)_contItem.removeChild(item2.source);
         if (item3)_contItem.removeChild(item3.source);

@@ -28,6 +28,7 @@ public class MarketAllFriendItem{
     public var source:CSprite;
     private var _ava:Image;
     private var _txtPersonName:CTextField;
+    private var _btnTxt:CTextField;
     private var _wo:WOMarket;
     private var _planet:CSprite;
     private var _shiftFriend:int;
@@ -74,10 +75,10 @@ public class MarketAllFriendItem{
         if (_person.userSocialId != g.user.userSocialId) {
             _planet = new CSprite();
             _visitBtn = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
-            var txtBtn:CTextField = new CTextField(65, 25, "Посетить");
-            txtBtn.setFormat(CTextField.BOLD18, 12, Color.WHITE);
+            _btnTxt = new CTextField(65, 25, "Посетить");
+            _btnTxt.setFormat(CTextField.BOLD18, 12, Color.WHITE);
             _planet.addChild(_visitBtn);
-            _planet.addChild(txtBtn);
+            _planet.addChild(_btnTxt);
             _planet.x = 20;
             _planet.y = -10;
             _planet.visible = false;
@@ -136,6 +137,16 @@ public class MarketAllFriendItem{
     public function deleteIt():void {
         _person = null;
         _wo = null;
+        if (_txtPersonName) {
+            source.removeChild(_txtPersonName);
+            _txtPersonName.deleteIt();
+            _txtPersonName = null;
+        }
+        if (_btnTxt) {
+            _planet.removeChild(_btnTxt);
+            _btnTxt.deleteIt();
+            _btnTxt = null;
+        }
         if (_planet) {
             _planet.removeChild(_visitBtn);
             _visitBtn.deleteIt();

@@ -63,6 +63,11 @@ public class WOQuestAward {
     }
 
     public function deleteIt():void {
+        if (_txtAward) {
+            _source.removeChild(_txtAward);
+            _txtAward.deleteIt();
+            _txtAward = null;
+        }
         for (var i:int=0; i<_arItems.length; i++) {
             _arItems[i].deleteIt();
         }
@@ -120,6 +125,10 @@ internal class Item extends Sprite {
     }
 
     public function deleteIt():void {
+        if (_txt) {
+            _txt.deleteIt();
+            _txt = null;
+        }
         dispose();
     }
 

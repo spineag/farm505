@@ -49,10 +49,12 @@ import windows.WindowsManager;
 public class WOStarterPack extends WindowMain{
     private var _data:Object;
     private var _decorSpr:Sprite;
+    private var _arrCTex:Array;
 
     public function WOStarterPack() {
         super();
         _decorSpr = new Sprite();
+        _arrCTex = [];
         _woHeight = 538;
         _woWidth = 732;
         _windowType = WindowsManager.WO_STARTER_PACK;
@@ -89,6 +91,7 @@ public class WOStarterPack extends WindowMain{
         txt.x = -190;
         txt.y = -250;
         _source.addChild(txt);
+        _arrCTex.push(txt);
 
         txt = new CTextField(77, 40, String(_data.soft_count));
         txt.setFormat(CTextField.BOLD24, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -96,6 +99,7 @@ public class WOStarterPack extends WindowMain{
         txt.x = -155 - txt.textBounds.width/2 ;
         txt.y = -40;
         _source.addChild(txt);
+        _arrCTex.push(txt);
 
         txt = new CTextField(50, 40, String(_data.hard_count));
         txt.setFormat(CTextField.BOLD24, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
@@ -104,24 +108,28 @@ public class WOStarterPack extends WindowMain{
 //        txt.x = -17;
         txt.y = -40;
         _source.addChild(txt);
+        _arrCTex.push(txt);
 
         txt = new CTextField(90, 50, 'Монеты');
         txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -200;
         txt.y = -170;
         _source.addChild(txt);
+        _arrCTex.push(txt);
 
         txt = new CTextField(90, 50, "Рубины");
         txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.y = -170;
         txt.x = -20;
         _source.addChild(txt);
+        _arrCTex.push(txt);
 
         txt = new CTextField(77, 40, "Бонус");
         txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = 175;
         txt.y = -170;
         _source.addChild(txt);
+        _arrCTex.push(txt);
 
         if (_data.object_type == BuildType.RESOURCE || _data.object_type == BuildType.INSTRUMENT || _data.object_type == BuildType.PLANT) {
             im = new Image(g.allData.atlas[g.dataResource.objectResources[_data.object_id].url].getTexture(g.dataResource.objectResources[_data.object_id].imageShop));
@@ -131,6 +139,7 @@ public class WOStarterPack extends WindowMain{
             txt.x = 210 - txt.textBounds.width/2 ;
             txt.y = -45;
             _source.addChild(txt);
+            _arrCTex.push(txt);
             _source.addChild(im);
         } else if (_data.object_type == BuildType.DECOR_ANIMATION) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.object_id].url + '_icon'));
@@ -141,6 +150,7 @@ public class WOStarterPack extends WindowMain{
             txt.y = -45;
             _source.addChild(_decorSpr);
             _decorSpr.addChild(im);
+            _arrCTex.push(txt);
             _source.addChild(txt);
         } else if (_data.object_type == BuildType.DECOR) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.object_id].image +'_icon'));
@@ -152,6 +162,7 @@ public class WOStarterPack extends WindowMain{
             _source.addChild(_decorSpr);
             _decorSpr.addChild(im);
             _source.addChild(txt);
+            _arrCTex.push(txt);
         }
         MCScaler.scale(im,105,105);
         im.x = 160;
@@ -164,25 +175,28 @@ public class WOStarterPack extends WindowMain{
             txt.x = -100;
             txt.y = 40;
             _source.addChild(txt);
+            _arrCTex.push(txt);
 
             txt = new CTextField(160, 40, 'за ' +String(_data.new_cost) + ' ок');
             txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
             txt.x = -100;
             txt.y = 80;
             _source.addChild(txt);
+            _arrCTex.push(txt);
         } else {
             txt = new CTextField(160, 40, String(_data.old_cost) +' голосов');
             txt.setFormat(CTextField.BOLD30, 24, ManagerFilters.BLUE_COLOR);
             txt.x = -100;
             txt.y = 40;
             _source.addChild(txt);
-
+            _arrCTex.push(txt);
 
             txt = new CTextField(160, 40, 'за ' +String(_data.new_cost) + ' голосов');
             txt.setFormat(CTextField.BOLD30, 26,  ManagerFilters.BLUE_COLOR);
             txt.x = -100;
             txt.y = 80;
             _source.addChild(txt);
+            _arrCTex.push(txt);
         }
         var quad:Quad = new Quad(160, 3, Color.RED);
         quad.x = -100;
@@ -199,6 +213,7 @@ public class WOStarterPack extends WindowMain{
         _source.addChild(btn);
         btn.y = 260;
         btn.x = 15;
+        _arrCTex.push(btn);
     }
     override public function showItParams(callback:Function, params:Array):void {
         super.showIt();
@@ -208,10 +223,10 @@ public class WOStarterPack extends WindowMain{
         if (g.user.level >= 5 && g.user.dayDailyGift == 0) g.directServer.getDailyGift(null);
         else {
             var todayDailyGift:Date = new Date(g.user.dayDailyGift * 1000);
-            var today:Date = new Date();
+            var today:Date = new Date(g.user.day * 1000);
             if (g.user.level >= 5 && todayDailyGift.date != today.date) {
                 g.directServer.getDailyGift(null);
-            }
+            } else g.managerCats.helloCats();
         }
      super.hideIt();
     }
@@ -247,6 +262,11 @@ public class WOStarterPack extends WindowMain{
     }
 
     override protected function deleteIt():void {
+        for (var i:int = 0; i < _arrCTex.length; i++) {
+            _source.removeChild(_arrCTex[i]);
+            _arrCTex[i].deleteIt();
+            _arrCTex[i] = null;
+        }
         super.deleteIt();
     }
 
@@ -296,6 +316,5 @@ public class WOStarterPack extends WindowMain{
         }
         hideIt();
     }
-
 }
 }

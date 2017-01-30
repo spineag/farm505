@@ -183,6 +183,10 @@ public class UpdateItem {
         _imGalo4ka.filter = null;
         _rubinsSmall.filter = null;
         source.removeChild(_btn);
+        _txtCount.deleteIt();
+        _txtCount = null;
+        _btnTxt.deleteIt();
+        _btnTxt = null;
         _btn.deleteIt();
         _btn = null;
         source.dispose();

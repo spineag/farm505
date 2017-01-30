@@ -14,6 +14,7 @@ public class HelperReason {
     public static const REASON_BUY_ANIMAL:int = 9;
     public static const REASON_BUY_RIDGE:int = 10;
     public static const REASON_CRAFT_ANY_PRODUCT:int = 11;
+    public static const REASON_WILD_DELETE:int = 12;
 
     private static var _arr:Array;
 
@@ -73,6 +74,11 @@ public class HelperReason {
         ob = {};
         ob.reason = REASON_CRAFT_ANY_PRODUCT;
         ob.txt = 'Давай отправим продукт на склад';
+        _arr.push(ob);
+
+        ob = {};
+        ob.reason = REASON_WILD_DELETE;
+        ob.txt = 'Давай расчистим долину';
         _arr.push(ob);
     }
 

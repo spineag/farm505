@@ -25,7 +25,7 @@ import windows.WindowsManager;
 
 public class RawItem {
     private var g:Vars = Vars.getInstance();
-
+    private var _countTxt:CTextField;
     //just animation for raw process
     public function RawItem(endPoint:Point, texture:Texture, count:int, delay:Number):void {
         var _source:Sprite = new Sprite();
@@ -44,7 +44,7 @@ public class RawItem {
         _source.y = endPoint.y - 100;
         g.cont.animationsResourceCont.addChild(_source);
 
-        var _countTxt:CTextField = new CTextField(50,30,'-' + String(count));
+        _countTxt = new CTextField(50,30,'-' + String(count));
         _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _countTxt.x = im.width - 30;
         _countTxt.y = im.height - 15;
@@ -59,6 +59,7 @@ public class RawItem {
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }
+            _countTxt.deleteIt();
         };
         g.starling.juggler.add(tween);
     }

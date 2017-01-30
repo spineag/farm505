@@ -118,9 +118,17 @@ public class WOOrderResourceItem {
         source.removeChild(_bg);
         _bg.deleteIt();
         _bg = null;
+        if (_countRed) {
+            source.removeChild(_countRed);
+            _countRed.deleteIt();
+            _countRed = null;
+        }
+        if (_countTxt) {
+            source.removeChild(_countTxt);
+            _countTxt.deleteIt();
+            _countTxt = null;
+        }
         source.deleteIt();
-        _countTxt = null;
-        _countRed = null;
         _image = null;
         _check = null;
         source = null;

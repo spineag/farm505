@@ -45,6 +45,11 @@ public class WOFabricNumber {
     }
 
     public function deleteIt():void {
+        if (txt) {
+            source.removeChild(txt);
+            txt.deleteIt();
+            txt = null;
+        }
         source.deleteIt();
         source = null;
     }

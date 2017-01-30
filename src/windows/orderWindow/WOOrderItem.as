@@ -347,6 +347,21 @@ public class WOOrderItem {
     public function deleteIt():void {
         _starImage.filter = null;
         _coinsImage.filter = null;
+        if (_txtName) {
+            source.removeChild(_txtName);
+            _txtName.deleteIt();
+            _txtName = null;
+        }
+        if (_txtCoins) {
+            source.removeChild(_txtCoins);
+            _txtCoins.deleteIt();
+            _txtCoins = null;
+        }
+        if (_txtXP) {
+            source.removeChild(_txtXP);
+            _txtXP.deleteIt();
+            _txtXP = null;
+        }
         _order = null;
         source.filter = null;
         source.removeChild(_bgCarton);

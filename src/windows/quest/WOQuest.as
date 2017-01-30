@@ -92,6 +92,16 @@ public class WOQuest extends WindowMain{
 
     override protected function deleteIt():void {
         g.managerQuest.onHideWO();
+        if (_txtName) {
+            _source.removeChild(_txtName);
+            _txtName.deleteIt();
+            _txtName = null;
+        }
+        if (_txtDescription) {
+            _source.removeChild(_txtDescription);
+            _txtDescription.deleteIt();
+            _txtDescription = null;
+        }
         _birka.deleteIt();
         _award.deleteIt();
         _questItem.deleteIt();

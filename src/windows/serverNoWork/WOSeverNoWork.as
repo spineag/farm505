@@ -74,6 +74,21 @@ public class WOSeverNoWork  extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (_txtBtn) {
+            _b.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
+        if (_txtError) {
+            _source.removeChild(_txtError);
+            _txtError.deleteIt();
+            _txtError = null;
+        }
+        if (_txtInfo) {
+            _txtInfo.removeChild(_txtInfo);
+            _txtInfo.deleteIt();
+            _txtInfo = null;
+        }
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;

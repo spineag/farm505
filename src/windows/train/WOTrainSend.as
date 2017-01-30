@@ -102,6 +102,26 @@ public class WOTrainSend extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (_txtA) {
+            _source.removeChild(_txtA);
+            _txtA.deleteIt();
+            _txtA = null;
+        }
+        if (_txtB) {
+            _source.removeChild(_txtB);
+            _txtB.deleteIt();
+            _txtB = null;
+        }
+        if (_txtYes) {
+            _btnYes.removeChild(_txtYes);
+            _txtYes.deleteIt();
+            _txtYes = null;
+        }
+        if (_txtNo) {
+            _btnNo.removeChild(_txtNo);
+            _txtNo.deleteIt();
+            _txtNo = null;
+        }
         _source.removeChild(_woBG);
         _woBG.deleteIt();
         _woBG = null;

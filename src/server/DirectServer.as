@@ -891,6 +891,7 @@ public class DirectServer {
             g.user.starterPack = Boolean(int(ob.starter_pack));
             g.user.dayDailyGift  = int(ob.day_daily_gift);
             g.user.countDailyGift  = int(ob.count_daily_gift);
+            g.user.day = int (ob.day);
             if (!g.isDebug) {
                 if (ob.music == '1') g.soundManager.enabledMusic(true);
                 else g.soundManager.enabledMusic(false);

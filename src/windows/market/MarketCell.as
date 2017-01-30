@@ -105,12 +105,16 @@ public class MarketCell {
         _cont.filter = null;
         source.removeChild(_cont);
         _carton.deleteIt();
+        if (_countTxt) {
+            _cont.removeChild(_countTxt);
+            _countTxt.deleteIt();
+            _countTxt = null;
+        }
         _carton = null;
         _clickCallback = null;
         _info = null;
         _data = null;
         _image = null;
-        _countTxt = null;
         source.dispose();
         source = null;
     }

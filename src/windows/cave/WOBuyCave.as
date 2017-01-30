@@ -148,6 +148,11 @@ public class WOBuyCave extends WindowMain {
 
     override protected function deleteIt():void {
         if (isCashed) return;
+        if (_priceTxt) {
+            _btn.removeChild(_priceTxt);
+            _priceTxt.deleteIt();
+            _priceTxt = null;
+        }
         _source.removeChild(_btn);
         _btn.deleteIt();
         _btn = null;

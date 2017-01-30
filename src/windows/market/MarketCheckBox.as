@@ -56,10 +56,14 @@ public class MarketCheckBox {
 
     public function deleteIt():void {
         source.removeChild(_bg);
+        if (_txt) {
+            source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
         _bg.deleteIt();
         _bg = null;
         _galo4ka = null;
-        _txt = null;
         source.dispose();
         source = null;
     }

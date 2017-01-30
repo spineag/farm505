@@ -25,6 +25,7 @@ public class MarketAllFriend {
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _callback:Function;
     private var _bg:CartonBackground;
+    private var _txtPanel:CTextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -67,11 +68,11 @@ public class MarketAllFriend {
             _scrollSprite.addNewCell(item.source);
         }
         source.addChild(_scrollSprite.source);
-        var txtPanel:CTextField = new CTextField(220, 25, 'Быстрый доступ к друзьям:');
-        txtPanel.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txtPanel.x = 80;
-        txtPanel.y = 16;
-        source.addChild(txtPanel);
+        _txtPanel = new CTextField(220, 25, 'Быстрый доступ к друзьям:');
+        _txtPanel.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtPanel.x = 80;
+        _txtPanel.y = 16;
+        source.addChild(_txtPanel);
         source.visible = false;
     }
 
@@ -92,6 +93,11 @@ public class MarketAllFriend {
     public function deleteIt():void {
         source.filter = null;
         source.removeChild(_bg);
+        if (_txtPanel) {
+            source.removeChild(_txtPanel);
+            _txtPanel.deleteIt();
+            _txtPanel = null;
+        }
         _bg.filter = null;
         _bg.deleteIt();
         _bg = null;

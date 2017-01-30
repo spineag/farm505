@@ -72,6 +72,21 @@ public class WOWaitFreeCats extends WindowMain{
     }
 
     override protected function deleteIt():void {
+        if (txt1) {
+            _source.removeChild(txt1);
+            txt1.deleteIt();
+            txt1 = null;
+        }
+        if (txt2) {
+            _source.removeChild(txt2);
+            txt2.deleteIt();
+            txt2 = null;
+        }
+        if (txt3) {
+            _btn.removeChild(txt1);
+            txt3.deleteIt();
+            txt3 = null;
+        }
         _source.removeChild(_btn);
         _btn.deleteIt();
         _btn = null;

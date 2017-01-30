@@ -115,6 +115,11 @@ public class CaveItem {
     public function deleteIt():void {
         _wo = null;
         _data = null;
+        if (_txtCount) {
+            source.removeChild(_txtCount);
+            _txtCount.deleteIt();
+            _txtCount = null;
+        }
         _clickCallback = null;
         source.deleteIt();
         source = null;

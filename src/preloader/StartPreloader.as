@@ -51,6 +51,7 @@ public class StartPreloader {
     private var _txt:CTextField;
     private var _leftIm:Image;
     private var _rightIm:Image;
+    private var _txtHelp:CTextField;
 
     private var g:Vars = Vars.getInstance();
 
@@ -135,10 +136,10 @@ public class StartPreloader {
     }
 
     public function textHelp(str:String):void {
-        var txt:CTextField = new CTextField(1000, 640,str);
-        txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.y = 275;
-        _source.addChild(txt);
+        _txtHelp = new CTextField(1000, 640,str);
+        _txtHelp.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtHelp.y = 275;
+        _source.addChild(_txtHelp);
     }
 
 
@@ -151,6 +152,8 @@ public class StartPreloader {
             }
         }
         if (_texture) _texture.dispose();
+        if (_txt) _txt.deleteIt();
+        if (_txtHelp) _txtHelp.deleteIt();
         if (_preloaderAtlas)_preloaderAtlas.dispose();
         if (_bg)_bg.dispose();
         if(_preloaderBG) _preloaderBG.dispose();

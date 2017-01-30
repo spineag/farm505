@@ -221,11 +221,17 @@ public class WOChestItem {
     }
 
     private function deleteIt():void {
+        if (_txt) {
+            _source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
         TweenMax.killTweensOf(_source);
         _parent.removeChild(_source);
         _source.dispose();
         _source = null;
         _parent = null;
+
         if (_callback != null) {
             _callback.apply();
             _callback = null;

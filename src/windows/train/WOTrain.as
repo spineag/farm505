@@ -463,6 +463,67 @@ public class WOTrain extends WindowMain {
             _source.removeChild(_arrItems[i].source);
             _arrItems[i].deleteIt();
         }
+
+         if (_txt) {
+             _source.removeChild(_txt);
+             _txt.deleteIt();
+             _txt = null;
+         }
+        if (_txtCounter) {
+            _source.removeChild(_txtCounter);
+            _txtCounter.deleteIt();
+            _txtCounter = null;
+        }
+        if (_txtLoad) {
+            _rightBlock.removeChild(_txtLoad);
+            _txtLoad.deleteIt();
+            _txtLoad = null;
+        }
+        if (_txtCostItem) {
+            _rightBlock.removeChild(_txtCostItem);
+            _txtCostItem.deleteIt();
+            _txtCostItem = null;
+        }
+        if (_txtXpItem) {
+            _rightBlock.removeChild(_txtXpItem);
+            _txtXpItem.deleteIt();
+            _txtXpItem = null;
+        }
+        if (_txtCostAll) {
+            _rightBlock.removeChild(_txtCostAll);
+            _txtCostAll.deleteIt();
+            _txtCostAll = null;
+        }
+        if (_txtXpAll) {
+            _rightBlock.removeChild(_txtXpAll);
+            _txtXpAll.deleteIt();
+            _txtXpAll = null;
+        }
+        if (_txtSend) {
+            _btnSend.removeChild(_txtSend);
+            _txtSend.deleteIt();
+            _txtSend = null;
+        }
+        if (_txtPrise) {
+            _rightBlock.removeChild(_txtPrise);
+            _txtPrise.deleteIt();
+            _txtPrise = null;
+        }
+        if (_txtLoad2) {
+            _btnLoad.removeChild(_txtLoad2);
+            _txtLoad2.deleteIt();
+            _txtLoad2 = null;
+        }
+        if (_txtC) {
+            _rightBlock.removeChild(_txtC);
+            _txtC.deleteIt();
+            _txtC = null;
+        }
+        if (_txtNeed) {
+            _leftBlock.removeChild(_txtNeed);
+            _txtNeed.deleteIt();
+            _txtNeed = null;
+        }
         _rightBlock.removeChild(_rightBlockBG);
         _rightBlockBG.deleteIt();
         _rightBlockBG = null;

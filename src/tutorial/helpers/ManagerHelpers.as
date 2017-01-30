@@ -21,9 +21,9 @@ import windows.fabricaWindow.WOFabrica;
 import windows.shop.WOShop;
 
 public class ManagerHelpers {
-    private const MAX_SECONDS:int = 25;
-    private const LOW_SECONDS:int = 12;
-    private const MEMIUM_SECONDS:int = 20;
+    private const MAX_SECONDS:int = 7;
+    private const LOW_SECONDS:int = 7;
+    private const MEMIUM_SECONDS:int = 7;
     private var _countSeconds:int;
     private var _isActiveHelper:Boolean;
     private var _isCheckingForHelper:Boolean;
@@ -154,7 +154,7 @@ public class ManagerHelpers {
             case HelperReason.REASON_BUY_HERO: wasFindedReason = checkForBuyHero(); break;
             case HelperReason.REASON_BUY_ANIMAL: wasFindedReason = checkForBuyAnimal(); break;
             case HelperReason.REASON_BUY_RIDGE: wasFindedReason = checkForBuyRidge(); break;
-            case HelperReason.REASON_CRAFT_ANY_PRODUCT: wasFindedReason = checkForCraftAnyProduct(); break;
+            case HelperReason.REASON_WILD_DELETE: wasFindedReason = checkForDeleteWild(); break;
         }
         return wasFindedReason;
     }
@@ -182,6 +182,71 @@ public class ManagerHelpers {
             }
         }
         return false;
+    }
+
+    private function checkForDeleteWild():Boolean {
+        var arr:Array;
+        arr = g.townArea.getCityObjectsByType(BuildType.WILD);
+        var arrBuild:Array = [];
+        var i:int;
+        if (g.userInventory.getCountResourceById(1) > 1) {
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].dataBuild.removeByResourceId == 1 && !arr[i].isAtLockedLand) {
+                    arrBuild.push(arr[i]);
+                }
+            }
+            if (arrBuild.length > 0) {
+                _curReason.build = arrBuild[0];
+                return true;
+            }
+        }
+        if (g.userInventory.getCountResourceById(5) > 1) {
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].dataBuild.removeByResourceId == 5 && !arr[i].isAtLockedLand) {
+                    arrBuild.push(arr[i]);
+                }
+            }
+            if (arrBuild.length > 0) {
+                _curReason.build = arrBuild[0];
+                return true;
+            }
+        }
+        if (g.userInventory.getCountResourceById(6) > 1) {
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].dataBuild.removeByResourceId == 6 && !arr[i].isAtLockedLand) {
+                    arrBuild.push(arr[i]);
+                }
+            }
+            if (arrBuild.length > 0) {
+                _curReason.build = arrBuild[0];
+
+                return true;
+            }
+        }
+        if (g.userInventory.getCountResourceById(124) > 1) {
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].dataBuild.removeByResourceId == 124 && !arr[i].isAtLockedLand) {
+                    arrBuild.push(arr[i]);
+                }
+            }
+            if (arrBuild.length > 0) {
+                _curReason.build = arrBuild[0];
+                return true;
+            }
+        }
+        if (g.userInventory.getCountResourceById(125) > 1) {
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].dataBuild.removeByResourceId == 125 && !arr[i].isAtLockedLand) {
+                    arrBuild.push(arr[i]);
+                }
+            }
+            if (arrBuild.length > 0) {
+                _curReason.build = arrBuild[0];
+                return true;
+            }
+        }
+        return false;
+
     }
 
     private function checkForCraftPlant():Boolean {

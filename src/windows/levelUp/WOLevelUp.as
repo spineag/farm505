@@ -496,7 +496,32 @@ public class WOLevelUp extends WindowMain {
 
         if (g.user.level == 5) g.managerQuest.addUI();
         g.managerQuest.getNewQuests();
-        
+        if (_txtNewLvl) {
+            _source.removeChild(_txtNewLvl);
+            _txtNewLvl.deleteIt();
+            _txtNewLvl = null;
+        }
+        if (_txtNewObject) {
+            _source.removeChild(_txtNewObject);
+            _txtNewObject.deleteIt();
+            _txtNewObject = null;
+        }
+        if (_txtLevel) {
+            _source.removeChild(_txtLevel);
+            _txtLevel.deleteIt();
+            _txtLevel = null;
+        }
+        if (_txtContinue) {
+            _contBtn.removeChild(_txtContinue);
+            _txtContinue.deleteIt();
+            _txtContinue = null;
+        }
+        if (_txtHard) {
+            _contBtn.removeChild(_txtHard);
+            _txtHard.deleteIt();
+            _txtHard = null;
+        }
+
         for (var i:int=0; i<_arrCells.length; i++) {
             _arrCells[i].deleteIt();
         }

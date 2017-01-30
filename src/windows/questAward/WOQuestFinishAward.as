@@ -157,6 +157,10 @@ internal class Item extends Sprite {
     }
 
     private function deleteIt():void {
+        if (_txt) {
+            _txt.deleteIt();
+            _txt = null;
+        }
         if (_source) _source.dispose();
     }
 

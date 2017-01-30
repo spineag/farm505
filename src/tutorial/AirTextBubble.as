@@ -150,13 +150,19 @@ public class AirTextBubble {
 
     public function deleteIt():void {
         while (_source.numChildren) _source.removeChildAt(0);
+        if (_txt) {
+            _txt.deleteIt();
+            _txt = null;
+        }
+        if (_btnTxt) {
+            _btnTxt.deleteIt();
+            _btnTxt = null;
+        }
         _callback = null;
         _catHead.dispose();
         _catHead = null;
         _btn.deleteIt();
-        _txt.dispose();
         _btn = null;
-        _btnTxt = null;
         _bg = null;
         _source = null;
     }

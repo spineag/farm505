@@ -439,16 +439,36 @@ public class WOPapperItem {
         _data = null;
         _dataResource = null;
         _imageItem = null;
-        _txtCountResource = null;
-        _txtCost = null;
+        if (_txtCountResource) {
+            source.removeChild(_txtCountResource);
+            _txtCountResource.deleteIt();
+            _txtCountResource = null;
+        }
+        if (_txtCost) {
+            source.removeChild(_txtCost);
+            _txtCost.deleteIt();
+            _txtCost = null;
+        }
+        if (_txtUserName) {
+            source.removeChild(_txtUserName);
+            _txtUserName.deleteIt();
+            _txtUserName = null;
+        }
+        if (_txtResourceName) {
+            source.removeChild(_txtResourceName);
+            _txtResourceName.deleteIt();
+            _txtResourceName = null;
+        }
+        if (_txtSale) {
+            source.removeChild(_txtSale);
+            _txtSale.deleteIt();
+            _txtSale = null;
+        }
         _imageCoins = null;
         _bg = null;
         _plawkaSold = null;
         _ava = null;
         _userAvatar = null;
-        _txtUserName = null;
-        _txtResourceName = null;
-        _txtSale = null;
         _p = null;
 //        source.dispose();
         source = null;

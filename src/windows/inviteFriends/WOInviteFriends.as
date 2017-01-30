@@ -29,8 +29,6 @@ public class WOInviteFriends extends WindowMain {
     private var _arrItem:Array;
 
     public function WOInviteFriends() {
-        // nyjno popravit teksta  !!!!
-        
         super();
         _windowType = WindowsManager.WO_INVITE_FRIENDS;
         _woWidth = 450;
@@ -97,7 +95,7 @@ public class WOInviteFriends extends WindowMain {
         var arr:Array = [];
         for (var i:int = 0; i < _arrItem.length; i++) {
             if (_arrItem[i].check.visible) {
-                arr.push(_arrItem[i].data.userSocialId);
+                arr.push((_arrItem[i] as WOInviteFriendsItem).data.userSocialId);
             }
         }
         g.socialNetwork.requestBoxArray(arr,'Приглашаю играть со мной в Умелых Лапках!','1');

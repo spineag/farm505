@@ -91,6 +91,7 @@ public class AmbarCell {
         }
         source = null;
         _image = null;
+        _countTxt.deleteIt();
         _countTxt = null;
     }
 

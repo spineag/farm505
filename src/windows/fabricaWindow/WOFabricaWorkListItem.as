@@ -76,7 +76,7 @@ public class WOFabricaWorkListItem {
             _txt.setFormat(CTextField.BOLD18, 15, ManagerFilters.LIGHT_BROWN);
             _txt.x = 5;
             _txt.y = 5;
-            source.addChild(_txt);
+            _source.addChild(_txt);
         }
 
         if (_type == BIG_CELL) {
@@ -399,6 +399,41 @@ public class WOFabricaWorkListItem {
             _source.removeChild(_armatureBoom.display as StarlingArmatureDisplay);
             _armatureBoom = null;
         }
+        if (_txt) {
+            _source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
+        if (txtPropose) {
+            _proposeBtn.removeChild(txtPropose);
+            txtPropose.deleteIt();
+            txtPropose = null;
+        }
+        if (txtPropose2) {
+            _proposeBtn.removeChild(txtPropose2);
+            txtPropose2.deleteIt();
+            txtPropose2 = null;
+        }
+        if (_txtSkip) {
+            _btnSkip.removeChild(_txtSkip);
+            _txtSkip.deleteIt();
+            _txtSkip = null;
+        }
+        if (_txtNumberCreate) {
+            _source.removeChild(_txtNumberCreate);
+            _txtNumberCreate.deleteIt();
+            _txtNumberCreate = null;
+        }
+        if (_txtTimer) {
+            _timerBlock.removeChild(_txtTimer);
+            _txtTimer.deleteIt();
+            _txtTimer = null;
+        }
+        if (_txtForce) {
+            _btnSkip.removeChild(_txtForce);
+            _txtForce.deleteIt();
+            _txtForce = null;
+        }
         if (_proposeBtn) {
             _source.removeChild(_proposeBtn);
             _proposeBtn.deleteIt();
@@ -409,6 +444,7 @@ public class WOFabricaWorkListItem {
             _btnSkip.deleteIt();
             _btnSkip = null;
         }
+
         if (_rubinSmall) _rubinSmall.filter = null;
         g.gameDispatcher.removeFromTimer(render);
         _source.dispose();

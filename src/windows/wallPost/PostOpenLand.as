@@ -24,6 +24,8 @@ import windows.WindowMain;
 public class PostOpenLand  extends WindowMain {
     private var _btn:CButton;
     private var _image:Image;
+    private var _txt1:CTextField;
+    private var _txt2:CTextField;
     public function PostOpenLand() {
         super();
         _woHeight = 510;
@@ -51,16 +53,16 @@ public class PostOpenLand  extends WindowMain {
         _btn = new CButton();
         _btn.addButtonTexture(200, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
-        var txt:CTextField = new CTextField(120,30,'Рассказать');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = 5;
-        txt.y = 7;
-        _btn.addChild(txt);
-        txt = new CTextField(50,50,'3');
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = 119;
-        txt.y = -2;
-        _btn.addChild(txt);
+        _txt1 = new CTextField(120,30,'Рассказать');
+        _txt1.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt1.x = 5;
+        _txt1.y = 7;
+        _btn.addChild(_txt1);
+        _txt2 = new CTextField(50,50,'3');
+        _txt2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txt2.x = 119;
+        _txt2.y = -2;
+        _btn.addChild(_txt2);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
         im.x = 165;
         im.y = 8;
@@ -79,6 +81,16 @@ public class PostOpenLand  extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        if (_txt1) {
+            _btn.removeChild(_txt1);
+            _txt1.deleteIt();
+            _txt1 = null;
+        }
+        if (_txt2) {
+            _btn.removeChild(_txt2);
+            _txt2.deleteIt();
+            _txt2 = null;
+        }
         _btn = null;
         _source = null;
     }
