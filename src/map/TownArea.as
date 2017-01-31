@@ -2064,6 +2064,7 @@ public class TownArea extends Sprite {
         if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         g.managerLohmatic.onBackHome();
         if (g.managerHelpers) g.managerHelpers.checkIt();
+        if (g.user.level == 5 && g.managerCutScenes) g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
     }
 
     private function startDecorAnimation():void {
