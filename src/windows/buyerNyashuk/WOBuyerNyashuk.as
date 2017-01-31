@@ -74,12 +74,6 @@ public class WOBuyerNyashuk extends WindowMain{
         _source.addChild(btn);
         _arrCTex.push(btn);
         _arrCTex.push(txt);
-
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('visitor_window_booble'));
-        im.x = -_woWidth/2 + 25;
-        im.y = -_woHeight/2 + 60;
-        _source.addChild(im);
-
         txt =  new CTextField(_woWidth,_woHeight,"Покупатель");
         txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
         txt.x = -_woWidth/2;
