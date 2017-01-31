@@ -31,7 +31,7 @@ public class Containers {
     public var interfaceContMapEditor:Sprite;
     public var interfaceCont:Sprite;
     public var animationsContTop:Sprite;
-    public var animationsContBot:Sprite;
+    public var animationsContBottom:Sprite;
     public var animationsResourceCont:Sprite;
     public var windowsCont:Sprite;
     public var popupCont:Sprite;
@@ -61,7 +61,7 @@ public class Containers {
         animationsCont = new Sprite();
         cloudsCont = new Sprite();
         interfaceCont = new Sprite();
-        animationsContBot = new Sprite();
+        animationsContBottom = new Sprite();
         animationsContTop = new Sprite();
         animationsResourceCont = new Sprite();
         windowsCont = new Sprite();
@@ -82,7 +82,7 @@ public class Containers {
         gameCont.addChild(animationsCont);
         gameCont.addChild(cloudsCont);
         _mainCont.addChild(hintGameCont);
-        _mainCont.addChild(animationsContBot);
+        _mainCont.addChild(animationsContBottom);
         _mainCont.addChild(interfaceCont);
         _mainCont.addChild(interfaceContMapEditor);
         _mainCont.addChild(animationsContTop);
@@ -110,7 +110,7 @@ public class Containers {
     
     public function hideAll(v:Boolean):void {
         hintGameCont.visible = !v;
-        animationsContBot.visible = !v;
+        animationsContBottom.visible = !v;
         interfaceCont.visible = !v;
         interfaceContMapEditor.visible = !v;
         animationsContTop.visible = !v;
