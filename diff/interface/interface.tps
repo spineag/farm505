@@ -201,8 +201,6 @@
             <filename>a_tr_rup_ico.png</filename>
             <filename>add_friend_button.png</filename>
             <filename>available_on_level.png</filename>
-            <filename>avatar_2.png</filename>
-            <filename>avatar_3.png</filename>
             <filename>baloon_1.png</filename>
             <filename>baloon_2.png</filename>
             <filename>baloon_3.png</filename>
@@ -317,7 +315,6 @@
             <filename>storage_window_prl_r.png</filename>
             <filename>storage_window_scr_c.png</filename>
             <filename>storage_window_scr_line.png</filename>
-            <filename>tutorial_ko.png</filename>
             <filename>tutorial_nyam.png</filename>
             <filename>ui</filename>
             <filename>wait.png</filename>
@@ -342,8 +339,6 @@
             <filename>nyash_red.png</filename>
             <filename>visitor_window_back.png</filename>
             <filename>tutorial_arrow_pink.png</filename>
-            <filename>visitor_back.png</filename>
-            <filename>visitor_window_booble.png</filename>
             <filename>main_quest_icon.png</filename>
             <filename>sale_icon.png</filename>
         </array>
