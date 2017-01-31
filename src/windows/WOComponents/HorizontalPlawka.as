@@ -25,7 +25,7 @@ public class HorizontalPlawka extends Sprite{
 
         var imC:Image = new Image(ct);
         imC.tileGrid = new Rectangle();
-        imC.width = w - lW - imR.width;
+        imC.width = w - lW - imR.width + 4;
         imC.x = lW;
         addChild(imC);
             // double image to fix artifacts

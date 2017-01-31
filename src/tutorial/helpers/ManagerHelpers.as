@@ -45,7 +45,7 @@ public class ManagerHelpers {
         _isStoped = false;
         if (_isActiveHelper) {
 
-        } else if (g.user.level >= 4 && g.user.level < 8) {
+        } else if (g.user.level >= 2 && g.user.level < 8) {
             _curReason = null;
             _isCheckingForHelper = true;
             startIt();
@@ -111,10 +111,11 @@ public class ManagerHelpers {
 
     private function onTimer():void {
         _countSeconds++;
-        if ((g.user.level == 4 && _countSeconds >= LOW_SECONDS) || (g.user.level == 5 && _countSeconds >= MEMIUM_SECONDS) || _countSeconds >= MAX_SECONDS) {
+        if ((g.user.level <= 4 && _countSeconds >= LOW_SECONDS) || (g.user.level == 5 && _countSeconds >= MEMIUM_SECONDS) || _countSeconds >= MAX_SECONDS) {
             _countSeconds = 0;
             if (g.managerTutorial.isTutorial) return;
             if (g.managerCutScenes.isCutScene) return;
+            if (g.managerMiniScenes.isMiniScene) return;
             if (g.isActiveMapEditor) return;
             if (g.isAway) return;
             if (g.windowsManager.currentWindow) return;

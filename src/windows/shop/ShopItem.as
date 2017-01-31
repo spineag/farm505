@@ -1154,17 +1154,17 @@ public class ShopItem {
         _im = null;
         _imCont = null;
         if (_txtBtnYellow) {
-            _btnActivationYellow.removeChild(_txtBtnYellow);
+            if (_btnActivationYellow) _btnActivationYellow.removeChild(_txtBtnYellow);
             _txtBtnYellow.deleteIt();
             _txtBtnYellow = null;
         }
         if (_txtLimit) {
-            _shopLimitSprite.removeChild(_txtLimit);
+            if (_shopLimitSprite) _shopLimitSprite.removeChild(_txtLimit);
             _txtLimit.deleteIt();
             _txtLimit = null;
         }
         if (_txtAvailablePink) {
-            _btnActivationPink.removeChild(_txtAvailablePink);
+            if (_btnActivationPink) _btnActivationPink.removeChild(_txtAvailablePink);
             _txtAvailablePink.deleteIt();
             _txtAvailablePink = null;
         }
@@ -1189,12 +1189,12 @@ public class ShopItem {
             _txtAvailable = null;
         }
         if (_txtBtnBuyBlue) {
-            _btnBuyBlue.removeChild(_txtBtnBuyBlue);
+            if (_btnBuyBlue) _btnBuyBlue.removeChild(_txtBtnBuyBlue);
             _txtBtnBuyBlue.deleteIt();
             _txtBtnBuyBlue = null;
         }
         if (_txtBtnBuyGreen) {
-            _btnBuyGreen.removeChild(_txtBtnBuyGreen);
+            if (_btnBuyGreen) _btnBuyGreen.removeChild(_txtBtnBuyGreen);
             _txtBtnBuyGreen.deleteIt();
             _txtBtnBuyGreen = null;
         }
