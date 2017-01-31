@@ -588,9 +588,13 @@ public class WOMarket  extends WindowMain {
         if (_arrFriends.length <= 2) {
             _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
             _item.source.y = -180;
-            if (_arrFriends[_shiftFriend] == g.user) {
-                _item._visitBtn.visible = false;
-            } else _item._visitBtn.visible = true;
+            if (g.isAway) {
+                if (_arrFriends[_shiftFriend].userSocialId == g.visitedUser.userSocialId) _item.visitBtn.visible = false;
+            } else {
+                if (_arrFriends[_shiftFriend] == g.user) {
+                    _item.visitBtn.visible = false;
+                } else _item.visitBtn.visible = true;
+            }
             c = new CartonBackground(125, 115);
             c.x = 208 - 5;
             c.y = -185;
@@ -614,9 +618,9 @@ public class WOMarket  extends WindowMain {
             _item = new MarketFriendItem(_curUser, this, 0);
             _item.source.y = -180;
             if (g.visitedUser) {
-                if (_curUser.userSocialId == g.visitedUser.userSocialId) _item._visitBtn.visible = false;
-                else _item._visitBtn.visible = true;
-            } else _item._visitBtn.visible = true;
+                if (_curUser.userSocialId == g.visitedUser.userSocialId) _item.visitBtn.visible = false;
+                else _item.visitBtn.visible = true;
+            } else _item.visitBtn.visible = true;
             c = new CartonBackground(125, 115);
             c.x = 208 - 5;
             c.y = -185;
@@ -629,11 +633,11 @@ public class WOMarket  extends WindowMain {
             _item = new MarketFriendItem(_arrFriends[_shiftFriend], this, _shiftFriend);
             _item.source.y = -180;
             if (g.isAway) {
-                if (_arrFriends[_shiftFriend] == g.visitedUser)  _item._visitBtn.visible = false;
-                else _item._visitBtn.visible = true;
+                if (_arrFriends[_shiftFriend] == g.visitedUser)  _item.visitBtn.visible = false;
+                else _item.visitBtn.visible = true;
             } else {
-                if (_arrFriends[_shiftFriend] == g.user) _item._visitBtn.visible = false;
-                else _item._visitBtn.visible = true;
+                if (_arrFriends[_shiftFriend] == g.user) _item.visitBtn.visible = false;
+                else _item.visitBtn.visible = true;
             }
             c = new CartonBackground(125, 115);
             c.x = 208 - 5;

@@ -28,7 +28,7 @@ public class MarketFriendItem {
     private var _ava:Image;
     private var _txt:CTextField;
     private var _wo:WOMarket;
-    public var _visitBtn:CButton;
+    public var visitBtn:CButton;
     private var _shiftFriend:int;
     private var _txtBtn:CTextField;
     private var g:Vars = Vars.getInstance();
@@ -71,20 +71,21 @@ public class MarketFriendItem {
         source.endClickCallback = chooseThis;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _visitBtn = new CButton();
-        _visitBtn.addButtonTexture(70, 30, CButton.BLUE, true);
+        visitBtn = new CButton();
+        visitBtn.addButtonTexture(70, 30, CButton.BLUE, true);
         _txtBtn = new CTextField(70, 25, "Посетить");
         _txtBtn.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtBtn.y = 3;
-        _visitBtn.addChild(_txtBtn);
-        _visitBtn.x = 55;
-        _visitBtn.y = 3;
-        source.addChild(_visitBtn);
-        _visitBtn.clickCallback = visitPerson;
+        visitBtn.addChild(_txtBtn);
+        visitBtn.x = 55;
+        visitBtn.y = 3;
+        source.addChild(visitBtn);
+        visitBtn.clickCallback = visitPerson;
+
         if (_person == g.user) {
-            _visitBtn.visible = false;
+            visitBtn.visible = false;
         }
-        _visitBtn.visible = false;
+        visitBtn.visible = false;
     }
     
     public function updateTextField():void {
@@ -158,14 +159,14 @@ public class MarketFriendItem {
             _txt = null;
         }
         if (_txtBtn) {
-            _visitBtn.removeChild(_txtBtn);
+            visitBtn.removeChild(_txtBtn);
             _txtBtn.deleteIt();
             _txtBtn = null;
         }
         _person = null;
-        if (_visitBtn) {
-            _visitBtn.deleteIt();
-            _visitBtn = null;
+        if (visitBtn) {
+            visitBtn.deleteIt();
+            visitBtn = null;
         }
         source.filter = null;
         if (source) source.dispose();

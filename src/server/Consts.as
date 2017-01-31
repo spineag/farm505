@@ -126,5 +126,6 @@ public class Consts {
     public static var INQ_CHEST_YELLOW:String = 'getChestYellow.php';
     public static var INQ_STARTER_PACK:String = 'getStarterPack.php';
     public static var INQ_UPDATE_STARTER_PACK:String = 'updateStarterPack.php';
+    public static var INQ_GET_EVENT:String = 'getUserEvent.php';
 }
 }

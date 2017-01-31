@@ -6982,6 +6982,67 @@ public class DirectServer {
         }
     }
 
+    public function getUserEvent(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_EVENT);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserEvent', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserEvent);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetUserEvent(e:Event):void { completeGetUserEvent(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserEvent error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserEvent(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var obj:Object = {};
+        var k:int = 0;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserEvent: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserEvent: wrong JSON:' + String(response));
+            return;
+        }
+        obj.timeToEnd = d.message.time_to_end;
+        obj.name = d.message.name;
+        obj.description = d.message.description;
+
+        if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
+        for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
+
+        if (d.message.count_gift) obj.countGift = String(d.message.count_gift).split('&');
+        for (k = 0; k < obj.countGift.length; k++) obj.countGift[k] = int(obj.countGift[k]);
+
+        if (d.message.count_to_gift) obj.countToGift = String(d.message.count_to_gift).split('&');
+        for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.idGift[k]);
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserEvent OK', 5);
+            if (callback != null) {
+                callback.apply(null, [obj]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getUserEvent: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError on Auth User:: ' + e.text);
     }

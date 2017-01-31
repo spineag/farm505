@@ -18,6 +18,7 @@ import windows.chestWindow.WOChest;
 import windows.chestYellowWindow.WOChestYellow;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.dailyGiftWindow.WODailyGift;
+import windows.eventWindow.WOEventWindow;
 import windows.fabricaWindow.WOFabrica;
 import windows.gameError.WOGameError;
 import windows.inviteFriends.WOInviteFriends;
@@ -102,6 +103,7 @@ public class WindowsManager {
     public static const WO_QUEST_AWARD:String = 'quest_award';
     public static const WO_CHEST_YELLOW:String = 'chest_yellow';
     public static const WO_STARTER_PACK:String = 'starter_pack';
+    public static const WO_EVENT:String = 'event';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -272,6 +274,9 @@ public class WindowsManager {
                 break;
             case WO_STARTER_PACK:
                 wo = new WOStarterPack();
+                break;
+            case WO_EVENT:
+                wo = new WOEventWindow();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

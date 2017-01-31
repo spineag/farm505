@@ -77,7 +77,7 @@ public class ManagerQuest {
 
     public function getNewQuests():void {
         if (g.user.level < 5) return;
-        if (g.useQuests) g.directServer.getUserNewQuests(onGetNewQuests);
+//        if (g.useQuests) g.directServer.getUserNewQuests(onGetNewQuests);
     }
 
     private function onGetNewQuests(d:Object):void {
@@ -178,7 +178,7 @@ public class ManagerQuest {
     }
 
     private function onGetUserQuestAward():void {
-        g.directServer.getUserNewQuests(onGetNewQuests);
+//        g.directServer.getUserNewQuests(onGetNewQuests);
     }
     
     public function onActionForTaskType(type:int, adds:Object=null):void {

@@ -21,9 +21,9 @@ import windows.fabricaWindow.WOFabrica;
 import windows.shop.WOShop;
 
 public class ManagerHelpers {
-    private const MAX_SECONDS:int = 7;
-    private const LOW_SECONDS:int = 7;
-    private const MEMIUM_SECONDS:int = 7;
+    private const MAX_SECONDS:int = 12;
+    private const LOW_SECONDS:int = 10;
+    private const MEMIUM_SECONDS:int = 12;
     private var _countSeconds:int;
     private var _isActiveHelper:Boolean;
     private var _isCheckingForHelper:Boolean;
@@ -174,7 +174,7 @@ public class ManagerHelpers {
         for (var i:int=0; i<animals.length; i++) {
             an = animals[i] as Animal;
             if (an.state == Animal.HUNGRY &&
-                    (an.animalData.buildType == BuildType.PLANT && g.userInventory.getCountResourceById(an.animalData.idResourceRaw) > 2 ||
+                    (an.animalData.buildType == BuildType.PLANT && g.userInventory.getCountResourceById(an.animalData.idResourceRaw) > 2 && !g.userInventory.checkLastResource(an.animalData.idResourceRaw) ||
                     an.animalData.buildType != BuildType.PLANT && g.userInventory.getCountResourceById(an.animalData.idResourceRaw) > 0)) {
                 _curReason.animal = an;
                 _curReason.build = an.farm;
@@ -322,7 +322,7 @@ public class ManagerHelpers {
     }
 
     private function checkForBuyHero():Boolean {
-        if (g.managerCats.curCountCats < g.managerCats.maxCountCats && g.dataCats[g.managerCats.curCountCats].cost <= g.user.softCurrencyCount) {
+        if ((g.managerCats.curCountCats < g.managerCats.maxCountCats) && (g.dataCats[g.managerCats.curCountCats].cost <= g.user.softCurrencyCount)) {
             _curReason.type = BuildType.CAT;
             return true;
         } else return false;
@@ -331,7 +331,7 @@ public class ManagerHelpers {
     private function checkForBuyAnimal():Boolean {
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
         for (var i:int=0; i<arr.length; i++) {
-            if (!((arr[i] as Farm).isFull) && (g.user.softCurrencyCount >= (arr[i] as Farm).dataAnimal.cost)) {
+            if (!((arr[i] as Farm).isFull) && (g.user.softCurrencyCount >= (arr[i] as Farm).dataAnimal.costNew[arr[i].arrAnimals.length - 1])) {
                 _curReason.id = (arr[i] as Farm).dataAnimal.id;
                 _curReason.type = BuildType.ANIMAL;
                 return true;

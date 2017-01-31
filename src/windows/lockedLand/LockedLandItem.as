@@ -220,11 +220,7 @@ public class LockedLandItem {
                 _arrCTex[i] = null;
             }
         }
-        if (_btn) {
-            source.removeChild(_btn);
-            _btn.deleteIt();
-            _btn = null;
-        }
+
         if (_txtCount) {
             source.removeChild(_txtCount);
             _txtCount.deleteIt();
@@ -239,6 +235,11 @@ public class LockedLandItem {
             source.removeChild(_txtInfo);
             _txtInfo.deleteIt();
             _txtInfo = null;
+        }
+        if (_btn) {
+            source.removeChild(_btn);
+            _btn.deleteIt();
+            _btn = null;
         }
         source.removeChild(_bg);
         _bg.deleteIt();
