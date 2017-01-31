@@ -86,6 +86,7 @@ import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
 import ui.craftPanel.CraftPanel;
+import ui.event.EventPanel;
 import ui.friendPanel.FriendPanel;
 import ui.optionPanel.OptionPanel;
 import ui.softHardCurrencyPanel.SoftHardCurrency;
@@ -187,6 +188,7 @@ public class Vars {
     public var toolsPanel:ToolsPanel;
     public var catPanel:CatPanel;
     public var stock:StockPanel;
+    public var eventPanel:EventPanel;
 
     public var windowsManager:WindowsManager;
     public var managerHitArea:ManagerHitArea;
@@ -467,7 +469,9 @@ public class Vars {
             optionPanel = new OptionPanel();
             friendPanel = new FriendPanel();
             toolsPanel = new ToolsPanel();
-            stock = new StockPanel();
+            eventPanel = new EventPanel();
+
+            if ((user as User).level >= 5 && socialNetworkID == SocialNetworkSwitch.SN_VK_ID) stock = new StockPanel();
             managerQuest = new ManagerQuest();
 //        } catch (e:Error) {
 //            Cc.stackch('error', 'initVariables2::', 10);
@@ -540,18 +544,21 @@ public class Vars {
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
                 managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
-                if (int((user as User).userSocialId) == 168207096 && (user as User).starterPack) {
-                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
-//                }
-//                if ((user as User).level >= 6) {
-//                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+                if ((socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
+                    if ((user as User).userSocialId == '252433337505') {
+                        windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+                    }
                 } else {
-                    if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
-                    else {
-                        var todayDailyGift:Date = new Date((user as User).dayDailyGift * 1000);
-                        var today:Date = new Date();
-                        if ((user as User).level >= 5 && todayDailyGift.date != today.date) {
-                            directServer.getDailyGift(null);
+                    if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
+                        windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+                    } else {
+                        if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
+                        else {
+                            var todayDailyGift:Date = new Date((user as User).dayDailyGift * 1000);
+                            var today:Date = new Date((user as User).day * 1000);
+                            if ((user as User).level >= 5 && todayDailyGift.date != today.date) {
+                                directServer.getDailyGift(null);
+                            } else managerCats.helloCats();
                         }
                     }
                 }
