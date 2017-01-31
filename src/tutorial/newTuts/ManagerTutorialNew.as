@@ -320,19 +320,23 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_8():void {
-        var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
-        for (var i:int=0; i<arr.length; i++) {
-            if ((arr[i] as Farm).isAnyCrafted) {
-                _tutorialObjects.push(arr[i]);
-                break;
-            }
-        }
-        if (_tutorialObjects.length) {
-            g.cont.moveCenterToPos(28, 11, false, 1);
-            _currentAction = TutorialAction.ANIMAL_CRAFT;
-            (_tutorialObjects[0] as Farm).addArrowToCraftItem(subStep8_1);
+        if (g.user.level > 1) {
+            subStep8_2();
         } else {
-            subStep8_1();
+            var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
+            for (var i:int = 0; i < arr.length; i++) {
+                if ((arr[i] as Farm).isAnyCrafted) {
+                    _tutorialObjects.push(arr[i]);
+                    break;
+                }
+            }
+            if (_tutorialObjects.length) {
+                g.cont.moveCenterToPos(28, 11, false, 1);
+                _currentAction = TutorialAction.ANIMAL_CRAFT;
+                (_tutorialObjects[0] as Farm).addArrowToCraftItem(subStep8_1);
+            } else {
+                subStep8_1();
+            }
         }
     }
 
@@ -355,6 +359,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         cutScene.showIt(texts[g.user.tutorialStep][_subStep]);
+        addBlackUnderInterface();
         subStep9_2();
     }
 
@@ -369,6 +374,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep9_2a():void {
+        removeBlack();
         _subStep = 2;
         g.bottomPanel.deleteArrow();
         cutScene.hideIt(deleteCutScene);
@@ -586,6 +592,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
 //        Utils.createDelay(1.1, subStep7_1);
         _tutorialCallback = null;
         subStep11_1();
+        addBlackUnderInterface();
     }
 
     private function subStep11_1():void {
@@ -599,6 +606,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep11_2():void {
+        removeBlack();
         g.bottomPanel.deleteArrow();
         cutScene.hideIt(deleteCutScene);
         _subStep = 2;
@@ -658,6 +666,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
             g.cont.moveCenterToPos(30, 11, false, 2);
             subStep12_4();
         } else {
+            addBlackUnderInterface();
             cutScene.showIt(texts[g.user.tutorialStep][_subStep]);
             _currentAction = TutorialAction.BUY_FABRICA;
             var ob:Object = g.bottomPanel.getShopButtonProperties();
@@ -668,6 +677,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep12_1():void {
+        removeBlack();
         _subStep = 1;
         cutScene.hideIt(deleteCutScene);
         g.bottomPanel.deleteArrow();
@@ -903,9 +913,11 @@ public class ManagerTutorialNew extends IManagerTutorial{
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         cutScene.showIt(texts[g.user.tutorialStep][_subStep],texts['next'], subStep16_1);
+        addBlack();
     }
 
     private function subStep16_1():void {
+        removeBlack();
         _subStep = 1;
         cutScene.hideIt(deleteCutScene);
         _tutorialObjects = [];
@@ -954,6 +966,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         updateTutorialStep();
         TUTORIAL_ON = false;
         if (g.managerOrder) g.managerOrder.showSmallHeroAtOrder(true);
+        if (g.managerHelpers) g.managerHelpers.checkIt();
         super.clearAll();
     }
 

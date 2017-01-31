@@ -20,6 +20,7 @@ public class IManagerTutorial {
     protected var _subStep:int;
     protected var texts:Object;
     protected var black:Sprite;
+    protected var blackUnderInterface:Sprite;
     protected var _tutorialObjects:Array;
     protected var _currentAction:int;
     protected var _tutorialResourceIDs:Array;
@@ -85,11 +86,26 @@ public class IManagerTutorial {
         }
     }
 
+    protected function addBlackUnderInterface():void {
+        if (!blackUnderInterface) {
+            var q:Quad = new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK);
+            blackUnderInterface = new Sprite();
+            blackUnderInterface.addChild(q);
+            blackUnderInterface.alpha = .3;
+            g.cont.animationsContBot.addChildAt(blackUnderInterface, 0);
+        }
+    }
+
     protected function removeBlack():void {
         if (black) {
             if (g.cont.popupCont.contains(black)) g.cont.popupCont.removeChild(black);
             black.dispose();
             black = null;
+        }
+        if (blackUnderInterface) {
+            if (g.cont.animationsContBot.contains(blackUnderInterface)) g.cont.animationsContBot.removeChild(blackUnderInterface);
+            blackUnderInterface.dispose();
+            blackUnderInterface = null;
         }
     }
 
