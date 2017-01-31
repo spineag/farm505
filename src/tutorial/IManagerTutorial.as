@@ -92,7 +92,7 @@ public class IManagerTutorial {
             blackUnderInterface = new Sprite();
             blackUnderInterface.addChild(q);
             blackUnderInterface.alpha = .3;
-            g.cont.animationsContBot.addChildAt(blackUnderInterface, 0);
+            g.cont.hintGameCont.addChildAt(blackUnderInterface, 0);
         }
     }
 
@@ -103,7 +103,7 @@ public class IManagerTutorial {
             black = null;
         }
         if (blackUnderInterface) {
-            if (g.cont.animationsContBot.contains(blackUnderInterface)) g.cont.animationsContBot.removeChild(blackUnderInterface);
+            if (g.cont.hintGameCont.contains(blackUnderInterface)) g.cont.hintGameCont.removeChild(blackUnderInterface);
             blackUnderInterface.dispose();
             blackUnderInterface = null;
         }

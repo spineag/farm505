@@ -62,7 +62,7 @@ public class ToolsModifier {
 
     public function ToolsModifier() {
         _mouseCont = g.cont.mouseCont;
-        _cont = g.cont.animationsContBot;
+        _cont = g.cont.animationsContBottom;
         _mouse = g.ownMouse;
         _callbackAfterMove = null;
         _modifierType = NONE;
