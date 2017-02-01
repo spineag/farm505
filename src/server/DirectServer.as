@@ -6982,21 +6982,21 @@ public class DirectServer {
         }
     }
 
-    public function getUserEvent(callback:Function):void {
+    public function getUserParty(callback:Function):void {
         var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_EVENT);
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_PARTY);
         var variables:URLVariables = new URLVariables();
 
-        Cc.ch('server', 'getUserEvent', 1);
+        Cc.ch('server', 'getUserParty', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
-        loader.addEventListener(Event.COMPLETE, onCompleteGetUserEvent);
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserParty);
         loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
-        function onCompleteGetUserEvent(e:Event):void { completeGetUserEvent(e.target.data, callback); }
+        function onCompleteGetUserParty(e:Event):void { completeGetUserParty(e.target.data, callback); }
         try {
             loader.load(request);
         } catch (error:Error) {
@@ -7004,7 +7004,7 @@ public class DirectServer {
         }
     }
 
-    private function completeGetUserEvent(response:String, callback:Function = null):void {
+    private function completeGetUserParty(response:String, callback:Function = null):void {
         iconMouse.endConnect();
         var d:Object;
         var obj:Object = {};
@@ -7012,16 +7012,20 @@ public class DirectServer {
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
-            Cc.error('getUserEvent: wrong JSON:' + String(response));
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserEvent: wrong JSON:' + String(response));
+            Cc.error('getUserParty: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserParty: wrong JSON:' + String(response));
             return;
         }
+
         obj.timeToEnd = d.message.time_to_end;
         obj.name = d.message.name;
         obj.description = d.message.description;
 
         if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
         for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
+
+        if (d.message.type_gift) obj.typeGift = String(d.message.type_gift).split('&');
+        for (k = 0; k < obj.typeGift.length; k++) obj.typeGift[k] = int(obj.typeGift[k]);
 
         if (d.message.count_gift) obj.countGift = String(d.message.count_gift).split('&');
         for (k = 0; k < obj.countGift.length; k++) obj.countGift[k] = int(obj.countGift[k]);
@@ -7038,8 +7042,124 @@ public class DirectServer {
         } else if (d.id == 6) {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
-            Cc.error('getUserEvent: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            Cc.error('getUserParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function addUserParty(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_PARTY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserParty', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserParty);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteAddUserParty(e:Event):void { completeAddUserParty(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserEvent error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeAddUserParty(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserParty: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserParty: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'addUserEvent OK', 5);
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('addUserParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserEvent: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+        }
+    }
+
+    public function updateUserParty(tookGift:String, countResource:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_PARTY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserParty', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.countResource = countResource;
+        variables.tookGift = tookGift;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.level)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserParty);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteUpdateUserParty(e:Event):void { completeUpdateUserParty(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserEvent error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateUserParty(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserParty: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserParty: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserEvent OK', 5);
+            if (callback != null) {
+                callback.apply(null, [true]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserLevel: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
         }
     }
 

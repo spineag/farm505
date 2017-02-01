@@ -61,7 +61,7 @@ public class WOBuyPlantItem {
     }
     
     public function updateTextField():void {
-        _txtNumber.updateIt();
+        if (_txtNumber) _txtNumber.updateIt();
     }
 
     public function fillData(ob:Object, f:Function):void {

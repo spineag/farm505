@@ -86,7 +86,7 @@ import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
 import ui.craftPanel.CraftPanel;
-import ui.event.EventPanel;
+import ui.party.PartyPanel;
 import ui.friendPanel.FriendPanel;
 import ui.optionPanel.OptionPanel;
 import ui.softHardCurrencyPanel.SoftHardCurrency;
@@ -188,7 +188,7 @@ public class Vars {
     public var toolsPanel:ToolsPanel;
     public var catPanel:CatPanel;
     public var stock:StockPanel;
-    public var eventPanel:EventPanel;
+    public var partyPanel:PartyPanel;
 
     public var windowsManager:WindowsManager;
     public var managerHitArea:ManagerHitArea;
@@ -469,7 +469,7 @@ public class Vars {
             optionPanel = new OptionPanel();
             friendPanel = new FriendPanel();
             toolsPanel = new ToolsPanel();
-            eventPanel = new EventPanel();
+            partyPanel = new PartyPanel();
 
             if ((user as User).level >= 5 && socialNetworkID == SocialNetworkSwitch.SN_VK_ID) stock = new StockPanel();
             managerQuest = new ManagerQuest();

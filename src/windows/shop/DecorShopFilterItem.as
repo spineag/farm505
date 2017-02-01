@@ -48,7 +48,7 @@ public class DecorShopFilterItem {
             case DecorShopFilter.FILTER_TAIL: _txt.text = 'Плитки'; break;
             case DecorShopFilter.FILTER_TREES: _txt.text = 'Деревья'; break;
             case DecorShopFilter.FILTER_SPECIAL: _txt.text = 'Особое'; break;
-            case DecorShopFilter.FILTER_HOLIDAY: _txt.text = 'Праздничные'; break;
+            case DecorShopFilter.FILTER_HOLIDAY: _txt.text = 'Праздничное'; break;
         }
         _source.endClickCallback = onClick;
         _source.hoverCallback = onHover;
