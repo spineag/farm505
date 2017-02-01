@@ -1,13 +1,13 @@
 /**
  * Created by user on 1/30/17.
  */
-package windows.eventWindow {
+package windows.partWindow {
 import windows.WindowMain;
 import windows.WindowsManager;
 
-public class WOEventWindow extends WindowMain{
-    public function WOEventWindow() {
-        _windowType = WindowsManager.WO_EVENT;
+public class WOPartyWindow extends WindowMain{
+    public function WOPartyWindow() {
+        _windowType = WindowsManager.WO_PARTY;
 
     }
 

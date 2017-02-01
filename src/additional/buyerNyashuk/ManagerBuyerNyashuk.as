@@ -374,8 +374,8 @@ public class ManagerBuyerNyashuk {
     }
 
     private function arrivePart2(nya:BuyerNyashuk, id:int):void {
-//        if (id == 1)    nya.setTailPositions(30, -5);
-//        else nya.setTailPositions(28, -5);
+        if (id == 1)    nya.setTailPositions(28, -5);
+        else nya.setTailPositions(30, -5);
 //
 //        nya.walkPosition = BuyerNyashuk.TILE_WALKING;
 //        if (id == 1) goNyaToPoint(nya, new Point(30, -5 ), afterArrive, false, nya);

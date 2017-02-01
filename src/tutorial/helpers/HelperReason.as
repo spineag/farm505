@@ -3,17 +3,17 @@
  */
 package tutorial.helpers {
 public class HelperReason {
-    public static const REASON_ORDER:int = 1;
-    public static const REASON_FEED_ANIMAL:int = 2;
+    public static const REASON_BUY_RIDGE:int = 1;
+    public static const REASON_RAW_PLANT:int = 2;
     public static const REASON_CRAFT_PLANT:int = 3;
-    public static const REASON_RAW_PLANT:int = 4;
-    public static const REASON_RAW_FABRICA:int = 5;
+    public static const REASON_CRAFT_ANY_PRODUCT:int = 4;
+    public static const REASON_ORDER:int = 5;
     public static const REASON_BUY_FABRICA:int = 6;
-    public static const REASON_BUY_FARM:int = 7;
+    public static const REASON_RAW_FABRICA:int = 7;
     public static const REASON_BUY_HERO:int = 8;
-    public static const REASON_BUY_ANIMAL:int = 9;
-    public static const REASON_BUY_RIDGE:int = 10;
-    public static const REASON_CRAFT_ANY_PRODUCT:int = 11;
+    public static const REASON_BUY_FARM:int = 9;
+    public static const REASON_BUY_ANIMAL:int = 10;
+    public static const REASON_FEED_ANIMAL:int = 11;
     public static const REASON_WILD_DELETE:int = 12;
 
     private static var _arr:Array;

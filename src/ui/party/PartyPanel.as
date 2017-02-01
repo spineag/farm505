@@ -1,7 +1,7 @@
 /**
  * Created by user on 1/30/17.
  */
-package ui.event {
+package ui.party {
 import manager.Vars;
 
 import social.SocialNetworkSwitch;
@@ -10,11 +10,11 @@ import utils.CSprite;
 
 import windows.WindowsManager;
 
-public class EventPanel {
+public class PartyPanel {
     private var _source:CSprite;
     private var g:Vars = Vars.getInstance();
 
-    public function EventPanel() {
+    public function PartyPanel() {
         _source = new CSprite();
         g.cont.interfaceCont.addChild(_source);
         _source.hoverCallback = onHover;
@@ -42,7 +42,7 @@ public class EventPanel {
     }
 
     private function onClick():void {
-        g.windowsManager.openWindow(WindowsManager.WO_EVENT, null);
+        g.windowsManager.openWindow(WindowsManager.WO_PARTY, null);
     }
 }
 }
