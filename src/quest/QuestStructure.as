@@ -40,8 +40,11 @@ public class QuestStructure {
         _awards.push(aw);
     }
 
-    public function getTaskByType(t:int):Array {
+    public function getTasksByType(t:int):Array {
         var ar:Array = [];
+        for (var i:int=0; i<_tasks.length; i++) {
+            if ((_tasks[i] as QuestTaskStructure).typeAction == t) ar.push(_tasks[i]);
+        }
         return ar;
     }
     

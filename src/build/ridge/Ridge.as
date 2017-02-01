@@ -177,6 +177,7 @@ public class Ridge extends WorldObject{
             _plant.checkStateRidge();
             _resourceItem = new ResourceItem();
             _resourceItem.fillIt(_dataPlant);
+            g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PLANT, {id:_dataPlant.id});
             var f1:Function = function():void {
                 g.managerPlantRidge.onCraft(_plant.idFromServer);
                 _plant = null;

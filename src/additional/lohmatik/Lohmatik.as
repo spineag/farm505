@@ -18,6 +18,8 @@ import manager.hitArea.OwnHitArea;
 
 import media.SoundConst;
 
+import quest.ManagerQuest;
+
 import resourceItem.DropItem;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -118,6 +120,7 @@ public class Lohmatik {
         flyItAward();
         showBoom();
         new TweenMax(_source, .7, {alpha:0, ease: Linear.easeNone});
+        g.managerQuest.onActionForTaskType(ManagerQuest.KILL_LOHMATIC);
     }
 
     private function flyItAward():void {

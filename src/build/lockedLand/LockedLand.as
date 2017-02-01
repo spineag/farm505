@@ -20,6 +20,9 @@ import hint.FlyMessage;
 import manager.ManagerFilters;
 import media.SoundConst;
 import mouse.ToolsModifier;
+
+import quest.ManagerQuest;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -279,6 +282,7 @@ public class LockedLand extends WorldObject {
         _dataLand = null;
         _arrDecorAnimation.length = 0;
         _arrChest.length = 0;
+        g.managerQuest.onActionForTaskType(ManagerQuest.OPEN_TERRITORY);
     }
 
 

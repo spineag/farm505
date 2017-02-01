@@ -9,10 +9,12 @@ public class QuestTaskStructure {
     private var _isDone:Boolean;
     private var _taskUserDbId:String;
     private var _countDone:int;
+    private var _isSavedOnServerAfterFinish:Boolean;
 
     public function QuestTaskStructure() {}
 
     public function fillIt(d:Object):void {
+        _isSavedOnServerAfterFinish = false;
         _taskId = int(d.task_id);
         _questId = int(d.quest_id);
         _isDone = Boolean(d.is_done == '1');
@@ -40,6 +42,8 @@ public class QuestTaskStructure {
     public function get adds():String { return _taskData.adds; }
     public function get dbID():String { return _taskUserDbId; }
     public function get resourceId():int { return _taskData.id_resource; }
+    public function get isSavedOnServerAfterFinish():Boolean { return _isSavedOnServerAfterFinish; }
+    public function onSaveOnServerAfterFinish():void { _isSavedOnServerAfterFinish = true; }
 
 }
 }

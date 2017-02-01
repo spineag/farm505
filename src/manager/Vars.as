@@ -272,8 +272,6 @@ public class Vars {
                 socialNetworkID = int(flashVars['channel']);
             }
             SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
-//            if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && testersArrayQuests.indexOf((user as User).userSocialId) > -1) useQuests = true;
-
             useNewTuts = true;
             if (useNewTuts) {
                 managerTutorial = new ManagerTutorialNew();
@@ -448,7 +446,7 @@ public class Vars {
 
     private function initVariables2():void {
 //        try {
-            if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester) useQuests = true;
+//            if (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester) useQuests = true;
 
             timerHint = new TimerHint();
             wildHint = new WildHint();

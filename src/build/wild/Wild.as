@@ -14,6 +14,8 @@ import media.SoundConst;
 
 import mouse.ToolsModifier;
 
+import quest.ManagerQuest;
+
 import starling.display.Image;
 
 import tutorial.TutorialAction;
@@ -350,6 +352,7 @@ public class Wild extends WorldObject{
         new RemoveWildAnimation(_source, onEndAnimation, onEndAnimationTotal, _dataBuild.removeByResourceId);
         _delete = true;
         g.wildHint.managerHide();
+        g.managerQuest.onActionForTaskType(ManagerQuest.REMOVE_WILD, {id:(_dataBuild.id)});
     }
 
     private function onEndAnimation():void {
