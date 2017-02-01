@@ -76,83 +76,35 @@ public class WorldObject {
     public function onOut():void {}
     public function onHover():void {}
     public function afterPasteBuild():void {}
-
-    public function get sizeX():uint {
-        return _flip ? _sizeY : _sizeX;
-    }
-
-    public function get sizeY():uint {
-        return _flip ? _sizeX : _sizeY;
-    }
-    
-    public function get getArmature():Armature {
-        return _armature;
-    }
-
-    public function get source():TownAreaBuildSprite {
-        return _source;
-    }
-
-    public function get build():DisplayObject {
-        return _build;
-    }
-
-    public function get rect():Rectangle {
-        return _rect;
-    }
-
-    public function get depth():Number {
-        return _depth;
-    }
-
-    public function get dataBuild():Object{
-        return _dataBuild;
-    }
-
-    public function get dbBuildingId():int{
-        return _dbBuildingId;
-    }
-
-    public function set dbBuildingId(a:int):void{
-        _dbBuildingId = a;
-    }
-
-    public function get stateBuild():int{
-        return _stateBuild;
-    }
-
-    public function set stateBuild(a:int):void{
-        _stateBuild = a;
-    }
-
-    public function get hitArea():OwnHitArea {
-        return _hitArea;
-    }
-
+    public function get sizeX():uint { return _flip ? _sizeY : _sizeX; }
+    public function get sizeY():uint { return _flip ? _sizeX : _sizeY; }
+    public function get getArmature():Armature { return _armature; }
+    public function get source():TownAreaBuildSprite { return _source; }
+    public function get build():DisplayObject { return _build; }
+    public function get rect():Rectangle { return _rect; }
+    public function get depth():Number { return _depth; }
+    public function get dataBuild():Object{ return _dataBuild; }
+    public function get dbBuildingId():int{ return _dbBuildingId; }
+    public function set dbBuildingId(a:int):void{ _dbBuildingId = a; }
+    public function get stateBuild():int{ return _stateBuild; }
+    public function set stateBuild(a:int):void{ _stateBuild = a; }
+    public function get hitArea():OwnHitArea { return _hitArea; }
     public function addXP():void {}
-
-    public function get craftSprite():Sprite {
-        return _craftSprite;
-    }
-
-    public function get buildingBuildSprite():Sprite {
-        return _buildingBuildSprite;
-    }
+    public function get craftSprite():Sprite {return _craftSprite; }
+    public function get buildingBuildSprite():Sprite { return _buildingBuildSprite; }
+    public function set enabled(value:Boolean):void { }
+    public function get flip():Boolean { return _flip; }
+    public function isContDrag():Boolean { return _source.isContDrag; }
+    protected function buildingBuildDoneOver():void { if (_buildingBuild) _buildingBuild.overItDone(); }
+    protected function buildingBuildFoundationOver():void { if (_buildingBuild)  _buildingBuild.overItFoundation(); }
+    public function showForOptimisation(needShow:Boolean):void { if (_source) _source.visible = needShow; }
 
     public function updateDepth():void {
         var point3d:Point3D = IsoUtils.screenToIso(new Point(_source.x, _source.y));
-
         point3d.x += g.matrixGrid.FACTOR * _sizeX * 0.5;
         point3d.z += g.matrixGrid.FACTOR * _sizeY * 0.5;
-
         _depth = point3d.x + point3d.z + posX/10000;
         if (!useIsometricOnly) _depth -= 1000;
-    }
-
-    public function set enabled(value:Boolean):void { }
-
-    public function get flip():Boolean {
-        return _flip;
     }
 
     public function makeFlipBuilding():void {
@@ -219,10 +171,6 @@ public class WorldObject {
         }
         _dataBuild.isFlip = _flip;
         makeFlipBuilding();
-    }
-
-    public function isContDrag():Boolean {
-        return _source.isContDrag;
     }
 
     public function showArrow(t:Number = 0):void {
@@ -442,18 +390,6 @@ public class WorldObject {
         _source.registerHitArea(_hitArea);
     }
 
-    protected function buildingBuildDoneOver():void {
-        if (_buildingBuild) {
-            _buildingBuild.overItDone();
-        }
-    }
-
-    protected function buildingBuildFoundationOver():void {
-        if (_buildingBuild) {
-            _buildingBuild.overItFoundation();
-        }
-    }
-
     protected function clearBuildingBuildSprite():void {
         if (_buildingBuildSprite) {
             while (_buildingBuildSprite.numChildren) _buildingBuildSprite.removeChildAt(0);
@@ -493,10 +429,6 @@ public class WorldObject {
             TweenMax.to(_build, time, {scaleX: 1, scaleY: 1});
         };
         TweenMax.to(_build, time, {scaleX: 0.98, scaleY: 1.02, y: -6*g.scaleFactor, onComplete: f1});
-    }
-
-    public function showForOptimisation(needShow:Boolean):void {
-        if (_source) _source.visible = needShow;
     }
 
 }

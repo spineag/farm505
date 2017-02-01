@@ -17,6 +17,9 @@ import hint.FlyMessage;
 import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
+
+import quest.ManagerQuest;
+
 import resourceItem.UseMoneyMessage;
 import com.greensock.easing.Quad;
 import starling.display.DisplayObject;
@@ -963,6 +966,7 @@ public class ShopItem {
                 showSmallAnimations(DataMoney.SOFT_CURRENCY, -int(_data.costNew[curCount]));
                 g.userInventory.addMoney(DataMoney.SOFT_CURRENCY,-int(_data.costNew[curCount]));
             }
+            g.managerQuest.onActionForTaskType(ManagerQuest.BUY_ANIMAL, {id:(_data.id)});
             if (g.managerTutorial.isTutorial && g.managerTutorial.useNewTuts) {
                 if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL && g.managerTutorial.isTutorialResource(_data.id)) {
                     g.managerTutorial.checkTutorialCallback();
@@ -1235,6 +1239,7 @@ public class ShopItem {
     }
 
     public function addArrow(t:int = 0):void {
+        deleteArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, source);
         _arrow.scaleIt(.5);
         if (_btnBuyBlue)_arrow.animateAtPosition(_btnBuyBlue.x, _btnBuyBlue.y);

@@ -10,6 +10,9 @@ import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import quest.ManagerQuest;
+
 import resourceItem.CraftItem;
 import resourceItem.DropItem;
 import resourceItem.ResourceItem;
@@ -364,6 +367,7 @@ public class MarketItem {
         _dataFromServer.timeInPapper = int(new Date().getTime() / 1000);
         _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
+        g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
     }
 
     public function visiblePapperTimer():void {
@@ -473,6 +477,7 @@ public class MarketItem {
 
                 isFill = 2;
                 g.directServer.getUserMarketItem(_person.userSocialId, checkItemWhenYouBuy);
+                g.managerQuest.onActionForTaskType(ManagerQuest.BUY_PAPER);
             }
         } else if (isFill == 0) { // пустая
             if (g.managerTutorial.isTutorial) return;

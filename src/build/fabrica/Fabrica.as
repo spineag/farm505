@@ -20,6 +20,9 @@ import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
 
 import media.SoundConst;
+
+import quest.ManagerQuest;
+
 import resourceItem.CraftItem;
 import com.junkbyte.console.Cc;
 import resourceItem.RawItem;
@@ -271,6 +274,7 @@ public class Fabrica extends WorldObject {
                     if (g.userInventory.currentCountInSklad + _arrCrafted[0].count > g.user.skladMaxCount) {
                         g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                     } else {
+                        g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
                         (_arrCrafted[0] as CraftItem).flyIt();
                     }
                 } else {
@@ -431,6 +435,7 @@ public class Fabrica extends WorldObject {
             g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
         }
         g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
+        g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:dataRecipe.id});
         // animation of uploading resources to fabrica
         var p:Point = new Point(source.x, source.y);
         p = source.parent.localToGlobal(p);

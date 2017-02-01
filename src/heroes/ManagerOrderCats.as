@@ -270,13 +270,10 @@ public class ManagerOrderCats {
             var onFinishArrive:Function = function():void {
                 cat.forceStopAnimation();
                 cat.idleFrontAnimation();
-                cat.walkPosition = OrderCat.STAY_IN_QUEUE;
             };
+            cat.walkPosition = OrderCat.STAY_IN_QUEUE;
             cat.sayHIAnimation(onFinishArrive);
             cat.checkArriveCallback();
-//            cat.forceStopAnimation();
-//            cat.idleFrontAnimation();
-//            cat.walkPosition = OrderCat.STAY_IN_QUEUE;
         }
     }
 

@@ -7,6 +7,9 @@ import com.junkbyte.console.Cc;
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import media.SoundConst;
+
 import starling.display.Image;
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
@@ -159,6 +162,7 @@ public class WOItemFabrica {
         if (!_dataRecipe) return;
         if (_dataRecipe.blockByLevel > g.user.level) return;
 
+        g.soundManager.playSound(SoundConst.ON_BUTTON_CLICK);
         source.filter = null;
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataRecipe]);
@@ -175,6 +179,7 @@ public class WOItemFabrica {
         if (!_dataRecipe) return;
         if (_isOnHover) return;
         _isOnHover = true;
+        g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
         source.filter = ManagerFilters.YELLOW_STROKE;
         if (g.managerTutorial.isTutorial) return;
         var point:Point = new Point(0, 0);

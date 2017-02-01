@@ -18,10 +18,10 @@ public class ManagerQuest {
     public static const POST:int = 3;              // +zapostutu na stiny
     public static const CRAFT_PLANT:int = 4;       // zibratu rosluny
     public static const BUILD_BUILDING:int = 5;    // pobydyvatu zdanie
-    public static const RAW_PRODUCTS:int = 6;      // zavantajutu na fabriky
+    public static const RAW_PRODUCT:int = 6;      // zavantajutu na fabriky
     public static const INVITE_FRIENDS:int = 7;    // zaprosutu dryziv
     public static const KILL_LOHMATIC:int = 8;     // zlovutu lohmatuciv
-    public static const GRAFT_PRODUCT:int = 9;     // zibratu resurs fabriki
+    public static const CRAFT_PRODUCT:int = 9;     // zibratu resurs fabriki abo fermu
     public static const RAW_PLANT:int = 10;        // posadutu rosluny
     public static const RELEASE_ORDER:int = 11;    // zakaz lavku
     public static const BUY_ANIMAL:int = 12;       // kyputu tvar'
@@ -77,7 +77,7 @@ public class ManagerQuest {
 
     public function getNewQuests():void {
         if (g.user.level < 5) return;
-//        if (g.useQuests) g.directServer.getUserNewQuests(onGetNewQuests);
+        if (g.useQuests) g.directServer.getUserNewQuests(onGetNewQuests);
     }
 
     private function onGetNewQuests(d:Object):void {
@@ -178,10 +178,13 @@ public class ManagerQuest {
     }
 
     private function onGetUserQuestAward():void {
-//        g.directServer.getUserNewQuests(onGetNewQuests);
+        g.directServer.getUserNewQuests(onGetNewQuests);
     }
-    
+
+//    g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
     public function onActionForTaskType(type:int, adds:Object=null):void {
+        var tArr:Array;
+        var tasks:Array;
         if (type == ADD_LEFT_MENU) {
             if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                 if (_activeTask && _activeTask.typeAction == ADD_LEFT_MENU) {
@@ -203,15 +206,48 @@ public class ManagerQuest {
                 g.directServer.updateUserQuestTask(_activeTask, onUpdateQuestTask);
                 _activeTask = null;
             }
-        } else {
-            
+        } else if (type == RAW_PLANT || type == CRAFT_PLANT || type == BUILD_BUILDING || type == CRAFT_PRODUCT || type == RAW_PRODUCT
+                || type == BUY_ANIMAL || type == FEED_ANIMAL || type == REMOVE_WILD) {
+            tArr = getTasksByTypeFromCurrentQuests(type);
+            tasks = [];
+            for (var i:int=0; i<tArr.length; i++) {
+                if ((tArr[i] as QuestTaskStructure).resourceId == adds.id || (tArr[i] as QuestTaskStructure).resourceId == 0) {
+                    tasks.push(tArr[i]);
+                }
+            }
+            if (tasks.length) {
+                for (i=0; i<tasks.length; i++) {
+                    (tasks[i] as QuestTaskStructure).upgradeCount();
+                    g.directServer.updateUserQuestTask(tasks[i], onUpdateQuestTask);
+                }
+            }
+        } else if (type == KILL_LOHMATIC || type == KILL_MOUSE || type == INVITE_FRIENDS || type == BUY_CAT || type == RELEASE_ORDER
+                || type == NIASH_BUYER || type == OPEN_TERRITORY || SET_IN_PAPER || BUY_PAPER) {
+            tArr = getTasksByTypeFromCurrentQuests(type);
+            if (tArr.length) {
+                for (i=0; i<tArr.length; i++) {
+                    (tArr[i] as QuestTaskStructure).upgradeCount();
+                    g.directServer.updateUserQuestTask(tArr[i], onUpdateQuestTask);
+                }
+            }
         }
     }
 
     private function onUpdateQuestTask(task:QuestTaskStructure):void {
-        if (task.isDone) {
+        if (task.isDone && !task.isSavedOnServerAfterFinish) {
+            task.onSaveOnServerAfterFinish();
             checkQuestAfterFinishTask(task.questId);
         }
+    }
+    
+    private function getTasksByTypeFromCurrentQuests(type:int):Array {
+        var ar:Array = [];
+        var arT:Array;
+        for (var i:int=0; i<_userQuests.length; i++) {
+            arT = (_userQuests[i] as QuestStructure).getTasksByType(type);
+            if (arT.length) ar = ar.concat(arT);
+        }
+        return ar;
     }
 
     public function checkInGroup():void {

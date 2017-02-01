@@ -14,6 +14,8 @@ import flash.geom.Point;
 
 import manager.ManagerFilters;
 
+import quest.ManagerQuest;
+
 import resourceItem.DropItem;
 
 import starling.display.Image;
@@ -212,8 +214,8 @@ public class WOBuyerNyashuk extends WindowMain{
         if (_data.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);
         else  g.userTimer.buyerNyashukRed(1200);
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
+        g.managerQuest.onActionForTaskType(ManagerQuest.NIASH_BUYER);
         super.hideIt();
-
     }
 
     private function onClickDelete():void {

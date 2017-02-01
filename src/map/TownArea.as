@@ -41,6 +41,9 @@ import hint.FlyMessage;
 import manager.Vars;
 import mouse.ToolsModifier;
 import preloader.AwayPreloader;
+
+import quest.ManagerQuest;
+
 import resourceItem.ResourceItem;
 import resourceItem.UseMoneyMessage;
 import starling.display.Sprite;
@@ -850,6 +853,7 @@ public class TownArea extends Sprite {
             }
         }
         if (isNewAtMap) {
+            g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
             if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || 
                     worldObject is DecorFence || worldObject is DecorAnimation || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorFenceGate)
                 g.directServer.addUserBuilding(worldObject, onAddNewBuilding);

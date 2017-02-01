@@ -11,6 +11,9 @@ import heroes.BasicCat;
 
 import manager.AStar.AStar;
 import manager.Vars;
+
+import quest.ManagerQuest;
+
 import tutorial.TutorialAction;
 
 import utils.Utils;
@@ -353,6 +356,7 @@ public class ManagerCats {
     private function onEndAdd(cat:HeroCat):void {
         cat.stopAnimation();
         cat.makeFreeCatIdle();
+        g.managerQuest.onActionForTaskType(ManagerQuest.BUY_CAT);
     }
 
     public function jumpCatsFunny(f:Function = null):void {

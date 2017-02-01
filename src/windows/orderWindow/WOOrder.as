@@ -23,6 +23,9 @@ import manager.ManagerFilters;
 import manager.ManagerOrder;
 import manager.ManagerOrderItem;
 import media.SoundConst;
+
+import quest.ManagerQuest;
+
 import resourceItem.DropItem;
 
 import starling.display.DisplayObject;
@@ -365,7 +368,7 @@ public class WOOrder extends WindowMain{
         } else {
             g.managerMiniScenes.onBuyOrder();
         }
-
+        g.managerQuest.onActionForTaskType(ManagerQuest.RELEASE_ORDER);
     }
 
     private function afterSell(order:ManagerOrderItem, orderItem:WOOrderItem):void {

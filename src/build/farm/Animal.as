@@ -14,6 +14,9 @@ import manager.ManagerFilters;
 import manager.Vars;
 import media.SoundConst;
 import mouse.ToolsModifier;
+
+import quest.ManagerQuest;
+
 import resourceItem.RawItem;
 import starling.textures.Texture;
 import utils.SimpleArrow;
@@ -291,16 +294,17 @@ public class Animal {
 
             new RawItem(p, texture, 1, 0);
             g.directServer.rawUserAnimal(animal_db_id, null);
+            g.managerQuest.onActionForTaskType(ManagerQuest.FEED_ANIMAL, {id:(_data.id)});
             if (_data.id != 6) {
-                if (_data.id == 1) {
-                    g.soundManager.playSound(SoundConst.RAW_CHICKEN);
-                } else if (_data.id == 2) {
-                    g.soundManager.playSound(SoundConst.RAW_COW);
-                } else if (_data.id == 3) {
-                    g.soundManager.playSound(SoundConst.RAW_PIG);
-                } else if (_data.id == 7) {
-                    g.soundManager.playSound(SoundConst.RAW_SHEEP);
-                }
+//                if (_data.id == 1) {
+//                    g.soundManager.playSound(SoundConst.RAW_CHICKEN);
+//                } else if (_data.id == 2) {
+//                    g.soundManager.playSound(SoundConst.RAW_COW);
+//                } else if (_data.id == 3) {
+//                    g.soundManager.playSound(SoundConst.RAW_PIG);
+//                } else if (_data.id == 7) {
+//                    g.soundManager.playSound(SoundConst.RAW_SHEEP);
+//                }
                 showFeedingAnimation();
             } else {
 //                g.soundManager.playSound(SoundConst);

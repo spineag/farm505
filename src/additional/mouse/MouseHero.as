@@ -17,6 +17,8 @@ import manager.Vars;
 import manager.hitArea.ManagerHitArea;
 import manager.hitArea.OwnHitArea;
 
+import quest.ManagerQuest;
+
 import resourceItem.DropItem;
 
 import starling.display.Image;
@@ -131,6 +133,7 @@ public class MouseHero {
     private function onCompleteAnimation5(e:Event=null):void {
         if (_armature && _armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, onCompleteAnimation5);
         if (_armature && _armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, onCompleteAnimation5);
+        g.managerQuest.onActionForTaskType(ManagerQuest.KILL_MOUSE);
         if (_clickCallback != null) {
             _clickCallback.apply();
             _clickCallback = null;

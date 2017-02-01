@@ -39,6 +39,14 @@ public class QuestStructure {
         aw.fillIt(d);
         _awards.push(aw);
     }
+
+    public function getTasksByType(t:int):Array {
+        var ar:Array = [];
+        for (var i:int=0; i<_tasks.length; i++) {
+            if ((_tasks[i] as QuestTaskStructure).typeAction == t) ar.push(_tasks[i]);
+        }
+        return ar;
+    }
     
     public function get iconPath():String { return _questData.icon_quest; }
     public function get id():int { return _questId; }

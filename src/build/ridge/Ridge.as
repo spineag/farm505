@@ -17,6 +17,9 @@ import manager.hitArea.ManagerHitArea;
 import media.SoundConst;
 
 import mouse.ToolsModifier;
+
+import quest.ManagerQuest;
+
 import resourceItem.CraftItem;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
@@ -105,10 +108,7 @@ public class Ridge extends WorldObject{
                 return;
             }
 
-
             _stateRidge = GROW1;
-            if (!isFromServer) g.userInventory.addResource(data.id, -1);
-            if (!isFromServer) g.toolsModifier.updateCountTxt();
             _dataPlant = data;
             _plant = new PlantOnRidge(this, _dataPlant);
 
@@ -125,6 +125,10 @@ public class Ridge extends WorldObject{
             }
 
             if (!isFromServer) {
+                g.userInventory.addResource(_dataPlant.id, -1);
+                g.toolsModifier.updateCountTxt();
+                g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PLANT, {id:_dataPlant.id});
+
                 var f1:Function = function (s:String):void {
                     _plant.idFromServer = s;
                 };
@@ -173,6 +177,7 @@ public class Ridge extends WorldObject{
             _plant.checkStateRidge();
             _resourceItem = new ResourceItem();
             _resourceItem.fillIt(_dataPlant);
+            g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PLANT, {id:_dataPlant.id});
             var f1:Function = function():void {
                 g.managerPlantRidge.onCraft(_plant.idFromServer);
                 _plant = null;

@@ -10,6 +10,8 @@ import flash.geom.Matrix;
 
 import manager.Vars;
 
+import quest.ManagerQuest;
+
 public class SocialNetwork extends EventDispatcher {
     protected var URL_AVATAR_BLANK:String = null;
     protected const COUNT_PER_ONCE:int = 200;
@@ -233,6 +235,7 @@ public class SocialNetwork extends EventDispatcher {
     protected function inviteBoxComplete():void {
         Cc.ch('social', "SocialNetwork:: completed request to show window of invite friend");
 //        v.friendsWindow.checkQuest();
+        g.managerQuest.onActionForTaskType(ManagerQuest.INVITE_FRIENDS);
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.INVITE_WINDOW_COMPLETE, false, false));
     }
 
