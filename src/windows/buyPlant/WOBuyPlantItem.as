@@ -6,6 +6,9 @@ import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import media.SoundConst;
+
 import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Align;
@@ -189,6 +192,7 @@ public class WOBuyPlantItem {
         if (!_dataPlant) return;
         if (_dataPlant.blockByLevel > g.user.level) return;
         if (g.managerTutorial.isTutorial && !g.managerTutorial.isTutorialResource(_dataPlant.id)) return;
+        g.soundManager.playSound(SoundConst.ON_BUTTON_CLICK);
         source.filter = null;
         g.resourceHint.hideIt();
         g.fabricHint.hideIt();
@@ -200,6 +204,7 @@ public class WOBuyPlantItem {
     private function onHover():void {
         if (!_dataPlant) return;
         if (_isOnHover) return;
+        g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
         source.filter = ManagerFilters.YELLOW_STROKE;
         if (g.managerTutorial.isTutorial) return;
         _isOnHover = true;

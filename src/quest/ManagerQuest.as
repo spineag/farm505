@@ -178,10 +178,12 @@ public class ManagerQuest {
     }
 
     private function onGetUserQuestAward():void {
-//        g.directServer.getUserNewQuests(onGetNewQuests);
+        g.directServer.getUserNewQuests(onGetNewQuests);
     }
     
     public function onActionForTaskType(type:int, adds:Object=null):void {
+        var t:QuestTaskStructure;
+        var tArr:Array;
         if (type == ADD_LEFT_MENU) {
             if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                 if (_activeTask && _activeTask.typeAction == ADD_LEFT_MENU) {
@@ -203,8 +205,8 @@ public class ManagerQuest {
                 g.directServer.updateUserQuestTask(_activeTask, onUpdateQuestTask);
                 _activeTask = null;
             }
-        } else {
-            
+        } else if (type == RAW_PLANT) {
+            tArr = getTaskByTypeFromCurrentQuests(type);
         }
     }
 
@@ -212,6 +214,14 @@ public class ManagerQuest {
         if (task.isDone) {
             checkQuestAfterFinishTask(task.questId);
         }
+    }
+    
+    private function getTaskByTypeFromCurrentQuests(type:int):Array {
+        var ar:Array = [];
+//        for (var i:int=0; i<_userQuests.length; i++) {
+//            if ((_userQuests[i] as QuestStructure).)
+//        }
+        return ar;
     }
 
     public function checkInGroup():void {

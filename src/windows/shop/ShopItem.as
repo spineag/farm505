@@ -1235,6 +1235,7 @@ public class ShopItem {
     }
 
     public function addArrow(t:int = 0):void {
+        deleteArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, source);
         _arrow.scaleIt(.5);
         if (_btnBuyBlue)_arrow.animateAtPosition(_btnBuyBlue.x, _btnBuyBlue.y);
