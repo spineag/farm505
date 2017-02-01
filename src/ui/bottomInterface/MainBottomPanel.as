@@ -213,6 +213,7 @@ public class MainBottomPanel {
     }
 
     private function onClick(reason:String):void {
+        if (_arrow) _arrow.deleteIt();
         switch (reason) {
             case 'shop':
                 if (g.managerTutorial.isTutorial) {
@@ -535,18 +536,19 @@ public class MainBottomPanel {
         return ob;
     }
 
-    public function addArrow(btnName:String):void {
+    public function addArrow(btnName:String, t:Number = 0):void {
         switch (btnName) {
             case 'shop':
                 _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
                 _arrow.animateAtPosition(_shopBtn.x, _shopBtn.y - _shopBtn.height/2 - 10);
-                _arrow.scaleIt(.7);
                 break;
             case 'home':
                 _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
                 _arrow.animateAtPosition(_homeBtn.x, _homeBtn.y - _homeBtn.height/2 - 10);
-                _arrow.scaleIt(.7);
+                break;
         }
+        _arrow.scaleIt(.7);
+        if (t) _arrow.activateTimer(t, deleteArrow);
     }
 
     public function deleteArrow():void {

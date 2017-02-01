@@ -28,6 +28,7 @@ import ui.xpPanel.XPStar;
 import utils.CSprite;
 import utils.IsoUtils;
 import utils.Point3D;
+import utils.SimpleArrow;
 
 public class Lohmatik {
     private var g:Vars = Vars.getInstance();
@@ -44,6 +45,7 @@ public class Lohmatik {
     protected var _currentPath:Array;
     private var _hitArea:OwnHitArea;
     private var _scale:Number;
+    private var _arrow:SimpleArrow;
 
     public function Lohmatik(f:Function) {
         _isBack = false;
@@ -300,5 +302,19 @@ public class Lohmatik {
     public function get posY():int { return _posY; }
     public function get source():CSprite { return _source; }
     public function get hitArea():OwnHitArea { return _hitArea; }
+
+    public function showArrow(t:Number = 0):void {
+        hideArrow();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
+        _arrow.animateAtPosition(0, -30);
+        if (t>0) _arrow.activateTimer(t, hideArrow);
+    }
+
+    public function hideArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+    }
 }
 }

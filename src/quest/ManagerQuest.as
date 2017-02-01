@@ -2,8 +2,13 @@
  * Created by andy on 9/9/16.
  */
 package quest {
+import build.WorldObject;
+import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
+import data.BuildType;
 import data.DataMoney;
+import flash.geom.Point;
+import hint.FlyMessage;
 import manager.ManagerWallPost;
 import manager.Vars;
 import social.SocialNetworkSwitch;
@@ -140,24 +145,90 @@ public class ManagerQuest {
     }
 
     public function checkOnClickAtWoQuestItem(t:QuestTaskStructure):void {
+        var arrT:Array;
+        var arr:Array;
+        var i:int;
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2 - 50);
+        _activeTask = t;
         switch (t.typeAction) {
             case ADD_LEFT_MENU:
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-                    _activeTask = t;
                     g.socialNetwork.checkLeftMenu();
                 }
                 break;
             case ADD_TO_GROUP:
-                _activeTask = t;
                 Link.openURL(g.socialNetwork.urlForAnySocialGroup + t.adds);
                 _timer = 3;
                 g.gameDispatcher.addToTimer(checkWithTimer);
                 break;
             case POST:
-                _activeTask = t;
                 g.managerWallPost.openWindow(ManagerWallPost.POST_FOR_QUEST, null, 0, DataMoney.SOFT_CURRENCY);
                 break;
+            case CRAFT_PLANT:
+                g.windowsManager.closeAllWindows();
+                arrT = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+                arr = [];
+                for (i=0; i<arrT.length; i++) {
+                    if ((arrT[i] as Ridge).isFreeRidge) continue;
+                    if (t.resourceId == 0 || (arrT[i] as Ridge).plant.dataPlant.id == t.resourceId) {
+                        arr.push(arrT[i]);
+                    }
+                }
+                if (arr.length) {
+                    for (i=0; i<arr.length; i++) {
+                        (arr[i] as Ridge).showArrow(3);
+                    }
+                    g.cont.moveCenterToPos((arr[0] as Ridge).posX, (arr[0] as Ridge).posY);
+                } else {
+                    new FlyMessage(p,'Нету подходящих засеянных грядок');
+                }
+                break;
+            case RAW_PLANT:
+                g.windowsManager.closeAllWindows();
+                arrT = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+                arr = [];
+                for (i=0; i<arrT.length; i++) {
+                    if ((arrT[i] as Ridge).isFreeRidge) {
+                        arr.push(arrT[i]);
+                    }
+                }
+                if (arr.length) {
+                    for (i=0; i<arr.length; i++) {
+                        (arr[i] as Ridge).showArrow(3);
+                    }
+                    g.cont.moveCenterToPos((arr[0] as Ridge).posX, (arr[0] as Ridge).posY);
+                } else {
+                    new FlyMessage(p,'Нету свободных грядок');
+                }
+                break;
+            case BUILD_BUILDING:
+                g.windowsManager.closeAllWindows();
+                g.bottomPanel.addArrow('shop', 3);
+                break;
+            case RAW_PRODUCT:
+                g.windowsManager.closeAllWindows();
+                arrT = g.townArea.getCityObjectsById(g.allData.getFabricaIdForResourceIdFromRecipe(t.resourceId));
+                if (arrT.length) {
+                    (arrT[0] as WorldObject).showArrow(3);
+                    g.cont.moveCenterToPos((arr[0] as WorldObject).posX - 1, (arr[0] as Ridge).posY - 1);
+                } else {
+                    new FlyMessage(p,'Нужное здание еще не построено');
+                }
+                break;
+            case INVITE_FRIENDS:
+                g.windowsManager.closeAllWindows();
+                g.socialNetwork.showInviteWindow();
+                break;
+            case KILL_LOHMATIC:
+                g.windowsManager.closeAllWindows();
+                g.managerLohmatic.addArrowForLohmatics();
+                break;
+            case CRAFT_PRODUCT:
+                g.windowsManager.closeAllWindows();
+                //..
+                break;
         }
+
     }
 
     private function checkQuestAfterFinishTask(questId:int):void {
@@ -183,6 +254,8 @@ public class ManagerQuest {
 
 //    g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
     public function onActionForTaskType(type:int, adds:Object=null):void {
+        if (!g.useQuests) return;
+
         var tArr:Array;
         var tasks:Array;
         if (type == ADD_LEFT_MENU) {

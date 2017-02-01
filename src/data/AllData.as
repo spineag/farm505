@@ -62,5 +62,15 @@ public class AllData {
         }
         return arr;
     }
+
+    public function getFabricaIdForResourceIdFromRecipe(rId:int):int {
+        var d:Object = g.dataRecipe.objectRecipe;
+        for(var id:String in d) {
+            if (d[id].resourceId == rId) {
+                return d[id].buildingId;
+            }
+        }
+        return 0;
+    }
 }
 }

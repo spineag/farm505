@@ -15,7 +15,7 @@ public class ManagerLohmatik {
     public function ManagerLohmatik() {
         _timerCounter = 0;
         _arr = [];
-            addLohmatics();
+        addLohmatics();
     }
 
     private function addLohmatics():void {
@@ -128,10 +128,16 @@ public class ManagerLohmatik {
                 }
             }
 
-        private function forceRunToXYPoint(l:Lohmatik, posX:int, posY:int, callback:Function):void {
-            var p:Point = new Point(posX, posY);
-            p = g.matrixGrid.getXYFromIndex(p);
-            l.goLohToXYPoint(p, 1, callback);
+    private function forceRunToXYPoint(l:Lohmatik, posX:int, posY:int, callback:Function):void {
+        var p:Point = new Point(posX, posY);
+        p = g.matrixGrid.getXYFromIndex(p);
+        l.goLohToXYPoint(p, 1, callback);
+    }
+
+    public function addArrowForLohmatics():void {
+        for (var i:int=0; i<_arr.length; i++) {
+            (_arr[i] as Lohmatik).showArrow(3);
         }
+    }
 }
 }
