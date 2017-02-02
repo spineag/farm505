@@ -3,6 +3,9 @@
  */
 package quest {
 import build.WorldObject;
+import build.farm.Animal;
+import build.farm.Farm;
+import build.lockedLand.LockedLand;
 import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
 import data.BuildType;
@@ -148,6 +151,7 @@ public class ManagerQuest {
         var arrT:Array;
         var arr:Array;
         var i:int;
+        var j:int;
         var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2 - 50);
         _activeTask = t;
         switch (t.typeAction) {
@@ -210,7 +214,7 @@ public class ManagerQuest {
                 arrT = g.townArea.getCityObjectsById(g.allData.getFabricaIdForResourceIdFromRecipe(t.resourceId));
                 if (arrT.length) {
                     (arrT[0] as WorldObject).showArrow(3);
-                    g.cont.moveCenterToPos((arr[0] as WorldObject).posX - 1, (arr[0] as Ridge).posY - 1);
+                    g.cont.moveCenterToPos((arrT[0] as WorldObject).posX - 1, (arrT[0] as Ridge).posY - 1);
                 } else {
                     new FlyMessage(p,'Нужное здание еще не построено');
                 }
@@ -225,7 +229,116 @@ public class ManagerQuest {
                 break;
             case CRAFT_PRODUCT:
                 g.windowsManager.closeAllWindows();
-                //..
+                i = g.allData.getFabricaIdForResourceIdFromRecipe(t.resourceId);
+                if (i==0) i = g.allData.getFarmIdForResourceId(t.resourceId);
+                if (i > 0) {
+                    arrT = g.townArea.getCityObjectsById(i);
+                    if (arrT.length) {
+                        for (i=0; i<arrT.length; i++) {
+                            (arrT[i] as WorldObject).showArrow(3);
+                        }
+                        g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
+                    } else {
+                        new FlyMessage(p,'Нужное здание еще не построено');
+                    }
+                } else {
+                    Cc.error('ManagerQuest checkOnClickAtWoQuestItem CRAFT_PRODUCT:: unknowm resource id: ' + t.resourceId);
+                }
+                break;
+            case RELEASE_ORDER:
+                g.windowsManager.closeAllWindows();
+                arrT = g.townArea.getAwayCityObjectsByType(BuildType.ORDER);
+                if (arrT.length) {
+                    (arrT[0] as WorldObject).showArrow(3);
+                    g.cont.moveCenterToPos((arr[0] as WorldObject).posX, (arr[0] as WorldObject).posY);
+                } else {
+                    Cc.error('ManagerQuest checkOnClickAtWoQuestItem RELEASE_ORDER:: no Order building (');
+                }
+                break;
+            case BUY_ANIMAL:
+                g.windowsManager.closeAllWindows();
+                g.bottomPanel.addArrow('shop', 3);
+                break;
+            case FEED_ANIMAL:
+                g.windowsManager.closeAllWindows();
+                i = g.allData.getFarmIdForAnimal(t.resourceId);
+                if (i > 0) {
+                    arrT = g.townArea.getCityObjectsById(i);
+                    if (arrT.length) {
+                        for (i=0; i<arrT.length; i++) {
+                            arr = (arrT[i] as Farm).arrAnimals;
+                            for (j=0; j<arr.length; j++) {
+                                (arr[j] as Animal).addArrow(3);
+                            }
+                        }
+                        g.cont.moveCenterToPos((arr[0] as WorldObject).posX, (arr[0] as WorldObject).posY);
+                    } else {
+                        new FlyMessage(p,'Нужное здание еще не построено');
+                    }
+                } else {
+                    Cc.error('ManagerQuest checkOnClickAtWoQuestItem FEED_ANIMAL:: no farm for aminalId: ' + t.resourceId);
+                }
+                break;
+            case BUY_CAT:
+                g.windowsManager.closeAllWindows();
+                g.bottomPanel.addArrow('shop', 3);
+                break;
+            case OPEN_TERRITORY:
+                g.windowsManager.closeAllWindows();
+                arrT = g.townArea.getCityObjectsByType(BuildType.LOCKED_LAND);
+                arr = [];
+                for (i=0; i<arrT.length; i++) {
+                    if ((arrT[i] as LockedLand).dataLockedLand.blockByLevel <= g.user.level) arr.push(arrT[i]);
+                }
+                if (arr.length) {
+                    for (i=0; i<arr.length; i++) {
+                        (arr[i] as WorldObject).showArrow(3);
+                    }
+                    g.cont.moveCenterToPos((arr[0] as WorldObject).posX, (arr[0] as WorldObject).posY);
+                } else {
+                    new FlyMessage(p,'Для открытия новых территорий увеличьте свой уровень');
+                }
+                break;
+            case BUY_PAPER:
+                g.windowsManager.closeAllWindows();
+                arrT = g.townArea.getCityObjectsByType(BuildType.PAPER);
+                if (arrT.length) {
+                    (arrT[0] as WorldObject).showArrow(3);
+                    g.cont.moveCenterToPos((arr[0] as WorldObject).posX, (arr[0] as WorldObject).posY);
+                } else {
+                    Cc.error('ManagerQuest checkOnClickAtWoQuestItem BUY_PAPER:: no Paper building (');
+                }
+                break;
+            case SET_IN_PAPER:
+                g.windowsManager.closeAllWindows();
+                arrT = g.townArea.getCityObjectsByType(BuildType.MARKET);
+                if (arrT.length) {
+                    (arrT[0] as WorldObject).showArrow(3);
+                    g.cont.moveCenterToPos((arr[0] as WorldObject).posX, (arr[0] as WorldObject).posY);
+                } else {
+                    Cc.error('ManagerQuest checkOnClickAtWoQuestItem SET_IN_PAPER:: no Market building (');
+                }
+                break;
+            case REMOVE_WILD:
+                g.windowsManager.closeAllWindows();
+                arrT = g.townArea.getAwayCityObjectsByType(BuildType.WILD);
+                if (arrT) {
+                    for (i=0; i<arrT.length; i++) {
+                        (arrT[i] as WorldObject).showArrow(3);
+                    }
+                    g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
+                } else {
+                    new FlyMessage(p,'Нету доступных объектов');
+                }
+                break;
+            case KILL_MOUSE:
+                g.windowsManager.closeAllWindows();
+                new FlyMessage(p,'Перейдите на поляну друга');
+                break;
+            case NIASH_BUYER:
+                g.windowsManager.closeAllWindows();
+                g.cont.moveCenterToPos(28, -5);
+                g.managerBuyerNyashuk.addArrows(3);
                 break;
         }
 

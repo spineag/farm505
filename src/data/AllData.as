@@ -72,5 +72,25 @@ public class AllData {
         }
         return 0;
     }
+
+    public function getFarmIdForResourceId(rId:int):int {
+        var d:Object = g.dataAnimal.objectAnimal;
+        for(var id:String in d) {
+            if (d[id].idResource == rId) {
+                return d[id].buildId;
+            }
+        }
+        return 0;
+    }
+    
+    public function getFarmIdForAnimal(aId:int):int {
+        var d:Object = g.dataAnimal.objectAnimal;
+        for(var id:String in d) {
+            if (d[id].id == aId) {
+                return d[id].buildId;
+            }
+        }
+        return 0;
+    }
 }
 }

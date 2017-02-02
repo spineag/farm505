@@ -17,12 +17,12 @@ import manager.AStar.DirectWay;
 import windows.WindowsManager;
 
 public class ManagerBuyerNyashuk {
-
     private var _arr:Array;
     private var g:Vars = Vars.getInstance();
     private var _arrayNya:Array;
     private var _timer:int;
     private var afterNewLvl:Boolean;
+    
     public function ManagerBuyerNyashuk(first:Boolean = false) {
         afterNewLvl = first;
         _arrayNya = [];
@@ -33,10 +33,11 @@ public class ManagerBuyerNyashuk {
 
     public function fillBot(ar:Array):void {
         var ob:Object;
+        var i:int;
         _arr = null;
         _arr = [];
         if (ar.length > 0) {
-            for (var i:int = 0; i < ar.length; i++) {
+            for (i = 0; i < ar.length; i++) {
                 if (ar[i].visible == true) {
                     if (int(ar[i].user_id == g.user.userId)) continue;
                     ob = {};
@@ -73,13 +74,13 @@ public class ManagerBuyerNyashuk {
 
     private function timeToCreate():void {
         _timer++;
-            if (_timer >= 5) {
-                if (!afterNewLvl) {
-                    g.gameDispatcher.removeFromTimer(timeToCreate);
-                    _timer = 0;
-                    addNyashukOnStartGame();
-                } else {
-                if (_arr.length > 0 && _timer == 5) getNewNyaForOrder(null, _arr[0], _arr[0].buyerId);
+        if (_timer >= 5) {
+            if (!afterNewLvl) {
+                g.gameDispatcher.removeFromTimer(timeToCreate);
+                _timer = 0;
+                addNyashukOnStartGame();
+            } else {
+            if (_arr.length > 0 && _timer == 5) getNewNyaForOrder(null, _arr[0], _arr[0].buyerId);
                 if (_arr.length == 2) {
                     if (_timer >= 7) {
                         g.gameDispatcher.removeFromTimer(timeToCreate);
@@ -212,8 +213,11 @@ public class ManagerBuyerNyashuk {
         }
     }
 
-    public function get arr():Array {
-        return _arr;
+    public function get arr():Array { return _arr; }
+    public function addArrows(t:Number = 0):void {
+        for (var i:int=0; i<_arrayNya[i].length; i++) {
+            (_arrayNya[i] as BuyerNyashuk).addArrow(t);
+        }
     }
 
     public function onGoAwayToUser(v:Boolean):void {
@@ -326,7 +330,7 @@ public class ManagerBuyerNyashuk {
     }
 
 
-    // ------ new Cat arrived --------
+    // ------ new Nyashuk arrived --------
     public function getNewNyaForOrder(onArriveCallback:Function = null, ob:Object = null, id:int = 1):BuyerNyashuk{
         var nya:BuyerNyashuk = new BuyerNyashuk(id,ob);
         nya.noClick();

@@ -124,9 +124,8 @@ public class LockedLand extends WorldObject {
         _bottomRibbon.addChild(im);
     }
 
-    override public function get depth():Number {
-        return _depth;
-    }
+    override public function get depth():Number { return _depth; }
+    public function get dataLockedLand():Object { return _dataLand; }
 
     public function addWild(w:Wild = null, d:Decor = null, c:ChestYellow = null, dA:DecorAnimation = null, _x:int = 0, _y:int = 0):void {
         if (w != null) {

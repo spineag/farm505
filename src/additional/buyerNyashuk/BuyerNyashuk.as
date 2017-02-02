@@ -34,6 +34,7 @@ import utils.CSprite;
 import utils.IsoUtils;
 import utils.MCScaler;
 import utils.Point3D;
+import utils.SimpleArrow;
 
 import windows.WindowsManager;
 
@@ -66,6 +67,7 @@ public class BuyerNyashuk {
     private var _booleanFront:Boolean = true;
     private var _spriteTxt:Sprite;
     private var _isHover:Boolean;
+    private var _arrow:SimpleArrow;
 
     public function BuyerNyashuk(id:int, ob:Object) {
         _buyerId = id;
@@ -166,41 +168,33 @@ public class BuyerNyashuk {
         _armature.animation.gotoAndPlayByFrame('run_quest');
     }
 
-    private function onOut():void {
-        _isHover = false;
-    }
-
-    public function get source():Sprite {
-        return _source;
-    }
-
-    public function get posX():int {
-        return _posX;
-    }
-
-    public function get posY():int {
-        return _posY;
-    }
-
-    public function get rect():Rectangle {
-        return _rect;
-    }
-
-    public function setPositionInQueue(i:int):void {
-        _queuePosition = i;
-    }
-
-    public function get queuePosition():int {
-        return _queuePosition;
-    }
-
-    public function flipIt(v:Boolean):void {
-        v ? _source.scaleX = -1: _source.scaleX = 1;
-    }
+    private function onOut():void { _isHover = false; }
+    public function get source():Sprite { return _source; }
+    public function get posX():int { return _posX; }
+    public function get posY():int { return _posY; }
+    public function get rect():Rectangle { return _rect; }
+    public function setPositionInQueue(i:int):void { _queuePosition = i; }
+    public function get queuePosition():int { return _queuePosition; }
+    public function flipIt(v:Boolean):void { v ? _source.scaleX = -1: _source.scaleX = 1; }
 
     public function showFront(v:Boolean):void {
         _booleanFront = v;
         walkAnimation();
+    }
+
+    public function addArrow(t:Number = 0):void {
+        removeArrow();
+        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
+        _arrow.scaleIt(.7);
+        _arrow.animateAtPosition(0, -70);
+        if (t>0) _arrow.activateTimer(t, removeArrow);
+}
+
+    public function removeArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
     }
 
     public function setTailPositions(posX:int, posY:int):void {
