@@ -39,12 +39,8 @@ public class ManagerPaper {
     }
 
     public function getPaperItems():void {
-//        g.directServer.getUserPapperBuy(getUserPapperBuy);
+       g.directServer.getPaperItems(null);
 
-    }
-
-    private function getUserPapperBuy ():void {
-        g.directServer.getPaperItems(null);
     }
 }
 }

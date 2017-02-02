@@ -148,6 +148,7 @@ public class Vars {
     public var managerWallPost:ManagerWallPost;
     public var managerInviteFriend:ManagerInviteFriend;
     public var managerTimerSkip:ManagerTimerSkip;
+    public var managerParty:ManagerParty;
     public var cont:Containers;
     public var ownMouse:OwnMouse;
     public var toolsModifier:ToolsModifier;
@@ -564,7 +565,7 @@ public class Vars {
             if (useNewTuts) {
                 managerQuest.getQuestsOnStart();
             }
-            managerMiniScenes.updateMiniScenesLengthOnGameStart();
+        managerMiniScenes.updateMiniScenesLengthOnGameStart();
             managerButterfly = new ManagerButterfly();
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();

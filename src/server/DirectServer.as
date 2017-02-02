@@ -6982,21 +6982,21 @@ public class DirectServer {
         }
     }
 
-    public function getUserParty(callback:Function):void {
+    public function getDataParty(callback:Function):void {
         var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_PARTY);
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_DATA_PARTY);
         var variables:URLVariables = new URLVariables();
 
-        Cc.ch('server', 'getUserParty', 1);
+        Cc.ch('server', 'getDataParty', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
-        loader.addEventListener(Event.COMPLETE, onCompleteGetUserParty);
+        loader.addEventListener(Event.COMPLETE, onCompleteGetDataParty);
         loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
-        function onCompleteGetUserParty(e:Event):void { completeGetUserParty(e.target.data, callback); }
+        function onCompleteGetDataParty(e:Event):void { completeGetDataParty(e.target.data, callback); }
         try {
             loader.load(request);
         } catch (error:Error) {
@@ -7004,7 +7004,7 @@ public class DirectServer {
         }
     }
 
-    private function completeGetUserParty(response:String, callback:Function = null):void {
+    private function completeGetDataParty(response:String, callback:Function = null):void {
         iconMouse.endConnect();
         var d:Object;
         var obj:Object = {};
@@ -7012,8 +7012,8 @@ public class DirectServer {
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
-            Cc.error('getUserParty: wrong JSON:' + String(response));
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserParty: wrong JSON:' + String(response));
+            Cc.error('getDataParty: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataParty: wrong JSON:' + String(response));
             return;
         }
 
@@ -7033,7 +7033,7 @@ public class DirectServer {
         if (d.message.count_to_gift) obj.countToGift = String(d.message.count_to_gift).split('&');
         for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.idGift[k]);
         if (d.id == 0) {
-            Cc.ch('server', 'getUserEvent OK', 5);
+            Cc.ch('server', 'getDataParty OK', 5);
             if (callback != null) {
                 callback.apply(null, [obj]);
             }
@@ -7042,7 +7042,7 @@ public class DirectServer {
         } else if (d.id == 6) {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
-            Cc.error('getUserParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            Cc.error('getDataParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
@@ -7160,6 +7160,53 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply(null, [false]);
             }
+        }
+    }
+
+    public function getUserParty(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_PARTY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserParty', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserParty);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetUserParty(e:Event):void { completeGetUserParty(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserEvent error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserParty(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserParty: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserParty: wrong JSON:' + String(response));
+            return;
+        }
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserEvent OK', 5);
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getUserParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
 

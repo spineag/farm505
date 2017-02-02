@@ -405,17 +405,17 @@ public class WOFabricaWorkListItem {
             _txt = null;
         }
         if (txtPropose) {
-            _proposeBtn.removeChild(txtPropose);
+            if (_proposeBtn) _proposeBtn.removeChild(txtPropose);
             txtPropose.deleteIt();
             txtPropose = null;
         }
         if (txtPropose2) {
-            _proposeBtn.removeChild(txtPropose2);
+            if (_proposeBtn)_proposeBtn.removeChild(txtPropose2);
             txtPropose2.deleteIt();
             txtPropose2 = null;
         }
         if (_txtSkip) {
-            _btnSkip.removeChild(_txtSkip);
+            if (_btnSkip) _btnSkip.removeChild(_txtSkip);
             _txtSkip.deleteIt();
             _txtSkip = null;
         }
@@ -430,7 +430,7 @@ public class WOFabricaWorkListItem {
             _txtTimer = null;
         }
         if (_txtForce) {
-            _btnSkip.removeChild(_txtForce);
+            if (_btnSkip) _btnSkip.removeChild(_txtForce);
             _txtForce.deleteIt();
             _txtForce = null;
         }

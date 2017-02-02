@@ -5,10 +5,12 @@ package ui.catPanel {
 import data.BuildType;
 
 import manager.ManagerFilters;
+import manager.ManagerParty;
 import manager.ManagerWallPost;
 import manager.Vars;
 
 import social.SocialNetworkSwitch;
+import loaders.PBitmap;
 
 import starling.core.Starling;
 import starling.display.Image;
@@ -27,6 +29,7 @@ public class CatPanel {
     public var catBuing:Boolean;
 
     private var g:Vars = Vars.getInstance();
+
     public function CatPanel() {
         _source = new CSprite();
         _source.nameIt = 'catPanel';
@@ -90,17 +93,18 @@ public class CatPanel {
     }
 
     private function onClick():void {
-        if ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
-            if (g.user.userSocialId == '252433337505') {
-                g.user.level++;
-                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-            }
-        } else {
-            if (g.user.userSocialId == '14663166' || g.user.userSocialId == '201166703' || g.user.userSocialId == '168207096' || g.user.userSocialId == '202427318' || g.user.userSocialId == '191561520') {
-                g.user.level++;
-                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-            }
-        }
+//               var m:ManagerParty = new ManagerParty();
+        //        if ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
+//            if (g.user.userSocialId == '252433337505') {
+//                g.user.level++;
+//                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+//            }
+//        } else {
+//            if (g.user.userSocialId == '14663166' || g.user.userSocialId == '201166703' || g.user.userSocialId == '168207096' || g.user.userSocialId == '202427318' || g.user.userSocialId == '191561520') {
+//                g.user.level++;
+//                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+//            }
+//        }
 //        g.directServer.addUserXP(1,null);
 //        var _dataBuild:Object = g.dataBuilding.objectBuilding[9];
 //        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
