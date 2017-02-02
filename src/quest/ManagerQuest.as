@@ -62,6 +62,7 @@ public class ManagerQuest {
     public function addUI():void {
         if (g.user.level >= 5 && g.useQuests) {
             _questUI = new QuestIconUI(openWOList);
+            if (_userQuests.length) _questUI.showItAnimate();
         }
     }
 
@@ -90,10 +91,12 @@ public class ManagerQuest {
 
     private function onGetNewQuests(d:Object):void {
         addQuests(d, true);
-        if (_userQuests.length) {
-            if (!_questUI.isShow) _questUI.showItAnimate();
-        } else {
-            if (_questUI.isShow) _questUI.hideItAnimate();
+        if (_questUI) {
+            if (_userQuests.length) {
+                if (!_questUI.isShow) _questUI.showItAnimate();
+            } else {
+                if (_questUI.isShow) _questUI.hideItAnimate();
+            }
         }
     }
 

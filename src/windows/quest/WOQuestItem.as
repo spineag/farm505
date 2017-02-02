@@ -74,37 +74,26 @@ internal class Item extends Sprite {
     public function Item(c:int, t:QuestTaskStructure) {
         _task = t;
         _c = c;
-        if (c == 1) {
-            _bg = new CartonBackgroundIn(460, 160);
-            if (_task.isDone) {
-                _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-                MCScaler.scale(_galo4ka, 50, 50);
-                _galo4ka.alignPivot();
-                _galo4ka.x = 390;
-            } else {
+        if (_task.isDone) {
+            _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+            MCScaler.scale(_galo4ka, 50, 50);
+            _galo4ka.alignPivot();
+            _galo4ka.x = 390;
+        } else {
+            if (c == 1) {
+                _bg = new CartonBackgroundIn(460, 160);
                 _btn = new CButton();
                 _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-                _txtBtn = new CTextField(120,40,'Показать');
+                _txtBtn = new CTextField(120, 40, 'Показать');
                 _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 _btn.x = 390;
                 _btn.y = 25;
-                _countTxt = new CTextField(80, 30,'');
+                _countTxt = new CTextField(80, 30, '');
                 _countTxt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BROWN_COLOR);
                 _countTxt.y = -40;
                 _countTxt.x = 350;
-            }
-            _txt = new CTextField(220, 120, _task.description);
-            _txt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BROWN_COLOR);
-            _txt.y = -62;
-            _txt.x = 100;
-        } else if (c==2) {
-            _bg = new CartonBackgroundIn(460, 100);
-            if (_task.isDone) {
-                _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-                MCScaler.scale(_galo4ka, 50, 50);
-                _galo4ka.alignPivot();
-                _galo4ka.x = 390;
-            } else {
+            } else if (c == 2) {
+                _bg = new CartonBackgroundIn(460, 100);
                 _btn = new CButton();
                 _btn.addButtonTexture(100, 40, CButton.GREEN, true);
                 _txtBtn = new CTextField(96, 40, 'Показать');
@@ -115,19 +104,8 @@ internal class Item extends Sprite {
                 _countTxt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BROWN_COLOR);
                 _countTxt.y = -15;
                 _countTxt.x = 285;
-            }
-            _txt = new CTextField(210, 80, _task.description);
-            _txt.setFormat(CTextField.MEDIUM24, 20, ManagerFilters.BROWN_COLOR);
-            _txt.y = -40;
-            _txt.x = 75;
-        } else if (c==3) {
-            _bg = new CartonBackgroundIn(460, 70);
-            if (_task.isDone) {
-                _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-                MCScaler.scale(_galo4ka, 50, 50);
-                _galo4ka.alignPivot();
-                _galo4ka.x = 390;
-            } else {
+            } else if (c == 3) {
+                _bg = new CartonBackgroundIn(460, 70);
                 _btn = new CButton();
                 _btn.addButtonTexture(80, 30, CButton.GREEN, true);
                 _txtBtn = new CTextField(76, 30, 'Показать');
@@ -139,6 +117,18 @@ internal class Item extends Sprite {
                 _countTxt.y = -15;
                 _countTxt.x = 305;
             }
+        }
+        if (c == 1) {
+            _txt = new CTextField(220, 120, _task.description);
+            _txt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BROWN_COLOR);
+            _txt.y = -62;
+            _txt.x = 100;
+        } else if (c == 2) {
+            _txt = new CTextField(210, 80, _task.description);
+            _txt.setFormat(CTextField.MEDIUM24, 20, ManagerFilters.BROWN_COLOR);
+            _txt.y = -40;
+            _txt.x = 75;
+        } else if (c == 3) {
             _txt = new CTextField(240, 60, _task.description);
             _txt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BROWN_COLOR);
             _txt.y = -30;
@@ -153,6 +143,15 @@ internal class Item extends Sprite {
             _btn.addChild(_txtBtn);
             addChild(_btn);
             _btn.clickCallback = onClick;
+            if (_task.typeAction == ManagerQuest.POST) {
+                _txtBtn.text = 'Рассказать';
+            } else if (_task.typeAction == ManagerQuest.ADD_LEFT_MENU) {
+                _txtBtn.text = 'Добавить';
+            } else if (_task.typeAction == ManagerQuest.INVITE_FRIENDS) {
+                _txtBtn.text = 'Пригласить';
+            } else if (_task.typeAction == ManagerQuest.ADD_TO_GROUP) {
+                _txtBtn.text = 'Вступить';
+            }
         }
         addChild(_txt);
         if (_countTxt) {
@@ -160,17 +159,7 @@ internal class Item extends Sprite {
             _countTxt.touchable = false;
             addChild(_countTxt);
         }
-
         g.load.loadImage(ManagerQuest.ICON_PATH + _task.icon, onLoadIcon);
-        if (_task.typeAction == ManagerQuest.POST) {
-            _txtBtn.text = 'Рассказать';
-        } else if (_task.typeAction == ManagerQuest.ADD_LEFT_MENU) {
-            _txtBtn.text = 'Добавить';
-        } else if (_task.typeAction == ManagerQuest.INVITE_FRIENDS) {
-            _txtBtn.text = 'Пригласить';
-        } else if (_task.typeAction == ManagerQuest.ADD_TO_GROUP) {
-            _txtBtn.text = 'Вступить';
-        }
     }
 
     private function onLoadIcon(bitmap:Bitmap):void {

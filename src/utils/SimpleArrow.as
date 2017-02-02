@@ -95,13 +95,17 @@ public class SimpleArrow {
             _timer = null;
             _onTimerCallback = null;
         }
-        TweenMax.killTweensOf(_source);
-        if (_parent.contains(_source)) _parent.removeChild(_source);
-        WorldClock.clock.remove(_armature);
-        _armature.dispose();
-        _source.dispose();
-        _armature = null;
-        _source = null;
+        if (_armature) {
+            WorldClock.clock.remove(_armature);
+            _armature.dispose();
+            _armature = null;
+        }
+        if (_source) {
+            TweenMax.killTweensOf(_source);
+            if (_parent && _parent.contains(_source)) _parent.removeChild(_source);
+            _source.dispose();
+            _source = null;
+        }
         _parent = null;
     }
 
