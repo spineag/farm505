@@ -93,7 +93,7 @@ public class CatPanel {
     }
 
     private function onClick():void {
-//               var m:ManagerParty = new ManagerParty();
+       // g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
         //        if ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
 //            if (g.user.userSocialId == '252433337505') {
 //                g.user.level++;
