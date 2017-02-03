@@ -148,7 +148,7 @@ public class Vars {
     public var managerWallPost:ManagerWallPost;
     public var managerInviteFriend:ManagerInviteFriend;
     public var managerTimerSkip:ManagerTimerSkip;
-    public var managerParty:ManagerParty;
+//    public var ManagerParty:ManagerParty;
     public var cont:Containers;
     public var ownMouse:OwnMouse;
     public var toolsModifier:ToolsModifier;

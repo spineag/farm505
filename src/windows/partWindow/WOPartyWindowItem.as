@@ -20,27 +20,51 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
+import utils.MCScaler;
 
 public class WOPartyWindowItem {
     public var source:CSprite;
     private var _btn:CButton;
     private var _txtBtn:CTextField;
-    private var _txtCount:CTextField;
+    private var _txtCountToGift:CTextField;
     private var g:Vars = Vars.getInstance();
 
-    public function WOPartyWindowItem() {
+    public function WOPartyWindowItem(id:int, type:int, count:int, countToGift:int, number:int) {
         source = new CSprite();
         _btn = new CButton();
-        _btn.addButtonTexture(172, 45, CButton.GREEN, true);
-        _txtBtn = new CTextField(110,100,"ВЗЯТЬ");
+        var im:Image;
+        if (number == 5) im  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_2'));
+        else im  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
+        source.addChild(im);
+        if (id == 1 && type  == 1) {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
+            source.addChild(im);
+        } else if (id == 2 && type == 2) {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
+            source.addChild(im);
+        }  else if (type == BuildType.RESOURCE || type == BuildType.INSTRUMENT || type == BuildType.PLANT) {
+            im = new Image(g.allData.atlas[g.dataResource.objectResources[id].url].getTexture(g.dataResource.objectResources[id].imageShop));
+            source.addChild(im);
+        } else if (type == BuildType.DECOR_ANIMATION) {
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[id].url + '_icon'));
+            source.addChild(im);
+
+        } else if (type == BuildType.DECOR) {
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[id].image +'_icon'));
+            source.addChild(im);
+        }
+        MCScaler.scale(im, 80,80);
+        _btn.addButtonTexture(80, 20, CButton.GREEN, true);
+        _txtBtn = new CTextField(80,20,"ВЗЯТЬ");
         _txtBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btn.addChild(_txtBtn);
+        _btn.y = 90;
 //        _btn.clickCallback = onClick;
         source.addChild(_btn);
 
-        _txtCount = new CTextField(110,100,"");
-        _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        source.addChild(_txtCount);
+        _txtCountToGift = new CTextField(110,100,String(countToGift));
+        _txtCountToGift.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        source.addChild(_txtCountToGift);
     }
 
 //    private function onClick():void {
