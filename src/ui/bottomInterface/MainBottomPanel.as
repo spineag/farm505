@@ -13,6 +13,9 @@ import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
 import mouse.ToolsModifier;
+
+import social.SocialNetworkSwitch;
+
 import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -547,7 +550,10 @@ public class MainBottomPanel {
                 _arrow.animateAtPosition(_homeBtn.x, _homeBtn.y - _homeBtn.height/2 - 10);
                 break;
         }
-        _arrow.scaleIt(.7);
+        if (g.managerTutorial.isTutorial) {
+            if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) _arrow.scaleIt(1.2);
+                else _arrow.scaleIt(1.4);
+        } else _arrow.scaleIt(.7);
         if (t) _arrow.activateTimer(t, deleteArrow);
     }
 
