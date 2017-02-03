@@ -19,6 +19,7 @@ public class WOQuestFinishAward extends WindowMain {
     private var _btn:CButton;
     private var _quest:QuestStructure;
     private var _items:Array;
+    private var _callback:Function;
 
     public function WOQuestFinishAward() {
         super();
@@ -57,6 +58,7 @@ public class WOQuestFinishAward extends WindowMain {
     }
 
     override public function showItParams(f:Function, params:Array):void {
+        _callback = f;
         if (params.length && params[0] is QuestStructure) {
             _quest = params[0] as QuestStructure;
         } else {
@@ -88,6 +90,10 @@ public class WOQuestFinishAward extends WindowMain {
             _items[i].flyIt(i);
         }
         _items.length = 0;
+        if (_callback != null) {
+            _callback.apply(null, [_quest]);
+            _callback = null;
+        }
         Utils.createDelay(.5, super.hideIt);
     }
 
@@ -216,8 +222,8 @@ internal class Item extends Sprite {
         var tempY:int = _source.y + 30 + int(Math.random()*20);
         var dist:int = int(Math.sqrt((_source.x - endPoint.x)*(_source.x - endPoint.x) + (_source.y - endPoint.y)*(_source.y - endPoint.y)));
         var v:int;
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 300;
-        else v = 460;
+        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = 500;
+        else v = 800;
         new TweenMax(_source, dist/v, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:.5, scaleY:.5, ease:Linear.easeOut, onComplete: f1, delay:i * .2});
     }
 

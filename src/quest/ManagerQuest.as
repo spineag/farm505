@@ -165,8 +165,12 @@ public class ManagerQuest {
                 break;
             case ADD_TO_GROUP:
                 Link.openURL(g.socialNetwork.urlForAnySocialGroup + t.adds);
-                _timer = 3;
-                g.gameDispatcher.addToTimer(checkWithTimer);
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) { // temp
+                    onActionForTaskType(ManagerQuest.ADD_TO_GROUP);
+                } else {
+                    _timer = 3;
+                    g.gameDispatcher.addToTimer(checkWithTimer);
+                }
                 break;
             case POST:
                 g.managerWallPost.openWindow(ManagerWallPost.POST_FOR_QUEST, null, 0, DataMoney.SOFT_CURRENCY);
@@ -360,7 +364,13 @@ public class ManagerQuest {
     }
 
     private function onGetAward(q:QuestStructure):void {
-        if (_userQuests.indexOf(q) > -1) _userQuests.removeAt(_userQuests.indexOf(q));
+        for (var i:int=0; i<_userQuests.length; i++) {
+            if ((_userQuests[i] as QuestStructure).questId == q.questId) {
+                _userQuests.removeAt(i);
+                break;
+            }
+        }
+//        if (_userQuests.indexOf(q) > -1) _userQuests.removeAt(_userQuests.indexOf(q));
         g.directServer.getUserQuestAward(q.id, q.idDB, onGetUserQuestAward);
     }
 
