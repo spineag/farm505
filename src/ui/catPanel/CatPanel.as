@@ -2,25 +2,12 @@
  * Created by user on 10/27/15.
  */
 package ui.catPanel {
-import data.BuildType;
-
 import manager.ManagerFilters;
-import manager.ManagerParty;
-import manager.ManagerWallPost;
 import manager.Vars;
-
-import social.SocialNetworkSwitch;
-import loaders.PBitmap;
-
-import starling.core.Starling;
 import starling.display.Image;
-import starling.styles.DistanceFieldStyle;
-import starling.text.TextField;
 import utils.CSprite;
 import utils.CTextField;
-
 import windows.WOComponents.HorizontalPlawka;
-import windows.WindowsManager;
 
 public class CatPanel {
     private var _source:CSprite;

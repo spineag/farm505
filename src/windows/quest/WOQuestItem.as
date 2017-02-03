@@ -160,10 +160,20 @@ internal class Item extends Sprite {
             addChild(_countTxt);
         }
         g.load.loadImage(ManagerQuest.ICON_PATH + _task.icon, onLoadIcon);
+
+        var st:String = _task.icon;
+        if (st == '0') {
+            addIm(_task.iconImageFromAtlas);
+        } else {
+            g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
+        }
     }
 
     private function onLoadIcon(bitmap:Bitmap):void {
-        var im:Image = new Image(Texture.fromBitmap(bitmap));
+        addIm(new Image(Texture.fromBitmap(bitmap)));
+    }
+
+    private function addIm(im:Image):void {
         if (_c == 1) {
             MCScaler.scale(im, 90, 90);
             im.alignPivot();

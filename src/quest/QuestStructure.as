@@ -2,6 +2,9 @@
  * Created by user on 12/30/16.
  */
 package quest {
+import com.junkbyte.console.Cc;
+import starling.display.Image;
+
 public class QuestStructure {
     private var _tasks:Array;
     private var _awards:Array;
@@ -56,7 +59,23 @@ public class QuestStructure {
     public function get tasks():Array { return _tasks; }
     public function get questName():String { return _questData.name; }
     public function get isDone():Boolean { return _isDone; }  
-    public function set isDone(v:Boolean):void { _isDone = v; }  
+    public function set isDone(v:Boolean):void { _isDone = v; }
+
+    public function getUrlFromTask():String {
+        if (!_tasks.length) {
+            Cc.error('QuestStructure no tasks for questId: ' + _questId);
+            return null;
+        }
+        return (_tasks[0] as QuestTaskStructure).icon;
+    }
+
+    public function iconImageFromAtlas():Image {
+        if (!_tasks.length) {
+            Cc.error('QuestStructure no tasks for questId: ' + _questId);
+            return null;
+        }
+        return (_tasks[0] as QuestTaskStructure).iconImageFromAtlas;
+    }
 
 }
 }
