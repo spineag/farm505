@@ -544,11 +544,12 @@ public class Vars {
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
                 managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
-//                if ((socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
-//                    if ((user as User).userSocialId == '252433337505') {
-//                        windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
-//                    }
-//                } else {
+               if ((socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
+                   if ((user as User).userSocialId == '252433337505') {
+                       windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+                   }
+
+               } else {
                     if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
                         windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
                     } else {
@@ -561,12 +562,12 @@ public class Vars {
                             } else managerCats.helloCats();
                         }
                     }
-//                }
+                }
             }
             if (useNewTuts) {
                 managerQuest.getQuestsOnStart();
             }
-        //managerParty = new ManagerParty();
+        //ManagerParty = new ManagerParty();
        // directServer.getDataParty(null);
         managerMiniScenes.updateMiniScenesLengthOnGameStart();
             managerButterfly = new ManagerButterfly();
