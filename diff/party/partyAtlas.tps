@@ -197,6 +197,7 @@
             <filename>place_1.png</filename>
             <filename>place_2.png</filename>
             <filename>progress.png</filename>
+            <filename>valik_timer.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

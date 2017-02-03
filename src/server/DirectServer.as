@@ -7020,7 +7020,7 @@ public class DirectServer {
         obj.timeToEnd = d.message.time_to_end;
         obj.name = d.message.name;
         obj.description = d.message.description;
-
+        obj.partyOn = Boolean(int(d.message.party_on));
         if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
         for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
 
@@ -7031,11 +7031,16 @@ public class DirectServer {
         for (k = 0; k < obj.countGift.length; k++) obj.countGift[k] = int(obj.countGift[k]);
 
         if (d.message.count_to_gift) obj.countToGift = String(d.message.count_to_gift).split('&');
-        for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.idGift[k]);
+        for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.countToGift[k]);
+        g.managerParty.dataParty = obj;
+        if (g.managerParty.dataParty.partyOn) {
+            getUserParty(null);
+            g.managerParty.atlasLoad();
+        }
         if (d.id == 0) {
             Cc.ch('server', 'getDataParty OK', 5);
             if (callback != null) {
-                callback.apply(null, [obj]);
+                callback.apply();
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
@@ -7080,7 +7085,7 @@ public class DirectServer {
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserParty: wrong JSON:' + String(response));
             if (callback != null) {
-                callback.apply(null, [false]);
+                callback.apply();
             }
             return;
         }
@@ -7147,7 +7152,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'updateUserEvent OK', 5);
             if (callback != null) {
-                callback.apply(null, [true]);
+                callback.apply();
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
@@ -7171,7 +7176,7 @@ public class DirectServer {
         Cc.ch('server', 'getUserParty', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+//        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -7188,6 +7193,8 @@ public class DirectServer {
     private function completeGetUserParty(response:String, callback:Function = null):void {
         iconMouse.endConnect();
         var d:Object;
+        var obj:Object = {};
+        var k:int;
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
@@ -7195,10 +7202,14 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserParty: wrong JSON:' + String(response));
             return;
         }
+        obj.countResource = d.message.count_resource;
+        if (d.message.took_gift) obj.tookGift = String(d.message.took_gift).split('&');
+        for (k = 0; k < obj.tookGift.length; k++) obj.tookGift[k] = int(obj.tookGift[k]);
+        g.managerParty.userParty = obj;
         if (d.id == 0) {
             Cc.ch('server', 'getUserEvent OK', 5);
             if (callback != null) {
-                callback.apply(null, [d.message]);
+                callback.apply();
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
