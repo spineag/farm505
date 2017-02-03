@@ -2,7 +2,12 @@
  * Created by user on 12/30/16.
  */
 package quest {
+import data.BuildType;
+import manager.Vars;
+import starling.display.Image;
+
 public class QuestTaskStructure {
+    private var g:Vars = Vars.getInstance();
     private var _taskId:int;
     private var _questId:int;
     private var _taskData:Object;
@@ -25,9 +30,7 @@ public class QuestTaskStructure {
 
     public function upgradeCount():void {
         _countDone++;
-        if (_countDone >= countNeed) {
-            _isDone = true;
-        }
+        if (_countDone >= countNeed) _isDone = true;
     }
 
     public function get icon():String { return _taskData.icon_task; } // if =='0' -> get from resource
@@ -44,6 +47,33 @@ public class QuestTaskStructure {
     public function get resourceId():int { return _taskData.id_resource; }
     public function get isSavedOnServerAfterFinish():Boolean { return _isSavedOnServerAfterFinish; }
     public function onSaveOnServerAfterFinish():void { _isSavedOnServerAfterFinish = true; }
+
+    public function get iconImageFromAtlas():Image {
+        var im:Image;
+        var ob:Object;
+        switch (int(_taskData.type_resource)) {
+            case BuildType.PLANT:
+                ob = g.dataResource.objectResources[int(_taskData.id_resource)];
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(ob.imageShop + '_icon'));
+                break;
+            case BuildType.RESOURCE:
+                ob = g.dataResource.objectResources[int(_taskData.id_resource)];
+                im = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
+                break;
+            case BuildType.FABRICA:
+                ob = g.dataBuilding.objectBuilding[int(_taskData.id_resource)];
+                im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
+                break;
+            case BuildType.WILD:
+                im = new Image(g.allData.atlas['wildAtlas'].getTexture('swamp'));
+                break;
+            case BuildType.ANIMAL:
+                ob = g.dataAnimal.objectAnimal[int(_taskData.id_resource)];
+                g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon');
+                break;
+        }
+        return im;
+    }
 
 }
 }

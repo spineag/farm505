@@ -121,7 +121,7 @@ public class ManagerQuest {
                 if (q) {
                     q.addTask(d.tasks[i]);
                 } else {
-                    Cc.error('ManagerQuests addQuest task:: no quest with id: ' + d);
+                    Cc.error('ManagerQuests addQuest task:: no quest with id: ' + int(d.tasks[i].quest_id));
                 }
             }
             if (d.awards) {
@@ -130,7 +130,7 @@ public class ManagerQuest {
                     if (q) {
                         q.addAward(d.awards[i]);
                     } else {
-                        Cc.error('ManagerQuests addQuest award:: no quest with id: ' + d);
+                        Cc.error('ManagerQuests addQuest award:: no quest with id: ' + int(d.tasks[i].quest_id));
                     }
                 }
             } else {

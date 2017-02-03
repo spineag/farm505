@@ -15,7 +15,7 @@ import utils.MCScaler;
 public class WOQuestListItem {
     private var g:Vars = Vars.getInstance();
     private var _source:CSprite;
-    private var _questData:QuestStructure;
+    private var _quest:QuestStructure;
     private var _onHover:Boolean;
     private var _clickCallback:Function;
 
@@ -23,8 +23,21 @@ public class WOQuestListItem {
         _clickCallback = f;
         _onHover = false;
         _source = new CSprite();
-        _questData = d;
-        g.load.loadImage(ManagerQuest.ICON_PATH + _questData.iconPath, onLoadIcon);
+        _quest = d;
+        var st:String = _quest.iconPath;
+        if (st == '0') {
+            st = _quest.getUrlFromTask();
+            if (st == '0') {
+                addIm(_quest.iconImageFromAtlas());
+            } else {
+                g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon); 
+            }
+        } else {
+            g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
+        }
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
+        _source.endClickCallback = onClick;
     }
 
     public function get source():CSprite {
@@ -32,14 +45,14 @@ public class WOQuestListItem {
     }
 
     private function onLoadIcon(bitmap:Bitmap):void {
-        var im:Image = new Image(Texture.fromBitmap(bitmap));
+        addIm(new Image(Texture.fromBitmap(bitmap)));
+    }
+
+    private function addIm(im:Image):void {
         MCScaler.scale(im, 100, 100);
-        im.x = -im.width/2;
-        im.y = -im.height/2;
+        im.x = -im.width / 2;
+        im.y = -im.height / 2;
         _source.addChild(im);
-        _source.hoverCallback = onHover;
-        _source.outCallback = onOut;
-        _source.endClickCallback = onClick;
     }
 
     private function onHover():void {
@@ -58,14 +71,14 @@ public class WOQuestListItem {
 
     private function onClick():void {
         if (_clickCallback != null) {
-            _clickCallback.apply(null, [_questData]);
+            _clickCallback.apply(null, [_quest]);
         }
     }
 
     public function deleteIt():void {
         _clickCallback = null;
         _source.deleteIt();
-        _questData = null;
+        _quest = null;
     }
 }
 }

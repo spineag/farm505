@@ -18,7 +18,7 @@ public class WOQuest extends WindowMain{
     private var _woBG:WindowBackground;
     private var _birka:Birka;
     private var _bgC:CartonBackground;
-    private var _dataQuest:QuestStructure;
+    private var _quest:QuestStructure;
     private var _txtName:CTextField;
     private var _questItem:WOQuestItem;
     private var _award:WOQuestAward;
@@ -57,10 +57,10 @@ public class WOQuest extends WindowMain{
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        _dataQuest = params[0];
+        _quest = params[0];
         if (g.allData.atlas['questAtlas']) {
             var im:Image;
-            if (_dataQuest.id % 2) im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_1'));
+            if (_quest.id % 2) im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_1'));
                 else im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_2'));
             if (im) {
                 im.x = -im.width/2;
@@ -73,13 +73,13 @@ public class WOQuest extends WindowMain{
         } else {
             Cc.error('WOQuest showItParams:: no questAtlas');
         }
-        _txtDescription.text = _dataQuest.description;
-        _txtName.text = _dataQuest.questName;
+        _txtDescription.text = _quest.description;
+        _txtName.text = _quest.questName;
         _source.setChildIndex(_txtDescription, _source.numChildren-1);
         _source.setChildIndex(_txtName, _source.numChildren-1);
 
-        _award = new WOQuestAward(_source, _dataQuest.awards);
-        _questItem = new WOQuestItem(_source, _dataQuest.tasks);
+        _award = new WOQuestAward(_source, _quest.awards);
+        _questItem = new WOQuestItem(_source, _quest.tasks);
         onWoShowCallback = onShow;
         super.showIt();
     }
