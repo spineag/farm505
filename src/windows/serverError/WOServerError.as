@@ -96,9 +96,9 @@ public class WOServerError extends WindowMain {
             _txtError = null;
         }
         if (txt2) {
-            _b.removeChild(_txtError);
-            _txtError.deleteIt();
-            _txtError = null;
+            _b.removeChild(txt2);
+            txt2.deleteIt();
+            txt2 = null;
         }
         _source.removeChild(_woBG);
         _woBG.deleteIt();
