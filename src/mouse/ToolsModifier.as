@@ -197,7 +197,7 @@ public class ToolsModifier {
                 im2.x = _mouseIcon.width - 27;
                 im2.y = _mouseIcon.height - 23;
                 _mouseIcon.addChild(im2);
-                if (!_mouseIcon.contains(_txtCount)) _mouseIcon.addChild(_txtCount);
+                if (_txtCount && !_mouseIcon.contains(_txtCount)) _mouseIcon.addChild(_txtCount);
                 updateCountTxt();
                 break;
             case ADD_NEW_RIDGE:
@@ -215,10 +215,12 @@ public class ToolsModifier {
      }
 
     public function updateCountTxt():void {
-        if (_plantId > 0) {
-            _txtCount.text = String(g.userInventory.getCountResourceById(_plantId));
-        } else {
-            _txtCount.text = '';
+        if (_txtCount) {
+            if (_plantId > 0) {
+                _txtCount.text = String(g.userInventory.getCountResourceById(_plantId));
+            } else {
+                _txtCount.text = '';
+            }
         }
     }
 
@@ -309,7 +311,6 @@ public class ToolsModifier {
         _activeBuilding.source.x = 0;
         _activeBuilding.source.y = 0;
         _spriteForMove.addChild(_activeBuilding.source);
-
         _spriteForMove.x = _mouse.mouseX - _cont.x;
         _spriteForMove.y = _mouse.mouseY - _cont.y - g.matrixGrid.FACTOR/2;
         _cont.addChild(_spriteForMove);
@@ -321,12 +322,8 @@ public class ToolsModifier {
         if (_activeBuilding.isContDrag() || isFromShop) {
             _needMoveGameCont = true;
         }
-
-
         _cont.addEventListener(TouchEvent.TOUCH, onTouch);
-
         _moveGrid = new BuildMoveGrid(_spriteForMove, _activeBuilding.dataBuild.width, _activeBuilding.dataBuild.height);
-
         g.gameDispatcher.addEnterFrame(moveIt);
     }
 
@@ -339,9 +336,9 @@ public class ToolsModifier {
         }
         if (_moveGrid) _moveGrid.clearIt();
         if (_txtCount) {
-            _mouseIcon.removeChild(_txtCount);
-            _txtCount.deleteIt();
-            _txtCount = null;
+            if (_mouseIcon.contains(_txtCount)) _mouseIcon.removeChild(_txtCount);
+//            _txtCount.deleteIt();
+//            _txtCount = null;
         }
         _moveGrid = null;
         _spriteForMove.removeChild(_activeBuilding.source);

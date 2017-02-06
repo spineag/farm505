@@ -97,6 +97,7 @@ public class Ridge extends WorldObject{
     }
 
     public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
+        var st:int= 0 ;
         try {
             if (_stateRidge != EMPTY) {
                 Cc.error('Try to plant already planted ridge data.name: ' + data.name);
@@ -107,49 +108,78 @@ public class Ridge extends WorldObject{
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 return;
             }
-
+st=1;
             _stateRidge = GROW1;
             _dataPlant = data;
+            st = 2;
             _plant = new PlantOnRidge(this, _dataPlant);
-
+st=3;
             if (timeWork < _dataPlant.buildTime) {
+                st=4;
                 _plant.checkTimeGrowing(timeWork);
+                st=5;
                 if (!g.isAway) {
+                    st=6;
                     _plant.activateRender();
+                    st = 7;
                     g.managerPlantRidge.addCatForPlant(_dataPlant.id, this);
                 }
+                st=8;
                 _plant.checkStateRidge(false);
+                st=9;
             } else {
                 _stateRidge = GROWED;
                 _plant.checkStateRidge();
+                st=10;
             }
+        } catch (e:Error) {
+            Cc.error('Try to plant already planted ridge part1 error: ' + e.message);
+            Cc.error('st: ' + st + '  _stageRidge: ' + _stateRidge);
+        }
 
+        try {
+            st=11;
             if (!isFromServer) {
+                st=12;
                 g.userInventory.addResource(_dataPlant.id, -1);
+                st=13;
                 g.toolsModifier.updateCountTxt();
-                g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PLANT, {id:_dataPlant.id});
-
+                st=14;
                 var f1:Function = function (s:String):void {
                     _plant.idFromServer = s;
                 };
+                st=15;
                 g.directServer.rawPlantOnRidge(_dataPlant.id, _dbBuildingId, f1);
+                st=16;
                 var p:Point = new Point(_source.x, _source.y);
                 p = _source.parent.localToGlobal(p);
+                st=17;
                 new RawItem(p, g.allData.atlas['resourceAtlas'].getTexture(_dataPlant.imageShop + '_icon'), 1, 0);
+                st=18;
                 var ob:Object;
                 ob = {};
                 ob.dbId = dbBuildingId;
+                st=19;
                 ob.plantId = _dataPlant.id;
                 ob.state = _stateRidge;
+                st=20;
                 g.user.userDataCity.plants.push(ob);
+                st=21;
             }
-            updateRidgeHitArea();
-
         } catch (e:Error) {
-            if (_stateRidge != EMPTY) {
-                Cc.error('Try to plant already planted ridge');
+                Cc.error('Try to plant already planted ridge part2 error: ' + e.message);
+                Cc.error('st: ' + st + '  _stageRidge: ' + _stateRidge);
                 return;
-            }
+        }
+        try {
+            g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PLANT, {id: _dataPlant.id});
+        } catch (e:Error) {
+            Cc.error('Try to plant already planted ridge part3 error: ' + e.message);
+        }
+        try {
+            updateRidgeHitArea();
+        } catch (e:Error) {
+            Cc.error('Try to plant already planted ridge part4 error: ' + e.message);
         }
     }
 
@@ -283,7 +313,7 @@ public class Ridge extends WorldObject{
             var arr:Array = g.user.userDataCity.plants;
             for (var i:int = 0; i < arr.length; i++) {
                 if (int(arr[i].dbId) == dbBuildingId) {
-                    Cc.error('this ridhe have plant in data');
+                    Cc.error('this ridge have plant in data');
                     return;
                 }
             }
