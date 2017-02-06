@@ -15,6 +15,7 @@ public class UserTimer {
     public var _arrOrderItem:Array;
     private var _orderManagerItem:ManagerOrderItem;
     private var g:Vars = Vars.getInstance();
+    public var partyTimer:int;
 
     public function UserTimer() {
         _arrOrderItem = [];
@@ -75,6 +76,19 @@ public class UserTimer {
             timerAtNyashukBlue = 0;
             g.managerBuyerNyashuk.timeToNewNyashuk();
             g.gameDispatcher.removeFromTimer(nyashukTimerBlue);
+        }
+    }
+
+    public function party(time:int):void {
+        partyTimer = time;
+        g.gameDispatcher.addToTimer(partyTimerToEnd);
+    }
+
+    private function partyTimerToEnd():void {
+        partyTimer--;
+        if (partyTimer <= 0) {
+            partyTimer = 0;
+            g.gameDispatcher.removeFromTimer(partyTimerToEnd);
         }
     }
 

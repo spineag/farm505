@@ -35,6 +35,7 @@ public class WOPartyWindowItem {
     private var _txtBtn:CTextField;
     private var _txtCountResource:CTextField;
     private var _txtCountToGift:CTextField;
+    private var _txtCountUser:CTextField;
     private var g:Vars = Vars.getInstance();
     private var _bg:Image;
     private var _data:Object;
@@ -90,6 +91,9 @@ public class WOPartyWindowItem {
         _btn.y = 120;
         _btn.x = 60;
         _btn.clickCallback = onClick;
+        if (!Boolean(g.managerParty.userParty.tookGift[_data.number - 1]) && g.managerParty.userParty.countResource >= _data.countToGift)  {
+            _btn.setEnabled = true;
+        } else _btn.setEnabled = false;
         source.addChild(_btn);
 
         _txtCountResource = new CTextField(119,100,String(countResource));
@@ -103,17 +107,54 @@ public class WOPartyWindowItem {
         _txtCountToGift = new CTextField(119,100,String(countToGift));
         _txtCountToGift.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCountToGift.y = 93;
-        source.addChild(_txtCountToGift);  _txtCountToGift = new CTextField(110,100,String(countToGift));
-        var _quad:Quad;
-        if (g.managerParty.userParty.countResource > countToGift) _quad = new Quad(20, 28, 0xff3da5);
-        else _quad = new Quad(1, 30, 0xff3da5);
-        _quad.x = 20;
-        _quad.y = 162;
-        source.addChild(_quad);
+        source.addChild(_txtCountToGift);
 
+        _txtCountUser = new CTextField(119,100,String(g.managerParty.userParty.countResource));
+        _txtCountUser.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PURPLE_COLOR);
+        _txtCountUser.y = 125;
+
+        var _quad:Quad;
+        var width:int;
+        if (number > 1) {
+            width = (100 * (g.managerParty.userParty.countResource - g.managerParty.dataParty.countToGift[number - 1]) / (countToGift - g.managerParty.dataParty.countToGift[number -1])) * .75;
+        } else width = (100 * g.managerParty.userParty.countResource / countToGift) * .75;
+        if (g.managerParty.userParty.countResource > countToGift) {
+            _quad = new Quad(75, 30, 0xff3da5);
+            _quad.y = 162;
+            source.addChild(_quad);
+        }
+        else if (number != 1 && g.managerParty.userParty.countResource > g.managerParty.dataParty.countToGift[number - 2]) {
+            _quad = new Quad(width, 30, 0xff3da5);
+            _quad.x = 20;
+            _quad.y = 162;
+            source.addChild(_quad);
+            source.addChild(_txtCountUser);
+
+        } else if (number == 1 && g.managerParty.userParty.countResource > 0) {
+            _quad = new Quad(width, 30, 0xff3da5);
+            _quad.x = 20;
+            _quad.y = 162;
+            source.addChild(_quad);
+            source.addChild(_txtCountUser);
+        }
+        if (number == 1 &&g.managerParty.userParty.countResource == 0) {
+            source.addChild(_txtCountUser);
+        }
+        if (_quad) {
+            if (number == 1) {
+                _quad.x = 27;
+            } else if (number == 2) {
+                _quad.x = 25;
+            } else if (number == 3) {
+                _quad.x = 23;
+            } else if (number == 5) {
+                _quad.x = 18;
+            }
+        }
     }
 
     private function onClick():void {
+        _btn.setEnabled = false;
         g.managerParty.userParty.tookGift[_data.number - 1] = 1;
         var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
                 + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
@@ -146,25 +187,38 @@ public class WOPartyWindowItem {
         new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
     }
 
-    private function flyItDecor():void {
-        var f1:Function = function (dbId:int):void {
-            g.userInventory.addToDecorInventory(_data.idResource, dbId);
-            deleteIt();
-        };
-        var f:Function = function ():void {
-            g.directServer.buyAndAddToInventory(_data.idResource, f1);
-        };
-        var v:Number;
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = .5;
-        else v = .2;
-        var im:Image;
-        if (int(_data.typeResource) == BuildType.DECOR) im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.idResource].image + '_icon'));
-        else if (int(_data.typeResource) == BuildType.DECOR_ANIMATION) im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.idResource].url + '_icon'));
-        new TweenMax(im, v, {scaleX:.3, scaleY:.3, ease:Back.easeIn, onComplete:f});
-    }
-
-    private function deleteIt():void {
-
+    public function deleteIt():void {
+        if (_txtBtn) {
+            if (_btn) _btn.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
+        if (_btn) {
+            source.removeChild(_btn);
+            _btn.deleteIt();
+            _btn = null;
+        }
+        if (_txtCountResource) {
+            if (source) source.removeChild(_txtCountResource);
+            _txtCountResource.deleteIt();
+            _txtCountResource = null;
+        }
+        if (_txtCountToGift) {
+            if (source) source.removeChild(_txtCountToGift);
+            _txtCountToGift.deleteIt();
+            _txtCountToGift = null;
+        }
+        if(_txtCountUser) {
+            if (source) source.removeChild(_txtCountUser);
+            _txtCountUser.deleteIt();
+            _txtCountUser = null;
+        }
+        if(_bg) {
+            _bg = null;
+        }
+        if (_data) {
+            _data = null;
+        }
     }
 }
 }

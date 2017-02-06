@@ -28,6 +28,7 @@ public class ManagerFilters {
     public static var GRAY_HARD_COLOR:int = 0x444444;
     public static var BLUE_COLOR:int = 0x0968b1;
     public static var LIGHT_BROWN:int = 0xa57728;
+    public static var PURPLE_COLOR:int = 0xc7006b;
 
     public function ManagerFilters() {}
 

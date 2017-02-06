@@ -7018,6 +7018,7 @@ public class DirectServer {
         }
 
         obj.timeToEnd = d.message.time_to_end;
+        g.userTimer.party(obj.timeToEnd - int(new Date().getTime() / 1000));
         obj.name = d.message.name;
         obj.description = d.message.description;
         obj.partyOn = Boolean(int(d.message.party_on));
@@ -7118,8 +7119,8 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.countResource = countResource;
-        variables.tookGift = tookGift;
-        variables.hash = MD5.hash(String(g.user.userId)+String(variables.level)+SECRET);
+        variables.tookGift = '1&2&3';
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -7202,7 +7203,7 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserParty: wrong JSON:' + String(response));
             return;
         }
-        obj.countResource = d.message.count_resource;
+        obj.countResource = int(d.message.count_resource);
         if (d.message.took_gift) obj.tookGift = String(d.message.took_gift).split('&');
         for (k = 0; k < obj.tookGift.length; k++) obj.tookGift[k] = int(obj.tookGift[k]);
         g.managerParty.userParty = obj;
