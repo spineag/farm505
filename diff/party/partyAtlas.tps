@@ -198,6 +198,7 @@
             <filename>place_2.png</filename>
             <filename>progress.png</filename>
             <filename>valik_timer.png</filename>
+            <filename>valentine_pink_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -13,6 +13,8 @@ import starling.utils.Color;
 
 import utils.CButton;
 import utils.CTextField;
+import utils.MCScaler;
+import utils.TimeUtils;
 
 import windows.WOComponents.Birka;
 import windows.WOComponents.WindowBackground;
@@ -66,7 +68,7 @@ public class WOPartyWindow extends WindowMain{
     override public function showItParams(callback:Function, params:Array):void {
         _data = g.managerParty.dataParty;
         _txtName = new CTextField(500, 70, String(_data.name));
-        _txtName.setFormat(CTextField.BOLD30, 35, Color.RED, Color.WHITE);
+        _txtName.setFormat(CTextField.BOLD30, 44, Color.RED, Color.WHITE);
         _txtName.alignH = Align.LEFT;
         _txtName.x = -160;
         _txtName.y = -230;
@@ -88,39 +90,65 @@ public class WOPartyWindow extends WindowMain{
         _sprItem.x = -195;
         _sprItem.y = -100;
 
+        _txtTime = new CTextField(120,60,'');
+        _txtTime.setFormat(CTextField.BOLD18, 24, 0xd30102);
+        _txtTime.x = 286;
+        _txtTime.y = -130;
+        _source.addChild(_txtTime);
+        g.gameDispatcher.addToTimer(startTimer);
+
         _txtBabl = new CTextField(172,200,String(_data.description));
-        _txtBabl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtBabl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _source.addChild(_txtBabl);
         _txtBabl.x = -365;
         _txtBabl.y = -240;
 
-        _txtTimeLost = new CTextField(120,60,'Осталось времени');
-        _txtTimeLost.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtTimeLost = new CTextField(120,60,'Осталось времени:');
+        _txtTimeLost.setFormat(CTextField.BOLD18, 16, 0xff7575);
         _source.addChild(_txtTimeLost);
-        _txtTimeLost.x = 288;
-        _txtTimeLost.y = -165;
+        _txtTimeLost.x = 287;
+        _txtTimeLost.y = -163;
 
         var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
         im.x = -230;
         im.y = 40;
+//        im.alpha = .7;
         _source.addChild(im);
 
-        var date:Date = new Date();
-        var dateClose:int = new Date(g.managerParty.dataParty.timeToEnd * 1000).dateUTC;
-        trace(date + '   ' );
+
+        im = new Image(g.allData.atlas['resourceAtlas'].getTexture('heart_icon'));
+        im.x = -218;
+        im.y = 58;
+        MCScaler.scale(im,45,45);
+        _source.addChild(im);
+//        var date:Date = new Date();
+//        var dateClose:int = new Date(g.managerParty.dataParty.timeToEnd * 1000).dateUTC;
+//        trace(date + '   ' );
         super.showIt();
     }
 
+    private function startTimer():void {
+        if (g.userTimer.partyTimer > 0) if (_txtTime)_txtTime.text = TimeUtils.convertSecondsForHint(g.userTimer.partyTimer);
+        else {
+            onClickExit();
+            g.gameDispatcher.removeFromTimer(startTimer);
+        }
+    }
+
     override protected function deleteIt():void {
+        for (var i:int = 0; i <_arrItem.length; i++) {
+            _arrItem[i].deleteIt();
+        }
         super.deleteIt();
     }
 
     private function onClickExit(e:Event=null):void {
-        hideIt();
+        g.gameDispatcher.removeFromTimer(startTimer);
+        super.hideIt();
     }
 
     private function onClick():void {
-
+        onClickExit();
     }
 }
 }

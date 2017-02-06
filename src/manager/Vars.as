@@ -470,14 +470,17 @@ public class Vars {
             optionPanel = new OptionPanel();
             friendPanel = new FriendPanel();
             toolsPanel = new ToolsPanel();
-            partyPanel = new PartyPanel();
-
+            managerParty = new ManagerPartyNew();
+            directServer.getDataParty(null);
             if ((user as User).level >= 5 && socialNetworkID == SocialNetworkSwitch.SN_VK_ID) stock = new StockPanel();
             managerQuest = new ManagerQuest();
 //        } catch (e:Error) {
 //            Cc.stackch('error', 'initVariables2::', 10);
 //        }
         afterLoadAll();
+    }
+    public function party():void {
+        partyPanel = new PartyPanel();
     }
 
 import build.WorldObject;
@@ -574,9 +577,7 @@ private function afterLoadAll():void {
                     }
                 }
             }
-//        managerParty = new ManagerPartyNew();
-//        directServer.getDataParty(null);
-        managerMiniScenes.updateMiniScenesLengthOnGameStart();
+            managerMiniScenes.updateMiniScenesLengthOnGameStart();
             managerButterfly = new ManagerButterfly();
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();
