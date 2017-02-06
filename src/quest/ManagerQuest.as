@@ -165,12 +165,8 @@ public class ManagerQuest {
                 break;
             case ADD_TO_GROUP:
                 Link.openURL(g.socialNetwork.urlForAnySocialGroup + t.adds);
-                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) { // temp
-                    onActionForTaskType(ManagerQuest.ADD_TO_GROUP);
-                } else {
-                    _timer = 3;
-                    g.gameDispatcher.addToTimer(checkWithTimer);
-                }
+                _timer = 3;
+                g.gameDispatcher.addToTimer(checkWithTimer);
                 break;
             case POST:
                 g.managerWallPost.openWindow(ManagerWallPost.POST_FOR_QUEST, null, 0, DataMoney.SOFT_CURRENCY);

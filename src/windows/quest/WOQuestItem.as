@@ -81,7 +81,6 @@ internal class Item extends Sprite {
             _galo4ka.x = 390;
         } else {
             if (c == 1) {
-                _bg = new CartonBackgroundIn(460, 160);
                 _btn = new CButton();
                 _btn.addButtonTexture(120, 40, CButton.GREEN, true);
                 _txtBtn = new CTextField(120, 40, 'Показать');
@@ -93,7 +92,6 @@ internal class Item extends Sprite {
                 _countTxt.y = -40;
                 _countTxt.x = 350;
             } else if (c == 2) {
-                _bg = new CartonBackgroundIn(460, 100);
                 _btn = new CButton();
                 _btn.addButtonTexture(100, 40, CButton.GREEN, true);
                 _txtBtn = new CTextField(96, 40, 'Показать');
@@ -105,7 +103,6 @@ internal class Item extends Sprite {
                 _countTxt.y = -15;
                 _countTxt.x = 285;
             } else if (c == 3) {
-                _bg = new CartonBackgroundIn(460, 70);
                 _btn = new CButton();
                 _btn.addButtonTexture(80, 30, CButton.GREEN, true);
                 _txtBtn = new CTextField(76, 30, 'Показать');
@@ -119,16 +116,19 @@ internal class Item extends Sprite {
             }
         }
         if (c == 1) {
+            _bg = new CartonBackgroundIn(460, 160);
             _txt = new CTextField(220, 120, _task.description);
             _txt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BROWN_COLOR);
             _txt.y = -62;
             _txt.x = 100;
         } else if (c == 2) {
+            _bg = new CartonBackgroundIn(460, 100);
             _txt = new CTextField(210, 80, _task.description);
             _txt.setFormat(CTextField.MEDIUM24, 20, ManagerFilters.BROWN_COLOR);
             _txt.y = -40;
             _txt.x = 75;
         } else if (c == 3) {
+            _bg = new CartonBackgroundIn(460, 70);
             _txt = new CTextField(240, 60, _task.description);
             _txt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BROWN_COLOR);
             _txt.y = -30;
