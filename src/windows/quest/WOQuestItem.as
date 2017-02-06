@@ -134,7 +134,7 @@ internal class Item extends Sprite {
             _txt.y = -30;
             _txt.x = 60;
         }
-
+ 
         _bg.touchable = false;
         _txt.touchable = false;
         _bg.y = -_bg.height/2;
@@ -159,7 +159,7 @@ internal class Item extends Sprite {
             _countTxt.touchable = false;
             addChild(_countTxt);
         }
-        g.load.loadImage(ManagerQuest.ICON_PATH + _task.icon, onLoadIcon);
+        if (_galo4ka) addChild(_galo4ka);
 
         var st:String = _task.icon;
         if (st == '0') {

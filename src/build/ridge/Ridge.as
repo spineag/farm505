@@ -184,6 +184,7 @@ st=3;
     }
 
     public function craftThePlant():void {
+        hideArrow();
         if (_stateRidge != GROWED) return;
         if (g.userInventory.currentCountInAmbar + 2 > g.user.ambarMaxCount){
             _source.filter = null;

@@ -574,9 +574,6 @@ private function afterLoadAll():void {
                     }
                 }
             }
-            if (useNewTuts) {
-                managerQuest.getQuestsOnStart();
-            }
 //        managerParty = new ManagerPartyNew();
 //        directServer.getDataParty(null);
         managerMiniScenes.updateMiniScenesLengthOnGameStart();

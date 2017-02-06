@@ -62,7 +62,7 @@ public class ManagerQuest {
     public function addUI():void {
         if (g.user.level >= 5 && g.useQuests) {
             _questUI = new QuestIconUI(openWOList);
-            if (_userQuests.length) _questUI.showItAnimate();
+            g.directServer.getUserQuests(onGetUserQuests);
         }
     }
 
@@ -74,13 +74,16 @@ public class ManagerQuest {
         if (_questUI) _questUI.hideIt(v);
     }
 
-    public function getQuestsOnStart():void {
-        if (g.user.level < 5) return;
-        if (g.useQuests) g.directServer.getUserQuests(onGetUserQuests);
-    }
-
     private function onGetUserQuests(d:Object):void {
         addQuests(d, false);
+        if (_userQuests.length) _questUI.showItAnimate();
+        for (var i:int=0; i<_userQuests.length; i++) {
+            if ((_userQuests[i] as QuestStructure).isDone) {
+                g.directServer.completeUserQuest((_userQuests[i] as QuestStructure).id, (_userQuests[i] as QuestStructure).idDB, null);
+                g.windowsManager.closeAllWindows();
+                g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, _userQuests[i] as QuestStructure);
+            }
+        }
         getNewQuests();
     }
 
@@ -91,6 +94,7 @@ public class ManagerQuest {
 
     private function onGetNewQuests(d:Object):void {
         addQuests(d, true);
+        if (_userQuests.length) _questUI.showItAnimate();
         if (_questUI) {
             if (_userQuests.length) {
                 if (!_questUI.isShow) _questUI.showItAnimate();

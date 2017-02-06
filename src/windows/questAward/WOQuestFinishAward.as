@@ -117,6 +117,9 @@ import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.utils.Color;
+
+import ui.xpPanel.XPStar;
+
 import utils.CTextField;
 import utils.MCScaler;
 
@@ -151,8 +154,10 @@ internal class Item extends Sprite {
             im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_aw.idResource].imageShop + '_icon'));
         } else if (_aw.typeResource == 'decor') {
             im = new Image(g.allData.atlas['decorAtlas'].getTexture(g.dataBuilding.objectBuilding[_aw.idResource].image));
-        } else if (_aw.typeResource) {
+        } else if (_aw.typeResource == 'instrument') {
             im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[_aw.idResource].imageShop));
+        } else if (_aw.typeResource == 'xp') {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
         }
 
         if (im) {
@@ -176,6 +181,8 @@ internal class Item extends Sprite {
             flyItMoney(i);
         } else if (_aw.typeResource == 'decor') {
             flyItDecor(i);
+        } else if (_aw.typeResource == 'xp') {
+            flyItXP();
         } else {
             flyItResource(i);
         }
@@ -194,6 +201,15 @@ internal class Item extends Sprite {
         _source.addChild(im);
         g.cont.animationsResourceCont.addChild(_source);
         new TweenMax(_source, .5, {scaleX:.2, scaleY:.2, ease:Back.easeIn, onComplete:f, delay:i * .2});
+    }
+
+    private function flyItXP():void {
+        var endPoint:Point = new Point();
+        endPoint.x = 0;
+        endPoint.y = 0;
+        endPoint = im.localToGlobal(endPoint);
+        removeChild(im);
+        new XPStar(endPoint.x, endPoint.y, _aw.countResource);
     }
 
     private function flyItMoney(i:int):void {
