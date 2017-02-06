@@ -49,10 +49,12 @@ public class WOQuestListItem {
     }
 
     private function addIm(im:Image):void {
-        MCScaler.scale(im, 100, 100);
-        im.x = -im.width / 2;
-        im.y = -im.height / 2;
-        _source.addChild(im);
+        if (im) {
+            MCScaler.scale(im, 100, 100);
+            im.x = -im.width / 2;
+            im.y = -im.height / 2;
+            _source.addChild(im);
+        }
     }
 
     private function onHover():void {

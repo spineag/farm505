@@ -69,7 +69,7 @@ public class QuestTaskStructure {
                 break;
             case BuildType.ANIMAL:
                 ob = g.dataAnimal.objectAnimal[int(_taskData.id_resource)];
-                g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon');
+                im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 break;
         }
         return im;

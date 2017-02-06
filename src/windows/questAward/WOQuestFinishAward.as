@@ -68,7 +68,7 @@ public class WOQuestFinishAward extends WindowMain {
         var it:Item;
         var aw:Array = _quest.awards;
         for (var i:int=0; i<aw.length; i++) {
-            it = new Item(aw[0]);
+            it = new Item(aw[i]);
             it.y = -35;
             _source.addChild(it);
             _items.push(it);

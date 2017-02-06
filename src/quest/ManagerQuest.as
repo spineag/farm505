@@ -10,6 +10,9 @@ import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
+
+import dragonBones.animation.WorldClock;
+
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerWallPost;
@@ -24,9 +27,9 @@ public class ManagerQuest {
     public static const ADD_TO_GROUP:int = 1;      // +vstyputu v grypy
     public static const ADD_LEFT_MENU:int = 2;     // +dodatu v live menu na VK
     public static const POST:int = 3;              // +zapostutu na stiny
-    public static const CRAFT_PLANT:int = 4;       // zibratu rosluny
-    public static const BUILD_BUILDING:int = 5;    // pobydyvatu zdanie
-    public static const RAW_PRODUCT:int = 6;      // zavantajutu na fabriky
+    public static const CRAFT_PLANT:int = 4;       // +zibratu rosluny
+    public static const BUILD_BUILDING:int = 5;    // +pobydyvatu zdanie
+    public static const RAW_PRODUCT:int = 6;       // +zavantajutu na fabriky
     public static const INVITE_FRIENDS:int = 7;    // zaprosutu dryziv
     public static const KILL_LOHMATIC:int = 8;     // zlovutu lohmatuciv
     public static const CRAFT_PRODUCT:int = 9;     // zibratu resurs fabriki abo fermu
@@ -163,6 +166,10 @@ public class ManagerQuest {
         _activeTask = t;
         switch (t.typeAction) {
             case ADD_LEFT_MENU:
+                if (g.isDebug) {
+                    onActionForTaskType(ADD_LEFT_MENU);
+                    return;
+                }
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                     g.socialNetwork.checkLeftMenu();
                 }
@@ -218,16 +225,21 @@ public class ManagerQuest {
                 break;
             case RAW_PRODUCT:
                 g.windowsManager.closeAllWindows();
-                arrT = g.townArea.getCityObjectsById(g.allData.getFabricaIdForResourceIdFromRecipe(t.resourceId));
+                i = g.allData.getFabricaIdForResourceIdFromRecipe(t.resourceId);
+                arrT = g.townArea.getCityObjectsById(i);
                 if (arrT.length) {
                     (arrT[0] as WorldObject).showArrow(3);
-                    g.cont.moveCenterToPos((arrT[0] as WorldObject).posX - 1, (arrT[0] as Ridge).posY - 1);
+                    g.cont.moveCenterToPos((arrT[0] as WorldObject).posX - 1, (arrT[0] as WorldObject).posY - 1);
                 } else {
                     new FlyMessage(p,'Нужное здание еще не построено');
                 }
                 break;
             case INVITE_FRIENDS:
                 g.windowsManager.closeAllWindows();
+                if (g.isDebug) {
+                    onActionForTaskType(INVITE_FRIENDS);
+                    return;
+                }
                 g.socialNetwork.showInviteWindow();
                 break;
             case KILL_LOHMATIC:

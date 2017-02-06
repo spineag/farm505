@@ -174,6 +174,7 @@ internal class Item extends Sprite {
     }
 
     private function addIm(im:Image):void {
+        if (!im) return;
         if (_c == 1) {
             MCScaler.scale(im, 90, 90);
             im.alignPivot();
