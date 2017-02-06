@@ -49,16 +49,16 @@ public class WOQuestAward {
         var it:Item;
         var c:int = ar.length;
         for (var i:int=0; i<c; i++) {
-            it = new Item(ar[i]);
+            it = new Item(ar[i], c);
             it.alignPivot();
-            it.y = 53;
+            it.y = 51;
             _source.addChild(it);
             _arItems.push(it);
         }
         switch (c) {
-            case 1: _arItems[0].x = 88; break;
-            case 2: _arItems[0].x = 45; _arItems[1].x = 126; _arItems[0].scale = _arItems[1].scale = .85; break;
-            case 3: _arItems[0].x = 27; _arItems[1].x = 84; _arItems[2].x = 141; _arItems[0].scale = _arItems[1].scale = _arItems[2].scale = .7; break;
+            case 1: _arItems[0].x = 80; break;
+            case 2: _arItems[0].x = 45; _arItems[1].x = 126; break;
+            case 3: _arItems[0].x = 25; _arItems[1].x = 85; _arItems[2].x = 145; break;
         }
     }
 
@@ -94,15 +94,12 @@ internal class Item extends Sprite {
     private var g:Vars = Vars.getInstance();
     private var _aw:QuestAwardStructure;
     private var _txt:CTextField;
+    private var _sp:Sprite;
 
-    public function Item(aw:QuestAwardStructure) {
+    public function Item(aw:QuestAwardStructure, c:int) {
         _aw = aw;
-        _txt = new CTextField(45,30,String(aw.countResource));
-        _txt.setFormat(CTextField.MEDIUM30, 30, ManagerFilters.BLUE_COLOR);
-        _txt.alignH = Align.RIGHT;
-        _txt.x = -47;
-        addChild(_txt);
         touchable = false;
+        _sp = new Sprite();
 
         var im:Image;
         if (aw.typeResource == 'money') {
@@ -114,18 +111,53 @@ internal class Item extends Sprite {
                 case DataMoney.GREEN_COUPONE: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('green_coupone')); break;
                 case DataMoney.YELLOW_COUPONE: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone')); break;
             }
+        } else if (_aw.typeResource == 'resource') {
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_aw.idResource].imageShop));
+        } else if (_aw.typeResource == 'plant') {
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_aw.idResource].imageShop + '_icon'));
+        } else if (_aw.typeResource == 'decor') {
+            im = new Image(g.allData.atlas['decorAtlas'].getTexture(g.dataBuilding.objectBuilding[_aw.idResource].image));
+        } else if (_aw.typeResource == 'instrument') {
+            im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[_aw.idResource].imageShop));
+        } else if (_aw.typeResource == 'xp') {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
         }
 
-        if (im) {
-            MCScaler.scale(im, 50, 50);
-            im.y = 2;
-            im.x = 3;
-            addChild(im);
+        switch (c) {
+            case 1: _txt = new CTextField(45, 30, String(aw.countResource));
+                _txt.setFormat(CTextField.MEDIUM30, 30, ManagerFilters.BLUE_COLOR);
+                _txt.alignH = Align.LEFT;
+                _txt.y = -15;
+                if (im) MCScaler.scale(im, 40, 40);
+                break;
+            case 2: _txt = new CTextField(45, 30, String(aw.countResource));
+                _txt.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BLUE_COLOR);
+                _txt.alignH = Align.LEFT;
+                _txt.y = -14;
+                if (im) MCScaler.scale(im, 30, 30);
+                break;
+            case 3: _txt = new CTextField(45, 30, String(aw.countResource));
+                _txt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
+                _txt.alignH = Align.LEFT;
+                _txt.y = -13;
+                if (im) MCScaler.scale(im, 22, 22);
+                break;
         }
+
+        _sp.addChild(_txt);
+        if (im) {
+            im.y = -im.height/2;
+            im.x = _txt.textBounds.width + 2;
+            _sp.addChild(im);
+        }
+        _sp.x = -_sp.width/2;
+        addChild(_sp);
+
     }
 
     public function deleteIt():void {
         if (_txt) {
+            _sp.removeChild(_txt);
             _txt.deleteIt();
             _txt = null;
         }

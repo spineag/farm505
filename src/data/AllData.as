@@ -66,7 +66,7 @@ public class AllData {
     public function getFabricaIdForResourceIdFromRecipe(rId:int):int {
         var d:Object = g.dataRecipe.objectRecipe;
         for(var id:String in d) {
-            if (d[id].resourceId == rId) {
+            if (d[id].idResource == rId) {
                 return d[id].buildingId;
             }
         }
