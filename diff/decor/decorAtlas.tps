@@ -264,6 +264,12 @@
             <filename>garden_gnome_red_hat.png</filename>
             <filename>sled.png</filename>
             <filename>new_year_boot.png</filename>
+            <filename>heart_fence</filename>
+            <filename>fence_heart</filename>
+            <filename>cupidon_statue_blue.png</filename>
+            <filename>cupidon_statue_pink.png</filename>
+            <filename>kiss_bench.png</filename>
+            <filename>white_fence</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

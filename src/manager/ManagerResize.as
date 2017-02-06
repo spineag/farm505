@@ -42,6 +42,7 @@ public class ManagerResize {
             if (g.toolsPanel) g.toolsPanel.onResize();
             if (g.xpPanel) g.xpPanel.onResize();
             if (g.catPanel) g.catPanel.onResize();
+            if (g.partyPanel) g.partyPanel.onResize();
             if (g.windowsManager) g.windowsManager.onResize();
             if (g.optionPanel) g.optionPanel.onResize();
             if (g.stock) g.stock.onResize();

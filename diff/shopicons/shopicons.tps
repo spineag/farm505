@@ -305,6 +305,10 @@
             <filename>new_year_boot_icon.png</filename>
             <filename>new_year_tree_1_icon.png</filename>
             <filename>new_year_tree_2_icon.png</filename>
+            <filename>cupidon_statue_blue_icon.png</filename>
+            <filename>cupidon_statue_pink_icon.png</filename>
+            <filename>kiss_bench_icon.png</filename>
+            <filename>heart_balabas_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

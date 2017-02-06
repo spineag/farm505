@@ -70,8 +70,8 @@ public class WOPartyWindow extends WindowMain{
         _txtName = new CTextField(500, 70, String(_data.name));
         _txtName.setFormat(CTextField.BOLD30, 44, Color.RED, Color.WHITE);
         _txtName.alignH = Align.LEFT;
-        _txtName.x = -160;
-        _txtName.y = -230;
+        _txtName.x = -170;
+        _txtName.y = -215;
         _source.addChild(_txtName);
         _source.addChild(_sprItem);
         var item:WOPartyWindowItem;
@@ -101,7 +101,7 @@ public class WOPartyWindow extends WindowMain{
         _txtBabl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _source.addChild(_txtBabl);
         _txtBabl.x = -365;
-        _txtBabl.y = -240;
+        _txtBabl.y = -220;
 
         _txtTimeLost = new CTextField(120,60,'Осталось времени:');
         _txtTimeLost.setFormat(CTextField.BOLD18, 16, 0xff7575);
@@ -112,7 +112,6 @@ public class WOPartyWindow extends WindowMain{
         var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
         im.x = -230;
         im.y = 40;
-//        im.alpha = .7;
         _source.addChild(im);
 
 

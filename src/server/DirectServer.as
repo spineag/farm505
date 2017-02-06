@@ -7119,7 +7119,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.countResource = countResource;
-        variables.tookGift = '1&2&3';
+        variables.tookGift = tookGift;
         variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -7207,6 +7207,9 @@ public class DirectServer {
         if (d.message.took_gift) obj.tookGift = String(d.message.took_gift).split('&');
         for (k = 0; k < obj.tookGift.length; k++) obj.tookGift[k] = int(obj.tookGift[k]);
         g.managerParty.userParty = obj;
+        if (g.userInventory.getCountResourceById(168) == 0 && obj.countResource == 0 && !g.userInventory.checkLastResource(168)) {
+            g.userInventory.addResource(168, 3);
+        }
         if (d.id == 0) {
             Cc.ch('server', 'getUserEvent OK', 5);
             if (callback != null) {

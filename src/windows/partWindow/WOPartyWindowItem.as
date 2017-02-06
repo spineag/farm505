@@ -116,7 +116,8 @@ public class WOPartyWindowItem {
         var _quad:Quad;
         var width:int;
         if (number > 1) {
-            width = (100 * (g.managerParty.userParty.countResource - g.managerParty.dataParty.countToGift[number - 1]) / (countToGift - g.managerParty.dataParty.countToGift[number -1])) * .75;
+            width = ((100 * (g.managerParty.userParty.countResource - g.managerParty.dataParty.countToGift[number - 2])) / (countToGift - g.managerParty.dataParty.countToGift[number -2])) * .75;
+
         } else width = (100 * g.managerParty.userParty.countResource / countToGift) * .75;
         if (g.managerParty.userParty.countResource > countToGift) {
             _quad = new Quad(75, 30, 0xff3da5);
@@ -124,6 +125,7 @@ public class WOPartyWindowItem {
             source.addChild(_quad);
         }
         else if (number != 1 && g.managerParty.userParty.countResource > g.managerParty.dataParty.countToGift[number - 2]) {
+//            width = 1;
             _quad = new Quad(width, 30, 0xff3da5);
             _quad.x = 20;
             _quad.y = 162;
@@ -137,7 +139,10 @@ public class WOPartyWindowItem {
             source.addChild(_quad);
             source.addChild(_txtCountUser);
         }
-        if (number == 1 &&g.managerParty.userParty.countResource == 0) {
+        if (number == 1 && g.managerParty.userParty.countResource == 0) {
+            source.addChild(_txtCountUser);
+        }
+        if (number == 5 && g.managerParty.userParty.countResource > countToGift) {
             source.addChild(_txtCountUser);
         }
         if (_quad) {
@@ -147,7 +152,9 @@ public class WOPartyWindowItem {
                 _quad.x = 25;
             } else if (number == 3) {
                 _quad.x = 23;
-            } else if (number == 5) {
+            } else if (number == 4) {
+                _quad.x = 20;
+            }else if (number == 5) {
                 _quad.x = 18;
             }
         }
@@ -161,11 +168,11 @@ public class WOPartyWindowItem {
         g.directServer.updateUserParty(st,g.managerParty.userParty.countResource, null);
         var prise:Object = {};
         if (_data.typeResource == BuildType.DECOR_ANIMATION) {
-            prise.count = 0;
+            prise.count = 1;
             prise.id =  _data.idResource;
             prise.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
         } else if (_data.typeResource == BuildType.DECOR) {
-            prise.count = 0;
+            prise.count = 1;
             prise.id =  _data.idResource;
             prise.type = DropResourceVariaty.DROP_TYPE_DECOR;
         } else {

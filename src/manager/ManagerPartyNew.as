@@ -28,7 +28,6 @@ public class ManagerPartyNew {
     }
 
     public function atlasLoad():void {
-//        if (g.manager)
         g.load.loadImage(g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas'), onLoad);
         g.load.loadXML(g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas'), onLoad);
     }
