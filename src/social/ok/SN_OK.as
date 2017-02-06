@@ -285,18 +285,23 @@ public class SN_OK extends SocialNetwork {
         }
     }
 
+    override public function get idSocialGroup():String {
+        return "55141755191315";
+    }
+
     override public function get urlForAnySocialGroup():String {
         return "https://ok.ru/group/";
     }
 
     public override function checkIsInSocialGroup(id:String):void {
 //        _apiConnection.api("groups.isMember", {group_id: idSocialGroup, user_id: g.user.userSocialId}, getIsInGroupHandler, onError);
-        ExternalInterface.call("isInGroup", idSocialGroup, g.user.userSocialId);
+        ExternalInterface.call("isInGroup", id, g.user.userSocialId);
         super.checkIsInSocialGroup(id);
     }
 
-    private function isInGroupCallback(e:String):void {
-        if (e == '1') {
+    private function isInGroupCallback(e:*):void {
+        Cc.obj('social', e[0], 'is in group');
+        if (e[0].status == 'ACTIVE') {
             g.managerQuest.onActionForTaskType(ManagerQuest.ADD_TO_GROUP);
 //        } else {
 //            Link.openURL(urlSocialGroup);

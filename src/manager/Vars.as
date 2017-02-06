@@ -149,7 +149,6 @@ public class Vars {
     public var managerInviteFriend:ManagerInviteFriend;
     public var managerTimerSkip:ManagerTimerSkip;
     public var managerParty:ManagerPartyNew;
-//    public var ManagerParty:ManagerParty;
     public var cont:Containers;
     public var ownMouse:OwnMouse;
     public var toolsModifier:ToolsModifier;
@@ -449,7 +448,8 @@ public class Vars {
     private function initVariables2():void {
 //        try {
 //            if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID && testersArrayQuests.indexOf((user as User).userSocialId)>-1 ) useQuests = true;
-            if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID) useQuests = true;
+            if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID ||
+                    (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && testersArrayQuests.indexOf((user as User).userSocialId)>-1) ) useQuests = true;
 
             timerHint = new TimerHint();
             wildHint = new WildHint();
@@ -480,7 +480,16 @@ public class Vars {
         afterLoadAll();
     }
 
-    private function afterLoadAll():void {
+import build.WorldObject;
+import build.ambar.Ambar;
+
+import com.junkbyte.console.Cc;
+
+import dragonBones.animation.WorldClock;
+
+import temp.TestTime;
+
+private function afterLoadAll():void {
 //        try {
             var test:TestTime = new TestTime();
             cont.onLoadAll();
