@@ -114,6 +114,10 @@ public class WOPartyWindowItem {
     }
 
     private function onClick():void {
+        g.managerParty.userParty.tookGift[_data.number - 1] = 1;
+        var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
+                + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
+        g.directServer.updateUserParty(st,g.managerParty.userParty.countResource, null);
         var prise:Object = {};
         if (_data.typeResource == BuildType.DECOR_ANIMATION) {
             prise.count = 0;

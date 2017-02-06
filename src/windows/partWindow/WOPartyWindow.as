@@ -103,7 +103,11 @@ public class WOPartyWindow extends WindowMain{
         var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
         im.x = -230;
         im.y = 40;
-//        _source.addChild(im);
+        _source.addChild(im);
+
+        var date:Date = new Date();
+        var dateClose:int = new Date(g.managerParty.dataParty.timeToEnd * 1000).dateUTC;
+        trace(date + '   ' );
         super.showIt();
     }
 

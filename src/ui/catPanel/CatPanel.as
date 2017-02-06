@@ -8,6 +8,7 @@ import starling.display.Image;
 import utils.CSprite;
 import utils.CTextField;
 import windows.WOComponents.HorizontalPlawka;
+import windows.WindowsManager;
 
 public class CatPanel {
     private var _source:CSprite;
@@ -80,7 +81,7 @@ public class CatPanel {
     }
 
     private function onClick():void {
-       // g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+//        g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
         //        if ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
 //            if (g.user.userSocialId == '252433337505') {
 //                g.user.level++;

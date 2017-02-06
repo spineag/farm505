@@ -148,7 +148,7 @@ public class Vars {
     public var managerWallPost:ManagerWallPost;
     public var managerInviteFriend:ManagerInviteFriend;
     public var managerTimerSkip:ManagerTimerSkip;
-    public var managerParty:ManagerParty;
+    public var managerParty:ManagerPartyNew;
 //    public var ManagerParty:ManagerParty;
     public var cont:Containers;
     public var ownMouse:OwnMouse;
@@ -568,8 +568,8 @@ public class Vars {
             if (useNewTuts) {
                 managerQuest.getQuestsOnStart();
             }
-        //ManagerParty = new ManagerParty();
-       // directServer.getDataParty(null);
+//        managerParty = new ManagerPartyNew();
+//        directServer.getDataParty(null);
         managerMiniScenes.updateMiniScenesLengthOnGameStart();
             managerButterfly = new ManagerButterfly();
             managerButterfly.createBFlyes();
