@@ -268,7 +268,7 @@ public class Vars {
             managerDailyBonus = new ManagerDailyBonus();
             socialNetwork = new SocialNetwork(flashVars);
             if (isDebug) {
-                socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
+                socialNetworkID = SocialNetworkSwitch.SN_OK_ID;
             } else {
                 socialNetworkID = int(flashVars['channel']);
             }
@@ -470,7 +470,7 @@ public class Vars {
             optionPanel = new OptionPanel();
             friendPanel = new FriendPanel();
             toolsPanel = new ToolsPanel();
-            if ((user as User).level >= 7 && (user as User).userSocialId == '14663166' || (user as User).userSocialId == '201166703' || (user as User).userSocialId == '168207096' || (user as User).userSocialId == '202427318' || (user as User).userSocialId == '191561520' ) {
+            if ((user as User).level >= 6) {
                 managerParty = new ManagerPartyNew();
                 directServer.getDataParty(null);
             }
@@ -481,8 +481,10 @@ public class Vars {
 //        }
         afterLoadAll();
     }
+
     public function party():void {
         partyPanel = new PartyPanel();
+        if (!windowsManager.currentWindow) windowsManager.openWindow(WindowsManager.WO_PARTY,null);
     }
 
 import build.WorldObject;
@@ -560,10 +562,19 @@ private function afterLoadAll():void {
                 managerCutScenes.checkAvailableCutScenes();
                 managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
                if ((socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
-                   if ((user as User).userSocialId == '252433337505') {
-                       windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+//                   if ((user as User).userSocialId == '252433337505') {
+//                       windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+//                   }
+                   if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
+                   else {
+                       var todayDailyGift:Date = new Date((user as User).dayDailyGift * 1000);
+                       var today:Date = new Date((user as User).day * 1000);
+                       if ((user as User).level >= 5 && todayDailyGift.date != today.date) {
+                           directServer.getDailyGift(null);
+                       } else {
+                           managerCats.helloCats();
+                       }
                    }
-
                } else {
                     if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
                         windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);

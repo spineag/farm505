@@ -71,7 +71,7 @@ public class DecorShopFilter {
             item = new DecorShopFilterItem(arr[i], i, onItemClick, _itemsSprite);
             _arrItems.push(item);
         }
-        _activeItem = new DecorShopFilterItem(g.user.shopDecorFilter, FILTER_HOLIDAY, onActiveItemClick, _source);
+        _activeItem = new DecorShopFilterItem(g.user.shopDecorFilter, 0, onActiveItemClick, _source);
         _activeItem.addButton();
         _arrItems.push(_activeItem);
     }

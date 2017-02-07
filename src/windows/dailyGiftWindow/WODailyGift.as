@@ -125,6 +125,7 @@ public class WODailyGift extends WindowMain {
     }
     override public function hideIt():void {
         g.managerCats.helloCats();
+        g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
         super.hideIt();
     }
 
