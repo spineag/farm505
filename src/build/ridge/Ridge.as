@@ -136,8 +136,8 @@ public class Ridge extends WorldObject{
             ob.plantId = _dataPlant.id;
             ob.state = _stateRidge;
             g.user.userDataCity.plants.push(ob);
+            g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PLANT, {id: _dataPlant.id});
         }
-        g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PLANT, {id: _dataPlant.id});
         updateRidgeHitArea();
     }
 
