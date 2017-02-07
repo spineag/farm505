@@ -215,7 +215,7 @@ public class ManagerBuyerNyashuk {
 
     public function get arr():Array { return _arr; }
     public function addArrows(t:Number = 0):void {
-        for (var i:int=0; i<_arrayNya[i].length; i++) {
+        for (var i:int=0; i<_arrayNya.length; i++) {
             (_arrayNya[i] as BuyerNyashuk).addArrow(t);
         }
     }

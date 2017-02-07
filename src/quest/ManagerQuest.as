@@ -17,6 +17,9 @@ import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerWallPost;
 import manager.Vars;
+
+import mouse.ToolsModifier;
+
 import social.SocialNetworkSwitch;
 import utils.Link;
 import windows.WindowsManager;
@@ -30,20 +33,20 @@ public class ManagerQuest {
     public static const CRAFT_PLANT:int = 4;       // +zibratu rosluny
     public static const BUILD_BUILDING:int = 5;    // +pobydyvatu zdanie
     public static const RAW_PRODUCT:int = 6;       // +zavantajutu na fabriky
-    public static const INVITE_FRIENDS:int = 7;    // zaprosutu dryziv
-    public static const KILL_LOHMATIC:int = 8;     // zlovutu lohmatuciv
-    public static const CRAFT_PRODUCT:int = 9;     // zibratu resurs fabriki abo fermu
-    public static const RAW_PLANT:int = 10;        // posadutu rosluny
-    public static const RELEASE_ORDER:int = 11;    // zakaz lavku
-    public static const BUY_ANIMAL:int = 12;       // kyputu tvar'
-    public static const FEED_ANIMAL:int = 13;      // pogodyvatu tvar'
+    public static const INVITE_FRIENDS:int = 7;    // +zaprosutu dryziv
+    public static const KILL_LOHMATIC:int = 8;     // +zlovutu lohmatuciv
+    public static const CRAFT_PRODUCT:int = 9;     // +zibratu resurs fabriki abo fermu
+    public static const RAW_PLANT:int = 10;        // +posadutu rosluny
+    public static const RELEASE_ORDER:int = 11;    // +zakaz lavku
+    public static const BUY_ANIMAL:int = 12;       // +kyputu tvar'
+    public static const FEED_ANIMAL:int = 13;      // +pogodyvatu tvar'
     public static const REMOVE_WILD:int = 14;      // remove wild
     public static const OPEN_TERRITORY:int = 15;   // open territory
     public static const BUY_CAT:int = 16;          // buy cat
-    public static const NIASH_BUYER:int = 17;      // vukonatu zamovlennia niawuka-pokyptsia
-    public static const KILL_MOUSE:int = 18;       // zlovutu muwei
-    public static const BUY_PAPER:int = 19;        // kyputu v gazeti
-    public static const SET_IN_PAPER:int = 20;     // vustavutu v gazety
+    public static const NIASH_BUYER:int = 17;      // +vukonatu zamovlennia niawuka-pokyptsia
+    public static const KILL_MOUSE:int = 18;       // +zlovutu muwei
+    public static const BUY_PAPER:int = 19;        // +kyputu v gazeti
+    public static const SET_IN_PAPER:int = 20;     // +vustavutu v gazety
 
 
     private var g:Vars = Vars.getInstance();
@@ -97,7 +100,6 @@ public class ManagerQuest {
 
     private function onGetNewQuests(d:Object):void {
         addQuests(d, true);
-        if (_userQuests.length) _questUI.showItAnimate();
         if (_questUI) {
             if (_userQuests.length) {
                 if (!_questUI.isShow) _questUI.showItAnimate();
@@ -119,6 +121,7 @@ public class ManagerQuest {
             var q:QuestStructure;
             var i:int;
             for (i=0; i<d.quests.length; i++) {
+                if (d.quests[i].only_testers == '1' && !g.user.isTester) continue;
                 q = new QuestStructure();
                 q.fillIt(d.quests[i]);
                 _userQuests.push(q);
@@ -266,10 +269,10 @@ public class ManagerQuest {
                 break;
             case RELEASE_ORDER:
                 g.windowsManager.closeAllWindows();
-                arrT = g.townArea.getAwayCityObjectsByType(BuildType.ORDER);
+                arrT = g.townArea.getCityObjectsByType(BuildType.ORDER);
                 if (arrT.length) {
                     (arrT[0] as WorldObject).showArrow(3);
-                    g.cont.moveCenterToPos((arr[0] as WorldObject).posX, (arr[0] as WorldObject).posY);
+                    g.cont.moveCenterToPos((arrT[0] as WorldObject).posX - 3, (arrT[0] as WorldObject).posY - 3);
                 } else {
                     Cc.error('ManagerQuest checkOnClickAtWoQuestItem RELEASE_ORDER:: no Order building (');
                 }
@@ -290,7 +293,7 @@ public class ManagerQuest {
                                 (arr[j] as Animal).addArrow(3);
                             }
                         }
-                        g.cont.moveCenterToPos((arr[0] as WorldObject).posX, (arr[0] as WorldObject).posY);
+                        g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
                     } else {
                         new FlyMessage(p,'Нужное здание еще не построено');
                     }
@@ -323,7 +326,7 @@ public class ManagerQuest {
                 arrT = g.townArea.getCityObjectsByType(BuildType.PAPER);
                 if (arrT.length) {
                     (arrT[0] as WorldObject).showArrow(3);
-                    g.cont.moveCenterToPos((arr[0] as WorldObject).posX, (arr[0] as WorldObject).posY);
+                    g.cont.moveCenterToXY((arrT[0] as WorldObject).source.x, (arrT[0] as WorldObject).source.y - 50);
                 } else {
                     Cc.error('ManagerQuest checkOnClickAtWoQuestItem BUY_PAPER:: no Paper building (');
                 }
@@ -333,7 +336,7 @@ public class ManagerQuest {
                 arrT = g.townArea.getCityObjectsByType(BuildType.MARKET);
                 if (arrT.length) {
                     (arrT[0] as WorldObject).showArrow(3);
-                    g.cont.moveCenterToPos((arr[0] as WorldObject).posX, (arr[0] as WorldObject).posY);
+                    g.cont.moveCenterToXY((arrT[0] as WorldObject).source.x, (arrT[0] as WorldObject).source.y - 50);
                 } else {
                     Cc.error('ManagerQuest checkOnClickAtWoQuestItem SET_IN_PAPER:: no Market building (');
                 }
@@ -371,6 +374,7 @@ public class ManagerQuest {
         }
         q.isDone = true;
         g.directServer.completeUserQuest(q.id, q.idDB, null);
+        g.toolsModifier.modifierType = ToolsModifier.NONE;
         g.windowsManager.closeAllWindows();
         g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, q);
     }
@@ -396,6 +400,7 @@ public class ManagerQuest {
 
         var tArr:Array;
         var tasks:Array;
+        var i:int;
         if (type == ADD_LEFT_MENU) {
             if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                 if (_activeTask && _activeTask.typeAction == ADD_LEFT_MENU) {
@@ -421,7 +426,7 @@ public class ManagerQuest {
                 || type == BUY_ANIMAL || type == FEED_ANIMAL || type == REMOVE_WILD) {
             tArr = getTasksByTypeFromCurrentQuests(type);
             tasks = [];
-            for (var i:int=0; i<tArr.length; i++) {
+            for (i=0; i<tArr.length; i++) {
                 if ((tArr[i] as QuestTaskStructure).resourceId == adds.id || (tArr[i] as QuestTaskStructure).resourceId == 0) {
                     tasks.push(tArr[i]);
                 }
