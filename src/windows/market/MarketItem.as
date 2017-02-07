@@ -512,6 +512,10 @@ public class MarketItem {
         var bDelete:Boolean = true;
         g.gameDispatcher.removeEnterFrame(onEnterFrame);
         g.marketHint.hideIt();
+        if (!_person) {
+            Cc.error('MarketItem checkItemWhenYouBuy:: no _person');
+            return;
+        }
         for (var i:int = 0; i < _person.marketItems.length; i++) {
             if (number == _person.marketItems[i].numberCell && _person.marketItems[i].buyerId > 0) {
                 b = false;

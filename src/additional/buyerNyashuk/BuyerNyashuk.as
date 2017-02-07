@@ -186,7 +186,7 @@ public class BuyerNyashuk {
         removeArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
         _arrow.scaleIt(.7);
-        _arrow.animateAtPosition(0, -70);
+        _arrow.animateAtPosition(25, -70);
         if (t>0) _arrow.activateTimer(t, removeArrow);
 }
 
