@@ -375,7 +375,7 @@ public class WOPapper extends WindowMain {
     }
 
     private function checkPapperTimer():void {
-        if (g.userTimer.timerAtPapper > 0) {
+        if (g.userTimer.timerAtPapper >= 0) {
             _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.timerAtPapper);
             g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
             g.gameDispatcher.addToTimer(onTimer);
@@ -390,17 +390,18 @@ public class WOPapper extends WindowMain {
     }
 
     private function onTimer():void {
-        if (g.userTimer.timerAtPapper > 0) if (_txtTimer)_txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.timerAtPapper);
-        else {
-            if (_btnRefreshGreen)_btnRefreshBlue.setEnabled = true;
-            if (_btnRefreshGreen)_btnRefreshGreen.setEnabled = false;
-            if (_txtTimer) _txtTimer.text = 'Обновить';
-            if (_txtTimer) _txtTimer.x = 25;
-            g.gameDispatcher.removeFromTimer(onTimer);
-            g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
-            g.user.paperShift = 1;
+        if (g.userTimer.timerAtPapper > 0) {
+            if (_txtTimer)_txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.timerAtPapper);
+        } else {
+                if (_btnRefreshBlue)_btnRefreshBlue.setEnabled = true;
+                if (_btnRefreshGreen)_btnRefreshGreen.setEnabled = false;
+                if (_txtTimer) _txtTimer.text = 'Обновить';
+                if (_txtTimer) _txtTimer.x = 25;
+                g.gameDispatcher.removeFromTimer(onTimer);
+                g.directServer.updateUserTimePaper(onUpdateUserTimePaper);
+                g.user.paperShift = 1;
+            }
         }
-    }
 
     private function onBlueRefresh():void {
         _preloader = true;

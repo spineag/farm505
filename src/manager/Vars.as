@@ -470,7 +470,7 @@ public class Vars {
             optionPanel = new OptionPanel();
             friendPanel = new FriendPanel();
             toolsPanel = new ToolsPanel();
-            if ((user as User).level >= 9 || (user as User).userSocialId == '14663166' || (user as User).userSocialId == '201166703' || (user as User).userSocialId == '168207096' || (user as User).userSocialId == '202427318' || (user as User).userSocialId == '191561520' ) {
+            if ((user as User).level >= 7 && (user as User).userSocialId == '14663166' || (user as User).userSocialId == '201166703' || (user as User).userSocialId == '168207096' || (user as User).userSocialId == '202427318' || (user as User).userSocialId == '191561520' ) {
                 managerParty = new ManagerPartyNew();
                 directServer.getDataParty(null);
             }

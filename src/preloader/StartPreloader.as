@@ -60,9 +60,9 @@ public class StartPreloader {
         _texture = Texture.fromBitmap(new PreloaderTexture());
         var xml:XML = XML(new PreloaderTextureXML());
         _preloaderAtlas = new TextureAtlas(_texture, xml);
-        _bg = new Image(_preloaderAtlas.getTexture('preloader_winter'));
+        _bg = new Image(_preloaderAtlas.getTexture('preloader_bg'));
         _source.addChild(_bg);
-        _quad = new Quad(3.2, 3, 0x33a2f4);
+        _quad = new Quad(3.2, 3, 0xfbaaa7);
         _quad.x = 327;
         _quad.y = 569;
         _source.addChild(_quad);

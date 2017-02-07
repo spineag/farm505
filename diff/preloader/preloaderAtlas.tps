@@ -192,9 +192,8 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>preloader_winter.jpg</filename>
-            <filename>preloader_bg.png</filename>
             <filename>preloader_line.png</filename>
+            <filename>preloader_bg.jpg</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

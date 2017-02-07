@@ -322,7 +322,7 @@ public class WOAmbars extends WindowMain {
     }
 
     private function unfillItems():void {
-        _scrollSprite.resetAll();
+        if (_scrollSprite)_scrollSprite.resetAll();
         for (var i:int = 0; i < _arrCells.length; i++) {
             _arrCells[i].deleteIt();
         }

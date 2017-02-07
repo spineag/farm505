@@ -126,17 +126,21 @@ public class WOPartyWindowItem {
         }
         else if (number != 1 && g.managerParty.userParty.countResource > g.managerParty.dataParty.countToGift[number - 2]) {
 //            width = 1;
-            _quad = new Quad(width, 30, 0xff3da5);
-            _quad.x = 20;
-            _quad.y = 162;
-            source.addChild(_quad);
+            if (width > 0) {
+                _quad = new Quad(width, 30, 0xff3da5);
+                _quad.x = 20;
+                _quad.y = 162;
+                source.addChild(_quad);
+            }
             source.addChild(_txtCountUser);
 
         } else if (number == 1 && g.managerParty.userParty.countResource > 0) {
-            _quad = new Quad(width, 30, 0xff3da5);
-            _quad.x = 20;
-            _quad.y = 162;
-            source.addChild(_quad);
+            if (width > 0) {
+                _quad = new Quad(width, 30, 0xff3da5);
+                _quad.x = 20;
+                _quad.y = 162;
+                source.addChild(_quad);
+            }
             source.addChild(_txtCountUser);
         }
         if (number == 1 && g.managerParty.userParty.countResource == 0) {
