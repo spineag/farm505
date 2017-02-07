@@ -358,13 +358,13 @@ public class ManagerTutorialNew extends IManagerTutorial{
     private function initScene_9():void {
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep]);
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep9_2);
         addBlackUnderInterface();
-        subStep9_2();
     }
 
     private function subStep9_2():void {
         _subStep = 2; //  need for shop == 2
+        cutScene.hideIt(deleteCutScene);
         _currentAction = TutorialAction.NEW_RIDGE;
         _tutorialResourceIDs = [11];
         var ob:Object = g.bottomPanel.getShopButtonProperties();
@@ -374,10 +374,9 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep9_2a():void {
-        removeBlack();
         _subStep = 2;
+        removeBlack();
         g.bottomPanel.deleteArrow();
-        cutScene.hideIt(deleteCutScene);
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -587,16 +586,16 @@ public class ManagerTutorialNew extends IManagerTutorial{
         _currentAction = TutorialAction.NONE;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep]);
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep11_1);
 //        g.bottomPanel.animateShowingMainPanel();
 //        Utils.createDelay(1.1, subStep7_1);
         _tutorialCallback = null;
-        subStep11_1();
         addBlackUnderInterface();
     }
 
     private function subStep11_1():void {
         _subStep = 1;
+        cutScene.hideIt(deleteCutScene);
         _currentAction = TutorialAction.BUY_ANIMAL;
         _tutorialResourceIDs = [1];
         var ob:Object = g.bottomPanel.getShopButtonProperties();
@@ -608,7 +607,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
     private function subStep11_2():void {
         removeBlack();
         g.bottomPanel.deleteArrow();
-        cutScene.hideIt(deleteCutScene);
         _subStep = 2;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
@@ -667,19 +665,22 @@ public class ManagerTutorialNew extends IManagerTutorial{
             subStep12_4();
         } else {
             addBlackUnderInterface();
-            cutScene.showIt(texts[g.user.tutorialStep][_subStep]);
-            _currentAction = TutorialAction.BUY_FABRICA;
-            var ob:Object = g.bottomPanel.getShopButtonProperties();
-            g.bottomPanel.addArrow('shop');
-            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-            g.bottomPanel.tutorialCallback = subStep12_1;
+            cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep12_1a);
         }
+    }
+
+    private function subStep12_1a():void {
+        cutScene.hideIt(deleteCutScene);
+        _currentAction = TutorialAction.BUY_FABRICA;
+        var ob:Object = g.bottomPanel.getShopButtonProperties();
+        g.bottomPanel.addArrow('shop');
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        g.bottomPanel.tutorialCallback = subStep12_1;
     }
 
     private function subStep12_1():void {
         removeBlack();
         _subStep = 1;
-        cutScene.hideIt(deleteCutScene);
         g.bottomPanel.deleteArrow();
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
