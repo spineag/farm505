@@ -268,7 +268,7 @@ public class Vars {
             managerDailyBonus = new ManagerDailyBonus();
             socialNetwork = new SocialNetwork(flashVars);
             if (isDebug) {
-                socialNetworkID = SocialNetworkSwitch.SN_OK_ID;
+                socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
             } else {
                 socialNetworkID = int(flashVars['channel']);
             }
@@ -447,7 +447,6 @@ public class Vars {
 
     private function initVariables2():void {
 //        try {
-//            if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID && testersArrayQuests.indexOf((user as User).userSocialId)>-1 ) useQuests = true;
             if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID ||
                     (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && testersArrayQuests.indexOf((user as User).userSocialId)>-1) ) useQuests = true;
 
@@ -561,14 +560,16 @@ private function afterLoadAll():void {
                 startPreloader = null;
                 managerCutScenes.checkAvailableCutScenes();
                 managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
+                var todayDailyGift:Date;
+                var today:Date;
                if ((socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
 //                   if ((user as User).userSocialId == '252433337505') {
 //                       windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
 //                   }
                    if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
                    else {
-                       var todayDailyGift:Date = new Date((user as User).dayDailyGift * 1000);
-                       var today:Date = new Date((user as User).day * 1000);
+                       todayDailyGift = new Date((user as User).dayDailyGift * 1000);
+                       today = new Date((user as User).day * 1000);
                        if ((user as User).level >= 5 && todayDailyGift.date != today.date) {
                            directServer.getDailyGift(null);
                        } else {
@@ -581,8 +582,8 @@ private function afterLoadAll():void {
                     } else {
                         if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
                         else {
-                            var todayDailyGift:Date = new Date((user as User).dayDailyGift * 1000);
-                            var today:Date = new Date((user as User).day * 1000);
+                            todayDailyGift = new Date((user as User).dayDailyGift * 1000);
+                            today = new Date((user as User).day * 1000);
                             if ((user as User).level >= 5 && todayDailyGift.date != today.date) {
                                 directServer.getDailyGift(null);
                             } else managerCats.helloCats();

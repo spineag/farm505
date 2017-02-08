@@ -3,6 +3,8 @@
  */
 package windows.questList {
 import flash.display.Bitmap;
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 import manager.Vars;
 import quest.ManagerQuest;
@@ -18,6 +20,7 @@ public class WOQuestListItem {
     private var _quest:QuestStructure;
     private var _onHover:Boolean;
     private var _clickCallback:Function;
+    private var _hint:WOQuestListItemHint;
 
     public function WOQuestListItem(d:QuestStructure, f:Function) {
         _clickCallback = f;
@@ -62,6 +65,7 @@ public class WOQuestListItem {
         _onHover = true;
         _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
         _source.y = 54;
+        _hint = new WOQuestListItemHint(_quest, _source.localToGlobal(new Point(0,0)));
     }
 
     private function onOut():void {
@@ -69,6 +73,8 @@ public class WOQuestListItem {
         _onHover = false;
         _source.filter = null;
         _source.y = 60;
+        _hint.hideIt();
+        _hint = null;
     }
 
     private function onClick():void {
