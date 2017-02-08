@@ -73,17 +73,27 @@ public class WOQuestListItem {
         _onHover = false;
         _source.filter = null;
         _source.y = 60;
-        _hint.hideIt();
-        _hint = null;
+        if (_hint) {
+            _hint.hideIt();
+            _hint = null;
+        }
     }
 
     private function onClick():void {
+        if (_hint) {
+            _hint.hideIt();
+            _hint = null;
+        }
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_quest]);
         }
     }
 
     public function deleteIt():void {
+        if (_hint) {
+            _hint.hideIt();
+            _hint = null;
+        }
         _clickCallback = null;
         _source.deleteIt();
         _quest = null;

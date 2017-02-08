@@ -60,7 +60,9 @@ public class ManagerTutorialNew extends IManagerTutorial{
                 case 16: curFunc = initScene_16; break;
 //                case 17: curFunc = initScene_17; break;
 
-                default: Cc.error('unknown tuts step'); break;
+                default: Cc.error('unknown tuts step');
+                    subStep16_4();
+                    break;
             }
             if (curFunc != null) {
                 curFunc.apply();
