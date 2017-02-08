@@ -27,9 +27,7 @@ public class QuestStructure {
         _questId = int(ob.quest_id);
     }
 
-    public function get questId():int {
-        return _questId;
-    }
+    public function get questId():int { return _questId; }
 
     public function addTask(d:Object):void {
         var t:QuestTaskStructure = new QuestTaskStructure();
@@ -41,6 +39,16 @@ public class QuestStructure {
         var aw:QuestAwardStructure = new QuestAwardStructure();
         aw.fillIt(d);
         _awards.push(aw);
+    }
+    
+    public function checkQuestForDone():void {
+        for (var i:int=0; i<_tasks.length; i++) {
+            if (!(_tasks[i] as QuestTaskStructure).isDone) {
+                _isDone = false;
+                return;
+            }
+        }
+        _isDone = true;
     }
 
     public function getTasksByType(t:int):Array {

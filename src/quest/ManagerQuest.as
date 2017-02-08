@@ -40,9 +40,9 @@ public class ManagerQuest {
     public static const RELEASE_ORDER:int = 11;    // +zakaz lavku
     public static const BUY_ANIMAL:int = 12;       // +kyputu tvar'
     public static const FEED_ANIMAL:int = 13;      // +pogodyvatu tvar'
-    public static const REMOVE_WILD:int = 14;      // remove wild
-    public static const OPEN_TERRITORY:int = 15;   // open territory
-    public static const BUY_CAT:int = 16;          // buy cat
+    public static const REMOVE_WILD:int = 14;      // +remove wild
+    public static const OPEN_TERRITORY:int = 15;   // +open territory
+    public static const BUY_CAT:int = 16;          // +buy cat
     public static const NIASH_BUYER:int = 17;      // +vukonatu zamovlennia niawuka-pokyptsia
     public static const KILL_MOUSE:int = 18;       // +zlovutu muwei
     public static const BUY_PAPER:int = 19;        // +kyputu v gazeti
@@ -83,14 +83,20 @@ public class ManagerQuest {
     private function onGetUserQuests(d:Object):void {
         addQuests(d, false);
         if (_userQuests.length) _questUI.showItAnimate();
+        var isDone:Boolean = false;
         for (var i:int=0; i<_userQuests.length; i++) {
+            (_userQuests[i] as QuestStructure).checkQuestForDone();
             if ((_userQuests[i] as QuestStructure).isDone) {
                 g.directServer.completeUserQuest((_userQuests[i] as QuestStructure).id, (_userQuests[i] as QuestStructure).idDB, null);
-                g.windowsManager.closeAllWindows();
-                g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, _userQuests[i] as QuestStructure);
+                if (!isDone) {
+                    g.toolsModifier.modifierType = ToolsModifier.NONE;
+                    g.windowsManager.closeAllWindows();
+                }
+                isDone = true;
+                g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, (_userQuests[i] as QuestStructure));
             }
         }
-        getNewQuests();
+        if (!isDone) getNewQuests();
     }
 
     public function getNewQuests():void {
@@ -343,8 +349,8 @@ public class ManagerQuest {
                 break;
             case REMOVE_WILD:
                 g.windowsManager.closeAllWindows();
-                arrT = g.townArea.getAwayCityObjectsByType(BuildType.WILD);
-                if (arrT) {
+                arrT = g.townArea.getCityObjectsByType(BuildType.WILD);
+                if (arrT.length) {
                     for (i=0; i<arrT.length; i++) {
                         (arrT[i] as WorldObject).showArrow(3);
                     }
@@ -368,15 +374,13 @@ public class ManagerQuest {
 
     private function checkQuestAfterFinishTask(questId:int):void {
         var q:QuestStructure = getUserQuesrById(questId);
-        var tasks:Array = q.tasks;
-        for (var i:int=0; i<tasks.length; i++) {
-            if (!(tasks[i] as QuestTaskStructure).isDone) return;
+        q.checkQuestForDone();
+        if (q.isDone) {
+            g.directServer.completeUserQuest(q.id, q.idDB, null);
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            g.windowsManager.closeAllWindows();
+            g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, q);
         }
-        q.isDone = true;
-        g.directServer.completeUserQuest(q.id, q.idDB, null);
-        g.toolsModifier.modifierType = ToolsModifier.NONE;
-        g.windowsManager.closeAllWindows();
-        g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, q);
     }
 
     private function onGetAward(q:QuestStructure):void {

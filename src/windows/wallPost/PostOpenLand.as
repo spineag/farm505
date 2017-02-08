@@ -40,16 +40,17 @@ public class PostOpenLand  extends WindowMain {
     }
 
     private function onLoad(bitmap:Bitmap):void {
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'wall/wall_new_land.png'].create() as Bitmap;
-        photoFromTexture(Texture.fromBitmap(bitmap));
+        bitmap = g.pBitmaps[g.dataPath.getGraphicsPath() + 'wall/wall_new_land.png'].create() as Bitmap;
+        photoFromTexture(bitmap);
     }
 
-    private function photoFromTexture(tex:Texture):void {
-        _image = new Image(tex);
-        _image.pivotX = _image.width/2;
-        _image.pivotY = _image.height/2;
-        _source.addChild(_image);
+    private function photoFromTexture(b:Bitmap):void {
+        _image = new Image(Texture.fromBitmap(b));
+        if (_image) {
+            _image.pivotX = _image.width / 2;
+            _image.pivotY = _image.height / 2;
+            _source.addChild(_image);
+        }
         _btn = new CButton();
         _btn.addButtonTexture(200, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
