@@ -447,7 +447,6 @@ public class Vars {
 
     private function initVariables2():void {
 //        try {
-//            if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID && testersArrayQuests.indexOf((user as User).userSocialId)>-1 ) useQuests = true;
             if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID ||
                     (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && testersArrayQuests.indexOf((user as User).userSocialId)>-1) ) useQuests = true;
 
