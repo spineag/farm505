@@ -141,6 +141,10 @@ public class BuyerNyashuk {
         g.windowsManager.openWindow(WindowsManager.WO_BUYER_NYASHUK, null, _buyerId, _data,this);
     }
 
+    public function get id():int {
+        return _buyerId;
+    }
+
     public function noClick():void {
         _source.endClickCallback = null;
         _source.hoverCallback = null;

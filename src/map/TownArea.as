@@ -836,6 +836,7 @@ public class TownArea extends Sprite {
             } else isNewAtMap = false;
         } else if (worldObject is DecorFenceArka) {
             if ((worldObject as DecorFenceArka).isMain) {
+//                g.directServer.
                 (worldObject as DecorFenceArka).removeFullView();
                 (worldObject as DecorFenceArka).createSecondPart();
                 fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject);
@@ -855,7 +856,7 @@ public class TownArea extends Sprite {
         if (isNewAtMap) {
             g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
             if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || 
-                    worldObject is DecorFence || worldObject is DecorAnimation || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorFenceGate)
+                    worldObject is DecorFence || worldObject is DecorAnimation || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorFenceGate || worldObject is DecorFenceArka)
                 g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
             if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence 
                     || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorAnimation || worldObject is DecorFenceGate)

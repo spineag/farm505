@@ -98,6 +98,8 @@ public class ManagerBuyerNyashuk {
         for (var i:int=0; i<_arrayNya.length; i++) {
             leftSeconds = arr[i].startTime - int(new Date().getTime()/1000);
             if (leftSeconds <= 0) {
+                if (_arrayNya[i].id == 1) _arrayNya[i].setTailPositions(28, -5);
+                else _arrayNya[i].setTailPositions(30, -5);
                 _arrayNya[i].setTailPositions(30 - r*2 , -5 );
                 _arrayNya[i].walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
                 _arrayNya[i].setPositionInQueue(r);
@@ -360,8 +362,8 @@ public class ManagerBuyerNyashuk {
 
     private function arrivePart1(nya:BuyerNyashuk,id:int):void {
         var p:Point;
-        if (id == 1)  p = new Point(28, -5);
-        else  p = new Point(30, -5);
+        if (id == 1)  p = new Point(30, -5);
+        else p = new Point(28, -5);
         p = g.matrixGrid.getXYFromIndex(p);
         nya.walkPosition = BuyerNyashuk.SHORT_OUTTILE_WALKING;
         nya.flipIt(true);
@@ -378,8 +380,9 @@ public class ManagerBuyerNyashuk {
     }
 
     private function arrivePart2(nya:BuyerNyashuk, id:int):void {
-        if (id == 1)    nya.setTailPositions(28, -5);
-        else nya.setTailPositions(30, -5);
+        if (id == 1) nya.setTailPositions(30, -5);
+        else nya.setTailPositions(28, -5);
+
 //
 //        nya.walkPosition = BuyerNyashuk.TILE_WALKING;
 //        if (id == 1) goNyaToPoint(nya, new Point(30, -5 ), afterArrive, false, nya);
