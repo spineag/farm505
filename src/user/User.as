@@ -50,7 +50,7 @@ public class User extends Someone {
     public var paperShift:int;
     public var buyShopTab:int;
     public var animalIdArrow:int;
-    public var shopDecorFilter:int = 1;
+    public var shopDecorFilter:int = 6;
     public var sessionKey:String;
     public var fabricItemNotification:Array = [];
     public var bornDate:String;

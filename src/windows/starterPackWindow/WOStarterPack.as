@@ -58,7 +58,6 @@ public class WOStarterPack extends WindowMain{
         _woHeight = 538;
         _woWidth = 732;
         _windowType = WindowsManager.WO_STARTER_PACK;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/sp_back_empty.png',onLoad);
         g.directServer.getStarterPack(callbackServer);
     }
 
@@ -79,6 +78,7 @@ public class WOStarterPack extends WindowMain{
 
     private function callbackServer(ob:Object):void {
         _data = ob;
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/sp_back_empty.png',onLoad);
     }
 
     private function createWindow():void {

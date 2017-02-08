@@ -193,14 +193,41 @@ public class WOPapperItem {
         } else {
 //            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
 //            g.socialNetwork.getTempUsersInfoById([_p.userSocialId]);
-            _txtUserName.text = '. . .';
-//            var arr:Array = new Array();
-//            arr.push('Александр Лугинин');
-//            arr.push('Вадим Бойцов');
-//            arr.push('Вадим Чебаненко');
-//            arr.push('Мария Головина');
-//
-//            _txtUserName.text = String(arr[int(Math.random()*arr.length)]);
+//            _txtUserName.text = '. . .';
+            var arr:Array = new Array();
+            arr.push('Александр Лугинин');
+            arr.push('Вадим Бойцов');
+            arr.push('Вадим Чебаненко');
+            arr.push('Мария Головина');
+            arr.push('Ирина Павлова');
+            arr.push('Карина Коршикова');
+            arr.push('Алена Фартушная');
+            arr.push('Галина Лыжина');
+            arr.push('Катя Маркелова');
+            arr.push('Дарья Чиркова');
+            arr.push('Лиза Степанова');
+            arr.push('Виктория Попова');
+            arr.push('Рената Романенко');
+            arr.push('Анатолий Кузнецов');
+            arr.push('Юлия Фуксова');
+            arr.push('Валентина Жаброва');
+            arr.push('Варвара Мешкова');
+            arr.push('Анна Виленская');
+            arr.push('Колян Иваныч');
+            arr.push('Вера Баюк');
+            arr.push('Марина Новикова');
+            arr.push('Юлия Лепилова');
+            arr.push('Виктория Ващенко');
+            arr.push('Дима Донской');
+            arr.push('Ольга Шелехова');
+            arr.push('Софья Изденская');
+            arr.push('Настя Рыжова');
+            arr.push('Катя Ляшук');
+            arr.push('Гена Колисниченко');
+            arr.push('Елза Авдеенко');
+            arr.push('Светлана Тимофеева');
+
+            _txtUserName.text = String(arr[int(Math.random()*arr.length)]);
         }
         if (_data.needHelp > 0) {
             _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));

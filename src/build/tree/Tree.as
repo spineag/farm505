@@ -237,6 +237,8 @@ public class Tree extends WorldObject {
                 _fruit2.visible = true;
                 _armature.addBone(_fruit3);
                 _fruit3.visible = true;
+                _armature.addBone(_fruit4);
+                _fruit4.visible = true;
                 _armature.animation.gotoAndStopByFrame("big_fruits");
                 _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url + '3', ManagerHitArea.TYPE_LOADED);
                 _source.registerHitArea(_hitArea);

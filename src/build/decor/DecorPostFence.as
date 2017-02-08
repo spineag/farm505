@@ -58,6 +58,9 @@ public class DecorPostFence extends WorldObject{
             case 18: im.x = -105 * g.scaleFactor;
                      im.y = 9 * g.scaleFactor;
                 break;
+            case 204: im.x = -107 * g.scaleFactor;
+                      im.y = -3 * g.scaleFactor;
+                break;
         }
         _leftLenta.addChild(im);
         _source.addChild(_leftLenta);
@@ -83,6 +86,9 @@ public class DecorPostFence extends WorldObject{
                 break;
             case 18: im.x = -105 * g.scaleFactor;
                 im.y = 9 * g.scaleFactor;
+                break;
+            case 204: im.x = -107 * g.scaleFactor;
+                im.y = -3 * g.scaleFactor;
                 break;
         }
         _rightLenta.addChild(im);

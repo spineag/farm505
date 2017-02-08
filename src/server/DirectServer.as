@@ -670,6 +670,12 @@ public class DirectServer {
                     obj.innerX.push(-22 * g.scaleFactor); obj.innerY.push(-148 * g.scaleFactor); // main (top) part of gate
                     obj.innerX.push(-61 * g.scaleFactor); obj.innerY.push(-201 * g.scaleFactor); // second part of gate
                 }
+                if (obj.id == 210) {
+                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+                    obj.innerX = []; obj.innerY = [];
+                    obj.innerX.push(-57 * g.scaleFactor); obj.innerY.push(-155 * g.scaleFactor); // main (top) part of gate
+                    obj.innerX.push(-64 * g.scaleFactor); obj.innerY.push(-189 * g.scaleFactor); // second part of gate
+                }
 
                 if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
                 if (d.message[i].currency) {

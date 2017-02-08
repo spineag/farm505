@@ -545,21 +545,22 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onTimer():void {
-        if (g.userTimer.papperTimerAtMarket > 0) if (_txtTimerPaper) _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket);
-        else {
-            _btnPaper.visible = false;
-            _booleanPaper = true;
-            _contPaper.visible = false;
-            if (_txtTimerPaper) _txtTimerPaper.text = '';
-            g.gameDispatcher.removeFromTimer(onTimer);
-            for (var i:int = 0; i < _curUser.marketItems.length; i++) {
-                if (_arrItems.length == 0 || _curUser != g.user) break;
-                else _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
-            }
+        if (g.userTimer.papperTimerAtMarket > 0) {
+            if (_txtTimerPaper) _txtTimerPaper.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket);
+        } else {
+                _btnPaper.visible = false;
+                _booleanPaper = true;
+                _contPaper.visible = false;
+                if (_txtTimerPaper) _txtTimerPaper.text = '';
+                g.gameDispatcher.removeFromTimer(onTimer);
+                for (var i:int = 0; i < _curUser.marketItems.length; i++) {
+                    if (_arrItems.length == 0 || _curUser != g.user) break;
+                    else _arrItems[_curUser.marketItems[i].numberCell].visiblePapperTimer();
+                }
 //            for (var i:int = 0; i < _arrItems.length; i++) {
 //                _arrItems[i].visiblePapperTimer();
 //            }
-        }
+            }
     }
 
     public function addAdditionalUser(ob:Object):void {

@@ -60,17 +60,17 @@ public class StartPreloader {
         _texture = Texture.fromBitmap(new PreloaderTexture());
         var xml:XML = XML(new PreloaderTextureXML());
         _preloaderAtlas = new TextureAtlas(_texture, xml);
-        _bg = new Image(_preloaderAtlas.getTexture('preloader_winter'));
+        _bg = new Image(_preloaderAtlas.getTexture('preloader_bg'));
         _source.addChild(_bg);
-        _quad = new Quad(3.2, 3, 0x33a2f4);
+        _quad = new Quad(3.2, 3, 0xfbaaa7);
         _quad.x = 327;
         _quad.y = 569;
         _source.addChild(_quad);
         _txt = new CTextField(75,50,'0');
-        _txt.setFormat(CTextField.BOLD24, 24, 0x0659b6);
+        _txt.setFormat(CTextField.BOLD24, 24, 0x5b0100);
         _source.addChild(_txt);
         _txt.x = _bg.width/2 - 46;
-        _txt.y = _bg.height/2 + 182;
+        _txt.y = _bg.height/2 + 178;
         createBitmap();
         addIms();
 
@@ -137,7 +137,7 @@ public class StartPreloader {
 
     public function textHelp(str:String):void {
         _txtHelp = new CTextField(1000, 640,str);
-        _txtHelp.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtHelp.setFormat(CTextField.BOLD24, 24, Color.WHITE, 0x5b0100);
         _txtHelp.y = 275;
         _source.addChild(_txtHelp);
     }

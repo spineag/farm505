@@ -240,7 +240,7 @@ public class TimerHint {
     private function onClickBtn():void {
         if (g.managerTutorial.isTutorial) {
             _isOnHover = false;
-            managerHide();
+
             if (_callbackSkip != null) {
                 _callbackSkip.apply(null);
             }
@@ -252,6 +252,7 @@ public class TimerHint {
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             return;
         }
+        managerHide();
         g.userInventory.addMoney(1,-int(_txtCost.text));
         _isOnHover = false;
 //        managerHide();
