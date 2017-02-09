@@ -245,7 +245,7 @@ public class WOStarterPack extends WindowMain{
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
             g.socialNetwork.addEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-            g.socialNetwork.showOrderWindow({id: 13});
+            g.socialNetwork.showOrderWindow({id: 13, price: int(_data.new_cost)});
             Cc.info('try to buy packId: ' + 13);
         }
     }
