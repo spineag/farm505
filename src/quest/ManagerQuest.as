@@ -128,6 +128,11 @@ public class ManagerQuest {
             var i:int;
             for (i=0; i<d.quests.length; i++) {
                 if (d.quests[i].only_testers == '1' && !g.user.isTester) continue;
+                q = getUserQuesrById(int(d.quests[i].id));
+                if (q) {
+                    Cc.info('QuestStructure addTask:: already has quest with id: ' + d.quests[i].id);
+                    continue;
+                }
                 q = new QuestStructure();
                 q.fillIt(d.quests[i]);
                 _userQuests.push(q);
@@ -390,7 +395,6 @@ public class ManagerQuest {
                 break;
             }
         }
-//        if (_userQuests.indexOf(q) > -1) _userQuests.removeAt(_userQuests.indexOf(q));
         g.directServer.getUserQuestAward(q.id, q.idDB, onGetUserQuestAward);
     }
 
