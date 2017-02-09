@@ -103,14 +103,7 @@ public class WOAmbarFilled extends WindowMain {
         _imAmbarSklad.x = -_imAmbarSklad.width/2;
         _imAmbarSklad.y = _imageAmbar.y - 60;
         _source.addChild(_imAmbarSklad);
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-    
-    private function onShow():void {
-        if (_txtAmbarFilled) _txtAmbarFilled.updateIt();
-        if (_txtBtn) _txtBtn.updateIt();
-        if (_txtCount) _txtCount.updateIt();
     }
 
     override protected function deleteIt():void {

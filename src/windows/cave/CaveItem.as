@@ -49,10 +49,6 @@ public class CaveItem {
         source.addChild(_txtCount);
     }
 
-    public function updateTextField():void {
-        _txtCount.updateIt();
-    }
-
     public function setCoordinates(_x:int, _y:int):void {
         _defaultY = _y;
         source.x = _x;
@@ -93,7 +89,7 @@ public class CaveItem {
         source.y = _defaultY - 35;
         source.scaleX = source.scaleY = .9;
         source.alpha = 0;
-        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay, onComplete: updateTextField});
+        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay});
     }
 
     private function onClick():void {

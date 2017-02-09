@@ -195,7 +195,7 @@ package starling.core
     public class Starling extends EventDispatcher
     {
         /** The version of the Starling framework. */
-        public static const VERSION:String = "2.0.2";
+        public static const VERSION:String = "2.1.1";
         
         // members
         
@@ -278,8 +278,9 @@ package starling.core
             _juggler = new Juggler();
             _antiAliasing = 0;
             _supportHighResolutions = false;
-            _frameTimestamp = getTimer() / 1000.0;
             _painter = new Painter(stage3D);
+            _frameTimestamp = getTimer() / 1000.0;
+            _frameID = 1;
             
             // all other modes are problematic in Starling, so we force those here
             stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -306,10 +307,6 @@ package starling.core
             }
             else
             {
-                if (!SystemUtil.supportsDepthAndStencil)
-                    trace("[Starling] Mask support requires 'depthAndStencil' to be enabled" +
-                          " in the application descriptor.");
-
                 _painter.requestContext3D(renderMode, profile);
             }
         }
@@ -334,11 +331,12 @@ package starling.core
             for each (var touchEventType:String in touchEventTypes)
                 _nativeStage.removeEventListener(touchEventType, onTouch, false);
 
+            _touchProcessor.dispose();
+            _painter.dispose();
+            _stage.dispose();
+
             var index:int =  sAll.indexOf(this);
             if (index != -1) sAll.removeAt(index);
-
-            if (_touchProcessor) _touchProcessor.dispose();
-            if (_stage) _stage.dispose();
             if (sCurrent == this) sCurrent = null;
         }
         
@@ -466,11 +464,16 @@ package starling.core
                 _clippedViewPort = _viewPort.intersection(
                     new Rectangle(0, 0, _nativeStage.stageWidth, _nativeStage.stageHeight));
 
+                if (_clippedViewPort.width  < 32) _clippedViewPort.width  = 32;
+                if (_clippedViewPort.height < 32) _clippedViewPort.height = 32;
+
                 var contentScaleFactor:Number =
                         _supportHighResolutions ? _nativeStage.contentsScaleFactor : 1.0;
 
                 _painter.configureBackBuffer(_clippedViewPort, contentScaleFactor,
                     _antiAliasing, true);
+
+                setRequiresRedraw();
             }
         }
         
@@ -796,7 +799,7 @@ package starling.core
         
         /** The viewport into which Starling contents will be rendered. */
         public function get viewPort():Rectangle { return _viewPort; }
-        public function set viewPort(value:Rectangle):void { _viewPort = value.clone(); }
+        public function set viewPort(value:Rectangle):void { _viewPort.copyFrom(value); }
         
         /** The ratio between viewPort width and stage width. Useful for choosing a different
          *  set of textures depending on the display resolution. */
@@ -964,7 +967,8 @@ package starling.core
         public function get touchProcessor():TouchProcessor { return _touchProcessor; }
         public function set touchProcessor(value:TouchProcessor):void
         {
-            if (value != _touchProcessor)
+            if (value == null) throw new ArgumentError("TouchProcessor must not be null");
+            else if (value != _touchProcessor)
             {
                 _touchProcessor.dispose();
                 _touchProcessor = value;

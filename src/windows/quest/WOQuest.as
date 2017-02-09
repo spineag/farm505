@@ -80,15 +80,8 @@ public class WOQuest extends WindowMain{
 
         _award = new WOQuestAward(_source, _quest.awards);
         _questItem = new WOQuestItem(_source, _quest.tasks);
-        onWoShowCallback = onShow;
         super.showIt();
     }
-
-    private function onShow():void {
-        _birka.updateTextField();
-        _txtName.updateIt();
-    }
-
 
     override protected function deleteIt():void {
         g.managerQuest.onHideWO();

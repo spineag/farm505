@@ -78,25 +78,7 @@ public class WOAmbars extends WindowMain {
         if (params[1]) { // if params[1] exist - its mean show updateState
             showUpdateState();
         }
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        _txtAmbar.updateIt();
-        _txtSklad.updateIt();
-        _txtCount.updateIt();
-        _txtBtnShowUpdate.updateIt();
-        _txtBtnBack.updateIt();
-        _txtNeed.updateIt();
-        _txtBtnUpdate.updateIt();
-        _birka.updateTextField();
-        for (var i:int=0; i<_arrCells.length; i++) {
-            (_arrCells[i] as AmbarCell).updateText();
-        }
-        _item1.updateTextField();
-        _item2.updateTextField();
-        _item3.updateTextField();
     }
 
     private function createWOElements():void {

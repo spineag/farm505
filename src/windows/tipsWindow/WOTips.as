@@ -54,16 +54,7 @@ public class WOTips  extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         createTips();
         fillTips();
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-    
-    private function onShow():void {
-        _txtList.updateIt();
-        _birka.updateTextField();
-        for (var i:int=0; i<_arrTips.length; i++) {
-            _arrTips[i].updateTextField();
-        }
     }
     
     private function createTips():void {

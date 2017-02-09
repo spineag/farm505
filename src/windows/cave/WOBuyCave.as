@@ -66,7 +66,6 @@ public class WOBuyCave extends WindowMain {
         _woHeight = im.height;
         createExitButton(hideIt);
         _source.addChildAt(im,0);
-        onWoShowCallback = onShow;
         super.showIt();
 //        _image = new Image(tex);
 //        _image.pivotX = _image.width/2;
@@ -121,11 +120,6 @@ public class WOBuyCave extends WindowMain {
         }
     }
     
-    private function onShow():void {
-        _txt.updateIt();
-        _priceTxt.updateIt();
-    }
-
     private function onClickBuy(callob:Object = null, cost:int = 0):void {
         if (g.user.softCurrencyCount < _dataObject.cost) {
             var ob:Object = {};

@@ -76,10 +76,6 @@ public class WOChestItem {
         _parent.addChild(_source);
         showIt();
     }
-    
-    public function updateTextField():void {
-        _txt.updateIt();
-    }
 
     private function addParticle():void {
         _particle = new Sprite();
@@ -126,7 +122,6 @@ public class WOChestItem {
     }
 
     private function delayBeforeFly():void {
-        updateTextField();
         new TweenMax(_source, .1, {scaleX:1.3, scaleY:1.3, onComplete:flyIt, delay:1.5});
     }
 

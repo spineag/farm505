@@ -62,12 +62,6 @@ public class WOFabricaWorkList {
         }
     }
     
-    public function updateTextField():void {
-        for (var i:int=0; i<_arrItems.length; i++) {
-            (_arrItems[i] as WOFabricaWorkListItem).updateTextField();
-        }
-    }
-
     public function butNewCellFromWO():void {
         _arrItems[maxCount].removePropose();
         onBuyNewCell();

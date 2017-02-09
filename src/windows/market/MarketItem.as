@@ -239,16 +239,6 @@ public class MarketItem {
         }
     }
 
-    public function updateTextField():void {
-        if (_txtAdditem) _txtAdditem.updateIt();
-        if (_txtBuyCell) _txtBuyCell.updateIt();
-        if (_txtBuyNewPlace) _txtBuyNewPlace.updateIt();
-        if (_txtPlawka) _txtPlawka.updateIt();
-        if (_costTxt) _costTxt.updateIt();
-        if (_txtGo) _txtGo.updateIt();
-        if (_countTxt) _countTxt.updateIt();
-    }
-
     private function fillIt(data:Object, count:int,cost:int):void {
         if (_imageCont) unFillIt();
         var im:Image;
@@ -279,7 +269,6 @@ public class MarketItem {
         _countResource = count;
         _countMoney = cost;
         _countTxt.text = String(_countResource);
-        _countTxt.updateIt();
         _countTxt.visible = true;
 
         _plawkaCoins.visible = true;

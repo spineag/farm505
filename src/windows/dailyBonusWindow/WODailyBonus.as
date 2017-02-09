@@ -86,7 +86,6 @@ public class WODailyBonus extends WindowMain {
                 _curActivePosition = 0;
                 fillItems();
                 checkBtns();
-                onWoShowCallback = onShow;
                 super.showIt();
                 break;
         }
@@ -113,10 +112,6 @@ public class WODailyBonus extends WindowMain {
 //        checkBtns();
 //        onWoShowCallback = onShow;
 //        super.showIt();
-    }
-    private function onShow():void {
-        _txtBtnBuy.updateIt();
-        _txtBtnBuy2.updateIt();
     }
 
     override protected function deleteIt():void {

@@ -187,9 +187,15 @@ package starling.display
             var meshStyleType:Class = meshStyle.type;
 
             if (_style.type != meshStyleType)
-                setStyle(new meshStyleType() as MeshStyle, false);
-
-            _style.copyFrom(meshStyle);
+            {
+                var newStyle:MeshStyle = new meshStyleType() as MeshStyle;
+                newStyle.copyFrom(meshStyle);
+                setStyle(newStyle, false);
+            }
+            else
+            {
+                _style.copyFrom(meshStyle);
+            }
         }
 
         /** Indicates if the given mesh instance fits to the current state of the batch.
@@ -250,6 +256,8 @@ package starling.display
 
             _effect = style.createEffect();
             _effect.onRestore = setVertexAndIndexDataChanged;
+
+            setVertexAndIndexDataChanged(); // we've got a new set of buffers!
         }
 
         /** The total number of vertices in the mesh. If you change this to a smaller value,

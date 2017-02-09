@@ -255,19 +255,6 @@ public class WOMarket  extends WindowMain {
     }
 
     private function onShow():void {
-        _txtAllFriends.updateIt();
-        _txtName.updateIt();
-        _txtNumberPage.updateIt();
-        _txtPaper.updateIt();
-        _txtTimerPaper.updateIt();
-        _txtToPaper.updateIt();
-        if (_item) _item.updateTextField();
-        if (_item2) _item2.updateTextField();
-        if (_item3) _item3.updateTextField();
-        _birka.updateTextField();
-        for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].updateTextField();
-        }
         if (_curUser is NeighborBot) Utils.createDelay(.5, g.managerMiniScenes.atNeighborBuyInstrument);
     }
 

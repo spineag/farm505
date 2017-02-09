@@ -59,14 +59,7 @@ public class WOSeverNoWork  extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-    
-    private function onShow():void {
-        _txtBtn.updateIt();
-        _txtError.updateIt();
-        _txtInfo.updateIt();
     }
 
     private function onClick():void {

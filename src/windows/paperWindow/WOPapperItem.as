@@ -140,14 +140,6 @@ public class WOPapperItem {
         source.visible = false;
     }
 
-    public function updateTextField():void {
-        _txtCost.updateIt();
-        _txtCountResource.updateIt();
-        _txtResourceName.updateIt();
-        _txtSale.updateIt();
-        _txtUserName.updateIt();
-    }
-
     public function updateAvatar():void {
         if (!_data) return;
         if (!_p.photo) _p = g.user.getSomeoneBySocialId(_p.userSocialId);

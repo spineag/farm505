@@ -278,7 +278,6 @@ public class WOLevelUp extends WindowMain {
         if (g.user.level >= 17) g.couponePanel.openPanel(true);
         _txtLevel.text = String(g.user.level);
         createList();
-        onWoShowCallback = onShow;
 //        super.showIt();
         _source.y -= 40;
 
@@ -295,17 +294,6 @@ public class WOLevelUp extends WindowMain {
 //        _source.y -= 40;
     }
     
-    private function onShow():void {
-        _txtContinue.updateIt();
-        _txtHard.updateIt();
-        _txtLevel.updateIt();
-        _txtNewLvl.updateIt();
-        _txtNewObject.updateIt();
-        for (var i:int=0; i<_arrCells.length; i++) {
-            _arrCells[i].updateTextField();
-        }
-    }
-
     private function onClickNext():void {
         hideIt();
     }

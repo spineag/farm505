@@ -39,6 +39,10 @@ package starling.text
         { }
 
         /** @inheritDoc */
+        public function dispose():void
+        {}
+
+        /** @inheritDoc */
         public function fillMeshBatch(meshBatch:MeshBatch, width:Number, height:Number, text:String,
                                       format:TextFormat, options:TextOptions=null):void
         {
@@ -94,7 +98,9 @@ package starling.text
 
             sNativeFormat.size = Number(sNativeFormat.size) * options.textureScale;
             sNativeTextField.embedFonts = SystemUtil.isEmbeddedFont(format.font, format.bold, format.italic);
+            sNativeTextField.styleSheet = null; // only to make sure 'defaultTextFormat' is assignable
             sNativeTextField.defaultTextFormat = sNativeFormat;
+            sNativeTextField.styleSheet = options.styleSheet;
             sNativeTextField.width  = scaledWidth;
             sNativeTextField.height = scaledHeight;
             sNativeTextField.antiAliasType = AntiAliasType.ADVANCED;

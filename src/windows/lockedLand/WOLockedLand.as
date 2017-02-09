@@ -126,17 +126,7 @@ public class WOLockedLand extends WindowMain {
         checkBtn();
         WorldClock.clock.add(_armature);
         showAnimation();
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        _birka.updateTextField();
-        _txtBtn.updateIt();
-        _txtInfo.updateIt();
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].updateTextField();
-        }
     }
 
     private function checkBtn():void {

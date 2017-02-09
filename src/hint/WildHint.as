@@ -127,14 +127,8 @@ public class WildHint {
         tween.scaleTo(1);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
-            updateTextField();
         };
         g.starling.juggler.add(tween);
-    }
-
-    private function updateTextField():void {
-        _txtCount.updateIt();
-        _txtName.updateIt();
     }
 
     public function hideIt():void {

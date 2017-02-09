@@ -86,10 +86,5 @@ public class FabricHintItem {
             _txtOrange.changeTextColor = ManagerFilters.ORANGE_COLOR;
         }
     }
-
-    public function updateTextField():void {
-        _txtOrange.updateIt();
-        _txtWhite.updateIt();
-    }
 }
 }

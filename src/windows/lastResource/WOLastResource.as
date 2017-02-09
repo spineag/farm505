@@ -224,18 +224,7 @@ public class WOLastResource extends WindowMain {
                 _btnYes.clickCallback = onClickFabric;
 
         }
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        _txt.updateIt();
-        _txtAhtung.updateIt();
-        _txtNo.updateIt();
-        _txtYes.updateIt();
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].updateTextField();
-        }
     }
 
     private function onClickOrder():void {

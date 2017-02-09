@@ -732,7 +732,7 @@ package starling.utils
                     if (texture)
                     {
                         log("Adding bitmap font '" + name + "'");
-                        TextField.registerBitmapFont(new BitmapFont(texture, xml), name);
+                        TextField.registerCompositor(new BitmapFont(texture, xml), name);
                         removeTexture(name, false);
 
                         if (_keepFontXmls) addXml(name, xml);
@@ -823,6 +823,12 @@ package starling.utils
                 }
                 else if (asset is Bitmap)
                 {
+                    options.onReady = prependCallback(options.onReady, function():void
+                    {
+                        addTexture(name, texture);
+                        onComplete();
+                    });
+
                     texture = Texture.fromData(asset, options);
                     texture.root.onRestore = function():void
                     {
@@ -847,10 +853,6 @@ package starling.utils
                                 dispatchEventWith(Event.TEXTURES_RESTORED);
                         });
                     };
-
-                    asset.bitmapData.dispose();
-                    addTexture(name, texture);
-                    onComplete();
                 }
                 else if (asset is ByteArray)
                 {

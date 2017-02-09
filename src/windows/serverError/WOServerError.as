@@ -69,15 +69,7 @@ public class WOServerError extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         _txtError.text = "Ошибка сервера " + params[0];
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-    
-    private function onShow():void {
-        txt.updateIt();
-        txt2.updateIt();
-        _txtError.updateIt();
-        _txtErrorNew.updateIt();
     }
 
     private function onClick():void {

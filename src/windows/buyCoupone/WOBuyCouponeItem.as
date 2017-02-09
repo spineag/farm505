@@ -80,11 +80,6 @@ public class WOBuyCouponeItem {
         }
     }
 
-    public function updateTextField():void {
-        _txtBtn.updateIt();
-        _txtCount.updateIt();
-    }
-
     private function onClick():void {
         if (g.user.hardCurrency < _cost) {
 //            g.windowsManager.hideWindow(WindowsManager.WO_BUY_COUPONE);

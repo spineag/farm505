@@ -123,16 +123,6 @@ public class WOFabricaWorkListItem {
         _txt.alpha = .7;
     }
 
-    public function updateTextField():void {
-        if (_txt) _txt.updateIt();
-        if (_txtForce) _txtForce.updateIt();
-        if (_txtNumberCreate) _txtNumberCreate.updateIt();
-        if (_txtSkip) _txtSkip.updateIt();
-        if (_txtTimer) _txtTimer.updateIt();
-        if (txtPropose) txtPropose.updateIt();
-        if (txtPropose2) txtPropose2.updateIt();
-    }
-
     public function get source():Sprite {
         return _source;
     }

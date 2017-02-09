@@ -120,11 +120,6 @@ public class ShopTabBtn {
         _source.addChild(_txtTabName);
         _txtTabName.touchable = true;
     }
-    
-    public function updateTextField():void {
-        _txtTabName.updateIt();
-        _txtNotification.updateIt();
-    }
 
     public function activateIt(value:Boolean):void {
         if (value) {

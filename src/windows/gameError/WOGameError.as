@@ -61,14 +61,7 @@ public class WOGameError extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
 //        _txtError.text = params[0];
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        _txt.updateIt();
-        _txtBtn.updateIt();
-        _txtError.updateIt();
     }
 
     private function onClick():void {

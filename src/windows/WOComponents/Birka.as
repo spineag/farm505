@@ -110,10 +110,6 @@ public class Birka extends Sprite{
         while (_source.numChildren) _source.removeChildAt(0);
         createAll();
     }
-    
-    public function updateTextField():void {
-        _txt.updateIt();
-    }
 
     public function flipIt():void {
         _bg.scaleX = -1;

@@ -51,11 +51,6 @@ public class WOTipsItem {
         _txt.y = 14;
         source.addChild(_txt);
     }
-    
-    public function updateTextField():void {
-        _txt.updateIt();
-        _txtBtn.updateIt();
-    }
 
     public function fillIt(ob:Object):void {
         _data = ob;

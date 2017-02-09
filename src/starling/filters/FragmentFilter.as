@@ -21,7 +21,6 @@ package starling.filters
     import starling.display.Stage;
     import starling.events.Event;
     import starling.events.EventDispatcher;
-    import starling.rendering.BatchToken;
     import starling.rendering.FilterEffect;
     import starling.rendering.IndexData;
     import starling.rendering.Painter;
@@ -101,10 +100,10 @@ package starling.filters
         private var _effect:FilterEffect;
         private var _vertexData:VertexData;
         private var _indexData:IndexData;
-        private var _token:BatchToken;
         private var _padding:Padding;
         private var _helper:FilterHelper;
         private var _resolution:Number;
+        private var _antiAliasing:int;
         private var _textureFormat:String;
         private var _textureSmoothing:String;
         private var _alwaysDrawToBackBuffer:Boolean;
@@ -112,7 +111,7 @@ package starling.filters
         private var _cached:Boolean;
 
         // helpers
-        private static var sMatrix3D:Matrix3D;
+        private static var sMatrix3D:Matrix3D = new Matrix3D();
 
         /** Creates a new instance. The base class' implementation just draws the unmodified
          *  input texture. */
@@ -169,7 +168,6 @@ package starling.filters
 
         private function renderPasses(painter:Painter, forCache:Boolean):void
         {
-            if (_token == null) _token = new BatchToken();
             if (_helper  == null) _helper = new FilterHelper(_textureFormat);
             if (_quad  == null) _quad  = new FilterQuad(_textureSmoothing);
             else { _helper.putTexture(_quad.texture); _quad.texture = null; }
@@ -223,13 +221,13 @@ package starling.filters
             if (_padding) RectangleUtil.extend(bounds,
                 _padding.left, _padding.right, _padding.top, _padding.bottom);
 
-            // integer bounds for maximum sharpness + to avoid jiggling
-            bounds.setTo(Math.floor(bounds.x),    Math.floor(bounds.y),
-                         Math.ceil(bounds.width), Math.ceil(bounds.height));
+            // extend to actual pixel bounds for maximum sharpness + to avoid jiggling
+            RectangleUtil.extendToWholePixels(bounds, Starling.contentScaleFactor);
 
             _helper.textureScale = Starling.contentScaleFactor * _resolution;
             _helper.projectionMatrix3D = painter.state.projectionMatrix3D;
             _helper.renderTarget = painter.state.renderTarget;
+            _helper.clipRect = painter.state.clipRect;
             _helper.targetBounds = bounds;
             _helper.target = _target;
             _helper.start(numPasses, drawLastPassToBackBuffer);
@@ -238,19 +236,15 @@ package starling.filters
             _resolution = 1.0; // applied via '_helper.textureScale' already;
                                // only 'child'-filters use resolution directly (in 'process')
 
+            var wasCacheEnabled:Boolean = painter.cacheEnabled;
             var input:Texture = _helper.getTexture();
-            var frameID:int = painter.frameID;
             var output:Texture;
 
-            // By temporarily setting the frameID to zero, the render cache is effectively
-            // disabled while we draw the target object. That is necessary because we rewind the
-            // cache later; if we didn't deactivate the cache, redrawing one of the target objects
-            // later might reference data that does not exist any longer.
-
-            painter.frameID = 0;
-            painter.pushState(_token);
+            painter.cacheEnabled = false; // -> what follows should not be cached
+            painter.pushState();
             painter.state.alpha = 1.0;
-            painter.state.renderTarget = input;
+            painter.state.clipRect = null;
+            painter.state.setRenderTarget(input, true, _antiAliasing);
             painter.state.setProjectionMatrix(bounds.x, bounds.y,
                 input.root.width, input.root.height,
                 stage.stageWidth, stage.stageHeight, stage.cameraPosition);
@@ -259,13 +253,11 @@ package starling.filters
 
             painter.finishMeshBatch();
             painter.state.setModelviewMatricesToIdentity();
-            painter.state.clipRect = null;
 
             output = process(painter, _helper, input); // -> feed 'input' to actual filter code
 
             painter.popState();
-            painter.frameID = frameID;
-            painter.rewindCacheTo(_token); // -> render cache forgets all that happened above :)
+            painter.cacheEnabled = wasCacheEnabled; // -> cache again
 
             if (output) // indirect rendering
             {
@@ -327,6 +319,10 @@ package starling.filters
                 renderTarget = (helper as FilterHelper).renderTarget;
                 projectionMatrix = (helper as FilterHelper).projectionMatrix3D;
                 effect.textureSmoothing = _textureSmoothing;
+
+                // restore clipRect (projection matrix influences clipRect!)
+                painter.state.clipRect = (helper as FilterHelper).clipRect;
+                painter.state.projectionMatrix3D.copyFrom(projectionMatrix);
             }
 
             painter.state.renderTarget = renderTarget;
@@ -489,6 +485,18 @@ package starling.filters
             {
                 if (value > 0) _resolution = value;
                 else throw new ArgumentError("resolution must be > 0");
+                setRequiresRedraw();
+            }
+        }
+
+        /** The anti-aliasing level. This is only used for rendering the target object
+         *  into a texture, not for the filter passes. 0 - none, 4 - maximum. @default 0 */
+        public function get antiAliasing():int { return _antiAliasing; }
+        public function set antiAliasing(value:int):void
+        {
+            if (value != _antiAliasing)
+            {
+                _antiAliasing = value;
                 setRequiresRedraw();
             }
         }

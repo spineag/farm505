@@ -73,7 +73,6 @@ public class WOCave extends WindowMain {
                 _arrItems[i].showAnimateIt(delay);
                 delay += .1;
             }
-            onWoShowCallback = onShow;
             super.showIt();
         } catch(e:Error) {
             Cc.error('WOCave fillIt error: ' + e.errorID + ' - ' + e.message);
@@ -81,13 +80,6 @@ public class WOCave extends WindowMain {
         }
     }
     
-    private function onShow():void {
-        _birka.updateTextField();
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].updateTextField();
-        }
-    }
-
     override protected function deleteIt():void {
         for (var i:int = 0; i < _arrItems.length; i++) {
             _arrItems[i].deleteIt();

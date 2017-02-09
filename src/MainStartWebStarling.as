@@ -42,7 +42,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
         loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, loaderInfo_uncaughtError);
 
         Security.allowDomain('*');
-        Security.allowInsecureDomain("*");
+//        Security.allowInsecureDomain("*");
         stage.scaleMode = StageScaleMode.NO_SCALE;
         stage.align = StageAlign.TOP_LEFT;
         stage.addEventListener(flash.events.Event.RESIZE, onStageResize);

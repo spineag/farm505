@@ -75,12 +75,7 @@ public class WOChest  extends WindowMain{
             _armature.animation.gotoAndPlayByFrame('idle_4');
             createExitButton(onClickExit);
         }
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        if (_txtBtn) _txtBtn.updateIt();
     }
 
     private function closeAnimation():void {

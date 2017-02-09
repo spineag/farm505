@@ -87,11 +87,6 @@ public class MarketFriendItem {
         }
         visitBtn.visible = false;
     }
-    
-    public function updateTextField():void {
-        _txt.updateIt();
-        _txtBtn.updateIt();
-    }
 
     private function visitPerson():void {
         if (g.managerCutScenes.isCutScene) return;

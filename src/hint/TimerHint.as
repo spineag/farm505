@@ -140,7 +140,6 @@ public class TimerHint {
         tween.scaleTo(1);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
-            updateTextField();
 
         };
         g.starling.juggler.add(tween);
@@ -176,12 +175,6 @@ public class TimerHint {
         }
     }
 
-    private function updateTextField():void {
-        _txtCost.updateIt();
-        _txtName.updateIt();
-        _txtText.updateIt();
-        _txtTimer.updateIt();
-    }
 
     public function hideIt(force:Boolean = false):void {
         if (!_canHide && !force) return;

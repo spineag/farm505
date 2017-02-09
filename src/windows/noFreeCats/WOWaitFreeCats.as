@@ -61,14 +61,7 @@ public class WOWaitFreeCats extends WindowMain{
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-    
-    private function onShow():void {
-        txt1.updateIt();
-        txt2.updateIt();
-        txt3.updateIt();
     }
 
     override protected function deleteIt():void {

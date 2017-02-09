@@ -88,11 +88,15 @@ package starling.rendering
         private var _enableErrorChecking:Boolean;
         private var _stencilReferenceValues:Dictionary;
         private var _clipRectStack:Vector.<Rectangle>;
-        private var _batchProcessor:BatchProcessor;
-        private var _batchCache:BatchProcessor;
         private var _batchCacheExclusions:Vector.<DisplayObject>;
 
+        private var _batchProcessor:BatchProcessor;
+        private var _batchProcessorCurr:BatchProcessor; // current  processor
+        private var _batchProcessorPrev:BatchProcessor; // previous processor (cache)
+        private var _batchProcessorSpec:BatchProcessor; // special  processor (no cache)
+
         private var _actualRenderTarget:TextureBase;
+        private var _actualRenderTargetOptions:uint;
         private var _actualCulling:String;
         private var _actualBlendMode:String;
 
@@ -124,7 +128,7 @@ package starling.rendering
         public function Painter(stage3D:Stage3D)
         {
             _stage3D = stage3D;
-            _stage3D.addEventListener(Event.CONTEXT3D_CREATE, onContextCreated, false, 10, true);
+            _stage3D.addEventListener(Event.CONTEXT3D_CREATE, onContextCreated, false, 40, true);
             _context = _stage3D.context3D;
             _shareContext = _context && _context.driverInfo != "Disposed";
             _backBufferWidth  = _context ? _context.backBufferWidth  : 0;
@@ -133,11 +137,16 @@ package starling.rendering
             _stencilReferenceValues = new Dictionary(true);
             _clipRectStack = new <Rectangle>[];
 
-            _batchProcessor = new BatchProcessor();
-            _batchProcessor.onBatchComplete = drawBatch;
+            _batchProcessorCurr = new BatchProcessor();
+            _batchProcessorCurr.onBatchComplete = drawBatch;
 
-            _batchCache = new BatchProcessor();
-            _batchCache.onBatchComplete = drawBatch;
+            _batchProcessorPrev = new BatchProcessor();
+            _batchProcessorPrev.onBatchComplete = drawBatch;
+
+            _batchProcessorSpec = new BatchProcessor();
+            _batchProcessorSpec.onBatchComplete = drawBatch;
+
+            _batchProcessor = _batchProcessorCurr;
             _batchCacheExclusions = new Vector.<DisplayObject>();
 
             _state = new RenderState();
@@ -151,8 +160,9 @@ package starling.rendering
          *  the render context. */
         public function dispose():void
         {
-            _batchProcessor.dispose();
-            _batchCache.dispose();
+            _batchProcessorCurr.dispose();
+            _batchProcessorPrev.dispose();
+            _batchProcessorSpec.dispose();
 
             if (!_shareContext)
             {
@@ -324,6 +334,23 @@ package starling.rendering
             if (token) _batchProcessor.fillToken(token);
         }
 
+        /** Restores the render state that was last pushed to the stack, but does NOT remove
+         *  it from the stack. */
+        public function restoreState():void
+        {
+            if (_stateStackPos < 0)
+                throw new IllegalOperationError("Cannot restore from empty state stack");
+
+            _state.copyFrom(_stateStack[_stateStackPos]); // -> might cause 'finishMeshBatch'
+        }
+
+        /** Updates all properties of the given token so that it describes the current position
+         *  within the render cache. */
+        public function fillToken(token:BatchToken):void
+        {
+            if (token) _batchProcessor.fillToken(token);
+        }
+
         // masks
 
         /** Draws a display object into the stencil buffer, incrementing the buffer on each
@@ -402,7 +429,10 @@ package starling.rendering
 
         private function renderMask(mask:DisplayObject):void
         {
+            var wasCacheEnabled:Boolean = cacheEnabled;
+
             pushState();
+            cacheEnabled = false;
             _state.alpha = 0.0;
 
             var matrix:Matrix = null;
@@ -427,6 +457,7 @@ package starling.rendering
             mask.render(this);
             finishMeshBatch();
 
+            cacheEnabled = wasCacheEnabled;
             popState();
         }
 
@@ -506,20 +537,12 @@ package starling.rendering
         /** Completes all unfinished batches, cleanup procedures. */
         public function finishFrame():void
         {
-            if (_frameID % 99 == 0) // odd number -> alternating processors
-                _batchProcessor.trim();
+            if (_frameID %  99 == 0) _batchProcessorCurr.trim(); // odd number -> alternating processors
+            if (_frameID % 150 == 0) _batchProcessorSpec.trim();
 
             _batchProcessor.finishBatch();
-            swapBatchProcessors();
-            _batchProcessor.clear();
+            _batchProcessor = _batchProcessorSpec; // no cache between frames
             processCacheExclusions();
-        }
-
-        private function swapBatchProcessors():void
-        {
-            var tmp:BatchProcessor = _batchProcessor;
-            _batchProcessor = _batchCache;
-            _batchCache = tmp;
         }
 
         private function processCacheExclusions():void
@@ -533,6 +556,11 @@ package starling.rendering
          *  clipping rectangle, and draw count. Furthermore, depth testing is disabled. */
         public function nextFrame():void
         {
+            // update batch processors
+            _batchProcessor = swapBatchProcessors();
+            _batchProcessor.clear();
+            _batchProcessorSpec.clear();
+
             // enforce reset of basic context settings
             _actualBlendMode = null;
             _actualCulling = null;
@@ -543,8 +571,14 @@ package starling.rendering
             _clipRectStack.length = 0;
             _drawCount = 0;
             _stateStackPos = -1;
-            _batchProcessor.clear();
             _state.reset();
+        }
+
+        private function swapBatchProcessors():BatchProcessor
+        {
+            var tmp:BatchProcessor = _batchProcessorPrev;
+            _batchProcessorPrev = _batchProcessorCurr;
+            return _batchProcessorCurr = tmp;
         }
 
         /** Draws all meshes from the render cache between <code>startToken</code> and
@@ -561,7 +595,7 @@ package starling.rendering
 
                 for (var i:int = startToken.batchID; i <= endToken.batchID; ++i)
                 {
-                    meshBatch = _batchCache.getBatchAt(i);
+                    meshBatch = _batchProcessorPrev.getBatchAt(i);
                     subset.setTo(); // resets subset
 
                     if (i == startToken.batchID)
@@ -588,14 +622,6 @@ package starling.rendering
 
                 popState();
             }
-        }
-
-        /** Removes all parts of the render cache past the given token. Beware that some display
-         *  objects might still reference those parts of the cache! Only call it if you know
-         *  exactly what you're doing. */
-        public function rewindCacheTo(token:BatchToken):void
-        {
-            _batchProcessor.rewindTo(token);
         }
 
         /** Prevents the object from being drawn from the render cache in the next frame.
@@ -680,8 +706,9 @@ package starling.rendering
         private function applyRenderTarget():void
         {
             var target:TextureBase = _state.renderTargetBase;
+            var options:uint = _state.renderTargetOptions;
 
-            if (target != _actualRenderTarget)
+            if (target != _actualRenderTarget || options != _actualRenderTargetOptions)
             {
                 if (target)
                 {
@@ -693,6 +720,7 @@ package starling.rendering
                     _context.setRenderToBackBuffer();
 
                 _context.setStencilReferenceValue(stencilReferenceValue);
+                _actualRenderTargetOptions = options;
                 _actualRenderTarget = target;
             }
         }
@@ -771,6 +799,25 @@ package starling.rendering
                 _context.setStencilReferenceValue(value);
         }
 
+        /** Indicates if the render cache is enabled. Normally, this should be left at the default;
+         *  however, some custom rendering logic might require to change this property temporarily.
+         *  Also note that the cache is automatically reactivated each frame, right before the
+         *  render process.
+         *
+         *  @default true
+         */
+        public function get cacheEnabled():Boolean { return _batchProcessor == _batchProcessorCurr; }
+        public function set cacheEnabled(value:Boolean):void
+        {
+            if (value != cacheEnabled)
+            {
+                finishMeshBatch();
+
+                if (value) _batchProcessor = _batchProcessorCurr;
+                else       _batchProcessor = _batchProcessorSpec;
+            }
+        }
+
         /** The current render state, containing some of the context settings, projection- and
          *  modelview-matrix, etc. Always returns the same instance, even after calls to "pushState"
          *  and "popState".
@@ -787,9 +834,14 @@ package starling.rendering
         /** The Context3D instance this painter renders into. */
         public function get context():Context3D { return _context; }
 
-        /** The number of frames that have been rendered with the current Starling instance. */
-        public function get frameID():uint { return _frameID; }
+        /** Returns the index of the current frame <strong>if</strong> the render cache is enabled;
+         *  otherwise, returns zero. To get the frameID regardless of the render cache, call
+         *  <code>Starling.frameID</code> instead. */
         public function set frameID(value:uint):void { _frameID = value; }
+        public function get frameID():uint
+        {
+            return _batchProcessor == _batchProcessorCurr ? _frameID : 0;
+        }
 
         /** The size (in points) that represents one pixel in the back buffer. */
         public function get pixelSize():Number { return _pixelSize; }

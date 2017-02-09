@@ -124,19 +124,9 @@ public class WOTrainOrder extends WindowMain{
         _txtTime.text = TimeUtils.convertSecondsForHint(_timer);
         g.gameDispatcher.addToTimer(timerCheck);
         fillList(params[0]);
-        onWoShowCallback = onShow;
         super.showIt();
     }
     
-    private function onShow():void {
-        _txtArrive.updateIt();
-        _txtCost.updateIt();
-        _txtNext.updateIt();
-        _txtNow.updateIt();
-        _txtTime.updateIt();
-        _txtTime2.updateIt();
-    }
-
     private function fillList(list:Array):void {
         item1 = new WOTrainOrderItem();
         item1.fillIt(list[0], 1);

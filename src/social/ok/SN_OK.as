@@ -5,7 +5,6 @@ import flash.display.Bitmap;
 import flash.events.Event;
 import flash.external.ExternalInterface;
 import flash.utils.getTimer;
-
 import quest.ManagerQuest;
 import social.SocialNetwork;
 import user.Friend;
@@ -281,13 +280,13 @@ public class SN_OK extends SocialNetwork {
         }
     }
 
-    private function onStageDeActivate(e:Event):void {
+    private function onStageDeActivate(e:flash.events.Event):void {
         Cc.ch('social', 'add stageActivate and remove stageDeActivate');
         g.starling.nativeStage.removeEventListener(flash.events.Event.DEACTIVATE, onStageDeActivate);
         g.starling.nativeStage.addEventListener(flash.events.Event.ACTIVATE, onStageActivate);
     }
 
-    private function onStageActivate(e:Event):void {
+    private function onStageActivate(e:flash.events.Event):void {
         Cc.ch('social', 'remove stageActivate listener');
         g.starling.nativeStage.removeEventListener(flash.events.Event.ACTIVATE, onStageActivate);
         if (orderPackID > 0) {

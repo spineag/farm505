@@ -3,47 +3,21 @@
  */
 package loaders {
 import data.AllData;
-import dragonBones.starling.StarlingFactory;
-
-import flash.display.Bitmap;
-
-import flash.text.Font;
-
 import manager.*;
-import flash.events.Event;
 import starling.text.BitmapFont;
 import starling.text.TextField;
 import starling.textures.Texture;
-import starling.textures.TextureSmoothing;
 
 public class EmbedAssets {
     // Texture
 //    [Embed(source="../../assets/interfaceAtlas.png")]
 //    private const InterfaceTexture:Class;
-//    [Embed(source="../../assets/instrumentAtlas.png")]
-//    private const InstrumentTexture:Class;
-
     // XML
 //    [Embed(source="../../assets/interfaceAtlas.xml", mimeType="application/octet-stream")]
 //    private const InterfaceTextureXML:Class;
-//    [Embed(source="../../assets/instrumentAtlas.xml", mimeType="application/octet-stream")]
-//    private const InstrumentTextureXML:Class;
 
-    //    [Embed(source="../../assets/fonts/HouschkaRoundedBoldRegular.otf", embedAsCFF="false", fontName="HouschkaBold")]
-//    private const HouschkaBold:Class;
-//    [Embed(source="../../assets/fonts/BloggerSansItalic.otf", embedAsCFF="false", fontName="BloggerItalic")]
-//    private const BloggerItalic:Class;
-//    [Embed(source="../../assets/fonts/BloggerSansLightRegular.otf", embedAsCFF="false", fontName="BloggerLight")]
-//    private const BloggerLight:Class;
-
-    // use this !!!!
 //    [Embed(source="../../assets/fonts/BloggerSansMediumRegular.otf", embedAsCFF="false", fontName="BloggerMedium")]
 //    private const BloggerMedium:Class;
-//    [Embed(source="../../assets/fonts/BloggerSansRegular.otf", embedAsCFF="false", fontName="BloggerRegular")]
-//    private const BloggerRegular:Class;
-//    [Embed(source="../../assets/fonts/BloggerSansBold.otf", embedAsCFF="false", fontName="BloggerBold")]
-//    private const BloggerBold:Class;
-
 
     [Embed(source="../../assets/fonts/bitmap/bold30.png")]
     private const BitmapBloggerBoldWhite30png:Class;
@@ -108,57 +82,55 @@ public class EmbedAssets {
         var texture:Texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite30png);
         var xml:XML = XML(new BitmapBloggerBoldWhite30xml());
         var bFont:BitmapFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerBold30'] = TextField.registerBitmapFont(bFont);
+        TextField.registerCompositor(bFont, 'BloggerBold30');
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite24png);
         xml = XML(new BitmapBloggerBoldWhite24xml());
         bFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerBold24'] = TextField.registerBitmapFont(bFont);
+        TextField.registerCompositor(bFont, 'BloggerBold24');
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerBoldWhite18png);
         xml = XML(new BitmapBloggerBoldWhite18xml());
         bFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerBold18'] = TextField.registerBitmapFont(bFont);
+        TextField.registerCompositor(bFont, 'BloggerBold18');
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerMediumWhite30png);
         xml = XML(new BitmapBloggerMediumWhite30xml());
         bFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerMedium30'] = TextField.registerBitmapFont(bFont);
+        TextField.registerCompositor(bFont, 'BloggerMedium30');
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerMediumWhite24png);
         xml = XML(new BitmapBloggerMediumWhite24xml());
         bFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerMedium24'] = TextField.registerBitmapFont(bFont);
+        TextField.registerCompositor(bFont, 'BloggerMedium24');
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerMediumWhite18png);
         xml = XML(new BitmapBloggerMediumWhite18xml());
         bFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerMedium18'] = TextField.registerBitmapFont(bFont);
+        TextField.registerCompositor(bFont, 'BloggerMedium18');
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerRegularWhite30png);
         xml = XML(new BitmapBloggerRegularWhite30xml());
         bFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerRegular30'] = TextField.registerBitmapFont(bFont);
+        TextField.registerCompositor(bFont, 'BloggerRegular30');
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerRegularWhite24png);
         xml = XML(new BitmapBloggerRegularWhite24xml());
         bFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerRegular24'] = TextField.registerBitmapFont(bFont);
+        TextField.registerCompositor(bFont, 'BloggerRegular24');
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerRegularWhite18png);
         xml = XML(new BitmapBloggerRegularWhite18xml());
         bFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerRegular18'] = TextField.registerBitmapFont(bFont);
+        TextField.registerCompositor(bFont, 'BloggerRegular18');
 
         texture = Texture.fromEmbeddedAsset(BitmapBloggerBold72png);
         xml = XML(new BitmapBloggerBold72xml());
         bFont = new BitmapFont(texture, xml);
-        g.allData.bFonts['BloggerBold72'] = TextField.registerBitmapFont(bFont);
+        TextField.registerCompositor(bFont, 'BloggerBold72');
     }
 
-    private function createTexture(onLoadCallback:Function):void {
-
-
+//    private function createTexture(onLoadCallback:Function):void {
 //        var texture:Texture = Texture.fromBitmap(new ResourceTexture());
 //        var xml:XML= XML(new ResourceTextureXML());
 //        g.allData.atlas['resourceAtlas'] = new TextureAtlas(texture, xml);
@@ -171,30 +143,29 @@ public class EmbedAssets {
 //        g.allData.fonts['BloggerMedium'] = (new BloggerMedium() as Font).fontName;
 //        g.allData.fonts['BloggerBold'] = (new BloggerBold() as Font).fontName;
 
-
-        var count:int = 2;
-        var checkCount:Function = function ():void {
-            count--;
-            if (count <= 0) {
-                if (onLoadCallback != null) {
-                    onLoadCallback.apply();
-                    onLoadCallback = null;
-                }
-            }
-        };
-        loadFactory('tutorialCat', CatTutorial, checkCount);
-        loadFactory('tutorialCatBig', CatTutorialBig, checkCount);
-    }
-
-    private function loadFactory(name:String, clas:Class, onLoad:Function):void {
-        var factory:StarlingFactory = new StarlingFactory();
-        var f:Function = function (e:Event):void {
-            factory.removeEventListener(Event.COMPLETE, f);
-            g.allData.factory[name] = factory;
-            if (onLoad != null) onLoad.apply();
-        };
-        factory.addEventListener(Event.COMPLETE, f);
-        factory.parseDragonBonesData(new clas());
-    }
+//        var count:int = 2;
+//        var checkCount:Function = function ():void {
+//            count--;
+//            if (count <= 0) {
+//                if (onLoadCallback != null) {
+//                    onLoadCallback.apply();
+//                    onLoadCallback = null;
+//                }
+//            }
+//        };
+//        loadFactory('tutorialCat', CatTutorial, checkCount);
+//        loadFactory('tutorialCatBig', CatTutorialBig, checkCount);
+//    }
+//
+//    private function loadFactory(name:String, clas:Class, onLoad:Function):void {
+//        var factory:StarlingFactory = new StarlingFactory();
+//        var f:Function = function (e:Event):void {
+//            factory.removeEventListener(Event.COMPLETE, f);
+//            g.allData.factory[name] = factory;
+//            if (onLoad != null) onLoad.apply();
+//        };
+//        factory.addEventListener(Event.COMPLETE, f);
+//        factory.parseDragonBonesData(new clas());
+//    }
 }
 }

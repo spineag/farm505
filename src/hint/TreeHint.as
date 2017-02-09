@@ -147,7 +147,6 @@ public class TreeHint {
         tween.scaleTo(1);
         tween.onComplete = function ():void {
             g.starling.juggler.remove(tween);
-            updateTextField();
 
         };
         g.starling.juggler.add(tween);
@@ -182,11 +181,6 @@ public class TreeHint {
             g.cont.deltaMoveGameCont(dX, dY, .5);
             new TweenMax(_source, .5, {x:int(_source.x + dX), y:int(_source.y + dY), ease:Linear.easeOut});
         }
-    }
-
-    private function updateTextField():void {
-        _txtCount.updateIt();
-        _txtName.updateIt();
     }
 
     public function hideIt():void {

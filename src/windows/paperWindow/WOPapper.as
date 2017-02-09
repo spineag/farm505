@@ -151,13 +151,7 @@ public class WOPapper extends WindowMain {
         if (g.user.paperShift > 1) {
             moveNext();
         }
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        _txtBtn.updateIt();
-        _txtTimer.updateIt();
     }
 
     private function createPages():void {

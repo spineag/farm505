@@ -60,19 +60,12 @@ public class WOServerCrack  extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        onWoShowCallback = onShow;
         super.showIt();
 
         if (params[0]) {
             _txtError.text = 'Ошибка данных ' + String(params[0]);
             Cc.error('WOServerCrack: status=' + params[0]);
         }
-    }
-    
-    private function onShow():void {
-        txt.updateIt();
-        txt2.updateIt();
-        _txtError.updateIt();
     }
 
     private function onClick():void {

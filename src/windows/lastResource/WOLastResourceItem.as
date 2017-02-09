@@ -88,10 +88,6 @@ public class WOLastResourceItem {
         source.addChild(_txtCount);
     }
 
-    public function updateTextField():void {
-        _txtCount.updateIt();
-    }
-
     public function deleteIt():void {
         while (source.numChildren) {
             source.removeChildAt(0);

@@ -63,17 +63,7 @@ public class WOFabrica extends WindowMain {
         if (params[3]) {
             addArrowForPossibleRawItems();
         }
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-    
-    private function onShow():void {
-        _birka.updateTextField();
-        _list.updateTextField();
-        for (var i:int=0; i<_arrShiftBtns.length; i++) {
-            (_arrShiftBtns[i] as WOFabricNumber).updateTextField();
-        }
-        
     }
 
     private function createFabricaItems():void {

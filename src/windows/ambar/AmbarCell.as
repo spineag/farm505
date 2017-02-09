@@ -81,10 +81,6 @@ public class AmbarCell {
         source.addChild(_countTxt);
     }
 
-    public function updateText():void {
-        _countTxt.updateIt();
-    }
-
     public function deleteIt():void {
         while (source.numChildren) {
             source.removeChildAt(0);

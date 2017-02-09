@@ -175,17 +175,6 @@ public class ShopItem {
         }
         setInfo();
     }
-    
-    public function updateTextField():void {
-        if (_txtAvailable) _txtAvailable.updateIt();
-        if (_txtBtnBuyBlue) _txtBtnBuyBlue.updateIt();
-        if (_txtBtnBuyGreen) _txtBtnBuyGreen.updateIt();
-        if (_txtLimit) _txtLimit.updateIt();
-        if (_countTxt) _countTxt.updateIt();
-        if (_nameTxt) _nameTxt.updateIt();
-        if (_countBoxTxt) _countBoxTxt.updateIt();
-        if (_txtBtnYellow) _txtBtnYellow.updateIt();
-    }
 
     public function get position():int {
         return _positionInList;

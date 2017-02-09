@@ -124,10 +124,6 @@ public class CouponePanel {
 
         quad.alpha = 0;
         _source.addChildAt(quad,0);
-        _txtBlue.updateIt();
-        _txtGreen.updateIt();
-        _txtYellow.updateIt();
-        _txtRed.updateIt();
         _txtGreen.text = String(g.user.greenCouponCount);
         _txtBlue.text = String(g.user.blueCouponCount);
         _txtRed.text = String(g.user.redCouponCount);

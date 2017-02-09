@@ -116,22 +116,7 @@ public class WOMarketChoose extends WindowMain {
         else _type = SKLAD;
         checkTypes();
         fillItems();
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        _birka.updateTextField();
-        _txtAmbar.updateIt();
-        _txtCount.updateIt();
-        _txtPrice.updateIt();
-        _txtSellBtn.updateIt();
-        _txtSklad.updateIt();
-        _countMoneyBlock.updateTextField();
-        _countResourceBlock.updateTextField();
-        for (var i:int=0; i<_arrCells.length; i++) {
-            _arrCells[i].updateTextField();
-        }
     }
 
     private function createWOElements():void {
@@ -262,7 +247,6 @@ public class WOMarketChoose extends WindowMain {
                 cell.clickCallback = onCellClick;
                 _arrCells.push(cell);
                 _scrollSprite.addNewCell(cell.source);
-                cell.updateTextField();
             }
         } catch(e:Error) {
             Cc.error('WOAmbar fillItems:: error ' + e.errorID + ' - ' + e.message);

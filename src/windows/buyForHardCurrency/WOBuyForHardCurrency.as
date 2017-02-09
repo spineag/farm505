@@ -100,7 +100,6 @@ public class WOBuyForHardCurrency extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        onWoShowCallback = onShow;
         switch (params[0]) {
             case 'lockedLand':
                 _id = params[1];
@@ -113,13 +112,6 @@ public class WOBuyForHardCurrency extends WindowMain {
                 break;
         }
         super.showIt();
-    }
-
-    private function onShow():void {
-        _txt.updateIt();
-        _txt2.updateIt();
-        _txtNo.updateIt();
-        _txtYes.updateIt();
     }
 
     override protected function deleteIt():void {

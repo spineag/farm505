@@ -83,7 +83,6 @@ public class Hint {
                 _txtHint.text = st;
                 break;
         }
-        _txtHint.updateIt();
         _type = type;
         _newX = newX;
 

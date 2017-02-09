@@ -53,7 +53,6 @@ public class CutSceneTextBubble {
     
     private function onCompleteShow():void {
         addParticles();
-        if (_btnTxt) _btnTxt.updateIt();
     }
 
     public function onResize():void {

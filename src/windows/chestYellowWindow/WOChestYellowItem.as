@@ -71,10 +71,6 @@ public class WOChestYellowItem {
         showIt();
     }
 
-    public function updateTextField():void {
-        _txt.updateIt();
-    }
-
     private function addParticle():void {
         _particle = new Sprite();
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('product_particle'));
@@ -131,7 +127,6 @@ public class WOChestYellowItem {
     }
 
     private function delayBeforeFly():void {
-        updateTextField();
         new TweenMax(source, .1, {scaleX: 1.3, scaleY: 1.3, onComplete: flyIt, delay: 1.5});
     }
 

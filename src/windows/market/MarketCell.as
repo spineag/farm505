@@ -76,10 +76,6 @@ public class MarketCell {
         _cont.y += 2;
     }
 
-    public function updateTextField():void {
-        _countTxt.updateIt();
-    }
-
     public function set clickCallback(f:Function):void {
         _clickCallback = f;
     }

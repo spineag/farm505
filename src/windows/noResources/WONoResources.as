@@ -200,17 +200,7 @@ public class WONoResources extends WindowMain {
                 _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
                 _btnBuy.clickCallback = onClickTrain;
         }
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        _txtHardCost.updateIt();
-        _txtNoResource.updateIt();
-        _text.updateIt();
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].updateTextField();
-        }
     }
 
     private function createList(_data:Object):void {

@@ -75,15 +75,7 @@ public class WOTrainSend extends WindowMain {
     override public function showItParams(f:Function, params:Array):void {
         _callback = f;
         _build = params[0];
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-    
-    private function onShow():void {
-        _txtA.updateIt();
-        _txtB.updateIt();
-        _txtNo.updateIt();
-        _txtYes.updateIt();
     }
 
     private function onYes():void {

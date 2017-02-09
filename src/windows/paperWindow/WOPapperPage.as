@@ -43,14 +43,6 @@ public class WOPapperPage {
         createItems();
     }
 
-    public function updateTextField():void {
-        _txtPage.updateIt();
-        _txtTitle.updateIt();
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].updateTextField();       
-        }
-    }
-
     private function createBG(n:int, nMax:int):void {
         _bg = new CSprite();
         var im:Image;
@@ -102,7 +94,6 @@ public class WOPapperPage {
             _txtPage.setFormat(CTextField.BOLD24, 20, ManagerFilters.BROWN_COLOR);
             if (n > nMax) {
                 _txtPage.text = '';
-                _txtPage.updateIt();
             }
             _txtPage.x = 170;
             _txtPage.y = 460;

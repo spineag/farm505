@@ -44,14 +44,8 @@ public class WOAnotherGame extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        onWoShowCallback = onShow;
         super.showIt();
     }
-
-    private function onShow():void {
-        txt.updateIt();
-    }
-
 
     override protected function deleteIt():void {
         _source.removeChild(_woBG);

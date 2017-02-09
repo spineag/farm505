@@ -205,12 +205,6 @@ public class LockedLandItem {
         }
     }
 
-    public function updateTextField():void {
-        if (_txtBtn) _txtBtn.updateIt();
-        if (_txtCount) _txtCount.updateIt();
-        if (_txtInfo) _txtInfo.updateIt();
-    }
-
     public function deleteIt():void {
         if (_iconCoins) _iconCoins.filter = null;
         if (_galo4ka) _galo4ka.filter = null;

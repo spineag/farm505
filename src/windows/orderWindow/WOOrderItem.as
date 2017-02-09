@@ -110,12 +110,6 @@ public class WOOrderItem {
         _isHover = false;
     }
     
-    public function updateTextField():void {
-        _txtCoins.updateIt();
-        _txtName.updateIt();
-        _txtXP.updateIt();
-    }
-
     public function activateIt(v:Boolean):void {
         if (v) {
             _bgCarton.filter = null;

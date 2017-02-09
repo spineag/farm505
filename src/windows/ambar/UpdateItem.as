@@ -130,11 +130,6 @@ public class UpdateItem {
         _resourceImage.y = 50 - _resourceImage.height/2;
         _contImage.addChild(_resourceImage);
     }
-    
-    public function updateTextField():void {
-        _txtCount.updateIt();
-        _btnTxt.updateIt();
-    }
 
     public function get isFull():Boolean {
         return _imGalo4ka.visible;

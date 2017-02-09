@@ -159,11 +159,6 @@ public class WOBuyCurrencyItem {
         _btn.clickCallback = onClick;
     }
 
-    public function updateTextField():void {
-        _txtBtn.updateIt();
-        _txtCount.updateIt();
-    }
-
     public function deleteIt():void {
         _im.filter = null;
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);

@@ -51,16 +51,7 @@ public class WOBuyCoupone extends WindowMain{
         _Red.source.x = 115;
         _Red.source.y = -20;
         _source.addChild(_Red.source);
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-    
-    private function onShow():void {
-        _txt.updateIt();
-        _Blue.updateTextField();
-        _Yellow.updateTextField();
-        _Red.updateTextField();
-        _Green.updateTextField();
     }
 
     override protected function deleteIt():void {

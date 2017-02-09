@@ -70,17 +70,10 @@ public class WOMarketDeleteItem extends WindowMain{
     }
 
     override public function showItParams(f:Function, params:Array):void {
-        onWoShowCallback = onShow;
         super.showIt();
         _callback = f;
         _data = params[0];
         _count = params[1];
-    }
-
-    private function onShow():void {
-        _txt.updateIt();
-        _txtBtn.updateIt();
-        _txtInfo.updateIt();
     }
 
     private function onClick():void {

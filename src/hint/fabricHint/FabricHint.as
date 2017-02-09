@@ -132,7 +132,6 @@ public class FabricHint {
             tween.scaleTo(1);
             tween.onComplete = function ():void {
                 g.starling.juggler.remove(tween);
-                updateOnShow();
                 _txtName.visible = true;
             };
             g.starling.juggler.add(tween);
@@ -141,18 +140,6 @@ public class FabricHint {
         }
     }
     
-    private function updateOnShow():void {
-        _txtCreate.updateIt();
-        _txtItem.updateIt();
-        _txtName.updateIt();
-        _txtOnSklad.updateIt();
-        _txtTime.updateIt();
-        _txtTimeCreate.updateIt();
-        for (var i:int = 0; i < _arrCells.length; i++) {
-            _arrCells[i].updateTextField();
-        }
-    }
-
     public function updateItem():void {
         for (var i:int = 0; i < _arrCells.length; i++) {
             _arrCells[i].updateCount();

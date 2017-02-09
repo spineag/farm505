@@ -284,29 +284,9 @@ public class WOTrain extends WindowMain {
         checkBtn();
         _txtCounter.text = TimeUtils.convertSecondsForHint(_counter);
         g.gameDispatcher.addToTimer(checkCounter);
-        onWoShowCallback = onShow;
         super.showIt();
     }
     
-    private function onShow():void {
-        _txt.updateIt();
-        _txtC.updateIt();
-        _txtCostAll.updateIt();
-        _txtCostItem.updateIt();
-        _txtCounter.updateIt();
-        _txtLoad.updateIt();
-        _txtLoad2.updateIt();
-        _txtNeed.updateIt();
-        _txtPrise.updateIt();
-        _txtSend.updateIt();
-        _txtXpAll.updateIt();
-        _txtXpItem.updateIt();
-        _birka.updateTextField();
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].updateTextField();
-        }
-    }
-
     private function checkCounter():void {
         _counter--;
         _txtCounter.text = TimeUtils.convertSecondsForHint(_counter);

@@ -82,10 +82,6 @@ internal class ItemChest {
         _txt.y = 5;
         source.addChild(_txt);
     }
-    
-    public function updateTextField():void {
-        _txt.updateIt();
-    }
 
     private function createImage():Image {
         var im:Image;
@@ -127,7 +123,6 @@ internal class ItemChest {
     }
 
     private function showIt3():void {
-        updateTextField();
         TweenMax.delayedCall(1.5, flyItems, []);
     }
 

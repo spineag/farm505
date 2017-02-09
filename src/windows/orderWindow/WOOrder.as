@@ -141,28 +141,7 @@ public class WOOrder extends WindowMain{
         if (g.user.level == 4 && !g.managerTutorial.isTutorial) {
             if (g.managerOrder.checkIsAnyFullOrder()) showBtnSellArrow();
         }
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        if (_txtBtnSkip) _txtBtnSkip.updateIt();
-        if (_txtBtnSkip2) _txtBtnSkip2.updateIt();
-        if (_txtCoins) _txtCoins.updateIt();
-        if (_txtCoupone) _txtCoupone.updateIt();
-        if (_txtNagrada) _txtNagrada.updateIt();
-        if (_txtName) _txtName.updateIt();
-        if (_txtOrder) _txtOrder.updateIt();
-        if (_txtTimer) _txtTimer.updateIt();
-        if (_txtXP) _txtXP.updateIt();
-        if (_txtBtnBuy) _txtBtnBuy.updateIt();
-        _birka.updateTextField();
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].updateTextField();
-        }
-        for (i=0; i<_arrResourceItems.length; i++) {
-            _arrResourceItems[i].updateTextField();
-        }
     }
 
     private function onClickExit(e:Event=null):void {

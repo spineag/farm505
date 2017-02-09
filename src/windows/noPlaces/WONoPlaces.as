@@ -129,16 +129,7 @@ public class WONoPlaces extends WindowMain {
 //            _txtButton.text = 'Добавить ячейку за '
             _txtIcon.visible = true;
         }
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        _txtAdd.updateIt();
-        _txtCost.updateIt();
-        _txtIcon.updateIt();
-        _txtName.updateIt();
-        _txtText.updateIt();
     }
 
     private function onClick():void {

@@ -63,10 +63,6 @@ public class WOBuyPlantItem {
         source.y = _y;
     }
     
-    public function updateTextField():void {
-        if (_txtNumber) _txtNumber.updateIt();
-    }
-
     public function fillData(ob:Object, f:Function):void {
         _dataPlant = ob;
         if (!_dataPlant) {
@@ -140,7 +136,7 @@ public class WOBuyPlantItem {
             source.isTouchable = false;
             source.visible = false;
         }
-        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay, onComplete: updateTextField});
+        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay});
     }
 
     public function showChangeAnimate(d:Number, ob:Object, f:Function):void {
@@ -166,7 +162,7 @@ public class WOBuyPlantItem {
                 source.isTouchable = false;
                 source.visible = false;
             }
-            TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:d, onComplete: updateTextField});
+            TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:d});
         } else {
             source.isTouchable = false;
             source.visible = false;

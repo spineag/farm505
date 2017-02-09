@@ -143,17 +143,7 @@ public class WOBuyCurrency extends WindowMain {
         createTabs();
         fillTabs();
         createLists();
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-    
-    private function onShow():void {
-        _birka.updateTextField();
-        _txtCoins.updateIt();
-        _txtRubins.updateIt();
-        for (var i:int=0; i<_arrItems.length; i++) {
-            _arrItems[i].updateTextField();
-        }
     }
 
     private function fillTabs():void {

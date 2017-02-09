@@ -11,18 +11,16 @@ import starling.styles.DistanceFieldStyle;
 import starling.styles.MeshStyle;
 import starling.text.TextField;
 import starling.text.TextFormat;
+import starling.utils.Color;
 
 public class CTextField extends DisplayObjectContainer {
-//    public static var BOLD14:String = 'BloggerBold14';
     public static var BOLD18:String = 'BloggerBold18';
     public static var BOLD24:String = 'BloggerBold24';
     public static var BOLD30:String = 'BloggerBold30';
     public static var BOLD72:String = 'BloggerBold72';
-//    public static var MEDIUM14:String = 'BloggerMedium14';
     public static var MEDIUM18:String = 'BloggerMedium18';
     public static var MEDIUM24:String = 'BloggerMedium24';
     public static var MEDIUM30:String = 'BloggerMedium30';
-//    public static var REGULAR14:String = 'BloggerRegular14';
     public static var REGULAR18:String = 'BloggerRegular18';
     public static var REGULAR24:String = 'BloggerRegular24';
     public static var REGULAR30:String = 'BloggerRegular30';
@@ -36,11 +34,8 @@ public class CTextField extends DisplayObjectContainer {
     private var _deltaOwnX:int = 0;
     private var _deltaOwnY:int = 0;
     private var _useBitmapFont:Boolean = true;
-    private var _isTouchable:Boolean = false;
-    private var _isAutoScale:Boolean = false;
     private var _colorStroke:uint;
     private var _cacheIt:Boolean = true;
-    private var g:Vars = Vars.getInstance();
 
     public function CTextField(width:int, height:int, text:String="") {
         _width = width;
@@ -52,31 +47,6 @@ public class CTextField extends DisplayObjectContainer {
         this.touchable = false;
         _txt.touchable = false;
         _txt.autoScale = true;
-//        _txt.border = true;
-    }
-
-    public function updateIt():void { // only for true(open) type font
-        if (_useBitmapFont) return;
-        if (_colorStroke == 0xabcdef) return;
-        this.removeChild(_txt);
-        _txt.dispose();
-        _txt = new TextField(_width, _height, _text);
-        _txt.x = _deltaOwnX;
-        _txt.y = _deltaOwnY;
-        this.addChild(_txt);
-        this.touchable = _isTouchable;
-        _txt.touchable = _isTouchable;
-        _txt.autoScale = _isAutoScale;
-        _txt.format = _format;
-        if (!_useBitmapFont) {
-//            if (_colorStroke != 0xabcdef) {
-                _txt.filter = new GlowFilter(_colorStroke, 5, .7, 1);
-                if (_cacheIt) _txt.filter.cache();
-//            }
-        }
-        if (_style) _txt.style = _style;
-        if (_text.length < 20 && _useBitmapFont) _txt.batchable = true;
-        this.setRequiresRedraw();
     }
 
     public function set text(s:String):void {
@@ -91,17 +61,11 @@ public class CTextField extends DisplayObjectContainer {
         if (s.length < 20 && _useBitmapFont) _txt.batchable = true;
     }
 
-    public function setFormat(type:String, size:int, color:uint, colorStroke:uint = 0xabcdef):void {
+    public function setFormat(type:String = 'BloggerBold24', size:int = 24, color:uint = Color.WHITE, colorStroke:uint = 0xabcdef):void {
         _colorStroke = colorStroke;
         _format = new TextFormat();
         if (_useBitmapFont) {
-            if (!g.allData.bFonts[type]) type = 'BloggerBold24';
-//            if (size <17) {
-//                color = colorStroke;
-//                colorStroke = 0xabcdef;
-//                size += 2;
-//            }
-            _format.font = g.allData.bFonts[type];
+            _format.font = type;
             _format.size = size;
             _format.color = color;
             _txt.format = _format;
@@ -158,7 +122,7 @@ public class CTextField extends DisplayObjectContainer {
             u = .5;
         }
 
-        _style = new DistanceFieldStyle(.5, .175);
+        _style = new DistanceFieldStyle(.175, .5);
         _style.setupOutline(u, color);
         _txt.style = _style;
     }
@@ -190,7 +154,7 @@ public class CTextField extends DisplayObjectContainer {
         } else {
             deltaOwnX = -2;
         }
-        _style = new DistanceFieldStyle(.5, s);
+        _style = new DistanceFieldStyle(s, .5);
         _txt.style = _style;
     }
 
@@ -199,9 +163,9 @@ public class CTextField extends DisplayObjectContainer {
     public function set deltaOwnX(v:int):void { _deltaOwnX = v; _txt.x = v; }
     public function set deltaOwnY(v:int):void { _deltaOwnY = v; _txt.y = v; }
     public function deleteIt():void {
-    _txt.dispose();
-    _format = null;
-    _style = null;
+        _txt.dispose();
+        _format = null;
+        _style = null;
     }
     public function get textBounds():Rectangle { return _txt.textBounds; }
     public override function getBounds(targetSpace:DisplayObject, out:Rectangle=null):Rectangle { return _txt.getBounds(targetSpace, out); }
@@ -211,14 +175,14 @@ public class CTextField extends DisplayObjectContainer {
     public override function get height():Number { return _height; }
     public function get text():String { return _text; }
     public function get autoScale():Boolean { return _txt.autoScale; }
-    public function set autoScale(value:Boolean):void { _txt.autoScale = value; _isAutoScale = value; }
+    public function set autoScale(value:Boolean):void { _txt.autoScale = value; }
     public function get autoSize():String { return _txt.autoSize; }
     public function set autoSize(value:String):void { _txt.autoSize = value; }
     public function get style():MeshStyle { return _txt.style; }
     public function set style(value:MeshStyle):void { _txt.style = value; }
     public function get format():TextFormat { return _format; }
     public function set format(value:TextFormat):void { _format = value; _txt.format = _format; }
-    public override function set touchable(value:Boolean):void { _txt.touchable = value; super.touchable = value; _isTouchable = value; }
+    public override function set touchable(value:Boolean):void { _txt.touchable = value; super.touchable = value; }
     public function set changeTextColor(color:uint):void { _txt.format.color = color; _format.color = color; }
     public function set changeSize(v:int):void { _txt.format.size = v; _format.size = v; }
     public function set leading(v:int):void { _txt.format.leading = v; _format.leading = v; }

@@ -32,10 +32,6 @@ public class WOFabricNumber {
         source.addChild(txt);
     }
     
-    public function updateTextField():void {
-        txt.updateIt();
-    }
-
     private function onHover():void {
         source.filter = ManagerFilters.getButtonHoverFilter();
     }

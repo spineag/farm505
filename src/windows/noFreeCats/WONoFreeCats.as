@@ -66,14 +66,7 @@ public class WONoFreeCats extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        _txt1.updateIt();
-        _txt2.updateIt();
-        _txtBtn.updateIt();
     }
 
     private function onClick():void {

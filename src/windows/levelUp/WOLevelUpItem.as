@@ -195,11 +195,6 @@ public class WOLevelUpItem {
         }
     }
 
-    public function updateTextField():void {
-        _txtCount.updateIt();
-        _txtNew.updateIt();
-    }
-
     public function deleteIt():void {
        source.deleteIt();
         if (_txtCount) {

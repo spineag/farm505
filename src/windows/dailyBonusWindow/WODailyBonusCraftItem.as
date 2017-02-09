@@ -123,7 +123,6 @@ public class WODailyBonusCraftItem {
     }
 
     private function delayBeforeFly():void {
-        txt.updateIt();
         new TweenMax(_source, .1, {scaleX:1.3, scaleY:1.3, onComplete:flyIt, delay:1.5});
     }
 

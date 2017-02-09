@@ -128,25 +128,7 @@ public class WOShop extends WindowMain {
             onTab(VILLAGE);
         }
         g.user.buyShopTab = 0;
-        onWoShowCallback = onShow;
         super.showIt();
-    }
-
-    private function onShow():void {
-        _txtBlueMoney.updateIt();
-        _txtGreenMoney.updateIt();
-        _txtHardMoney.updateIt();
-        _txtR.updateIt();
-        _txtRedMoney.updateIt();
-        _txtSoftMoney.updateIt();
-        _txtYellowMoney.updateIt();
-        _birka.updateTextField();
-        _btnTab1.updateTextField();
-        _btnTab2.updateTextField();
-        _btnTab3.updateTextField();
-        _btnTab4.updateTextField();
-        _btnTab5.updateTextField();
-        _shopList.updateTextField();
     }
 
     private function activateTabBtn():void {
