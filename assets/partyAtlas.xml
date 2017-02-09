@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:48b2dd5be898781de2b93d80c14eedda:65261f255bce930da571fd7964608ea2:ac880a930f9f4f68bee3173fda432350$ -->
+<!-- $TexturePacker:SmartUpdate:8b9580c754d15f4910b94e3a07eb251b:be3af1f492760547a4a4520883a89ffa:ac880a930f9f4f68bee3173fda432350$ -->
 <TextureAtlas imagePath="partyAtlas.png" width="1204" height="459">
     <SubTexture name="baloon" x="670" y="83" width="231" height="197"/>
     <SubTexture name="fon" x="1" y="1" width="667" height="457" frameX="-6" frameY="0" frameWidth="673" frameHeight="457"/>
+    <SubTexture name="hint_button" x="903" y="204" width="47" height="47"/>
     <SubTexture name="place_1" x="903" y="83" width="119" height="119"/>
     <SubTexture name="place_2" x="670" y="282" width="119" height="149"/>
     <SubTexture name="progress" x="670" y="1" width="533" height="80" frameX="0" frameY="0" frameWidth="536" frameHeight="80"/>

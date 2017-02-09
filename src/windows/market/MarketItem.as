@@ -924,8 +924,8 @@ public class MarketItem {
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
         if (!_personBuyer) {
-            _personBuyerTemp.photo = g.user.getSomeoneBySocialId(_personBuyerTemp.buyerSocialId).photo;
-            if (_personBuyerTemp.photo) {
+            if (_personBuyerTemp) _personBuyerTemp.photo = g.user.getSomeoneBySocialId(_personBuyerTemp.buyerSocialId).photo;
+            if ( _personBuyerTemp && _personBuyerTemp.photo) {
                 g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
                 g.load.loadImage(_personBuyerTemp.photo, onLoadPhoto);
             }

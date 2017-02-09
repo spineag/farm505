@@ -819,7 +819,7 @@ public class DirectServer {
             }
         } else {
             Cc.error('authUser: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+            if (g.windowsManager)g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'authUser: id: ' + d.id + '  with message: ' + d.message);
         }
     }

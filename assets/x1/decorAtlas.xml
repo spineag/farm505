@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:7280af426deeae6a7f1203939a86edc8:9240cebf37463cee09ba7f6460e51f53:8e467b6e9f38a55d4cabd49280944c60$ -->
+<!-- $TexturePacker:SmartUpdate:5176af2144a1d525a6deb1a198080844:a7ff1a0f97593d65a455a18a39d281fe:8e467b6e9f38a55d4cabd49280944c60$ -->
 <TextureAtlas imagePath="decorAtlas.png" width="1210" height="1024">
     <SubTexture name="Chair_1" x="967" y="972" width="30" height="37" frameX="-4" frameY="-7" frameWidth="35" frameHeight="46"/>
     <SubTexture name="Chair_2" x="319" y="926" width="34" height="45" frameX="0" frameY="0" frameWidth="35" frameHeight="46"/>

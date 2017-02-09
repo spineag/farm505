@@ -227,7 +227,10 @@ public class WOStarterPack extends WindowMain{
             var today:Date = new Date(g.user.day * 1000);
             if (g.user.level >= 5 && todayDailyGift.date != today.date) {
                 g.directServer.getDailyGift(null);
-            } else g.managerCats.helloCats();
+            } else {
+                g.managerCats.helloCats();
+                g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+            }
         }
      super.hideIt();
     }
@@ -264,7 +267,7 @@ public class WOStarterPack extends WindowMain{
 
     override protected function deleteIt():void {
         for (var i:int = 0; i < _arrCTex.length; i++) {
-            _source.removeChild(_arrCTex[i]);
+            if (_source)_source.removeChild(_arrCTex[i]);
             _arrCTex[i].deleteIt();
             _arrCTex[i] = null;
         }
@@ -315,7 +318,7 @@ public class WOStarterPack extends WindowMain{
                 new DropItem(p.x + 30, p.y + 30, obj);
             }
         }
-        super.hideIt();
+        hideIt();
     }
 }
 }

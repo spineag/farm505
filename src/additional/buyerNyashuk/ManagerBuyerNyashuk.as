@@ -98,9 +98,9 @@ public class ManagerBuyerNyashuk {
         for (var i:int=0; i<_arrayNya.length; i++) {
             leftSeconds = arr[i].startTime - int(new Date().getTime()/1000);
             if (leftSeconds <= 0) {
-                if (_arrayNya[i].id == 1) _arrayNya[i].setTailPositions(28, -5);
-                else _arrayNya[i].setTailPositions(30, -5);
-                _arrayNya[i].setTailPositions(30 - r*2 , -5 );
+                if (_arrayNya[i].id == 1) _arrayNya[i].setTailPositions(30, -5);
+                else _arrayNya[i].setTailPositions(28, -5);
+//                _arrayNya[i].setTailPositions(30 - r*2 , -5 );
                 _arrayNya[i].walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
                 _arrayNya[i].setPositionInQueue(r);
                 g.townArea.addBuyerNyashukToCont(_arrayNya[i]);

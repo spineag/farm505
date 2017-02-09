@@ -34,38 +34,112 @@ public class WOPartyWindow extends WindowMain{
     private var _txtTime:CTextField;
     private var _txtTimeLost:CTextField;
     private var _time:int;
+    private var _btnHint:CButton;
+    private var _isHover:Boolean;
 
     public function WOPartyWindow() {
         _windowType = WindowsManager.WO_PARTY;
         _arrItem= [];
         _woHeight = 500;
         _woWidth = 690;
+        _isHover = false;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         _sprItem = new Sprite();
-        var im:Image;
-        im = new Image(g.allData.atlas['partyAtlas'].getTexture('fon'));
-        im.x = - im.width/2 - 20;
-        im.y = - im.height/2 - 10;
-        _source.addChild(im);
-        createExitButton(onClickExit);
-        _callbackClickBG = onClickExit;
-        im = new Image(g.allData.atlas['partyAtlas'].getTexture('baloon'));
-        im.x = - im.width/2 - 275;
-        im.y = - im.height/2 - 100;
-        _source.addChild(im);
+        if (!g.allData.atlas['partyAtlas']) {
+            g.gameDispatcher.addEnterFrame(checkAtlas);
+        } else {
+            var im:Image;
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('fon'));
+            im.x = -im.width / 2 - 20;
+            im.y = -im.height / 2 - 10;
+            _source.addChild(im);
+            createExitButton(onClickExit);
+            _callbackClickBG = onClickExit;
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('baloon'));
+            im.x = -im.width / 2 - 275;
+            im.y = -im.height / 2 - 100;
+            _source.addChild(im);
 
-        _btn = new CButton();
-        _btn.addButtonTexture(172, 45, CButton.GREEN, true);
-        _txtBtn = new CTextField(172,45,"ОК");
-        _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _btn.addChild(_txtBtn);
-        _btn.clickCallback = onClick;
-        _btn.y = 220;
-        _source.addChild(_btn);
+            _btnHint = new CButton();
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('hint_button'));
+            _btnHint.addChild(im);
+            _btnHint.clickCallback = onClickHint;
+            _btnHint.hoverCallback = onHoverHint;
+            _btnHint.outCallback = onOutHint;
+            _btnHint.x = -215;
+            _btnHint.y = -185;
+            _source.addChild(_btnHint);
+
+
+            _btn = new CButton();
+            _btn.addButtonTexture(172, 45, CButton.GREEN, true);
+            _txtBtn = new CTextField(172, 45, "ОК");
+            _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _btn.addChild(_txtBtn);
+            _btn.clickCallback = onClick;
+            _btn.y = 220;
+            _source.addChild(_btn);
+        }
+    }
+
+    private function checkAtlas():void {
+        if (g.allData.atlas['partyAtlas']) {
+            g.gameDispatcher.removeEnterFrame(checkAtlas);
+            var im:Image;
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('fon'));
+            im.x = -im.width / 2 - 20;
+            im.y = -im.height / 2 - 10;
+            _source.addChild(im);
+            createExitButton(onClickExit);
+            _callbackClickBG = onClickExit;
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('baloon'));
+            im.x = -im.width / 2 - 275;
+            im.y = -im.height / 2 - 100;
+            _source.addChild(im);
+
+            _btnHint = new CButton();
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('hint_button'));
+            _btnHint.addChild(im);
+            _btnHint.clickCallback = onClickHint;
+            _btnHint.hoverCallback = onHoverHint;
+            _btnHint.outCallback = onOutHint;
+            _btnHint.x = -215;
+            _btnHint.y = -185;
+            _source.addChild(_btnHint);
+
+            _btn = new CButton();
+            _btn.addButtonTexture(172, 45, CButton.GREEN, true);
+            _txtBtn = new CTextField(172, 45, "ОК");
+            _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _btn.addChild(_txtBtn);
+            _btn.clickCallback = onClick;
+            _btn.y = 220;
+            _source.addChild(_btn);
+            showItParams(null,null);
+        }
+    }
+
+    private function onHoverHint():void {
+        if (_isHover) return;
+        _isHover = true;
+        g.hint.showIt('Справка');
+    }
+
+    private function onOutHint():void {
+        g.hint.hideIt();
+        _isHover = false;
+    }
+
+    private function onClickHint():void {
+        g.hint.hideIt();
+        g.windowsManager.cashWindow = this;
+        g.windowsManager.openWindow(WindowsManager.WO_PARTY_HELP,null);
+        onClickExit();
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        if (!g.allData.atlas['partyAtlas']) return;
         _data = g.managerParty.dataParty;
         _txtName = new CTextField(500, 70, String(_data.name));
         _txtName.setFormat(CTextField.BOLD30, 44, Color.RED, Color.WHITE);
