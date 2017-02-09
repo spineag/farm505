@@ -128,7 +128,7 @@ public class ManagerOrder {
         order.addCoupone = ob.add_coupone == '1';
         order.startTime = int(ob.start_time) || 0;
         order.placeNumber = int(ob.place);
-        order.fasterBuy = Boolean(ob.faster_buyer);
+        order.fasterBuy = Boolean(int(ob.faster_buyer));
         if (order.startTime - int(new Date().getTime()/1000) > 0 ) order.delOb = true;
         Utils.intArray(order.resourceCounts);
         Utils.intArray(order.resourceIds);
@@ -186,7 +186,7 @@ public class ManagerOrder {
         var countFastBuyer:int = 0;
 
         for (i = 0; i < n; i++) {
-            if (_arrOrders && !g.managerTutorial.isTutorial && level < 10 && _arrOrders.length > 0) {
+            if (_arrOrders && !g.managerTutorial.isTutorial && _arrOrders.length > 0) {
                 order = new ManagerOrderItem();
                 order.resourceIds = [];
                 order.resourceCounts = [];
@@ -196,53 +196,63 @@ public class ManagerOrder {
                         countFastBuyer++;
                     }
                 }
-            } else countFastBuyer = 1;
+            } //else countFastBuyer = 1;
 
-            if (countFastBuyer == 0) {
-                arrTemp = g.userInventory.getResourcesForAmbarAndSklad();
-                if (arrTemp.length >= 1) {
-                    for (i = 0; i < arrTemp.length; i++) {
-                        if (g.dataResource.objectResources[arrTemp[i].id].orderType != 0) {
-                            arr.push(arrTemp[i]);
-                        }
-                    }
-                    if (arr.length >= 1) {
-                        if (arr.length == 1) {
-                            order.resourceIds.push(arr[0].id);
-                            order.resourceCounts.push(int(arr[0].count / 2 + 1));
-                        } else {
-                            arr.sortOn('count', Array.DESCENDING | Array.NUMERIC);
-                            if (Math.random() < .5) {
-                                k = Math.random();
-                                if (k < .5) {
-                                    order.resourceIds.push(arr[0].id);
-                                    order.resourceCounts.push(int(arr[0].count / 2 + 1));
-                                } else if (k < .7) {
-                                    order.resourceIds.push(arr[0].id);
-                                    order.resourceCounts.push(int(arr[0].count - 1 ));
-                                    if ( order.resourceCounts[0] <= 0) {
-                                        order.resourceCounts[0] = 1
-                                    }
-                                } else {
-                                    order.resourceIds.push(arr[0].id);
-                                    order.resourceCounts.push(int(arr[0].count) + 3);
-                                }
-                            } else {
-                                order.resourceIds.push(arr[1].id);
-                                order.resourceCounts.push(int(arr[1].count / 2 + 1));
-                            }
-                        }
+            if (countFastBuyer == 0 && Math.random() < .5) {
+               var countTemp:int = g.userInventory.getCountResourceById(168);
+                    if (Math.random() < .5) {
+                        if (countTemp > 6) countTemp = countTemp/2;
+                        else countTemp = 6;
                     } else {
-                        for (id in g.dataResource.objectResources) if (g.dataResource.objectResources[id].blockByLevel <= level) if (g.dataResource.objectResources[id].orderType == 1) arrOrderType1.push(int(id));
-                        order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
-                        order.resourceCounts.push(int(Math.random() * 10) + 1);
+                        countTemp += 4;
                     }
-                } else {
-                    for (id in g.dataResource.objectResources) if (g.dataResource.objectResources[id].blockByLevel <= level) if (g.dataResource.objectResources[id].orderType == 1) arrOrderType1.push(int(id));
-                    order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
-                    order.resourceCounts.push(int(Math.random() * 10) + 1);
-                }
+                order.resourceIds.push(168);
+                order.resourceCounts.push(countTemp);
                 order.fasterBuy = true;
+//                arrTemp = g.userInventory.getResourcesForAmbarAndSklad();
+//                if (arrTemp.length >= 1) {
+//                    for (i = 0; i < arrTemp.length; i++) {
+//                        if (g.dataResource.objectResources[arrTemp[i].id].orderType != 0) {
+//                            arr.push(arrTemp[i]);
+//                        }
+//                    }
+//                    if (arr.length >= 1) {
+//                        if (arr.length == 1) {
+//                            order.resourceIds.push(arr[0].id);
+//                            order.resourceCounts.push(int(arr[0].count / 2 + 1));
+//                        } else {
+//                            arr.sortOn('count', Array.DESCENDING | Array.NUMERIC);
+//                            if (Math.random() < .5) {
+//                                k = Math.random();
+//                                if (k < .5) {
+//                                    order.resourceIds.push(arr[0].id);
+//                                    order.resourceCounts.push(int(arr[0].count / 2 + 1));
+//                                } else if (k < .7) {
+//                                    order.resourceIds.push(arr[0].id);
+//                                    order.resourceCounts.push(int(arr[0].count - 1 ));
+//                                    if ( order.resourceCounts[0] <= 0) {
+//                                        order.resourceCounts[0] = 1
+//                                    }
+//                                } else {
+//                                    order.resourceIds.push(arr[0].id);
+//                                    order.resourceCounts.push(int(arr[0].count) + 3);
+//                                }
+//                            } else {
+//                                order.resourceIds.push(arr[1].id);
+//                                order.resourceCounts.push(int(arr[1].count / 2 + 1));
+//                            }
+//                        }
+//                    } else {
+//                        for (id in g.dataResource.objectResources) if (g.dataResource.objectResources[id].blockByLevel <= level) if (g.dataResource.objectResources[id].orderType == 1) arrOrderType1.push(int(id));
+//                        order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
+//                        order.resourceCounts.push(int(Math.random() * 10) + 1);
+//                    }
+//                } else {
+//                    for (id in g.dataResource.objectResources) if (g.dataResource.objectResources[id].blockByLevel <= level) if (g.dataResource.objectResources[id].orderType == 1) arrOrderType1.push(int(id));
+//                    order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
+//                    order.resourceCounts.push(int(Math.random() * 10) + 1);
+//                }
+//                order.fasterBuy = true;
             } else {
                 for (id in g.dataResource.objectResources) {
                     if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {

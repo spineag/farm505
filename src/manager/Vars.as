@@ -563,12 +563,9 @@ private function afterLoadAll():void {
                 var todayDailyGift:Date;
                 var today:Date;
                if ((socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
-//                   if ((user as User).userSocialId == '252433337505') {
-//                       windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
-//                   }
-//                   if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
-//                       windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
-//                   } else {
+                   if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
+                       windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+                   } else {
                        if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
                        else {
                            todayDailyGift = new Date((user as User).dayDailyGift * 1000);
@@ -579,7 +576,7 @@ private function afterLoadAll():void {
                                managerCats.helloCats();
                            }
                        }
-//                   }
+                   }
                } else {
                     if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
                         windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);

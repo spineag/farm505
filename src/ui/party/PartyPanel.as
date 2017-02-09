@@ -70,7 +70,7 @@ public class PartyPanel {
     }
 
     private function onClick():void {
-        g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+        if (g.userTimer.partyTimer > 0) g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
     }
 }
 }

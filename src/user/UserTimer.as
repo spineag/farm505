@@ -99,6 +99,7 @@ public class UserTimer {
             if (_arrOrderItem[i]) {
                 leftSecond = _arrOrderItem[i].startTime - int(new Date().getTime()/1000);
                 if (leftSecond <= 0){
+                    g.managerOrder.checkForFullOrder();
                         break;
                 }
             }
@@ -110,6 +111,7 @@ public class UserTimer {
             if (arr[i].placeNumber == pl &&  arr[i].delOb) {
                 arr[i].delOb = false;
                arr[i].cat = g.managerOrderCats.getNewCatForOrder(null,arr[i].catOb);
+                g.managerOrder.checkForFullOrder();
                 break;
             }
         }
