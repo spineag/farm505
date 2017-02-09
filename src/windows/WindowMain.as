@@ -100,7 +100,7 @@ public class WindowMain {
 //        Utils.createDelay(.2, onHideAnimation);
 //            onHideAnimation();
 //        }
-        TweenMax.to(_source, .3, {y:-g.managerResize.stageHeight/2, onComplete: onHideAnimation});
+        if (_source) TweenMax.to(_source, .3, {y:-g.managerResize.stageHeight/2, onComplete: onHideAnimation});
     }
 
     public function hideItQuick():void {
