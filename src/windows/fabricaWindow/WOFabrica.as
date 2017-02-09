@@ -216,7 +216,7 @@ public class WOFabrica extends WindowMain {
         } else {
             _list.butNewCellFromWO();
         }
-        showIt();
+//        showIt();
     }
 
     private function createTopBG():void {
