@@ -448,7 +448,7 @@ public class Vars {
     private function initVariables2():void {
 //        try {
             if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID ||
-                    (socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true;
+                   ( socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true;
 
             timerHint = new TimerHint();
             wildHint = new WildHint();

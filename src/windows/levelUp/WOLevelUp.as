@@ -495,7 +495,6 @@ public class WOLevelUp extends WindowMain {
         if (g.user.level == 3 || g.user.level == 4) g.managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
 
         if (g.user.level == 5) g.managerQuest.addUI();
-        g.managerQuest.getNewQuests();
         if (_txtNewLvl) {
             _source.removeChild(_txtNewLvl);
             _txtNewLvl.deleteIt();
