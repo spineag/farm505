@@ -231,7 +231,7 @@ public class WOBuyerNyashuk extends WindowMain{
         _data = null;
         _nyashuk = null;
         for (var i:int = 0; i <_arrCTex.length; i++) {
-            _arrCTex[i].deleteIt();
+            if (_arrCTex[i])_arrCTex[i].deleteIt();
             _arrCTex[i] = null;
         }
         super.deleteIt();

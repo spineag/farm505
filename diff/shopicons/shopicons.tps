@@ -305,14 +305,15 @@
             <filename>new_year_boot_icon.png</filename>
             <filename>new_year_tree_1_icon.png</filename>
             <filename>new_year_tree_2_icon.png</filename>
-            <filename>cupidon_statue_blue_icon.png</filename>
-            <filename>cupidon_statue_pink_icon.png</filename>
             <filename>kiss_bench_icon.png</filename>
             <filename>heart_balabas_icon.png</filename>
             <filename>love_tree_icon.png</filename>
             <filename>arch_white_heart_icon.png</filename>
             <filename>white_fence_heart_icon.png</filename>
             <filename>arch_heart_icon.png</filename>
+            <filename>cupidon_statue_blue_icon.png</filename>
+            <filename>cupidon_statue_pink_icon.png</filename>
+            <filename>arbor_for_both_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
