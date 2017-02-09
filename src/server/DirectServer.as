@@ -7233,15 +7233,14 @@ public class DirectServer {
 
     public function onOKTransaction(callback:Function, isPayed:int, packId:int):void {
         var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ON_TRANSAKTION);
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ON_TRANSACTION);
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'onOKTransaction', 1);
         variables = addDefault(variables);
-        variables.userId = g.user.userId;
+        variables.userId = g.user.userSocialId;
         variables.productCode = packId;
         variables.isPayed = isPayed;
-//        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();

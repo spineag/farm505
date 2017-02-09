@@ -268,7 +268,7 @@ public class SN_OK extends SocialNetwork {
                 }
             }
             Cc.ch('social', 'add stageDeActivate listener');
-            g.mainStage.addEventListener(flash.events.Event.DEACTIVATE, onStageDeActivate);
+            g.starling.nativeStage.addEventListener(flash.events.Event.DEACTIVATE, onStageDeActivate);
             if (!e.type) {
                 Cc.error('OK showOrderWindow:: unknown money pack');
             } else {
@@ -283,13 +283,13 @@ public class SN_OK extends SocialNetwork {
 
     private function onStageDeActivate(e:Event):void {
         Cc.ch('social', 'add stageActivate and remove stageDeActivate');
-        g.mainStage.removeEventListener(flash.events.Event.DEACTIVATE, onStageDeActivate);
-        g.mainStage.addEventListener(flash.events.Event.ACTIVATE, onStageActivate);
+        g.starling.nativeStage.removeEventListener(flash.events.Event.DEACTIVATE, onStageDeActivate);
+        g.starling.nativeStage.addEventListener(flash.events.Event.ACTIVATE, onStageActivate);
     }
 
     private function onStageActivate(e:Event):void {
         Cc.ch('social', 'remove stageActivate listener');
-        g.mainStage.removeEventListener(flash.events.Event.ACTIVATE, onStageActivate);
+        g.starling.nativeStage.removeEventListener(flash.events.Event.ACTIVATE, onStageActivate);
         if (orderPackID > 0) {
             var f1:Function = function (message:String):void {
                 if (message == 'FIND') {
@@ -297,7 +297,7 @@ public class SN_OK extends SocialNetwork {
                     orderPackID = 0;
                 } else if (message == 'NO_ROW') {
                     orderCancel();
-                    Cc.ch('social', 'OKtransaction:: no row in DB:transaction_lost for this user and packID: ' + orderPackID, 10);
+                    Cc.ch('social', 'OKtransaction:: no row in DB:transaction_lost for this user and packID: ' + orderPackID, 10); // it's only warning, not error
                     orderPackID = 0;
                 }
             };
@@ -306,7 +306,7 @@ public class SN_OK extends SocialNetwork {
     }
 
     private function onPaymentCallback(result:String):void {
-        Cc.ch('social', 'add stageActivate listener at paymentCallback');
+        Cc.ch('social', 'remove stageActivate listener at paymentCallback');
         g.mainStage.removeEventListener(flash.events.Event.ACTIVATE, onStageActivate);
         if (result =='ok') {
             super.orderSuccess();
@@ -314,6 +314,7 @@ public class SN_OK extends SocialNetwork {
             orderPackID = 0;
         } else {
             super.orderCancel();
+            orderPackID = 0;
         }
     }
 
