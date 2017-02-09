@@ -2,6 +2,7 @@ package social.ok {
 import com.junkbyte.console.Cc;
 import data.DataMoney;
 import flash.display.Bitmap;
+import flash.events.Event;
 import flash.external.ExternalInterface;
 import flash.utils.getTimer;
 
@@ -243,18 +244,19 @@ public class SN_OK extends SocialNetwork {
         ExternalInterface.call("showInviteWindowAll");
     }
 
+    private var orderPackID:int = 0;
     override public function showOrderWindow(e:Object):void {
         var st:String ='';
         try {
-            if (e.id == 13) {
+            if (e.id == 13) { // e.price we already have for this
+                orderPackID = 13;
                 e.type = DataMoney.SOFT_CURRENCY;
-                e.price = 95;
-//                e.count = 10000;
                 st = 'Уникальное предложение!';
             } else {
                 var ar:Array = g.allData.dataBuyMoney;
                 for (var i:int = 0; i < ar.length; i++) {
                     if (ar[i].id == e.id) {
+                        orderPackID = int(e.id);
                         e.type = ar[i].typeMoney;
                         e.price = ar[i].cost;
                         e.count = ar[i].count;
@@ -265,6 +267,8 @@ public class SN_OK extends SocialNetwork {
                     }
                 }
             }
+            Cc.ch('social', 'add stageDeActivate listener');
+            g.mainStage.addEventListener(flash.events.Event.DEACTIVATE, onStageDeActivate);
             if (!e.type) {
                 Cc.error('OK showOrderWindow:: unknown money pack');
             } else {
@@ -277,9 +281,37 @@ public class SN_OK extends SocialNetwork {
         }
     }
 
+    private function onStageDeActivate(e:Event):void {
+        Cc.ch('social', 'add stageActivate and remove stageDeActivate');
+        g.mainStage.removeEventListener(flash.events.Event.DEACTIVATE, onStageDeActivate);
+        g.mainStage.addEventListener(flash.events.Event.ACTIVATE, onStageActivate);
+    }
+
+    private function onStageActivate(e:Event):void {
+        Cc.ch('social', 'remove stageActivate listener');
+        g.mainStage.removeEventListener(flash.events.Event.ACTIVATE, onStageActivate);
+        if (orderPackID > 0) {
+            var f1:Function = function (message:String):void {
+                if (message == 'FIND') {
+                    orderSuccess();
+                    orderPackID = 0;
+                } else if (message == 'NO_ROW') {
+                    orderCancel();
+                    Cc.ch('social', 'OKtransaction:: no row in DB:transaction_lost for this user and packID: ' + orderPackID, 10);
+                    orderPackID = 0;
+                }
+            };
+            g.directServer.onOKTransaction(f1, 0, orderPackID);
+        }
+    }
+
     private function onPaymentCallback(result:String):void {
+        Cc.ch('social', 'add stageActivate listener at paymentCallback');
+        g.mainStage.removeEventListener(flash.events.Event.ACTIVATE, onStageActivate);
         if (result =='ok') {
             super.orderSuccess();
+            g.directServer.onOKTransaction(null, 1, orderPackID);
+            orderPackID = 0;
         } else {
             super.orderCancel();
         }
