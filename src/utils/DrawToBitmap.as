@@ -51,7 +51,8 @@ public class DrawToBitmap {
     }
 
     public static function drawToBitmap(starling:Starling, displayObject:DisplayObject):Bitmap {
-        var resultBitmap:Bitmap = new Bitmap(copyToBitmapData(starling, displayObject));
+//        var resultBitmap:Bitmap = new Bitmap(copyToBitmapData(starling, displayObject));
+        var resultBitmap:Bitmap = new Bitmap(copyToBitmapDataNew(starling, displayObject));
         return resultBitmap;
     }
 
@@ -73,6 +74,10 @@ public class DrawToBitmap {
         painter.popState();
 
         return result;
+    }
+
+    public static function copyToBitmapDataNew(starling:Starling, disp:DisplayObject):BitmapData {
+        return disp.drawToBitmapData();
     }
 
     public static function copyToBitmapDataFromFlashSprite(fsp:flash.display.Sprite, s:Number = 1):BitmapData {

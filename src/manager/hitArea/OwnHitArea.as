@@ -43,7 +43,7 @@ public class OwnHitArea {
         _source = sp;
         _rect = sp.getBounds(sp);
 
-        var bm:Bitmap = new Bitmap(DrawToBitmap.copyToBitmapData(Starling.current, sp));
+        var bm:Bitmap = new Bitmap(DrawToBitmap.copyToBitmapDataNew(Starling.current, sp));
         _w = int(bm.width * bitmapScaling);
         _h = int(bm.height * bitmapScaling);
         _rect.x = int(_rect.x * bitmapScaling);
