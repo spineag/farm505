@@ -6,6 +6,7 @@ import flash.display.StageDisplayState;
 import flash.geom.Rectangle;
 
 import manager.Vars;
+import manager.ownError.ErrorConst;
 
 import starling.core.Starling;
 import starling.display.Quad;
@@ -19,6 +20,7 @@ public class AhtungErrorBlyad {
     private var g:Vars = Vars.getInstance();
 
     public function AhtungErrorBlyad(e:Error) {
+        g.errorManager.onGetError(ErrorConst.STARLING_GRAPHIC_CRASH, true, true);
         if (Starling.current.nativeStage.displayState == StageDisplayState.FULL_SCREEN) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
         }

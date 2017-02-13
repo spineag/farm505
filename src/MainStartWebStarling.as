@@ -17,6 +17,8 @@ import flash.utils.setTimeout;
 import loaders.EmbedAssets;
 
 import manager.ManagerResize;
+import manager.ownError.OwnErrorManager;
+
 import map.Containers;
 import manager.Vars;
 
@@ -103,6 +105,7 @@ public class MainStartWebStarling extends flash.display.Sprite{
 
         g.pBitmaps = {};
         new EmbedAssets(null);
+        g.errorManager = new OwnErrorManager();
         g.cont = new Containers();
         g.matrixGrid = new MatrixGrid();
         g.matrixGrid.createMatrix();

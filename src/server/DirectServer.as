@@ -7338,6 +7338,27 @@ public class DirectServer {
         }
     }
 
+    public function addUserError():void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_ERROR);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserError', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteAddUserError);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteAddUserError(e:Event):void { iconMouse.endConnect(); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserError error:' + error.errorID);
+        }
+    }
+
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError on Auth User:: ' + e.text);
     }

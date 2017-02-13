@@ -6,19 +6,12 @@ import additional.butterfly.ManagerButterfly;
 import additional.buyerNyashuk.ManagerBuyerNyashuk;
 import additional.lohmatik.ManagerLohmatik;
 import additional.mouse.ManagerMouse;
-
 import analytic.AnalyticManager;
 import build.TownAreaTouchManager;
-import build.WorldObject;
-import build.ambar.Ambar;
 import build.farm.FarmGrid;
-import com.junkbyte.console.Cc;
-
 import data.AllData;
 import data.BuildType;
 import data.OwnEvent;
-
-import dragonBones.animation.WorldClock;
 import heroes.ManagerCats;
 import heroes.ManagerOrderCats;
 import hint.BuyHint;
@@ -31,39 +24,30 @@ import hint.Hint;
 import hint.MouseHint;
 import hint.TimerHint;
 import hint.WildHint;
-
 import loaders.DataPath;
-
 import loaders.LoadAnimationManager;
 import loaders.LoaderManager;
 import loaders.allLoadMb.AllLoadMb;
-
 import manager.hitArea.ManagerHitArea;
+import manager.ownError.ErrorConst;
+import manager.ownError.OwnErrorManager;
 import map.BackgroundArea;
 import map.Containers;
 import map.MatrixGrid;
 import map.TownArea;
-
 import media.SoundManager;
-
 import mouse.OwnMouse;
 import mouse.ToolsModifier;
 import preloader.StartPreloader;
-
 import quest.ManagerQuest;
-
 import server.DirectServer;
 import server.ManagerPendingRequest;
 import server.Server;
 import social.SocialNetwork;
 import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
-import social.SocialNetworkSwitch;
 import starling.core.Starling;
 import starling.display.Stage;
-
-import temp.TestTime;
-
 import temp.catCharacters.DataCat;
 import temp.dataTemp.DataAnimal;
 import temp.dataTemp.DataLevel;
@@ -73,7 +57,6 @@ import temp.dataTemp.DataBuildings;
 import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
-
 import tutorial.IManagerTutorial;
 import tutorial.ManagerTutorial;
 import tutorial.helpers.ManagerHelpers;
@@ -81,7 +64,6 @@ import tutorial.managerCutScenes.ManagerCutScenes;
 import tutorial.miniScenes.ManagerMiniScenes;
 import tutorial.newTuts.ManagerTutorialNew;
 import tutorial.tips.ManagerTips;
-
 import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
@@ -98,9 +80,13 @@ import user.User;
 import user.UserInventory;
 import user.UserTimer;
 import user.UserValidateResources;
-
 import utils.FarmDispatcher;
 import windows.WindowsManager;
+import build.WorldObject;
+import build.ambar.Ambar;
+import com.junkbyte.console.Cc;
+import dragonBones.animation.WorldClock;
+import temp.TestTime;
 
 public class Vars {
     private static var _instance:Vars;
@@ -201,6 +187,7 @@ public class Vars {
     public var dataPath:DataPath;
     public var event:OwnEvent;
 
+    public var errorManager:OwnErrorManager;
     public var analyticManager:AnalyticManager;
     public var managerCats:ManagerCats;
     public var managerTutorial:IManagerTutorial;
@@ -242,11 +229,7 @@ public class Vars {
     }
 
     public function initInterface():void {
-        initVariables();
-    }
-
-    private function initVariables():void {
-//        try {
+        try {
             cont.hideAll(true);
             startPreloader.setProgress(77);
 
@@ -266,6 +249,7 @@ public class Vars {
             townArea = new TownArea();
             farmGrid = new FarmGrid();
             managerDailyBonus = new ManagerDailyBonus();
+            
             socialNetwork = new SocialNetwork(flashVars);
             if (isDebug) {
                 socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
@@ -273,6 +257,12 @@ public class Vars {
                 socialNetworkID = int(flashVars['channel']);
             }
             SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
+        } catch (e:Error) {
+            errorManager.onGetError(ErrorConst.ON_INIT1, true, true);
+            Cc.stackch('error', 'initVariables1::', 10);
+        }
+        
+        try {
             useNewTuts = true;
             if (useNewTuts) {
                 managerTutorial = new ManagerTutorialNew();
@@ -300,9 +290,10 @@ public class Vars {
 
             socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
             socialNetwork.init();
-//        } catch (e:Error) {
-//            Cc.stackch('error', 'initVariables::', 10);
-//        }
+        } catch (e:Error) {
+            errorManager.onGetError(ErrorConst.ON_INIT2, true, true);
+            Cc.stackch('error', 'initVariables::', 10);
+        }
     }
 
     private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
@@ -446,7 +437,7 @@ public class Vars {
     }
 
     private function initVariables2():void {
-//        try {
+        try {
             if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID ||
                    ( socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true;
 
@@ -475,9 +466,10 @@ public class Vars {
             }
             if ((user as User).level >= 5 && socialNetworkID == SocialNetworkSwitch.SN_VK_ID) stock = new StockPanel();
             managerQuest = new ManagerQuest();
-//        } catch (e:Error) {
-//            Cc.stackch('error', 'initVariables2::', 10);
-//        }
+        } catch (e:Error) {
+            errorManager.onGetError(ErrorConst.ON_INIT3, true, true);
+            Cc.stackch('error', 'initVariables2::', 10);
+        }
         afterLoadAll();
     }
 
@@ -486,17 +478,8 @@ public class Vars {
         if (!windowsManager.currentWindow) windowsManager.openWindow(WindowsManager.WO_PARTY,null);
     }
 
-import build.WorldObject;
-import build.ambar.Ambar;
-
-import com.junkbyte.console.Cc;
-
-import dragonBones.animation.WorldClock;
-
-import temp.TestTime;
-
-private function afterLoadAll():void {
-//        try {
+    private function afterLoadAll():void {
+        try {
             var test:TestTime = new TestTime();
             cont.onLoadAll();
             startPreloader.setProgress(100);
@@ -528,7 +511,12 @@ private function afterLoadAll():void {
                 };
                 Cc.addSlashCommand("deleteUser", f1);
             }
+        } catch (e:Error) {
+            errorManager.onGetError(ErrorConst.ON_INIT4, true, true);
+            Cc.stackch('error', 'initVariables2::', 10);
+        }
 
+        try {
             softHardCurrency.checkHard();
             softHardCurrency.checkSoft();
             xpPanel.checkXP();
@@ -547,6 +535,12 @@ private function afterLoadAll():void {
             managerChest.createChest();
             managerVisibleObjects = new ManagerVisibleObjects();
             managerVisibleObjects.checkInStaticPosition();
+        } catch (e:Error) {
+            errorManager.onGetError(ErrorConst.ON_INIT5, true, true);
+            Cc.stackch('error', 'initVariables2::', 10);
+        }
+        
+        try {    
             if (managerTutorial.isTutorial) {
                 if ((user as User).tutorialStep > 1) {
                     startPreloader.hideIt();
@@ -601,13 +595,18 @@ private function afterLoadAll():void {
 
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
-//        } catch (e:Error) {
-//            Cc.stackch('error', 'afterAllLoaded::', 10);
-//        }
+        } catch (e:Error) {
+            errorManager.onGetError(ErrorConst.ON_INIT6, true, true);
+            Cc.stackch('error', 'afterAllLoaded::', 10);
+        }
     }
 
     private function onEnterFrameGlobal():void {
-        WorldClock.clock.advanceTime(-1);
+        try {
+            WorldClock.clock.advanceTime(-1);
+        } catch (e:Error) {
+            errorManager.onGetError(ErrorConst.WORLD_CLOCK, true);
+        }
     }
 
     private function openMapEditorInterface():void {
