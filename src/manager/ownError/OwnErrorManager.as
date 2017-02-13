@@ -13,8 +13,6 @@ public class OwnErrorManager {
     }
 
     public function onGetError(type:int, sendAnalytics:Boolean = false, sendUser:Boolean = false):void {
-        return;
-
         if (g.isDebug) return;
         Cc.info('OwnErrorManager onGetError:: type: ' + type);
 
