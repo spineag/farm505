@@ -766,8 +766,8 @@ public class ShopItem {
         }
         if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.deleteArrowAndDust();
         var ob:Object;
-        if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL
-                || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_FENCE_ARKA) {
+        if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL
+                || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_FENCE_ARKA) && _state != STATE_FROM_INVENTORY) {
             if (g.managerTutorial.isTutorial) return;
             if (g.managerCutScenes.isCutScene) {
                 if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && g.managerCutScenes.isCutSceneResource(_data.id)) {

@@ -203,8 +203,9 @@ public class WOPartyWindow extends WindowMain{
     }
 
     private function startTimer():void {
-        if (g.userTimer.partyTimer > 0) if (_txtTime)_txtTime.text = TimeUtils.convertSecondsForHint(g.userTimer.partyTimer);
-        else {
+        if (g.userTimer.partyTimer > 0) {
+            if (_txtTime)_txtTime.text = TimeUtils.convertSecondsForHint(g.userTimer.partyTimer);
+        } else {
             onClickExit();
             g.gameDispatcher.removeFromTimer(startTimer);
         }

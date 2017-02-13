@@ -47,58 +47,19 @@ public class PartyPanel {
     }
 
     private function startTimer():void {
-        if (g.userTimer.partyTimer > 0) if (_txtData)_txtData.text = TimeUtils.convertSecondsForHint(g.userTimer.partyTimer);
-        else {
+        if (g.userTimer.partyTimer > 0) {
+            if (_txtData)_txtData.text = TimeUtils.convertSecondsForHint(g.userTimer.partyTimer);
+        } else {
+            visiblePartyPanel(false);
+            if (!g.managerParty.userParty.showWindow) {
+                if (_txtData) {
+                    _source.removeChild(_txtData);
+                    _txtData.deleteIt();
+                    _txtData = null;
+                }
+                g.managerParty.endPartyWindow()
+            }
             g.gameDispatcher.removeFromTimer(startTimer);
-            if (!Boolean(g.managerParty.userParty.showWindow)) timeEnd();
-        }
-    }
-
-    private function timeEnd():void {
-        if (g.userInventory.getCountResourceById(168) <= 0) return;
-        if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
-        visiblePartyPanel(false);
-        if (_txtData) {
-            _source.removeChild(_txtData);
-            _txtData.deleteIt();
-            _txtData = null;
-        }
-        g.windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE,null);
-        var st:String = 0 + '&' + 0 + '&' + 0 + '&'
-                + 0 + '&' + 0;
-        g.directServer.updateUserParty(st,0,1, null);
-        var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
-        for (var i:int = 0; i < arr.length; i++) {
-            if (arr[i].plant && arr[i].plant.dataPlant.id == 168) {
-                g.managerPlantRidge.removeCatFromRidge(arr[i].plant.dataPlant.id, arr[i]);
-                g.managerPlantRidge.onCraft(arr[i].plant.idFromServer);
-                arr[i].plant.clearIt();
-            }
-        }
-
-        arr = [];
-        arr = g.managerOrder.arrOrders;
-        for (i = 0; i < arr.length; i++) {
-            for (var k:int = 0; k < arr[i].resourceIds.length; k++) {
-                if (arr[i].resourceIds[k] == 168) {
-                    g.managerOrder.deleteOrderParty(arr[i].dbId, arr[i].placeNumber);
-                    break;
-                }
-            }
-        }
-
-        arr = [];
-        arr = g.managerBuyerNyashuk.arrNyashuk;
-        if (arr.length > 0) {
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i].dataNyashuk.resourceId == 168) {
-                    g.managerBuyerNyashuk.onReleaseOrder(arr[i],false);
-                    if (arr[i].dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);
-                    else  g.userTimer.buyerNyashukRed(1200);
-                    arr[i].dataNyashuk.timeToNext = int(new Date().getTime()/1000);
-                    g.directServer.updateUserPapperBuy(arr[i].dataNyashuk.buyerId,0,0,0,0,0,0);
-                }
-            }
         }
     }
 
