@@ -7116,7 +7116,7 @@ public class DirectServer {
         }
     }
 
-    public function updateUserParty(tookGift:String, countResource:int, callback:Function):void {
+    public function updateUserParty(tookGift:String, countResource:int, showWindow:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_PARTY);
         var variables:URLVariables = new URLVariables();
@@ -7126,6 +7126,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.countResource = countResource;
         variables.tookGift = tookGift;
+        variables.showWindow = 0;
         variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -7212,6 +7213,7 @@ public class DirectServer {
         obj.countResource = int(d.message.count_resource);
         if (d.message.took_gift) obj.tookGift = String(d.message.took_gift).split('&');
         for (k = 0; k < obj.tookGift.length; k++) obj.tookGift[k] = int(obj.tookGift[k]);
+        obj.showWindow = int(d.message.show_window);
         g.managerParty.userParty = obj;
         if (g.userInventory.getCountResourceById(168) == 0 && obj.countResource == 0 && !g.userInventory.checkLastResource(168)) {
             g.userInventory.addResource(168, 3);
@@ -7276,6 +7278,63 @@ public class DirectServer {
         } else {
             Cc.error('onOKTransaction: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function deletePartyInPapper(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_PARTY_IN_PAPPER);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'addUserParty', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteDeletePartyInPapper);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteDeletePartyInPapper(e:Event):void { completeDeletePartyInPapper(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('addUserEvent error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeDeletePartyInPapper(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('addUserParty: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserParty: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'addUserEvent OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('addUserParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserEvent: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply(null, [false]);
+            }
         }
     }
 

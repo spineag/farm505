@@ -198,7 +198,7 @@ public class ManagerOrder {
                 }
             } //else countFastBuyer = 1;
 
-            if (countFastBuyer == 0 && Math.random() < .5) {
+            if (countFastBuyer == 0 && Math.random() < .5 && g.userTimer.partyTimer > 0) {
                var countTemp:int = g.userInventory.getCountResourceById(168);
                     if (Math.random() < .5) {
                         if (countTemp > 6) countTemp = countTemp/2;
@@ -1069,6 +1069,21 @@ public class ManagerOrder {
         else if (g.user.level <= 15) addNewOrders(1, TIME_THIRD_DELAY, f, order.placeNumber,true);
         else if (g.user.level <= 19) addNewOrders(1, TIME_FOURTH_DELAY, f, order.placeNumber,true);
         else if (g.user.level >= 20) addNewOrders(1, TIME_FIFTH_DELAY, f, order.placeNumber,true);
+    }
+
+    public function deleteOrderParty(dbId:String, placeNumber:int = 0):void {
+        for (var i:int=0; i<_arrOrders.length; i++) {
+            if (_arrOrders[i].dbId == dbId) {
+                _arrOrders.splice(i, 1);
+                break;
+            }
+        }
+        g.directServer.deleteUserOrder(dbId, null);
+        if (g.user.level <= 6) addNewOrders(1, 1, null, placeNumber,true);
+        else if (g.user.level <= 9) addNewOrders(1, 1, null, placeNumber,true);
+        else if (g.user.level <= 15) addNewOrders(1, 1, null, placeNumber,true);
+        else if (g.user.level <= 19) addNewOrders(1, 1, null, placeNumber,true);
+        else if (g.user.level >= 20) addNewOrders(1, 1, null, placeNumber,true);
     }
 
     public function sellOrder(order:ManagerOrderItem, f:Function):void {

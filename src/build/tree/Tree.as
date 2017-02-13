@@ -70,7 +70,6 @@ public class Tree extends WorldObject {
     public function Tree(_data:Object) {
         super(_data);
         _state = GROW1;
-
         _source.releaseContDrag = true;
         _resourceItem = new ResourceItem();
         _resourceItem.fillIt(g.dataResource.objectResources[_dataBuild.craftIdResource]);
@@ -85,6 +84,7 @@ public class Tree extends WorldObject {
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
         _source.endClickCallback = onClick;
+        if (g.isAway) _source.releaseContDrag = true;
         WorldClock.clock.add(_armature);
         _fruit1 = _armature.getBone('fruit1');
         _fruit2 = _armature.getBone('fruit2');

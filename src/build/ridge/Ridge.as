@@ -182,7 +182,7 @@ public class Ridge extends WorldObject{
 
             var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
                     + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
-            g.directServer.updateUserParty(st, g.managerParty.userParty.countResource, null);
+            g.directServer.updateUserParty(st, g.managerParty.userParty.countResource,0, null);
         }
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
             if (_tutorialCallback != null) {

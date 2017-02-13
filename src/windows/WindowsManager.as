@@ -35,6 +35,7 @@ import windows.noPlaces.WONoPlaces;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
 import windows.paperWindow.WOPapper;
+import windows.partWindow.WOPartyWindowClose;
 import windows.quest.WOQuest;
 import windows.questAward.WOQuestFinishAward;
 import windows.questList.WOQuestList;
@@ -106,6 +107,7 @@ public class WindowsManager {
     public static const WO_STARTER_PACK:String = 'starter_pack';
     public static const WO_PARTY:String = 'party';
     public static const WO_PARTY_HELP:String = 'party_help';
+    public static const WO_PARTY_CLOSE:String = 'party_close';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -282,6 +284,9 @@ public class WindowsManager {
                 break;
             case WO_PARTY_HELP:
                 wo = new WOPartyHelp();
+                break;
+            case WO_PARTY_CLOSE:
+                wo = new WOPartyWindowClose();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

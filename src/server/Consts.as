@@ -131,5 +131,6 @@ public class Consts {
     public static var INQ_ADD_USER_PARTY:String = 'addUserParty.php';
     public static var INQ_UPDATE_USER_PARTY:String = 'updateUserParty.php';
     public static var INQ_ON_TRANSACTION:String = 'onOKtransaction.php';
+    public static var INQ_DELETE_PARTY_IN_PAPPER:String = 'deletePartyInPapper.php';
 }
 }

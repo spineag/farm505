@@ -38,6 +38,7 @@ public class WOPartyWindow extends WindowMain{
     private var _isHover:Boolean;
 
     public function WOPartyWindow() {
+        if (!g.managerParty.dataParty.partyOn) return;
         _windowType = WindowsManager.WO_PARTY;
         _arrItem= [];
         _woHeight = 500;
@@ -139,6 +140,7 @@ public class WOPartyWindow extends WindowMain{
     }
 
     override public function showItParams(callback:Function, params:Array):void {
+        if (!g.managerParty.dataParty.partyOn) return;
         if (!g.allData.atlas['partyAtlas']) return;
         _data = g.managerParty.dataParty;
         _txtName = new CTextField(500, 70, String(_data.name));

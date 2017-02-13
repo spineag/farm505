@@ -267,8 +267,8 @@ public class WOStarterPack extends WindowMain{
 
     override protected function deleteIt():void {
         for (var i:int = 0; i < _arrCTex.length; i++) {
-            if (_source)_source.removeChild(_arrCTex[i]);
-            _arrCTex[i].deleteIt();
+            if (_source && _arrCTex[i]) _source.removeChild(_arrCTex[i]);
+            if (_arrCTex[i]) _arrCTex[i].deleteIt();
             _arrCTex[i] = null;
         }
         super.deleteIt();

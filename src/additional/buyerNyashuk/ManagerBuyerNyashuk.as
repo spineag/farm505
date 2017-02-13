@@ -31,6 +31,10 @@ public class ManagerBuyerNyashuk {
         g.directServer.getUserPapperBuy(null);
     }
 
+    public function get arrNyashuk():Array {
+        return _arrayNya;
+    }
+
     public function fillBot(ar:Array):void {
         var ob:Object;
         var i:int;

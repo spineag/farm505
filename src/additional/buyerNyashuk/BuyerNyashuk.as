@@ -145,6 +145,10 @@ public class BuyerNyashuk {
         return _buyerId;
     }
 
+    public function get dataNyashuk():Object {
+        return _data;
+    }
+
     public function noClick():void {
         _source.endClickCallback = null;
         _source.hoverCallback = null;
