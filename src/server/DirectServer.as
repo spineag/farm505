@@ -7126,7 +7126,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         variables.countResource = countResource;
         variables.tookGift = tookGift;
-        variables.showWindow = 0;
+        variables.showWindow = showWindow;
         variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -7213,9 +7213,9 @@ public class DirectServer {
         obj.countResource = int(d.message.count_resource);
         if (d.message.took_gift) obj.tookGift = String(d.message.took_gift).split('&');
         for (k = 0; k < obj.tookGift.length; k++) obj.tookGift[k] = int(obj.tookGift[k]);
-        obj.showWindow = int(d.message.show_window);
+        obj.showWindow = Boolean(int(d.message.show_window));
         g.managerParty.userParty = obj;
-        if (g.userInventory.getCountResourceById(168) == 0 && obj.countResource == 0 && !g.userInventory.checkLastResource(168)) {
+        if (g.userInventory.getCountResourceById(168) == 0 && obj.countResource == 0 && !g.userInventory.checkLastResource(168) && !g.managerParty.userParty.showWindow) {
             g.userInventory.addResource(168, 3);
         }
         if (d.id == 0) {
@@ -7286,7 +7286,7 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_PARTY_IN_PAPPER);
         var variables:URLVariables = new URLVariables();
 
-        Cc.ch('server', 'addUserParty', 1);
+        Cc.ch('server', 'deletePartyInPapper', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.hash = MD5.hash(String(g.user.userId)+SECRET);
@@ -7299,7 +7299,7 @@ public class DirectServer {
         try {
             loader.load(request);
         } catch (error:Error) {
-            Cc.error('addUserEvent error:' + error.errorID);
+            Cc.error('deletePartyInPapper error:' + error.errorID);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
         }
     }
@@ -7310,9 +7310,9 @@ public class DirectServer {
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
-            Cc.error('addUserParty: wrong JSON:' + String(response));
+            Cc.error('deletePartyInPapper: wrong JSON:' + String(response));
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserParty: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deletePartyInPapper: wrong JSON:' + String(response));
             if (callback != null) {
                 callback.apply();
             }
@@ -7320,7 +7320,7 @@ public class DirectServer {
         }
 
         if (d.id == 0) {
-            Cc.ch('server', 'addUserEvent OK', 5);
+            Cc.ch('server', 'deletePartyInPapper OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -7329,7 +7329,7 @@ public class DirectServer {
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
         } else {
-            Cc.error('addUserParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            Cc.error('deletePartyInPapper: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'addUserEvent: wrong JSON:' + String(response));
             if (callback != null) {
