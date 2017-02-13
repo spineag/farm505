@@ -88,7 +88,7 @@ public class WOPartyWindowClose extends WindowMain{
         obj.id = DataMoney.SOFT_CURRENCY;
         new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
         for (var i:int = 0; i < g.managerParty.userParty.tookGift.length; i++) {
-            if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countGift >= g.managerParty.dataParty.countToGift[i] ) {
+            if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countResource >= g.managerParty.dataParty.countToGift[i] ) {
                 if (g.managerParty.dataParty.typeGift[i] == BuildType.DECOR_ANIMATION) {
                     obj.count = 1;
                     obj.id =  g.managerParty.dataParty.idGift[i];
