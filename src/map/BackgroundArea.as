@@ -9,6 +9,8 @@ import flash.geom.Point;
 
 import loaders.PBitmap;
 
+import manager.ownError.ErrorConst;
+
 import map.Containers;
 import manager.Vars;
 
@@ -73,6 +75,7 @@ public class BackgroundArea {
         }
         if (!b) {
             Cc.error('BackgroundArea: map bitmap is null for url: ' + url);
+            g.errorManager.onGetError(ErrorConst.BG_AREA, true);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'backgroundArea');
             return;
         }

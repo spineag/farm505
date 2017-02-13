@@ -11,6 +11,7 @@ import heroes.BasicCat;
 
 import manager.AStar.AStar;
 import manager.Vars;
+import manager.ownError.ErrorConst;
 
 import quest.ManagerQuest;
 
@@ -124,6 +125,7 @@ public class ManagerCats {
             } catch (e:Error) {
                 Cc.error('ManagerCats goCatToPoint f1 error: ' + e.errorID + ' - ' + e.message);
                 Cc.stackch('error', 'ManagerCats goCatToPoint f1', 10);
+                g.errorManager.onGetError(ErrorConst.ManagerCats1, true);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCat1');
             }
         };
@@ -131,6 +133,7 @@ public class ManagerCats {
         try {
             if (!cat) {
                 Cc.error('ManagerCats goCatToPoint error: cat == null');
+                g.errorManager.onGetError(ErrorConst.ManagerCats2, true);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCatToPoint cat == null');
                 return;
             }
@@ -151,6 +154,7 @@ public class ManagerCats {
         } catch (e:Error) {
             Cc.error('ManagerCats goCatToPoint error: ' + e.errorID + ' - ' + e.message);
             Cc.stackch('error', 'ManagerCats goCatToPoint', 10);
+            g.errorManager.onGetError(ErrorConst.ManagerCats3, true);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goCatToPoint');
         }
     }
@@ -187,6 +191,7 @@ public class ManagerCats {
         } catch (e:Error) {
             Cc.error('ManagerCats goIdleCatToPoint error: ' + e.errorID + ' - ' + e.message);
             Cc.stackch('error', 'ManagerCats goIdleCatToPoint', 10);
+            g.errorManager.onGetError(ErrorConst.ManagerCats4, true);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerCats goIdleCatToPoint');
         }
     }

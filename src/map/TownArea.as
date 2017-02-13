@@ -39,6 +39,8 @@ import heroes.BasicCat;
 import heroes.OrderCat;
 import hint.FlyMessage;
 import manager.Vars;
+import manager.ownError.ErrorConst;
+
 import mouse.ToolsModifier;
 import preloader.AwayPreloader;
 
@@ -247,6 +249,7 @@ public class TownArea extends Sprite {
                 }
             } catch (e:Error) {
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+                g.errorManager.onGetError(ErrorConst.Z_SORT, true);
                 Cc.error('TownArea zSort error: ' + e.errorID + ' - ' + e.message);
             }
             _needTownAreaSort = false;
@@ -1988,6 +1991,7 @@ public class TownArea extends Sprite {
                     }
                 } catch (e:Error) {
                     g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+                    g.errorManager.onGetError(ErrorConst.Z_SORT_AWAY, true);
                     Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
                 }
                 _needTownAreaSort = false;

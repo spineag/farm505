@@ -5,6 +5,9 @@ import manager.*;
 import build.lockedLand.LockedLand;
 import com.junkbyte.console.Cc;
 import flash.geom.Point;
+
+import manager.ownError.ErrorConst;
+
 import starling.display.Image;
 import utils.MCScaler;
 
@@ -80,6 +83,7 @@ public class AStar {
         }
 
         if (curNode == null) {
+            bliad.errorManager.onGetError(ErrorConst.AStar, true);
             Cc.error('AStar makeSearch:: curNode == null.');
             Cc.error('sX:'+startX+', sY:'+startY+', eX:'+endX+', eY:'+endY);
             if (_cat) {

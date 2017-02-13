@@ -7,6 +7,8 @@ import flash.geom.Point;
 import manager.AStar.AStar;
 import manager.AStar.DirectWay;
 import manager.Vars;
+import manager.ownError.ErrorConst;
+
 import windows.WindowsManager;
 
 public class ManagerOrderCats {
@@ -151,6 +153,7 @@ public class ManagerOrderCats {
                 }
             } catch (e:Error) {
                 Cc.error('ManagerOrderCats goCatToPoint f2 error: ' + e.errorID + ' - ' + e.message);
+                g.errorManager.onGetError(ErrorConst.ManagerOrderCats2, true);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerOrderCats goCatToPoint2');
             }
         };
@@ -160,6 +163,7 @@ public class ManagerOrderCats {
                 cat.goWithPath(arr, f2, goAway);
             } catch (e:Error) {
                 Cc.error('ManagerOrderCats goCatToPoint f1 error: ' + e.errorID + ' - ' + e.message);
+                g.errorManager.onGetError(ErrorConst.ManagerOrderCats1, true);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ManagerOrderCats goCatToPoint1');
             }
         };
