@@ -18,6 +18,7 @@ import windows.chestWindow.WOChest;
 import windows.chestYellowWindow.WOChestYellow;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.dailyGiftWindow.WODailyGift;
+import windows.fabricaWindow.WOFabricDeleteItem;
 import windows.partWindow.WOPartyHelp;
 import windows.partWindow.WOPartyWindow;
 import windows.fabricaWindow.WOFabrica;
@@ -108,6 +109,7 @@ public class WindowsManager {
     public static const WO_PARTY:String = 'party';
     public static const WO_PARTY_HELP:String = 'party_help';
     public static const WO_PARTY_CLOSE:String = 'party_close';
+    public static const WO_FABRIC_DELETE_ITEM:String = 'fabric_delete_item';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -287,6 +289,9 @@ public class WindowsManager {
                 break;
             case WO_PARTY_CLOSE:
                 wo = new WOPartyWindowClose();
+                break;
+            case WO_FABRIC_DELETE_ITEM:
+                wo = new WOFabricDeleteItem();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

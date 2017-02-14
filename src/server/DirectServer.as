@@ -4519,6 +4519,63 @@ public class DirectServer {
         }
     }
 
+    public function deleteRecipeOnFabrica(userRecipeDbId:String, leftTime:int, buildDbId:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DELETE_RECIPE_FABRICA);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'deleteRecipeOnFabrica', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.recipeDbId = userRecipeDbId;
+        variables.leftTime = leftTime;
+        variables.buildDbId = buildDbId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(userRecipeDbId)+String(leftTime)+String(buildDbId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteDeleteRecipeOnFabrica);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteDeleteRecipeOnFabrica(e:Event):void { completeDeleteRecipeOnFabrica(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('deleteRecipeOnFabrica error:' + error.errorID);
+//          g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeDeleteRecipeOnFabrica(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('deleteRecipeOnFabrica: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteRecipeOnFabrica: wrong JSON:' + String(response));
+            return;
+        }
+        if (d.warning != '') {
+            Cc.error('DirectServer completeDeleteRecipeOnFabrica:: warning: ' + d.warning);
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'deleteRecipeOnFabrica OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('deleteRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'deleteRecipeOnFabrica: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
     public function skipTimeOnRidge(plantTime:int,buildDbId:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_TIME_RIDGE);

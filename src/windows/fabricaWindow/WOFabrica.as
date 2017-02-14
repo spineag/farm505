@@ -39,7 +39,7 @@ public class WOFabrica extends WindowMain {
         createTopBG();
         createBottomBG();
         createFabricaItems();
-        _list = new WOFabricaWorkList(_source);
+        _list = new WOFabricaWorkList(_source,this);
     }
 
     private function onClickExit(e:Event = null):void {

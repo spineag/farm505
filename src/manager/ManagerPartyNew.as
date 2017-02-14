@@ -97,7 +97,20 @@ public class ManagerPartyNew {
                     if (arr[i] )arr[i].dataNyashuk.timeToNext = int(new Date().getTime() / 1000);
                 }
             }
+        }
 
+        arr = [];
+        arr = g.managerBuyerNyashuk.arrNyashuk;
+        if (arr.length > 0) {
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i] &&  arr[i].dataNyashuk.resourceId == 168) {
+                    g.directServer.updateUserPapperBuy(arr[i].dataNyashuk.buyerId, 0, 0, 0, 0, 0, 0);
+                    g.managerBuyerNyashuk.onReleaseOrder(arr[i], false);
+                    if (arr[i] && arr[i].dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);
+                    else  g.userTimer.buyerNyashukRed(1200);
+                    if (arr[i] )arr[i].dataNyashuk.timeToNext = int(new Date().getTime() / 1000);
+                }
+            }
         }
 
         g.userTimer.timerAtPapper = 0;

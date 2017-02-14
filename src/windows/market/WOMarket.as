@@ -235,7 +235,7 @@ public class WOMarket  extends WindowMain {
         if (params[0]) {
             _curUser = params[0];
             for (var i:int=0; i < _arrFriends.length; i++) {
-                if (_arrFriends[i].userSocialId == _curUser.userSocialId){
+                if (_arrFriends[i].userSocialId == _curUser.userSocialId) {
                     _shiftFriend = i;
                 }
             }
@@ -249,6 +249,7 @@ public class WOMarket  extends WindowMain {
             choosePerson(_curUser);
         }
         _timer = 15;
+        if (g.userTimer.partyTimer < 0 && !g.managerParty.userParty.showWindow) _timer = 0;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
         onWoShowCallback = onShow;
         super.showIt();
@@ -406,7 +407,7 @@ public class WOMarket  extends WindowMain {
             }
             for (i = 0; i < _curUser.marketItems.length; i++) {
                 if (_curUser.marketItems[i].numberCell == _arrItems.length) {
-                    _arrItems[_curUser.marketItems[i].numberCell-1].fillFromServer(_curUser.marketItems[i], _curUser);
+                   _arrItems[_curUser.marketItems[i].numberCell-1].fillFromServer(_curUser.marketItems[i], _curUser);
                 } else {
                     _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
                 }
