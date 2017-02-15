@@ -50,15 +50,20 @@ public class WOFabricaWorkListItem {
     private var txtPropose2:CTextField;
     private var _proposeBtn:CButton;
     private var _skipCallback:Function;
+    private var _skipSmallCallback:Function;
     private var _rubinSmall:Image;
     private var _txt:CTextField;
     private var _priceSkip:int;
     private var _armatureBoom:Armature;
     private var g:Vars = Vars.getInstance();
+    private var _number:int;
+    private var _woFabrica:WOFabrica;
 
-    public function WOFabricaWorkListItem(type:String = 'small') {
+    public function WOFabricaWorkListItem(type:String = 'small', number:int = 0, woFabrica:WOFabrica = null) {
         _type = type;
         _source = new CSprite();
+        _number = number;
+        _woFabrica = woFabrica;
         _txtNumberCreate = new CTextField(20,20,"");
         if (type == SMALL_CELL) {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
@@ -77,6 +82,7 @@ public class WOFabricaWorkListItem {
             _txt.x = 5;
             _txt.y = 5;
             _source.addChild(_txt);
+            _source.endClickCallback = onClick;
         }
 
         if (_type == BIG_CELL) {
@@ -121,6 +127,27 @@ public class WOFabricaWorkListItem {
             _btnSkip.clickCallback = makeSkip;
         }
         _txt.alpha = .7;
+    }
+
+    private function onClick():void {
+        if (_resource) {
+            g.hint.hideIt();
+            g.windowsManager.cashWindow = _woFabrica;
+            g.windowsManager.openWindow(WindowsManager.WO_FABRIC_DELETE_ITEM,makeSkipSmall);
+        }
+    }
+
+    private function makeSkipSmall():void {
+        if (g.user.hardCurrency >= 1) {
+            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);
+            if (_skipSmallCallback != null) {
+                _skipSmallCallback.apply(null, [_number]);
+                _skipSmallCallback = null;
+            }
+        } else {
+            g.windowsManager.closeAllWindows();
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+        }
     }
 
     public function get source():Sprite {
@@ -345,6 +372,10 @@ public class WOFabricaWorkListItem {
 
     public function set skipCallback(f:Function):void {
         _skipCallback = f;
+    }
+
+    public function set skipSmallCallback(f:Function):void {
+        _skipSmallCallback = f;
     }
 
     public function getSkipBtnProperties():Object {

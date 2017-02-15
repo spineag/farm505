@@ -16,10 +16,12 @@ public class WOFabricaWorkList {
     public var arrRecipes:Array;
     private var _parent:Sprite;
     private var _fabrica:Fabrica;
+    private var _woFabrica:WOFabrica;
 
     private var g:Vars = Vars.getInstance();
 
-    public function WOFabricaWorkList(s:Sprite) {
+    public function WOFabricaWorkList(s:Sprite, woFabrica:WOFabrica = null) {
+        _woFabrica = woFabrica;
         _parent = s;
         _arrItems = [];
         arrRecipes = [];
@@ -28,13 +30,13 @@ public class WOFabricaWorkList {
 
     private function createItems():void {
         var item:WOFabricaWorkListItem;
-        item = new WOFabricaWorkListItem(WOFabricaWorkListItem.BIG_CELL);
+        item = new WOFabricaWorkListItem(WOFabricaWorkListItem.BIG_CELL,0, _woFabrica);
         item.source.x = -165;
         item.source.y = 50;
         _parent.addChild(item.source);
         _arrItems.push(item);
         for (var i:int = 0; i < 8; i++) {
-            item = new WOFabricaWorkListItem();
+            item = new WOFabricaWorkListItem('small',i+1, _woFabrica);
             item.source.x = -50 + (i%4)*55;
             item.source.y = 50 + int(i/4)*53;
             _parent.addChild(item.source);
@@ -86,6 +88,17 @@ public class WOFabricaWorkList {
         fillIt(ar, _fabrica);
     }
 
+    private function onSkipSmall(number:int):void {
+        _fabrica.skipSmallRecipe(number);
+        arrRecipes.splice(number, 1);
+        var ar:Array = arrRecipes.slice();
+        arrRecipes.length = 0;
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            _arrItems[i].unfillIt();
+        }
+        fillIt(ar, _fabrica);
+    }
+
     public function get isFull():Boolean {
         return arrRecipes.length >= maxCount;
     }
@@ -100,6 +113,10 @@ public class WOFabricaWorkList {
         if (arrRecipes.length == 1) {
             activateTimer();
             _arrItems[0].skipCallback = onSkip;
+        } else {
+            for (var i:int = 1; i < arrRecipes.length; i++) {
+                _arrItems[i].skipSmallCallback = onSkipSmall;
+            }
         }
     }
 

@@ -623,6 +623,17 @@ public class Fabrica extends WorldObject {
         }
     }
 
+    public function skipSmallRecipe(number:int):void { // for making recipe
+        if (_arrList[number]) {
+            _arrList.splice(number, 1);
+            g.directServer.deleteRecipeOnFabrica(_arrList[number].idFromServer, _arrList[number].leftTime, _dbBuildingId, null);
+            g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[number].resourceID});
+//            craftResource(_arrList.shift());
+        } else {
+            Cc.error('Fabrica skipSmallRecipe:: _arrList[0] == null');
+        }
+    }
+
     public function addArrowToCraftItem(f:Function):void {
         if (_arrCrafted.length) {
             (_arrCrafted[0] as CraftItem).addArrow(f);
