@@ -412,6 +412,7 @@ public class ManagerMiniScenes {
     }
 
     private function letsGoToNeighbor():void {
+        g.friendPanel.showIt();
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', letsGoToNeighbor);
             return;

@@ -67,6 +67,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
             if (curFunc != null) {
                 curFunc.apply();
             }
+            g.friendPanel.hideIt(true);
         } catch (err:Error) {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'tutorial');
             Cc.error("Tutorial crashed at step #" + String(g.user.tutorialStep) + " and subStep #" + String(_subStep) + " with error message " + err.message);

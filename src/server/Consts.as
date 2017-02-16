@@ -134,5 +134,6 @@ public class Consts {
     public static var INQ_ON_TRANSACTION:String = 'onOKtransaction.php';
     public static var INQ_DELETE_PARTY_IN_PAPPER:String = 'deletePartyInPapper.php';
     public static var INQ_ADD_USER_ERROR:String = 'addUserError.php';
+    public static var INQ_GET_DATA_SALE_PACK:String = 'getDataSalePack.php';
 }
 }

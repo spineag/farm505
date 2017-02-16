@@ -1,7 +1,7 @@
 /**
  * Created by user on 1/30/17.
  */
-package windows.partWindow {
+package windows.partyWindow {
 import manager.ManagerFilters;
 
 import starling.display.Image;

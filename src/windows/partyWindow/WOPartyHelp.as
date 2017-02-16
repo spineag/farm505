@@ -1,7 +1,7 @@
 /**
  * Created by user on 2/8/17.
  */
-package windows.partWindow {
+package windows.partyWindow {
 
 import flash.display.Bitmap;
 
