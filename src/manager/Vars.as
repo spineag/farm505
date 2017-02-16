@@ -135,6 +135,7 @@ public class Vars {
     public var managerInviteFriend:ManagerInviteFriend;
     public var managerTimerSkip:ManagerTimerSkip;
     public var managerParty:ManagerPartyNew;
+    public var managerSalePack:ManagerSalePack;
     public var cont:Containers;
     public var ownMouse:OwnMouse;
     public var toolsModifier:ToolsModifier;
@@ -249,7 +250,7 @@ public class Vars {
             townArea = new TownArea();
             farmGrid = new FarmGrid();
             managerDailyBonus = new ManagerDailyBonus();
-            
+            managerSalePack = new ManagerSalePack();
             socialNetwork = new SocialNetwork(flashVars);
             if (isDebug) {
                 socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
@@ -586,6 +587,7 @@ public class Vars {
                     }
                 }
             }
+            if ((user as User).miniScenes[3] == 0) friendPanel.hideIt(true);
             managerMiniScenes.updateMiniScenesLengthOnGameStart();
             managerButterfly = new ManagerButterfly();
             managerButterfly.createBFlyes();
@@ -650,6 +652,10 @@ public class Vars {
     public function getVersion(st:String):String {
         if (version[st]) return '?v='+version[st];
             else return '';
+    }
+
+    public function createSaleUi():void {
+
     }
 }
 }

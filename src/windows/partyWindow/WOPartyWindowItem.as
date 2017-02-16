@@ -1,7 +1,7 @@
 /**
  * Created by user on 2/2/17.
  */
-package windows.partWindow {
+package windows.partyWindow {
 import com.greensock.TweenMax;
 import com.greensock.easing.Back;
 

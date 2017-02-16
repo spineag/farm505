@@ -19,8 +19,8 @@ import windows.chestYellowWindow.WOChestYellow;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.dailyGiftWindow.WODailyGift;
 import windows.fabricaWindow.WOFabricDeleteItem;
-import windows.partWindow.WOPartyHelp;
-import windows.partWindow.WOPartyWindow;
+import windows.partyWindow.WOPartyHelp;
+import windows.partyWindow.WOPartyWindow;
 import windows.fabricaWindow.WOFabrica;
 import windows.gameError.WOGameError;
 import windows.inviteFriends.WOInviteFriends;
@@ -36,11 +36,12 @@ import windows.noPlaces.WONoPlaces;
 import windows.noResources.WONoResources;
 import windows.orderWindow.WOOrder;
 import windows.paperWindow.WOPapper;
-import windows.partWindow.WOPartyWindowClose;
+import windows.partyWindow.WOPartyWindowClose;
 import windows.quest.WOQuest;
 import windows.questAward.WOQuestFinishAward;
 import windows.questList.WOQuestList;
 import windows.reloadPage.WOReloadGame;
+import windows.salePack.WOSalePack;
 import windows.serverCrack.WOServerCrack;
 import windows.serverError.WOServerError;
 import windows.serverNoWork.WOSeverNoWork;
@@ -110,6 +111,7 @@ public class WindowsManager {
     public static const WO_PARTY_HELP:String = 'party_help';
     public static const WO_PARTY_CLOSE:String = 'party_close';
     public static const WO_FABRIC_DELETE_ITEM:String = 'fabric_delete_item';
+    public static const WO_SALE_PACK:String = 'sale_pack';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -292,6 +294,9 @@ public class WindowsManager {
                 break;
             case WO_FABRIC_DELETE_ITEM:
                 wo = new WOFabricDeleteItem();
+                break;
+            case WO_SALE_PACK:
+                wo = new WOSalePack();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

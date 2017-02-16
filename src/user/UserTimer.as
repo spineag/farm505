@@ -16,6 +16,8 @@ public class UserTimer {
     private var _orderManagerItem:ManagerOrderItem;
     private var g:Vars = Vars.getInstance();
     public var partyTimer:int;
+    public var saleTimerToEnd:int;
+    public var saleTimerToStart:int;
 
     public function UserTimer() {
         _arrOrderItem = [];
@@ -89,6 +91,32 @@ public class UserTimer {
         if (partyTimer <= 0) {
             partyTimer = 0;
             g.gameDispatcher.removeFromTimer(partyTimerToEnd);
+        }
+    }
+
+    public function saleToEnd(time:int):void {
+        saleTimerToEnd = time;
+        g.gameDispatcher.addToTimer(saleTimerToEndF);
+    }
+
+    private function saleTimerToEndF():void {
+        saleTimerToEnd--;
+        if (saleTimerToEnd <= 0) {
+            saleTimerToEnd = 0;
+            g.gameDispatcher.removeFromTimer(saleTimerToEndF);
+        }
+    }
+
+    public function saleToStart(time:int):void {
+        saleTimerToStart = time;
+        g.gameDispatcher.addToTimer(saleTimerToStartF);
+    }
+
+    private function saleTimerToStartF():void {
+        saleTimerToStart--;
+        if (saleTimerToStart <= 0) {
+            saleTimerToStart = 0;
+            g.gameDispatcher.removeFromTimer(saleTimerToStartF);
         }
     }
 

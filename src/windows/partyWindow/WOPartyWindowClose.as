@@ -1,7 +1,7 @@
 /**
  * Created by user on 2/10/17.
  */
-package windows.partWindow {
+package windows.partyWindow {
 import data.BuildType;
 import data.DataMoney;
 
