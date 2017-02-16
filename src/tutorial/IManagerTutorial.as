@@ -81,7 +81,7 @@ public class IManagerTutorial {
             var q:Quad = new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK);
             black = new Sprite();
             black.addChild(q);
-            black.alpha = .3;
+            black.alpha = .6;
             g.cont.popupCont.addChildAt(black, 0);
         }
     }
@@ -91,7 +91,7 @@ public class IManagerTutorial {
             var q:Quad = new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK);
             blackUnderInterface = new Sprite();
             blackUnderInterface.addChild(q);
-            blackUnderInterface.alpha = .3;
+            blackUnderInterface.alpha = .6;
             g.cont.hintGameCont.addChildAt(blackUnderInterface, 0);
         }
     }

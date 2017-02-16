@@ -77,6 +77,7 @@ public class CutSceneTextBubble {
         _btnTxt = new CTextField(200, 30, btnSt);
         _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btn.addChild(_btnTxt);
+        _btn.releaseHoverAnimation();
     }
 
     private function addNoButton(callback:Function):void {

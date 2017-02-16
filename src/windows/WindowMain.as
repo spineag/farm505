@@ -172,7 +172,9 @@ public class WindowMain {
         g.cont.windowsCont.addChildAt(_black, 0);
         _black.alpha = .0;
         _black.endClickCallback = onBGClick;
-        TweenMax.to(_black, .2, {alpha:.5});
+        var c:Number = .5;
+        if (g.managerTutorial && g.managerTutorial.isTutorial) c = .7;
+        TweenMax.to(_black, .2, {alpha:c});
     }
 
     private function removeBlackBG():void {
