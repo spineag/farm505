@@ -215,6 +215,41 @@ public class WOPartyWindow extends WindowMain{
         for (var i:int = 0; i <_arrItem.length; i++) {
             _arrItem[i].deleteIt();
         }
+        if (_txtBtn) {
+            if (_btn)_btn.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
+        if (_txtBabl) {
+            if (_source) _source.removeChild(_txtBabl);
+            _txtBabl.deleteIt();
+            _txtBabl = null;
+        }
+        if (_txtTime) {
+            if (_source) _source.removeChild(_txtTime);
+            _txtTime.deleteIt();
+            _txtTime = null;
+        }
+        if (_txtTimeLost) {
+            if (_source) _source.removeChild(_txtTimeLost);
+            _txtTimeLost.deleteIt();
+            _txtTimeLost = null;
+        }
+        if (_txtName) {
+            if (_source) _source.removeChild(_txtName);
+            _txtName.deleteIt();
+            _txtName = null;
+        }
+        if (_btnHint) {
+            if (_source) _source.removeChild(_btnHint);
+            _btnHint.deleteIt();
+            _btnHint = null;
+        }
+        if (_btn) {
+            if (_source) _source.removeChild(_btn);
+            _btn.deleteIt();
+            _btn = null;
+        }
         super.deleteIt();
     }
 

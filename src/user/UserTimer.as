@@ -116,6 +116,7 @@ public class UserTimer {
         saleTimerToStart--;
         if (saleTimerToStart <= 0) {
             saleTimerToStart = 0;
+            g.managerSalePack.sartAfterSaleTimer();
             g.gameDispatcher.removeFromTimer(saleTimerToStartF);
         }
     }

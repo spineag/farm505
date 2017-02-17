@@ -71,6 +71,7 @@ import ui.craftPanel.CraftPanel;
 import ui.party.PartyPanel;
 import ui.friendPanel.FriendPanel;
 import ui.optionPanel.OptionPanel;
+import ui.sale.SalePanel;
 import ui.softHardCurrencyPanel.SoftHardCurrency;
 import ui.stock.StockPanel;
 import ui.toolsPanel.ToolsPanel;
@@ -177,6 +178,7 @@ public class Vars {
     public var catPanel:CatPanel;
     public var stock:StockPanel;
     public var partyPanel:PartyPanel;
+    public var salePanel:SalePanel;
 
     public var windowsManager:WindowsManager;
     public var managerHitArea:ManagerHitArea;
@@ -250,7 +252,6 @@ public class Vars {
             townArea = new TownArea();
             farmGrid = new FarmGrid();
             managerDailyBonus = new ManagerDailyBonus();
-            managerSalePack = new ManagerSalePack();
             socialNetwork = new SocialNetwork(flashVars);
             if (isDebug) {
                 socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
@@ -333,6 +334,7 @@ public class Vars {
     private function onUserInfo():void {
         soundManager.load();
         managerCats.addAllHeroCats();
+        managerSalePack = new ManagerSalePack();
         startPreloader.setProgress(84);
         if (managerTutorial.isTutorial) {
             loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial); // no need for loading this
@@ -465,7 +467,7 @@ public class Vars {
                 managerParty = new ManagerPartyNew();
                 directServer.getDataParty(null);
             }
-            if ((user as User).level >= 5 && socialNetworkID == SocialNetworkSwitch.SN_VK_ID) stock = new StockPanel();
+//            if ((user as User).level >= 5 && socialNetworkID == SocialNetworkSwitch.SN_VK_ID) stock = new StockPanel();
             managerQuest = new ManagerQuest();
         } catch (e:Error) {
             errorManager.onGetError(ErrorConst.ON_INIT3, true, true);
@@ -557,35 +559,34 @@ public class Vars {
                 managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
                 var todayDailyGift:Date;
                 var today:Date;
-               if ((socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
-                   if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
+//               if ((socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
+                    if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - int(new Date().getTime() / 1000)) <= 0 && (user as User).level >= 6 && (user as User).isTester) {
+                        windowsManager.openWindow(WindowsManager.WO_SALE_PACK, null, true);
+                    } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
                        windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
                    } else {
                        if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
                        else {
                            todayDailyGift = new Date((user as User).dayDailyGift * 1000);
                            today = new Date((user as User).day * 1000);
-                           if ((user as User).level >= 5 && todayDailyGift.date != today.date) {
-                               directServer.getDailyGift(null);
-                           } else {
-                               managerCats.helloCats();
-                           }
+                           if ((user as User).level >= 5 && todayDailyGift.date != today.date) directServer.getDailyGift(null);
+                           else managerCats.helloCats();
                        }
                    }
-               } else {
-                    if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
-                        windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
-                    } else {
-                        if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
-                        else {
-                            todayDailyGift = new Date((user as User).dayDailyGift * 1000);
-                            today = new Date((user as User).day * 1000);
-                            if ((user as User).level >= 5 && todayDailyGift.date != today.date) {
-                                directServer.getDailyGift(null);
-                            } else managerCats.helloCats();
-                        }
-                    }
-                }
+//               } else {
+//                    if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
+//                        windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+//                    } else {
+//                        if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
+//                        else {
+//                            todayDailyGift = new Date((user as User).dayDailyGift * 1000);
+//                            today = new Date((user as User).day * 1000);
+//                            if ((user as User).level >= 5 && todayDailyGift.date != today.date) {
+//                                directServer.getDailyGift(null);
+//                            } else managerCats.helloCats();
+//                        }
+//                    }
+//                }
             }
             if ((user as User).miniScenes[3] == 0) friendPanel.hideIt(true);
             managerMiniScenes.updateMiniScenesLengthOnGameStart();
@@ -655,7 +656,7 @@ public class Vars {
     }
 
     public function createSaleUi():void {
-
+        salePanel = new SalePanel();
     }
 }
 }

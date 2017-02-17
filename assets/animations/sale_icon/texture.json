@@ -1,1 +1,1 @@
-{"name":"sale_icon","imagePath":"texture.png","SubTexture":[{"name":"birka","x":0,"height":100,"y":0,"width":100},{"name":"shnurok","x":102,"height":67,"y":0,"width":10}]}
+{"name":"sale_icon","SubTexture":[{"name":"birka","y":0,"height":100,"width":100,"x":0},{"name":"timer","y":102,"height":13,"width":62,"x":0},{"name":"shnurok","y":0,"height":67,"width":10,"x":102}],"imagePath":"texture.png"}

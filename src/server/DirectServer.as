@@ -7464,9 +7464,6 @@ public class DirectServer {
         obj.newCost = int(d.message.new_cost);
         obj.timeToStart = int(d.message.time_to_start);
         obj.timeToEnd = int(d.message.time_to_end);
-        trace(obj.timeToEnd - int(new Date().getTime() / 1000));
-        trace(obj.timeToStart - int(new Date().getTime() / 1000));
-
         if (!g.user.salePack && (obj.timeToEnd - int(new Date().getTime() / 1000)) > 0 && (obj.timeToStart - int(new Date().getTime() / 1000)) <= 0) g.userTimer.saleToEnd(obj.timeToEnd - int(new Date().getTime() / 1000));
         else if (obj.timeToStart > 0) g.userTimer.saleToStart(obj.timeToEnd - int(new Date().getTime() / 1000));
         obj.profit = int(d.message.profit);
@@ -7486,6 +7483,57 @@ public class DirectServer {
             Cc.error('getDataSalePack: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserSalePack(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_SALE_PACK);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserSalePack', 1);
+        variables = addDefault(variables);
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteUpdateUserSalePack);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteUpdateUserSalePack(e:Event):void { completeUpdateUserSalePack(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserSalePack error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateUserSalePack(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserSalePack: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserSalePack: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserSalePack OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserSalePack: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTutorialStep: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 

@@ -26,7 +26,7 @@ public class PartyPanel {
         var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('valentine_pink_icon'));
         _source.addChild(im);
 
-        _txtData= new CTextField(100,60,'');
+        _txtData = new CTextField(100,60,'');
         _txtData.setFormat(CTextField.BOLD18, 18, 0xd30102);
         _source.addChild(_txtData);
         _txtData.y = 55;
