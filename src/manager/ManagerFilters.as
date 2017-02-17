@@ -82,6 +82,12 @@ public class ManagerFilters {
         return f;
     }
 
+    public static function getHardButtonHoverFilter():ColorMatrixFilter {
+        var f:ColorMatrixFilter = new ColorMatrixFilter();
+        f.adjustBrightness(.2);
+        return f;
+    }
+
     public static function get BUTTON_CLICK_FILTER():ColorMatrixFilter {
         var f:ColorMatrixFilter = new ColorMatrixFilter();
         f.adjustBrightness(-.07);
@@ -103,6 +109,12 @@ public class ManagerFilters {
     public static function get RED_TINT_FILTER():ColorMatrixFilter {
         var f:ColorMatrixFilter = new ColorMatrixFilter();
         f.tint(Color.RED, 1);
+        return f;
+    }
+
+    public static function get WHITE_LOW_TINT_FILTER():ColorMatrixFilter {
+        var f:ColorMatrixFilter = new ColorMatrixFilter();
+        f.tint(Color.WHITE, .7);
         return f;
     }
 
