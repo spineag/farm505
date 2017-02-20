@@ -77,19 +77,19 @@ public class WOSalePack extends WindowMain{
         _imPercent.y = -253;
         _source.addChild(_imPercent);
         _txtTime = new CTextField(120,60,'');
-        _txtTime.setFormat(CTextField.BOLD18, 20, 0xd30102);
+        _txtTime.setFormat(CTextField.BOLD18, 20, 0x4b7200);
         _txtTime.alignH = Align.LEFT;
 
         _txtTime.y = -137;
         _source.addChild(_txtTime);
         _txtName = new CTextField(740, 70, String(g.managerSalePack.dataSale.name));
-        _txtName.setFormat(CTextField.BOLD30, 35, Color.RED, Color.WHITE);
+        _txtName.setFormat(CTextField.BOLD30, 34, Color.RED, Color.WHITE);
 //        _txtName.alignH = Align.LEFT;
         _txtName.x = -370;
         _txtName.y = -210;
         _source.addChild(_txtName);
 
-        _txtDescription = new CTextField(740,60,String(g.managerSalePack.dataSale.description));
+        _txtDescription = new CTextField(740,70,String(g.managerSalePack.dataSale.description));
         _txtDescription.setFormat(CTextField.BOLD18, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtDescription.x = -370;
         _txtDescription.y = -150;

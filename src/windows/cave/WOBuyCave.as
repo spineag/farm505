@@ -147,11 +147,11 @@ public class WOBuyCave extends WindowMain {
             _priceTxt.deleteIt();
             _priceTxt = null;
         }
-        _source.removeChild(_btn);
-        _btn.deleteIt();
-        _btn = null;
-        _dataObject = null;
-        _nameImage = '';
+        if (_btn) _source.removeChild(_btn);
+        if (_btn) _btn.deleteIt();
+        if (_btn) _btn = null;
+        if (_dataObject) _dataObject = null;
+        if (_nameImage) _nameImage = '';
         super.deleteIt();
     }
 

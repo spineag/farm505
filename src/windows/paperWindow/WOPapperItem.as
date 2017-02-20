@@ -219,7 +219,7 @@ public class WOPapperItem {
             arr.push('Елза Авдеенко');
             arr.push('Светлана Тимофеева');
 
-            _txtUserName.text = String(arr[int(Math.random()*arr.length)]);
+            _txtUserName.text = String(arr[int(Math.random()*arr.length-1)]);
         }
         if (_data.needHelp > 0) {
             _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));

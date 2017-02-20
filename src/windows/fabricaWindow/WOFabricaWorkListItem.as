@@ -58,12 +58,14 @@ public class WOFabricaWorkListItem {
     private var g:Vars = Vars.getInstance();
     private var _number:int;
     private var _woFabrica:WOFabrica;
+    private var _isHover:Boolean;
 
     public function WOFabricaWorkListItem(type:String = 'small', number:int = 0, woFabrica:WOFabrica = null) {
         _type = type;
         _source = new CSprite();
         _number = number;
         _woFabrica = woFabrica;
+        _isHover = false;
         _txtNumberCreate = new CTextField(20,20,"");
         if (type == SMALL_CELL) {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
@@ -82,7 +84,7 @@ public class WOFabricaWorkListItem {
             _txt.x = 5;
             _txt.y = 5;
             _source.addChild(_txt);
-            _source.endClickCallback = onClick;
+            if (g.user.isTester) _source.endClickCallback = onClick;
         }
 
         if (_type == BIG_CELL) {
@@ -132,6 +134,7 @@ public class WOFabricaWorkListItem {
     private function onClick():void {
         if (_resource) {
             g.hint.hideIt();
+            g.windowsManager.hideWindow(WindowsManager.WO_FABRICA);
             g.windowsManager.cashWindow = _woFabrica;
             g.windowsManager.openWindow(WindowsManager.WO_FABRIC_DELETE_ITEM,makeSkipSmall);
         }
@@ -235,10 +238,15 @@ public class WOFabricaWorkListItem {
             _txtNumberCreate.x = 27;
             _txtNumberCreate.y = 25;
             _source.hoverCallback =  function():void {
+                if (_isHover) return;
+                _isHover = true;
                 g.hint.showIt("в очереди");
+                _source.filter = ManagerFilters.BUTTON_HOVER_FILTER;
             };
             _source.outCallback =  function():void {
+                _isHover = false;
                 g.hint.hideIt();
+                _source.filter = null;
             };
         }
         _source.addChild(_txtNumberCreate);

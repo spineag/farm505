@@ -195,11 +195,11 @@ public class Animal {
         if (ob.id) animal_db_id = ob.id;
             else animal_db_id = '0';
         if (int(ob.time_work) > 0) {
-            if (int(ob.time_work) > _data.timeCraft) {
+            if (int(ob.time_work) > g.dataResource.objectResources[_data.idResource].buildTime) {
                 craftResource();
                 _state = CRAFT;
             } else {
-                _timeToEnd = _data.timeCraft - int(ob.time_work);
+                _timeToEnd = g.dataResource.objectResources[_data.idResource].buildTime - int(ob.time_work);
                 _state = WORK;
                 if (!g.isAway) {
                     g.managerAnimal.addCatToFarm(_farm);
@@ -279,7 +279,7 @@ public class Animal {
         }
         if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
             if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
-            _timeToEnd = _data.timeCraft;
+            _timeToEnd = g.dataResource.objectResources[_data.idResource].buildTime; // _data.timeCraft; old from data_animal
             g.gameDispatcher.addToTimer(render);
             _state = WORK;
             g.managerAnimal.addCatToFarm(_farm);
@@ -363,7 +363,7 @@ public function onEndClick(last:Boolean = false):void {
                     var p1:Point = new Point(0, _rect.y);
                     p1 = source.localToGlobal(p1);
                     if (_data.id == 1 || _data.id == 3) p1.y += 25;
-                    g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _data.timeCraft, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut, false, true);
+                    g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, g.dataResource.objectResources[_data.idResource].buildTime, _timeToEnd, g.dataResource.objectResources[_data.idResource].priceSkipHard, _data.name, callbackSkip, onOut, false, true);
                     stopAnimation();
                     idleAnimation();
                 } else {
@@ -388,7 +388,7 @@ public function onEndClick(last:Boolean = false):void {
             var p1:Point = new Point(0, _rect.y);
             p1 = source.localToGlobal(p1);
             if (_data.id == 1 || _data.id == 3) p1.y += 25;
-            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _data.timeCraft, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut, false, true);
+            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, g.dataResource.objectResources[_data.idResource].buildTime, _timeToEnd, g.dataResource.objectResources[_data.idResource].priceSkipHard, _data.name, callbackSkip, onOut, false, true);
             g.timerHint.addArrow();
         }
     }
@@ -398,7 +398,7 @@ public function onEndClick(last:Boolean = false):void {
             var p1:Point = new Point(0, _rect.y);
             p1 = source.localToGlobal(p1);
             if (_data.id == 1 || _data.id == 3) p1.y += 25;
-            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _data.timeCraft_da, _timeToEnd, _data.costForceCraft, _data.name, callbackSkip, onOut,false,true);
+            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _data.timeCraft_da, _timeToEnd, g.dataResource.objectResources[_data.idResource].priceSkipHard, _data.name, callbackSkip, onOut,false,true);
             stopAnimation();
             idleAnimation();
         }

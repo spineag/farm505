@@ -478,7 +478,7 @@ public class Vars {
 
     public function party():void {
         if (userTimer.partyTimer > 0) partyPanel = new PartyPanel();
-        if (!windowsManager.currentWindow) windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+        if (!windowsManager.currentWindow && userTimer.partyTimer > 0) windowsManager.openWindow(WindowsManager.WO_PARTY,null);
     }
 
     private function afterLoadAll():void {

@@ -7,6 +7,8 @@ import dragonBones.Slot;
 import dragonBones.animation.WorldClock;
 import dragonBones.starling.StarlingArmatureDisplay;
 
+import manager.ManagerFilters;
+
 import manager.Vars;
 
 import starling.display.Quad;
@@ -56,7 +58,7 @@ public class SalePanel {
         _timer = 20;
         g.gameDispatcher.addToTimer(animation);
         _txtData = new CTextField(128,60,'lohhhh');
-        _txtData.setFormat(CTextField.BOLD18, 16, 0xd30102);
+        _txtData.setFormat(CTextField.BOLD18, 16, 0x4b7200);
         _txtData.y = -25;
         _txtData.x = -30;
         _spriteTxt = new Sprite();
