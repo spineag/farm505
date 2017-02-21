@@ -50,7 +50,7 @@ public class DustRectangle {
         // arrTop.length/arrRight.length == w/h  !!!!!
         var i:int;
         var dust:DustParticle;
-        var count:int = int(_width/20);
+        var count:int = int(_width/10);
         _arrDustsTop = new Vector.<DustParticle>(count);
         for (i=0; i<count; i++) {
             dust = new DustParticle(_arrParticleImages[int(12*Math.random())]);
@@ -65,7 +65,7 @@ public class DustRectangle {
             _source.addChild(dust.source);
             _arrDustsBottom[i] = dust;
         }
-        count = int(_height/20);
+        count = int(_height/10);
         _arrDustsLeft = new Vector.<DustParticle>(count);
         for (i=0; i<count; i++) {
             dust = new DustParticle(_arrParticleImages[int(12*Math.random())]);

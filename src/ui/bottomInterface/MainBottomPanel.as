@@ -515,6 +515,11 @@ public class MainBottomPanel {
         obj.height = _shopBtn.height;
         return obj;
     }
+    
+    public function activateShopButtonHoverAnimation(v:Boolean):void {
+        if (v) _shopBtn.releaseHoverAnimation();
+            else _shopBtn.finishHoverAnimation();
+    }
 
     public function set tutorialCallback(f:Function):void {
         _tutorialCallback = f;

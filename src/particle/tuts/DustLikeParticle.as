@@ -46,7 +46,7 @@ public class DustLikeParticle {
     }
     
     public function setPreStartPositions(pCenter:Point):void { // use gomotety principes
-        var shift:int = 30;
+        var shift:int = 20;
         if (_numQuarter == 1) {
             _source.x = (pCenter.y + shift)*(_startX - pCenter.x)/pCenter.y + pCenter.x;
             _source.y = _startY - shift;

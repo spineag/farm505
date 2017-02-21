@@ -374,12 +374,14 @@ public class ManagerTutorialNew extends IManagerTutorial{
         g.bottomPanel.addArrow('shop');
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         g.bottomPanel.tutorialCallback = subStep9_2a;
+        g.bottomPanel.activateShopButtonHoverAnimation(true);
     }
 
     private function subStep9_2a():void {
         _subStep = 2;
         removeBlack();
         g.bottomPanel.deleteArrow();
+        g.bottomPanel.activateShopButtonHoverAnimation(false);
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -605,11 +607,13 @@ public class ManagerTutorialNew extends IManagerTutorial{
         g.bottomPanel.addArrow('shop');
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         g.bottomPanel.tutorialCallback = subStep11_2;
+        g.bottomPanel.activateShopButtonHoverAnimation(true);
     }
 
     private function subStep11_2():void {
         removeBlack();
         g.bottomPanel.deleteArrow();
+        g.bottomPanel.activateShopButtonHoverAnimation(false);
         _subStep = 2;
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
@@ -679,12 +683,14 @@ public class ManagerTutorialNew extends IManagerTutorial{
         g.bottomPanel.addArrow('shop');
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         g.bottomPanel.tutorialCallback = subStep12_1;
+        g.bottomPanel.activateShopButtonHoverAnimation(true);
     }
 
     private function subStep12_1():void {
         removeBlack();
         _subStep = 1;
         g.bottomPanel.deleteArrow();
+        g.bottomPanel.activateShopButtonHoverAnimation(false);
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;

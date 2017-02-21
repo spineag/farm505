@@ -554,10 +554,12 @@ public class ManagerTutorial extends IManagerTutorial {
         var ob:Object = g.bottomPanel.getShopButtonProperties();
         g.bottomPanel.addArrow('shop');
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        g.bottomPanel.activateShopButtonHoverAnimation(true);
         g.bottomPanel.tutorialCallback = subStep7_2;
     }
 
     private function subStep7_2():void {
+        g.bottomPanel.activateShopButtonHoverAnimation(false);
         g.bottomPanel.deleteArrow();
         cat.hideBubble();
         _subStep = 2;
@@ -644,12 +646,14 @@ public class ManagerTutorial extends IManagerTutorial {
             g.bottomPanel.addArrow('shop');
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             g.bottomPanel.tutorialCallback = subStep8_1;
+            g.bottomPanel.activateShopButtonHoverAnimation(true);
         }
     }
 
     private function subStep8_1():void {
         _subStep = 1;
         cutScene.hideIt(deleteCutScene);
+        g.bottomPanel.activateShopButtonHoverAnimation(false);
         g.bottomPanel.deleteArrow();
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
@@ -813,10 +817,12 @@ public class ManagerTutorial extends IManagerTutorial {
         g.bottomPanel.addArrow('shop');
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         g.bottomPanel.tutorialCallback = subStep10_3;
+        g.bottomPanel.activateShopButtonHoverAnimation(true);
     }
 
     private function subStep10_3():void {
         g.bottomPanel.deleteArrow();
+        g.bottomPanel.activateShopButtonHoverAnimation(false);
         cutScene.hideIt(deleteCutScene);
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
@@ -1180,11 +1186,13 @@ public class ManagerTutorial extends IManagerTutorial {
         g.bottomPanel.addArrow('shop');
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         g.bottomPanel.tutorialCallback = subStep13_1;
+        g.bottomPanel.activateShopButtonHoverAnimation(true);
     }
 
     private function subStep13_1():void {
         _subStep = 1;
         g.bottomPanel.deleteArrow();
+        g.bottomPanel.activateShopButtonHoverAnimation(false);
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1550,10 +1558,12 @@ public class ManagerTutorial extends IManagerTutorial {
         g.bottomPanel.addArrow('shop');
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         g.bottomPanel.tutorialCallback = subStep20_1;
+        g.bottomPanel.activateShopButtonHoverAnimation(true);
     }
 
     private function subStep20_1():void {
         g.bottomPanel.deleteArrow();
+        g.bottomPanel.activateShopButtonHoverAnimation(false);
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1631,12 +1641,14 @@ public class ManagerTutorial extends IManagerTutorial {
         g.bottomPanel.addArrow('shop');
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         g.bottomPanel.tutorialCallback = subStep21_2a;
+        g.bottomPanel.activateShopButtonHoverAnimation(true);
     }
 
     private function subStep21_2a():void {
         _subStep = 2;
         cutScene.hideIt(deleteCutScene);
         g.bottomPanel.deleteArrow();
+        g.bottomPanel.activateShopButtonHoverAnimation(false);
         if (_dustRectangle) {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
@@ -1728,10 +1740,12 @@ public class ManagerTutorial extends IManagerTutorial {
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         g.bottomPanel.tutorialCallback = subStep22_2;
         _currentAction = TutorialAction.BUY_ANIMAL;
+        g.bottomPanel.activateShopButtonHoverAnimation(true);
     }
 
     private function subStep22_2():void {
         g.bottomPanel.deleteArrow();
+        g.bottomPanel.activateShopButtonHoverAnimation(false);
         cat.hideBubble();
         _subStep = 2;
         if (_dustRectangle) {

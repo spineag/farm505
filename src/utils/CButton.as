@@ -226,8 +226,7 @@ public class CButton extends Sprite {
             }
             _hoverImage.filter = ManagerFilters.getHardButtonHoverFilter();
         }
-        _hoverImage.scale = .99;
-        _hoverImage.x = 1;
+        _hoverImage.scale = .995;
         if (!contains(_hoverImage)) addChildAt(_hoverImage, 1);
         TweenMax.killTweensOf(_hoverImage);
         _hoverImage.alpha = 0;

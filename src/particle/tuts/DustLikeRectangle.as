@@ -104,7 +104,7 @@ public class DustLikeRectangle {
         _parent.removeChild(_source);
         var c:int = _arrDusts.length;
         for (var i:int=0; i<c; i++) {
-            _arrDusts[i].deleteIt();
+            if (_arrDusts[i]) _arrDusts[i].deleteIt();
         }
         _arrDusts.fixed = false;
         _arrDusts.length = 0;

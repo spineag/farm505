@@ -6,6 +6,8 @@ import com.greensock.TweenMax;
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import particle.tuts.DustLikeRectangle;
 import particle.tuts.DustRectangle;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -27,7 +29,7 @@ public class CutSceneTextBubble {
     private var _btnExit:CButton;
     private var _type:int;
     private var _innerImage:Image;
-    private var _dustRectangle:DustRectangle;
+    private var _dustRectangle:DustLikeRectangle;
     private var _startClickCallback:Function;
     private var g:Vars = Vars.getInstance();
 
@@ -179,7 +181,7 @@ public class CutSceneTextBubble {
             p.x = _btn.x - _btn.width/2 - 5;
             p.y = _btn.y - _btn.height/2 - 5;
             p = _source.localToGlobal(p);
-            _dustRectangle = new DustRectangle(g.cont.popupCont, _btn.width + 10, _btn.height + 10, p.x, p.y);
+            _dustRectangle = new DustLikeRectangle(g.cont.popupCont, _btn.width + 10, _btn.height + 10, p.x, p.y);
         }
     }
 
