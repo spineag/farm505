@@ -37,12 +37,12 @@ public class WOTrain extends WindowMain {
     private var _arrItems:Array;
     private var _btnSend:CButton;
     private var _btnLoad:CButton;
-//    private var _btnHelp:CButton;
+    private var _btnHelp:CButton;
+    private var _txtHelp:CTextField;
     private var _activeItemIndex: int;
     private var _build:Train;
     private var _txt:CTextField;
     private var _txtCounter:CTextField;
-//    private var _txtHelp:TextField;
     private var _txtLoad:CTextField;
     private var _counter:int;
     private var _idFree:int;
@@ -149,23 +149,6 @@ public class WOTrain extends WindowMain {
         _btnLoad.x = 200;
         _btnLoad.y = 150;
         _rightBlock.addChild(_btnLoad);
-
-//        _btnHelp = new CButton();
-//        _btnHelp.addButtonTexture(240,52,CButton.BLUE,true);
-//        txt = new TextField(80,30,'', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
-//        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-//        _btnHelp.addChild(txt);
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_rup_ico'));
-//        im.y = -10;
-//        im.touchable = false;
-//        _btnHelp.addDisplayObject(im);
-//        _btnHelp.x = 143;
-//        _btnHelp.y = 210;
-//        _rightBlock.addChild(_btnHelp);
-//        _txtHelp = new TextField(180, 50, 'Помогите!!', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-//        _txtHelp.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-//        _txtHelp.x = 50;
-//        _btnHelp.addChild(_txtHelp);
 
         _txtPrise = new CTextField(240,50,'Награда за полную загрузку:');
         _txtPrise.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
@@ -347,6 +330,24 @@ public class WOTrain extends WindowMain {
         _imageItem.x = 65 - _imageItem.width/2;
         _imageItem.y = 115 - _imageItem.height/2;
         _rightBlock.addChild(_imageItem);
+//        if (!_arrItems[k].needHelp) {
+//            _btnHelp = new CButton();
+//            _btnHelp.addButtonTexture(240, 52, CButton.BLUE, true);
+//            if (!g.isAway) {
+//                var im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_rup_ico'));
+//                im.y = -10;
+//                im.touchable = false;
+//                _btnHelp.addDisplayObject(im);
+//            }
+//            _btnHelp.x = 143;
+//            _btnHelp.y = 210;
+//            _rightBlock.addChild(_btnHelp);
+//            _txtHelp = new CTextField(240, 52, '');
+//            _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+//            if (!g.isAway) _txtHelp.text = 'Помогите!!';
+//            else _txtHelp.text = 'Помочь загрузить';
+//            _btnHelp.addChild(_txtHelp);
+//        }
     }
 
     private function onResourceLoad(lastResource:Boolean = false):void {

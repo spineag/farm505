@@ -17,12 +17,17 @@ import media.SoundConst;
 import mouse.ToolsModifier;
 import resourceItem.DropItem;
 import starling.core.Starling;
+import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 
 import temp.DropResourceVariaty;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import ui.xpPanel.XPStar;
+
+import utils.CSprite;
+import utils.MCScaler;
+
 import windows.WindowsManager;
 
 public class Train extends WorldObject{
@@ -41,6 +46,7 @@ public class Train extends WorldObject{
 //    private var _countTimer:int;
     private var _bolAnimation:Boolean;
     private var _fullTrain:Boolean;
+    private var _sprHelp:CSprite;
 
     public function Train(_data:Object) {
         super(_data);
@@ -58,6 +64,8 @@ public class Train extends WorldObject{
         _source.addChild(_buildingBuildSprite);
        checkTrainState();
         _source.releaseContDrag = true;
+//        if (g.isAway) {
+//        }
     }
 
     public function fillItDefault():void {
@@ -224,6 +232,12 @@ public class Train extends WorldObject{
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
+//        _sprHelp = new CSprite();
+//        _source.addChild(_sprHelp);
+//        showBubleHelp();
+////        _sprHelp.x = g.cont.gameCont.x + _source.x * g.currentGameScale;
+//        _sprHelp.y = -305;
+//        _sprHelp.x = -40;
     }
 
     private function createBrokenTrain():void {
@@ -286,31 +300,31 @@ public class Train extends WorldObject{
 
     private function onClick():void {
         if (_bolAnimation) return;
-        if (g.isAway) return;
-//        if (g.isAway) {
-//            if (g.user.level >= _dataBuild.blockByLevel[0]) return;
-//            if (_stateBuild == STATE_READY) {
-//                onOut();
-//                if (list.length) {
-//                    if (_stateBuild == Train.STATE_READY) {
-//                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
-//                    } else {
-//                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, null, list, this, _counter);
-//                    }
-//                } else {
-//                    var f1:Function = function(ob:Object):void {
-//                        fillList(ob);
-//                        if (_stateBuild == Train.STATE_READY) {
-//                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
-//                        } else {
-//                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, this, _counter);
-//                        }
-//                    };
-//                    g.directServer.getTrainPack(g.visitedUser.userSocialId, f1);
-//                }
-//            }
-//            return;
-//        }
+//        if (g.isAway) return;
+        if (g.isAway) {
+            if (g.user.level < _dataBuild.blockByLevel[0]) return;
+            if (_stateBuild == STATE_READY) {
+                onOut();
+                if (list.length) {
+                    if (_stateBuild == Train.STATE_READY) {
+                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this as Train, _stateBuild, _counter);
+                    } else {
+                        g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, null, list, this as Train, _counter);
+                    }
+                } else {
+                    var f1:Function = function(ob:Object, t:Train):void {
+                        fillList(ob);
+                        if (_stateBuild == Train.STATE_READY) {
+                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, t, _stateBuild, _counter);
+                        } else {
+                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, t, _counter);
+                        }
+                    };
+                    g.directServer.getTrainPack(g.visitedUser.userSocialId, f1,this);
+                }
+            }
+            return;
+        }
 
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
             onOut();
@@ -358,16 +372,16 @@ public class Train extends WorldObject{
                     }
                 } else {
                     onOut();
-                    var f2:Function = function(ob:Object):void {
+                    var f2:Function = function(ob:Object,t:Train):void {
                         fillList(ob);
                         if (_stateBuild == Train.STATE_READY) {
-                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, this, _stateBuild, _counter);
+                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN, null, list, t, _stateBuild, _counter);
                             if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_OPEN_TRAIN)) g.managerCutScenes.checkCutSceneCallback();
                         } else {
-                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, this, _counter);
+                            g.windowsManager.openWindow(WindowsManager.WO_TRAIN_ORDER, backTrain, list, t, _counter);
                         }
                     };
-                    g.directServer.getTrainPack(g.user.userSocialId, f2);
+                    g.directServer.getTrainPack(g.user.userSocialId, f2,this);
                  }
             } else {
                 Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
@@ -487,7 +501,7 @@ public class Train extends WorldObject{
         } return 0;
     }
 
-    private function fillList(ob:Object):void {
+    private function fillList(ob:Object,t:Train = null):void {
         _dataPack = ob;
 
         list = [];
@@ -623,6 +637,18 @@ public class Train extends WorldObject{
         _source.removeChild(_armatureOpenBoom.display as Sprite);
         _armatureOpenBoom = null;
         g.windowsManager.openWindow(WindowsManager.POST_OPEN_TRAIN);
+    }
+
+    private function showBubleHelp():void {
+        var im:Image;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
+        _sprHelp.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
+        MCScaler.scale(im,im.height-5,im.width-5);
+        _sprHelp.addChild(im);
+        im.x = 6;
+        im.y = 5;
+        _sprHelp.endClickCallback = onClick;
     }
 }
 }

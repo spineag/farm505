@@ -249,10 +249,10 @@ public class DirectServer {
                 obj.cost = int(d.message[i].cost);
                 obj.cost2 = int(d.message[i].cost2);
                 obj.cost3 = int(d.message[i].cost3);
-                obj.timeCraft = int(d.message[i].time_craft);
+//                obj.timeCraft = int(d.message[i].time_craft);
                 obj.idResource = int(d.message[i].craft_resource_id);
                 obj.idResourceRaw = int(d.message[i].raw_resource_id);
-                obj.costForceCraft = int(d.message[i].cost_force);
+//                obj.costForceCraft = int(d.message[i].cost_force);
                 if (d.message[i].cost_new) {
                     obj.costNew = String(d.message[i].cost_new).split('&');
                     for (k = 0; k < obj.costNew.length; k++) obj.costNew[k] = int(obj.costNew[k]);
@@ -2848,7 +2848,7 @@ public class DirectServer {
         }
     }
 
-    public function getTrainPack(userSocialId:String, callback:Function):void {
+    public function getTrainPack(userSocialId:String, callback:Function, t:Train = null):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_TRAIN_PACK);
         var variables:URLVariables = new URLVariables();
@@ -2862,7 +2862,7 @@ public class DirectServer {
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetTrainPack);
         loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
-        function onCompleteGetTrainPack(e:Event):void { completeGetTrainPack(e.target.data, callback); }
+        function onCompleteGetTrainPack(e:Event):void { completeGetTrainPack(t, e.target.data, callback); }
         try {
             loader.load(request);
         } catch (error:Error) {
@@ -2871,7 +2871,7 @@ public class DirectServer {
         }
     }
 
-    private function completeGetTrainPack(response:String, callback:Function = null):void {
+    private function completeGetTrainPack(t:Train = null, response:String = '', callback:Function = null):void {
         iconMouse.endConnect();
         var d:Object;
         try {
@@ -2886,7 +2886,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'getTrainPack OK', 5);
             if (callback != null) {
-                callback.apply(null, [d.message]);
+                callback.apply(null, [d.message,t]);
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
@@ -7274,9 +7274,6 @@ public class DirectServer {
         for (k = 0; k < obj.tookGift.length; k++) obj.tookGift[k] = int(obj.tookGift[k]);
         obj.showWindow = Boolean(int(d.message.show_window));
         g.managerParty.userParty = obj;
-        if (g.userInventory.getCountResourceById(168) == 0 && obj.countResource == 0 && !g.userInventory.checkLastResource(168) && !g.managerParty.userParty.showWindow) {
-            g.userInventory.addResource(168, 3);
-        }
         if (d.id == 0) {
             Cc.ch('server', 'getUserEvent OK', 5);
             if (callback != null) {

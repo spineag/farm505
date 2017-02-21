@@ -50,6 +50,12 @@ public class WOPartyWindowItem {
         _data.countToGift = countToGift;
         _data.number = number;
 
+        _txtCountResource = new CTextField(119,100,'');
+        _txtCountResource.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCountResource.alignH = Align.RIGHT;
+        _txtCountResource.x = -19;
+        if (number == 5) _txtCountResource.y = 35;
+        else _txtCountResource.y = 35;
         var im:Image;
         if (number == 5) {
             _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_2'));
@@ -60,12 +66,15 @@ public class WOPartyWindowItem {
         if (id == 1 && type  == 1) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
             source.addChild(im);
+            _txtCountResource.text = String(countResource);
         } else if (id == 2 && type == 2) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
             source.addChild(im);
+            _txtCountResource.text = String(countResource);
         }  else if (type == BuildType.RESOURCE || type == BuildType.INSTRUMENT || type == BuildType.PLANT) {
             im = new Image(g.allData.atlas[g.dataResource.objectResources[id].url].getTexture(g.dataResource.objectResources[id].imageShop));
             source.addChild(im);
+            _txtCountResource.text = String(countResource);
         } else if (type == BuildType.DECOR_ANIMATION) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[id].url + '_icon'));
             source.addChild(im);
@@ -96,12 +105,7 @@ public class WOPartyWindowItem {
         } else _btn.setEnabled = false;
         source.addChild(_btn);
 
-        _txtCountResource = new CTextField(119,100,String(countResource));
-        _txtCountResource.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtCountResource.alignH = Align.RIGHT;
-        _txtCountResource.x = -19;
-        if (number == 5) _txtCountResource.y = 35;
-        else _txtCountResource.y = 35;
+
         source.addChild(_txtCountResource);
 
         _txtCountToGift = new CTextField(119,100,String(countToGift));

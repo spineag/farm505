@@ -51,8 +51,8 @@ public class WOPartyWindow extends WindowMain{
             g.gameDispatcher.addEnterFrame(checkAtlas);
         } else {
             var im:Image;
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('fon'));
-            im.x = -im.width / 2 - 20;
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('maslenitsa_window'));
+            im.x = -im.width / 2 + 10;
             im.y = -im.height / 2 - 10;
             _source.addChild(im);
             createExitButton(onClickExit);
@@ -62,15 +62,15 @@ public class WOPartyWindow extends WindowMain{
             im.y = -im.height / 2 - 100;
             _source.addChild(im);
 
-            _btnHint = new CButton();
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('hint_button'));
-            _btnHint.addChild(im);
-            _btnHint.clickCallback = onClickHint;
-            _btnHint.hoverCallback = onHoverHint;
-            _btnHint.outCallback = onOutHint;
-            _btnHint.x = -215;
-            _btnHint.y = -185;
-            _source.addChild(_btnHint);
+//            _btnHint = new CButton();
+//            im = new Image(g.allData.atlas['partyAtlas'].getTexture('hint_button'));
+//            _btnHint.addChild(im);
+//            _btnHint.clickCallback = onClickHint;
+//            _btnHint.hoverCallback = onHoverHint;
+//            _btnHint.outCallback = onOutHint;
+//            _btnHint.x = -215;
+//            _btnHint.y = -185;
+//            _source.addChild(_btnHint);
 
 
             _btn = new CButton();
@@ -88,8 +88,8 @@ public class WOPartyWindow extends WindowMain{
         if (g.allData.atlas['partyAtlas']) {
             g.gameDispatcher.removeEnterFrame(checkAtlas);
             var im:Image;
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('fon'));
-            im.x = -im.width / 2 - 20;
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('maslenitsa_window'));
+            im.x = -im.width / 2 + 10;
             im.y = -im.height / 2 - 10;
             _source.addChild(im);
             createExitButton(onClickExit);
@@ -99,15 +99,15 @@ public class WOPartyWindow extends WindowMain{
             im.y = -im.height / 2 - 100;
             _source.addChild(im);
 
-            _btnHint = new CButton();
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('hint_button'));
-            _btnHint.addChild(im);
-            _btnHint.clickCallback = onClickHint;
-            _btnHint.hoverCallback = onHoverHint;
-            _btnHint.outCallback = onOutHint;
-            _btnHint.x = -215;
-            _btnHint.y = -185;
-            _source.addChild(_btnHint);
+//            _btnHint = new CButton();
+//            im = new Image(g.allData.atlas['partyAtlas'].getTexture('hint_button'));
+//            _btnHint.addChild(im);
+//            _btnHint.clickCallback = onClickHint;
+//            _btnHint.hoverCallback = onHoverHint;
+//            _btnHint.outCallback = onOutHint;
+//            _btnHint.x = -215;
+//            _btnHint.y = -185;
+//            _source.addChild(_btnHint);
 
             _btn = new CButton();
             _btn.addButtonTexture(172, 45, CButton.GREEN, true);
@@ -144,7 +144,7 @@ public class WOPartyWindow extends WindowMain{
         if (!g.allData.atlas['partyAtlas']) return;
         _data = g.managerParty.dataParty;
         _txtName = new CTextField(500, 70, String(_data.name));
-        _txtName.setFormat(CTextField.BOLD30, 44, Color.RED, Color.WHITE);
+        _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
         _txtName.alignH = Align.LEFT;
         _txtName.x = -170;
         _txtName.y = -215;
@@ -177,7 +177,7 @@ public class WOPartyWindow extends WindowMain{
         _txtBabl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _source.addChild(_txtBabl);
         _txtBabl.x = -365;
-        _txtBabl.y = -220;
+        _txtBabl.y = -215;
 
         _txtTimeLost = new CTextField(120,60,'Осталось времени:');
         _txtTimeLost.setFormat(CTextField.BOLD18, 16, 0xff7575);
@@ -191,9 +191,9 @@ public class WOPartyWindow extends WindowMain{
         _source.addChild(im);
 
 
-        im = new Image(g.allData.atlas['resourceAtlas'].getTexture('heart_icon'));
-        im.x = -218;
-        im.y = 58;
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('maslenitsa_pancake'));
+        im.x = -215;
+        im.y = 55;
         MCScaler.scale(im,45,45);
         _source.addChild(im);
 //        var date:Date = new Date();
@@ -240,11 +240,11 @@ public class WOPartyWindow extends WindowMain{
             _txtName.deleteIt();
             _txtName = null;
         }
-        if (_btnHint) {
-            if (_source) _source.removeChild(_btnHint);
-            _btnHint.deleteIt();
-            _btnHint = null;
-        }
+//        if (_btnHint) {
+//            if (_source) _source.removeChild(_btnHint);
+//            _btnHint.deleteIt();
+//            _btnHint = null;
+//        }
         if (_btn) {
             if (_source) _source.removeChild(_btn);
             _btn.deleteIt();

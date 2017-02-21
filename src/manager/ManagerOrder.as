@@ -197,7 +197,7 @@ public class ManagerOrder {
                     }
                 }
             } else countFastBuyer = 1;
-
+            countFastBuyer = 1;
             if (countFastBuyer == 0 && Math.random() < .5 && g.userTimer.partyTimer > 0) {
                var countTemp:int = g.userInventory.getCountResourceById(168);
                     if (Math.random() < .5) {

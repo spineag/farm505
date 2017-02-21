@@ -27,6 +27,7 @@ public class WOTrainItem {
     private var _galo4ka:Image;
     private var _bg:Image;
     private var _isHover:Boolean;
+    private var _needHelp:Image;
 
     private var g:Vars = Vars.getInstance();
 
@@ -120,6 +121,10 @@ public class WOTrainItem {
             _txtWhite.visible = false;
             _txtRed.visible = false;
         }
+//        if (!_info.needHelp) {
+//            _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+//            source.addChild(_needHelp);
+//        }
     }
 
     public function set clickCallback(f:Function):void {

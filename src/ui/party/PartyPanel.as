@@ -4,6 +4,8 @@
 package ui.party {
 import data.BuildType;
 
+import flash.geom.Point;
+
 import manager.Vars;
 
 import social.SocialNetworkSwitch;
@@ -23,7 +25,7 @@ public class PartyPanel {
 
     public function PartyPanel() {
         _source = new CSprite();
-        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('valentine_pink_icon'));
+        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('maslenitsa_icon'));
         _source.addChild(im);
 
         _txtData = new CTextField(100,60,'');
@@ -64,7 +66,7 @@ public class PartyPanel {
     }
 
     private function onHover():void {
-        g.hint.showIt('День Валентина','none', _source.x);
+        g.hint.showIt('Масленица','none', _source.x);
     }
 
     private function onOut():void {
@@ -78,6 +80,19 @@ public class PartyPanel {
 
     private function onClick():void {
         if (g.userTimer.partyTimer > 0) g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+    }
+
+    public function getPoint():Point {
+        var p:Point = new Point();
+        if (g.windowsManager.currentWindow) {
+            p = new Point(_source.x+40,_source.y +40);
+            return p;
+        }
+        p.x = _source.x + 20;
+        p.y = _source.y + 10;
+        p = _source.localToGlobal(p);
+
+        return p;
     }
 }
 }

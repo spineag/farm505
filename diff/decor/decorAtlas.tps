@@ -206,14 +206,19 @@
             <filename>bridge.png</filename>
             <filename>cactus_round</filename>
             <filename>cat_statue.png</filename>
-            <filename>Chair_1.png</filename>
-            <filename>Chair_2.png</filename>
+            <filename>chair_1.png</filename>
+            <filename>chair_2.png</filename>
+            <filename>cupidon_statue_blue.png</filename>
+            <filename>cupidon_statue_pink.png</filename>
             <filename>dandelion.png</filename>
             <filename>easel_clear.png</filename>
             <filename>farming_table.png</filename>
             <filename>fence</filename>
+            <filename>fence_heart</filename>
             <filename>fir_1.png</filename>
             <filename>fir_2.png</filename>
+            <filename>fir_3.png</filename>
+            <filename>fir_4.png</filename>
             <filename>flower_1.png</filename>
             <filename>flower_2.png</filename>
             <filename>flower_3.png</filename>
@@ -222,7 +227,16 @@
             <filename>flower_6.png</filename>
             <filename>flower_7.png</filename>
             <filename>flower_8.png</filename>
+            <filename>garden_gnome_blue_hat.png</filename>
+            <filename>garden_gnome_red_hat.png</filename>
+            <filename>heart_fence</filename>
+            <filename>kiss_bench.png</filename>
             <filename>leaf_green</filename>
+            <filename>love_tree.png</filename>
+            <filename>maslenitsa_statue.png</filename>
+            <filename>needles_pillow_blue.png</filename>
+            <filename>needles_pillow_pink.png</filename>
+            <filename>new_year_boot.png</filename>
             <filename>picnic_pink.png</filename>
             <filename>pink_fence</filename>
             <filename>polka_dot</filename>
@@ -230,6 +244,9 @@
             <filename>pumpkin_2.png</filename>
             <filename>pumpkin_3.png</filename>
             <filename>pumpkin.png</filename>
+            <filename>sled.png</filename>
+            <filename>snowdrop.png</filename>
+            <filename>street_lantern.png</filename>
             <filename>sunflower</filename>
             <filename>swamp_decor.png</filename>
             <filename>track_autumn_1.png</filename>
@@ -258,19 +275,10 @@
             <filename>well_white.png</filename>
             <filename>well_yellow.png</filename>
             <filename>white_fence</filename>
-            <filename>fir_3.png</filename>
-            <filename>fir_4.png</filename>
-            <filename>garden_gnome_blue_hat.png</filename>
-            <filename>garden_gnome_red_hat.png</filename>
-            <filename>sled.png</filename>
-            <filename>new_year_boot.png</filename>
-            <filename>heart_fence</filename>
-            <filename>kiss_bench.png</filename>
-            <filename>white_fence</filename>
-            <filename>fence_heart</filename>
-            <filename>love_tree.png</filename>
-            <filename>cupidon_statue_blue.png</filename>
-            <filename>cupidon_statue_pink.png</filename>
+            <filename>fountain_blue.png</filename>
+            <filename>fountain_green.png</filename>
+            <filename>fountain_pink.png</filename>
+            <filename>fountain_yellow.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -175,15 +175,6 @@ public class Ridge extends WorldObject{
             item.flyIt();
             onOut();
         }
-        if (_resourceItem && _resourceItem.resourceID == 168 && g.managerParty.userParty.countResource < g.managerParty.dataParty.countToGift[4]) {
-
-            if (g.managerParty.userParty.countResource + 2 > g.managerParty.dataParty.countToGift[4]) g.managerParty.userParty.countResource = g.managerParty.userParty.countResource + 1;
-            else g.managerParty.userParty.countResource = g.managerParty.userParty.countResource + 2;
-
-            var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
-                    + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
-            g.directServer.updateUserParty(st, g.managerParty.userParty.countResource,0, null);
-        }
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
             if (_tutorialCallback != null) {
                 _tutorialCallback.apply(null, [this]);

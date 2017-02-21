@@ -14,7 +14,7 @@ import social.SocialNetworkSwitch;
 import temp.DropResourceVariaty;
 
 public class ManagerDropBonusResource {
-    public static const DROP_VARIATY:int = 3; // == 3 %
+    public static const DROP_VARIATY:int = 2; // == 3 %
     public static const DROP_VARIATY_5:int = 5; // == 5 %
 
     private var _makeDrop:MakeDrop;

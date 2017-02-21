@@ -193,13 +193,14 @@
         <key>fileList</key>
         <array>
             <filename>baloon.png</filename>
-            <filename>fon.png</filename>
             <filename>place_1.png</filename>
             <filename>place_2.png</filename>
             <filename>progress.png</filename>
             <filename>valik_timer.png</filename>
-            <filename>valentine_pink_icon.png</filename>
             <filename>hint_button.png</filename>
+            <filename>maslenitsa_window.png</filename>
+            <filename>maslenitsa_icon.png</filename>
+            <filename>maslenitsa_pancake.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
