@@ -160,8 +160,8 @@ public class WindowMain {
     public function onResize():void {
         _source.x = g.managerResize.stageWidth/2;
         _source.y = g.managerResize.stageHeight/2;
-//        removeBlackBG();
-//        createBlackBG();
+        removeBlackBG();
+        createBlackBG();
     }
 
     private function createBlackBG():void {
@@ -180,12 +180,9 @@ public class WindowMain {
     private function removeBlackBG():void {
         if (_black) {
             _black.endClickCallback = null;
-            var blackEnd:Function = function():void {
-                if (g.cont.windowsCont.contains(_black)) g.cont.windowsCont.removeChild(_black);
-                if (_black) _black.dispose();
-                _black = null;
-            };
-            TweenMax.to(_black, .2, {alpha:0, onComplete:blackEnd});
+            if (g.cont.windowsCont.contains(_black)) g.cont.windowsCont.removeChild(_black);
+            _black.dispose();
+            _black = null;
         }
     }
 
