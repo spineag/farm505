@@ -121,7 +121,7 @@ public class WOTrainItem {
             _txtWhite.visible = false;
             _txtRed.visible = false;
         }
-//        if (!_info.needHelp) {
+//        if (_info.needHelp) {
 //            _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
 //            source.addChild(_needHelp);
 //        }
@@ -137,6 +137,14 @@ public class WOTrainItem {
 
     public function get countFree():int {
         return _info.count;
+    }
+
+    public function get needHelp():Boolean {
+        return _info.needHelp;
+    }
+
+    public function get trainDbId():String {
+        return _info.item_db_id;
     }
 
     private function onClick():void {

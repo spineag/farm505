@@ -232,12 +232,11 @@ public class Train extends WorldObject{
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
-//        _sprHelp = new CSprite();
-//        _source.addChild(_sprHelp);
-//        showBubleHelp();
-////        _sprHelp.x = g.cont.gameCont.x + _source.x * g.currentGameScale;
-//        _sprHelp.y = -305;
-//        _sprHelp.x = -40;
+        _sprHelp = new CSprite();
+        _source.addChild(_sprHelp);
+        showBubleHelp();
+        _sprHelp.y = -305;
+        _sprHelp.x = -40;
     }
 
     private function createBrokenTrain():void {
@@ -508,6 +507,10 @@ public class Train extends WorldObject{
         for (var i:int=0; i<_dataPack.items.length; i++) {
             list.push(new TrainCell(_dataPack.items[i]));
         }
+    }
+
+    public function needHelp(b:Boolean, n:int):void {
+        list[n].needHelp = b;
     }
 
     public function fullTrain(free:Boolean):void {

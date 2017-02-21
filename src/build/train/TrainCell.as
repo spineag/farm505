@@ -28,7 +28,7 @@ public class TrainCell {
     private var _dataResource:Object;
     private var _count:int;
     private var _isFull:Boolean;
-    private var item_db_id:String;
+    public var item_db_id:String;
     public var countXP:int;
     public var countMoney:int;
     public var needHelp:Boolean;
