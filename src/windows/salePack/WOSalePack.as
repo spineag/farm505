@@ -122,8 +122,17 @@ public class WOSalePack extends WindowMain{
         }
 
         var quad:Quad = new Quad(_txtOldCost.textBounds.width, 3, Color.RED);
-        quad.x = -80;
-        quad.y = 113;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)  {
+            quad.x = -50;
+            quad.y = 110;
+
+        }
+        else {
+            quad.x = -80;
+            quad.y = 113;
+
+        }
+
         quad.alpha = .6;
         _source.addChild(quad);
         _txtProfit = new CTextField(150,60,String(g.managerSalePack.dataSale.profit) + '%');
@@ -233,6 +242,7 @@ public class WOSalePack extends WindowMain{
             new DropItem(p.x + 30, p.y + 30, obj);
         }
         hideIt();
+        g.salePanel.visiblePartyPanel(false);
     }
 
     public function startTimer():void {
@@ -266,8 +276,8 @@ public class WOSalePack extends WindowMain{
                     g.directServer.getDailyGift(null);
                 } else {
                     g.managerCats.helloCats();
-//                    if (g.userTimer.partyTimer > 0 ) g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
-//                    else if (!g.managerParty.userParty.showWindow) g.managerParty.endPartyWindow();
+                    if (g.userTimer.partyTimer > 0 ) g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+                    else if (!g.managerParty.userParty.showWindow) g.managerParty.endPartyWindow();
                 }
             }
         }

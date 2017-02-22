@@ -3,6 +3,7 @@
  */
 package user {
 public class Someone {
+    public var userId:int; // в базе
     public var userSocialId:String;
     public var name:String;
     public var lastName:String;

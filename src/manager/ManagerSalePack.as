@@ -10,6 +10,8 @@ import starling.textures.Texture;
 
 import starling.textures.TextureAtlas;
 
+import windows.WindowsManager;
+
 public class ManagerSalePack {
     public var dataSale:Object;
     private var g:Vars = Vars.getInstance();
@@ -19,14 +21,14 @@ public class ManagerSalePack {
     }
 
     private function startSalePack():void {
-        if (!g.user.salePack && g.userTimer.saleTimerToEnd > 0 && (g.managerSalePack.dataSale.timeToStart  - int(new Date().getTime() / 1000)) <= 0 && g.user.level >= 6 && g.user.isTester) {
+        if (!g.user.salePack && g.userTimer.saleTimerToEnd > 0 && (g.managerSalePack.dataSale.timeToStart  - int(new Date().getTime() / 1000)) <= 0 && g.user.level >= 6) {
             atlasLoad();
             g.createSaleUi();
         }
     }
 
     public function sartAfterSaleTimer():void {
-        if (g.userTimer.saleTimerToStart <= 0 && g.user.level >= 6 && g.user.isTester) {
+        if (g.userTimer.saleTimerToStart <= 0 && g.user.level >= 6) {
             atlasLoad();
             g.userTimer.saleToEnd(g.managerSalePack.dataSale.timeToEnd - int(new Date().getTime() / 1000));
             g.createSaleUi();
@@ -50,6 +52,7 @@ public class ManagerSalePack {
         (g.pBitmaps[g.dataPath.getGraphicsPath() + 'saleAtlas.png' + g.getVersion('saleAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'saleAtlas.png' + g.getVersion('saleAtlas')];
         delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'saleAtlas.xml' + g.getVersion('saleAtlas')];
+
     }
 }
 }

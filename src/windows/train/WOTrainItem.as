@@ -11,6 +11,8 @@ import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
+import starling.utils.Padding;
+
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
@@ -121,10 +123,13 @@ public class WOTrainItem {
             _txtWhite.visible = false;
             _txtRed.visible = false;
         }
-//        if (_info.needHelp) {
-//            _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
-//            source.addChild(_needHelp);
-//        }
+        if (_info.needHelp && !_needHelp) {
+            _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+            source.addChild(_needHelp);
+        }
+        if (int(_info.helpId) != 0) {
+
+        }
     }
 
     public function set clickCallback(f:Function):void {
@@ -145,6 +150,13 @@ public class WOTrainItem {
 
     public function get trainDbId():String {
         return _info.item_db_id;
+    }
+
+    public function onClickHelpMePls():void {
+        if (_info.needHelp && !_needHelp) {
+            _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+            source.addChild(_needHelp);
+        }
     }
 
     private function onClick():void {

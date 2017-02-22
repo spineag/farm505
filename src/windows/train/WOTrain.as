@@ -330,35 +330,71 @@ public class WOTrain extends WindowMain {
         _imageItem.x = 65 - _imageItem.width/2;
         _imageItem.y = 115 - _imageItem.height/2;
         _rightBlock.addChild(_imageItem);
-//        if (!_arrItems[k].needHelp && !_btnHelp) {
-//            _btnHelp = new CButton();
-//            _btnHelp.addButtonTexture(240, 52, CButton.BLUE, true);
-//            if (!g.isAway) {
+//        if (g.isAway) {
+//            if (_arrItems[k].needHelp) {
+//                _btnHelp = new CButton();
+//                _btnHelp.addButtonTexture(240, 52, CButton.BLUE, true);
+//                _btnHelp.x = 143;
+//                _btnHelp.y = 210;
+//                _rightBlock.addChild(_btnHelp);
+//                _txtHelp = new CTextField(240, 52, 'Помочь загрузить');
+//                _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+//                _btnHelp.addChild(_txtHelp);
+//                _btnHelp.clickCallback = giftHelpClick;
+//                return;
+//            } else {
+//                if (_btnHelp) {
+//                    _rightBlock.removeChild(_btnHelp);
+//                    _btnHelp.deleteIt();
+//                    _btnHelp = null;
+//                }
+//                return;
+//            }
+//        }
+//        if (!_arrItems[k].needHelp) {
+//            if (!_btnHelp && !_arrItems[k].isResourceLoaded) {
+//                _btnHelp = new CButton();
+//                _btnHelp.addButtonTexture(240, 52, CButton.BLUE, true);
 //                var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_rup_ico'));
 //                im.y = -10;
 //                im.touchable = false;
 //                _btnHelp.addDisplayObject(im);
+//                _btnHelp.x = 143;
+//                _btnHelp.y = 210;
+//                _rightBlock.addChild(_btnHelp);
+//                _txtHelp = new CTextField(240, 52, 'Помогите!!');
+//                _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+//                _btnHelp.addChild(_txtHelp);
+//                _txtHelp.x = 10;
+//                _btnHelp.clickCallback = wantHelpClick;
 //            }
-//            _btnHelp.x = 143;
-//            _btnHelp.y = 210;
-//            _rightBlock.addChild(_btnHelp);
-//            _txtHelp = new CTextField(240, 52, '');
-//            _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-//            if (!g.isAway) _txtHelp.text = 'Помогите!!';
-//            else _txtHelp.text = 'Помочь загрузить';
-//            _btnHelp.addChild(_txtHelp);
-//            _btnHelp.clickCallback = helpClick;
+//        } else {
+//            if (_btnHelp) {
+//                _rightBlock.removeChild(_btnHelp);
+//                _btnHelp.deleteIt();
+//                _btnHelp = null;
+//            }
 //        }
     }
 
-    private function helpClick():void {
+    private function giftHelpClick():void {
+        if (_btnHelp) {
+            _rightBlock.removeChild(_btnHelp);
+            _btnHelp.deleteIt();
+            _btnHelp = null;
+        }
+        g.directServer.updateUserTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.visitedUser.userSocialId), null);
+    }
+
+    private function wantHelpClick():void {
         if (_btnHelp) {
             _rightBlock.removeChild(_btnHelp);
             _btnHelp.deleteIt();
             _btnHelp = null;
         }
         _build.needHelp(true, _activeItemIndex);
-//        g.directServer.updateUserTrainPackNeedHelp(_arrItems[_activeItemIndex].trainDbId)
+        _arrItems[_activeItemIndex].onClickHelpMePls();
+        g.directServer.updateUserTrainPackNeedHelp(_arrItems[_activeItemIndex].trainDbId, null);
     }
 
     private function onResourceLoad(lastResource:Boolean = false):void {

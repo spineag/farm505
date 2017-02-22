@@ -102,7 +102,10 @@ public class WOPartyWindowItem {
         _btn.clickCallback = onClick;
         if (!Boolean(g.managerParty.userParty.tookGift[_data.number - 1]) && g.managerParty.userParty.countResource >= _data.countToGift)  {
             _btn.setEnabled = true;
+        } else if (Boolean(g.managerParty.userParty.tookGift[_data.number - 1])) {
+            _btn.visible = false;
         } else _btn.setEnabled = false;
+
         source.addChild(_btn);
 
 

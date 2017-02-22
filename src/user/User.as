@@ -12,7 +12,6 @@ import data.BuildType;
 import manager.Vars;
 
 public class User extends Someone {
-    public var userId:int; // в базе
     public var ambarMaxCount:int;
     public var skladMaxCount:int;
     public var ambarLevel:int;
@@ -254,6 +253,7 @@ public class User extends Someone {
             someOne = getSomeoneBySocialId(d[i].social_id);
             someOne.level = int(d[i].level);
             someOne.needHelpCount = int(d[i].need_help);
+            someOne.userId = int(d[i].id);
         }
     }
 

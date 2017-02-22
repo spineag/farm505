@@ -229,8 +229,8 @@ public class WOStarterPack extends WindowMain{
                 g.directServer.getDailyGift(null);
             } else {
                 g.managerCats.helloCats();
-//                if (g.userTimer.partyTimer > 0 ) g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
-//                else if (!g.managerParty.userParty.showWindow) g.managerParty.endPartyWindow();
+                if (g.userTimer.partyTimer > 0 ) g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+                else if (!g.managerParty.userParty.showWindow) g.managerParty.endPartyWindow();
             }
         }
      super.hideIt();

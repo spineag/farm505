@@ -254,7 +254,7 @@ public class Vars {
             managerDailyBonus = new ManagerDailyBonus();
             socialNetwork = new SocialNetwork(flashVars);
             if (isDebug) {
-                socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
+                socialNetworkID = SocialNetworkSwitch.SN_OK_ID;
             } else {
                 socialNetworkID = int(flashVars['channel']);
             }
@@ -560,7 +560,7 @@ public class Vars {
                 var todayDailyGift:Date;
                 var today:Date;
 //               if ((socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
-                    if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - int(new Date().getTime() / 1000)) <= 0 && (user as User).level >= 6 && (user as User).isTester) {
+                    if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - int(new Date().getTime() / 1000)) <= 0 && (user as User).level >= 6) {
                         windowsManager.openWindow(WindowsManager.WO_SALE_PACK, null, true);
                     } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
                        windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);

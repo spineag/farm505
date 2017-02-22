@@ -229,14 +229,19 @@ public class Train extends WorldObject{
                 startRenderTrainWork();
             }
         }
+
+
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
-        _sprHelp = new CSprite();
-        _source.addChild(_sprHelp);
-        showBubleHelp();
-        _sprHelp.y = -305;
-        _sprHelp.x = -40;
+
+        if (g.user.level < _dataBuild.blockByLevel[0]) return;
+        if (g.isAway) {
+            var f1:Function = function (ob:Object, t:Train):void {
+                fillList(ob);
+            };
+            g.directServer.getTrainPack(g.visitedUser.userSocialId, f1, this);
+        }
     }
 
     private function createBrokenTrain():void {
@@ -507,10 +512,31 @@ public class Train extends WorldObject{
         for (var i:int=0; i<_dataPack.items.length; i++) {
             list.push(new TrainCell(_dataPack.items[i]));
         }
+        var b:Boolean = false;
+        for (i = 0; i < list.length; i++) {
+            if (list[i].needHelp) {
+                b = true;
+                break;
+            }
+        }
+        if (b) {
+            _sprHelp = new CSprite();
+            _source.addChild(_sprHelp);
+            showBubleHelp();
+            _sprHelp.y = -305;
+            _sprHelp.x = -40;
+        }
     }
 
     public function needHelp(b:Boolean, n:int):void {
         list[n].needHelp = b;
+        if (!_sprHelp) {
+            _sprHelp = new CSprite();
+            _source.addChild(_sprHelp);
+            showBubleHelp();
+            _sprHelp.y = -305;
+            _sprHelp.x = -40;
+        }
     }
 
     public function fullTrain(free:Boolean):void {
@@ -643,15 +669,15 @@ public class Train extends WorldObject{
     }
 
     private function showBubleHelp():void {
-        var im:Image;
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
-        _sprHelp.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
-        MCScaler.scale(im,im.height-5,im.width-5);
-        _sprHelp.addChild(im);
-        im.x = 6;
-        im.y = 5;
-        _sprHelp.endClickCallback = onClick;
+//        var im:Image;
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
+//        _sprHelp.addChild(im);
+//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
+//        MCScaler.scale(im,im.height-5,im.width-5);
+//        _sprHelp.addChild(im);
+//        im.x = 6;
+//        im.y = 5;
+//        _sprHelp.endClickCallback = onClick;
     }
 }
 }

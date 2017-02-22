@@ -53,7 +53,7 @@ public class TrainCell {
         item_db_id = d.id;
         countXP = int(d.count_xp);
         countMoney = int(d.count_money);
-        needHelp = Boolean(int(d.need_help));
+        needHelp = Boolean(int(d.want_help));
         helpId = String(d.help_id)
     }
 
