@@ -669,15 +669,17 @@ public class Train extends WorldObject{
     }
 
     private function showBubleHelp():void {
-//        var im:Image;
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
-//        _sprHelp.addChild(im);
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
-//        MCScaler.scale(im,im.height-5,im.width-5);
-//        _sprHelp.addChild(im);
-//        im.x = 6;
-//        im.y = 5;
-//        _sprHelp.endClickCallback = onClick;
+        if (g.user.isTester) {
+        var im:Image;
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
+        _sprHelp.addChild(im);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
+        MCScaler.scale(im,im.height-5,im.width-5);
+        _sprHelp.addChild(im);
+        im.x = 6;
+        im.y = 5;
+        _sprHelp.endClickCallback = onClick;
+        }
     }
 }
 }

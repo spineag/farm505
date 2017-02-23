@@ -169,6 +169,15 @@ public class WOLastResource extends WindowMain {
                 _arrItems.push(item);
                 _btnYes.clickCallback = onClickNyashuk;
                 break;
+            case 'trainHelp':
+                item = new WOLastResourceItem();
+                item.fillWithResource(_dataResource.id);
+                item.source.x = -25;
+                item.source.y = -20;
+                _source.addChild(item.source);
+                _arrItems.push(item);
+                _btnYes.clickCallback = onClickTrainHelp;
+                break;
             case 'fabrica':
                 _paramsFabrica = params[2];
                 for (i=0; i < _dataResource.ingridientsId.length; i++) {
@@ -270,6 +279,14 @@ public class WOLastResource extends WindowMain {
         if (_window != 'market') {
             g.windowsManager.uncasheWindow();
             g.windowsManager.uncasheSecondWindow();
+        }
+        super.hideIt();
+    }
+
+    private function onClickTrainHelp():void {
+        if (_callbackBuy != null) {
+            _callbackBuy.apply(null,[true]);
+            _callbackBuy = null;
         }
         super.hideIt();
     }

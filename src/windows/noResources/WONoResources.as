@@ -103,6 +103,18 @@ public class WONoResources extends WindowMain {
                 createList(_paramData.data);
                 _btnBuy.clickCallback = onClickResource;
                 break;
+            case 'trainHelp':
+                _countOfResources = _paramData.count;
+                _countCost = g.dataResource.objectResources[_paramData.id].priceHard * _countOfResources;
+                _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+                item = new WONoResourcesItem();
+                item.fillWithResource(_paramData.id, _countOfResources);
+                item.source.x =  - item.source.width/2;
+                item.source.y = 0;
+                _source.addChild(item.source);
+                _arrItems.push(item);
+                _btnBuy.clickCallback = onClickTrainHelp;
+                break;
             case 'money':
                 _countOfResources = _paramData.count;
                 _countCost = Math.ceil(_countOfResources / g.HARD_IN_SOFT);
@@ -377,6 +389,23 @@ public class WONoResources extends WindowMain {
                 g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_RESOURCE_FOR_HARD, {id: _paramData.resourceIds[i], info: _paramData.resourceCounts[i] - number});
             } else callbackForOrder();
         }
+        super.hideIt();
+    }
+
+    private function onClickTrainHelp():void {
+        var number:int = 0;
+        if (_countCost <= g.user.hardCurrency) {
+            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countCost);
+        } else {
+            _callbackBuy = null;
+            g.windowsManager.uncasheWindow();
+            super.hideIt();
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+            return;
+        }
+        _btnBuy.clickCallback = null;
+        _countCost = 0;
+        g.userInventory.addResource(_paramData.id, _countOfResources, callbackServe2);
         super.hideIt();
     }
 
