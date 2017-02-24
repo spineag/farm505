@@ -361,18 +361,23 @@ public class Fabrica extends WorldObject {
 
     private function updateRecipes():void {
         _arrRecipes.length = 0;
-        try {
-            var obj:Object = g.dataRecipe.objectRecipe;
-            for(var id:String in obj) {
-                if (obj[id].buildingId == _dataBuild.id) {
-                    _arrRecipes.push(obj[id]);
+//        try {
+//            var obj:Object = g.dataRecipe.objectRecipe;
+            for (var i:int = 0; i < g.allData.recipe.length; i++) {
+                if (g.allData.recipe[i] && g.allData.recipe[i].buildingId == _dataBuild.id) {
+                    _arrRecipes.push(g.allData.recipe[i]);
                 }
             }
+//            for(var id:String in obj) {
+//                if (obj[id].buildingId == _dataBuild.id) {
+//                    _arrRecipes.push(obj[id]);
+//                }
+//            }
             _arrRecipes.sortOn('blockByLevel', Array.NUMERIC);
-        } catch (e:Error) {
-            Cc.error('fabrica recipe error: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabrica update recipe');
-        }
+//        } catch (e:Error) {
+//            Cc.error('fabrica recipe error: ' + e.errorID + ' - ' + e.message);
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabrica update recipe');
+//        }
     }
 
     public function get heroCat():HeroCat {
@@ -497,12 +502,18 @@ public class Fabrica extends WorldObject {
 
     public function craftResource(item:ResourceItem):void {
         var countResources:int = 1;
-        for(var id:String in g.dataRecipe.objectRecipe) {
-            if (g.dataRecipe.objectRecipe[id].buildingId == _dataBuild.id &&
-                    item.resourceID == g.dataRecipe.objectRecipe[id].idResource) {
-                countResources = g.dataRecipe.objectRecipe[id].numberCreate;
+        for (var i:int = 0; i < g.allData.recipe.length; i++) {
+            if (g.allData.recipe[i] && g.allData.recipe[i].buildingId == _dataBuild.id &&
+                    item.resourceID == g.allData.recipe[i].idResource) {
+                countResources = g.allData.recipe[i].numberCreate;
             }
         }
+//        for(var id:String in g.dataRecipe.objectRecipe) {
+//            if (g.dataRecipe.objectRecipe[id].buildingId == _dataBuild.id &&
+//                    item.resourceID == g.dataRecipe.objectRecipe[id].idResource) {
+//                countResources = g.dataRecipe.objectRecipe[id].numberCreate;
+//            }
+//        }
         _craftSprite.visible = true;
         var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources, useCraftedResource, true);
         _arrCrafted.push(craftItem);

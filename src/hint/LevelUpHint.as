@@ -35,7 +35,7 @@ public class LevelUpHint {
     private var bg:HintBackground;
     private var objTrees:Array;
     private var objCave:Array;
-    private var objRecipes:Object;
+//    private var objRecipes:Object;
     private var objAnimals:Object;
 
     private var g:Vars = Vars.getInstance();
@@ -62,11 +62,11 @@ public class LevelUpHint {
             objAnimals[obj[id].idResource] = obj[id];
         }
 
-        objRecipes = {};
-        obj = g.dataRecipe.objectRecipe;
-        for (id in obj) {
-            objRecipes[obj[id].idResource] = obj[id];
-        }
+//        objRecipes = {};
+//        obj = g.dataRecipe.objectRecipe;
+//        for (id in obj) {
+//            objRecipes[obj[id].idResource] = obj[id];
+//        }
     }
 
     public function showIt(_dataId:int, sX:int, sY:int, source:Sprite, house:Boolean,animal:Boolean):void {
@@ -274,7 +274,7 @@ public class LevelUpHint {
             }
         }
 
-        if (objRecipes[_dataId]) {
+        if (g.allData.recipe[_dataId]) {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -30;
@@ -288,7 +288,7 @@ public class LevelUpHint {
                 _txtTime.x = -80;
             }
             _txtTime.y = 33;
-            _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_dataId].buildingId].name;
+            _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[g.allData.recipe[_dataId].buildingId].name;
             _txtText.x = -100;
             _txtText.y = 5;
             wText = _txtText.textBounds.width + 20;

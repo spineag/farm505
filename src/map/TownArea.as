@@ -2140,7 +2140,7 @@ public class TownArea extends Sprite {
         var b:WorldObject = getAwayBuildingByDbId(ob.dbId);
         if (b && b is Fabrica) {
             var resItem:ResourceItem = new ResourceItem();
-            resItem.fillIt(g.dataResource.objectResources[g.dataRecipe.objectRecipe[ob.recipeId].idResource]);
+            resItem.fillIt(g.dataResource.objectResources[g.allData.recipe[ob.recipeId].idResource]);
             if (int(ob.delay) > int(ob.timeWork)) {
                 // do nothing because the recipe is waiting for start
             } else if (ob.delay + resItem.buildTime <= ob.timeWork) {

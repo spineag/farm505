@@ -559,8 +559,7 @@ public class Vars {
                 managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
                 var todayDailyGift:Date;
                 var today:Date;
-//               if ((socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
-                    if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - int(new Date().getTime() / 1000)) <= 0 && (user as User).level >= 6) {
+                    if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - int(new Date().getTime() / 1000)) <= 0 && (user as User).level >= 6 && (user as User).isTester) {
                         windowsManager.openWindow(WindowsManager.WO_SALE_PACK, null, true);
                     } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
                        windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);

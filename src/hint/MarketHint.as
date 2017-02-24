@@ -39,7 +39,7 @@ public class MarketHint {
     private var bg:HintBackground;
     private var objTrees:Array;
     private var objCave:Array;
-    private var objRecipes:Object;
+//    private var objRecipes:Object;
     private var objAnimals:Object;
     public var isShowed:Boolean;
     private var g:Vars = Vars.getInstance();
@@ -66,11 +66,11 @@ public class MarketHint {
             objAnimals[obj[id].idResource] = obj[id];
         }
 
-        objRecipes = {};
-        obj = g.dataRecipe.objectRecipe;
-        for (id in obj) {
-            objRecipes[obj[id].idResource] = obj[id];
-        }
+//        objRecipes = {};
+//        obj = g.dataRecipe.objectRecipe;
+//        for (id in obj) {
+//            objRecipes[obj[id].idResource] = obj[id];
+//        }
     }
 
     public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,noResource:Boolean = false): void {
@@ -240,7 +240,7 @@ public class MarketHint {
             }
         }
 
-        if (objRecipes[_dataId]) {
+        if (g.allData.recipe[_dataId]) {
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_dataId].imageShop));
             MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 70;
@@ -248,7 +248,7 @@ public class MarketHint {
             _txtName.text = String(g.dataResource.objectResources[_dataId].name);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_dataId].buildingId].name;
+            _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[g.allData.recipe[_dataId].buildingId].name;
             _txtText.x = -100;
             _txtText.y = 5;
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));

@@ -12,6 +12,8 @@ import build.tree.Tree;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
+import data.StructureDataRecipe;
+
 import flash.events.Event;
 import flash.events.IOErrorEvent;
 import flash.geom.Point;
@@ -308,16 +310,23 @@ public class DirectServer {
             Cc.ch('server', 'getDataRecipe OK', 5);
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
-                obj = {};
-                obj.id = int(d.message[i].id);
-                obj.idResource = int(d.message[i].resource_id);
-                obj.numberCreate = int(d.message[i].count_create);
-                obj.ingridientsId = String(d.message[i].ingredients_id).split('&');
-                obj.ingridientsCount = String(d.message[i].ingredients_count).split('&');
-                obj.buildingId = int(d.message[i].building_id);
-                obj.priceSkipHard = int(d.message[i].prise_skip);
-                obj.blockByLevel = g.dataResource.objectResources[obj.idResource].blockByLevel;
-                g.dataRecipe.objectRecipe[obj.id] = obj;
+//                obj = {};
+//                obj.id = int(d.message[i].id);
+//                obj.idResource = int(d.message[i].resource_id);
+//                obj.numberCreate = int(d.message[i].count_create);
+//                obj.ingridientsId = String(d.message[i].ingredients_id).split('&');
+//                obj.ingridientsCount = String(d.message[i].ingredients_count).split('&');
+//                obj.buildingId = int(d.message[i].building_id);
+//                obj.priceSkipHard = int(d.message[i].prise_skip);
+//                obj.blockByLevel = g.dataResource.objectResources[obj.idResource].blockByLevel;
+
+
+
+                g.allData.recipe[int(d.message[i].id)] = new StructureDataRecipe(d.message[i]);
+
+
+
+//                g.dataRecipe.objectRecipe[obj.id] = obj;
             }
             if (callback != null) {
                 callback.apply();

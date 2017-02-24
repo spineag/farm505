@@ -326,7 +326,7 @@ public class WOOrder extends WindowMain{
         prise.id = DataMoney.SOFT_CURRENCY;
         prise.count = _activeOrderItem.getOrder().coins;
         new DropItem(p.x, p.y, prise);
-        new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
+        if (!g.managerParty.userParty.showWindow && g.userTimer.partyTimer <= 0) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
         if (_activeOrderItem.getOrder().addCoupone) {
             p.x = _btnSell.x + _btnSell.width * 4 / 5;
             p.y = _btnSell.y + _btnSell.height / 2;
