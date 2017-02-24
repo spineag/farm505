@@ -12,6 +12,7 @@ public class AllData {
     public var dataBuyMoney:Array;
     public var decorGroups:Object;
     public var recipe:Array;
+    public var resource:Array;
 
     private var g:Vars = Vars.getInstance();
 
@@ -22,6 +23,7 @@ public class AllData {
         dataBuyMoney = [];
         decorGroups = {};
         recipe = [];
+        resource = [];
     }
 
     public function addToDecorGroup(dataDecor:Object):void {
