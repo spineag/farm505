@@ -103,7 +103,12 @@ public class WOPartyWindowItem {
         if (!Boolean(g.managerParty.userParty.tookGift[_data.number - 1]) && g.managerParty.userParty.countResource >= _data.countToGift)  {
             _btn.setEnabled = true;
         } else if (Boolean(g.managerParty.userParty.tookGift[_data.number - 1])) {
+            _btn.setEnabled = false;
             _btn.visible = false;
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+            im.x = 45;
+            im.y = 106;
+            source.addChild(im);
         } else _btn.setEnabled = false;
 
         source.addChild(_btn);

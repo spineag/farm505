@@ -125,14 +125,10 @@ public class WOSalePack extends WindowMain{
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)  {
             quad.x = -50;
             quad.y = 110;
-
-        }
-        else {
+        } else {
             quad.x = -80;
             quad.y = 113;
-
         }
-
         quad.alpha = .6;
         _source.addChild(quad);
         _txtProfit = new CTextField(150,60,String(g.managerSalePack.dataSale.profit) + '%');
