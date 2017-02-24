@@ -224,7 +224,7 @@ public class WONoResources extends WindowMain {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResource');
             return;
         }
-        if (_data.buildType == BuildType.INSTRUMENT) {
+        if (_data.buildType && _data.buildType == BuildType.INSTRUMENT) {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, 1);
             im.source.x =  - im.source.width/2;
@@ -233,7 +233,7 @@ public class WONoResources extends WindowMain {
             _arrItems.push(im);
             _countCost = int(_data.priceHard)*_countOfResources;
             _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
-        } else if (_data.buildType == BuildType.PLANT) {
+        } else if (_data.buildType && _data.buildType == BuildType.PLANT) {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, _countOfResources);
             im.source.x =  - im.source.width/2;
@@ -242,7 +242,7 @@ public class WONoResources extends WindowMain {
             _arrItems.push(im);
             _countCost = int(_data.priceHard) * _countOfResources;
             _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
-        } else if (_data.ingridientsId) {
+        } else if (_data.ingridientsId && _data.ingridientsId) {
             var countR:int;
             _countCost = 0;
             for (i = 0; i < _data.ingridientsId.length; i++) {

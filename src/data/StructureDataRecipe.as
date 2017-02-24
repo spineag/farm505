@@ -16,7 +16,7 @@ public class StructureDataRecipe {
     private var _buildingId:int;
     private var _priceSkipHard:int;
     private var _blockByLevel:int;
-
+    private var _buildType:int;
     private var g:Vars = Vars.getInstance();
 
     public function StructureDataRecipe(ob:Object) {
@@ -28,6 +28,7 @@ public class StructureDataRecipe {
         _buildingId = int(ob.building_id);
         _priceSkipHard = int(ob.prise_skip);
         _blockByLevel = g.dataResource.objectResources[_idResource].blockByLevel;
+        _buildType = g.dataResource.objectResources[_idResource].buildType;
 //        g.allData.recipe[_id] = obj;
     }
 
@@ -39,6 +40,6 @@ public class StructureDataRecipe {
     public function get buildingId():int {return _buildingId;}
     public function get priceSkipHard():int {return _priceSkipHard;}
     public function get blockByLevel():int {return _blockByLevel;}
-
+    public function get buildType():int {return _buildType;}
 }
 }
