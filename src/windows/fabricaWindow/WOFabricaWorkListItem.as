@@ -230,15 +230,6 @@ public class WOFabricaWorkListItem {
                 else _txtNumberCreate.text = "";
             }
         }
-//        for(var id:String in g.dataRecipe.objectRecipe){
-//            if(g.dataRecipe.objectRecipe[id].idResource == _resource.resourceID){
-//                if(g.dataRecipe.objectRecipe[id].numberCreate > 1) {
-//                    _txtNumberCreate.text = String(g.dataRecipe.objectRecipe[id].numberCreate);
-//                    break;
-//                }
-//                else _txtNumberCreate.text = "";
-//            }
-//        }
         _source.addChildAt(_icon,1);
         if (_type == BIG_CELL) {
             _txtNumberCreate.x = 75;

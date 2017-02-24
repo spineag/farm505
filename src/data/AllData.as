@@ -65,19 +65,12 @@ public class AllData {
     }
 
     public function getFabricaIdForResourceIdFromRecipe(rId:int):int {
-//        var d:Object = g.dataRecipe.objectRecipe;
         for (var i:int = 0; i < recipe.length; i++) {
             if (g.allData.recipe[i] && recipe[i].idResource == rId) {
                 return recipe[i].buildingId;
             }
         }
         return 0;
-//        for(var id:String in d) {
-//            if (d[id].idResource == rId) {
-//                return d[id].buildingId;
-//            }
-//        }
-//        return 0;
     }
 
     public function getFarmIdForResourceId(rId:int):int {

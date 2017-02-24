@@ -361,23 +361,17 @@ public class Fabrica extends WorldObject {
 
     private function updateRecipes():void {
         _arrRecipes.length = 0;
-//        try {
-//            var obj:Object = g.dataRecipe.objectRecipe;
+        try {
             for (var i:int = 0; i < g.allData.recipe.length; i++) {
                 if (g.allData.recipe[i] && g.allData.recipe[i].buildingId == _dataBuild.id) {
                     _arrRecipes.push(g.allData.recipe[i]);
                 }
             }
-//            for(var id:String in obj) {
-//                if (obj[id].buildingId == _dataBuild.id) {
-//                    _arrRecipes.push(obj[id]);
-//                }
-//            }
             _arrRecipes.sortOn('blockByLevel', Array.NUMERIC);
-//        } catch (e:Error) {
-//            Cc.error('fabrica recipe error: ' + e.errorID + ' - ' + e.message);
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabrica update recipe');
-//        }
+        } catch (e:Error) {
+            Cc.error('fabrica recipe error: ' + e.errorID + ' - ' + e.message);
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabrica update recipe');
+        }
     }
 
     public function get heroCat():HeroCat {
