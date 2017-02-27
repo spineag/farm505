@@ -4,16 +4,24 @@
 package windows.train {
 import build.train.Train;
 import data.BuildType;
+import data.DataMoney;
+
 import flash.geom.Point;
 
 import manager.ManagerFabricaRecipe;
 import manager.ManagerFilters;
+
+import resourceItem.DropItem;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
 import starling.utils.Align;
 import starling.utils.Color;
+
+import ui.xpPanel.XPStar;
+
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
@@ -37,12 +45,12 @@ public class WOTrain extends WindowMain {
     private var _arrItems:Array;
     private var _btnSend:CButton;
     private var _btnLoad:CButton;
-//    private var _btnHelp:CButton;
+    private var _btnHelp:CButton;
+    private var _txtHelp:CTextField;
     private var _activeItemIndex: int;
     private var _build:Train;
     private var _txt:CTextField;
     private var _txtCounter:CTextField;
-//    private var _txtHelp:TextField;
     private var _txtLoad:CTextField;
     private var _counter:int;
     private var _idFree:int;
@@ -149,23 +157,6 @@ public class WOTrain extends WindowMain {
         _btnLoad.x = 200;
         _btnLoad.y = 150;
         _rightBlock.addChild(_btnLoad);
-
-//        _btnHelp = new CButton();
-//        _btnHelp.addButtonTexture(240,52,CButton.BLUE,true);
-//        txt = new TextField(80,30,'', g.allData.fonts['BloggerBold'], 14, Color.WHITE);
-//        txt.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-//        _btnHelp.addChild(txt);
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_rup_ico'));
-//        im.y = -10;
-//        im.touchable = false;
-//        _btnHelp.addDisplayObject(im);
-//        _btnHelp.x = 143;
-//        _btnHelp.y = 210;
-//        _rightBlock.addChild(_btnHelp);
-//        _txtHelp = new TextField(180, 50, 'Помогите!!', g.allData.fonts['BloggerBold'], 16, Color.WHITE);
-//        _txtHelp.nativeFilters = ManagerFilters.TEXT_STROKE_BLUE;
-//        _txtHelp.x = 50;
-//        _btnHelp.addChild(_txtHelp);
 
         _txtPrise = new CTextField(240,50,'Награда за полную загрузку:');
         _txtPrise.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
@@ -347,12 +338,119 @@ public class WOTrain extends WindowMain {
         _imageItem.x = 65 - _imageItem.width/2;
         _imageItem.y = 115 - _imageItem.height/2;
         _rightBlock.addChild(_imageItem);
+        if (g.user.isTester) {
+            if (g.isAway) {
+                if (_arrItems[k].needHelp) {
+                    _btnHelp = new CButton();
+                    _btnHelp.addButtonTexture(240, 52, CButton.BLUE, true);
+                    _btnHelp.x = 143;
+                    _btnHelp.y = 210;
+                    _rightBlock.addChild(_btnHelp);
+                    _txtHelp = new CTextField(240, 52, 'Помочь загрузить');
+                    _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+                    _btnHelp.addChild(_txtHelp);
+                    _btnHelp.clickCallback = giftHelpClick;
+                    return;
+                } else {
+                    if (_btnHelp) {
+                        _rightBlock.removeChild(_btnHelp);
+                        _btnHelp.deleteIt();
+                        _btnHelp = null;
+                    }
+                    return;
+                }
+            }
+            if (!_arrItems[k].needHelp) {
+                if (!_btnHelp && !_arrItems[k].isResourceLoaded) {
+                    _btnHelp = new CButton();
+                    _btnHelp.addButtonTexture(240, 52, CButton.BLUE, true);
+                    var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_rup_ico'));
+                    im.y = -10;
+                    im.touchable = false;
+                    _btnHelp.addDisplayObject(im);
+                    _btnHelp.x = 143;
+                    _btnHelp.y = 210;
+                    _rightBlock.addChild(_btnHelp);
+                    _txtHelp = new CTextField(240, 52, 'Помогите!!');
+                    _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+                    _btnHelp.addChild(_txtHelp);
+                    _txtHelp.x = 10;
+                    _btnHelp.clickCallback = wantHelpClick;
+                }
+            } else {
+                if (_btnHelp) {
+                    _rightBlock.removeChild(_btnHelp);
+                    _btnHelp.deleteIt();
+                    _btnHelp = null;
+                }
+            }
+        }
+    }
+
+    private function giftHelpClick(lastResource:Boolean = false):void {
+        var obj:Object;
+        if (lastResource) {
+            if (_btnHelp) {
+                _rightBlock.removeChild(_btnHelp);
+                _btnHelp.deleteIt();
+                _btnHelp = null;
+            }
+            g.directServer.updateUserTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
+            new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
+            obj = {};
+            obj.id = DataMoney.SOFT_CURRENCY;
+            obj.count = _arrItems[_activeItemIndex].countCoins;
+            new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
+            g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
+            _arrItems[_activeItemIndex].fullItHelp();
+        } else {
+            if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree && g.allData.resource[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT
+                    && g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
+                if (_btnHelp) {
+                    _rightBlock.removeChild(_btnHelp);
+                    _btnHelp.deleteIt();
+                    _btnHelp = null;
+                }
+                g.directServer.updateUserTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
+                new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
+                obj = {};
+                obj.id = DataMoney.SOFT_CURRENCY;
+                obj.count = _arrItems[_activeItemIndex].countCoins;
+                new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
+                g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
+                _arrItems[_activeItemIndex].fullItHelp();
+            } else if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree && g.allData.resource[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT
+                    && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
+                g.windowsManager.cashWindow = this;
+                super.hideIt();
+                g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, giftHelpClick, g.allData.resource[_arrItems[_activeItemIndex].idFree], 'trainHelp');
+                return;
+            } else if (_arrItems[_activeItemIndex].countFree > g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)) {
+                g.windowsManager.cashWindow = this;
+                super.hideIt();
+                obj = {};
+                obj.id = _arrItems[_activeItemIndex].idFree;
+                obj.count = _arrItems[_activeItemIndex].countFree;
+                g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, giftHelpClick, 'trainHelp', obj);
+            }
+        }
+    }
+
+    private function wantHelpClick():void {
+        if (_btnHelp) {
+            _rightBlock.removeChild(_btnHelp);
+            _btnHelp.deleteIt();
+            _btnHelp = null;
+        }
+        _build.needHelp(true, _activeItemIndex);
+        _arrItems[_activeItemIndex].onClickHelpMePls();
+        g.directServer.updateUserTrainPackNeedHelp(_arrItems[_activeItemIndex].trainDbId, null);
     }
 
     private function onResourceLoad(lastResource:Boolean = false):void {
         if (_activeItemIndex == -1) return;
         if (!lastResource && _arrItems[_activeItemIndex].countFree == g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)
-                && g.dataResource.objectResources[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
+                && g.allData.resource[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
             g.windowsManager.cashWindow = this;
             super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onResourceLoad, {id: _arrItems[_activeItemIndex].idFree}, 'market');
@@ -375,7 +473,7 @@ public class WOTrain extends WindowMain {
     private function onClickBuy():void {
         if (g.managerCutScenes.isCutScene) return;
         var ob:Object = {};
-        ob.data = g.dataResource.objectResources[_idFree];
+        ob.data = g.allData.resource[_idFree];
         ob.count = _countFree - g.userInventory.getCountResourceById(_idFree);
         g.windowsManager.cashWindow = this;
         super.hideIt();

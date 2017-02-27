@@ -136,5 +136,7 @@ public class Consts {
     public static var INQ_ADD_USER_ERROR:String = 'addUserError.php';
     public static var INQ_GET_DATA_SALE_PACK:String = 'getDataSalePack.php';
     public static var INQ_UPDATE_USER_SALE_PACK:String = 'updateUserSalePack.php';
+    public static var INQ_UPDATE_USER_TRAIN_PACK_HELP:String = 'updateUserTrainPackHelp.php';
+    public static var INQ_UPDATE_TRAIN_PACK_GET_HELP:String = 'updateTrainPackGetHelp.php';
 }
 }

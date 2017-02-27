@@ -221,10 +221,10 @@ public class WOFabricaWorkListItem {
             _icon.x = int(23 - _icon.width/2);
             _icon.y = int(22 - _icon.height/2);
         }
-        for(var id:String in g.dataRecipe.objectRecipe){
-            if(g.dataRecipe.objectRecipe[id].idResource == _resource.resourceID){
-                if(g.dataRecipe.objectRecipe[id].numberCreate > 1) {
-                    _txtNumberCreate.text = String(g.dataRecipe.objectRecipe[id].numberCreate);
+        for (var i:int = 0; i < g.allData.recipe.length; i ++) {
+            if(g.allData.recipe[i] && g.allData.recipe[i].idResource == _resource.resourceID){
+                if(g.allData.recipe[i].numberCreate > 1) {
+                    _txtNumberCreate.text = String(g.allData.recipe[i].numberCreate);
                     break;
                 }
                 else _txtNumberCreate.text = "";

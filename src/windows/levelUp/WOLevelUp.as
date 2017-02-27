@@ -346,7 +346,7 @@ public class WOLevelUp extends WindowMain {
         _leftArrow.visible = false;
         _rightArrow.visible = false;
         arr = [];
-        obj = g.dataResource.objectResources;
+        obj = g.allData.resource;
         for (id in obj) {
             if (obj[id].buildType == BuildType.INSTRUMENT) continue;
             if (g.user.level == obj[id].blockByLevel) {

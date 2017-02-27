@@ -76,7 +76,7 @@ public class BuyerNyashuk {
         _spriteTxt = new Sprite();
         _spriteTxt.touchable = true;
         _isHover = false;
-        var dataResource:Object = g.dataResource.objectResources[_data.resourceId];
+        var dataResource:Object = g.allData.resource[_data.resourceId];
         var im:Image;
         if (dataResource.buildType == BuildType.PLANT)
             im = new Image(g.allData.atlas['resourceAtlas'].getTexture(dataResource.imageShop + '_icon'));

@@ -129,7 +129,7 @@ public class WOBuyerNyashuk extends WindowMain{
         txt.y = -95;
         _source.addChild(txt);
         _arrCTex.push(txt);
-        dataResource = g.dataResource.objectResources[_data.resourceId];
+        dataResource = g.allData.resource[_data.resourceId];
      var im:Image;
         if (dataResource.buildType == BuildType.PLANT)
             im = new Image(g.allData.atlas['resourceAtlas'].getTexture(dataResource.imageShop + '_icon'));
@@ -192,7 +192,7 @@ public class WOBuyerNyashuk extends WindowMain{
     private function onClickBuy(noResource:Boolean = false):void {
         var ob:Object = {};
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
-            ob.data = g.dataResource.objectResources[_data.resourceId];
+            ob.data = g.allData.resource[_data.resourceId];
             ob.count = _data.resourceCount - g.userInventory.getCountResourceById(_data.resourceId);
             ob.dataNyashuk = _data;
             super.hideIt();

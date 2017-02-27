@@ -95,8 +95,12 @@ public class WALLNewFabric {
 //        (g.pBitmaps[st + 'iconAtlas.png' + g.getVersion('iconAtlas')] as PBitmap).deleteIt();
 //        delete  g.pBitmaps[st + 'iconAtlas.png' + g.getVersion('iconAtlas')];
 //        delete  g.pXMLs[st + 'iconAtlas.xml' + g.getVersion('iconAtlas')];
-        (g.pBitmaps[st + 'wall/wall_new_fabric.jpg'] as PBitmap).deleteIt();
-        delete g.pBitmaps[st + 'wall/wall_new_fabric.jpg'];
+
+
+
+
+//        (g.pBitmaps[st + 'wall/wall_new_fabric.jpg'] as PBitmap).deleteIt();
+//        delete g.pBitmaps[st + 'wall/wall_new_fabric.jpg'];
     }
 }
 }

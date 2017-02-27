@@ -11,6 +11,9 @@ public class AllData {
     public var factory:Object;  // StarlingFactory
     public var dataBuyMoney:Array;
     public var decorGroups:Object;
+    public var recipe:Array;
+    public var resource:Array;
+
     private var g:Vars = Vars.getInstance();
 
     public function AllData() {
@@ -19,6 +22,8 @@ public class AllData {
         factory = {};
         dataBuyMoney = [];
         decorGroups = {};
+        recipe = [];
+        resource = [];
     }
 
     public function addToDecorGroup(dataDecor:Object):void {
@@ -62,10 +67,9 @@ public class AllData {
     }
 
     public function getFabricaIdForResourceIdFromRecipe(rId:int):int {
-        var d:Object = g.dataRecipe.objectRecipe;
-        for(var id:String in d) {
-            if (d[id].idResource == rId) {
-                return d[id].buildingId;
+        for (var i:int = 0; i < recipe.length; i++) {
+            if (g.allData.recipe[i] && recipe[i].idResource == rId) {
+                return recipe[i].buildingId;
             }
         }
         return 0;

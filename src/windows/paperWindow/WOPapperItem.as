@@ -6,17 +6,14 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import data.StructureMarketItem;
-
 import flash.display.Bitmap;
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
 import preloader.miniPreloader.FlashAnimatedPreloader;
 import resourceItem.DropItem;
-
 import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -155,7 +152,7 @@ public class WOPapperItem {
         source.visible = true;
         _txtCost.text = String(_data.cost);
         _txtCountResource.text = String(_data.resourceCount) + ' шт.';
-        _dataResource = g.dataResource.objectResources[_data.resourceId];
+        _dataResource = g.allData.resource[_data.resourceId];
         _txtResourceName.text = _dataResource.name;
         if (_dataResource.buildType == BuildType.PLANT)
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));

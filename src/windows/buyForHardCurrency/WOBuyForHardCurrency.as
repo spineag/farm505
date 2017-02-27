@@ -73,14 +73,14 @@ public class WOBuyForHardCurrency extends WindowMain {
     }
 
     private function lockedLand():void {
-        if (g.user.hardCurrency < _count * g.dataResource.objectResources[_id].priceHard) {
+        if (g.user.hardCurrency < _count * g.allData.resource[_id].priceHard) {
             g.windowsManager.uncasheWindow();
             g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
             super.hideIt();
             return;
         }
         _btnYes.clickCallback = null;
-        g.userInventory.addMoney(1,-_count * g.dataResource.objectResources[_id].priceHard);
+        g.userInventory.addMoney(1,-_count * g.allData.resource[_id].priceHard);
         g.userInventory.addResource(_id,_count);
         super.hideIt();
     }

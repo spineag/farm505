@@ -92,7 +92,7 @@ public class Ridge extends WorldObject{
 
     public function plantThePlant():void {
         g.soundManager.playSound(SoundConst.CRAFT_RAW_PLANT);
-        fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
+        fillPlant(g.allData.resource[g.toolsModifier.plantId]);
         g.managerPlantRidge.checkFreeRidges();
     }
 
@@ -174,15 +174,6 @@ public class Ridge extends WorldObject{
             var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
             item.flyIt();
             onOut();
-        }
-        if (_resourceItem && _resourceItem.resourceID == 168 && g.managerParty.userParty.countResource < g.managerParty.dataParty.countToGift[4]) {
-
-            if (g.managerParty.userParty.countResource + 2 > g.managerParty.dataParty.countToGift[4]) g.managerParty.userParty.countResource = g.managerParty.userParty.countResource + 1;
-            else g.managerParty.userParty.countResource = g.managerParty.userParty.countResource + 2;
-
-            var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
-                    + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
-            g.directServer.updateUserParty(st, g.managerParty.userParty.countResource,0, null);
         }
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
             if (_tutorialCallback != null) {

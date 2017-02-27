@@ -84,10 +84,10 @@ public class WOLevelUpItem {
 
 
             if (ob.resourceData) {
-                if (g.dataResource.objectResources[ob.id].buildType == BuildType.PLANT) {
-                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[ob.id].imageShop + '_icon'));
+                if (g.allData.resource[ob.id].buildType == BuildType.PLANT) {
+                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[ob.id].imageShop + '_icon'));
                 } else {
-                    _image = new Image(g.allData.atlas[g.dataResource.objectResources[ob.id].url].getTexture(g.dataResource.objectResources[ob.id].imageShop));
+                    _image = new Image(g.allData.atlas[g.allData.resource[ob.id].url].getTexture(g.allData.resource[ob.id].imageShop));
                 }
                 _txtCount.text = '+' + String(ob.count);
 //                _txtNew.text = '';

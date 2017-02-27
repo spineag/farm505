@@ -251,6 +251,10 @@ public class SN_OK extends SocialNetwork {
                 orderPackID = 13;
                 e.type = DataMoney.SOFT_CURRENCY;
                 st = 'Уникальное предложение!';
+            } else if (e.id == 14) {
+                orderPackID = 14;
+                e.type = DataMoney.SOFT_CURRENCY;
+                st = 'Специальное предложение!';
             } else {
                 var ar:Array = g.allData.dataBuyMoney;
                 for (var i:int = 0; i < ar.length; i++) {

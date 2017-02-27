@@ -35,7 +35,7 @@ public class LevelUpHint {
     private var bg:HintBackground;
     private var objTrees:Array;
     private var objCave:Array;
-    private var objRecipes:Object;
+//    private var objRecipes:Object;
     private var objAnimals:Object;
 
     private var g:Vars = Vars.getInstance();
@@ -62,11 +62,11 @@ public class LevelUpHint {
             objAnimals[obj[id].idResource] = obj[id];
         }
 
-        objRecipes = {};
-        obj = g.dataRecipe.objectRecipe;
-        for (id in obj) {
-            objRecipes[obj[id].idResource] = obj[id];
-        }
+//        objRecipes = {};
+//        obj = g.dataRecipe.objectRecipe;
+//        for (id in obj) {
+//            objRecipes[obj[id].idResource] = obj[id];
+//        }
     }
 
     public function showIt(_dataId:int, sX:int, sY:int, source:Sprite, house:Boolean,animal:Boolean):void {
@@ -127,7 +127,7 @@ public class LevelUpHint {
             _txtName.text = String(g.dataAnimal.objectAnimal[_dataId].name);
             _txtName.x = -100;
             _txtName.y = 25;
-            _txtText.text = 'Производит: ' + g.dataResource.objectResources[g.dataAnimal.objectAnimal[_dataId].idResource].name;
+            _txtText.text = 'Производит: ' + g.allData.resource[g.dataAnimal.objectAnimal[_dataId].idResource].name;
             _txtText.x = -100;
             _txtText.y = 10;
             _txtTime.leading = -5;
@@ -160,8 +160,8 @@ public class LevelUpHint {
                 return;
             }
         }
-        if (g.dataResource.objectResources[_dataId].blockByLevel > g.user.level) {
-            _txtText.text = "Будет доступно на: " + g.dataResource.objectResources[_dataId].blockByLevel + ' уровне';
+        if (g.allData.resource[_dataId].blockByLevel > g.user.level) {
+            _txtText.text = "Будет доступно на: " + g.allData.resource[_dataId].blockByLevel + ' уровне';
             _txtText.x = -100;
             _txtText.y = -5;
             wName = _txtText.textBounds.width + 40;
@@ -173,14 +173,14 @@ public class LevelUpHint {
             _source.y = int(start.y);
             return;
         }
-        if (g.dataResource.objectResources[_dataId].buildType == BuildType.PLANT) {
+        if (g.allData.resource[_dataId].buildType == BuildType.PLANT) {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -40;
-            _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+            _txtName.text = String(g.allData.resource[_dataId].name);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime);
+            _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.resource[_dataId].buildTime);
             if (_txtTime.textBounds.width >= 50) {
                 _txtTime.x = -80;
             } else {
@@ -204,11 +204,11 @@ public class LevelUpHint {
             g.cont.hintCont.addChild(_source);
             return;
         }
-        if (g.dataResource.objectResources[_dataId].buildType == BuildType.INSTRUMENT) {
-            _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+        if (g.allData.resource[_dataId].buildType == BuildType.INSTRUMENT) {
+            _txtName.text = String(g.allData.resource[_dataId].name);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtText.text = String(g.dataResource.objectResources[_dataId].opys);
+            _txtText.text = String(g.allData.resource[_dataId].opys);
             _txtText.x = -100;
             _txtText.y = 15;
             wText = _txtText.textBounds.width + 20;
@@ -226,10 +226,10 @@ public class LevelUpHint {
             if (_dataId == objTrees[i].craftIdResource) {
                 _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
                 _imageClock.y = 70;
-                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+                _txtName.text = String(g.allData.resource[_dataId].name);
                 _txtName.x = -100;
                 _txtName.y = 20;
-                _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime);
+                _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.resource[_dataId].buildTime);
                 _txtTime.x = -90;
                 _txtTime.y = 33;
                 _txtText.text = "Растет на: " + objTrees[i].name;
@@ -256,7 +256,7 @@ public class LevelUpHint {
 
         for (i=0; i<objCave.length; i++) {
             if (_dataId == int(objCave[i])) {
-                _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+                _txtName.text = String(g.allData.resource[_dataId].name);
                 _txtName.x = -100;
                 _txtName.y = 20;
                 _txtText.text = "Место производства: Пещера";
@@ -274,21 +274,21 @@ public class LevelUpHint {
             }
         }
 
-        if (objRecipes[_dataId]) {
+        if (g.allData.recipe[_dataId]) {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -30;
-            _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+            _txtName.text = String(g.allData.resource[_dataId].name);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime);
+            _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.resource[_dataId].buildTime);
             if (_txtTime.textBounds.width >= 50) {
                 _txtTime.x = -70;
             } else {
                 _txtTime.x = -80;
             }
             _txtTime.y = 33;
-            _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[objRecipes[_dataId].buildingId].name;
+            _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[g.allData.recipe[_dataId].buildingId].name;
             _txtText.x = -100;
             _txtText.y = 5;
             wText = _txtText.textBounds.width + 20;
@@ -308,10 +308,10 @@ public class LevelUpHint {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.y = 70;
             _imageClock.x = -30;
-            _txtName.text = String(g.dataResource.objectResources[_dataId].name);
+            _txtName.text = String(g.allData.resource[_dataId].name);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtTime.text = TimeUtils.convertSecondsForHint(g.dataResource.objectResources[_dataId].buildTime);
+            _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.resource[_dataId].buildTime);
             _txtTime.x = -80;
             _txtTime.y = 33;
             _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_dataId].buildId].name;

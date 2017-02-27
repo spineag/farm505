@@ -27,6 +27,7 @@ import media.SoundConst;
 import quest.ManagerQuest;
 
 import resourceItem.DropItem;
+import resourceItem.DropPartyResource;
 
 import starling.display.DisplayObject;
 import starling.display.Image;
@@ -297,7 +298,7 @@ public class WOOrder extends WindowMain{
             }
             for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
                 if (_activeOrderItem.getOrder().resourceCounts[i] == g.userInventory.getCountResourceById(_activeOrderItem.getOrder().resourceIds[i])
-                        && g.dataResource.objectResources[_activeOrderItem.getOrder().resourceIds[i]].buildType == BuildType.PLANT && !g.userInventory.checkLastResource(_activeOrderItem.getOrder().resourceIds[i])) {
+                        && g.allData.resource[i] && g.allData.resource[_activeOrderItem.getOrder().resourceIds[i]].buildType == BuildType.PLANT && !g.userInventory.checkLastResource(_activeOrderItem.getOrder().resourceIds[i])) {
                     g.windowsManager.cashWindow = this;
                     super.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, sellOrder, _activeOrderItem.getOrder(), 'order');
@@ -325,6 +326,7 @@ public class WOOrder extends WindowMain{
         prise.id = DataMoney.SOFT_CURRENCY;
         prise.count = _activeOrderItem.getOrder().coins;
         new DropItem(p.x, p.y, prise);
+        if (!g.managerParty.userParty.showWindow && g.userTimer.partyTimer > 0) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
         if (_activeOrderItem.getOrder().addCoupone) {
             p.x = _btnSell.x + _btnSell.width * 4 / 5;
             p.y = _btnSell.y + _btnSell.height / 2;

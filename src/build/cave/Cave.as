@@ -174,7 +174,7 @@ public class Cave extends WorldObject{
         var craftItem:CraftItem;
         for (var i:int = 0; i <ar.length; i++) {
             item = new ResourceItem();
-            item.fillIt(g.dataResource.objectResources[ar[i].resource_id]);
+            item.fillIt(g.allData.resource[ar[i].resource_id]);
             craftItem = new CraftItem(0, 0, item, _craftSprite, ar[i].count);
             craftItem.removeDefaultCallbacks();
             craftItem.addParticle();
@@ -410,8 +410,8 @@ public class Cave extends WorldObject{
             _arrCrafted = [];
             var arr:Array = [];
             for (var i:int=0; i<4; i++) {
-                if (g.dataResource.objectResources[_dataBuild.idResource[i]].blockByLevel <= g.user.level)
-                    arr.push(g.dataResource.objectResources[_dataBuild.idResource[i]]);
+                if (g.allData.resource[_dataBuild.idResource[i]].blockByLevel <= g.user.level)
+                    arr.push(g.allData.resource[_dataBuild.idResource[i]]);
             }
             if (!arr.length) {
                 Cc.error('no items for craft from cave:: arr.length = 0');

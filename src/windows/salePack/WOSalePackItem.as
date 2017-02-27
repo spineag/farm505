@@ -16,6 +16,7 @@ import starling.utils.Color;
 
 import utils.CSprite;
 import utils.CTextField;
+import utils.MCScaler;
 
 public class WOSalePackItem {
     public var source:Sprite;
@@ -48,15 +49,17 @@ public class WOSalePackItem {
             _txtCount.text = String(_objectCount);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         }  else if (_objectType == BuildType.RESOURCE || _objectType == BuildType.INSTRUMENT || _objectType == BuildType.PLANT) {
-            _txtName.text = g.dataResource.objectResources[_objectId].name;
+            _txtName.text = g.allData.resource[_objectId].name;
             _txtCount.text = String(_objectCount);
-            im = new Image(g.allData.atlas[g.dataResource.objectResources[_objectId].url].getTexture(g.dataResource.objectResources[_objectId].imageShop));
+            im = new Image(g.allData.atlas[g.allData.resource[_objectId].url].getTexture(g.allData.resource[_objectId].imageShop));
         } else if (_objectType == BuildType.DECOR_ANIMATION) {
             _txtName.text = g.dataBuilding.objectBuilding[_objectId].name;
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_objectId].url + '_icon'));
+            MCScaler.scale(im,100,100);
         } else if (_objectType == BuildType.DECOR) {
             _txtName.text = g.dataBuilding.objectBuilding[_objectId].name;
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_objectId].image +'_icon'));
+            MCScaler.scale(im,100,100);
         }
         im.x = 85 - im.width/2;
         im.y = 85 - im.height/2;

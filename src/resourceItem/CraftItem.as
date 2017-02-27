@@ -176,11 +176,16 @@ public class CraftItem {
         _source.filter = null;
         _txtNumber.visible = true;
         _source.isTouchable = false;
-        for(var id:String in g.dataRecipe.objectRecipe) {
-            if (g.dataRecipe.objectRecipe[id].idResource == _resourceItem.resourceID) {
-                _txtNumber.text = String(g.dataRecipe.objectRecipe[id].numberCreate);
+        for (var i:int = 0; i < g.allData.recipe.length; i++) {
+            if (g.allData.recipe[i] && g.allData.recipe[i].idResource == _resourceItem.resourceID) {
+                _txtNumber.text = String(g.allData.recipe[i].numberCreate);
             }
         }
+//        for(var id:String in g.dataRecipe.objectRecipe) {
+//            if (g.dataRecipe.objectRecipe[id].idResource == _resourceItem.resourceID) {
+//                _txtNumber.text = String(g.dataRecipe.objectRecipe[id].numberCreate);
+//            }
+//        }
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
         if (_source.parent && _source.parent.contains(_source)) _source.parent.removeChild(_source);

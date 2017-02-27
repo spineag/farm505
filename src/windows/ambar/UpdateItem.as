@@ -104,7 +104,7 @@ public class UpdateItem {
                 _imGalo4ka.visible = false;
                 _btn.visible = true;
                 _countForBuy = needCountForUpdate - curCount;
-                _btnTxt.text = String(_countForBuy * g.dataResource.objectResources[_resourceId].priceHard);
+                _btnTxt.text = String(_countForBuy * g.allData.resource[_resourceId].priceHard);
             }
         } else {
             needCountForUpdate = g.dataBuilding.objectBuilding[13].startCountInstrumets + g.dataBuilding.objectBuilding[13].deltaCountAfterUpgrade * (g.user.skladLevel-1);
@@ -116,7 +116,7 @@ public class UpdateItem {
                 _imGalo4ka.visible = false;
                 _btn.visible = true;
                 _countForBuy = needCountForUpdate - curCount;
-                _btnTxt.text = String(_countForBuy * g.dataResource.objectResources[_resourceId].priceHard);
+                _btnTxt.text = String(_countForBuy * g.allData.resource[_resourceId].priceHard);
             }
         }
         if (_resourceImage) {
@@ -124,7 +124,7 @@ public class UpdateItem {
             _resourceImage.dispose();
             _resourceImage = null;
         }
-        _resourceImage = new Image(g.allData.atlas[g.dataResource.objectResources[_resourceId].url].getTexture(g.dataResource.objectResources[_resourceId].imageShop));
+        _resourceImage = new Image(g.allData.atlas[g.allData.resource[_resourceId].url].getTexture(g.allData.resource[_resourceId].imageShop));
         MCScaler.scale(_resourceImage, 90, 90);
         _resourceImage.x = 50 - _resourceImage.width/2;
         _resourceImage.y = 50 - _resourceImage.height/2;
@@ -140,8 +140,8 @@ public class UpdateItem {
     }
 
     private function onBuy():void {
-        if (g.user.hardCurrency >= _countForBuy * g.dataResource.objectResources[_resourceId].priceHard) {
-            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countForBuy * g.dataResource.objectResources[_resourceId].priceHard);
+        if (g.user.hardCurrency >= _countForBuy * g.allData.resource[_resourceId].priceHard) {
+            g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countForBuy * g.allData.resource[_resourceId].priceHard);
             var p:Point = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
             var prise:Object = {};

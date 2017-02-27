@@ -77,27 +77,27 @@ public class WOSalePack extends WindowMain{
         _imPercent.y = -253;
         _source.addChild(_imPercent);
         _txtTime = new CTextField(120,60,'');
-        _txtTime.setFormat(CTextField.BOLD18, 20, 0x4b7200);
+        _txtTime.setFormat(CTextField.BOLD24, 20, 0x4b7200);
         _txtTime.alignH = Align.LEFT;
 
         _txtTime.y = -137;
         _source.addChild(_txtTime);
         _txtName = new CTextField(740, 70, String(g.managerSalePack.dataSale.name));
-        _txtName.setFormat(CTextField.BOLD30, 34, Color.RED, Color.WHITE);
+        _txtName.setFormat(CTextField.BOLD30, 40, Color.RED, Color.WHITE);
 //        _txtName.alignH = Align.LEFT;
-        _txtName.x = -370;
-        _txtName.y = -210;
+        _txtName.x = -360;
+        _txtName.y = -222;
         _source.addChild(_txtName);
 
         _txtDescription = new CTextField(740,70,String(g.managerSalePack.dataSale.description));
-        _txtDescription.setFormat(CTextField.BOLD18, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtDescription.x = -370;
-        _txtDescription.y = -150;
+        _txtDescription.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtDescription.x = -360;
+        _txtDescription.y = -167;
         _source.addChild(_txtDescription);
 
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             _txtOldCost = new CTextField(200,60,  String(g.managerSalePack.dataSale.oldCost) + ' ОК');
-            _txtOldCost.setFormat(CTextField.BOLD18, 24, Color.RED);
+            _txtOldCost.setFormat(CTextField.BOLD24, 24, Color.RED);
             _txtOldCost.y = 80;
             _txtOldCost.x = -110;
             _source.addChild(_txtOldCost);
@@ -109,25 +109,30 @@ public class WOSalePack extends WindowMain{
             _source.addChild(_txtNewCost);
         } else {
             _txtOldCost = new CTextField(200,60,String(g.managerSalePack.dataSale.oldCost) + ' голосов');
-            _txtOldCost.setFormat(CTextField.BOLD18, 24, Color.RED);
+            _txtOldCost.setFormat(CTextField.BOLD24, 24, Color.RED);
             _txtOldCost.y = 80;
             _txtOldCost.x = -110;
             _source.addChild(_txtOldCost);
 
             _txtNewCost = new CTextField(200,60,'за ' + String(g.managerSalePack.dataSale.newCost) + ' голосов');
-            _txtNewCost.setFormat(CTextField.BOLD18, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _txtNewCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
             _txtNewCost.y = 110;
             _txtNewCost.x = -110;
             _source.addChild(_txtNewCost);
         }
 
         var quad:Quad = new Quad(_txtOldCost.textBounds.width, 3, Color.RED);
-        quad.x = -80;
-        quad.y = 113;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)  {
+            quad.x = -50;
+            quad.y = 110;
+        } else {
+            quad.x = -80;
+            quad.y = 113;
+        }
         quad.alpha = .6;
         _source.addChild(quad);
         _txtProfit = new CTextField(150,60,String(g.managerSalePack.dataSale.profit) + '%');
-        _txtProfit.setFormat(CTextField.BOLD18, 24, Color.WHITE, Color.RED);
+        _txtProfit.setFormat(CTextField.BOLD24, 24, Color.WHITE, Color.RED);
         _txtProfit.x = 145;
         _txtProfit.y = 100;
         _source.addChild(_txtProfit);
@@ -167,7 +172,7 @@ public class WOSalePack extends WindowMain{
         } else {
             _sprItem.x = -240;
         }
-        _sprItem.y = -96;
+        _sprItem.y = -105;
         _boolOpen = params[0];
         super.showIt();
     }
@@ -233,6 +238,7 @@ public class WOSalePack extends WindowMain{
             new DropItem(p.x + 30, p.y + 30, obj);
         }
         hideIt();
+        g.salePanel.visiblePartyPanel(false);
     }
 
     public function startTimer():void {

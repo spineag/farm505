@@ -249,7 +249,6 @@ public class WOMarket  extends WindowMain {
             choosePerson(_curUser);
         }
         _timer = 15;
-        if (g.userTimer.partyTimer < 0 && !g.managerParty.userParty.showWindow) _timer = 0;
         g.gameDispatcher.addToTimer(refreshMarketTemp);
         onWoShowCallback = onShow;
         super.showIt();

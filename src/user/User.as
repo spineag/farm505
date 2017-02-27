@@ -2,18 +2,13 @@
  * Created by andy on 6/10/15.
  */
 package user {
-
 import build.tree.Tree;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.StructureMarketItem;
-
 import manager.Vars;
 
 public class User extends Someone {
-    public var userId:int; // в базе
     public var ambarMaxCount:int;
     public var skladMaxCount:int;
     public var ambarLevel:int;
@@ -174,9 +169,9 @@ public class User extends Someone {
                 case 5: obj.resourceId = int(ob.resource_id6); break;
             }
             if (obj.resourceId > -1) {
-                obj.cost = g.dataResource.objectResources[obj.resourceId].costDefault;
-                obj.timeSold = '0';
-                obj.timeStart = '0';
+                obj.cost = g.allData.resource[obj.resourceId].costDefault;
+                obj.timeSold = 0;
+                obj.timeStart = 0;
                 neighbor.marketItems.push(obj);
             }
         }
@@ -231,6 +226,7 @@ public class User extends Someone {
             someOne = getSomeoneBySocialId(d[i].social_id);
             someOne.level = int(d[i].level);
             someOne.needHelpCount = int(d[i].need_help);
+            someOne.userId = int(d[i].id);
         }
     }
 

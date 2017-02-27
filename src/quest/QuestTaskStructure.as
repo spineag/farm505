@@ -53,11 +53,11 @@ public class QuestTaskStructure {
         var ob:Object;
         switch (int(_taskData.type_resource)) {
             case BuildType.PLANT:
-                ob = g.dataResource.objectResources[int(_taskData.id_resource)];
+                ob = g.allData.resource[int(_taskData.id_resource)];
                 im = new Image(g.allData.atlas['resourceAtlas'].getTexture(ob.imageShop + '_icon'));
                 break;
             case BuildType.RESOURCE:
-                ob = g.dataResource.objectResources[int(_taskData.id_resource)];
+                ob = g.allData.resource[int(_taskData.id_resource)];
                 im = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
                 break;
             case BuildType.FABRICA:

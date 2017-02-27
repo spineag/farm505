@@ -48,10 +48,10 @@ public class WOChestItem {
         var im:Image;
         switch (_data.type) {
             case ManagerChest.RESOURCE:
-                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[obj.id].imageShop));
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[obj.id].imageShop));
                 break;
             case ManagerChest.PLANT:
-                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[obj.id].imageShop + '_icon'));
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[obj.id].imageShop + '_icon'));
                 break;
             case ManagerChest.SOFT_MONEY:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
@@ -60,7 +60,7 @@ public class WOChestItem {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
                 break;
             case ManagerChest.INSTRUMENT:
-                im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[obj.id].imageShop));
+                im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.resource[obj.id].imageShop));
                 break;
         }
         MCScaler.scale(im, 100, 100);
@@ -199,7 +199,7 @@ public class WOChestItem {
         _source.x = endPoint.x;
         _source.y = endPoint.y;
         _parent.addChild(_source);
-        if (g.dataResource.objectResources[_data.id].placeBuild == BuildType.PLACE_SKLAD) {
+        if (g.allData.resource[_data.id].placeBuild == BuildType.PLACE_SKLAD) {
             g.craftPanel.showIt(BuildType.PLACE_SKLAD);
         } else {
             g.craftPanel.showIt(BuildType.PLACE_AMBAR);

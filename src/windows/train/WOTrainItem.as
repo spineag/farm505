@@ -5,12 +5,26 @@ package windows.train {
 import build.train.TrainCell;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+
+import flash.display.Bitmap;
+
 import manager.ManagerFilters;
 import manager.Vars;
+
+import social.SocialNetworkEvent;
+
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.text.TextField;
+import starling.textures.Texture;
 import starling.utils.Align;
 import starling.utils.Color;
+import starling.utils.Padding;
+
+import user.NeighborBot;
+
+import user.Someone;
+
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
@@ -27,6 +41,12 @@ public class WOTrainItem {
     private var _galo4ka:Image;
     private var _bg:Image;
     private var _isHover:Boolean;
+    private var _needHelp:Image;
+    private var _personBuyer:Someone;
+    private var _personBuyerTemp:Object;
+    private var _ava:Image;
+    private var _avaDefault:Image;
+    private var _imageCont:Sprite;
 
     private var g:Vars = Vars.getInstance();
 
@@ -42,6 +62,8 @@ public class WOTrainItem {
         _txtRed.setFormat(CTextField.BOLD18, 18, ManagerFilters.ORANGE_COLOR, ManagerFilters.BROWN_COLOR);
         _txtRed.alignH = Align.RIGHT;
         _txtRed.y = 60;
+        _imageCont= new Sprite();
+        source.addChild(_imageCont);
         _galo4ka = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         MCScaler.scale(_galo4ka, 30, 30);
         _galo4ka.x = 65;
@@ -80,14 +102,96 @@ public class WOTrainItem {
                 break;
         }
         _info = t;
-        if (!t || !g.dataResource.objectResources[_info.id]) {
+        if (!t || !g.allData.resource[_info.id]) {
             Cc.error('WOTrainItem fillIt:: trainCell==null or g.dataResource.objectResources[_info.id]==null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
+        if (g.user.isTester) {
+            if (int(_info.helpId) != 0) {
+                if (int(_info.helpId) == 1) {
+                    _personBuyer = g.user.neighbor;
+                } else {
+                    for (i = 0; i < g.user.arrFriends.length; i++) {
+                        if (_info.helpId == g.user.arrFriends[i].userSocialId) {
+                            _personBuyer = g.user.arrFriends[i];
+                            break;
+                        }
+                    }
+                    if (!_personBuyer) {
+                        for (i = 0; i < g.user.marketItems.length; i++) {
+                            if (_info.helpId == g.user.marketItems[i].buyerSocialId) {
+                                _personBuyerTemp = g.user.marketItems[i];
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (_personBuyer && _personBuyer is NeighborBot && !_personBuyerTemp) {
+                    photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
+                } else {
+                    if (!_imageCont) {
+                        Cc.error('MarketItem:: showScaleImage:: no _imageCont');
+                        return;
+                    }
+                    if (!_personBuyer) {
+                        _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                        if (_avaDefault) {
+                            MCScaler.scale(_avaDefault, 75, 75);
+                            _avaDefault.x = 7;
+                            _avaDefault.y = 7;
+                            _imageCont.addChild(_avaDefault);
+                        } else {
+                            Cc.error('MarketItem:: no default_avatar_big');
+                        }
+                        if (_personBuyerTemp && _personBuyerTemp.buyerSocialId) {
+                            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                            g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId]);
+                        }
+                        else Cc.error('MarkertItem:: No _personBuyerTemp || _personBuyerTemp.buyerSocialId');
+                    } else {
+                        if (_personBuyer.photo) {
+                            _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+                            if (_avaDefault) {
+                                MCScaler.scale(_avaDefault, 75, 75);
+                                _avaDefault.x = 7;
+                                _avaDefault.y = 7;
+                                _imageCont.addChild(_avaDefault);
+                            } else {
+                                Cc.error('MarketItem:: no default_avatar_big');
+                            }
+                            if (_personBuyer && _personBuyer.photo) g.load.loadImage(_personBuyer.photo, onLoadPhoto);
+                            else Cc.error('MarkertItem:: No _personBuyer || _personBuyer.buyerSocialId');
+                        } else {
+                            var tex:Texture = g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big');
+                            if (tex) {
+                                _avaDefault = new Image(tex);
+                                if (_avaDefault) {
+                                    MCScaler.scale(_avaDefault, 75, 75);
+                                    _avaDefault.x = 7;
+                                    _avaDefault.y = 7;
+                                    _imageCont.addChild(_avaDefault);
+                                } else {
+                                    Cc.error('MarketItem:: no default_avatar_big');
+                                }
+                            } else {
+                                Cc.error('MarketItem:: no default_avatar_big texture');
+                            }
+                            if (_personBuyer && _personBuyer.userSocialId) {
+                                g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                                g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId]);
+                            }
+                            else Cc.error('MarkertItem:: No _personBuyer || _personBuyer.buyerSocialId');
+                        }
+                    }
+                }
+
+                return;
+            }
+        }
         var curCount:int = g.userInventory.getCountResourceById(_info.id);
         if (curCount >= _info.count) {
-           _txtRed.changeTextColor = ManagerFilters.LIGHT_GREEN_COLOR;
+            _txtRed.changeTextColor = ManagerFilters.LIGHT_GREEN_COLOR;
         } else {
             _txtRed.changeTextColor = ManagerFilters.ORANGE_COLOR;
         }
@@ -96,22 +200,22 @@ public class WOTrainItem {
         _txtRed.text = String(curCount);
         _txtWhite.text = '/' + String(_info.count);
         _txtWhite.x = 23;
-        _txtRed.x = 23 -_txtWhite.textBounds.width ;
+        _txtRed.x = 23 - _txtWhite.textBounds.width;
         _im = currentImage();
         if (!_im) {
-            Cc.error('WOTrainItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
+            Cc.error('WOTrainItem fillIt:: no such image: ' + g.allData.resource[_info.id].imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
         MCScaler.scale(_im, 80, 80);
-        _im.x = 45 - _im.width/2;
-        _im.y = 45 - _im.height/2;
+        _im.x = 45 - _im.width / 2;
+        _im.y = 45 - _im.height / 2;
         source.addChild(_im);
         source.addChild(_txtWhite);
         source.addChild(_txtRed);
         source.addChild(_galo4ka);
         source.endClickCallback = onClick;
-        source.hoverCallback = onHover ;
+        source.hoverCallback = onHover;
         source.outCallback = onOut;
         if (isResourceLoaded) {
             _galo4ka.visible = true;
@@ -119,6 +223,58 @@ public class WOTrainItem {
             _txtRed.text = '';
             _txtWhite.visible = false;
             _txtRed.visible = false;
+        }
+        if (g.user.isTester) {
+            if (_info.needHelp && !_needHelp) {
+                _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+                source.addChild(_needHelp);
+            }
+        }
+    }
+
+    private function onGettingUserInfo(e:SocialNetworkEvent):void {
+        if (!_personBuyer) {
+            if (_personBuyerTemp) _personBuyerTemp.photo = g.user.getSomeoneBySocialId(_personBuyerTemp.buyerSocialId).photo;
+            if ( _personBuyerTemp && _personBuyerTemp.photo) {
+                g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                g.load.loadImage(_personBuyerTemp.photo, onLoadPhoto);
+            }
+        }  else {
+            if (!_personBuyer.name) _personBuyer = g.user.getSomeoneBySocialId(_personBuyer.userSocialId);
+            if (_personBuyer.photo) {
+                g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                g.load.loadImage(_personBuyer.photo, onLoadPhoto);
+            }
+        }
+    }
+
+    private function onLoadPhoto(bitmap:Bitmap):void {
+        if (!bitmap) {
+            if (!_personBuyer)  bitmap = g.pBitmaps[_personBuyerTemp.photo].create() as Bitmap;
+            else bitmap = g.pBitmaps[_personBuyer.photo].create() as Bitmap;
+        }
+        if (!bitmap) {
+            Cc.error('FriendItem:: no photo for userId: ' + _personBuyerTemp.buyerSocialId + 'or ' + _personBuyer.userSocialId);
+            return;
+        }
+        photoFromTexture(Texture.fromBitmap(bitmap));
+    }
+
+    private function photoFromTexture(tex:Texture):void {
+        if (source && source.contains(_avaDefault)) source.removeChild(_avaDefault);
+        _avaDefault.dispose();
+        _avaDefault = null;
+        if (tex) {
+            _ava = new Image(tex);
+            MCScaler.scale(_ava, 75, 75);
+//            _ava.pivotX = _ava.width/2;
+//            _ava.pivotY = _ava.height/2;
+            _ava.x = 7;
+            _ava.y = 7;
+            _imageCont.addChild(_ava);
+            _galo4ka.visible = true;
+        } else {
+            Cc.error('MarketItem photoFromTexture:: no texture(')
         }
     }
 
@@ -132,6 +288,21 @@ public class WOTrainItem {
 
     public function get countFree():int {
         return _info.count;
+    }
+
+    public function get needHelp():Boolean {
+        return _info.needHelp;
+    }
+
+    public function get trainDbId():String {
+        return _info.item_db_id;
+    }
+
+    public function onClickHelpMePls():void {
+        if (_info.needHelp && !_needHelp) {
+            _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+            source.addChild(_needHelp);
+        }
     }
 
     private function onClick():void {
@@ -167,6 +338,12 @@ public class WOTrainItem {
         _txtRed.visible = false;
 //        updateTextField();
         _info.fullIt(_im);
+    }
+
+    public function fullItHelp():void {
+        _galo4ka.visible = true;
+        _txtWhite.visible = false;
+        _txtRed.visible = false;
     }
 
     public function clearIt():void {
@@ -205,10 +382,10 @@ public class WOTrainItem {
     }
 
     public function currentImage():Image{
-        if (g.dataResource.objectResources[_info.id].buildType == BuildType.PLANT)
-            return new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_info.id].imageShop + '_icon'));
+        if (g.allData.resource[_info.id].buildType == BuildType.PLANT)
+            return new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_info.id].imageShop + '_icon'));
         else
-            return new Image(g.allData.atlas[g.dataResource.objectResources[_info.id].url].getTexture(g.dataResource.objectResources[_info.id].imageShop));
+            return new Image(g.allData.atlas[g.allData.resource[_info.id].url].getTexture(g.allData.resource[_info.id].imageShop));
     }
 
     public function updateIt():void {

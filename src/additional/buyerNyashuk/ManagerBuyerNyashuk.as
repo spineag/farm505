@@ -125,8 +125,8 @@ public class ManagerBuyerNyashuk {
     }
 
     private function newBot(firstBot:Boolean = false, objectNew:Object = null):void {
-        var id:String;
-        var obData:Object = g.dataResource.objectResources;
+//        var id:String;
+//        var obData:Object = g.dataResource.objectResources;
         var arrMin:Array = [];
         var arr:Array;
         var arrMax:Array = [];
@@ -134,16 +134,21 @@ public class ManagerBuyerNyashuk {
         var ra:int;
         var i:int;
         if (firstBot) {
-            for (id in obData) {
-                if (obData[id].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(obData[id].id) && obData[id].visitorPrice > 0) {
-                    arrMin.push(obData[id]);
+            for (i = 0; i < g.allData.resource.length; i++) {
+                if (g.allData.resource[i] && g.allData.resource[i].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(g.allData.resource[i].id) && g.allData.resource[i].visitorPrice > 0) {
+                    arrMin.push(g.allData.resource[i]);
                 }
             }
+//            for (id in obData) {
+//                if (obData[id].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(obData[id].id) && obData[id].visitorPrice > 0) {
+//                    arrMin.push(obData[id]);
+//                }
+//            }
             arr = g.userInventory.getResourcesForAmbarAndSklad();
             arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
             for (i = 0; i < arr.length; i++) {
                 if (arrMax.length >= 3) break;
-                if (g.dataResource.objectResources[arr[i].id].visitorPrice > 0) arrMax.push(arr[i]);
+                if (g.allData.resource[arr[i].id].visitorPrice > 0) arrMax.push(arr[i]);
             }
             ra =  Math.random() * arrMin.length;
             ob = {};
@@ -164,9 +169,9 @@ public class ManagerBuyerNyashuk {
             ob.buyerId = 2;
             ob.resourceId = arrMax[ra].id;
             ob.resourceCount = int(Math.random()*arrMax[ra].count) + 1;
-            ob.cost = g.dataResource.objectResources[arrMax[ra].id].visitorPrice * ob.resourceCount;
+            ob.cost = g.allData.resource[arrMax[ra].id].visitorPrice * ob.resourceCount;
             ob.xp = 5;
-            ob.type = g.dataResource.objectResources[arrMax[ra].id].buildType;
+            ob.type = g.allData.resource[arrMax[ra].id].buildType;
             ob.timeToNext = 0;
             ob.isBuyed = false;
             ob.isBotBuy = true;
@@ -177,11 +182,16 @@ public class ManagerBuyerNyashuk {
             }
         } else  {
             if (objectNew.buyer_id == 1) {
-                for (id in obData) {
-                    if (obData[id].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(obData[id].id) && obData[id].visitorPrice > 0) {
-                        arrMin.push(obData[id]);
+                for (i = 0; i < g.allData.resource.length; i++) {
+                    if (g.allData.resource[i] && g.allData.resource[i].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(g.allData.resource[i].id) && g.allData.resource[i].visitorPrice > 0) {
+                        arrMin.push(g.allData.resource[i]);
                     }
                 }
+//                for (id in obData) {
+//                    if (obData[id].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(obData[id].id) && obData[id].visitorPrice > 0) {
+//                        arrMin.push(obData[id]);
+//                    }
+//                }
                 ra = Math.random() * arrMin.length;
                 ob = {};
                 ob.buyerId = 1;
@@ -199,16 +209,16 @@ public class ManagerBuyerNyashuk {
                 arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
                 for (i = 0; i < arr.length; i++) {
                     if (arrMax.length >= 3) break;
-                    if (g.dataResource.objectResources[arr[i].id].visitorPrice > 0) arrMax.push(arr[i]);
+                    if (g.allData.resource[arr[i].id].visitorPrice > 0) arrMax.push(arr[i]);
                 }
                 ra = Math.random() * arrMax.length;
                 ob = {};
                 ob.buyerId = 2;
                 ob.resourceId = arrMax[ra].id;
                 ob.resourceCount = int(Math.random()*arrMax[ra].count) + 1;
-                ob.cost = g.dataResource.objectResources[arrMax[ra].id].visitorPrice * ob.resourceCount;
+                ob.cost = g.allData.resource[arrMax[ra].id].visitorPrice * ob.resourceCount;
                 ob.xp = 5;
-                ob.type = g.dataResource.objectResources[arrMax[ra].id].buildType;
+                ob.type = g.allData.resource[arrMax[ra].id].buildType;
                 ob.timeToNext = 0;
                 ob.isBuyed = false;
                 ob.isBotBuy = true;

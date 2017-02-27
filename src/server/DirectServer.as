@@ -14,6 +14,9 @@ import data.BuildType;
 import data.DataMoney;
 import data.StructureMarketItem;
 
+import data.StructureDataRecipe;
+import data.StructureDataResource;
+
 import flash.events.Event;
 import flash.events.IOErrorEvent;
 import flash.geom.Point;
@@ -251,10 +254,10 @@ public class DirectServer {
                 obj.cost = int(d.message[i].cost);
                 obj.cost2 = int(d.message[i].cost2);
                 obj.cost3 = int(d.message[i].cost3);
-                obj.timeCraft = int(d.message[i].time_craft);
+//                obj.timeCraft = int(d.message[i].time_craft);
                 obj.idResource = int(d.message[i].craft_resource_id);
                 obj.idResourceRaw = int(d.message[i].raw_resource_id);
-                obj.costForceCraft = int(d.message[i].cost_force);
+//                obj.costForceCraft = int(d.message[i].cost_force);
                 if (d.message[i].cost_new) {
                     obj.costNew = String(d.message[i].cost_new).split('&');
                     for (k = 0; k < obj.costNew.length; k++) obj.costNew[k] = int(obj.costNew[k]);
@@ -310,16 +313,23 @@ public class DirectServer {
             Cc.ch('server', 'getDataRecipe OK', 5);
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
-                obj = {};
-                obj.id = int(d.message[i].id);
-                obj.idResource = int(d.message[i].resource_id);
-                obj.numberCreate = int(d.message[i].count_create);
-                obj.ingridientsId = String(d.message[i].ingredients_id).split('&');
-                obj.ingridientsCount = String(d.message[i].ingredients_count).split('&');
-                obj.buildingId = int(d.message[i].building_id);
-                obj.priceSkipHard = int(d.message[i].prise_skip);
-                obj.blockByLevel = g.dataResource.objectResources[obj.idResource].blockByLevel;
-                g.dataRecipe.objectRecipe[obj.id] = obj;
+//                obj = {};
+//                obj.id = int(d.message[i].id);
+//                obj.idResource = int(d.message[i].resource_id);
+//                obj.numberCreate = int(d.message[i].count_create);
+//                obj.ingridientsId = String(d.message[i].ingredients_id).split('&');
+//                obj.ingridientsCount = String(d.message[i].ingredients_count).split('&');
+//                obj.buildingId = int(d.message[i].building_id);
+//                obj.priceSkipHard = int(d.message[i].prise_skip);
+//                obj.blockByLevel = g.dataResource.objectResources[obj.idResource].blockByLevel;
+
+
+
+                g.allData.recipe[int(d.message[i].id)] = new StructureDataRecipe(d.message[i]);
+
+
+
+//                g.dataRecipe.objectRecipe[obj.id] = obj;
             }
             if (callback != null) {
                 callback.apply();
@@ -390,6 +400,7 @@ public class DirectServer {
                 if (d.message[i].build_time) obj.buildTime = d.message[i].build_time;
                 if (d.message[i].craft_xp) obj.craftXP = d.message[i].craft_xp;
                 g.dataResource.objectResources[obj.id] = obj;
+                g.allData.resource[int(d.message[i].id)] = new StructureDataResource(d.message[i]);
             }
             if (callback != null) {
                 callback.apply();
@@ -2129,7 +2140,7 @@ public class DirectServer {
                 ob = {};
                 ob.plantId = int(d.message[i].plant_id);
                 ob.dbId = int(d.message[i].user_db_building_id);
-                time = g.dataResource.objectResources[ob.plantId].buildTime;
+                time = g.allData.resource[ob.plantId].buildTime;
                 timeWork = int(d.message[i].time_work);
                 if (timeWork > time) ob.state = Ridge.GROWED;
                 else if (timeWork > 2/3*time) ob.state = Ridge.GROW3;
@@ -2850,7 +2861,7 @@ public class DirectServer {
         }
     }
 
-    public function getTrainPack(userSocialId:String, callback:Function):void {
+    public function getTrainPack(userSocialId:String, callback:Function, t:Train = null):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_TRAIN_PACK);
         var variables:URLVariables = new URLVariables();
@@ -2864,7 +2875,7 @@ public class DirectServer {
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetTrainPack);
         loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
-        function onCompleteGetTrainPack(e:Event):void { completeGetTrainPack(e.target.data, callback); }
+        function onCompleteGetTrainPack(e:Event):void { completeGetTrainPack(t, e.target.data, callback); }
         try {
             loader.load(request);
         } catch (error:Error) {
@@ -2873,7 +2884,7 @@ public class DirectServer {
         }
     }
 
-    private function completeGetTrainPack(response:String, callback:Function = null):void {
+    private function completeGetTrainPack(t:Train = null, response:String = '', callback:Function = null):void {
         iconMouse.endConnect();
         var d:Object;
         try {
@@ -2888,7 +2899,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'getTrainPack OK', 5);
             if (callback != null) {
-                callback.apply(null, [d.message]);
+                callback.apply(null, [d.message,t]);
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
@@ -7280,9 +7291,6 @@ public class DirectServer {
         for (k = 0; k < obj.tookGift.length; k++) obj.tookGift[k] = int(obj.tookGift[k]);
         obj.showWindow = Boolean(int(d.message.show_window));
         g.managerParty.userParty = obj;
-        if (g.userInventory.getCountResourceById(168) == 0 && obj.countResource == 0 && !g.userInventory.checkLastResource(168) && !g.managerParty.userParty.showWindow) {
-            g.userInventory.addResource(168, 3);
-        }
         if (d.id == 0) {
             Cc.ch('server', 'getUserEvent OK', 5);
             if (callback != null) {
@@ -7540,6 +7548,123 @@ public class DirectServer {
             Cc.error('updateUserSalePack: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTutorialStep: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function updateUserTrainPackNeedHelp(train_item_db_id:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_TRAIN_PACK_HELP);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserTrainPackNeedHelp', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.id = train_item_db_id;
+        variables.hash = MD5.hash(String(g.user.userId)+String(train_item_db_id)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTrainPackNeedHelp);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteUpdateUserTrainPackNeedHelp(e:Event):void { completeUpdateUserTrainPackNeedHelp(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserTrainPackNeedHelp error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateUserTrainPackNeedHelp(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserTrainPackNeedHelp: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainPackNeedHelp: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserTrainPackNeedHelp OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserTrainPackNeedHelp: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainPackNeedHelp: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply();
+            }
+        }
+    }
+
+    public function updateUserTrainPackGetHelp(train_item_db_id:int, helpId:String, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_TRAIN_PACK_GET_HELP);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserTrainPackGetHelp', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.id = train_item_db_id;
+        variables.helpId = helpId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(helpId)+String(train_item_db_id)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserTrainPackGetHelp);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteUpdateUserTrainPackGetHelp(e:Event):void { completeUpdateUserTrainPackGetHelp(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserTrainPackGetHelp error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeUpdateUserTrainPackGetHelp(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserTrainPackGetHelp: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainPackGetHelp: wrong JSON:' + String(response));
+            if (callback != null) {
+                callback.apply();
+            }
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserTrainPackGetHelp OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserTrainPackGetHelp: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserTrainPackGetHelp: id: ' + d.id + '  with message: ' + d.message);
+            if (callback != null) {
+                callback.apply();
+            }
         }
     }
 

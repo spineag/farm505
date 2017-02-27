@@ -29,19 +29,20 @@ import windows.WindowMain;
 
 public class WOPartyWindowClose extends WindowMain{
     private var _txtResource:CTextField;
-    private var _txtCoin:CTextField;
+    private var _txtText:CTextField;
+    private var _txtTextNagrada:CTextField;
     private var _txtBtn:CTextField;
     private var _btnClose:CButton;
 
     public function WOPartyWindowClose() {
         _woHeight = 451;
         _woWidth = 695;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/valentine_window_end.png',onLoad);
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/end_event_maslenitsa_window.png',onLoad);
     }
 
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'qui/valentine_window_end.png'].create() as Bitmap;
+        bitmap = g.pBitmaps[st + 'qui/end_event_maslenitsa_window.png'].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
@@ -51,18 +52,25 @@ public class WOPartyWindowClose extends WindowMain{
         image.pivotY = image.height/2;
         _source.addChild(image);
         createExitButton(hideIt);
-        _txtResource = new CTextField(200, 40, String(g.userInventory.getCountResourceById(168)));
-        _txtResource.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR , Color.WHITE);
+        _txtResource = new CTextField(415, 172, 'Вы собрали ' + g.managerParty.userParty.countResource + ' праздничных блинов.');
+        _txtResource.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
         _txtResource.alignH = Align.LEFT;
-        _txtResource.x = -105 - _txtResource.textBounds.width/2;
-        _txtResource.y = 25;
+        _txtResource.x = -187;
+        _txtResource.y = -105;
         _source.addChild(_txtResource);
-        _txtCoin = new CTextField(200, 40, String(g.dataResource.objectResources[168].costMax * g.userInventory.getCountResourceById(168)));
-        _txtCoin.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR , Color.WHITE);
-        _txtCoin.alignH = Align.LEFT;
-        _txtCoin.x = 75 - _txtCoin.textBounds.width/2;
-        _txtCoin.y = 25;
-        _source.addChild(_txtCoin);
+        _txtText = new CTextField(415, 172, 'Событие "Масленица" завершено.');
+        _txtText.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
+        _txtText.alignH = Align.LEFT;
+        _txtText.x = -175;
+        _txtText.y = -140;
+        _source.addChild(_txtText);
+
+        _txtTextNagrada = new CTextField(415, 172, 'Награда была начислена!');
+        _txtTextNagrada.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
+        _txtTextNagrada.alignH = Align.LEFT;
+        _txtTextNagrada.x = -145;
+        _txtTextNagrada.y = -70;
+        _source.addChild(_txtTextNagrada);
 //        var _quad:Quad = new Quad(3.2, 3, 0xfbaaa7);
 //        _quad.x = 75;
 //        _quad.y = 40;
@@ -84,9 +92,6 @@ public class WOPartyWindowClose extends WindowMain{
     override public function hideIt():void {
         var obj:Object;
         obj = {};
-        obj.count = g.dataResource.objectResources[168].costMax * g.userInventory.getCountResourceById(168);
-        obj.id = DataMoney.SOFT_CURRENCY;
-        new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
         for (var i:int = 0; i < g.managerParty.userParty.tookGift.length; i++) {
             if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countResource >= g.managerParty.dataParty.countToGift[i] ) {
                 if (g.managerParty.dataParty.typeGift[i] == BuildType.DECOR_ANIMATION) {
@@ -115,8 +120,7 @@ public class WOPartyWindowClose extends WindowMain{
                 new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
             }
         }
-        g.userInventory.addResource(168,-g.userInventory.getCountResourceById(168));
-        g.managerParty.endParty();
+//        g.managerParty.endParty();
         super.hideIt();
     }
 }

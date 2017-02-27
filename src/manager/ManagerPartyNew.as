@@ -60,68 +60,65 @@ public class ManagerPartyNew {
         }
     }
 
-    public function endParty():void {
-        var st:String = '0&0&0&0&0';
-        g.directServer.updateUserParty(st, 0, 1, null);
-        g.directServer.deletePartyInPapper(null);
-        var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
-        for (var i:int = 0; i < arr.length; i++) {
-            if (arr[i] && arr[i].plant && arr[i].plant.dataPlant.id == 168) {
-                if (arr[i]) g.managerPlantRidge.removeCatFromRidge(arr[i].plant.dataPlant.id, arr[i]);
-                if (arr[i]) g.managerPlantRidge.onCraft(arr[i].plant.idFromServer);
-                if (arr[i]) arr[i].plant.clearIt();
-            }
-        }
+//    public function endParty():void {
+//        var st:String = '0&0&0&0&0';
+//        g.directServer.updateUserParty(st, 0, 1, null);
+//        g.directServer.deletePartyInPapper(null);
+//        var arr:Array = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+//        for (var i:int = 0; i < arr.length; i++) {
+//            if (arr[i] && arr[i].plant && arr[i].plant.dataPlant.id == 168) {
+//                if (arr[i]) g.managerPlantRidge.removeCatFromRidge(arr[i].plant.dataPlant.id, arr[i]);
+//                if (arr[i]) g.managerPlantRidge.onCraft(arr[i].plant.idFromServer);
+//                if (arr[i]) arr[i].plant.clearIt();
+//            }
+//        }
+//
+//        arr = [];
+//        arr = g.managerOrder.arrOrders;
+//        if (arr.length > 0) {
+//            for (i = 0; i < arr.length; i++) {
+//                for (var k:int = 0; k < arr[i].resourceIds.length; k++) {
+//                    if (arr[i] && arr[i].resourceIds[k] == 168) {
+//                        if (arr[i]) g.managerOrder.deleteOrderParty(arr[i].dbId, arr[i].placeNumber);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        arr = [];
+//        arr = g.managerBuyerNyashuk.arrNyashuk;
+//        if (arr.length > 0) {
+//            for (i = 0; i < arr.length; i++) {
+//                if (arr[i] &&  arr[i].dataNyashuk.resourceId == 168) {
+//                    g.directServer.updateUserPapperBuy(arr[i].dataNyashuk.buyerId, 0, 0, 0, 0, 0, 0);
+//                    g.managerBuyerNyashuk.onReleaseOrder(arr[i], false);
+//                    if (arr[i] && arr[i].dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);
+//                    else  g.userTimer.buyerNyashukRed(1200);
+//                    if (arr[i] )arr[i].dataNyashuk.timeToNext = int(new Date().getTime() / 1000);
+//                }
+//            }
+//        }
+//
+//        arr = [];
+//        arr = g.managerBuyerNyashuk.arrNyashuk;
+//        if (arr.length > 0) {
+//            for (i = 0; i < arr.length; i++) {
+//                if (arr[i] &&  arr[i].dataNyashuk.resourceId == 168) {
+//                    g.directServer.updateUserPapperBuy(arr[i].dataNyashuk.buyerId, 0, 0, 0, 0, 0, 0);
+//                    g.managerBuyerNyashuk.onReleaseOrder(arr[i], false);
+//                    if (arr[i] && arr[i].dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);
+//                    else  g.userTimer.buyerNyashukRed(1200);
+//                    if (arr[i] )arr[i].dataNyashuk.timeToNext = int(new Date().getTime() / 1000);
+//                }
+//            }
+//        }
+//
+//        g.userTimer.timerAtPapper = 0;
+//    }
 
-        arr = [];
-        arr = g.managerOrder.arrOrders;
-        if (arr.length > 0) {
-            for (i = 0; i < arr.length; i++) {
-                for (var k:int = 0; k < arr[i].resourceIds.length; k++) {
-                    if (arr[i] && arr[i].resourceIds[k] == 168) {
-                        if (arr[i]) g.managerOrder.deleteOrderParty(arr[i].dbId, arr[i].placeNumber);
-                        break;
-                    }
-                }
-            }
-        }
-        arr = [];
-        arr = g.managerBuyerNyashuk.arrNyashuk;
-        if (arr.length > 0) {
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i] &&  arr[i].dataNyashuk.resourceId == 168) {
-                    g.directServer.updateUserPapperBuy(arr[i].dataNyashuk.buyerId, 0, 0, 0, 0, 0, 0);
-                    g.managerBuyerNyashuk.onReleaseOrder(arr[i], false);
-                    if (arr[i] && arr[i].dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);
-                    else  g.userTimer.buyerNyashukRed(1200);
-                    if (arr[i] )arr[i].dataNyashuk.timeToNext = int(new Date().getTime() / 1000);
-                }
-            }
-        }
-
-        arr = [];
-        arr = g.managerBuyerNyashuk.arrNyashuk;
-        if (arr.length > 0) {
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i] &&  arr[i].dataNyashuk.resourceId == 168) {
-                    g.directServer.updateUserPapperBuy(arr[i].dataNyashuk.buyerId, 0, 0, 0, 0, 0, 0);
-                    g.managerBuyerNyashuk.onReleaseOrder(arr[i], false);
-                    if (arr[i] && arr[i].dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);
-                    else  g.userTimer.buyerNyashukRed(1200);
-                    if (arr[i] )arr[i].dataNyashuk.timeToNext = int(new Date().getTime() / 1000);
-                }
-            }
-        }
-
-        g.userTimer.timerAtPapper = 0;
-    }
     public function endPartyWindow():void {
-        if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
-        if (g.userInventory.getCountResourceById(168) > 0) g.windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE, null);
-        else {
-            dropPartyResourceWhenEnd();
-            endParty();
-        }
+//        if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
+//        g.windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE, null);
     }
 
     private function onLoad(smth:*=null):void {

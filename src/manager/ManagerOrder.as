@@ -197,7 +197,7 @@ public class ManagerOrder {
                     }
                 }
             } else countFastBuyer = 1;
-
+            countFastBuyer = 1;
             if (countFastBuyer == 0 && Math.random() < .5 && g.userTimer.partyTimer > 0) {
                var countTemp:int = g.userInventory.getCountResourceById(168);
                     if (Math.random() < .5) {
@@ -254,17 +254,28 @@ public class ManagerOrder {
 //                }
 //                order.fasterBuy = true;
             } else {
-                for (id in g.dataResource.objectResources) {
-                    if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {
-                        if (g.dataResource.objectResources[id].orderType == 1) {
-                            arrOrderType1.push(int(id));
-                        } else if (g.dataResource.objectResources[id].orderType == 2) {
-                            arrOrderType2.push(int(id));
-                        } else if (g.dataResource.objectResources[id].orderType == 3) {
-                            arrOrderType3.push(int(id));
+                for (i = 0; i < g.allData.resource.length; i++) {
+                    if (g.allData.resource[i] && g.allData.resource[i].blockByLevel <= g.user.level) {
+                        if (g.allData.resource[i].orderType == 1) {
+                            arrOrderType1.push(i);
+                        } else if (g.allData.resource[i].orderType == 2) {
+                            arrOrderType2.push(i);
+                        } else if (g.allData.resource[i].orderType == 3) {
+                            arrOrderType3.push(i);
                         }
                     }
                 }
+//                for (id in g.dataResource.objectResources) {
+//                    if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {
+//                        if (g.dataResource.objectResources[id].orderType == 1) {
+//                            arrOrderType1.push(int(id));
+//                        } else if (g.dataResource.objectResources[id].orderType == 2) {
+//                            arrOrderType2.push(int(id));
+//                        } else if (g.dataResource.objectResources[id].orderType == 3) {
+//                            arrOrderType3.push(int(id));
+//                        }
+//                    }
+//                }
 
                 order = new ManagerOrderItem();
                 order.resourceIds = [];
@@ -975,8 +986,8 @@ public class ManagerOrder {
             order.xp = 0;
             for (k = 0; k < order.resourceIds.length; k++) {
                 if (order.resourceIds[k]) {
-                    order.coins += g.dataResource.objectResources[order.resourceIds[k]].orderPrice * order.resourceCounts[k];
-                    order.xp += g.dataResource.objectResources[order.resourceIds[k]].orderXP * order.resourceCounts[k];
+                    order.coins += g.allData.resource[order.resourceIds[k]].orderPrice * order.resourceCounts[k];
+                    order.xp += g.allData.resource[order.resourceIds[k]].orderXP * order.resourceCounts[k];
                 }
             }
             order.startTime = int(new Date().getTime() / 1000);
@@ -999,8 +1010,8 @@ public class ManagerOrder {
         order.addCoupone = false;
 //         order.catName = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)].name;
         order.catOb = g.dataOrderCats.getRandomCat();
-        order.coins = g.dataResource.objectResources[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
-        order.xp = g.dataResource.objectResources[order.resourceIds[0]].orderXP * order.resourceCounts[0];
+        order.coins = g.allData.resource[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
+        order.xp = g.allData.resource[order.resourceIds[0]].orderXP * order.resourceCounts[0];
         order.startTime = int(new Date().getTime()/1000);
         order.placeNumber = 1;
         _arrOrders.push(order);
@@ -1015,8 +1026,8 @@ public class ManagerOrder {
         order.resourceCounts = [1];
         order.addCoupone = false;
         order.catOb = g.dataOrderCats.getRandomCat();
-        order.coins = g.dataResource.objectResources[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
-        order.xp = g.dataResource.objectResources[order.resourceIds[0]].orderXP * order.resourceCounts[0];
+        order.coins = g.allData.resource[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
+        order.xp = g.allData.resource[order.resourceIds[0]].orderXP * order.resourceCounts[0];
         order.startTime = int(new Date().getTime()/1000);
         order.placeNumber = 1;
         _arrOrders.push(order);
@@ -1027,8 +1038,8 @@ public class ManagerOrder {
         order.resourceCounts = [2];
         order.addCoupone = false;
         order.catOb = g.dataOrderCats.getRandomCat();
-        order.coins = g.dataResource.objectResources[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
-        order.xp = g.dataResource.objectResources[order.resourceIds[0]].orderXP * order.resourceCounts[0];
+        order.coins = g.allData.resource[order.resourceIds[0]].orderPrice * order.resourceCounts[0];
+        order.xp = g.allData.resource[order.resourceIds[0]].orderXP * order.resourceCounts[0];
         order.startTime = int(new Date().getTime()/1000);
         order.placeNumber = 2;
         _arrOrders.push(order);

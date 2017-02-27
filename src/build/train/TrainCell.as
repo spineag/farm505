@@ -28,9 +28,11 @@ public class TrainCell {
     private var _dataResource:Object;
     private var _count:int;
     private var _isFull:Boolean;
-    private var item_db_id:String;
+    public var item_db_id:String;
     public var countXP:int;
     public var countMoney:int;
+    public var needHelp:Boolean;
+    public var helpId:String;
 
     private var g:Vars = Vars.getInstance();
 
@@ -40,7 +42,7 @@ public class TrainCell {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for TrainCell');
             return;
         }
-        _dataResource = g.dataResource.objectResources[int(d.resource_id)];
+        _dataResource = g.allData.resource[int(d.resource_id)];
         if (!_dataResource) {
             Cc.error('TrainCell:: no _dataResource for id:' + d.resource_id);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'trainCell no _dataResource');
@@ -51,6 +53,8 @@ public class TrainCell {
         item_db_id = d.id;
         countXP = int(d.count_xp);
         countMoney = int(d.count_money);
+        needHelp = Boolean(int(d.want_help));
+        helpId = String(d.help_id)
     }
 
     public function canBeFull():Boolean {
@@ -97,7 +101,7 @@ public class TrainCell {
         if (_dataResource.buildType == BuildType.PLANT) {
             im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));
         } else {
-            im = new Image(g.allData.atlas[g.dataResource.objectResources[_dataResource.id].url].getTexture(g.dataResource.objectResources[_dataResource.id].imageShop));
+            im = new Image(g.allData.atlas[g.allData.resource[_dataResource.id].url].getTexture(g.allData.resource[_dataResource.id].imageShop));
         }
         return im;
     }

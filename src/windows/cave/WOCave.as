@@ -69,7 +69,7 @@ public class WOCave extends WindowMain {
             var arrIds:Array = params[0];
             var delay:Number = .1;
             for (var i:int = 0; i < arrIds.length; i++) {
-                _arrItems[i].fillData(g.dataResource.objectResources[arrIds[i]], f1);
+                _arrItems[i].fillData(g.allData.resource[arrIds[i]], f1);
                 _arrItems[i].showAnimateIt(delay);
                 delay += .1;
             }
