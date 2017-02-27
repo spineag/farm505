@@ -48,7 +48,7 @@ public class WONoResourcesItem {
     }
 
     public function fillWithResource(id:int, count:int):void {
-        var ob:Object = g.dataResource.objectResources[id];
+        var ob:Object = g.allData.resource[id];
         _dataId = id;
         if (!ob) {
             Cc.error('WONoResourcesItem:: g.dataResource.objectResources[id] = null  for id = ' + id);

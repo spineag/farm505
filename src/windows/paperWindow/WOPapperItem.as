@@ -158,7 +158,7 @@ public class WOPapperItem {
         source.visible = true;
         _txtCost.text = String(_data.cost);
         _txtCountResource.text = String(_data.resourceCount) + ' шт.';
-        _dataResource = g.dataResource.objectResources[_data.resourceId];
+        _dataResource = g.allData.resource[_data.resourceId];
         _txtResourceName.text = _dataResource.name;
         if (_dataResource.buildType == BuildType.PLANT)
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));
@@ -268,7 +268,7 @@ public class WOPapperItem {
         _txtCountResource.text = String(_data.resourceCount) + ' шт.';
         _txtCountResource.x = 30;
         _txtCountResource.y = 42;
-        _dataResource = g.dataResource.objectResources[_data.resourceId];
+        _dataResource = g.allData.resource[_data.resourceId];
         _txtResourceName.text = _dataResource.name;
 
         _txtResourceName.alignH = Align.LEFT;
@@ -385,7 +385,7 @@ public class WOPapperItem {
         var ob:Object = {};
         if (g.userInventory.getCountResourceById(_data.resourceId) < _data.resourceCount) {
             g.windowsManager.cashWindow = _wo;
-            ob.data = g.dataResource.objectResources[_data.resourceId];
+            ob.data = g.allData.resource[_data.resourceId];
             ob.count = _data.resourceCount - g.userInventory.getCountResourceById(_data.resourceId);
             _wo.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickBuyBot, 'papper', ob);

@@ -24,6 +24,7 @@ public class PlantOnRidge {
     private var _timerAnimationGrowed:int;
     public var isHover:Boolean;
     private var g:Vars = Vars.getInstance();
+    private var _dataTime:Object;
 
     public function PlantOnRidge(ridge:Ridge, data:Object) {
         if (!data) {
@@ -32,6 +33,7 @@ public class PlantOnRidge {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             return;
         }
+        _dataTime ={};
         _ridge = ridge;
         _data = data;
         isHover = false;
@@ -41,8 +43,8 @@ public class PlantOnRidge {
         _source.addChild(armature.display as StarlingArmatureDisplay);
         WorldClock.clock.add(armature);
         _source.y = 35 * g.scaleFactor;
-        _data.timeToGrow2 = _data.timeToGrow3 = int(_data.buildTime/3);
-        _data.timeToStateGwoned = _data.buildTime -  _data.timeToGrow2 -  _data.timeToGrow3;
+        _dataTime.timeToGrow2 = _dataTime.timeToGrow3 = int(_data.buildTime/3);
+        _dataTime.timeToStateGwoned = _data.buildTime -  _dataTime.timeToGrow2 -  _dataTime.timeToGrow3;
     }
 
     public function get dataPlant():Object {
@@ -65,17 +67,17 @@ public class PlantOnRidge {
             case Ridge.GROW1:
                 armature.animation.gotoAndStopByFrame("state1");
                 _ridge.checkBuildRect(false);
-                if (needSetTimer) _timeToEndState = _data.timeToGrow2;
+                if (needSetTimer) _timeToEndState = _dataTime.timeToGrow2;
                 break;
             case Ridge.GROW2:
                 armature.animation.gotoAndStopByFrame("state2");
                 _ridge.checkBuildRect(false);
-                if (needSetTimer) _timeToEndState = _data.timeToGrow3;
+                if (needSetTimer) _timeToEndState = _dataTime.timeToGrow3;
                 break;
             case Ridge.GROW3:
                 armature.animation.gotoAndStopByFrame("state3");
                 _ridge.checkBuildRect(false);
-                if (needSetTimer) _timeToEndState = _data.timeToStateGwoned;
+                if (needSetTimer) _timeToEndState = _dataTime.timeToStateGwoned;
                 break;
             case Ridge.GROWED:
                 armature.animation.gotoAndStopByFrame("state4");
@@ -122,10 +124,10 @@ public class PlantOnRidge {
         var n:int;
       switch  (_ridge.stateRidge) {
             case Ridge.GROW1:
-                n = _timeToEndState + _data.timeToGrow3 + _data.timeToStateGwoned;
+                n = _timeToEndState + _dataTime.timeToGrow3 + _dataTime.timeToStateGwoned;
                 break;
             case Ridge.GROW2:
-                n = _timeToEndState + _data.timeToStateGwoned;
+                n = _timeToEndState + _dataTime.timeToStateGwoned;
                 break;
             case Ridge.GROW3:
                 n = _timeToEndState;
@@ -135,17 +137,17 @@ public class PlantOnRidge {
     }
 
     public function checkTimeGrowing(timeWork:int):void {
-        if (_data.buildTime - timeWork < _data.timeToStateGwoned) {
+        if (_data.buildTime - timeWork < _dataTime.timeToStateGwoned) {
             _timeToEndState = _data.buildTime - timeWork;
             _ridge.stateRidge = Ridge.GROW3;
-        } else if (timeWork < _data.timeToGrow2) {
-            _timeToEndState = _data.timeToGrow2 - timeWork;
+        } else if (timeWork < _dataTime.timeToGrow2) {
+            _timeToEndState = _dataTime.timeToGrow2 - timeWork;
             _ridge.stateRidge = Ridge.GROW1;
         } else if (timeWork > _data.buildTime) {
             _timeToEndState = 0;
             _ridge.stateRidge = Ridge.GROWED;
         } else {
-            _timeToEndState = _data.timeToGrow3 - (timeWork - _data.timeToGrow2);
+            _timeToEndState = _dataTime.timeToGrow3 - (timeWork - _dataTime.timeToGrow2);
             _ridge.stateRidge = Ridge.GROW2;
         }
     }

@@ -88,7 +88,7 @@ public class WONoResources extends WindowMain {
         switch (params[0]) {
             case 'animal':
                 _countOfResources = 1;
-                _countCost = g.dataResource.objectResources[_paramData.idResourceRaw].priceHard * _countOfResources;
+                _countCost = g.allData.resource[_paramData.idResourceRaw].priceHard * _countOfResources;
                 _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.idResourceRaw, _countOfResources);
@@ -105,7 +105,7 @@ public class WONoResources extends WindowMain {
                 break;
             case 'trainHelp':
                 _countOfResources = _paramData.count;
-                _countCost = g.dataResource.objectResources[_paramData.id].priceHard * _countOfResources;
+                _countCost = g.allData.resource[_paramData.id].priceHard * _countOfResources;
                 _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.id, _countOfResources);
@@ -153,7 +153,7 @@ public class WONoResources extends WindowMain {
                     if (countR > 0) {
                         item = new WONoResourcesItem();
                         item.fillWithResource(_paramData.resourceIds[i], countR);
-                        _countCost += g.dataResource.objectResources[_paramData.resourceIds[i]].priceHard * countR;
+                        _countCost += g.allData.resource[_paramData.resourceIds[i]].priceHard * countR;
                         _source.addChild(item.source);
                         _arrItems.push(item);
                     }
@@ -250,7 +250,7 @@ public class WONoResources extends WindowMain {
                 if (countR < _data.ingridientsCount[i]) {
                     im = new WONoResourcesItem();
                     im.fillWithResource(_data.ingridientsId[i], _data.ingridientsCount[i] - countR);
-                    _countCost += g.dataResource.objectResources[_data.ingridientsId[i]].priceHard * (_data.ingridientsCount[i] - countR);
+                    _countCost += g.allData.resource[_data.ingridientsId[i]].priceHard * (_data.ingridientsCount[i] - countR);
                     im.source.y = 0;
                     _source.addChild(im.source);
                     _arrItems.push(im);

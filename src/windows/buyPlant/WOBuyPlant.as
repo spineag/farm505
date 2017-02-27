@@ -75,10 +75,16 @@ public class WOBuyPlant extends WindowMain {
 
     private function updatePlantArray():void {
         _arrAllPlants.length = 0;
-        for (var id:String in g.dataResource.objectResources) {
-            if (g.dataResource.objectResources[id].buildType == BuildType.PLANT && g.dataResource.objectResources[id].blockByLevel <= g.user.level + 1) {
-                if (g.dataResource.objectResources[id].id != 168) _arrAllPlants.push(g.dataResource.objectResources[id]);
-                else if (g.userTimer.partyTimer > 0) _arrAllPlants.push(g.dataResource.objectResources[id]);
+//        for (var id:String in g.dataResource.objectResources) {
+//            if (g.dataResource.objectResources[id].buildType == BuildType.PLANT && g.dataResource.objectResources[id].blockByLevel <= g.user.level + 1) {
+//                if (g.dataResource.objectResources[id].id != 168) _arrAllPlants.push(g.dataResource.objectResources[id]);
+//                else if (g.userTimer.partyTimer > 0) _arrAllPlants.push(g.dataResource.objectResources[id]);
+//            }
+//        }
+        for (var i:int = 0; i < g.allData.resource.length; i++) {
+            if (g.allData.resource[i] && g.allData.resource[i].buildType == BuildType.PLANT && g.allData.resource[i].blockByLevel <= g.user.level + 1) {
+                if (g.allData.resource[i].id != 168) _arrAllPlants.push(g.allData.resource[i]);
+                else if (g.userTimer.partyTimer > 0) _arrAllPlants.push(g.allData.resource[i]);
             }
         }
         _arrAllPlants.sortOn('blockByLevel', Array.NUMERIC);

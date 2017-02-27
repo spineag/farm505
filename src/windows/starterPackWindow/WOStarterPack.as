@@ -132,7 +132,7 @@ public class WOStarterPack extends WindowMain{
         _arrCTex.push(txt);
 
         if (_data.object_type == BuildType.RESOURCE || _data.object_type == BuildType.INSTRUMENT || _data.object_type == BuildType.PLANT) {
-            im = new Image(g.allData.atlas[g.dataResource.objectResources[_data.object_id].url].getTexture(g.dataResource.objectResources[_data.object_id].imageShop));
+            im = new Image(g.allData.atlas[g.allData.resource[_data.object_id].url].getTexture(g.allData.resource[_data.object_id].imageShop));
             txt = new CTextField(120, 40, String(_data.object_count));
             txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
             txt.alignH = Align.LEFT;

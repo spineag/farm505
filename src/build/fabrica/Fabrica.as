@@ -441,7 +441,7 @@ public class Fabrica extends WorldObject {
         var obj:Object;
         var texture:Texture;
         for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
-            obj = g.dataResource.objectResources[int(dataRecipe.ingridientsId[i])];
+            obj = g.allData.resource[int(dataRecipe.ingridientsId[i])];
             if (obj.buildType == BuildType.PLANT)
                 texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
             else

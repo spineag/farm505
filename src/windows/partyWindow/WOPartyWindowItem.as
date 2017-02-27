@@ -72,7 +72,7 @@ public class WOPartyWindowItem {
             source.addChild(im);
             _txtCountResource.text = String(countResource);
         }  else if (type == BuildType.RESOURCE || type == BuildType.INSTRUMENT || type == BuildType.PLANT) {
-            im = new Image(g.allData.atlas[g.dataResource.objectResources[id].url].getTexture(g.dataResource.objectResources[id].imageShop));
+            im = new Image(g.allData.atlas[g.allData.resource[id].url].getTexture(g.allData.resource[id].imageShop));
             source.addChild(im);
             _txtCountResource.text = String(countResource);
         } else if (type == BuildType.DECOR_ANIMATION) {

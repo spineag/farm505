@@ -149,13 +149,13 @@ internal class Item extends Sprite {
                 case DataMoney.YELLOW_COUPONE: im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('yellow_coupone')); break;
             }
         } else if (_aw.typeResource == 'resource') {
-            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_aw.idResource].imageShop));
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_aw.idResource].imageShop));
         } else if (_aw.typeResource == 'plant') {
-            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_aw.idResource].imageShop + '_icon'));
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_aw.idResource].imageShop + '_icon'));
         } else if (_aw.typeResource == 'decor') {
-            im = new Image(g.allData.atlas['decorAtlas'].getTexture(g.dataBuilding.objectBuilding[_aw.idResource].image));
+            im = new Image(g.allData.atlas['decorAtlas'].getTexture(g.allData.resource[_aw.idResource].image));
         } else if (_aw.typeResource == 'instrument') {
-            im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[_aw.idResource].imageShop));
+            im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.resource[_aw.idResource].imageShop));
         } else if (_aw.typeResource == 'xp') {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
         }
@@ -259,7 +259,7 @@ internal class Item extends Sprite {
         _source.x = endPoint.x;
         _source.y = endPoint.y;
         g.cont.animationsResourceCont.addChild(_source);
-        if (g.dataResource.objectResources[_aw.idResource].placeBuild == BuildType.PLACE_SKLAD) {
+        if (g.allData.resource[_aw.idResource].placeBuild == BuildType.PLACE_SKLAD) {
             g.craftPanel.showIt(BuildType.PLACE_SKLAD);
         } else {
             g.craftPanel.showIt(BuildType.PLACE_AMBAR);

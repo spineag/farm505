@@ -27,8 +27,8 @@ public class StructureDataRecipe {
         _ingridientsCount = Utils.intArray(String(ob.ingredients_count).split('&'));
         _buildingId = int(ob.building_id);
         _priceSkipHard = int(ob.prise_skip);
-        _blockByLevel = g.dataResource.objectResources[_idResource].blockByLevel;
-        _buildType = g.dataResource.objectResources[_idResource].buildType;
+        _blockByLevel = g.allData.resource[_idResource].blockByLevel;
+        _buildType = g.allData.resource[_idResource].buildType;
 //        g.allData.recipe[_id] = obj;
     }
 

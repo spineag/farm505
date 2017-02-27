@@ -99,7 +99,7 @@ public class WOLastResource extends WindowMain {
         switch (params[1]) {
             case 'order':
                 for (i=0; i < _dataResource.resourceIds.length; i++) {
-                    if (_dataResource.resourceCounts[i] == g.userInventory.getCountResourceById(_dataResource.resourceIds[i]) && g.dataResource.objectResources[_dataResource.resourceIds[i]].buildType == BuildType.PLANT) {
+                    if (_dataResource.resourceCounts[i] == g.userInventory.getCountResourceById(_dataResource.resourceIds[i]) && g.allData.resource[_dataResource.resourceIds[i]].buildType == BuildType.PLANT) {
                         item = new WOLastResourceItem();
                         item.fillWithResource(_dataResource.resourceIds[i]);
                         _source.addChild(item.source);
@@ -181,7 +181,7 @@ public class WOLastResource extends WindowMain {
             case 'fabrica':
                 _paramsFabrica = params[2];
                 for (i=0; i < _dataResource.ingridientsId.length; i++) {
-                    if (g.dataResource.objectResources[_dataResource.ingridientsId[i]].buildType == BuildType.PLANT && _dataResource.ingridientsCount[i] == g.userInventory.getCountResourceById(_dataResource.ingridientsId[i])) {
+                    if (g.allData.resource[_dataResource.ingridientsId[i]].buildType == BuildType.PLANT && _dataResource.ingridientsCount[i] == g.userInventory.getCountResourceById(_dataResource.ingridientsId[i])) {
                         item = new WOLastResourceItem();
                         item.fillWithResource(_dataResource.ingridientsId[i]);
                         _source.addChild(item.source);

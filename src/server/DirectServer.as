@@ -13,6 +13,7 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import data.StructureDataRecipe;
+import data.StructureDataResource;
 
 import flash.events.Event;
 import flash.events.IOErrorEvent;
@@ -397,6 +398,7 @@ public class DirectServer {
                 if (d.message[i].build_time) obj.buildTime = d.message[i].build_time;
                 if (d.message[i].craft_xp) obj.craftXP = d.message[i].craft_xp;
                 g.dataResource.objectResources[obj.id] = obj;
+                g.allData.resource[int(d.message[i].id)] = new StructureDataResource(d.message[i]);
             }
             if (callback != null) {
                 callback.apply();
@@ -2136,7 +2138,7 @@ public class DirectServer {
                 ob = {};
                 ob.plantId = int(d.message[i].plant_id);
                 ob.dbId = int(d.message[i].user_db_building_id);
-                time = g.dataResource.objectResources[ob.plantId].buildTime;
+                time = g.allData.resource[ob.plantId].buildTime;
                 timeWork = int(d.message[i].time_work);
                 if (timeWork > time) ob.state = Ridge.GROWED;
                 else if (timeWork > 2/3*time) ob.state = Ridge.GROW3;

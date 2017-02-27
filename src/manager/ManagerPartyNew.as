@@ -117,8 +117,8 @@ public class ManagerPartyNew {
 //    }
 
     public function endPartyWindow():void {
-        if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
-        g.windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE, null);
+//        if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
+//        g.windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE, null);
     }
 
     private function onLoad(smth:*=null):void {

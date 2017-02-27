@@ -92,7 +92,7 @@ public class Ridge extends WorldObject{
 
     public function plantThePlant():void {
         g.soundManager.playSound(SoundConst.CRAFT_RAW_PLANT);
-        fillPlant(g.dataResource.objectResources[g.toolsModifier.plantId]);
+        fillPlant(g.allData.resource[g.toolsModifier.plantId]);
         g.managerPlantRidge.checkFreeRidges();
     }
 

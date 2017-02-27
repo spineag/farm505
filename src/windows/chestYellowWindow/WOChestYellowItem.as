@@ -38,10 +38,10 @@ public class WOChestYellowItem {
         var im:Image;
         switch (_data.type) {
             case ManagerChest.RESOURCE:
-                    if (g.dataResource.objectResources[_data.resource_id].buildType == BuildType.PLANT) {
-                        im = new Image(g.allData.atlas[g.dataResource.objectResources[_data.resource_id].url].getTexture(g.dataResource.objectResources[_data.resource_id].imageShop + '_icon'));
+                    if (g.allData.resource[_data.resource_id].buildType == BuildType.PLANT) {
+                        im = new Image(g.allData.atlas[g.allData.resource[_data.resource_id].url].getTexture(g.allData.resource[_data.resource_id].imageShop + '_icon'));
                     } else {
-                        im = new Image(g.allData.atlas[g.dataResource.objectResources[_data.resource_id].url].getTexture(g.dataResource.objectResources[_data.resource_id].imageShop));
+                        im = new Image(g.allData.atlas[g.allData.resource[_data.resource_id].url].getTexture(g.allData.resource[_data.resource_id].imageShop));
                     }
                 _txt = new CTextField(80, 60, '+' + String(_data.resource_count));
                 _txt.setFormat(CTextField.MEDIUM30, 26, Color.WHITE, ManagerFilters.BROWN_COLOR);
@@ -199,7 +199,7 @@ public class WOChestYellowItem {
         source.x = endPoint.x;
         source.y = endPoint.y;
         _parent.addChild(source);
-        if (g.dataResource.objectResources[_data.resource_id].placeBuild == BuildType.PLACE_SKLAD) {
+        if (g.allData.resource[_data.resource_id].placeBuild == BuildType.PLACE_SKLAD) {
             g.craftPanel.showIt(BuildType.PLACE_SKLAD);
         } else {
             g.craftPanel.showIt(BuildType.PLACE_AMBAR);

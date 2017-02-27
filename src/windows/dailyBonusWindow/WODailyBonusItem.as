@@ -28,10 +28,10 @@ public class WODailyBonusItem {
 
         switch (obj.type) {
             case ManagerDailyBonus.RESOURCE:
-                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[obj.id].imageShop));
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[obj.id].imageShop));
                 break;
             case ManagerDailyBonus.PLANT:
-                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[obj.id].imageShop + '_icon'));
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[obj.id].imageShop + '_icon'));
                 break;
             case ManagerDailyBonus.SOFT_MONEY:
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
@@ -43,7 +43,7 @@ public class WODailyBonusItem {
                 im = new Image(g.allData.atlas['decorAtlas'].getTexture(g.dataBuilding.objectBuilding[obj.id].image));
                 break;
             case ManagerDailyBonus.INSTRUMENT:
-                im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[obj.id].imageShop));
+                im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.resource[obj.id].imageShop));
                 break;
         }
         MCScaler.scale(im, 60, 60);

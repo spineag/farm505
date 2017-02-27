@@ -102,7 +102,7 @@ public class WOTrainItem {
                 break;
         }
         _info = t;
-        if (!t || !g.dataResource.objectResources[_info.id]) {
+        if (!t || !g.allData.resource[_info.id]) {
             Cc.error('WOTrainItem fillIt:: trainCell==null or g.dataResource.objectResources[_info.id]==null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
@@ -203,7 +203,7 @@ public class WOTrainItem {
         _txtRed.x = 23 - _txtWhite.textBounds.width;
         _im = currentImage();
         if (!_im) {
-            Cc.error('WOTrainItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
+            Cc.error('WOTrainItem fillIt:: no such image: ' + g.allData.resource[_info.id].imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
@@ -382,10 +382,10 @@ public class WOTrainItem {
     }
 
     public function currentImage():Image{
-        if (g.dataResource.objectResources[_info.id].buildType == BuildType.PLANT)
-            return new Image(g.allData.atlas['resourceAtlas'].getTexture(g.dataResource.objectResources[_info.id].imageShop + '_icon'));
+        if (g.allData.resource[_info.id].buildType == BuildType.PLANT)
+            return new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_info.id].imageShop + '_icon'));
         else
-            return new Image(g.allData.atlas[g.dataResource.objectResources[_info.id].url].getTexture(g.dataResource.objectResources[_info.id].imageShop));
+            return new Image(g.allData.atlas[g.allData.resource[_info.id].url].getTexture(g.allData.resource[_info.id].imageShop));
     }
 
     public function updateIt():void {

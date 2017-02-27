@@ -170,7 +170,7 @@ public class WODailyGift extends WindowMain {
             id = DataMoney.SOFT_CURRENCY;
             type = DropResourceVariaty.DROP_TYPE_MONEY;
         } else if (int(type) == BuildType.INSTRUMENT) {
-            im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.dataResource.objectResources[id].imageShop));
+            im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.resource[id].imageShop));
             MCScaler.scale(im,im.height-10,im.width-10);
             im.pivotX = im.width/2;
             im.pivotY = im.height/2;

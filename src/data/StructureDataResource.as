@@ -26,7 +26,7 @@ public class StructureDataResource {
     private var _priceSkipHard:String;
     private var _buildTime:String;
     private var _craftXP:String;
-
+    private var _timeToGrow2:int;
     private var g:Vars = Vars.getInstance();
 
     public function StructureDataResource(ob:Object) {

@@ -36,14 +36,14 @@ public class WOTrainOrderItem {
     public function fillIt(t:TrainCell, i:int):void {
         _index = i;
         _info = t;
-        if (!t || !g.dataResource.objectResources[_info.id]) {
+        if (!t || !g.allData.resource[_info.id]) {
             Cc.error('WOTrainOrderItem fillIt:: trainCell==null or g.dataResource.objectResources[_info.id]==null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
         _im = _info.getImage();
         if (!_im) {
-            Cc.error('WOTrainOrderItem fillIt:: no such image: ' + g.dataResource.objectResources[_info.id].imageShop);
+            Cc.error('WOTrainOrderItem fillIt:: no such image: ' + g.allData.resource[_info.id].imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }

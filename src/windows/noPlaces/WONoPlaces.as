@@ -101,7 +101,7 @@ public class WONoPlaces extends WindowMain {
         _last = params[3];
         if (_last) {
             _txtText.text = 'Подождите пока освободится ячейка или ускорьте изготовление текущего продукта.';
-            _imageItem = new Image(g.allData.atlas[g.dataResource.objectResources[params[1]].url].getTexture(g.dataResource.objectResources[params[1]].imageShop));
+            _imageItem = new Image(g.allData.atlas[g.allData.resource[params[1]].url].getTexture(g.allData.resource[params[1]].imageShop));
             MCScaler.scale(_imageItem,80,80);
             _imageItem.x = -40;
             _imageItem.y = -40;

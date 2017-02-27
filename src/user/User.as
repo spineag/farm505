@@ -195,7 +195,7 @@ public class User extends Someone {
                 case 5: obj.resourceId = int(ob.resource_id6); break;
             }
             if (obj.resourceId > -1) {
-                obj.cost = g.dataResource.objectResources[obj.resourceId].costDefault;
+                obj.cost = g.allData.resource[obj.resourceId].costDefault;
 
                 obj.timeSold = 0;
                 obj.timeStart = 0;

@@ -440,7 +440,7 @@ public class Farm extends WorldObject{
 
     public function onAnimalReadyToCraft(idResource:int, an:Animal):void {
         var rItem:ResourceItem = new ResourceItem();
-        rItem.fillIt(g.dataResource.objectResources[idResource]);
+        rItem.fillIt(g.allData.resource[idResource]);
         _craftSprite.visible = true;
         var item:CraftItem = new CraftItem(0, 0, rItem, _craftSprite, 1, useCraftedResource, true);
         item.animal = an;

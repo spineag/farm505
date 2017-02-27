@@ -51,7 +51,7 @@ public class ManagerPlantRidge {
             Cc.error('no such Ridge with dbId: ' + ob.user_db_building_id);
             return;
         }
-        curRidge.fillPlant(g.dataResource.objectResources[int(ob.plant_id)], true, int(ob.time_work));
+        curRidge.fillPlant(g.allData.resource[int(ob.plant_id)], true, int(ob.time_work));
         if (curRidge.plant) {
             curRidge.plant.idFromServer = ob.id;
         } else {

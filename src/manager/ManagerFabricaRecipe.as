@@ -42,7 +42,7 @@ public class ManagerFabricaRecipe {
             Cc.error('no such Fabrica with dbId: ' + ob.user_db_building_id);
             return;
         }
-        resItem.fillIt(g.dataResource.objectResources[g.allData.recipe[int(ob.recipe_id)].idResource]);
+        resItem.fillIt(g.allData.resource[g.allData.recipe[int(ob.recipe_id)].idResource]);
         resItem.idFromServer = ob.id;
         if (int(ob.delay) > int(ob.time_work)) {
             curFabrica.onRecipeFromServer(resItem, g.allData.recipe[int(ob.recipe_id)], 0, int(ob.delay) - int(ob.time_work));

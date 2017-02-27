@@ -96,51 +96,72 @@ public class UserInventory {
     public function getResourcesForAmbar():Array {
         var obj:Object;
         var arr:Array;
-        var res:Object = g.dataResource.objectResources;
+//        var res:Object = g.dataResource.objectResources;
 
         arr = [];
-        for (var id:String in _inventoryResource) {
-            if (res[id] && res[id].placeBuild == BuildType.PLACE_AMBAR && res[id].blockByLevel <= g.user.level && _inventoryResource[id]>0) {
+        for (var i:int = 0; i < g.allData.resource.length; i++) {
+            if (g.allData.resource[i] && g.allData.resource[i].placeBuild == BuildType.PLACE_AMBAR && g.allData.resource[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
                 obj = {};
-                obj.id = id;
-                obj.count = _inventoryResource[id];
+                obj.id = i;
+                obj.count = _inventoryResource[i];
                 arr.push(obj);
             }
         }
+//        for (var id:String in _inventoryResource) {
+//            if (res[id] && res[id].placeBuild == BuildType.PLACE_AMBAR && res[id].blockByLevel <= g.user.level && _inventoryResource[id]>0) {
+//                obj = {};
+//                obj.id = id;
+//                obj.count = _inventoryResource[id];
+//                arr.push(obj);
+//            }
+//        }
         return arr;
     }
 
     public function getResourcesForSklad():Array {
         var obj:Object;
         var arr:Array;
-        var res:Object = g.dataResource.objectResources;
+//        var res:Object = g.dataResource.objectResources;
 
         arr = [];
-        for (var id:String in _inventoryResource) {
-            if (res[id] && res[id].placeBuild == BuildType.PLACE_SKLAD  && res[id].blockByLevel <= g.user.level && _inventoryResource[id]>0) {
+        for (var i:int = 0; i < g.allData.resource.length; i++) {
+            if (g.allData.resource[i] && g.allData.resource[i].placeBuild == BuildType.PLACE_SKLAD  && g.allData.resource[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
                 obj = {};
-                obj.id = int(id);
-                obj.count = _inventoryResource[id];
+                obj.id = int(i);
+                obj.count = _inventoryResource[i];
                 arr.push(obj);
             }
+
         }
+//        for (var id:String in _inventoryResource) {
+//
+//        }
         return arr;
     }
 
     public function getResourcesForAmbarAndSklad():Array {
         var obj:Object;
         var arr:Array;
-        var res:Object = g.dataResource.objectResources;
+//        var res:Object = g.dataResource.objectResources;
 
         arr = [];
-        for (var id:String in _inventoryResource) {
-            if ((res[id].placeBuild == BuildType.PLACE_SKLAD || res[id].placeBuild == BuildType.PLACE_AMBAR) && res[id].blockByLevel <= g.user.level && _inventoryResource[id]>0) {
+        for (var i:int = 0; i < g.allData.resource.length; i++) {
+            if (g.allData.resource[i] && (g.allData.resource[i].placeBuild == BuildType.PLACE_SKLAD || g.allData.resource[i].placeBuild == BuildType.PLACE_AMBAR) && g.allData.resource[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
                 obj = {};
-                obj.id = int(id);
-                obj.count = _inventoryResource[id];
+                obj.id = int(i);
+                obj.count = _inventoryResource[i];
                 arr.push(obj);
             }
         }
+
+//        for (var id:String in _inventoryResource) {
+//            if ((res[id].placeBuild == BuildType.PLACE_SKLAD || res[id].placeBuild == BuildType.PLACE_AMBAR) && res[id].blockByLevel <= g.user.level && _inventoryResource[id]>0) {
+//                obj = {};
+//                obj.id = int(id);
+//                obj.count = _inventoryResource[id];
+//                arr.push(obj);
+//            }
+//        }
         return arr;
     }
 
@@ -280,30 +301,35 @@ public class UserInventory {
     }
 
     public function addNewElementsAfterGettingNewLevel():void {
-        var res:Object = g.dataResource.objectResources;
-        for (var id:String in res) {
-            if (res[id].buildType == BuildType.PLANT && res[id].blockByLevel == g.user.level) {
-                addResource(int(id), 3);
+//         = g.dataResource.objectResources;
+//        for (var id:String in res) {
+//            if (res[id].buildType == BuildType.PLANT && res[id].blockByLevel == g.user.level) {
+//                addResource(int(id), 3);
+//            }
+//        }
+        for (var i:int = 0; i < g.allData.resource.length; i++) {
+            if (g.allData.resource[i] && g.allData.resource[i].buildType == BuildType.PLANT && g.allData.resource[i].blockByLevel == g.user.level) {
+                addResource(i, 3);
             }
-        }
 
-        var build:Object = g.dataBuilding.objectBuilding;
-        res = g.dataAnimal.objectAnimal;
-        for (id in build) {
-            if (build[id].buildType == BuildType.FARM) {
-                for (var i:int = 0; i < build[id].blockByLevel.length; i++) {
-                    if (build[id].blockByLevel[i] == g.user.level) {
-                        for (var idA:String in res) {
-                            if (build[id].id == res[idA].buildId) {
-                                addResource(res[idA].idResourceRaw, 3);  // add feed for animals
-                                return;
+            var build:Object = g.dataBuilding.objectBuilding;
+            var res:Object = g.dataAnimal.objectAnimal;
+            for (var id:String in build) {
+                if (build[id].buildType == BuildType.FARM) {
+                    for (i = 0; i < build[id].blockByLevel.length; i++) {
+                        if (build[id].blockByLevel[i] == g.user.level) {
+                            for (var idA:String in res) {
+                                if (build[id].id == res[idA].buildId) {
+                                    addResource(res[idA].idResourceRaw, 3);  // add feed for animals
+                                    return;
+                                }
                             }
                         }
                     }
                 }
             }
-        }
 
+        }
     }
 
     public function checkLastResource(id:int):Boolean {

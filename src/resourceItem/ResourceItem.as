@@ -40,7 +40,7 @@ public class ResourceItem {
         dataResource.priceSkipHard ? _priceSkipHard = dataResource.priceSkipHard : _priceSkipHard = 10000;
         dataResource.blockByLevel ? _blockByLevel = dataResource.blockByLevel : _blockByLevel = 1;
         dataResource.buildTime ? _buildTime = int(dataResource.buildTime) : _buildTime = 30;
-        dataResource.builType = _buildType = dataResource.buildType;
+        dataResource.buildType ? _buildType = dataResource.buildType : _buildType = 0;
         dataResource.craftXP ? craftXP = dataResource.craftXP : craftXP = 1;
         dataResource.placeBuild ? placeBuild = dataResource.placeBuild : BuildType.PLACE_NONE;
         leftTime = _buildTime;

@@ -44,21 +44,30 @@ public class ManagerDailyBonus {
     public function generateDailyBonusItems():void {
         _arrItems = [];
         var arr:Array = [];
-        for(var id:String in g.dataResource.objectResources) {
-            if (g.dataResource.objectResources[id].blockByLevel <= g.user.level &&
-                    (g.dataResource.objectResources[id].buildType == BuildType.PLANT ||
-                    g.dataResource.objectResources[id].buildType == BuildType.RESOURCE)) {
-                arr.push(int(id));
+        var id:String;
+        var i:int;
+        for (i = 0; i < g.allData.resource.length; i++) {
+            if (g.allData.resource[i] && g.allData.resource[i].blockByLevel <= g.user.level &&
+                    (g.allData.resource[i].buildType == BuildType.PLANT ||
+                    g.allData.resource[i].buildType == BuildType.RESOURCE)) {
+                arr.push(i);
             }
         }
+//        for(var id:String in g.dataResource.objectResources) {
+//            if (g.dataResource.objectResources[id].blockByLevel <= g.user.level &&
+//                    (g.dataResource.objectResources[id].buildType == BuildType.PLANT ||
+//                    g.dataResource.objectResources[id].buildType == BuildType.RESOURCE)) {
+//                arr.push(int(id));
+//            }
+//        }
         var k:int;
         var obj:Object;
-        for (var i:int = 0; i<8; i++) {
+        for (i = 0; i<8; i++) {
             k = int(Math.random()*arr.length);  // get random position
             k = arr.splice(k, 1);  // get random id resource or plant
             obj = {};
             obj.id = k;
-            if (g.dataResource.objectResources[k].buildType == BuildType.PLANT) {
+            if (g.allData.resource[k].buildType == BuildType.PLANT) {
                 obj.count = 3;
                 obj.type = PLANT;
             } else {

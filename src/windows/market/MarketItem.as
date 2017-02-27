@@ -289,8 +289,8 @@ public class MarketItem {
         if (isFill == 1) return;
         isFill = 1;
         g.directServer.addUserMarketItem(a, level, count, inPapper, cost, number, onAddToServer);
-        g.userInventory.addResource(g.dataResource.objectResources[a].id, -count);
-        fillIt(g.dataResource.objectResources[a],count, cost);
+        g.userInventory.addResource(g.allData.resource[a].id, -count);
+        fillIt(g.allData.resource[a],count, cost);
         _txtAdditem.visible = false;
         g.managerCutScenes.checkCutSceneForAddToPapper(this);
     }
@@ -442,7 +442,7 @@ public class MarketItem {
                     new FlyMessage(p, "Недостаточно денег");
                     return;
                 }
-                var d:Object = g.dataResource.objectResources[_dataFromServer.resourceId];
+                var d:Object = g.allData.resource[_dataFromServer.resourceId];
                 if (d.placeBuild == BuildType.PLACE_AMBAR) {
                     if (g.userInventory.currentCountInAmbar + _dataFromServer.resourceCount > g.user.ambarMaxCount) {
                         p = new Point(source.x, source.y);
@@ -536,7 +536,7 @@ public class MarketItem {
             _wo.refreshItemWhenYouBuy();
         } else {
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
-            var d:Object = g.dataResource.objectResources[_dataFromServer.resourceId];
+            var d:Object = g.allData.resource[_dataFromServer.resourceId];
             showFlyResource(d, _dataFromServer.resourceCount);
             _plawkaCoins.visible = false;
             _plawkaSold.visible = true;
@@ -643,7 +643,7 @@ public class MarketItem {
 //                _quadGreen.visible = true;
 //                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
                 try {
-                    showSaleImage(g.dataResource.objectResources[_dataFromServer.resourceId], _dataFromServer.cost);
+                    showSaleImage(g.allData.resource[_dataFromServer.resourceId], _dataFromServer.cost);
                 } catch (e:Error) {
                     Cc.error('at showScaleImage');
                 }
@@ -651,7 +651,7 @@ public class MarketItem {
                 _txtAdditem.visible = false;
             } else { // sale anyway item
                 _txtAdditem.visible = false;
-                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost);
+                fillIt(g.allData.resource[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost);
                 _plawkaCoins.visible = false;
                 _plawkaLvl.visible = false;
                 _plawkaSold.visible = true;
@@ -660,21 +660,21 @@ public class MarketItem {
         } else { //have Item
             isFill = 1;
             if (_person is NeighborBot) {
-                if (g.dataResource.objectResources[_dataFromServer.resourceId].buildType == BuildType.INSTRUMENT) {
+                if (g.allData.resource[_dataFromServer.resourceId].buildType == BuildType.INSTRUMENT) {
                     _dataFromServer.resourceCount = 1;
                     _dataFromServer.cost *= 3;
                 }
             }
 
             _inPapper = _dataFromServer.inPapper;
-            fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost);
-            if (g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel > g.user.level) { //have item but your level so small
+            fillIt(g.allData.resource[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost);
+            if (g.allData.resource[_dataFromServer.resourceId].blockByLevel > g.user.level) { //have item but your level so small
                 _plawkaCoins.visible = false;
                 _plawkaLvl.visible = true;
                 _plawkaLvl.y = 50;
                 _txtPlawka.visible = true;
                 _txtPlawka.y = 75;
-                _txtPlawka.text = String("Доступно на уровне: " + g.dataResource.objectResources[_dataFromServer.resourceId].blockByLevel);
+                _txtPlawka.text = String("Доступно на уровне: " + g.allData.resource[_dataFromServer.resourceId].blockByLevel);
                 _txtAdditem.visible = false;
                 isFill = 3;
             }
