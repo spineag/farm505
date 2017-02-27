@@ -12,6 +12,8 @@ import build.tree.Tree;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
+import data.StructureMarketItem;
+
 import flash.events.Event;
 import flash.events.IOErrorEvent;
 import flash.geom.Point;
@@ -3157,7 +3159,7 @@ public class DirectServer {
         }
     }
 
-    public function buyFromMarket(itemId:int, callback:Function):void {
+    public function buyFromMarket(item:StructureMarketItem, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_BUY_FROM_MARKET);
         var variables:URLVariables = new URLVariables();
@@ -3165,8 +3167,9 @@ public class DirectServer {
         Cc.ch('server', 'buyFromMarket', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        variables.itemId = itemId;
-        variables.hash = MD5.hash(String(g.user.userId)+String(itemId)+SECRET);
+        variables.itemId = item.id;
+        variables.shardName = item.shardName;
+        variables.hash = MD5.hash(String(g.user.userId)+String(item.id)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -3645,7 +3648,7 @@ public class DirectServer {
         try {
             loader.load(request);
         } catch (error:Error) {
-            Cc.error('getUserMarketItem error:' + error.errorID);
+            Cc.error('getUserNeighborMarketItem error:' + error.errorID);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
         }
     }

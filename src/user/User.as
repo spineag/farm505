@@ -8,6 +8,7 @@ import build.tree.Tree;
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
+import data.StructureMarketItem;
 
 import manager.Vars;
 
@@ -129,64 +130,41 @@ public class User extends Someone {
     public function fillSomeoneMarketItems(arr:Array, socId:String, marketCell:int):void {
         var p:Someone;
         var i:int;
-        var obj:Object;
+        var obj:StructureMarketItem;
 
         p = getSomeoneBySocialId(socId);
         p.marketCell = marketCell;
         p.marketItems = [];
         for (i=0; i<arr.length; i++) {
-            obj = {};
-            obj.id = int(arr[i].id);
-            obj.buyerId = arr[i].buyer_id;
-            arr[i].buyer_social_id ? obj.buyerSocialId = arr[i].buyer_social_id : obj.buyerSocialId = '0';
-            obj.cost = int(arr[i].cost);
-            obj.inPapper = Boolean(arr[i].in_papper == '1');
-            obj.resourceCount = int(arr[i].resource_count);
-            obj.resourceId = int(arr[i].resource_id);
-            obj.timeSold = arr[i].time_sold;
-            obj.timeStart = arr[i].time_start;
-            obj.numberCell = int(arr[i].number_cell);
-            obj.timeInPapper = int(arr[i].time_in_papper);
-//            obj.photo = '';
+            obj = new StructureMarketItem(arr[i]);
             p.marketItems.push(obj);
         }
     }
 
     public function fillYoursMarketItems(arr:Array, cell:int):void {
         var i:int;
-        var obj:Object;
+        var obj:StructureMarketItem;
         marketCell = cell;
         marketItems = [];
         for (i=0; i<arr.length; i++) {
-            obj = {};
-            obj.id = int(arr[i].id);
-            obj.buyerId = arr[i].buyer_id;
-            arr[i].buyer_social_id ? obj.buyerSocialId = arr[i].buyer_social_id : obj.buyerSocialId = '0';
-            obj.cost = int(arr[i].cost);
-            obj.inPapper = Boolean(arr[i].in_papper == '1');
-            obj.resourceCount = int(arr[i].resource_count);
-            obj.resourceId = int(arr[i].resource_id);
-            obj.timeSold = arr[i].time_sold;
-            obj.timeStart = arr[i].time_start;
-            obj.numberCell = int(arr[i].number_cell);
-            obj.timeInPapper = int(arr[i].time_in_papper);
-//            obj.needHelpCount =
+            obj = new StructureMarketItem(arr[i]);
             marketItems.push(obj);
         }
     }
 
     public function fillNeighborMarketItems(ob:Object):void {
         var i:int;
-        var obj:Object;
+        var obj:StructureMarketItem;
 
         neighbor.marketCell = 8;
         neighbor.marketItems = [];
         for (i=0; i < 6; i++) {
-            obj = {};
+            obj = new StructureMarketItem({});
             obj.id = i+1;
             obj.inPapper = false;
             obj.resourceCount = 1;
-            obj.buyerId = '0';
+            obj.buyerId = 0;
+            obj.level = 1;
             switch (i) {
                 case 0: obj.resourceId = int(ob.resource_id1); break;
                 case 1: obj.resourceId = int(ob.resource_id2); break;
@@ -197,9 +175,8 @@ public class User extends Someone {
             }
             if (obj.resourceId > -1) {
                 obj.cost = g.dataResource.objectResources[obj.resourceId].costDefault;
-
-                obj.timeSold = 0;
-                obj.timeStart = 0;
+                obj.timeSold = '0';
+                obj.timeStart = '0';
                 neighbor.marketItems.push(obj);
             }
         }

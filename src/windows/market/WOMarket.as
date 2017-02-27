@@ -397,7 +397,7 @@ public class WOMarket  extends WindowMain {
                 _arrItems[i].friendAdd();
                 if (_curUser.marketItems[i]) {
                     if (_curUser == g.user.neighbor && _curUser.marketItems[i].resourceId == -1) continue;
-                    _arrItems[i].fillFromServer(_curUser.marketItems[i], _curUser);
+                    (_arrItems[i] as MarketItem).fillFromServer(_curUser.marketItems[i], _curUser);
                 }
             }
         } else {
@@ -407,9 +407,9 @@ public class WOMarket  extends WindowMain {
             }
             for (i = 0; i < _curUser.marketItems.length; i++) {
                 if (_curUser.marketItems[i].numberCell == _arrItems.length) {
-                   _arrItems[_curUser.marketItems[i].numberCell-1].fillFromServer(_curUser.marketItems[i], _curUser);
+                    (_arrItems[_curUser.marketItems[i].numberCell-1] as MarketItem).fillFromServer(_curUser.marketItems[i], _curUser);
                 } else {
-                    _arrItems[_curUser.marketItems[i].numberCell].fillFromServer(_curUser.marketItems[i], _curUser);
+                    (_arrItems[_curUser.marketItems[i].numberCell] as MarketItem).fillFromServer(_curUser.marketItems[i], _curUser);
                 }
             }
             if (_shiftFriend != 0) goToItemFromPaper();
@@ -674,7 +674,9 @@ public class WOMarket  extends WindowMain {
             if (_curUser is NeighborBot) {
                 g.directServer.getUserNeighborMarket(onChoosePerson);
             } else {
-                g.directServer.getUserMarketItem(_curUser.userSocialId, onChoosePerson);
+                if (_curUser.marketItems && _curUser.marketItems.length) {
+                    onChoosePerson();
+                } else g.directServer.getUserMarketItem(_curUser.userSocialId, onChoosePerson);
             }
         } else {
             onChoosePerson();
