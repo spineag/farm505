@@ -71,6 +71,9 @@ public class QuestTaskStructure {
                 ob = g.dataAnimal.objectAnimal[int(_taskData.id_resource)];
                 im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 break;
+            case BuildType.RIDGE:
+                im = new Image(g.allData.atlas['iconAtlas'].getTexture('ridge_icon'));
+                break;
             case 0:
                 if (int(_taskData.type_action == ManagerQuest.SET_IN_PAPER || _taskData.type_action == ManagerQuest.BUY_PAPER)) {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));

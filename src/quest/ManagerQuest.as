@@ -50,7 +50,7 @@ public class ManagerQuest {
 
 
     private var g:Vars = Vars.getInstance();
-    private var _questUI:QuestIconUI;
+    private var _questUI:QuestMainIconUI;
     private var _userQuests:Array;
     private var _currentOpenedQuestInWO:QuestStructure;
     private var _activeTask:QuestTaskStructure;
@@ -61,28 +61,19 @@ public class ManagerQuest {
         g.load.loadAtlas('questAtlas', 'questAtlas', addUI);
     }
 
-    public function get userQuests():Array {
-        return _userQuests;
-    }
+    public function get userQuests():Array { return _userQuests; }
+    public function get questCount():int { return _userQuests.length; }
+    public function hideQuestsIcons(v:Boolean):void { if (_questUI) _questUI.hideIt(v); }
 
     public function addUI():void {
         if (g.user.level >= 5 && g.useQuests) {
-            _questUI = new QuestIconUI(openWOList);
+            _questUI = new QuestMainIconUI();
             g.directServer.getUserQuests(onGetUserQuests);
         }
     }
 
-    private function openWOList():void {
-        g.windowsManager.openWindow(WindowsManager.WO_QUEST_LIST, null);
-    }
-
-    public function hideQuestsIcons(v:Boolean):void {
-        if (_questUI) _questUI.hideIt(v);
-    }
-
     private function onGetUserQuests(d:Object):void {
         addQuests(d, false);
-        if (_userQuests.length) _questUI.showItAnimate();
         var isDone:Boolean = false;
         for (var i:int=0; i<_userQuests.length; i++) {
             (_userQuests[i] as QuestStructure).checkQuestForDone();
@@ -106,13 +97,6 @@ public class ManagerQuest {
 
     private function onGetNewQuests(d:Object):void {
         addQuests(d, true);
-        if (_questUI) {
-            if (_userQuests.length) {
-                if (!_questUI.isShow) _questUI.showItAnimate();
-            } else {
-                if (_questUI.isShow) _questUI.hideItAnimate();
-            }
-        }
     }
 
     private function getUserQuesrById(id:int):QuestStructure {
@@ -135,6 +119,7 @@ public class ManagerQuest {
                 }
                 q = new QuestStructure();
                 q.fillIt(d.quests[i]);
+                q.isNew = isNew;
                 _userQuests.push(q);
             }
             for (i=0; i<d.tasks.length; i++) {
@@ -157,6 +142,7 @@ public class ManagerQuest {
             } else {
                 Cc.error('ManagerQuests addQuest award:: no awards');
             }
+            if (_questUI) _questUI.updateIcons();
         }
     }
 
@@ -385,6 +371,7 @@ public class ManagerQuest {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.windowsManager.closeAllWindows();
             g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, q);
+            if (_questUI) _questUI.updateIcons();
         }
     }
 

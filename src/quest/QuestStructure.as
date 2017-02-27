@@ -13,10 +13,12 @@ public class QuestStructure {
     private var _isGetAward:Boolean;
     private var _isDone:Boolean;
     private var _questId:int;
+    public var isNew:Boolean;
 
     public function QuestStructure() {
         _tasks = [];
         _awards = [];
+        isNew = false;
     }
 
     public function fillIt(ob:Object):void {
