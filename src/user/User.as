@@ -170,8 +170,8 @@ public class User extends Someone {
             }
             if (obj.resourceId > -1) {
                 obj.cost = g.allData.resource[obj.resourceId].costDefault;
-                obj.timeSold = 0;
-                obj.timeStart = 0;
+                obj.timeSold = '0';
+                obj.timeStart = '0';
                 neighbor.marketItems.push(obj);
             }
         }
