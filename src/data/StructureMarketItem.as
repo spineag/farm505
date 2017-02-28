@@ -32,7 +32,7 @@ public class StructureMarketItem {
         if (ob.cost) cost = int(ob.cost);
         if (ob.need_help) needHelp = int(ob.need_help);
         if (ob.shard_name) shardName = ob.shard_name;
-        if (ob.build_id) buyerId = int(ob.buyer_id);
+        if (ob.buyer_id) buyerId = int(ob.buyer_id);
         if (ob.buyer_social_id) buyerSocialId = ob.buyer_social_id;
         if (ob.in_papper) inPapper = Boolean(ob.in_papper == '1');
         if (ob.time_sold) timeSold = ob.time_sold;
