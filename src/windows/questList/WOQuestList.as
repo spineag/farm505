@@ -26,7 +26,7 @@ public class WOQuestList extends WindowMain{
     private var _rightArrow:CButton;
     private var _isAnim:Boolean;
 
-    public function WOQuestList() {
+    public function WOQuestList() {   // not use it
         super();
         _items = [];
         _isAnim = false;

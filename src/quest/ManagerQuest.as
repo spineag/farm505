@@ -50,7 +50,7 @@ public class ManagerQuest {
 
 
     private var g:Vars = Vars.getInstance();
-    private var _questUI:QuestIconUI;
+    private var _questUI:QuestMainIconUI;
     private var _userQuests:Array;
     private var _currentOpenedQuestInWO:QuestStructure;
     private var _activeTask:QuestTaskStructure;
@@ -61,28 +61,19 @@ public class ManagerQuest {
         g.load.loadAtlas('questAtlas', 'questAtlas', addUI);
     }
 
-    public function get userQuests():Array {
-        return _userQuests;
-    }
+    public function get userQuests():Array { return _userQuests; }
+    public function get questCount():int { return _userQuests.length; }
+    public function hideQuestsIcons(v:Boolean):void { if (_questUI) _questUI.hideIt(v); }
 
     public function addUI():void {
         if (g.user.level >= 5 && g.useQuests) {
-            _questUI = new QuestIconUI(openWOList);
+            _questUI = new QuestMainIconUI();
             g.directServer.getUserQuests(onGetUserQuests);
         }
     }
 
-    private function openWOList():void {
-        g.windowsManager.openWindow(WindowsManager.WO_QUEST_LIST, null);
-    }
-
-    public function hideQuestsIcons(v:Boolean):void {
-        if (_questUI) _questUI.hideIt(v);
-    }
-
     private function onGetUserQuests(d:Object):void {
         addQuests(d, false);
-        if (_userQuests.length) _questUI.showItAnimate();
         var isDone:Boolean = false;
         for (var i:int=0; i<_userQuests.length; i++) {
             (_userQuests[i] as QuestStructure).checkQuestForDone();
@@ -106,16 +97,9 @@ public class ManagerQuest {
 
     private function onGetNewQuests(d:Object):void {
         addQuests(d, true);
-        if (_questUI) {
-            if (_userQuests.length) {
-                if (!_questUI.isShow) _questUI.showItAnimate();
-            } else {
-                if (_questUI.isShow) _questUI.hideItAnimate();
-            }
-        }
     }
 
-    private function getUserQuesrById(id:int):QuestStructure {
+    private function getUserQuestById(id:int):QuestStructure {
         for (var i:int=0; i<_userQuests.length; i++) {
             if ((_userQuests[i] as QuestStructure).questId == id) return _userQuests[i];
         }
@@ -128,17 +112,18 @@ public class ManagerQuest {
             var i:int;
             for (i=0; i<d.quests.length; i++) {
                 if (d.quests[i].only_testers == '1' && !g.user.isTester) continue;
-                q = getUserQuesrById(int(d.quests[i].id));
+                q = getUserQuestById(int(d.quests[i].id));
                 if (q) {
-                    Cc.info('QuestStructure addTask:: already has quest with id: ' + d.quests[i].id);
+                    Cc.info('QuestStructure addQuest:: already has quest with id: ' + d.quests[i].id);
                     continue;
                 }
                 q = new QuestStructure();
                 q.fillIt(d.quests[i]);
+                q.isNew = isNew;
                 _userQuests.push(q);
             }
             for (i=0; i<d.tasks.length; i++) {
-                q = getUserQuesrById(int(d.tasks[i].quest_id));
+                q = getUserQuestById(int(d.tasks[i].quest_id));
                 if (q) {
                     q.addTask(d.tasks[i]);
                 } else {
@@ -147,7 +132,7 @@ public class ManagerQuest {
             }
             if (d.awards) {
                 for (i = 0; i < d.awards.length; i++) {
-                    q = getUserQuesrById(int(d.awards[i].quest_id));
+                    q = getUserQuestById(int(d.awards[i].quest_id));
                     if (q) {
                         q.addAward(d.awards[i]);
                     } else {
@@ -157,6 +142,7 @@ public class ManagerQuest {
             } else {
                 Cc.error('ManagerQuests addQuest award:: no awards');
             }
+            if (_questUI) _questUI.updateIcons();
         }
     }
 
@@ -212,7 +198,7 @@ public class ManagerQuest {
                     }
                     g.cont.moveCenterToPos((arr[0] as Ridge).posX, (arr[0] as Ridge).posY);
                 } else {
-                    new FlyMessage(p,'Нету подходящих засеянных грядок');
+                    new FlyMessage(p,'Нет подходящих засеянных грядок');
                 }
                 break;
             case RAW_PLANT:
@@ -230,7 +216,7 @@ public class ManagerQuest {
                     }
                     g.cont.moveCenterToPos((arr[0] as Ridge).posX, (arr[0] as Ridge).posY);
                 } else {
-                    new FlyMessage(p,'Нету свободных грядок');
+                    new FlyMessage(p,'Нет свободных грядок');
                 }
                 break;
             case BUILD_BUILDING:
@@ -361,7 +347,7 @@ public class ManagerQuest {
                     }
                     g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
                 } else {
-                    new FlyMessage(p,'Нету доступных объектов');
+                    new FlyMessage(p,'Нет доступных объектов');
                 }
                 break;
             case KILL_MOUSE:
@@ -378,13 +364,14 @@ public class ManagerQuest {
     }
 
     private function checkQuestAfterFinishTask(questId:int):void {
-        var q:QuestStructure = getUserQuesrById(questId);
+        var q:QuestStructure = getUserQuestById(questId);
         q.checkQuestForDone();
         if (q.isDone) {
             g.directServer.completeUserQuest(q.id, q.idDB, null);
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.windowsManager.closeAllWindows();
             g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, q);
+            if (_questUI) _questUI.updateIcons();
         }
     }
 

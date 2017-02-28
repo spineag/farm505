@@ -13,10 +13,12 @@ public class QuestStructure {
     private var _isGetAward:Boolean;
     private var _isDone:Boolean;
     private var _questId:int;
+    public var isNew:Boolean;
 
     public function QuestStructure() {
         _tasks = [];
         _awards = [];
+        isNew = false;
     }
 
     public function fillIt(ob:Object):void {
@@ -52,6 +54,10 @@ public class QuestStructure {
     }
     
     public function checkQuestForDone():void {
+        if (!_tasks.length) {
+            _isDone = false;
+            return;
+        }
         for (var i:int=0; i<_tasks.length; i++) {
             if (!(_tasks[i] as QuestTaskStructure).isDone) {
                 _isDone = false;

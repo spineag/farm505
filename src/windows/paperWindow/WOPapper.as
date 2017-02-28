@@ -435,9 +435,8 @@ public class WOPapper extends WindowMain {
         if(!_leftPage) return;
         var arr:Array = _leftPage.arrItems.concat(_rightPage.arrItems);
         for (var i:int = 0; i < arr.length; i++) {
-            if (_preloader) {
-                if (!arr[i].isBotBuy) arr[i].preloader();
-            } else if (!arr[i].isBotBuy) arr[i].deletePreloader();
+            if (_preloader) arr[i].preloader();
+                else arr[i].deletePreloader();
         }
     }
 

@@ -5,6 +5,8 @@ package windows.market {
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
+import data.StructureMarketItem;
+
 import flash.display.Bitmap;
 import flash.geom.Point;
 import hint.FlyMessage;
@@ -51,7 +53,7 @@ public class MarketItem {
     private var isFill:int;   //0 - пустая, 1 - заполненная, 2 - купленная  , 3 - недоступна по лвлу
     private var _callback:Function;
     private var _data:Object;
-    private var _dataFromServer:Object;
+    private var _dataFromServer:StructureMarketItem;
     private var _countResource:int;
     private var _countMoney:int;
     private var _plawkaSold:Image;
@@ -296,19 +298,8 @@ public class MarketItem {
     }
 
     private function onAddToServer(ob:Object):void {
-        var obj:Object = {};
-        obj.id = int(ob.id);
-        obj.buyerId = ob.buyer_id;
-        obj.cost = int(ob.cost);
-        obj.inPapper = false;
-        obj.resourceCount = int(ob.resource_count);
-        obj.resourceId = int(ob.resource_id);
-        obj.timeSold = ob.time_sold;
-        obj.timeStart = ob.time_start;
-        obj.timeInPapper = ob.time_in_papper;
-        obj.numberCell = ob.number_cell;
-        _dataFromServer = obj;
-        g.user.marketItems.push(obj);
+        _dataFromServer = new StructureMarketItem(ob);
+        g.user.marketItems.push(_dataFromServer);
     }
 
     public function clearImageCont():void {
@@ -546,19 +537,12 @@ public class MarketItem {
                 g.directServer.buyFromNeighborMarket(_dataFromServer.id, null);
                 _dataFromServer.resourceId = -1;
             } else {
-                g.directServer.buyFromMarket(_dataFromServer.id, null);
-                var arr:Array = g.user.arrFriends.concat(g.user.arrTempUsers);
-                for (var j:int = 0; j< arr.length; j++) {
-                    if (!arr[j].marketItems) continue;
-                    for (i = 0; i < arr[j].marketItems.length; i++) {
-                        if (arr[j].marketItems[i].id == _dataFromServer.id) {
-                            arr[j].marketItems[i].buyerId = g.user.userId;
-                            arr[j].marketItems[i].inPapper = false;
-                            arr[j].marketItems[i].buyerSocialId = g.user.userSocialId;
-                            return;
-                        }
-                    }
-                }
+                _dataFromServer.userSocialId = _person.userSocialId;
+                g.directServer.buyFromMarket(_dataFromServer, null);
+                _dataFromServer.buyerId = g.user.userId;
+                _dataFromServer.inPapper = false;
+                _dataFromServer.buyerSocialId = g.user.userSocialId;
+                g.managerPaper.onBuyAtMarket(_dataFromServer);
             }
             isFill = 2;
         }
@@ -630,11 +614,11 @@ public class MarketItem {
         g.marketHint.hideIt();
     }
 
-    public function fillFromServer(obj:Object, p:Someone):void {
+    public function fillFromServer(obj:StructureMarketItem, p:Someone):void {
         if (_closeCell) return;
         _person = p;
         _dataFromServer = obj;
-        if (_dataFromServer.buyerId != '0') {
+        if (_dataFromServer.buyerId != 0) {
             isFill = 2;
             _inPapper = _dataFromServer.inPapper;
             if (_person.userSocialId == g.user.userSocialId) { //sale yours item
@@ -738,7 +722,7 @@ public class MarketItem {
             visiblePapperTimer();
         }
 //        _costTxt.text = String(_dataFromServer.cost); ?? double
-        if (_dataFromServer.buyerSocialId == 1) {
+        if (_dataFromServer.buyerSocialId == '1') {
             _personBuyer = g.user.neighbor;
         } else {
             for (i = 0; i < g.user.arrFriends.length; i++) {

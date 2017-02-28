@@ -2,6 +2,8 @@
  * Created by user on 11/18/15.
  */
 package windows.paperWindow {
+import data.StructureMarketItem;
+
 import flash.display.Bitmap;
 import manager.ManagerFilters;
 import manager.Vars;
@@ -126,8 +128,7 @@ public class WOPapperPage {
 
     public function fillItems(ar:Array):void {
         for (var i:int=0; i< ar.length; i++) {
-            if (ar[i].isBotBuy) (_arrItems[i] as WOPapperItem).fillItBot(ar[i]);
-            else (_arrItems[i] as WOPapperItem).fillIt(ar[i]);
+            (_arrItems[i] as WOPapperItem).fillIt(ar[i]);
         }
     }
 
