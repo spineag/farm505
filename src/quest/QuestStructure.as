@@ -54,6 +54,10 @@ public class QuestStructure {
     }
     
     public function checkQuestForDone():void {
+        if (!_tasks.length) {
+            _isDone = false;
+            return;
+        }
         for (var i:int=0; i<_tasks.length; i++) {
             if (!(_tasks[i] as QuestTaskStructure).isDone) {
                 _isDone = false;

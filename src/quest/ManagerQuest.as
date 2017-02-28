@@ -99,7 +99,7 @@ public class ManagerQuest {
         addQuests(d, true);
     }
 
-    private function getUserQuesrById(id:int):QuestStructure {
+    private function getUserQuestById(id:int):QuestStructure {
         for (var i:int=0; i<_userQuests.length; i++) {
             if ((_userQuests[i] as QuestStructure).questId == id) return _userQuests[i];
         }
@@ -112,9 +112,9 @@ public class ManagerQuest {
             var i:int;
             for (i=0; i<d.quests.length; i++) {
                 if (d.quests[i].only_testers == '1' && !g.user.isTester) continue;
-                q = getUserQuesrById(int(d.quests[i].id));
+                q = getUserQuestById(int(d.quests[i].id));
                 if (q) {
-                    Cc.info('QuestStructure addTask:: already has quest with id: ' + d.quests[i].id);
+                    Cc.info('QuestStructure addQuest:: already has quest with id: ' + d.quests[i].id);
                     continue;
                 }
                 q = new QuestStructure();
@@ -123,7 +123,7 @@ public class ManagerQuest {
                 _userQuests.push(q);
             }
             for (i=0; i<d.tasks.length; i++) {
-                q = getUserQuesrById(int(d.tasks[i].quest_id));
+                q = getUserQuestById(int(d.tasks[i].quest_id));
                 if (q) {
                     q.addTask(d.tasks[i]);
                 } else {
@@ -132,7 +132,7 @@ public class ManagerQuest {
             }
             if (d.awards) {
                 for (i = 0; i < d.awards.length; i++) {
-                    q = getUserQuesrById(int(d.awards[i].quest_id));
+                    q = getUserQuestById(int(d.awards[i].quest_id));
                     if (q) {
                         q.addAward(d.awards[i]);
                     } else {
@@ -364,7 +364,7 @@ public class ManagerQuest {
     }
 
     private function checkQuestAfterFinishTask(questId:int):void {
-        var q:QuestStructure = getUserQuesrById(questId);
+        var q:QuestStructure = getUserQuestById(questId);
         q.checkQuestForDone();
         if (q.isDone) {
             g.directServer.completeUserQuest(q.id, q.idDB, null);
