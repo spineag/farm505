@@ -64,6 +64,10 @@ public class QuestTaskStructure {
                 ob = g.dataBuilding.objectBuilding[int(_taskData.id_resource)];
                 im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 break;
+            case BuildType.FARM:
+                ob = g.dataBuilding.objectBuilding[int(_taskData.id_resource)];
+                im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
+                break;
             case BuildType.WILD:
                 im = new Image(g.allData.atlas['wildAtlas'].getTexture('swamp'));
                 break;
@@ -75,7 +79,7 @@ public class QuestTaskStructure {
                 im = new Image(g.allData.atlas['iconAtlas'].getTexture('ridge_icon'));
                 break;
             case 0:
-                if (int(_taskData.type_action == ManagerQuest.SET_IN_PAPER || _taskData.type_action == ManagerQuest.BUY_PAPER)) {
+                if (int(_taskData.type_action == ManagerQuest.SET_IN_PAPER || int(_taskData.type_action) == ManagerQuest.BUY_PAPER)) {
                     im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
                 }
                 break;
