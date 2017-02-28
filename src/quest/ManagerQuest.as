@@ -198,7 +198,7 @@ public class ManagerQuest {
                     }
                     g.cont.moveCenterToPos((arr[0] as Ridge).posX, (arr[0] as Ridge).posY);
                 } else {
-                    new FlyMessage(p,'Нету подходящих засеянных грядок');
+                    new FlyMessage(p,'Нет подходящих засеянных грядок');
                 }
                 break;
             case RAW_PLANT:
@@ -216,7 +216,7 @@ public class ManagerQuest {
                     }
                     g.cont.moveCenterToPos((arr[0] as Ridge).posX, (arr[0] as Ridge).posY);
                 } else {
-                    new FlyMessage(p,'Нету свободных грядок');
+                    new FlyMessage(p,'Нет свободных грядок');
                 }
                 break;
             case BUILD_BUILDING:
@@ -347,7 +347,7 @@ public class ManagerQuest {
                     }
                     g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
                 } else {
-                    new FlyMessage(p,'Нету доступных объектов');
+                    new FlyMessage(p,'Нет доступных объектов');
                 }
                 break;
             case KILL_MOUSE:
