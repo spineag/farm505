@@ -56,6 +56,9 @@ import tutorial.miniScenes.ManagerMiniScenes;
 import ui.xpPanel.XPStar;
 import user.NeighborBot;
 import user.Someone;
+
+import utils.Utils;
+
 import windows.WindowsManager;
 import windows.shop.WOShop;
 
@@ -178,7 +181,7 @@ public class TownArea extends Sprite {
         var id:String;
         var obj:Object = g.userInventory.decorInventory;
         for (id in obj) {
-            if (g.dataBuilding.objectBuilding[int(id)].group == group) max += obj[id].count;
+            if (g.allData.building[int(id)].group == group) max += obj[id].count;
         }
         for (var i:int = 0; i < _cityObjects.length; i++) {
             if (_cityObjects[i] is Decor || _cityObjects[i] is DecorAnimation) {
@@ -1646,7 +1649,7 @@ public class TownArea extends Sprite {
     private function setAwayCity(p:Someone):void {
         var i:int;
         for (i=0; i<p.userDataCity.objects.length; i++) {
-            createAwayNewBuild(g.dataBuilding.objectBuilding[p.userDataCity.objects[i].buildId], p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, int(p.userDataCity.objects[i].dbId), p.userDataCity.objects[i].isFlip);
+            createAwayNewBuild(Utils.objectFromStructureBuildToObject(g.allData.building[p.userDataCity.objects[i].buildId]), p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, int(p.userDataCity.objects[i].dbId), p.userDataCity.objects[i].isFlip);
         }
         for (i=0; i<p.userDataCity.treesInfo.length; i++) {
             fillAwayTree(p.userDataCity.treesInfo[i]);

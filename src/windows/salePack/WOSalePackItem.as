@@ -53,12 +53,12 @@ public class WOSalePackItem {
             _txtCount.text = String(_objectCount);
             im = new Image(g.allData.atlas[g.allData.resource[_objectId].url].getTexture(g.allData.resource[_objectId].imageShop));
         } else if (_objectType == BuildType.DECOR_ANIMATION) {
-            _txtName.text = g.dataBuilding.objectBuilding[_objectId].name;
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_objectId].url + '_icon'));
+            _txtName.text = g.allData.building[_objectId].name;
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[_objectId].url + '_icon'));
             MCScaler.scale(im,100,100);
         } else if (_objectType == BuildType.DECOR) {
-            _txtName.text = g.dataBuilding.objectBuilding[_objectId].name;
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_objectId].image +'_icon'));
+            _txtName.text = g.allData.building[_objectId].name;
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[_objectId].image +'_icon'));
             MCScaler.scale(im,100,100);
         }
         im.x = 85 - im.width/2;

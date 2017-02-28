@@ -61,7 +61,7 @@ public class QuestTaskStructure {
                 im = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
                 break;
             case BuildType.FABRICA:
-                ob = g.dataBuilding.objectBuilding[int(_taskData.id_resource)];
+                ob = g.allData.building[int(_taskData.id_resource)];
                 im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 break;
             case BuildType.FARM:

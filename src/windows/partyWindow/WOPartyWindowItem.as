@@ -76,11 +76,11 @@ public class WOPartyWindowItem {
             source.addChild(im);
             _txtCountResource.text = String(countResource);
         } else if (type == BuildType.DECOR_ANIMATION) {
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[id].url + '_icon'));
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[id].url + '_icon'));
             source.addChild(im);
 
         } else if (type == BuildType.DECOR) {
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[id].image +'_icon'));
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[id].image +'_icon'));
             source.addChild(im);
         }
         im.pivotX = im.width/2;

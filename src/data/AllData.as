@@ -13,7 +13,7 @@ public class AllData {
     public var decorGroups:Object;
     public var recipe:Array;
     public var resource:Array;
-
+    public var building:Array;
     private var g:Vars = Vars.getInstance();
 
     public function AllData() {
@@ -24,6 +24,7 @@ public class AllData {
         decorGroups = {};
         recipe = [];
         resource = [];
+        building = [];
     }
 
     public function addToDecorGroup(dataDecor:Object):void {

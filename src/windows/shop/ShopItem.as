@@ -559,7 +559,7 @@ public class ShopItem {
                 }
             }
         } else if (_data.buildType == BuildType.ANIMAL) {
-            var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
+            var dataFarm:Object = g.allData.building[_data.buildId];
             if (dataFarm && dataFarm.blockByLevel) {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
 //                    createLockedSprite();
@@ -931,7 +931,7 @@ public class ShopItem {
                 if (!g.managerTutorial.isTutorialResource(_data.id)) return;
             }
             //додаємо на відповідну ферму
-            var dataFarm:Object = g.dataBuilding.objectBuilding[_data.buildId];
+            var dataFarm:Object = g.allData.building[_data.buildId];
             var curCount:int = 0;
             var arr:Array = g.townArea.cityObjects;
             var arrPat:Array = g.townArea.getCityObjectsById(dataFarm.id);
@@ -1054,7 +1054,7 @@ public class ShopItem {
                 if (!g.managerTutorial.isTutorialResource(objectCallback.id)) return;
             }
             //додаємо на відповідну ферму
-            var dataFarm:Object = g.dataBuilding.objectBuilding[objectCallback.buildId];
+            var dataFarm:Object = g.allData.building[objectCallback.buildId];
             var curCount:int = 0;
             var arr:Array = g.townArea.cityObjects;
             var arrPat:Array = g.townArea.getCityObjectsById(dataFarm.id);

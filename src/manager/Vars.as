@@ -149,8 +149,8 @@ public class Vars {
 
     public var allData:AllData;
     public var dataBuilding:DataBuildings;
-    public var dataResource:DataResources;
-    public var dataRecipe:DataRecipe;
+//    public var dataResource:DataResources;
+//    public var dataRecipe:DataRecipe;
     public var dataAnimal:DataAnimal;
     public var dataLevel:DataLevel;
     public var dataCats:Array;
@@ -232,7 +232,7 @@ public class Vars {
     }
 
     public function initInterface():void {
-        try {
+//        try {
             cont.hideAll(true);
             startPreloader.setProgress(77);
 
@@ -240,8 +240,8 @@ public class Vars {
             userValidates = new UserValidateResources();
 
             dataBuilding = new DataBuildings();
-            dataRecipe = new DataRecipe();
-            dataResource = new DataResources();
+//            dataRecipe = new DataRecipe();
+//            dataResource = new DataResources();
             dataAnimal = new DataAnimal();
             dataLevel = new DataLevel();
             dataOrderCats = new DataCat();
@@ -259,12 +259,12 @@ public class Vars {
                 socialNetworkID = int(flashVars['channel']);
             }
             SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
-        } catch (e:Error) {
-            errorManager.onGetError(ErrorConst.ON_INIT1, true, true);
-            Cc.stackch('error', 'initVariables1::', 10);
-        }
-        
-        try {
+//        } catch (e:Error) {
+//            errorManager.onGetError(ErrorConst.ON_INIT1, true, true);
+//            Cc.stackch('error', 'initVariables1::', 10);
+//        }
+//
+//        try {
             useNewTuts = true;
             if (useNewTuts) {
                 managerTutorial = new ManagerTutorialNew();
@@ -292,10 +292,10 @@ public class Vars {
 
             socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
             socialNetwork.init();
-        } catch (e:Error) {
-            errorManager.onGetError(ErrorConst.ON_INIT2, true, true);
-            Cc.stackch('error', 'initVariables::', 10);
-        }
+//        } catch (e:Error) {
+//            errorManager.onGetError(ErrorConst.ON_INIT2, true, true);
+//            Cc.stackch('error', 'initVariables::', 10);
+//        }
     }
 
     private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
@@ -440,7 +440,7 @@ public class Vars {
     }
 
     private function initVariables2():void {
-        try {
+//        try {
             if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID ||
                    ( socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true;
 
@@ -469,10 +469,10 @@ public class Vars {
             }
 //            if ((user as User).level >= 5 && socialNetworkID == SocialNetworkSwitch.SN_VK_ID) stock = new StockPanel();
             managerQuest = new ManagerQuest();
-        } catch (e:Error) {
-            errorManager.onGetError(ErrorConst.ON_INIT3, true, true);
-            Cc.stackch('error', 'initVariables2::', 10);
-        }
+//        } catch (e:Error) {
+//            errorManager.onGetError(ErrorConst.ON_INIT3, true, true);
+//            Cc.stackch('error', 'initVariables2::', 10);
+//        }
         afterLoadAll();
     }
 
@@ -482,7 +482,7 @@ public class Vars {
     }
 
     private function afterLoadAll():void {
-        try {
+//        try {
             var test:TestTime = new TestTime();
             cont.onLoadAll();
             startPreloader.setProgress(100);
@@ -514,12 +514,12 @@ public class Vars {
                 };
                 Cc.addSlashCommand("deleteUser", f1);
             }
-        } catch (e:Error) {
-            errorManager.onGetError(ErrorConst.ON_INIT4, true, true);
-            Cc.stackch('error', 'initVariables2::', 10);
-        }
+//        } catch (e:Error) {
+//            errorManager.onGetError(ErrorConst.ON_INIT4, true, true);
+//            Cc.stackch('error', 'initVariables2::', 10);
+//        }
 
-        try {
+//        try {
             softHardCurrency.checkHard();
             softHardCurrency.checkSoft();
             xpPanel.checkXP();
@@ -530,7 +530,7 @@ public class Vars {
             townArea.decorTailSort();
             townArea.sortAtLockedLands();
             managerOrder.checkForFullOrder();
-            if ((user as User).level >= dataBuilding.objectBuilding[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
+            if ((user as User).level >= allData.building[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
             townArea.addTownAreaSortCheking();
 
             managerHelpers = new ManagerHelpers();
@@ -538,12 +538,12 @@ public class Vars {
             managerChest.createChest();
             managerVisibleObjects = new ManagerVisibleObjects();
             managerVisibleObjects.checkInStaticPosition();
-        } catch (e:Error) {
-            errorManager.onGetError(ErrorConst.ON_INIT5, true, true);
-            Cc.stackch('error', 'initVariables2::', 10);
-        }
+//        } catch (e:Error) {
+//            errorManager.onGetError(ErrorConst.ON_INIT5, true, true);
+//            Cc.stackch('error', 'initVariables2::', 10);
+//        }
         
-        try {    
+//        try {
             if (managerTutorial.isTutorial) {
                 if ((user as User).tutorialStep > 1) {
                     startPreloader.hideIt();
@@ -597,10 +597,10 @@ public class Vars {
 
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
-        } catch (e:Error) {
-            errorManager.onGetError(ErrorConst.ON_INIT6, true, true);
-            Cc.stackch('error', 'afterAllLoaded::', 10);
-        }
+//        } catch (e:Error) {
+//            errorManager.onGetError(ErrorConst.ON_INIT6, true, true);
+//            Cc.stackch('error', 'afterAllLoaded::', 10);
+//        }
     }
 
     private function onEnterFrameGlobal():void {

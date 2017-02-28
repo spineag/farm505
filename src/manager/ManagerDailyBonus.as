@@ -91,10 +91,16 @@ public class ManagerDailyBonus {
 
         obj = {};
         arr = [];
-        for(id in g.dataBuilding.objectBuilding) {
-            if (g.dataBuilding.objectBuilding[id].blockByLevel && g.dataBuilding.objectBuilding[id].blockByLevel[0] <= g.user.level &&
-                    g.dataBuilding.objectBuilding[id].buildType == BuildType.DECOR) {
-                arr.push(int(id));
+//        for(id in g.dataBuilding.objectBuilding) {
+//            if (g.dataBuilding.objectBuilding[id].blockByLevel && g.dataBuilding.objectBuilding[id].blockByLevel[0] <= g.user.level &&
+//                    g.dataBuilding.objectBuilding[id].buildType == BuildType.DECOR) {
+//                arr.push(int(id));
+//            }
+//        }
+        for (i = 0; i < g.allData.building.length; i++) {
+            if (g.allData.building[i] && g.allData.building[i].blockByLevel && g.allData.building[i].blockByLevel[0] <= g.user.level &&
+                    g.allData.building[i].buildType == BuildType.DECOR) {
+                arr.push(i);
             }
         }
         obj.id = arr[int(Math.random()*arr.length)];

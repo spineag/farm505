@@ -52,7 +52,7 @@ public class WOFabricaWorkList {
             _fabrica = fabrica;
             maxCount = _fabrica.dataBuild.countCell;
             if (maxCount < 9) {
-                var price:int = 6 + (maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
+                var price:int = 6 + (maxCount - g.allData.building[_fabrica.dataBuild.id].startCountCell)*3;
                 _arrItems[maxCount].showBuyPropose(price, onBuyNewCell);
             }
             for (i=1; i<maxCount; i++) {
@@ -104,7 +104,7 @@ public class WOFabricaWorkList {
     }
 
     public function get priceForNewCell():int {
-        return 6 + (maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
+        return 6 + (maxCount - g.allData.building[_fabrica.dataBuild.id].startCountCell)*3;
     }
 
     public function addResource(resource:ResourceItem, buy:Boolean = false):void {
@@ -141,7 +141,7 @@ public class WOFabricaWorkList {
 
     private function visibleSource():void {
         if (maxCount < 9) {
-            var price:int = 6 + (maxCount - g.dataBuilding.objectBuilding[_fabrica.dataBuild.id].startCountCell)*3;
+            var price:int = 6 + (maxCount - g.allData.building[_fabrica.dataBuild.id].startCountCell)*3;
             _arrItems[maxCount].showBuyPropose(price, onBuyNewCell);
         }
         for (var i:int=1; i<maxCount; i++) {

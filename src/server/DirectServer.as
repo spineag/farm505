@@ -12,6 +12,7 @@ import build.tree.Tree;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
+import data.StructureDataBuildings;
 import data.StructureMarketItem;
 
 import data.StructureDataRecipe;
@@ -399,7 +400,7 @@ public class DirectServer {
                 if (d.message[i].cost_skip) obj.priceSkipHard = d.message[i].cost_skip;
                 if (d.message[i].build_time) obj.buildTime = d.message[i].build_time;
                 if (d.message[i].craft_xp) obj.craftXP = d.message[i].craft_xp;
-                g.dataResource.objectResources[obj.id] = obj;
+//                g.dataResource.objectResources[obj.id] = obj;
                 g.allData.resource[int(d.message[i].id)] = new StructureDataResource(d.message[i]);
             }
             if (callback != null) {
@@ -614,6 +615,31 @@ public class DirectServer {
             Cc.ch('server', 'getDataBuilding OK', 5);
             var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
+                d.message[i].visibleAction = true;
+                if (g.user.isTester) g.allData.building[d.message[i].id] = new StructureDataBuildings(d.message[i]);
+                else if (d.message[i].visible == 0 ) {
+                    var startDayNumber:int = int(d.message[i].start_action);
+                    var endDayNumber:int = int(d.message[i].end_action);
+                    var curDayNumber:int = new Date().getTime()/1000;
+
+                    d.message[i].visibleAction = false;
+                    if (startDayNumber == 0 && endDayNumber == 0) {
+                        d.message[i].visibleAction = true;
+                    } else {
+                        if (startDayNumber != 0 && startDayNumber <= curDayNumber) {
+                            if (endDayNumber > curDayNumber || endDayNumber == 0) {
+                                d.message[i].visibleAction = true;
+                            }
+                            else {
+                                d.message[i].visibleAction = false;
+                            }
+                        } else if (startDayNumber > curDayNumber) {
+                            d.message[i].visibleAction = false;
+                        }
+
+                    }
+                    g.allData.building[d.message[i].id] = new StructureDataBuildings(d.message[i]);
+                }
                 obj = {};
                     obj.id = int(d.message[i].id);
                     obj.width = int(d.message[i].width);
@@ -1670,17 +1696,17 @@ public class DirectServer {
             Cc.error('GetUserBuilding: wrong JSON:' + String(response));
             return;
         }
-
         if (d.id == 0) {
             Cc.ch('server', 'getUserBuilding OK', 5);
             g.user.userDataCity.objects = new Array();
             for (var i:int = 0; i < d.message.length; i++) {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
-                if (!g.dataBuilding.objectBuilding[int(d.message[i].building_id)]) {
+                if (!g.allData.building[int(d.message[i].building_id)]) {
                     Cc.error('no in g.dataBuilding.objectBuilding such id: ' + int(d.message[i].building_id));
                     continue;
                 }
-                dataBuild = Utils.objectDeepCopy(g.dataBuilding.objectBuilding[int(d.message[i].building_id)]);
+//                dataBuild = Utils.objectDeepCopy(g.dataBuilding.objectBuilding[int(d.message[i].building_id)]);
+                dataBuild = Utils.objectFromStructureBuildToObject(g.allData.building[int(d.message[i].building_id)]);
                 if (int(d.message[i].in_inventory)) {
                     g.userInventory.addToDecorInventory(dataBuild.id, dbId);
                 } else {
@@ -3787,11 +3813,11 @@ public class DirectServer {
             for (var i:int = 0; i < d.message['building'].length; i++) {
                 ob = {};
                 k = int(d.message['building'][i].building_id);
-                if (!g.dataBuilding.objectBuilding[k]) {
+                if (!g.allData.building[k]) {
                     Cc.error(' completeGetAllCityData:: no in g.dataBuilding.objectBuilding for building with building_id: ' + k);
                     continue;
                 }
-                ob.buildId = g.dataBuilding.objectBuilding[k].id;
+                ob.buildId = g.allData.building[k].id;
                 ob.posX = int(d.message['building'][i].pos_x);
                 ob.posY = int(d.message['building'][i].pos_y);
                 ob.dbId = int(d.message['building'][i].id);
@@ -3842,11 +3868,11 @@ public class DirectServer {
             for (i = 0; i < d.message['wild'].length; i++) {
                 ob = {};
                 k = int(d.message['wild'][i].building_id);
-                if (!g.dataBuilding.objectBuilding[k]) {
+                if (!g.allData.building[k]) {
                     Cc.error(' completeGetAllCityData:: no in g.dataBuilding.objectBuilding for wild with building_id: ' + k);
                     continue;
                 }
-                ob.buildId = g.dataBuilding.objectBuilding[k].id;
+                ob.buildId = g.allData.building[k].id;
                 ob.posX = int(d.message['wild'][i].pos_x);
                 ob.posY = int(d.message['wild'][i].pos_y);
                 ob.dbId = int(d.message['wild'][i].id);
@@ -4178,7 +4204,7 @@ public class DirectServer {
             Cc.ch('server', 'getUserWild OK', 5);
             for (var i:int = 0; i < d.message.length; i++) {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
-                dataBuild = Utils.objectDeepCopy(g.dataBuilding.objectBuilding[int(d.message[i].building_id)]);
+                dataBuild = Utils.objectFromStructureBuildToObject(g.allData.building[int(d.message[i].building_id)]);
                 var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
                 if (dataBuild) {
                     dataBuild.dbId = dbId;

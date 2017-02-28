@@ -40,7 +40,7 @@ public class WODailyBonusItem {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
                 break;
             case ManagerDailyBonus.DECOR:
-                im = new Image(g.allData.atlas['decorAtlas'].getTexture(g.dataBuilding.objectBuilding[obj.id].image));
+                im = new Image(g.allData.atlas['decorAtlas'].getTexture(g.allData.building[obj.id].image));
                 break;
             case ManagerDailyBonus.INSTRUMENT:
                 im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.resource[obj.id].imageShop));

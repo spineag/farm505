@@ -142,8 +142,8 @@ public class WOStarterPack extends WindowMain{
             _arrCTex.push(txt);
             _source.addChild(im);
         } else if (_data.object_type == BuildType.DECOR_ANIMATION) {
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.object_id].url + '_icon'));
-            txt = new CTextField(120, 40, String(g.dataBuilding.objectBuilding[_data.object_id].name));
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[_data.object_id].url + '_icon'));
+            txt = new CTextField(120, 40, String(g.allData.building[_data.object_id].name));
             txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
             txt.alignH = Align.LEFT;
             txt.x = 210 - txt.textBounds.width/2 ;
@@ -153,8 +153,8 @@ public class WOStarterPack extends WindowMain{
             _arrCTex.push(txt);
             _source.addChild(txt);
         } else if (_data.object_type == BuildType.DECOR) {
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[_data.object_id].image +'_icon'));
-            txt = new CTextField(120, 40, String(g.dataBuilding.objectBuilding[_data.object_id].name));
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[_data.object_id].image +'_icon'));
+            txt = new CTextField(120, 40, String(g.allData.building[_data.object_id].name));
             txt.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BLUE_COLOR);
             txt.alignH = Align.LEFT;
             txt.x = 210 - txt.textBounds.width/2 ;
@@ -230,7 +230,7 @@ public class WOStarterPack extends WindowMain{
             } else {
                 g.managerCats.helloCats();
                 if (g.userTimer.partyTimer > 0 ) g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
-                else if (!g.managerParty.userParty.showWindow) g.managerParty.endPartyWindow();
+//                else if (!g.managerParty.userParty.showWindow) g.managerParty.endPartyWindow();
             }
         }
      super.hideIt();

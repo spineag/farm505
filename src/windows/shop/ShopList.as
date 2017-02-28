@@ -152,7 +152,7 @@ public class ShopList {
             var dataFarm:Object;
             var arrFarm:Array;
             for (j = 0; j < arr.length; j++) {
-                dataFarm = g.dataBuilding.objectBuilding[arr[j].buildId];
+                dataFarm = g.allData.building[arr[j].buildId];
                 arrFarm = g.townArea.getCityObjectsById(dataFarm.id);
                 maxCount = arrFarm.length * dataFarm.maxAnimalsCount;
                 curCount = 0;

@@ -103,5 +103,90 @@ public class Utils {
         timer.addEventListener(TimerEvent.TIMER, func);
         timer.start();
     }
+
+    public static function objectFromStructureBuildToObject(oldOb:Object):Object {
+        var newOb:Object = {};
+        var i:int = 0;
+        if (oldOb.blockByLevel) {
+            newOb.blockByLevel = [];
+            for (i=0; i< oldOb.blockByLevel.length; i++) {
+                newOb.blockByLevel.push(oldOb.blockByLevel[i]);
+            }
+        }
+        if (oldOb.buildTime) {
+            newOb.buildTime =[];
+            for (i=0; i< oldOb.buildTime.length; i++) {
+                newOb.buildTime.push(oldOb.buildTime[i]);
+            }
+        }
+        if (oldOb.buildType) newOb.buildType = oldOb.buildType;
+        if (oldOb.catNeed) newOb.catNeed = oldOb.catNeed;
+        if (oldOb.color) newOb.color = oldOb.color;
+        if (oldOb.cost) {
+            newOb.cost = [];
+            for (i=0; i< oldOb.cost.length; i++) {
+                newOb.cost.push(oldOb.cost[i]);
+            }
+        }
+        if (oldOb.currency) {
+            newOb.currency = [];
+            for (i=0; i< oldOb.currency.length; i++) {
+                newOb.currency.push(oldOb.currency[i]);
+            }
+        }
+        if (oldOb.deltaCost) newOb.deltaCost = oldOb.deltaCost;
+        if (oldOb.filterType) newOb.filterType = oldOb.filterType;
+        if (oldOb.group) newOb.group = oldOb.group;
+        if (oldOb.height) newOb.height = oldOb.height;
+        if (oldOb.id) newOb.id = oldOb.id;
+        if (oldOb.image) newOb.image = oldOb.image;
+        if (oldOb.innerX) newOb.innerX = oldOb.innerX;
+        if (oldOb.innerY) newOb.innerY = oldOb.innerY;
+        if (oldOb.maxAnimalsCount) newOb.maxAnimalsCount = oldOb.maxAnimalsCount;
+        if (oldOb.name) newOb.name = oldOb.name;
+        if (oldOb.priceSkipHard) newOb.priceSkipHard = oldOb.priceSkipHard;
+        if (oldOb.startCountCell) newOb.startCountCell = oldOb.startCountCell;
+        if (oldOb.url) newOb.url = oldOb.url;
+        if (oldOb.visibleAction) newOb.visibleAction = oldOb.visibleAction;
+        if (oldOb.visibleTester) newOb.visibleTester = oldOb.visibleTester;
+        if (oldOb.width) newOb.width = oldOb.width;
+        if (oldOb.xpForBuild) newOb.xpForBuild = oldOb.xpForBuild;
+        if (oldOb.countUnblock) newOb.countUnblock = oldOb.countUnblock;
+        if (oldOb.craftIdResource) newOb.craftIdResource = oldOb.craftIdResource;
+        if (oldOb.countCraftResource) {
+            newOb.countCraftResource = [];
+            for (i=0; i< oldOb.countCraftResource.length; i++) {
+                newOb.countCraftResource.push(oldOb.countCraftResource[i]);
+            }
+        }
+        if (oldOb.removeByResourceId) newOb.removeByResourceId = oldOb.removeByResourceId;
+        if (oldOb.startCountResources) newOb.startCountResources = oldOb.startCountResources;
+        if (oldOb.deltaCountResources) newOb.deltaCountResources = oldOb.deltaCountResources;
+        if (oldOb.startCountInstrumets) newOb.startCountInstrumets = oldOb.startCountInstrumets;
+        if (oldOb.deltaCountAfterUpgrade) newOb.deltaCountAfterUpgrade = oldOb.deltaCountAfterUpgrade;
+        if (oldOb.upInstrumentId1) newOb.upInstrumentId1 = oldOb.upInstrumentId1;
+        if (oldOb.upInstrumentId2) newOb.upInstrumentId2 = oldOb.upInstrumentId2;
+        if (oldOb.upInstrumentId3) newOb.upInstrumentId3 = oldOb.upInstrumentId3;
+        if (oldOb.imageActive) newOb.imageActive = oldOb.imageActive;
+        if (oldOb.idResource) {
+            newOb.idResource = [];
+            for (i=0; i< oldOb.idResource.length; i++) {
+                newOb.idResource.push(oldOb.idResource[i]);
+            }
+        }
+        if (oldOb.idResourceRaw) {
+            newOb.idResourceRaw = [];
+            for (i=0; i< oldOb.idResourceRaw.length; i++) {
+                newOb.idResourceRaw.push(oldOb.idResourceRaw[i]);
+            }
+        }
+        if (oldOb.variaty) {
+            newOb.variaty = [];
+            for (i=0; i< oldOb.variaty.length; i++) {
+                newOb.variaty.push(oldOb.variaty[i]);
+            }
+        }
+        return newOb;
+    }
 }
 }
