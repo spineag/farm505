@@ -219,13 +219,18 @@ public class WOShop extends WindowMain {
 
         switch (a) {
             case VILLAGE:
-                obj = g.dataBuilding.objectBuilding;
+//                obj = g.dataBuilding.objectBuilding;
                 arr.push(g.managerCats.catInfo);
-                for (st in obj) {
-                    if (obj[st].buildType == BuildType.RIDGE || obj[st].buildType == BuildType.FARM) {
-                        arr.push(Utils.objectDeepCopy(obj[st]));
+                    for (var i:int = 0; i < g.allData.building.length; i++) {
+                        if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.RIDGE || g.allData.building[i].buildType == BuildType.FARM) {
+                            arr.push(Utils.objectDeepCopy(g.allData.building[i]));
+                        }
                     }
-                }
+//                for (st in obj) {
+//                    if (obj[st].buildType == BuildType.RIDGE || obj[st].buildType == BuildType.FARM) {
+//                        arr.push(Utils.objectDeepCopy(obj[st]));
+//                    }
+//                }
                 break;
             case ANIMAL:
                 obj = g.dataAnimal.objectAnimal;
@@ -234,36 +239,53 @@ public class WOShop extends WindowMain {
                 }
                 break;
             case FABRICA:
-                obj = g.dataBuilding.objectBuilding;
-                for (st in obj) {
-                    if (obj[st].buildType == BuildType.FABRICA) {
-                        arr.push(Utils.objectDeepCopy(obj[st]));
+//                obj = g.dataBuilding.objectBuilding;
+                for (var i:int = 0; i < g.allData.building.length; i++) {
+                    if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.FABRICA) {
+                        arr.push(Utils.objectDeepCopy(g.allData.building[i]));
                     }
                 }
+//                for (st in obj) {
+//                    if (obj[st].buildType == BuildType.FABRICA) {
+//                        arr.push(Utils.objectDeepCopy(obj[st]));
+//                    }
+//                }
                 break;
             case PLANT:
-                obj = g.dataBuilding.objectBuilding;
-                for (st in obj) {
-                    if (obj[st].buildType == BuildType.TREE) {
-                        arr.push(Utils.objectDeepCopy(obj[st]));
+                for (var i:int = 0; i < g.allData.building.length; i++) {
+                    if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.TREE) {
+                        arr.push(Utils.objectDeepCopy(g.allData.building[i]));
                     }
                 }
                 break;
             case DECOR:
-                obj = g.dataBuilding.objectBuilding;
-                for (st in obj) {
-                    if (obj[st].buildType == BuildType.DECOR || obj[st].buildType == BuildType.DECOR_ANIMATION || obj[st].buildType == BuildType.DECOR_FULL_FENСE ||
-                            obj[st].buildType == BuildType.DECOR_POST_FENCE || obj[st].buildType == BuildType.DECOR_TAIL || obj[st].buildType == BuildType.DECOR_FENCE_GATE ||
-                            obj[st].buildType == BuildType.DECOR_FENCE_ARKA) {
-                        if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == obj[st].filterType) {
-                            if (obj[st].buildType == BuildType.DECOR || obj[st].buildType == BuildType.DECOR_ANIMATION || obj[st].buildType == BuildType.DECOR_TAIL) {
-                                if (obj[st].group && !g.allData.isFirstInGroupDecor(obj[st].group, obj[st].id)) 
+//                obj = g.dataBuilding.objectBuilding;
+                for (var i:int = 0; i < g.allData.building.length; i++) {
+                    if (g.allData.building[i].buildType == BuildType.DECOR || g.allData.building[i].buildType == BuildType.DECOR_ANIMATION || g.allData.building[i].buildType == BuildType.DECOR_FULL_FENСE ||
+                            g.allData.building[i].buildType == BuildType.DECOR_POST_FENCE || g.allData.building[i].buildType == BuildType.DECOR_TAIL || g.allData.building[i].buildType == BuildType.DECOR_FENCE_GATE ||
+                            g.allData.building[i].buildType == BuildType.DECOR_FENCE_ARKA) {
+                        if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == g.allData.building[i].filterType) {
+                            if (g.allData.building[i].buildType == BuildType.DECOR || g.allData.building[i].buildType == BuildType.DECOR_ANIMATION || g.allData.building[i].buildType == BuildType.DECOR_TAIL) {
+                                if (g.allData.building[i].group && !g.allData.isFirstInGroupDecor(g.allData.building[i].group, obj[st].id))
                                     continue;
                             }
                             arr.push(Utils.objectDeepCopy(obj[st]));
                         }
                     }
                 }
+//                for (st in obj) {
+//                    if (obj[st].buildType == BuildType.DECOR || obj[st].buildType == BuildType.DECOR_ANIMATION || obj[st].buildType == BuildType.DECOR_FULL_FENСE ||
+//                            obj[st].buildType == BuildType.DECOR_POST_FENCE || obj[st].buildType == BuildType.DECOR_TAIL || obj[st].buildType == BuildType.DECOR_FENCE_GATE ||
+//                            obj[st].buildType == BuildType.DECOR_FENCE_ARKA) {
+//                        if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == obj[st].filterType) {
+//                            if (obj[st].buildType == BuildType.DECOR || obj[st].buildType == BuildType.DECOR_ANIMATION || obj[st].buildType == BuildType.DECOR_TAIL) {
+//                                if (obj[st].group && !g.allData.isFirstInGroupDecor(obj[st].group, obj[st].id))
+//                                    continue;
+//                            }
+//                            arr.push(Utils.objectDeepCopy(obj[st]));
+//                        }
+//                    }
+//                }
                 break;
         }
         if (curentTab == DECOR) {

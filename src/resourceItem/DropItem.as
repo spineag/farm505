@@ -52,7 +52,7 @@ public class DropItem {
 
         _source = new Sprite();
         if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION) {
-            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[prise.id].url + '_icon'));
+            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[prise.id].url + '_icon'));
             endPoint = g.toolsPanel.pointXY();
             var f4:Function = function (dbId:int):void {
                 g.userInventory.addToDecorInventory(prise.id, dbId);
@@ -62,7 +62,7 @@ public class DropItem {
             };
             f();
         } else if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR) {
-            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[prise.id].image +'_icon'));
+            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[prise.id].image +'_icon'));
             endPoint = g.toolsPanel.pointXY();
             var f3:Function = function (dbId:int):void {
                 g.userInventory.addToDecorInventory(prise.id, dbId);

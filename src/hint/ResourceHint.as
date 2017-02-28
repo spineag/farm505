@@ -32,7 +32,7 @@ public class ResourceHint {
     private var bg:HintBackground;
     private var objTrees:Array;
     private var objCave:Array;
-//    private var objRecipes:Object;
+    private var objRecipes:Object;
     private var objAnimals:Object;
     private var _timer:int;
     private var _callback:Function;
@@ -52,25 +52,28 @@ public class ResourceHint {
 
         objTrees = [];
         objCave = [];
-        obj = g.dataBuilding.objectBuilding;
-        for (var id:String in obj) {
-            if (obj[id].buildType == BuildType.TREE)
-                objTrees.push(obj[id]);
-            else if (obj[id].buildType == BuildType.CAVE)
-                objCave = obj[id].idResource;
+        for (var i:int = 0; i < g.allData.building.length; i++) {
+            if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.TREE)
+                objTrees.push(g.allData.building[i]);
+            else if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.CAVE)
+                objCave = g.allData.building[i].idResource;
         }
 
         objAnimals = [];
         obj = g.dataAnimal.objectAnimal;
-        for (id in obj) {
+        for (var id:String in obj) {
             objAnimals[obj[id].idResource] = obj[id];
         }
 
-//        objRecipes = {};
+
 //        obj = g.dataRecipe.objectRecipe;
 //        for (id in obj) {
 //            objRecipes[obj[id].idResource] = obj[id];
 //        }
+        objRecipes = [];
+        for (i = 0; i < g.allData.recipe.length; i++) {
+           if (g.allData.recipe[i]) objRecipes[g.allData.recipe[i].idResource] = g.allData.recipe[i];
+        }
     }
 
     public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,bol:Boolean = false, fabr:Boolean = false):void {
@@ -256,7 +259,7 @@ public class ResourceHint {
             }
         }
 
-        if (g.allData.recipe[_id]) {
+        if (objRecipes[_id]) {
             _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("hint_clock"));
             _imageClock.x = -30;
             _txtName.text = String(g.allData.resource[_id].name);
@@ -264,7 +267,7 @@ public class ResourceHint {
             _txtName.y = 20;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.resource[_id].buildTime);
             _txtTime.x = 20;
-            _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[g.allData.recipe[_id].buildingId].name;
+            _txtText.text = "Место производства: " + g.allData.building[objRecipes[_id].buildingId].name;
             _txtText.x = -100;
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
@@ -304,7 +307,7 @@ public class ResourceHint {
             _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.resource[_id].buildTime);
 //            _txtTime.x = -10;
             _txtTime.y = 62;
-            _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_id].buildId].name;
+            _txtText.text = "Место производства: " + g.allData.building[objAnimals[_id].buildId].name;
             _txtText.x = -100;
             _txtText.y = 7;
             wText = _txtText.textBounds.width + 20;

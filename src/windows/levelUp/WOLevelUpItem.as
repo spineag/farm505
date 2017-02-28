@@ -69,9 +69,9 @@ public class WOLevelUpItem {
             }
 
             if (ob.decorData) {
-                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.dataBuilding.objectBuilding[ob.id].image + '_icon'));
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[ob.id].image + '_icon'));
                 if (!_image) {
-                    _image = new Image(g.allData.atlas[g.dataBuilding.objectBuilding[ob.id].url].getTexture(g.dataBuilding.objectBuilding[ob.id].image));
+                    _image = new Image(g.allData.atlas[g.allData.building[ob.id].url].getTexture(g.allData.building[ob.id].image));
                 }
                 _txtCount.text = '+' + String(ob.count);
 //                _txtNew.text = '';

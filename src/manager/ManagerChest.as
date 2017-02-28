@@ -6,6 +6,8 @@ import build.WorldObject;
 import data.BuildType;
 import flash.geom.Point;
 
+import utils.Utils;
+
 public class ManagerChest {
     public static const RESOURCE:int = 1;
     public static const PLANT:int = 2;
@@ -23,9 +25,16 @@ public class ManagerChest {
     public function ManagerChest() {}
 
     private function findChestID():void {
-        for (var id:String in g.dataBuilding.objectBuilding) {
-            if (g.dataBuilding.objectBuilding[id].buildType == BuildType.CHEST) {
-                _chestBuildID = int(id);
+//        for (var id:String in g.dataBuilding.objectBuilding) {
+//            if (g.dataBuilding.objectBuilding[id].buildType == BuildType.CHEST) {
+//                _chestBuildID = int(id);
+//                break;
+//            }
+//        }
+
+        for (var i:int = 0; i < g.allData.building.length; i++) {
+            if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.CHEST) {
+                _chestBuildID = i;
                 break;
             }
         }
@@ -166,10 +175,10 @@ public class ManagerChest {
         if (_chestBuildID == -1) findChestID();
         var p:Point = g.townArea.getRandomFreeCell();
         if (away) {
-            g.townArea.createAwayNewBuild(g.dataBuilding.objectBuilding[_chestBuildID], p.x, p.y, 0);
+            g.townArea.createAwayNewBuild(g.allData.building[_chestBuildID], p.x, p.y, 0);
         } else {
             p = g.matrixGrid.getXYFromIndex(p);
-            var build:WorldObject = g.townArea.createNewBuild(g.dataBuilding.objectBuilding[_chestBuildID], 0);
+            var build:WorldObject = g.townArea.createNewBuild(Utils.objectFromStructureBuildToObject(g.allData.building[_chestBuildID]), 0);
             g.townArea.pasteBuild(build, p.x, p.y, false);
         }
     }
@@ -190,7 +199,7 @@ public class ManagerChest {
         var p:Point = new Point(33, 33);
         p = g.matrixGrid.getXYFromIndex(p);
         if (_chestBuildID == -1) findChestID();
-        var build:WorldObject = g.townArea.createNewBuild(g.dataBuilding.objectBuilding[_chestBuildID], 0);
+        var build:WorldObject = g.townArea.createNewBuild(g.allData.building[_chestBuildID], 0);
         g.townArea.pasteBuild(build, p.x, p.y, false);
         return build;
     }

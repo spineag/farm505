@@ -125,7 +125,7 @@ public class XPPanel {
             }
 
             if (g.useNewTuts && (g.user.level == 4 || g.user.level == 5)) g.managerMiniScenes.checkDeleteMiniScene();
-            if (g.user.level == g.dataBuilding.objectBuilding[45].blockByLevel)
+            if (g.user.level == g.allData.building[45].blockByLevel)
                 g.managerDailyBonus.generateDailyBonusItems();
             if (g.user.level == 8) {
                 if (g.managerHelpers) g.managerHelpers.disableIt();

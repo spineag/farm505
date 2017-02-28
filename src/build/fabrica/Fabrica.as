@@ -56,7 +56,7 @@ public class Fabrica extends WorldObject {
             return;
         }
         if (!_dataBuild.countCell) {
-            _dataBuild.countCell = g.dataBuilding.objectBuilding[_dataBuild.id].startCountCell;
+            _dataBuild.countCell = g.allData.building[_dataBuild.id].startCountCell;
         }
         _craftSprite = new Sprite();
         if (g.isAway) {

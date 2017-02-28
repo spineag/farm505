@@ -325,6 +325,7 @@
             <filename>witch_pot</filename>
             <filename>yogurt_machine_icon.png</filename>
             <filename>street_lantern_icon.png</filename>
+            <filename>snowman_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

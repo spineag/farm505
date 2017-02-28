@@ -312,14 +312,14 @@ public class UserInventory {
                 addResource(i, 3);
             }
 
-            var build:Object = g.dataBuilding.objectBuilding;
+//            var buil2d:Object = g.dataBuilding.objectBuilding;
             var res:Object = g.dataAnimal.objectAnimal;
-            for (var id:String in build) {
-                if (build[id].buildType == BuildType.FARM) {
-                    for (i = 0; i < build[id].blockByLevel.length; i++) {
-                        if (build[id].blockByLevel[i] == g.user.level) {
+            for (i = 0; i < g.allData.building.length; i++) {
+                if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.FARM) {
+                    for (var k:int = 0; k < g.allData.building[i].blockByLevel.length; k++) {
+                        if (g.allData.building[i].blockByLevel[k] == g.user.level) {
                             for (var idA:String in res) {
-                                if (build[id].id == res[idA].buildId) {
+                                if (g.allData.building[i].id == res[idA].buildId) {
                                     addResource(res[idA].idResourceRaw, 3);  // add feed for animals
                                     return;
                                 }
@@ -328,6 +328,20 @@ public class UserInventory {
                     }
                 }
             }
+//            for (var id:String in build) {
+//                if (build[id].buildType == BuildType.FARM) {
+//                    for (i = 0; i < build[id].blockByLevel.length; i++) {
+//                        if (build[id].blockByLevel[i] == g.user.level) {
+//                            for (var idA:String in res) {
+//                                if (build[id].id == res[idA].buildId) {
+//                                    addResource(res[idA].idResourceRaw, 3);  // add feed for animals
+//                                    return;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
 
         }
     }

@@ -39,7 +39,7 @@ public class MarketHint {
     private var bg:HintBackground;
     private var objTrees:Array;
     private var objCave:Array;
-//    private var objRecipes:Object;
+    private var objRecipes:Object;
     private var objAnimals:Object;
     public var isShowed:Boolean;
     private var g:Vars = Vars.getInstance();
@@ -52,25 +52,24 @@ public class MarketHint {
 
         objTrees = [];
         objCave = [];
-        obj = g.dataBuilding.objectBuilding;
-        for (var id:String in obj) {
-            if (obj[id].buildType == BuildType.TREE)
-                objTrees.push(obj[id]);
-            else if (obj[id].buildType == BuildType.CAVE)
-                objCave = obj[id].idResource;
+//        obj = g.dataBuilding.objectBuilding;
+        for (var i:int = 0; i < g.allData.building.length; i++) {
+            if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.TREE)
+                objTrees.push(g.allData.building[i]);
+            else if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.CAVE)
+                objCave = g.allData.building[i].idResource;
         }
 
         objAnimals = [];
         obj = g.dataAnimal.objectAnimal;
-        for (id in obj) {
+        for (var id:String in obj) {
             objAnimals[obj[id].idResource] = obj[id];
         }
 
-//        objRecipes = {};
-//        obj = g.dataRecipe.objectRecipe;
-//        for (id in obj) {
-//            objRecipes[obj[id].idResource] = obj[id];
-//        }
+        objRecipes = {};
+       for (i = 0; i < g.allData.recipe.length; i++) {
+           if (g.allData.recipe[i]) objRecipes[g.allData.recipe[i].idResource] = g.allData.recipe[i];
+        }
     }
 
     public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,noResource:Boolean = false): void {
@@ -240,7 +239,7 @@ public class MarketHint {
             }
         }
 
-        if (g.allData.recipe[_dataId]) {
+        if (objRecipes[_dataId]) {
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_dataId].imageShop));
             MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 70;
@@ -248,7 +247,7 @@ public class MarketHint {
             _txtName.text = String(g.allData.resource[_dataId].name);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[g.allData.recipe[_dataId].buildingId].name;
+            _txtText.text = "Место производства: " + g.allData.building[objRecipes[_dataId].buildingId].name;
             _txtText.x = -100;
             _txtText.y = 5;
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
@@ -279,7 +278,7 @@ public class MarketHint {
             _txtName.text = String(g.allData.resource[_dataId].name);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtText.text = "Место производства: " + g.dataBuilding.objectBuilding[objAnimals[_dataId].buildId].name;
+            _txtText.text = "Место производства: " + g.allData.building[objAnimals[_dataId].buildId].name;
             _txtText.x = -100;
             _txtText.y = 5;
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));

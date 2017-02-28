@@ -286,14 +286,20 @@ public class ManagerHelpers {
         for (var i:int=0; i<arr.length; i++) {
             ids.push((arr[i] as Fabrica).dataBuild.id);
         }
-        var obj:Object = g.dataBuilding.objectBuilding;
+//        var obj:Object = g.dataBuilding.objectBuilding;
         arr = [];
-        for (var st:String in obj) {
-            if (obj[st].buildType == BuildType.FABRICA && obj[st].blockByLevel[0] <= g.user.level && ids.indexOf(obj[st].id) == -1 && obj[st].cost[0] <= g.user.softCurrencyCount) {
-                arr.push(obj[st]);
+        for (i= 0; i < g.allData.building.length; i++) {
+            if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.FABRICA && g.allData.building[i].blockByLevel[0] <= g.user.level && ids.indexOf(g.allData.building[i].id) == -1 && g.allData.building[i].cost[0] <= g.user.softCurrencyCount) {
+                arr.push(g.allData.building[i]);
                 break;
             }
         }
+//        for (var st:String in obj) {
+//            if (obj[st].buildType == BuildType.FABRICA && obj[st].blockByLevel[0] <= g.user.level && ids.indexOf(obj[st].id) == -1 && obj[st].cost[0] <= g.user.softCurrencyCount) {
+//                arr.push(obj[st]);
+//                break;
+//            }
+//        }
         if (arr.length) {
             _curReason.id = arr[0].id;
             _curReason.type = BuildType.FABRICA;
@@ -307,14 +313,20 @@ public class ManagerHelpers {
         for (var i:int=0; i<arr.length; i++) {
             ids.push((arr[i] as Farm).dataBuild.id);
         }
-        var obj:Object = g.dataBuilding.objectBuilding;
+//        var obj:Object = g.dataBuilding.objectBuilding;
         arr = [];
-        for (var st:String in obj) {
-            if (obj[st].buildType == BuildType.FARM && obj[st].blockByLevel[0] <= g.user.level && ids.indexOf(obj[st].id) == -1  && obj[st].cost[0] <= g.user.softCurrencyCount) {
-                arr.push(obj[st]);
+        for (i = 0; i < g.allData.building.length; i++) {
+            if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.FARM && g.allData.building[i].blockByLevel[0] <= g.user.level && ids.indexOf(g.allData.building[i].id) == -1  &&g.allData.building[i].cost[0] <= g.user.softCurrencyCount) {
+                arr.push(g.allData.building[i]);
                 break;
             }
         }
+//        for (var st:String in obj) {
+//            if (obj[st].buildType == BuildType.FARM && obj[st].blockByLevel[0] <= g.user.level && ids.indexOf(obj[st].id) == -1  && obj[st].cost[0] <= g.user.softCurrencyCount) {
+//                arr.push(obj[st]);
+//                break;
+//            }
+//        }
         if (arr.length) {
             _curReason.id = arr[0].id;
             _curReason.type = BuildType.FARM;
