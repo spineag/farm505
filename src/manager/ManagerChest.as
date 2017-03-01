@@ -10,6 +10,8 @@ import utils.Utils;
 
 import utils.Utils;
 
+import utils.Utils;
+
 public class ManagerChest {
     public static const RESOURCE:int = 1;
     public static const PLANT:int = 2;
@@ -201,7 +203,7 @@ public class ManagerChest {
         var p:Point = new Point(33, 33);
         p = g.matrixGrid.getXYFromIndex(p);
         if (_chestBuildID == -1) findChestID();
-        var build:WorldObject = g.townArea.createNewBuild(g.allData.building[_chestBuildID], 0);
+        var build:WorldObject = g.townArea.createNewBuild(Utils.objectFromStructureBuildToObject(g.allData.building[_chestBuildID]), 0);
         g.townArea.pasteBuild(build, p.x, p.y, false);
         return build;
     }
