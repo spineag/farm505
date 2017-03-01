@@ -8,6 +8,8 @@ import flash.geom.Point;
 
 import utils.Utils;
 
+import utils.Utils;
+
 public class ManagerChest {
     public static const RESOURCE:int = 1;
     public static const PLANT:int = 2;
@@ -175,7 +177,7 @@ public class ManagerChest {
         if (_chestBuildID == -1) findChestID();
         var p:Point = g.townArea.getRandomFreeCell();
         if (away) {
-            g.townArea.createAwayNewBuild(g.allData.building[_chestBuildID], p.x, p.y, 0);
+            g.townArea.createAwayNewBuild(Utils.objectFromStructureBuildToObject(g.allData.building[_chestBuildID]), p.x, p.y, 0);
         } else {
             p = g.matrixGrid.getXYFromIndex(p);
             var build:WorldObject = g.townArea.createNewBuild(Utils.objectFromStructureBuildToObject(g.allData.building[_chestBuildID]), 0);
