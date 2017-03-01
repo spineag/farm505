@@ -224,7 +224,7 @@ public class WOShop extends WindowMain {
                 arr.push(g.managerCats.catInfo);
                     for (i = 0; i < g.allData.building.length; i++) {
                         if (g.allData.building[i] && (g.allData.building[i].buildType == BuildType.RIDGE || g.allData.building[i].buildType == BuildType.FARM)) {
-                            arr.push(Utils.objectDeepCopy(g.allData.building[i]));
+                            arr.push(Utils.objectFromStructureBuildToObject(g.allData.building[i]));
                         }
                     }
 //                for (st in obj) {
@@ -243,7 +243,7 @@ public class WOShop extends WindowMain {
 //                obj = g.dataBuilding.objectBuilding;
                 for (i = 0; i < g.allData.building.length; i++) {
                     if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.FABRICA) {
-                        arr.push(Utils.objectDeepCopy(g.allData.building[i]));
+                        arr.push(Utils.objectFromStructureBuildToObject(g.allData.building[i]));
                     }
                 }
 //                for (st in obj) {
@@ -255,7 +255,7 @@ public class WOShop extends WindowMain {
             case PLANT:
                 for (i = 0; i < g.allData.building.length; i++) {
                     if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.TREE) {
-                        arr.push(Utils.objectDeepCopy(g.allData.building[i]));
+                        arr.push(Utils.objectFromStructureBuildToObject(g.allData.building[i]));
                     }
                 }
                 break;
@@ -268,10 +268,10 @@ public class WOShop extends WindowMain {
                                 g.allData.building[i].buildType == BuildType.DECOR_FENCE_ARKA) {
                             if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == g.allData.building[i].filterType) {
                                 if (g.allData.building[i].buildType == BuildType.DECOR || g.allData.building[i].buildType == BuildType.DECOR_ANIMATION || g.allData.building[i].buildType == BuildType.DECOR_TAIL) {
-                                    if (g.allData.building[i].group && !g.allData.isFirstInGroupDecor(g.allData.building[i].group, obj[st].id))
+                                    if (g.allData.building[i].group && !g.allData.isFirstInGroupDecor(g.allData.building[i].group, g.allData.building[i].id))
                                         continue;
                                 }
-                                arr.push(Utils.objectDeepCopy(obj[st]));
+                                arr.push(Utils.objectFromStructureBuildToObject(g.allData.building[i]));
                             }
                         }
                     }

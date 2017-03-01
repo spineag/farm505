@@ -34,6 +34,9 @@ import tutorial.managerCutScenes.ManagerCutScenes;
 import utils.CButton;
 import utils.CSprite;
 import utils.MCScaler;
+import utils.Utils;
+import utils.Utils;
+
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WindowsManager;
 import windows.shop.decorRadioButton.DecorRadioButton;
@@ -559,7 +562,7 @@ public class ShopItem {
                 }
             }
         } else if (_data.buildType == BuildType.ANIMAL) {
-            var dataFarm:Object = g.allData.building[_data.buildId];
+            var dataFarm:Object = Utils.objectFromStructureBuildToObject(g.allData.building[_data.buildId]);
             if (dataFarm && dataFarm.blockByLevel) {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
 //                    createLockedSprite();
@@ -931,7 +934,7 @@ public class ShopItem {
                 if (!g.managerTutorial.isTutorialResource(_data.id)) return;
             }
             //додаємо на відповідну ферму
-            var dataFarm:Object = g.allData.building[_data.buildId];
+            var dataFarm:Object = Utils.objectFromStructureBuildToObject(g.allData.building[_data.buildId]);
             var curCount:int = 0;
             var arr:Array = g.townArea.cityObjects;
             var arrPat:Array = g.townArea.getCityObjectsById(dataFarm.id);
