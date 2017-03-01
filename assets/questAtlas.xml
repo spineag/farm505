@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:ae0905721d508a9f41528c83a725d597:b30b02828cda89bf308308483f662424:819925d908106424c17d1be1fd83d442$ -->
+<!-- $TexturePacker:SmartUpdate:060c22d3044aa72e53dd8a2085cc6bea:e258d0c7c542905e0ff9d6a68d0a43f9:819925d908106424c17d1be1fd83d442$ -->
 <TextureAtlas imagePath="questAtlas.png">
     <SubTexture name="quest_award_window" x="2" y="2" width="519" height="367" frameX="0" frameY="0" frameWidth="519" frameHeight="391"/>
     <SubTexture name="quest_window_1" x="523" y="2" width="492" height="295" frameX="-3" frameY="-8" frameWidth="503" frameHeight="312"/>
     <SubTexture name="quest_window_2" x="1017" y="2" width="492" height="295" frameX="-3" frameY="-8" frameWidth="503" frameHeight="312"/>
+    <SubTexture name="quest_window_back" x="1511" y="2" width="492" height="276" frameX="0" frameY="0" frameWidth="492" frameHeight="278"/>
 </TextureAtlas>
