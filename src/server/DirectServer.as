@@ -778,22 +778,22 @@ public class DirectServer {
                 obj.visibleAction = true;
                 if (g.user.isTester) g.dataBuilding.objectBuilding[obj.id] = obj;
                 else if (d.message[i].visible == 0 ) {
-                    var startDayNumber:int = int(d.message[i].start_action);
-                    var endDayNumber:int = int(d.message[i].end_action);
-                    var curDayNumber:int = new Date().getTime()/1000;
+                    var startDayNumber2:int = int(d.message[i].start_action);
+                    var endDayNumber2:int = int(d.message[i].end_action);
+                    var curDayNumber2:int = new Date().getTime()/1000;
 
                     obj.visibleAction = false;
-                    if (startDayNumber == 0 && endDayNumber == 0) {
+                    if (startDayNumber2 == 0 && endDayNumber2 == 0) {
                         obj.visibleAction = true;
                     } else {
-                        if (startDayNumber != 0 && startDayNumber <= curDayNumber) {
-                            if (endDayNumber > curDayNumber || endDayNumber == 0) {
+                        if (startDayNumber2 != 0 && startDayNumber2 <= curDayNumber2) {
+                            if (endDayNumber2 > curDayNumber2 || endDayNumber2 == 0) {
                                 obj.visibleAction = true;
                             }
                             else {
                                 obj.visibleAction = false;
                             }
-                        } else if (startDayNumber > curDayNumber) {
+                        } else if (startDayNumber2 > curDayNumber2) {
                             obj.visibleAction = false;
                         }
 
