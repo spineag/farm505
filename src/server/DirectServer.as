@@ -1008,7 +1008,7 @@ public class DirectServer {
             } else {
                 g.user.miniScenes = [];
             }
-            if (g.useNewTuts && g.user.level <= 3) {
+            if (g.user.level <= 3) {
                 if (!g.user.miniScenes.length || g.user.miniScenes[0] == 0)
                     g.user.isOpenOrder = false; // temp
             }

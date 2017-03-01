@@ -215,7 +215,6 @@ public class Vars {
 //    private var testersArrayTuts:Array = ['191561520', '14663166', '33979940', '201166703', '23038255', '155912975' ,'272989922', '168207096', '8024599',
 //        '102042944',  '206512584',  '34667267', '208452662', '201152139', '148154256', '122302536', '82812915', '202427318', '216083575', '382171121'];
     private var testersArrayQuests:Array = ['191561520'];
-    public var useNewTuts:Boolean = false;
     public var useQuests:Boolean = false;
 
     public static function getInstance():Vars {
@@ -265,12 +264,7 @@ public class Vars {
 //        }
 //
 //        try {
-            useNewTuts = true;
-            if (useNewTuts) {
-                managerTutorial = new ManagerTutorialNew();
-            } else {
-                managerTutorial = new ManagerTutorial();
-            }
+            managerTutorial = new ManagerTutorialNew();
             managerCutScenes = new ManagerCutScenes();
             managerWallPost = new ManagerWallPost();
             managerInviteFriend = new ManagerInviteFriend();
