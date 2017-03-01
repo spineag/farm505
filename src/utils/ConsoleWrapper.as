@@ -55,9 +55,6 @@ public class ConsoleWrapper {
         Cc.bindKey(new KeyBind(Keyboard.I, true, false, true, true), showStats);
         Cc.bindKey(new KeyBind(Keyboard.T, true,false,true,true), makeTester);
         Cc.bindKey(new KeyBind(Keyboard.X, true,false,true,true), showXY);
-//        Cc.bindKey(new KeyBind(Keyboard.R, false, false, true, true), removeUserData);
-
-        //Cc.addSlashCommand("export", exportLogToHTML, "Save game log.", true);
     }
 
     public function initTesterMode():void {

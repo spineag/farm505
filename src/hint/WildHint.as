@@ -176,7 +176,7 @@ public class WildHint {
                 _deleteCallback.apply();
                 _deleteCallback = null;
             }
-            if (g.managerTutorial.isTutorial && g.useNewTuts && g.managerTutorial.currentAction == TutorialAction.REMOVE_WILD) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.REMOVE_WILD) {
                 hideArrow();
                 g.managerTutorial.checkTutorialCallback();
             }

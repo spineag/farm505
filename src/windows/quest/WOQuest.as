@@ -3,11 +3,19 @@
  */
 package windows.quest {
 import com.junkbyte.console.Cc;
+
+import flash.display.Bitmap;
+
 import manager.ManagerFilters;
+
+import quest.ManagerQuest;
 import quest.QuestStructure;
 import starling.display.Image;
+import starling.textures.Texture;
 import starling.utils.Color;
 import utils.CTextField;
+import utils.MCScaler;
+
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.WindowBackground;
@@ -23,6 +31,7 @@ public class WOQuest extends WindowMain{
     private var _questItem:WOQuestItem;
     private var _award:WOQuestAward;
     private var _txtDescription:CTextField;
+    private var _questIcon:Image;
 
     public function WOQuest() {
         super();
@@ -48,8 +57,8 @@ public class WOQuest extends WindowMain{
         _txtName.touchable = false;
         _source.addChild(_txtName);
 
-        _txtDescription = new CTextField(270, 95, '');
-        _txtDescription.setFormat(CTextField.MEDIUM24, 24, ManagerFilters.BLUE_COLOR);
+        _txtDescription = new CTextField(260, 95, '');
+        _txtDescription.setFormat(CTextField.MEDIUM24, 22, ManagerFilters.BLUE_COLOR);
         _txtDescription.x = -120;
         _txtDescription.y = -200;
         _txtDescription.touchable = false;
@@ -60,11 +69,10 @@ public class WOQuest extends WindowMain{
         _quest = params[0];
         if (g.allData.atlas['questAtlas']) {
             var im:Image;
-            if (_quest.id % 2) im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_1'));
-                else im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_2'));
+            im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_back'));
             if (im) {
                 im.x = -im.width/2;
-                im.y = -295;
+                im.y = -270;
                 im.touchable = false;
                 _source.addChild(im);
             } else {
@@ -77,10 +85,35 @@ public class WOQuest extends WindowMain{
         _txtName.text = _quest.questName;
         _source.setChildIndex(_txtDescription, _source.numChildren-1);
         _source.setChildIndex(_txtName, _source.numChildren-1);
+        _source.setChildIndex(_btnExit, _source.numChildren-1);
 
         _award = new WOQuestAward(_source, _quest.awards);
         _questItem = new WOQuestItem(_source, _quest.tasks);
         super.showIt();
+
+        var st:String = _quest.iconPath;
+        if (st == '0') {
+            st = _quest.getUrlFromTask();
+            if (st == '0') {
+                addIm(_quest.iconImageFromAtlas());
+            } else {
+                g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
+            }
+        } else {
+            g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
+        }
+    }
+
+    private function onLoadIcon(bitmap:Bitmap):void { addIm(new Image(Texture.fromBitmap(bitmap))); }
+    private function addIm(im:Image):void {
+        _questIcon = im;
+        if (_questIcon) {
+            MCScaler.scale(_questIcon, 146, 146);
+            _questIcon.alignPivot();
+            _questIcon.x = -200;
+            _questIcon.y = -190;
+            _source.addChild(_questIcon);
+        }
     }
 
     override protected function deleteIt():void {

@@ -33,8 +33,8 @@ public class WOQuestAward {
     public function WOQuestAward(p:Sprite, ar:Array) {
         _parent = p;
         _source = new Sprite();
-        _source.x = -80;
-        _source.y = -106;
+        _source.x = -60;
+        _source.y = -100;
         _source.touchable = false;
         _parent.addChild(_source);
 //        var q:Quad = new Quad(176, 70, Color.BLACK);

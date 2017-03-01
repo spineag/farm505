@@ -116,15 +116,11 @@ public class XPPanel {
             g.directServer.updateUserLevel(null);
             g.userInventory.addNewElementsAfterGettingNewLevel();
             g.managerCats.calculateMaxCountCats();
-            if (!g.useNewTuts || !g.user.level==3) g.managerOrder.checkOrders();
+            if (!g.user.level==3) g.managerOrder.checkOrders();
 
-            if (g.useNewTuts) {
-                if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
-            } else {
-                g.managerOrder.checkOrders();
-            }
+            if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
 
-            if (g.useNewTuts && (g.user.level == 4 || g.user.level == 5)) g.managerMiniScenes.checkDeleteMiniScene();
+            if (g.user.level == 4 || g.user.level == 5) g.managerMiniScenes.checkDeleteMiniScene();
             if (g.user.level == g.allData.building[45].blockByLevel)
                 g.managerDailyBonus.generateDailyBonusItems();
             if (g.user.level == 8) {

@@ -67,7 +67,7 @@ public class ManagerOrder {
 
     public function checkOrders():void {
         updateMaxCounts();
-        if (g.useNewTuts && g.user.level < 3) return;
+        if (g.user.level < 3) return;
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction <= TutorialAction.ORDER) return;
         if (_arrOrders.length < _curMaxCountOrders) {
             addNewOrders(_curMaxCountOrders - _arrOrders.length);
@@ -76,7 +76,6 @@ public class ManagerOrder {
     }
 
     public function addOrderForMiniScenes(onArriveCallback:Function = null):void {
-        if (!g.useNewTuts) return;
         _arrOrders.length = 0;
         updateMaxCounts();
         if (_arrOrders.length < _curMaxCountOrders) {
@@ -86,18 +85,18 @@ public class ManagerOrder {
         checkOrders();
     }
 
-    public function addOrderForTutorial(onArriveCallback:Function = null):void {
-        if (g.useNewTuts) return;
-        if (g.managerTutorial.currentAction == TutorialAction.ORDER) {
-            _arrOrders.length = 0;
-            updateMaxCounts();
-            if (_arrOrders.length < _curMaxCountOrders) {
-                addNewTutorialOrder();
-                checkForNewCats(onArriveCallback);
-            }
-        }
-        checkOrders();
-    }
+//    public function addOrderForTutorial(onArriveCallback:Function = null):void { for old Tutorial
+//        if (g.useNewTuts) return;
+//        if (g.managerTutorial.currentAction == TutorialAction.ORDER) {
+//            _arrOrders.length = 0;
+//            updateMaxCounts();
+//            if (_arrOrders.length < _curMaxCountOrders) {
+//                addNewTutorialOrder();
+//                checkForNewCats(onArriveCallback);
+//            }
+//        }
+//        checkOrders();
+//    }
 
     private function checkForNewCats(onArriveCallback:Function = null):void {
         for (var i:int=0; i<_arrOrders.length; i++) {

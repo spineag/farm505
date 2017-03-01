@@ -170,8 +170,7 @@ public class Wild extends WorldObject{
 
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial && !g.useNewTuts) return;
-        if (g.managerTutorial.isTutorial && g.useNewTuts && g.managerTutorial.currentAction != TutorialAction.REMOVE_WILD) return;
+        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.REMOVE_WILD) return;
         if (_delete) return;
         if (g.selectedBuild) {
             if (g.selectedBuild == this && g.isActiveMapEditor) {
@@ -278,7 +277,7 @@ public class Wild extends WorldObject{
                     newY = g.cont.gameCont.y + (_source.y - _source.height / 8) * g.currentGameScale;
                 }
                 g.wildHint.showIt(_source.height,newX, newY, _dataBuild.removeByResourceId,_dataBuild.name,onOut);
-            if (g.managerTutorial.isTutorial && g.useNewTuts && g.managerTutorial.currentAction == TutorialAction.REMOVE_WILD) {
+            if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.REMOVE_WILD) {
                 g.wildHint.addArrow();
                 g.managerTutorial.checkTutorialCallback();
             }

@@ -191,6 +191,7 @@
             <filename>quest_award_window.png</filename>
             <filename>quest_window_1.png</filename>
             <filename>quest_window_2.png</filename>
+            <filename>quest_window_back.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
