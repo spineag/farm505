@@ -310,19 +310,20 @@ public class UserInventory {
 //            }
 //        }
         for (var i:int = 0; i < g.allData.resource.length; i++) {
-            if ((g.allData.resource[i] as StructureDataResource).buildType == BuildType.PLANT && (g.allData.resource[i] as StructureDataResource).blockByLevel == g.user.level) {
-                addResource(i, 3);
+            if (g.allData.resource[i] && (g.allData.resource[i] as StructureDataResource).buildType == BuildType.PLANT && (g.allData.resource[i] as StructureDataResource).blockByLevel == g.user.level) {
+                addResource((g.allData.resource[i] as StructureDataResource).id, 3);
             }
-
         }
-        
+
 //      var buil2d:Object = g.dataBuilding.objectBuilding;
         var res:Object = g.dataAnimal.objectAnimal;
+        var k:int;
+        var idA:String;
         for (i = 0; i < g.allData.building.length; i++) {
             if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.FARM) {
-                for (var k:int = 0; k < g.allData.building[i].blockByLevel.length; k++) {
+                for (k = 0; k < g.allData.building[i].blockByLevel.length; k++) {
                     if (g.allData.building[i].blockByLevel[k] == g.user.level) {
-                        for (var idA:String in res) {
+                        for (idA in res) {
                             if (g.allData.building[i].id == res[idA].buildId) {
                                 addResource(res[idA].idResourceRaw, 3);  // add feed for animals
                                 return;

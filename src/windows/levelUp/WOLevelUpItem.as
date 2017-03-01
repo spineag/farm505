@@ -216,6 +216,7 @@ public class WOLevelUpItem {
     }
 
     private function onHover():void {
+        return;
         if (_onHover) return;
 //        if (g.managerTutorial.isTutorial) return;
         if (_data.coins) return;
@@ -226,6 +227,7 @@ public class WOLevelUpItem {
     }
 
     private function onOut():void {
+        return;
         g.levelUpHint.hideIt();
         _onHover = false;
     }
