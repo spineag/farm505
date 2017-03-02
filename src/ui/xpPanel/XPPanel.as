@@ -116,8 +116,6 @@ public class XPPanel {
             g.directServer.updateUserLevel(null);
             g.userInventory.addNewElementsAfterGettingNewLevel();
             g.managerCats.calculateMaxCountCats();
-            if (!g.user.level==3) g.managerOrder.checkOrders();
-
             if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
 
             if (g.user.level == 4 || g.user.level == 5) g.managerMiniScenes.checkDeleteMiniScene();

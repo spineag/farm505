@@ -68,7 +68,6 @@ public class ManagerOrder {
     public function checkOrders():void {
         updateMaxCounts();
         if (g.user.level < 3) return;
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction <= TutorialAction.ORDER) return;
         if (_arrOrders.length < _curMaxCountOrders) {
             addNewOrders(_curMaxCountOrders - _arrOrders.length);
             checkForNewCats();
