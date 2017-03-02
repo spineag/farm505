@@ -49,6 +49,7 @@ public class WOPapperItem {
     private var number:int;
     private var _preloader:FlashAnimatedPreloader;
     private var _helpIcon:Image;
+    private var _btnBuy:CButton;
 
     private var g:Vars = Vars.getInstance();
 
@@ -230,6 +231,17 @@ public class WOPapperItem {
         if (_data.isOpened) {
             source.alpha = .5;
         }
+        _btnBuy = new CButton();
+        _btnBuy.addButtonTexture(70, 24, CButton.GREEN, true);
+        var txt:CTextField = new CTextField(60, 30, 'купить');
+        txt.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        txt.x = 4;
+        txt.y = -4;
+        _btnBuy.addChild(txt);
+        source.addChild(_btnBuy);
+        _btnBuy.x = 35;
+        _btnBuy.y = 120;
+        _btnBuy.clickCallback = onClickVisit;
     }
 
 //    private function onGettingUserInfo(e:SocialNetworkSwitch):void {
@@ -277,6 +289,7 @@ public class WOPapperItem {
         source.removeChild(_imageCoins);
         source.removeChild(_txtSale);
         source.removeChild(_txtCountResource);
+        source.removeChild(_btnBuy);
         _txtSale = null;
         _imageCoins = null;
         _imageItem = null;
@@ -325,6 +338,11 @@ public class WOPapperItem {
             source.removeChild(_txtSale);
             _txtSale.deleteIt();
             _txtSale = null;
+        }
+        if (_btnBuy) {
+            source.removeChild(_btnBuy);
+            _btnBuy.deleteIt();
+            _btnBuy = null;
         }
         _imageCoins = null;
         _bg = null;
