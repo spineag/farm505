@@ -6,6 +6,10 @@ import manager.Vars;
 
 import utils.Utils;
 
+import utils.Utils;
+
+import utils.Utils;
+
 
 public class StructureDataBuildings {
     private var _blockByLevel:Array;
@@ -21,8 +25,8 @@ public class StructureDataBuildings {
     private var _height:int;
     private var _id:int;
     private var _image:String;
-    private var _innerX:int;
-    private var _innerY:int;
+    private var _innerX:*;
+    private var _innerY:*;
     private var _maxAnimalsCount:int;
     private var _name:String;
     private var _priceSkipHard:int;
@@ -52,11 +56,13 @@ public class StructureDataBuildings {
     public function StructureDataBuildings(ob:Object) {
         var obj:Object = {};
         var k:int;
+        _innerX =[];
+        _innerY =[];
         _id = int(ob.id);
         _width = int(ob.width);
         _height = int(ob.height);
         if (ob.inner_x) {
-            obj.innerX = String(ob.inner_x).split('&');
+            obj.innerX = Utils.intArray(String(ob.inner_x).split('&'));
             if (obj.innerX.length == 1) {
                 obj.innerX = int(obj.innerX[0]) * g.scaleFactor;
             } else if (obj.innerX.length) {
@@ -64,7 +70,7 @@ public class StructureDataBuildings {
                     obj.innerX[k] = int(obj.innerX[k]) * g.scaleFactor;
                 }
             }
-            obj.innerY = String(ob.inner_y).split('&');
+            obj.innerY = Utils.intArray(String(ob.inner_y).split('&'));
             if (obj.innerY.length == 1) {
                 obj.innerY = int(obj.innerY[0]) * g.scaleFactor;
             } else if (obj.innerY.length) {
@@ -126,6 +132,7 @@ public class StructureDataBuildings {
             obj.innerX.push(-57 * g.scaleFactor); obj.innerY.push(-155 * g.scaleFactor); // main (top) part of gate
             obj.innerX.push(-64 * g.scaleFactor); obj.innerY.push(-189 * g.scaleFactor); // second part of gate
         }
+
         _innerX = obj.innerX;
         _innerY = obj.innerY;
 
@@ -212,8 +219,8 @@ public class StructureDataBuildings {
     public function get height():int {return _height;}
     public function get id():int {return _id;}
     public function get image():String{ return _image;}
-    public function get innerX():int{ return _innerX;}
-    public function get innerY():int{ return _innerY;}
+    public function get innerX():*{ return _innerX;}
+    public function get innerY():*{ return _innerY;}
     public function get maxAnimalsCount():int{ return _maxAnimalsCount;}
     public function get name():String {return _name;}
     public function get priceSkipHard():int {return _priceSkipHard;}
