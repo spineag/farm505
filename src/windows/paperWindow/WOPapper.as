@@ -318,6 +318,7 @@ public class WOPapper extends WindowMain {
 
     private function onGettingInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
+        Cc.info('WOPapper:: for update avatar');
         if (_leftPage) _leftPage.updateAvatars();
         if (_rightPage) _rightPage.updateAvatars();
     }

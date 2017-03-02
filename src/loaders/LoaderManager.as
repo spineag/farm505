@@ -186,15 +186,15 @@ public class LoaderManager {
         var fOnLoad:Function = function(smth:*=null):void {
             count--;
             if (count<=0) {
-                g.allData.atlas[name] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + '.png'].create() as Bitmap), g.pXMLs[st + '.xml']);
-                (g.pBitmaps[st + '.png'] as PBitmap).deleteIt();
-                delete  g.pBitmaps[st + '.png'];
-                delete  g.pXMLs[st + '.xml'];
+                g.allData.atlas[name] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + '.png' + g.getVersion('questAtlas')].create() as Bitmap), g.pXMLs[st + '.xml' + g.getVersion('questAtlas')]);
+                (g.pBitmaps[st + '.png' + g.getVersion('questAtlas')] as PBitmap).deleteIt();
+                delete  g.pBitmaps[st + '.png' + g.getVersion('questAtlas')];
+                delete  g.pXMLs[st + '.xml' + g.getVersion('questAtlas')];
                 if (f!=null) f.apply(null, params);
             }
         };
-        loadImage(st + '.png', fOnLoad);
-        loadXML(st + '.xml', fOnLoad);
+        loadImage(st + '.png' + g.getVersion('questAtlas'), fOnLoad);
+        loadXML(st + '.xml' + g.getVersion('questAtlas'), fOnLoad);
     }
 
     public function loadSWFModule(url:String, callback:Function, ...callbackParams):void {

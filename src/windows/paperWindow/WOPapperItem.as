@@ -136,7 +136,11 @@ public class WOPapperItem {
     }
 
     public function updateAvatar():void {
-        if (!_data) return;
+        if (!_data) {
+            Cc.error('WOPapperItem updateAvatar:: _data = null');
+            return;
+        }
+        Cc.info('WOPapperItem update avatar');
         if (!_p.photo) _p = g.user.getSomeoneBySocialId(_p.userSocialId);
         _txtUserName.text = _p.name + ' ' + _p.lastName;
         g.load.loadImage(_p.photo, onLoadPhoto);

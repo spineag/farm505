@@ -163,7 +163,7 @@ public class WOPapperPage {
 
     public function updateAvatars():void {
         for (var i:int=0; i< _arrItems.length; i++) {
-            if(!_arrItems[i].isBotBuy) (_arrItems[i] as WOPapperItem).updateAvatar();
+            (_arrItems[i] as WOPapperItem).updateAvatar();
         }
     }
 

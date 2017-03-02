@@ -13,7 +13,7 @@ public class StructureMarketItem {
     public var needHelp:int=0; // user need help
     public var isBuyed:Boolean=false; // was buyed in paper
     public var isOpened:Boolean=false; // was already opened in paper
-    public var shardName:String='0';
+    public var shardName:String='-1';
     public var buyerId:int=0;
     public var buyerSocialId:String = '';
     public var inPapper:Boolean = false;
