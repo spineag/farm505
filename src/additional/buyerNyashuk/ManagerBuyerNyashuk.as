@@ -386,9 +386,7 @@ public class ManagerBuyerNyashuk {
             nya.walkAnimation();
             nya.goNyaToXYPoint(p, 6, arrivePart2);
         } else {
-//            cat.walkAnimation();
             nya.walkAnimation();
-//            cat.goCatToXYPoint(p, 2, arrivePart2);
             nya.goNyaToXYPoint(p, 6, arrivePart2);
         }
     }
@@ -396,11 +394,6 @@ public class ManagerBuyerNyashuk {
     private function arrivePart2(nya:BuyerNyashuk, id:int):void {
         if (id == 1) nya.setTailPositions(30, -5);
         else nya.setTailPositions(28, -5);
-
-//
-//        nya.walkPosition = BuyerNyashuk.TILE_WALKING;
-//        if (id == 1) goNyaToPoint(nya, new Point(30, -5 ), afterArrive, false, nya);
-//        else goNyaToPoint(nya, new Point(28, -5 ), afterArrive, false, nya);
         nya.flipIt(false);
         nya.yesClick();
         nya.forceStopAnimation();
@@ -408,22 +401,5 @@ public class ManagerBuyerNyashuk {
         nya.walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
     }
 
-//    private function afterArrive(nya:BuyerNyashuk):void {
-//        if (nya.posY != -5) {
-//            goNyaToPoint(nya, new Point(30 - nya.queuePosition*2, -5), afterArrive, false, nya);
-//        } else {
-//            var onFinishArrive:Function = function():void {
-//                nya.forceStopAnimation();
-//                nya.idleFrontAnimation();
-//                nya.walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
-//            };
-//            nya.checkArriveCallback();
-//            nya.forceStopAnimation();
-//            nya.idleFrontAnimation();
-////            nya.flipIt(false);
-//            nya.walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
-//        }
-//
-//    }
 }
 }

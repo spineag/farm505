@@ -461,7 +461,7 @@ public class Vars {
                 managerParty = new ManagerPartyNew();
                 directServer.getDataParty(null);
             }
-//            if ((user as User).level >= 5 && socialNetworkID == SocialNetworkSwitch.SN_VK_ID) stock = new StockPanel();
+            if ((user as User).level >= 5 && !salePanel) stock = new StockPanel();
             managerQuest = new ManagerQuest();
 //        } catch (e:Error) {
 //            errorManager.onGetError(ErrorConst.ON_INIT3, true, true);

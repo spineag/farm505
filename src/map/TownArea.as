@@ -1660,9 +1660,10 @@ public class TownArea extends Sprite {
         for (i=0; i<p.userDataCity.animalsInfo.length; i++) {
             fillAwayAnimal(p.userDataCity.animalsInfo[i]);
         }
-        for (i=0; i<p.userDataCity.recipes.length; i++) {
+        for (i = 0; i < p.userDataCity.recipes.length; i++) {
             fillAwayRecipe(p.userDataCity.recipes[i]);
         }
+
         g.managerCats.makeAwayCats();
         g.managerChest.createChest(true);
         g.managerOrderCats.addAwayCats();
@@ -2115,7 +2116,10 @@ public class TownArea extends Sprite {
     private function fillAwayTree(ob:Object):void {
         var b:WorldObject = getAwayBuildingByDbId(ob.dbId);
         if (b && b is Tree) {
-            (b as Tree).releaseTreeFromServer(ob);
+            var f1:Function = function ():void {
+                (b as Tree).releaseTreeFromServer(ob)
+            };
+            Utils.createDelay(int(Math.random() * 5) + 3,f1);
         } else {
             Cc.error('TownArea fillAwayTree:: no such Tree with dbId: ' + ob.dbId + " OR it's visible only for testers");
         }

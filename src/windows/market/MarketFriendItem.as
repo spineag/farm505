@@ -90,10 +90,17 @@ public class MarketFriendItem {
 
     private function visitPerson():void {
         if (g.managerCutScenes.isCutScene) return;
-        g.catPanel.visibleCatPanel(false);
-        g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
-        g.windowsManager.uncasheWindow();
-        g.townArea.goAway(_person);
+        if (_person == g.user) {
+            g.catPanel.visibleCatPanel(true);
+            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+            g.windowsManager.uncasheWindow();
+            g.townArea.backHome();
+        } else {
+            g.catPanel.visibleCatPanel(false);
+            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+            g.windowsManager.uncasheWindow();
+            g.townArea.goAway(_person);
+        }
     }
 
     public function get person():Someone {
