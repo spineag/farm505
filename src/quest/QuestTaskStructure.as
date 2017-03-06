@@ -50,29 +50,29 @@ public class QuestTaskStructure {
 
     public function get iconImageFromAtlas():Image {
         var im:Image;
-        var ob:Object;
+        var ob:*;
         switch (int(_taskData.type_resource)) {
             case BuildType.PLANT:
-                ob = g.allData.resource[int(_taskData.id_resource)];
+                ob = g.allData.getResourceById(int(_taskData.id_resource));
                 im = new Image(g.allData.atlas['resourceAtlas'].getTexture(ob.imageShop + '_icon'));
                 break;
             case BuildType.RESOURCE:
-                ob = g.allData.resource[int(_taskData.id_resource)];
+                ob = g.allData.getResourceById(int(_taskData.id_resource));
                 im = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
                 break;
             case BuildType.FABRICA:
-                ob = g.allData.building[int(_taskData.id_resource)];
+                ob = g.allData.getBuildingById(int(_taskData.id_resource));
                 im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 break;
             case BuildType.FARM:
-                ob = g.dataBuilding.objectBuilding[int(_taskData.id_resource)];
+                ob = g.allData.getBuildingById(int(_taskData.id_resource));
                 im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 break;
             case BuildType.WILD:
                 im = new Image(g.allData.atlas['wildAtlas'].getTexture('swamp'));
                 break;
             case BuildType.ANIMAL:
-                ob = g.dataAnimal.objectAnimal[int(_taskData.id_resource)];
+                ob = g.allData.getAnimalById(int(_taskData.id_resource));
                 im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 break;
             case BuildType.RIDGE:

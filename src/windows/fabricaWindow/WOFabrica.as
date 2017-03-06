@@ -179,7 +179,7 @@ public class WOFabrica extends WindowMain {
 
             for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
                 count = g.userInventory.getCountResourceById(int(dataRecipe.ingridientsId[i]));
-                if (g.allData.resource[dataRecipe.ingridientsId[i]].buildType == BuildType.PLANT && count == int(dataRecipe.ingridientsCount[i]) && !g.userInventory.checkLastResource(dataRecipe.ingridientsId[i])) {
+                if (g.allData.getResourceById(dataRecipe.ingridientsId[i]).buildType == BuildType.PLANT && count == int(dataRecipe.ingridientsCount[i]) && !g.userInventory.checkLastResource(dataRecipe.ingridientsId[i])) {
                     obj = {};
                     obj.data = dataRecipe;
                     obj.fabrica = _fabrica;
@@ -192,7 +192,7 @@ public class WOFabrica extends WindowMain {
             }
         }
         var resource:ResourceItem = new ResourceItem();
-        resource.fillIt(g.allData.resource[dataRecipe.idResource]);
+        resource.fillIt(g.allData.getResourceById(dataRecipe.idResource));
         _list.addResource(resource, true);
         g.fabricHint.updateItem();
         if (_callbackOnClick != null) {

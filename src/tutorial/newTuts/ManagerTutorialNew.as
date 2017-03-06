@@ -714,8 +714,8 @@ public class ManagerTutorialNew extends IManagerTutorial{
         var dataPlace:Object = {};
         dataPlace.dataBuild = -1;
         dataPlace.buildType = BuildType.TUTORIAL_PLACE;
-        dataPlace.width = g.allData.building[_tutorialResourceIDs[0]].width;
-        dataPlace.height = g.allData.building[_tutorialResourceIDs[0]].height;
+        dataPlace.width = g.allData.getBuildingById(_tutorialResourceIDs[0]).width;
+        dataPlace.height = g.allData.getBuildingById(_tutorialResourceIDs[0]).height;
         _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
         var p:Point = new Point(10, 7);
         p = g.matrixGrid.getXYFromIndex(p);

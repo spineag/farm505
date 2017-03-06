@@ -9,6 +9,7 @@ import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 
 import data.BuildType;
+import data.StructureDataResource;
 
 import dragonBones.Armature;
 import dragonBones.Slot;
@@ -76,7 +77,7 @@ public class BuyerNyashuk {
         _spriteTxt = new Sprite();
         _spriteTxt.touchable = true;
         _isHover = false;
-        var dataResource:Object = g.allData.resource[_data.resourceId];
+        var dataResource:StructureDataResource = g.allData.getResourceById(_data.resourceId);
         var im:Image;
         if (dataResource.buildType == BuildType.PLANT)
             im = new Image(g.allData.atlas['resourceAtlas'].getTexture(dataResource.imageShop + '_icon'));

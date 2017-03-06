@@ -7,6 +7,8 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.StructureDataAnimal;
+
 import dragonBones.events.EventObject;
 import flash.geom.Point;
 import hint.MouseHint;
@@ -32,7 +34,7 @@ public class Animal {
     public static var CRAFT:int = 3;
 
     public var source:CSprite;
-    private var _data:Object;
+    private var _data:StructureDataAnimal;
     private var _timeToEnd:int;
     private var _state:int;
     private var _frameCounterTimerHint:int;
@@ -56,7 +58,7 @@ public class Animal {
 
     private var g:Vars = Vars.getInstance();
 
-    public function Animal(data:Object, farm:Farm) {
+    public function Animal(data:StructureDataAnimal, farm:Farm) {
         if (!data) {
             Cc.error('no data for Animal');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Animal');
@@ -195,11 +197,11 @@ public class Animal {
         if (ob.id) animal_db_id = ob.id;
             else animal_db_id = '0';
         if (int(ob.time_work) > 0) {
-            if (int(ob.time_work) > g.allData.resource[_data.idResource].buildTime) {
+            if (int(ob.time_work) > g.allData.getResourceById(_data.idResource).buildTime) {
                 craftResource();
                 _state = CRAFT;
             } else {
-                _timeToEnd = g.allData.resource[_data.idResource].buildTime - int(ob.time_work);
+                _timeToEnd = g.allData.getResourceById(_data.idResource).buildTime - int(ob.time_work);
                 _state = WORK;
                 if (!g.isAway) {
                     g.managerAnimal.addCatToFarm(_farm);
@@ -254,7 +256,7 @@ public class Animal {
             }
         }
         if (!show) {
-            if (g.allData.resource[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
+            if (g.allData.getResourceById(_data.idResourceRaw).buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) < 1) {
                 if (_wasStartActiveFeeding && g.managerAnimal.isMouseUnderAnimal(this)) {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, feedAnimal, 'animal', _data);
@@ -271,7 +273,7 @@ public class Animal {
                 }
                     return;
             }
-            if (!last && g.allData.resource[_data.idResourceRaw].buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1 && !g.userInventory.checkLastResource(_data.idResourceRaw)) {
+            if (!last && g.allData.getResourceById(_data.idResourceRaw).buildType == BuildType.PLANT && g.userInventory.getCountResourceById(_data.idResourceRaw) == 1 && !g.userInventory.checkLastResource(_data.idResourceRaw)) {
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, feedAnimal, {id: _data.idResourceRaw}, 'market');
                 return;
@@ -279,14 +281,14 @@ public class Animal {
         }
         if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
             if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
-            _timeToEnd = g.allData.resource[_data.idResource].buildTime; // _data.timeCraft; old from data_animal
+            _timeToEnd = g.allData.getResourceById(_data.idResource).buildTime; // _data.timeCraft; old from data_animal
             g.gameDispatcher.addToTimer(render);
             _state = WORK;
             g.managerAnimal.addCatToFarm(_farm);
             var p:Point = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
             var texture:Texture;
-            var obj:Object = g.allData.resource[_data.idResourceRaw];
+            var obj:Object = g.allData.getResourceById(_data.idResourceRaw);
             if (obj.buildType == BuildType.PLANT)
                 texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
             else
@@ -363,7 +365,7 @@ public function onEndClick(last:Boolean = false):void {
                     var p1:Point = new Point(0, _rect.y);
                     p1 = source.localToGlobal(p1);
                     if (_data.id == 1 || _data.id == 3) p1.y += 25;
-                    g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, g.allData.resource[_data.idResource].buildTime, _timeToEnd, g.allData.resource[_data.idResource].priceSkipHard, _data.name, callbackSkip, onOut, false, true);
+                    g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, g.allData.getResourceById(_data.idResource).buildTime, _timeToEnd, g.allData.getResourceById(_data.idResource).priceSkipHard, _data.name, callbackSkip, onOut, false, true);
                     stopAnimation();
                     idleAnimation();
                 } else {
@@ -388,7 +390,7 @@ public function onEndClick(last:Boolean = false):void {
             var p1:Point = new Point(0, _rect.y);
             p1 = source.localToGlobal(p1);
             if (_data.id == 1 || _data.id == 3) p1.y += 25;
-            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, g.allData.resource[_data.idResource].buildTime, _timeToEnd, g.allData.resource[_data.idResource].priceSkipHard, _data.name, callbackSkip, onOut, false, true);
+            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, g.allData.getResourceById(_data.idResource).buildTime, _timeToEnd, g.allData.getResourceById(_data.idResource).priceSkipHard, _data.name, callbackSkip, onOut, false, true);
             g.timerHint.addArrow();
         }
     }
@@ -398,7 +400,7 @@ public function onEndClick(last:Boolean = false):void {
             var p1:Point = new Point(0, _rect.y);
             p1 = source.localToGlobal(p1);
             if (_data.id == 1 || _data.id == 3) p1.y += 25;
-            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, _data.timeCraft_da, _timeToEnd, g.allData.resource[_data.idResource].priceSkipHard, _data.name, callbackSkip, onOut,false,true);
+            g.timerHint.showIt(source.width * g.currentGameScale, p1.x, p1.y, g.allData.getResourceById(_data.idResource).buildTime, _timeToEnd, g.allData.getResourceById(_data.idResource).priceSkipHard, _data.name, callbackSkip, onOut,false,true);
             stopAnimation();
             idleAnimation();
         }

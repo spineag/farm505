@@ -176,9 +176,11 @@ public class CraftItem {
         _source.filter = null;
         _txtNumber.visible = true;
         _source.isTouchable = false;
-        for (var i:int = 0; i < g.allData.recipe.length; i++) {
-            if (g.allData.recipe[i] && g.allData.recipe[i].idResource == _resourceItem.resourceID) {
-                _txtNumber.text = String(g.allData.recipe[i].numberCreate);
+        var arR:Array = g.allData.recipe;
+        for (var i:int = 0; i < arR.length; i++) {
+            if (arR[i].idResource == _resourceItem.resourceID) {
+                _txtNumber.text = String(arR[i].numberCreate);
+                break;
             }
         }
 //        for(var id:String in g.dataRecipe.objectRecipe) {

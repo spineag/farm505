@@ -678,8 +678,8 @@ public class ManagerTutorial extends IManagerTutorial {
         var dataPlace:Object = {};
         dataPlace.dataBuild = -1;
         dataPlace.buildType = BuildType.TUTORIAL_PLACE;
-        dataPlace.width = g.allData.building[_tutorialResourceIDs[0]].width;
-        dataPlace.height = g.allData.building[_tutorialResourceIDs[0]].height;
+        dataPlace.width = g.allData.getBuildingById(_tutorialResourceIDs[0]).width;
+        dataPlace.height = g.allData.getBuildingById(_tutorialResourceIDs[0]).height;
         _tutorialPlaceBuilding = g.townArea.createNewBuild(dataPlace) as TutorialPlace;
         var p:Point = new Point(10, 7);
         p = g.matrixGrid.getXYFromIndex(p);
@@ -1084,7 +1084,7 @@ public class ManagerTutorial extends IManagerTutorial {
         _subStep = 2;
         cat.playDirectLabel('idle3', true, playCatIdle);
         cat.showBubble(texts[g.user.tutorialStep][_subStep]);
-        g.managerOrder.addOrderForTutorial(subStep12_5);
+//        g.managerOrder.addOrderForTutorial(subStep12_5);
         Utils.createDelay(3, subStep12_3);
     }
 

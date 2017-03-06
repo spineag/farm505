@@ -4,6 +4,8 @@
 package additional.buyerNyashuk {
 import com.junkbyte.console.Cc;
 
+import data.StructureDataResource;
+
 import dragonBones.Armature;
 
 import flash.geom.Point;
@@ -125,32 +127,27 @@ public class ManagerBuyerNyashuk {
     }
 
     private function newBot(firstBot:Boolean = false, objectNew:Object = null):void {
-//        var id:String;
-//        var obData:Object = g.dataResource.objectResources;
         var arrMin:Array = [];
         var arr:Array;
         var arrMax:Array = [];
         var ob:Object;
         var ra:int;
         var i:int;
+        var r:StructureDataResource;
         if (firstBot) {
-            for (i = 0; i < g.allData.resource.length; i++) {
-                if (g.allData.resource[i] && g.allData.resource[i].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(g.allData.resource[i].id) && g.allData.resource[i].visitorPrice > 0) {
-                    arrMin.push(g.allData.resource[i]);
+            arr = g.allData.resource;
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(arr[i].id) && (arr[i] as StructureDataResource).visitorPrice > 0) {
+                    arrMin.push(arr[i]);
                 }
             }
-//            for (id in obData) {
-//                if (obData[id].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(obData[id].id) && obData[id].visitorPrice > 0) {
-//                    arrMin.push(obData[id]);
-//                }
-//            }
             arr = g.userInventory.getResourcesForAmbarAndSklad();
             arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
             for (i = 0; i < arr.length; i++) {
                 if (arrMax.length >= 3) break;
-                if (g.allData.resource[arr[i].id].visitorPrice > 0) arrMax.push(arr[i]);
+                if (g.allData.getResourceById(arr[i].id).visitorPrice > 0) arrMax.push(arr[i]);
             }
-            ra =  Math.random() * arrMin.length;
+            ra =  int(Math.random() * arrMin.length);
             ob = {};
             ob.buyerId = 1;
             ob.resourceId = arrMin[ra].id;
@@ -164,14 +161,14 @@ public class ManagerBuyerNyashuk {
             ob.visible = true;
             _arr.push(ob);
 
-            ra = Math.random() * arrMax.length;
+            ra = int(Math.random() * arrMax.length);
             ob = {};
             ob.buyerId = 2;
             ob.resourceId = arrMax[ra].id;
             ob.resourceCount = int(Math.random()*arrMax[ra].count) + 1;
-            ob.cost = g.allData.resource[arrMax[ra].id].visitorPrice * ob.resourceCount;
+            ob.cost = g.allData.getResourceById(arrMax[ra].id).visitorPrice * ob.resourceCount;
             ob.xp = 5;
-            ob.type = g.allData.resource[arrMax[ra].id].buildType;
+            ob.type = g.allData.getResourceById(arrMax[ra].id).buildType;
             ob.timeToNext = 0;
             ob.isBuyed = false;
             ob.isBotBuy = true;
@@ -182,17 +179,13 @@ public class ManagerBuyerNyashuk {
             }
         } else  {
             if (objectNew.buyer_id == 1) {
-                for (i = 0; i < g.allData.resource.length; i++) {
-                    if (g.allData.resource[i] && g.allData.resource[i].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(g.allData.resource[i].id) && g.allData.resource[i].visitorPrice > 0) {
-                        arrMin.push(g.allData.resource[i]);
+                arr = g.allData.resource;
+                for (i = 0; i < arr.length; i++) {
+                    if (arr[i].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(arr[i].id) && (arr[i] as StructureDataResource).visitorPrice > 0) {
+                        arrMin.push(arr[i]);
                     }
                 }
-//                for (id in obData) {
-//                    if (obData[id].blockByLevel <= g.user.level && !g.userInventory.getCountResourceById(obData[id].id) && obData[id].visitorPrice > 0) {
-//                        arrMin.push(obData[id]);
-//                    }
-//                }
-                ra = Math.random() * arrMin.length;
+                ra = int(Math.random() * arrMin.length);
                 ob = {};
                 ob.buyerId = 1;
                 ob.resourceId = arrMin[ra].id;
@@ -207,18 +200,27 @@ public class ManagerBuyerNyashuk {
             } else {
                 arr = g.userInventory.getResourcesForAmbarAndSklad();
                 arr.sortOn("count", Array.DESCENDING | Array.NUMERIC);
-                for (i = 0; i < arr.length; i++) {
-                    if (arrMax.length >= 3) break;
-                    if (g.allData.resource[arr[i].id].visitorPrice > 0) arrMax.push(arr[i]);
-                }
-                ra = Math.random() * arrMax.length;
                 ob = {};
                 ob.buyerId = 2;
-                ob.resourceId = arrMax[ra].id;
-                ob.resourceCount = int(Math.random()*arrMax[ra].count) + 1;
-                ob.cost = g.allData.resource[arrMax[ra].id].visitorPrice * ob.resourceCount;
                 ob.xp = 5;
-                ob.type = g.allData.resource[arrMax[ra].id].buildType;
+                for (i = 0; i < arr.length; i++) {
+                    if (arrMax.length >= 3) break;
+                    r = g.allData.getResourceById(arr[i].id);
+                    if (r.visitorPrice > 0) arrMax.push(arr[i]);
+                }
+                if (!arrMax.length) {
+                    r = g.allData.getResourceById(31);
+                    ob.resourceId = r.id;
+                    ob.resourceCount = 5;
+                    ob.cost = ob.resourceCount * r.visitorPrice;
+                    ob.type = r.buildType;
+                } else { 
+                    ra = int(Math.random() * arrMax.length);
+                    ob.resourceId = arrMax[ra].id;
+                    ob.resourceCount = int(Math.random() * arrMax[ra].count) + 1;
+                    ob.cost = g.allData.getResourceById(arrMax[ra].id).visitorPrice * ob.resourceCount;
+                    ob.type = g.allData.getResourceById(arrMax[ra].id).buildType;
+                }
                 ob.timeToNext = 0;
                 ob.isBuyed = false;
                 ob.isBotBuy = true;

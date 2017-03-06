@@ -119,7 +119,7 @@ public class XPPanel {
             if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
 
             if (g.user.level == 4 || g.user.level == 5) g.managerMiniScenes.checkDeleteMiniScene();
-            if (g.user.level == g.allData.building[45].blockByLevel)
+            if (g.user.level == g.allData.getBuildingById(45).blockByLevel[0])
                 g.managerDailyBonus.generateDailyBonusItems();
             if (g.user.level == 8) {
                 if (g.managerHelpers) g.managerHelpers.disableIt();

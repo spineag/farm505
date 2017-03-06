@@ -288,9 +288,10 @@ public class ManagerHelpers {
         }
 //        var obj:Object = g.dataBuilding.objectBuilding;
         arr = [];
-        for (i= 0; i < g.allData.building.length; i++) {
-            if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.FABRICA && g.allData.building[i].blockByLevel[0] <= g.user.level && ids.indexOf(g.allData.building[i].id) == -1 && g.allData.building[i].cost[0] <= g.user.softCurrencyCount) {
-                arr.push(g.allData.building[i]);
+        var arR:Array = g.allData.building;
+        for (i= 0; i < arR.length; i++) {
+            if (arR[i].buildType == BuildType.FABRICA && arR[i].blockByLevel[0] <= g.user.level && ids.indexOf(arR[i].id) == -1 && arR[i].cost[0] <= g.user.softCurrencyCount) {
+                arr.push(arR[i]);
                 break;
             }
         }
@@ -315,9 +316,10 @@ public class ManagerHelpers {
         }
 //        var obj:Object = g.dataBuilding.objectBuilding;
         arr = [];
-        for (i = 0; i < g.allData.building.length; i++) {
-            if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.FARM && g.allData.building[i].blockByLevel[0] <= g.user.level && ids.indexOf(g.allData.building[i].id) == -1  &&g.allData.building[i].cost[0] <= g.user.softCurrencyCount) {
-                arr.push(g.allData.building[i]);
+        var arR:Array = g.allData.building;
+        for (i = 0; i < arR.length; i++) {
+            if (arR[i].buildType == BuildType.FARM && arR[i].blockByLevel[0] <= g.user.level && ids.indexOf(arR[i].id) == -1  && arR[i].cost[0] <= g.user.softCurrencyCount) {
+                arr.push(arR[i]);
                 break;
             }
         }

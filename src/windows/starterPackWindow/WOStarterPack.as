@@ -132,7 +132,7 @@ public class WOStarterPack extends WindowMain{
         _arrCTex.push(txt);
 
         if (_data.object_type == BuildType.RESOURCE || _data.object_type == BuildType.INSTRUMENT || _data.object_type == BuildType.PLANT) {
-            im = new Image(g.allData.atlas[g.allData.resource[_data.object_id].url].getTexture(g.allData.resource[_data.object_id].imageShop));
+            im = new Image(g.allData.atlas[g.allData.getResourceById(_data.object_id).url].getTexture(g.allData.getResourceById(_data.object_id).imageShop));
             txt = new CTextField(120, 40, String(_data.object_count));
             txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
             txt.alignH = Align.LEFT;
@@ -142,8 +142,8 @@ public class WOStarterPack extends WindowMain{
             _arrCTex.push(txt);
             _source.addChild(im);
         } else if (_data.object_type == BuildType.DECOR_ANIMATION) {
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[_data.object_id].url + '_icon'));
-            txt = new CTextField(120, 40, String(g.allData.building[_data.object_id].name));
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(_data.object_id).url + '_icon'));
+            txt = new CTextField(120, 40, String(g.allData.getBuildingById(_data.object_id).name));
             txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
             txt.alignH = Align.LEFT;
             txt.x = 210 - txt.textBounds.width/2 ;
@@ -153,8 +153,8 @@ public class WOStarterPack extends WindowMain{
             _arrCTex.push(txt);
             _source.addChild(txt);
         } else if (_data.object_type == BuildType.DECOR) {
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[_data.object_id].image +'_icon'));
-            txt = new CTextField(120, 40, String(g.allData.building[_data.object_id].name));
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(_data.object_id).image +'_icon'));
+            txt = new CTextField(120, 40, String(g.allData.getBuildingById(_data.object_id).name));
             txt.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BLUE_COLOR);
             txt.alignH = Align.LEFT;
             txt.x = 210 - txt.textBounds.width/2 ;

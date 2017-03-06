@@ -12,6 +12,8 @@ import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
+import data.StructureDataAnimal;
+
 import flash.geom.Point;
 import hint.FlyMessage;
 import manager.ManagerFilters;
@@ -562,7 +564,7 @@ public class ShopItem {
                 }
             }
         } else if (_data.buildType == BuildType.ANIMAL) {
-            var dataFarm:Object = Utils.objectFromStructureBuildToObject(g.allData.building[_data.buildId]);
+            var dataFarm:Object = Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(_data.buildId));
             if (dataFarm && dataFarm.blockByLevel) {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
 //                    createLockedSprite();
@@ -899,14 +901,8 @@ public class ShopItem {
             g.toolsModifier.modifierType = ToolsModifier.MOVE;
             if(_data.buildType == BuildType.FARM) {
                 _wo.setAnimalClick = true;
-                ob = g.dataAnimal.objectAnimal;
-                var id:String;
-                for (id in ob){
-                    if (ob[id].buildId == _data.id) {
-                        g.user.animalIdArrow = ob[id].id;
-                        break;
-                    }
-                }
+                var an:StructureDataAnimal = g.allData.getAnimalByFarmId(_data.id);
+                if (an) g.user.animalIdArrow = an.id;
             }
             if (build is Tree) (build as Tree).showShopView();
             if (build is Fabrica) (build as Fabrica).showShopView();
@@ -934,7 +930,7 @@ public class ShopItem {
                 if (!g.managerTutorial.isTutorialResource(_data.id)) return;
             }
             //додаємо на відповідну ферму
-            var dataFarm:Object = Utils.objectFromStructureBuildToObject(g.allData.building[_data.buildId]);
+            var dataFarm:Object = Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(_data.buildId));
             var curCount:int = 0;
             var arr:Array = g.townArea.cityObjects;
             var arrPat:Array = g.townArea.getCityObjectsById(dataFarm.id);
@@ -1057,7 +1053,7 @@ public class ShopItem {
                 if (!g.managerTutorial.isTutorialResource(objectCallback.id)) return;
             }
             //додаємо на відповідну ферму
-            var dataFarm:Object = g.allData.building[objectCallback.buildId];
+            var dataFarm:Object = g.allData.getBuildingById(objectCallback.buildId);
             var curCount:int = 0;
             var arr:Array = g.townArea.cityObjects;
             var arrPat:Array = g.townArea.getCityObjectsById(dataFarm.id);

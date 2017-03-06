@@ -4,7 +4,8 @@
 package windows.levelUp {
 import com.junkbyte.console.Cc;
 import data.BuildType;
-import data.StructureDataBuildings;
+import data.StructureDataAnimal;
+import data.StructureDataBuilding;
 import data.StructureDataResource;
 
 import manager.ManagerFilters;
@@ -58,23 +59,23 @@ public class WOLevelUpItem {
         _txtCount.x = 15;
         _txtCount.y = 10;
         try {
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuildings) && ob.coins) {
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.coins) {
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
                 _txtCount.text = '+' + String(ob.countSoft);
 //                _txtNew.text = '';
                 g.userInventory.addMoney(2,ob.countSoft)
             }
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuildings) && ob.hard) {
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.hard) {
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
                 _txtCount.text = '+' + String(ob.countHard);
 //                _txtNew.text = '';
                 g.userInventory.addMoney(1,ob.countHard)
             }
 
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuildings)&& ob.decorData) {
-                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[ob.id].image + '_icon'));
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding)&& ob.decorData) {
+                _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(ob.id).image + '_icon'));
                 if (!_image) {
-                    _image = new Image(g.allData.atlas[g.allData.building[ob.id].url].getTexture(g.allData.building[ob.id].image));
+                    _image = new Image(g.allData.atlas[g.allData.getBuildingById(ob.id).url].getTexture(g.allData.getBuildingById(ob.id).image));
                 }
                 _txtCount.text = '+' + String(ob.count);
 //                _txtNew.text = '';
@@ -86,24 +87,24 @@ public class WOLevelUpItem {
             }
 
 
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuildings)&& ob.resourceData) {
-                if (g.allData.resource[ob.id].buildType == BuildType.PLANT) {
-                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[ob.id].imageShop + '_icon'));
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding)&& ob.resourceData) {
+                if (g.allData.getResourceById(ob.id).buildType == BuildType.PLANT) {
+                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(ob.id).imageShop + '_icon'));
                 } else {
-                    _image = new Image(g.allData.atlas[g.allData.resource[ob.id].url].getTexture(g.allData.resource[ob.id].imageShop));
+                    _image = new Image(g.allData.atlas[g.allData.getResourceById(ob.id).url].getTexture(g.allData.getResourceById(ob.id).imageShop));
                 }
                 _txtCount.text = '+' + String(ob.count);
 //                _txtNew.text = '';
                 g.userInventory.addResource(ob.id,ob.count);
             }
 
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuildings)&& ob.catCount) {
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding)&& ob.catCount) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('cat_icon'));
                 _txtCount.text = String(ob.count);
 //                _txtNew.text = '';
                 _data.id = -1;
             }
-            if (!(ob is StructureDataResource) && !(ob is StructureDataBuildings) && ob.ridgeCount) {
+            if (!(ob is StructureDataResource) && !(ob is StructureDataBuilding) && ob.ridgeCount) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('ridge_icon'));
                 _txtCount.text = String(count);
 //                _txtNew.text = '';
@@ -127,13 +128,7 @@ public class WOLevelUpItem {
                 _txtNew.text = 'НОВОЕ!';
             } else if (ob.buildType == BuildType.RESOURCE) {
                 _txtNew.text = 'НОВОЕ!';
-                obj = g.dataAnimal.objectAnimal;
-                for (id in obj) {
-                   if (obj[id].idResourceRaw == ob.id){
-                       _txtCount.text = '+3';
-                       break;
-                   }
-                }
+                if (ob is StructureDataAnimal) _txtCount.text = '+3';
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
             } else if (ob.buildType == BuildType.PLANT) {
                 _txtCount.text = '+3';

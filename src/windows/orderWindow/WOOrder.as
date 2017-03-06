@@ -298,7 +298,7 @@ public class WOOrder extends WindowMain{
             }
             for (i = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
                 if (_activeOrderItem.getOrder().resourceCounts[i] == g.userInventory.getCountResourceById(_activeOrderItem.getOrder().resourceIds[i])
-                        && g.allData.resource[i] && g.allData.resource[_activeOrderItem.getOrder().resourceIds[i]].buildType == BuildType.PLANT && !g.userInventory.checkLastResource(_activeOrderItem.getOrder().resourceIds[i])) {
+                        && g.allData.getResourceById(_activeOrderItem.getOrder().resourceIds[i]).buildType == BuildType.PLANT && !g.userInventory.checkLastResource(_activeOrderItem.getOrder().resourceIds[i])) {
                     g.windowsManager.cashWindow = this;
                     super.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, sellOrder, _activeOrderItem.getOrder(), 'order');

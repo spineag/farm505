@@ -34,7 +34,7 @@ public class WOLastResourceItem {
         source.addChild(bg);
     }
         public function fillWithResource(id:int):void {
-        var ob:Object = g.allData.resource[id];
+        var ob:Object = g.allData.getResourceById(id);
         if (!ob) {
             Cc.error('WONoResourcesItem:: g.dataResource.objectResources[id] = null  for id = ' + id);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woLastResourceItem');

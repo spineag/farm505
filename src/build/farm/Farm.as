@@ -8,6 +8,8 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Expo;
 import com.junkbyte.console.Cc;
 
+import data.StructureDataAnimal;
+
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
@@ -35,7 +37,7 @@ import windows.WindowsManager;
 import windows.shop.WOShop;
 
 public class Farm extends WorldObject{
-    private var _dataAnimal:Object;
+    private var _dataAnimal:StructureDataAnimal;
     private var _arrAnimals:Array;
     private var _contAnimals:Sprite;
     private var _imageBottom:Image;
@@ -198,17 +200,7 @@ public class Farm extends WorldObject{
     }
 
     private function setDataAnimal():void {
-        try {
-            for (var id:String in g.dataAnimal.objectAnimal) {
-                if (g.dataAnimal.objectAnimal[id].buildId == _dataBuild.id) {
-                    _dataAnimal = g.dataAnimal.objectAnimal[id];
-                    break;
-                }
-            }
-        } catch (e:Error) {
-            Cc.error('farm setDataAnimalError: ' + e.errorID + ' - ' + e.message);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'farm setDataAnimal');
-        }
+        _dataAnimal = g.allData.getAnimalByFarmId(_dataBuild.id);
     }
 
     public function get dataAnimal():Object {
@@ -440,7 +432,7 @@ public class Farm extends WorldObject{
 
     public function onAnimalReadyToCraft(idResource:int, an:Animal):void {
         var rItem:ResourceItem = new ResourceItem();
-        rItem.fillIt(g.allData.resource[idResource]);
+        rItem.fillIt(g.allData.getResourceById(idResource));
         _craftSprite.visible = true;
         var item:CraftItem = new CraftItem(0, 0, rItem, _craftSprite, 1, useCraftedResource, true);
         item.animal = an;

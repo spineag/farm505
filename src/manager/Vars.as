@@ -148,10 +148,6 @@ public class Vars {
     public var background:BackgroundArea;
 
     public var allData:AllData;
-    public var dataBuilding:DataBuildings;
-//    public var dataResource:DataResources;
-//    public var dataRecipe:DataRecipe;
-    public var dataAnimal:DataAnimal;
     public var dataLevel:DataLevel;
     public var dataCats:Array;
     public var dataOrderCats:DataCat;
@@ -238,10 +234,6 @@ public class Vars {
             event = new OwnEvent();
             userValidates = new UserValidateResources();
 
-            dataBuilding = new DataBuildings();
-//            dataRecipe = new DataRecipe();
-//            dataResource = new DataResources();
-            dataAnimal = new DataAnimal();
             dataLevel = new DataLevel();
             dataOrderCats = new DataCat();
             userInventory = new UserInventory();
@@ -335,7 +327,7 @@ public class Vars {
         } else {
             if ((user as User).level == 3) {
                 onLoadCatTutorial();
-            } else directServer.getDataAnimal(onDataAnimal);
+            } else directServer.getDataResource(onDataResource);
         }
     }
     
@@ -344,20 +336,20 @@ public class Vars {
     }
     
     private function onLoadCatTutorialBig():void {
-        directServer.getDataAnimal(onDataAnimal);
-    }
-
-    private function onDataAnimal():void {
         directServer.getDataResource(onDataResource);
-        startPreloader.setProgress(85);
     }
 
     private function onDataResource():void {
         directServer.getDataRecipe(onDataRecipe);
-        startPreloader.setProgress(86);
+        startPreloader.setProgress(85);
     }
 
     private function onDataRecipe():void {
+        directServer.getDataAnimal(onDataAnimal);
+        startPreloader.setProgress(86);
+    }
+
+    private function onDataAnimal():void {
         startPreloader.setProgress(87);
         directServer.getDataCats(onDataCats);
     }
@@ -524,7 +516,7 @@ public class Vars {
             townArea.decorTailSort();
             townArea.sortAtLockedLands();
             managerOrder.checkForFullOrder();
-            if ((user as User).level >= allData.building[45].blockByLevel) managerDailyBonus.generateDailyBonusItems();
+            if ((user as User).level >= allData.getBuildingById(45).blockByLevel[0]) managerDailyBonus.generateDailyBonusItems();
             townArea.addTownAreaSortCheking();
 
             managerHelpers = new ManagerHelpers();

@@ -119,7 +119,7 @@ public class TreeHint {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'treeHint');
             return;
         }
-        if (!g.allData.resource[data.removeByResourceId]) {
+        if (!g.allData.getResourceById(data.removeByResourceId)) {
             Cc.error('TreeHint show it:: g.dataResource.objectResources[data.removeByResourceId] = null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'treeHint');
             return;
@@ -154,9 +154,9 @@ public class TreeHint {
             _contDelete.removeChild(_imageItem);
             _imageItem = null;
         }
-        _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.resource[data.removeByResourceId].imageShop));
+        _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(data.removeByResourceId).imageShop));
         if (!_imageItem) {
-            Cc.error('TreeHint showIt:: no such image: ' + g.allData.resource[data.removeByResourceId].imageShop);
+            Cc.error('TreeHint showIt:: no such image: ' + g.allData.getResourceById(data.removeByResourceId).imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'treeHint');
             return;
         }
@@ -251,7 +251,7 @@ public class TreeHint {
         managerHide();
         if (g.userInventory.getCountResourceById(_data.removeByResourceId) <= 0){
             var ob:Object = {};
-            ob.data = g.allData.resource[_data.removeByResourceId];
+            ob.data = g.allData.getResourceById(_data.removeByResourceId);
             ob.count = 1;
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClickDelete, 'menu', ob);
         } else {

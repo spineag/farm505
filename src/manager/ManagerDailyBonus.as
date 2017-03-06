@@ -6,6 +6,7 @@ import build.WorldObject;
 import build.dailyBonus.DailyBonus;
 
 import data.BuildType;
+import data.StructureDataResource;
 
 public class ManagerDailyBonus {
     public static const RESOURCE:int = 1;
@@ -44,30 +45,26 @@ public class ManagerDailyBonus {
     public function generateDailyBonusItems():void {
         _arrItems = [];
         var arr:Array = [];
-        var id:String;
         var i:int;
-        for (i = 0; i < g.allData.resource.length; i++) {
-            if (g.allData.resource[i] && g.allData.resource[i].blockByLevel <= g.user.level &&
-                    (g.allData.resource[i].buildType == BuildType.PLANT ||
-                    g.allData.resource[i].buildType == BuildType.RESOURCE)) {
-                arr.push(i);
+        var arR:Array = g.allData.resource;
+        for (i = 0; i < arR.length; i++) {
+            if (arR[i].blockByLevel <= g.user.level &&
+                    (arR[i].buildType == BuildType.PLANT ||
+                    arR[i].buildType == BuildType.RESOURCE)) {
+                arr.push(arR[i]);
             }
         }
-//        for(var id:String in g.dataResource.objectResources) {
-//            if (g.dataResource.objectResources[id].blockByLevel <= g.user.level &&
-//                    (g.dataResource.objectResources[id].buildType == BuildType.PLANT ||
-//                    g.dataResource.objectResources[id].buildType == BuildType.RESOURCE)) {
-//                arr.push(int(id));
-//            }
-//        }
+
         var k:int;
         var obj:Object;
+        var r:StructureDataResource;
         for (i = 0; i<8; i++) {
-            k = int(Math.random()*arr.length);  // get random position
-            k = arr.splice(k, 1);  // get random id resource or plant
+            k = int(Math.random()*arr.length);
+            r = arr[k];
+            arr.splice(k, 1);
             obj = {};
-            obj.id = k;
-            if (g.allData.resource[k].buildType == BuildType.PLANT) {
+            obj.id = r.id;
+            if (r.buildType == BuildType.PLANT) {
                 obj.count = 3;
                 obj.type = PLANT;
             } else {
@@ -91,15 +88,9 @@ public class ManagerDailyBonus {
 
         obj = {};
         arr = [];
-//        for(id in g.dataBuilding.objectBuilding) {
-//            if (g.dataBuilding.objectBuilding[id].blockByLevel && g.dataBuilding.objectBuilding[id].blockByLevel[0] <= g.user.level &&
-//                    g.dataBuilding.objectBuilding[id].buildType == BuildType.DECOR) {
-//                arr.push(int(id));
-//            }
-//        }
-        for (i = 0; i < g.allData.building.length; i++) {
-            if (g.allData.building[i] && g.allData.building[i].blockByLevel && g.allData.building[i].blockByLevel[0] <= g.user.level &&
-                    g.allData.building[i].buildType == BuildType.DECOR) {
+        arR = g.allData.building;
+        for (i = 0; i < arR.length; i++) {
+            if (arR[i].buildType == BuildType.DECOR && arR[i].blockByLevel && arR[i].blockByLevel[0] <= g.user.level) {
                 arr.push(i);
             }
         }

@@ -127,10 +127,10 @@ public class MouseHint {
 //                _imageCircle.visible = true;
                 _txtCount.visible = true;
                 _txtCount.text = String(g.userInventory.getCountResourceById(dat.idResourceRaw));
-                if (g.allData.resource[dat.idResourceRaw].buildType == BuildType.PLANT)
-                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[dat.idResourceRaw].imageShop + '_icon'));
+                if (g.allData.getResourceById(dat.idResourceRaw).buildType == BuildType.PLANT)
+                    _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(dat.idResourceRaw).imageShop + '_icon'));
                 else
-                    _image = new Image(g.allData.atlas[g.allData.resource[dat.idResourceRaw].url].getTexture(g.allData.resource[dat.idResourceRaw].imageShop));
+                    _image = new Image(g.allData.atlas[g.allData.getResourceById(dat.idResourceRaw).url].getTexture(g.allData.getResourceById(dat.idResourceRaw).imageShop));
                 MCScaler.scale(_image, 40, 40);
                 _image.x = 6;
                 _image.y = 10;

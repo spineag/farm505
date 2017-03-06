@@ -103,19 +103,19 @@ public class FabricHint {
         _data = da;
         _newX = sX;
         _newY = sY;
-        if (_data && g.allData.resource[_data.idResource]) {
-            _txtName.text = String(g.allData.resource[_data.idResource].name);
+        if (_data && g.allData.getResourceById(_data.idResource)) {
+            _txtName.text = String(g.allData.getResourceById(_data.idResource).name);
             _txtName.visible = false;
-            _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.resource[_data.idResource].buildTime);
+            _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_data.idResource).buildTime);
             _txtItem.text = String(g.userInventory.getCountResourceById(_data.idResource));
             createList();
             _source.removeChild(_imageItem);
-            if (g.allData.resource[_data.idResource].buildType == BuildType.PLANT)
-                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_data.idResource].imageShop + '_icon'));
+            if (g.allData.getResourceById(_data.idResource).buildType == BuildType.PLANT)
+                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_data.idResource).imageShop + '_icon'));
             else
-                _imageItem = new Image(g.allData.atlas[g.allData.resource[_data.idResource].url].getTexture(g.allData.resource[_data.idResource].imageShop));
+                _imageItem = new Image(g.allData.atlas[g.allData.getResourceById(_data.idResource).url].getTexture(g.allData.getResourceById(_data.idResource).imageShop));
             if (!_imageItem) {
-                Cc.error('FabricHint showIt:: no such image: ' + g.allData.resource[_data.idResource].imageShop);
+                Cc.error('FabricHint showIt:: no such image: ' + g.allData.getResourceById(_data.idResource).imageShop);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHint');
                 return;
             }

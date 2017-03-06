@@ -2,12 +2,13 @@
  * Created by user on 2/24/17.
  */
 package data {
+import com.junkbyte.console.Cc;
+
 import manager.Vars;
 
 import utils.Utils;
 
 public class StructureDataRecipe {
-//    public var
     private var _id:int;
     private var _idResource:int;
     private var _ingridientsId:Array;
@@ -27,8 +28,13 @@ public class StructureDataRecipe {
         _ingridientsCount = Utils.intArray(String(ob.ingredients_count).split('&'));
         _buildingId = int(ob.building_id);
         _priceSkipHard = int(ob.prise_skip);
-        _blockByLevel = g.allData.resource[_idResource].blockByLevel;
-        _buildType = g.allData.resource[_idResource].buildType;
+        var d:StructureDataResource = g.allData.getResourceById(_idResource);
+        if (!d) {
+            Cc.error('StructureDataRecipe:: no Data for resource: ' + _idResource);
+        } else {
+            _blockByLevel = d.blockByLevel;
+            _buildType = d.buildType;
+        }
 //        g.allData.recipe[_id] = obj;
     }
 

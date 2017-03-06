@@ -43,7 +43,7 @@ public class MarketCell {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'marketCell');
             return;
         }
-        _data = g.allData.resource[_info.id];
+        _data = g.allData.getResourceById(_info.id);
         if (_data) {
             if (_data.buildType == BuildType.PLANT) {
                 _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(_data.imageShop + '_icon'));

@@ -72,7 +72,7 @@ public class Tree extends WorldObject {
         _state = GROW1;
         _source.releaseContDrag = true;
         _resourceItem = new ResourceItem();
-        _resourceItem.fillIt(g.allData.resource[_dataBuild.craftIdResource]);
+        _resourceItem.fillIt(g.allData.getResourceById(_dataBuild.craftIdResource));
         _craftSprite = new Sprite();
         createAnimatedBuild(onCreateBuild);
         _isClick = false;

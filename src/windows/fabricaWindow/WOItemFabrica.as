@@ -52,7 +52,7 @@ public class WOItemFabrica {
 
     public function fillData(ob:Object, f:Function):void {
         _dataRecipe = ob;
-        if (!_dataRecipe || !g.allData.resource[_dataRecipe.idResource]) {
+        if (!_dataRecipe || !g.allData.getResourceById(_dataRecipe.idResource)) {
             Cc.error('WOItemFabrica:: empty _dataRecipe or g.dataResource.objectResources[_dataRecipe.idResource] == null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woItemFabrica');
             return;
@@ -66,7 +66,7 @@ public class WOItemFabrica {
             _maxAlpha = 0;
             Cc.error("Warning woItemFabrica filldata:: _dataRecipe.blockByLevel > g.user.level + 1");
         }
-        fillIcon(g.allData.resource[_dataRecipe.idResource].imageShop);
+        fillIcon(g.allData.getResourceById(_dataRecipe.idResource).imageShop);
         if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResource(_dataRecipe.id)) {
             addArrow();
         }

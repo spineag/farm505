@@ -181,7 +181,7 @@ public class TownArea extends Sprite {
         var id:String;
         var obj:Object = g.userInventory.decorInventory;
         for (id in obj) {
-            if (g.allData.building[int(id)].group == group) max += obj[id].count;
+            if (g.allData.getBuildingById(int(id)).group == group) max += obj[id].count;
         }
         for (var i:int = 0; i < _cityObjects.length; i++) {
             if (_cityObjects[i] is Decor || _cityObjects[i] is DecorAnimation) {
@@ -1649,7 +1649,7 @@ public class TownArea extends Sprite {
     private function setAwayCity(p:Someone):void {
         var i:int;
         for (i=0; i<p.userDataCity.objects.length; i++) {
-            createAwayNewBuild(Utils.objectFromStructureBuildToObject(g.allData.building[p.userDataCity.objects[i].buildId]), p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, int(p.userDataCity.objects[i].dbId), p.userDataCity.objects[i].isFlip);
+            createAwayNewBuild(Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(p.userDataCity.objects[i].buildId)), p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, int(p.userDataCity.objects[i].dbId), p.userDataCity.objects[i].isFlip);
         }
         for (i=0; i<p.userDataCity.treesInfo.length; i++) {
             fillAwayTree(p.userDataCity.treesInfo[i]);
@@ -2124,7 +2124,7 @@ public class TownArea extends Sprite {
     private function fillAwayPlant(ob:Object):void {
         var b:WorldObject = getAwayBuildingByDbId(ob.dbId);
         if (b && b is Ridge) {
-            (b as Ridge).fillPlant(g.allData.resource[ob.plantId], true, ob.timeWork);
+            (b as Ridge).fillPlant(g.allData.getResourceById(ob.plantId), true, ob.timeWork);
         } else {
             Cc.error('TownArea fillAwayRidge:: no such Ridge with dbId: ' + ob.dbId + " OR it's visible only for testers");
         }
@@ -2143,7 +2143,7 @@ public class TownArea extends Sprite {
         var b:WorldObject = getAwayBuildingByDbId(ob.dbId);
         if (b && b is Fabrica) {
             var resItem:ResourceItem = new ResourceItem();
-            resItem.fillIt(g.allData.resource[g.allData.recipe[ob.recipeId].idResource]);
+            resItem.fillIt(g.allData.getResourceById(g.allData.getRecipeById(ob.recipeId).idResource));
             if (int(ob.delay) > int(ob.timeWork)) {
                 // do nothing because the recipe is waiting for start
             } else if (ob.delay + resItem.buildTime <= ob.timeWork) {

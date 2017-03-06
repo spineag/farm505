@@ -4,6 +4,7 @@
 package windows.fabricaWindow {
 import com.junkbyte.console.Cc;
 import data.DataMoney;
+import data.StructureDataRecipe;
 
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
@@ -221,15 +222,11 @@ public class WOFabricaWorkListItem {
             _icon.x = int(23 - _icon.width/2);
             _icon.y = int(22 - _icon.height/2);
         }
-        for (var i:int = 0; i < g.allData.recipe.length; i ++) {
-            if(g.allData.recipe[i] && g.allData.recipe[i].idResource == _resource.resourceID){
-                if(g.allData.recipe[i].numberCreate > 1) {
-                    _txtNumberCreate.text = String(g.allData.recipe[i].numberCreate);
-                    break;
-                }
-                else _txtNumberCreate.text = "";
-            }
-        }
+        var r:StructureDataRecipe = g.allData.getRecipeById(_resource.resourceID);
+        if (r.numberCreate > 1) {
+            _txtNumberCreate.text = String(r.numberCreate);
+        } else _txtNumberCreate.text = "";
+
         _source.addChildAt(_icon,1);
         if (_type == BIG_CELL) {
             _txtNumberCreate.x = 75;
@@ -253,7 +250,9 @@ public class WOFabricaWorkListItem {
         _txt.visible = false;
     }
 
-    public function destroyTimer():void {
+import com.junkbyte.console.Cc;
+
+public function destroyTimer():void {
         g.gameDispatcher.removeFromTimer(render);
         _timerFinishCallback = null;
         _txtTimer.text = '';

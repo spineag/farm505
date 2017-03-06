@@ -56,7 +56,7 @@ public class Fabrica extends WorldObject {
             return;
         }
         if (!_dataBuild.countCell) {
-            _dataBuild.countCell = g.allData.building[_dataBuild.id].startCountCell;
+            _dataBuild.countCell = g.allData.getBuildingById(_dataBuild.id).startCountCell;
         }
         _craftSprite = new Sprite();
         if (g.isAway) {
@@ -362,9 +362,10 @@ public class Fabrica extends WorldObject {
     private function updateRecipes():void {
         _arrRecipes.length = 0;
         try {
-            for (var i:int = 0; i < g.allData.recipe.length; i++) {
-                if (g.allData.recipe[i] && g.allData.recipe[i].buildingId == _dataBuild.id) {
-                    _arrRecipes.push(g.allData.recipe[i]);
+            var arR:Array = g.allData.recipe;
+            for (var i:int = 0; i < arR.length; i++) {
+                if (arR[i].buildingId == _dataBuild.id) {
+                    _arrRecipes.push(arR[i]);
                 }
             }
             _arrRecipes.sortOn('blockByLevel', Array.NUMERIC);
@@ -441,7 +442,7 @@ public class Fabrica extends WorldObject {
         var obj:Object;
         var texture:Texture;
         for (i = 0; i < dataRecipe.ingridientsId.length; i++) {
-            obj = g.allData.resource[int(dataRecipe.ingridientsId[i])];
+            obj = g.allData.getResourceById(int(dataRecipe.ingridientsId[i]));
             if (obj.buildType == BuildType.PLANT)
                 texture = g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon');
             else
@@ -496,10 +497,11 @@ public class Fabrica extends WorldObject {
 
     public function craftResource(item:ResourceItem):void {
         var countResources:int = 1;
-        for (var i:int = 0; i < g.allData.recipe.length; i++) {
-            if (g.allData.recipe[i] && g.allData.recipe[i].buildingId == _dataBuild.id &&
-                    item.resourceID == g.allData.recipe[i].idResource) {
-                countResources = g.allData.recipe[i].numberCreate;
+        var arR:Array = g.allData.recipe;
+        for (var i:int = 0; i < arR.length; i++) {
+            if (arR.buildingId == _dataBuild.id && item.resourceID == arR[i].idResource) {
+                countResources = arR[i].numberCreate;
+                break;
             }
         }
 //        for(var id:String in g.dataRecipe.objectRecipe) {

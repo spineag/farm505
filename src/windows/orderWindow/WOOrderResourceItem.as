@@ -67,7 +67,7 @@ public class WOOrderResourceItem {
     }
 
     public function fillIt(id:int, count:int):void {
-        var obj:Object = g.allData.resource[id];
+        var obj:Object = g.allData.getResourceById(id);
         _id = id;
         if (obj.buildType == BuildType.PLANT)
             _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(obj.imageShop + '_icon'));

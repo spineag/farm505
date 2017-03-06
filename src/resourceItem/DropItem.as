@@ -52,7 +52,7 @@ public class DropItem {
 
         _source = new Sprite();
         if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION) {
-            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[prise.id].url + '_icon'));
+            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(prise.id).url + '_icon'));
             endPoint = g.toolsPanel.pointXY();
             var f4:Function = function (dbId:int):void {
                 g.userInventory.addToDecorInventory(prise.id, dbId);
@@ -62,7 +62,7 @@ public class DropItem {
             };
             f();
         } else if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR) {
-            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[prise.id].image +'_icon'));
+            _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(prise.id).image +'_icon'));
             endPoint = g.toolsPanel.pointXY();
             var f3:Function = function (dbId:int):void {
                 g.userInventory.addToDecorInventory(prise.id, dbId);
@@ -72,7 +72,7 @@ public class DropItem {
             };
             f2();
         } else if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
-            _image = new Image(g.allData.atlas[g.allData.resource[prise.id].url].getTexture(g.allData.resource[prise.id].imageShop));
+            _image = new Image(g.allData.atlas[g.allData.getResourceById(prise.id).url].getTexture(g.allData.getResourceById(prise.id).imageShop));
             endPoint = g.craftPanel.pointXY();
             g.craftPanel.showIt(BuildType.PLACE_SKLAD);
             g.updateAmbarIndicator();
@@ -132,7 +132,7 @@ public class DropItem {
             _source = null;
             if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
                 var item:ResourceItem = new ResourceItem();
-                item.fillIt(g.allData.resource[prise.id]);
+                item.fillIt(g.allData.getResourceById(prise.id));
                 g.craftPanel.afterFly(item);
             } else {
                 switch (prise.id) {

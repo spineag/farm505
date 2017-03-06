@@ -12,7 +12,8 @@ import build.tree.Tree;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
-import data.StructureDataBuildings;
+import data.StructureDataAnimal;
+import data.StructureDataBuilding;
 import data.StructureMarketItem;
 
 import data.StructureDataRecipe;
@@ -235,37 +236,15 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataAnimal: wrong JSON:' + String(response));
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataAnimal: wrong JSON:' + String(response));
             return;
         }
         var k:int = 0;
         if (d.id == 0) {
             Cc.ch('server', 'getDataAnimal OK', 5);
-            var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
-                obj = {};
-                obj.id = int(d.message[i].id);
-                obj.buildId = int(d.message[i].build_id);
-                obj.name = d.message[i].name;
-                obj.width = 1;
-                obj.height = 1;
-                obj.url = d.message[i].url;
-                obj.image = d.message[i].image;
-                obj.cost = int(d.message[i].cost);
-                obj.cost2 = int(d.message[i].cost2);
-                obj.cost3 = int(d.message[i].cost3);
-//                obj.timeCraft = int(d.message[i].time_craft);
-                obj.idResource = int(d.message[i].craft_resource_id);
-                obj.idResourceRaw = int(d.message[i].raw_resource_id);
-//                obj.costForceCraft = int(d.message[i].cost_force);
-                if (d.message[i].cost_new) {
-                    obj.costNew = String(d.message[i].cost_new).split('&');
-                    for (k = 0; k < obj.costNew.length; k++) obj.costNew[k] = int(obj.costNew[k]);
-                }
-
-                obj.buildType = BuildType.ANIMAL;
-                g.dataAnimal.objectAnimal[obj.id] = obj;
+                g.allData.registerAnimal( new StructureDataAnimal(d.message[i]) );
+                
             }
             if (callback != null) {
                 callback.apply();
@@ -273,7 +252,6 @@ public class DirectServer {
         } else {
             Cc.error('getDataAnimal: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataAnimal: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -294,7 +272,6 @@ public class DirectServer {
             loader.load(request);
         } catch (error:Error) {
             Cc.error('getDataRecipe error:' + error.errorID);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
         }
     }
 
@@ -305,32 +282,14 @@ public class DirectServer {
             d = JSON.parse(response);
         } catch (e:Error) {
             Cc.error('getDataRecipe: wrong JSON:' + String(response));
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataRecipe: wrong JSON:' + String(response));
             return;
         }
 
         if (d.id == 0) {
             Cc.ch('server', 'getDataRecipe OK', 5);
-            var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
-//                obj = {};
-//                obj.id = int(d.message[i].id);
-//                obj.idResource = int(d.message[i].resource_id);
-//                obj.numberCreate = int(d.message[i].count_create);
-//                obj.ingridientsId = String(d.message[i].ingredients_id).split('&');
-//                obj.ingridientsCount = String(d.message[i].ingredients_count).split('&');
-//                obj.buildingId = int(d.message[i].building_id);
-//                obj.priceSkipHard = int(d.message[i].prise_skip);
-//                obj.blockByLevel = g.dataResource.objectResources[obj.idResource].blockByLevel;
-
-
-
-                g.allData.recipe[int(d.message[i].id)] = new StructureDataRecipe(d.message[i]);
-
-
-
-//                g.dataRecipe.objectRecipe[obj.id] = obj;
+                g.allData.registerRecipe( new StructureDataRecipe(d.message[i]) );
             }
             if (callback != null) {
                 callback.apply();
@@ -338,7 +297,6 @@ public class DirectServer {
         } else {
             Cc.error('getDataRecipe: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
-//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataRecipe: id: ' + d.id + '  with message: ' + d.message);
         }
     }
 
@@ -401,7 +359,7 @@ public class DirectServer {
                 if (d.message[i].build_time) obj.buildTime = d.message[i].build_time;
                 if (d.message[i].craft_xp) obj.craftXP = d.message[i].craft_xp;
 //                g.dataResource.objectResources[obj.id] = obj;
-                g.allData.resource[int(d.message[i].id)] = new StructureDataResource(d.message[i]);
+                g.allData.registerResource( new StructureDataResource(d.message[i]) );
             }
             if (callback != null) {
                 callback.apply();
@@ -613,10 +571,9 @@ public class DirectServer {
         var k:int;
         if (d.id == 0) {
             Cc.ch('server', 'getDataBuilding OK', 5);
-            var obj:Object;
             for (var i:int = 0; i<d.message.length; i++) {
                 d.message[i].visibleAction = true;
-                if (g.user.isTester) g.allData.building[d.message[i].id] = new StructureDataBuildings(d.message[i]);
+                if (g.user.isTester) g.allData.registerBuilding( new StructureDataBuilding(d.message[i]) );
                 else if (d.message[i].visible == 0 ) {
                     var startDayNumber:int = int(d.message[i].start_action);
                     var endDayNumber:int = int(d.message[i].end_action);
@@ -638,168 +595,169 @@ public class DirectServer {
                         }
 
                     }
-                    g.allData.building[d.message[i].id] = new StructureDataBuildings(d.message[i]);
+                    g.allData.registerBuilding( new StructureDataBuilding(d.message[i]) );
                 }
-                obj = {};
-                    obj.id = int(d.message[i].id);
-                    obj.width = int(d.message[i].width);
-                    obj.height = int(d.message[i].height);
-                    if (d.message[i].inner_x) {
-                        obj.innerX = String(d.message[i].inner_x).split('&');
-                        if (obj.innerX.length == 1) {
-                            obj.innerX = int(obj.innerX[0]) * g.scaleFactor;
-                        } else if (obj.innerX.length) {
-                            for (k = 0; k < obj.innerX.length; k++) {
-                                obj.innerX[k] = int(obj.innerX[k]) * g.scaleFactor;
-                            }
-                        }
-                        obj.innerY = String(d.message[i].inner_y).split('&');
-                        if (obj.innerY.length == 1) {
-                            obj.innerY = int(obj.innerY[0]) * g.scaleFactor;
-                        } else if (obj.innerY.length) {
-                            for (k = 0; k < obj.innerY.length; k++) {
-                                obj.innerY[k] = int(obj.innerY[k]) * g.scaleFactor;
-                            }
-                        }
-                    }
-                    obj.name = d.message[i].name;
-                    obj.url = d.message[i].url;
-                    obj.image = d.message[i].image;
-                    obj.xpForBuild = int(d.message[i].xp_for_build);
-                    obj.buildType = int(d.message[i].build_type);
 
-                // temp
-//                if (obj.id == 75) {
-//                    obj.buildType = BuildType.DECOR_FENCE_GATE;
-//                    obj.innerX = [];
-//                    obj.innerY = [];
-//                    obj.innerX.push(-28 * g.scaleFactor); obj.innerY.push(-30 * g.scaleFactor); // main (top) part of gate
-//                    obj.innerX.push(-14 * g.scaleFactor); obj.innerY.push(-21 * g.scaleFactor); // second part of gate
-//                    obj.innerX.push(-54 * g.scaleFactor); obj.innerY.push(0 * g.scaleFactor); // second part for shop view
-//                    obj.innerX.push(45 * g.scaleFactor); obj.innerY.push(-34 * g.scaleFactor); // line for main part
-//                    obj.innerX.push(-36 * g.scaleFactor); obj.innerY.push(10 * g.scaleFactor); // line for second part
+//                obj = {};
+//                    obj.id = int(d.message[i].id);
+//                    obj.width = int(d.message[i].width);
+//                    obj.height = int(d.message[i].height);
+//                    if (d.message[i].inner_x) {
+//                        obj.innerX = String(d.message[i].inner_x).split('&');
+//                        if (obj.innerX.length == 1) {
+//                            obj.innerX = int(obj.innerX[0]) * g.scaleFactor;
+//                        } else if (obj.innerX.length) {
+//                            for (k = 0; k < obj.innerX.length; k++) {
+//                                obj.innerX[k] = int(obj.innerX[k]) * g.scaleFactor;
+//                            }
+//                        }
+//                        obj.innerY = String(d.message[i].inner_y).split('&');
+//                        if (obj.innerY.length == 1) {
+//                            obj.innerY = int(obj.innerY[0]) * g.scaleFactor;
+//                        } else if (obj.innerY.length) {
+//                            for (k = 0; k < obj.innerY.length; k++) {
+//                                obj.innerY[k] = int(obj.innerY[k]) * g.scaleFactor;
+//                            }
+//                        }
+//                    }
+//                    obj.name = d.message[i].name;
+//                    obj.url = d.message[i].url;
+//                    obj.image = d.message[i].image;
+//                    obj.xpForBuild = int(d.message[i].xp_for_build);
+//                    obj.buildType = int(d.message[i].build_type);
+//
+//                // temp
+////                if (obj.id == 75) {
+////                    obj.buildType = BuildType.DECOR_FENCE_GATE;
+////                    obj.innerX = [];
+////                    obj.innerY = [];
+////                    obj.innerX.push(-28 * g.scaleFactor); obj.innerY.push(-30 * g.scaleFactor); // main (top) part of gate
+////                    obj.innerX.push(-14 * g.scaleFactor); obj.innerY.push(-21 * g.scaleFactor); // second part of gate
+////                    obj.innerX.push(-54 * g.scaleFactor); obj.innerY.push(0 * g.scaleFactor); // second part for shop view
+////                    obj.innerX.push(45 * g.scaleFactor); obj.innerY.push(-34 * g.scaleFactor); // line for main part
+////                    obj.innerX.push(-36 * g.scaleFactor); obj.innerY.push(10 * g.scaleFactor); // line for second part
+////                }
+//                if (obj.id == 92) {
+//                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+//                    obj.innerX = []; obj.innerY = [];
+//                    obj.innerX.push(-41 * g.scaleFactor); obj.innerY.push(-195 * g.scaleFactor); // main (top) part of gate
+//                    obj.innerX.push(-61 * g.scaleFactor); obj.innerY.push(-236 * g.scaleFactor); // second part of gate
 //                }
-                if (obj.id == 92) {
-                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
-                    obj.innerX = []; obj.innerY = [];
-                    obj.innerX.push(-41 * g.scaleFactor); obj.innerY.push(-195 * g.scaleFactor); // main (top) part of gate
-                    obj.innerX.push(-61 * g.scaleFactor); obj.innerY.push(-236 * g.scaleFactor); // second part of gate
-                }
-                if (obj.id == 94) {
-                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
-                    obj.innerX = []; obj.innerY = [];
-                    obj.innerX.push(-47 * g.scaleFactor); obj.innerY.push(-146 * g.scaleFactor); // main (top) part of gate
-                    obj.innerX.push(-64 * g.scaleFactor); obj.innerY.push(-192 * g.scaleFactor); // second part of gate
-                }
-                if (obj.id == 96) {
-                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
-                    obj.innerX = []; obj.innerY = [];
-                    obj.innerX.push(-57 * g.scaleFactor); obj.innerY.push(-151 * g.scaleFactor); // main (top) part of gate
-                    obj.innerX.push(-72 * g.scaleFactor); obj.innerY.push(-188 * g.scaleFactor); // second part of gate
-                }
-                if (obj.id == 98) {
-                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
-                    obj.innerX = []; obj.innerY = [];
-                    obj.innerX.push(-55 * g.scaleFactor); obj.innerY.push(-151 * g.scaleFactor); // main (top) part of gate
-                    obj.innerX.push(-64 * g.scaleFactor); obj.innerY.push(-189 * g.scaleFactor); // second part of gate
-                }
-                if (obj.id == 176) {
-                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
-                    obj.innerX = []; obj.innerY = [];
-                    obj.innerX.push(-22 * g.scaleFactor); obj.innerY.push(-148 * g.scaleFactor); // main (top) part of gate
-                    obj.innerX.push(-61 * g.scaleFactor); obj.innerY.push(-201 * g.scaleFactor); // second part of gate
-                }
-                if (obj.id == 210) {
-                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
-                    obj.innerX = []; obj.innerY = [];
-                    obj.innerX.push(-57 * g.scaleFactor); obj.innerY.push(-155 * g.scaleFactor); // main (top) part of gate
-                    obj.innerX.push(-64 * g.scaleFactor); obj.innerY.push(-189 * g.scaleFactor); // second part of gate
-                }
-
-                if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
-                if (d.message[i].currency) {
-                    obj.currency = String(d.message[i].currency).split('&');
-                    for (k = 0; k < obj.currency.length; k++) obj.currency[k] = int(obj.currency[k]);
-                }
-                if (d.message[i].cost) {
-                    obj.cost = String(d.message[i].cost).split('&');
-                    for (k = 0; k < obj.cost.length; k++) obj.cost[k] = int(obj.cost[k]);
-                }
-                if (d.message[i].delta_cost) obj.deltaCost = int(d.message[i].delta_cost);
-                if (d.message[i].block_by_level) {
-                    obj.blockByLevel = String(d.message[i].block_by_level).split('&');
-                    for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
-                }
-                if (d.message[i].cost_skip) obj.priceSkipHard = int(d.message[i].cost_skip);
-                if (d.message[i].filter) obj.filterType = int(d.message[i].filter);
-                if (d.message[i].build_time) {
-                    obj.buildTime = String(d.message[i].build_time).split('&');
-                    for (k = 0; k < obj.buildTime.length; k++) obj.buildTime[k] = int(obj.buildTime[k]);
-                }
-                if (d.message[i].count_unblock) obj.countUnblock = int(d.message[i].count_unblock);
-
-                if (d.message[i].craft_resource_id) obj.craftIdResource = int(d.message[i].craft_resource_id);
-                if (d.message[i].count_craft_resource) {
-                    obj.countCraftResource = String(d.message[i].count_craft_resource).split('&');
-                    for (k = 0; k < obj.countCraftResource.length; k++) obj.countCraftResource[k] = int(obj.countCraftResource[k]);
-                }
-
-                if (d.message[i].instrument_id) obj.removeByResourceId = int(d.message[i].instrument_id);
-                if (d.message[i].start_count_resources) obj.startCountResources = int(d.message[i].start_count_resources);
-                if (d.message[i].delta_count_resources) obj.deltaCountResources = int(d.message[i].delta_count_resources);
-                if (d.message[i].start_count_instruments) obj.startCountInstrumets = int(d.message[i].start_count_instruments);
-                if (d.message[i].delta_count_instruments) obj.deltaCountAfterUpgrade = int(d.message[i].delta_count_instruments);
-                if (d.message[i].up_instrument_id_1) obj.upInstrumentId1 = int(d.message[i].up_instrument_id_1);
-                if (d.message[i].up_instrument_id_2) obj.upInstrumentId2 = int(d.message[i].up_instrument_id_2);
-                if (d.message[i].up_instrument_id_3) obj.upInstrumentId3 = int(d.message[i].up_instrument_id_3);
-                if (d.message[i].max_count) obj.maxAnimalsCount = int(d.message[i].max_count);
-                if (d.message[i].image_active) obj.imageActive = d.message[i].image_active;
-                if (d.message[i].cat_need) obj.catNeed = Boolean(int(d.message[i].cat_need));
-                if (d.message[i].resource_id) {
-                    obj.idResource = String(d.message[i].resource_id).split('&');
-                    for (k = 0; k < obj.idResource.length; k++) obj.idResource[k] = int(obj.idResource[k]);
-                }
-                if (d.message[i].raw_resource_id) {
-                    obj.idResourceRaw = String(d.message[i].raw_resource_id).split('&');
-                    for (k = 0; k < obj.idResourceRaw.length; k++) obj.idResourceRaw[k] = int(obj.idResourceRaw[k]);
-                }
-                if (d.message[i].variaty) {
-                    obj.variaty = String(d.message[i].variaty).split('&');
-                    for (k = 0; k < obj.variaty.length; k++) obj.variaty[k] = Number(obj.variaty[k]);
-                }
-                if (d.message[i].visible) obj.visibleTester = Boolean(int(d.message[i].visible));
-                if (d.message[i].color) obj.color = String(d.message[i].color);
-                if (d.message[i].group) {
-                    if (int(d.message[i].group) > 0) {
-                        obj.group = int(d.message[i].group);
-                        g.allData.addToDecorGroup(obj);
-                    }
-                }
-                obj.visibleAction = true;
-                if (g.user.isTester) g.dataBuilding.objectBuilding[obj.id] = obj;
-                else if (d.message[i].visible == 0 ) {
-                    var startDayNumber2:int = int(d.message[i].start_action);
-                    var endDayNumber2:int = int(d.message[i].end_action);
-                    var curDayNumber2:int = new Date().getTime()/1000;
-
-                    obj.visibleAction = false;
-                    if (startDayNumber2 == 0 && endDayNumber2 == 0) {
-                        obj.visibleAction = true;
-                    } else {
-                        if (startDayNumber2 != 0 && startDayNumber2 <= curDayNumber2) {
-                            if (endDayNumber2 > curDayNumber2 || endDayNumber2 == 0) {
-                                obj.visibleAction = true;
-                            }
-                            else {
-                                obj.visibleAction = false;
-                            }
-                        } else if (startDayNumber2 > curDayNumber2) {
-                            obj.visibleAction = false;
-                        }
-
-                    }
-                    g.dataBuilding.objectBuilding[obj.id] = obj;
-                }
+//                if (obj.id == 94) {
+//                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+//                    obj.innerX = []; obj.innerY = [];
+//                    obj.innerX.push(-47 * g.scaleFactor); obj.innerY.push(-146 * g.scaleFactor); // main (top) part of gate
+//                    obj.innerX.push(-64 * g.scaleFactor); obj.innerY.push(-192 * g.scaleFactor); // second part of gate
+//                }
+//                if (obj.id == 96) {
+//                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+//                    obj.innerX = []; obj.innerY = [];
+//                    obj.innerX.push(-57 * g.scaleFactor); obj.innerY.push(-151 * g.scaleFactor); // main (top) part of gate
+//                    obj.innerX.push(-72 * g.scaleFactor); obj.innerY.push(-188 * g.scaleFactor); // second part of gate
+//                }
+//                if (obj.id == 98) {
+//                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+//                    obj.innerX = []; obj.innerY = [];
+//                    obj.innerX.push(-55 * g.scaleFactor); obj.innerY.push(-151 * g.scaleFactor); // main (top) part of gate
+//                    obj.innerX.push(-64 * g.scaleFactor); obj.innerY.push(-189 * g.scaleFactor); // second part of gate
+//                }
+//                if (obj.id == 176) {
+//                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+//                    obj.innerX = []; obj.innerY = [];
+//                    obj.innerX.push(-22 * g.scaleFactor); obj.innerY.push(-148 * g.scaleFactor); // main (top) part of gate
+//                    obj.innerX.push(-61 * g.scaleFactor); obj.innerY.push(-201 * g.scaleFactor); // second part of gate
+//                }
+//                if (obj.id == 210) {
+//                    obj.buildType = BuildType.DECOR_FENCE_ARKA;
+//                    obj.innerX = []; obj.innerY = [];
+//                    obj.innerX.push(-57 * g.scaleFactor); obj.innerY.push(-155 * g.scaleFactor); // main (top) part of gate
+//                    obj.innerX.push(-64 * g.scaleFactor); obj.innerY.push(-189 * g.scaleFactor); // second part of gate
+//                }
+//
+//                if (d.message[i].count_cell) obj.startCountCell = int(d.message[i].count_cell);
+//                if (d.message[i].currency) {
+//                    obj.currency = String(d.message[i].currency).split('&');
+//                    for (k = 0; k < obj.currency.length; k++) obj.currency[k] = int(obj.currency[k]);
+//                }
+//                if (d.message[i].cost) {
+//                    obj.cost = String(d.message[i].cost).split('&');
+//                    for (k = 0; k < obj.cost.length; k++) obj.cost[k] = int(obj.cost[k]);
+//                }
+//                if (d.message[i].delta_cost) obj.deltaCost = int(d.message[i].delta_cost);
+//                if (d.message[i].block_by_level) {
+//                    obj.blockByLevel = String(d.message[i].block_by_level).split('&');
+//                    for (k = 0; k < obj.blockByLevel.length; k++) obj.blockByLevel[k] = int(obj.blockByLevel[k]);
+//                }
+//                if (d.message[i].cost_skip) obj.priceSkipHard = int(d.message[i].cost_skip);
+//                if (d.message[i].filter) obj.filterType = int(d.message[i].filter);
+//                if (d.message[i].build_time) {
+//                    obj.buildTime = String(d.message[i].build_time).split('&');
+//                    for (k = 0; k < obj.buildTime.length; k++) obj.buildTime[k] = int(obj.buildTime[k]);
+//                }
+//                if (d.message[i].count_unblock) obj.countUnblock = int(d.message[i].count_unblock);
+//
+//                if (d.message[i].craft_resource_id) obj.craftIdResource = int(d.message[i].craft_resource_id);
+//                if (d.message[i].count_craft_resource) {
+//                    obj.countCraftResource = String(d.message[i].count_craft_resource).split('&');
+//                    for (k = 0; k < obj.countCraftResource.length; k++) obj.countCraftResource[k] = int(obj.countCraftResource[k]);
+//                }
+//
+//                if (d.message[i].instrument_id) obj.removeByResourceId = int(d.message[i].instrument_id);
+//                if (d.message[i].start_count_resources) obj.startCountResources = int(d.message[i].start_count_resources);
+//                if (d.message[i].delta_count_resources) obj.deltaCountResources = int(d.message[i].delta_count_resources);
+//                if (d.message[i].start_count_instruments) obj.startCountInstrumets = int(d.message[i].start_count_instruments);
+//                if (d.message[i].delta_count_instruments) obj.deltaCountAfterUpgrade = int(d.message[i].delta_count_instruments);
+//                if (d.message[i].up_instrument_id_1) obj.upInstrumentId1 = int(d.message[i].up_instrument_id_1);
+//                if (d.message[i].up_instrument_id_2) obj.upInstrumentId2 = int(d.message[i].up_instrument_id_2);
+//                if (d.message[i].up_instrument_id_3) obj.upInstrumentId3 = int(d.message[i].up_instrument_id_3);
+//                if (d.message[i].max_count) obj.maxAnimalsCount = int(d.message[i].max_count);
+//                if (d.message[i].image_active) obj.imageActive = d.message[i].image_active;
+//                if (d.message[i].cat_need) obj.catNeed = Boolean(int(d.message[i].cat_need));
+//                if (d.message[i].resource_id) {
+//                    obj.idResource = String(d.message[i].resource_id).split('&');
+//                    for (k = 0; k < obj.idResource.length; k++) obj.idResource[k] = int(obj.idResource[k]);
+//                }
+//                if (d.message[i].raw_resource_id) {
+//                    obj.idResourceRaw = String(d.message[i].raw_resource_id).split('&');
+//                    for (k = 0; k < obj.idResourceRaw.length; k++) obj.idResourceRaw[k] = int(obj.idResourceRaw[k]);
+//                }
+//                if (d.message[i].variaty) {
+//                    obj.variaty = String(d.message[i].variaty).split('&');
+//                    for (k = 0; k < obj.variaty.length; k++) obj.variaty[k] = Number(obj.variaty[k]);
+//                }
+//                if (d.message[i].visible) obj.visibleTester = Boolean(int(d.message[i].visible));
+//                if (d.message[i].color) obj.color = String(d.message[i].color);
+//                if (d.message[i].group) {
+//                    if (int(d.message[i].group) > 0) {
+//                        obj.group = int(d.message[i].group);
+//                        g.allData.addToDecorGroup(obj);
+//                    }
+//                }
+//                obj.visibleAction = true;
+//                if (g.user.isTester) g.dataBuilding.objectBuilding[obj.id] = obj;
+//                else if (d.message[i].visible == 0 ) {
+//                    var startDayNumber2:int = int(d.message[i].start_action);
+//                    var endDayNumber2:int = int(d.message[i].end_action);
+//                    var curDayNumber2:int = new Date().getTime()/1000;
+//
+//                    obj.visibleAction = false;
+//                    if (startDayNumber2 == 0 && endDayNumber2 == 0) {
+//                        obj.visibleAction = true;
+//                    } else {
+//                        if (startDayNumber2 != 0 && startDayNumber2 <= curDayNumber2) {
+//                            if (endDayNumber2 > curDayNumber2 || endDayNumber2 == 0) {
+//                                obj.visibleAction = true;
+//                            }
+//                            else {
+//                                obj.visibleAction = false;
+//                            }
+//                        } else if (startDayNumber2 > curDayNumber2) {
+//                            obj.visibleAction = false;
+//                        }
+//
+//                    }
+//                    g.dataBuilding.objectBuilding[obj.id] = obj;
+//                }
             }
             g.allData.sortDecorData();
             if (callback != null) {
@@ -1701,12 +1659,12 @@ public class DirectServer {
             g.user.userDataCity.objects = new Array();
             for (var i:int = 0; i < d.message.length; i++) {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
-                if (!g.allData.building[int(d.message[i].building_id)]) {
+                if (!g.allData.getBuildingById(int(d.message[i].building_id))) {
                     Cc.error('no in g.dataBuilding.objectBuilding such id: ' + int(d.message[i].building_id));
                     continue;
                 }
 //                dataBuild = Utils.objectDeepCopy(g.dataBuilding.objectBuilding[int(d.message[i].building_id)]);
-                dataBuild = Utils.objectFromStructureBuildToObject(g.allData.building[int(d.message[i].building_id)]);
+                dataBuild = Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(int(d.message[i].building_id)));
                 if (int(d.message[i].in_inventory)) {
                     g.userInventory.addToDecorInventory(dataBuild.id, dbId);
                 } else {
@@ -2166,7 +2124,7 @@ public class DirectServer {
                 ob = {};
                 ob.plantId = int(d.message[i].plant_id);
                 ob.dbId = int(d.message[i].user_db_building_id);
-                time = g.allData.resource[ob.plantId].buildTime;
+                time = g.allData.getResourceById(ob.plantId).buildTime;
                 timeWork = int(d.message[i].time_work);
                 if (timeWork > time) ob.state = Ridge.GROWED;
                 else if (timeWork > 2/3*time) ob.state = Ridge.GROW3;
@@ -3813,11 +3771,11 @@ public class DirectServer {
             for (var i:int = 0; i < d.message['building'].length; i++) {
                 ob = {};
                 k = int(d.message['building'][i].building_id);
-                if (!g.allData.building[k]) {
+                if (!g.allData.getBuildingById(k)) {
                     Cc.error(' completeGetAllCityData:: no in g.dataBuilding.objectBuilding for building with building_id: ' + k);
                     continue;
                 }
-                ob.buildId = g.allData.building[k].id;
+                ob.buildId = g.allData.getBuildingById(k).id;
                 ob.posX = int(d.message['building'][i].pos_x);
                 ob.posY = int(d.message['building'][i].pos_y);
                 ob.dbId = int(d.message['building'][i].id);
@@ -3868,11 +3826,11 @@ public class DirectServer {
             for (i = 0; i < d.message['wild'].length; i++) {
                 ob = {};
                 k = int(d.message['wild'][i].building_id);
-                if (!g.allData.building[k]) {
+                if (!g.allData.getBuildingById(k)) {
                     Cc.error(' completeGetAllCityData:: no in g.dataBuilding.objectBuilding for wild with building_id: ' + k);
                     continue;
                 }
-                ob.buildId = g.allData.building[k].id;
+                ob.buildId = k;
                 ob.posX = int(d.message['wild'][i].pos_x);
                 ob.posY = int(d.message['wild'][i].pos_y);
                 ob.dbId = int(d.message['wild'][i].id);
@@ -4204,7 +4162,7 @@ public class DirectServer {
             Cc.ch('server', 'getUserWild OK', 5);
             for (var i:int = 0; i < d.message.length; i++) {
                 d.message[i].id ? dbId = int(d.message[i].id) : dbId = 0;
-                dataBuild = Utils.objectFromStructureBuildToObject(g.allData.building[int(d.message[i].building_id)]);
+                dataBuild = Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(int(d.message[i].building_id)));
                 var p:Point = g.matrixGrid.getXYFromIndex(new Point(int(d.message[i].pos_x), int(d.message[i].pos_y)));
                 if (dataBuild) {
                     dataBuild.dbId = dbId;

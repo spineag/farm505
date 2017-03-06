@@ -100,20 +100,20 @@ public class WildHint {
         _quad.x = -int(bg.width/2);
         _quad.y = -bg.height;
         _source.addChildAt(_quad,0);
-        if (!g.allData.resource[idResourceForRemoving]) {
+        if (!g.allData.getResourceById(idResourceForRemoving)) {
             Cc.error('WildHInt showIt:: no such g.dataResource.objectResources[idResourceForRemoving] for idResourceForRemoving: ' + idResourceForRemoving);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'wildHint');
             return;
         }
         _txtName.text = name;
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
-        _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.resource[idResourceForRemoving].imageShop));
+        _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(idResourceForRemoving).imageShop));
         _txtCount.text = String(g.userInventory.getCountResourceById(idResourceForRemoving));
         _txtCount.x = int(_circle.x) + 3;
         _txtCount.y = int(_circle.y) + 2;
-        _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.resource[idResourceForRemoving].imageShop));
+        _iconResource = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(idResourceForRemoving).imageShop));
         if (!_iconResource) {
-            Cc.error('WildHint showIt:: no such image: ' + g.allData.resource[idResourceForRemoving].imageShop);
+            Cc.error('WildHint showIt:: no such image: ' + g.allData.getResourceById(idResourceForRemoving).imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'wildHint');
             return;
         }
@@ -164,7 +164,7 @@ public class WildHint {
     private function onClick(id:int = 0):void {
         if (g.userInventory.getCountResourceById(_id) <= 0){
             var ob:Object = {};
-            ob.data = g.allData.resource[_id];
+            ob.data = g.allData.getResourceById(_id);
             ob.count = 1;
             g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onClick, 'menu', ob);
         } else {

@@ -5,6 +5,7 @@ package windows.market {
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
+import data.StructureDataResource;
 import data.StructureMarketItem;
 
 import flash.display.Bitmap;
@@ -65,7 +66,7 @@ public class MarketItem {
     private var _imageCont:Sprite;
     private var _person:Someone;
     private var _personBuyer:Someone;
-    private var _personBuyerTemp:Object;
+    private var _personBuyerTempItem:StructureMarketItem;
     public var number:int;
     private var _woWidth:int;
     private var _woHeight:int;
@@ -85,6 +86,7 @@ public class MarketItem {
     private var _txtBuyNewPlace:CTextField;
     private var _txtBuyCell:CTextField;
     private var _txtGo:CTextField;
+    private var _photoUrl:String;
     private var g:Vars = Vars.getInstance();
 
     public function MarketItem(numberCell:int, close:Boolean, wo:WOMarket) {
@@ -287,12 +289,12 @@ public class MarketItem {
         }
     }
 
-    public function onChoose(a:int, level:int, count:int, cost:int, inPapper:Boolean):void {
+    public function onChoose(id:int, level:int, count:int, cost:int, inPapper:Boolean):void {
         if (isFill == 1) return;
         isFill = 1;
-        g.directServer.addUserMarketItem(a, level, count, inPapper, cost, number, onAddToServer);
-        g.userInventory.addResource(g.allData.resource[a].id, -count);
-        fillIt(g.allData.resource[a],count, cost);
+        g.directServer.addUserMarketItem(id, level, count, inPapper, cost, number, onAddToServer);
+        g.userInventory.addResource(id, -count);
+        fillIt(g.allData.getResourceById(id),count, cost);
         _txtAdditem.visible = false;
         g.managerCutScenes.checkCutSceneForAddToPapper(this);
     }
@@ -433,7 +435,7 @@ public class MarketItem {
                     new FlyMessage(p, "Недостаточно денег");
                     return;
                 }
-                var d:Object = g.allData.resource[_dataFromServer.resourceId];
+                var d:Object = g.allData.getResourceById(_dataFromServer.resourceId);
                 if (d.placeBuild == BuildType.PLACE_AMBAR) {
                     if (g.userInventory.currentCountInAmbar + _dataFromServer.resourceCount > g.user.ambarMaxCount) {
                         p = new Point(source.x, source.y);
@@ -527,7 +529,7 @@ public class MarketItem {
             _wo.refreshItemWhenYouBuy();
         } else {
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
-            var d:Object = g.allData.resource[_dataFromServer.resourceId];
+            var d:StructureDataResource = g.allData.getResourceById(_dataFromServer.resourceId);
             showFlyResource(d, _dataFromServer.resourceCount);
             _plawkaCoins.visible = false;
             _plawkaSold.visible = true;
@@ -587,7 +589,7 @@ public class MarketItem {
         if (_isUser) _txtAdditem.visible = true;
         else _txtAdditem.visible = false;
         if (_data) _data = null;
-        if (_personBuyerTemp) _personBuyerTemp = null;
+        if (_personBuyerTempItem) _personBuyerTempItem = null;
         if (_btnGoAwaySaleItem) {
             source.removeChild(_btnGoAwaySaleItem);
             _btnGoAwaySaleItem.deleteIt();
@@ -627,7 +629,7 @@ public class MarketItem {
 //                _quadGreen.visible = true;
 //                fillIt(g.dataResource.objectResources[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost, true);
                 try {
-                    showSaleImage(g.allData.resource[_dataFromServer.resourceId], _dataFromServer.cost);
+                    showSaleImage(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.cost);
                 } catch (e:Error) {
                     Cc.error('at showScaleImage');
                 }
@@ -635,7 +637,7 @@ public class MarketItem {
                 _txtAdditem.visible = false;
             } else { // sale anyway item
                 _txtAdditem.visible = false;
-                fillIt(g.allData.resource[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost);
+                fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
                 _plawkaCoins.visible = false;
                 _plawkaLvl.visible = false;
                 _plawkaSold.visible = true;
@@ -644,21 +646,21 @@ public class MarketItem {
         } else { //have Item
             isFill = 1;
             if (_person is NeighborBot) {
-                if (g.allData.resource[_dataFromServer.resourceId].buildType == BuildType.INSTRUMENT) {
+                if (g.allData.getResourceById(_dataFromServer.resourceId).buildType == BuildType.INSTRUMENT) {
                     _dataFromServer.resourceCount = 1;
                     _dataFromServer.cost *= 3;
                 }
             }
 
             _inPapper = _dataFromServer.inPapper;
-            fillIt(g.allData.resource[_dataFromServer.resourceId],_dataFromServer.resourceCount, _dataFromServer.cost);
-            if (g.allData.resource[_dataFromServer.resourceId].blockByLevel > g.user.level) { //have item but your level so small
+            fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
+            if (g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel > g.user.level) { //have item but your level so small
                 _plawkaCoins.visible = false;
                 _plawkaLvl.visible = true;
                 _plawkaLvl.y = 50;
                 _txtPlawka.visible = true;
                 _txtPlawka.y = 75;
-                _txtPlawka.text = String("Доступно на уровне: " + g.allData.resource[_dataFromServer.resourceId].blockByLevel);
+                _txtPlawka.text = String("Доступно на уровне: " + g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel);
                 _txtAdditem.visible = false;
                 isFill = 3;
             }
@@ -669,7 +671,7 @@ public class MarketItem {
         _isUser = value;
     }
 
-    private function showFlyResource(d:Object, count:int):void {
+    private function showFlyResource(d:StructureDataResource, count:int):void {
         var resource:ResourceItem = new ResourceItem();
         resource.fillIt(d);
         var item:CraftItem = new CraftItem(0,0,resource,source,count);
@@ -734,13 +736,13 @@ public class MarketItem {
             if (!_personBuyer) {
                 for (i = 0; i < g.user.marketItems.length; i++) {
                     if (_dataFromServer.buyerSocialId == g.user.marketItems[i].buyerSocialId) {
-                        _personBuyerTemp = g.user.marketItems[i];
+                        _personBuyerTempItem = g.user.marketItems[i];
                         break;
                     }
                 }
             }
         }
-        if (_personBuyer && _personBuyer is NeighborBot && !_personBuyerTemp) {
+        if (_personBuyer && _personBuyer is NeighborBot && !_personBuyerTempItem) {
             photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
         } else {
             if (!_imageCont) {
@@ -759,9 +761,9 @@ public class MarketItem {
                 } else {
                     Cc.error('MarketItem:: no default_avatar_big');
                 }
-                if (_personBuyerTemp && _personBuyerTemp.buyerSocialId) {
+                if (_personBuyerTempItem && _personBuyerTempItem.buyerSocialId) {
                     g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-                    g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId]);
+                    g.socialNetwork.getTempUsersInfoById([_personBuyerTempItem.buyerSocialId]);
                 }
                 else Cc.error('MarkertItem:: No _personBuyerTemp || _personBuyerTemp.buyerSocialId');
             } else {
@@ -806,11 +808,10 @@ public class MarketItem {
         }
 
         _btnGoAwaySaleItem = new CButton();
-        _btnGoAwaySaleItem.addButtonTexture(70, 24, CButton.BLUE, true);
-        _txtGo = new CTextField(60, 30, 'посетить');
-        _txtGo.setFormat(CTextField.BOLD18, 14, Color.WHITE);
-        _txtGo.x = 4;
-        _txtGo.y = -4;
+        _btnGoAwaySaleItem.addButtonTexture(76, 29, CButton.BLUE, true);
+        _txtGo = new CTextField(70, 30, 'Посетить');
+        _txtGo.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtGo.x = 3;
         _btnGoAwaySaleItem.addChild(_txtGo);
         source.addChild(_btnGoAwaySaleItem);
 
@@ -833,7 +834,7 @@ public class MarketItem {
             }
             else {
                 var person:Someone;
-                person = g.user.getSomeoneBySocialId(_personBuyerTemp.buyerSocialId);
+                person = g.user.getSomeoneBySocialId(_personBuyerTempItem.buyerSocialId);
                 person.level = 15;
                 if (g.visitedUser && g.visitedUser == person) return;
                 g.townArea.goAway(person);
@@ -897,10 +898,10 @@ public class MarketItem {
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
         if (!_personBuyer) {
-            if (_personBuyerTemp) _personBuyerTemp.photo = g.user.getSomeoneBySocialId(_personBuyerTemp.buyerSocialId).photo;
-            if ( _personBuyerTemp && _personBuyerTemp.photo) {
+            if (_personBuyerTempItem) _photoUrl = g.user.getSomeoneBySocialId(_personBuyerTempItem.buyerSocialId).photo;
+            if ( _personBuyerTempItem && _photoUrl) {
                 g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-                g.load.loadImage(_personBuyerTemp.photo, onLoadPhoto);
+                g.load.loadImage(_photoUrl, onLoadPhoto);
             }
         }  else {
             if (!_personBuyer.name) _personBuyer = g.user.getSomeoneBySocialId(_personBuyer.userSocialId);
@@ -913,11 +914,11 @@ public class MarketItem {
 
     private function onLoadPhoto(bitmap:Bitmap):void {
         if (!bitmap) {
-            if (!_personBuyer)  bitmap = g.pBitmaps[_personBuyerTemp.photo].create() as Bitmap;
+            if (!_personBuyer)  bitmap = g.pBitmaps[_photoUrl].create() as Bitmap;
             else bitmap = g.pBitmaps[_personBuyer.photo].create() as Bitmap;
         }
         if (!bitmap) {
-            Cc.error('FriendItem:: no photo for userId: ' + _personBuyerTemp.buyerSocialId + 'or ' + _personBuyer.userSocialId);
+            Cc.error('FriendItem:: no photo for userId: ' + _personBuyerTempItem.buyerSocialId + 'or ' + _personBuyer.userSocialId);
             return;
         }
         photoFromTexture(Texture.fromBitmap(bitmap));
@@ -930,10 +931,8 @@ public class MarketItem {
         if (tex) {
             _ava = new Image(tex);
             MCScaler.scale(_ava, 75, 75);
-//            _ava.pivotX = _ava.width/2;
-//            _ava.pivotY = _ava.height/2;
-            _ava.x = _bg.width/2 - _ava.width/2;
-            _ava.y = _bg.height/2 - _ava.height/2 - 20;
+            if (_bg) _ava.x = _bg.width/2 - _ava.width/2;
+            if (_bg) _ava.y = _bg.height/2 - _ava.height/2 - 20;
             _imageCont.addChild(_ava);
         } else {
             Cc.error('MarketItem photoFromTexture:: no texture(')
@@ -968,7 +967,7 @@ public class MarketItem {
         _dataFromServer = null;
         _person = null;
         _personBuyer = null;
-        _personBuyerTemp = null;
+        _personBuyerTempItem = null;
 //        _quadGreen = null;
         _ava = null;
         if (_papperBtn) {

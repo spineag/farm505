@@ -121,7 +121,7 @@ public class CraftPanel {
         _countFlying--;
         _counter = 40;
         g.gameDispatcher.addEnterFrame(onEnterFrame);
-        if (g.allData.resource[id].placeBuild == BuildType.PLACE_AMBAR) {
+        if (g.allData.getResourceById(id).placeBuild == BuildType.PLACE_AMBAR) {
             _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
         } else {
             _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
@@ -130,10 +130,10 @@ public class CraftPanel {
             _resourceSprite.removeChildAt(0);
         }
         var im:Image;
-        if (g.allData.resource[id].buildType == BuildType.PLANT)
-            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[id].imageShop + '_icon'));
+        if (g.allData.getResourceById(id).buildType == BuildType.PLANT)
+            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(id).imageShop + '_icon'));
         else
-            im = new Image(g.allData.atlas[g.allData.resource[id].url].getTexture(g.allData.resource[id].imageShop));
+            im = new Image(g.allData.atlas[g.allData.getResourceById(id).url].getTexture(g.allData.getResourceById(id).imageShop));
         MCScaler.scale(im, 50, 50);
         im.x = -im.width/2 - 170;
         im.y = -im.height/2;

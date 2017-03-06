@@ -48,7 +48,7 @@ public class AmbarCell {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ambarCell');
             return;
         }
-        _data = g.allData.resource[_info.id];
+        _data = g.allData.getResourceById(_info.id);
         if (!_data) {
             Cc.error('AmbarCell:: _data == null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'ambarCell');

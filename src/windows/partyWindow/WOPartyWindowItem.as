@@ -72,15 +72,15 @@ public class WOPartyWindowItem {
             source.addChild(im);
             _txtCountResource.text = String(countResource);
         }  else if (type == BuildType.RESOURCE || type == BuildType.INSTRUMENT || type == BuildType.PLANT) {
-            im = new Image(g.allData.atlas[g.allData.resource[id].url].getTexture(g.allData.resource[id].imageShop));
+            im = new Image(g.allData.atlas[g.allData.getResourceById(id).url].getTexture(g.allData.getResourceById(id).imageShop));
             source.addChild(im);
             _txtCountResource.text = String(countResource);
         } else if (type == BuildType.DECOR_ANIMATION) {
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[id].url + '_icon'));
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).url + '_icon'));
             source.addChild(im);
 
         } else if (type == BuildType.DECOR) {
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[id].image +'_icon'));
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).image +'_icon'));
             source.addChild(im);
         }
         im.pivotX = im.width/2;
