@@ -223,7 +223,7 @@ public class WOFabricaWorkListItem {
             _icon.y = int(22 - _icon.height/2);
         }
         var r:StructureDataRecipe = g.allData.getRecipeById(_resource.resourceID);
-        if (r.numberCreate > 1) {
+        if ( r && r.numberCreate > 1) {
             _txtNumberCreate.text = String(r.numberCreate);
         } else _txtNumberCreate.text = "";
 

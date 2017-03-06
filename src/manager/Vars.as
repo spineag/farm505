@@ -245,7 +245,7 @@ public class Vars {
             managerDailyBonus = new ManagerDailyBonus();
             socialNetwork = new SocialNetwork(flashVars);
             if (isDebug) {
-                socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
+                socialNetworkID = SocialNetworkSwitch.SN_OK_ID;
             } else {
                 socialNetworkID = int(flashVars['channel']);
             }
