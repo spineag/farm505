@@ -294,6 +294,10 @@ public class WOTrainItem {
         return _info.needHelp;
     }
 
+    public function get idWhoHelp():String {
+        return _info.helpId;
+    }
+
     public function get trainDbId():String {
         return _info.item_db_id;
     }

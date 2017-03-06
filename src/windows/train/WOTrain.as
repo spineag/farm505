@@ -340,7 +340,7 @@ public class WOTrain extends WindowMain {
         _rightBlock.addChild(_imageItem);
         if (g.user.isTester) {
             if (g.isAway) {
-                if (_arrItems[k].needHelp) {
+                if (_arrItems[k].needHelp && int(_arrItems[k].idWhoHelp) < 0) {
                     _btnHelp = new CButton();
                     _btnHelp.addButtonTexture(240, 52, CButton.BLUE, true);
                     _btnHelp.x = 143;

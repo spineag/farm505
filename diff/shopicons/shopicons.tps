@@ -326,6 +326,11 @@
             <filename>yogurt_machine_icon.png</filename>
             <filename>street_lantern_icon.png</filename>
             <filename>snowman_icon.png</filename>
+            <filename>8_march_statue_icon.png</filename>
+            <filename>alpine_garden_icon.png</filename>
+            <filename>cat_bouquet_icon.png</filename>
+            <filename>cycle_flower_icon.png</filename>
+            <filename>bird_house_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

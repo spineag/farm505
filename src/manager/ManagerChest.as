@@ -32,7 +32,7 @@ public class ManagerChest {
         var arR:Array = g.allData.building;
         for (var i:int = 0; i < arR.length; i++) {
             if (arR[i].buildType == BuildType.CHEST) {
-                _chestBuildID = i;
+                _chestBuildID = arR[i].id;
                 break;
             }
         }
