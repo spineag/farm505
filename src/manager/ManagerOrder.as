@@ -5,6 +5,8 @@ package manager {
 import build.orders.Order;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.StructureDataResource;
+
 import social.SocialNetworkSwitch;
 import tutorial.TutorialAction;
 import utils.Utils;
@@ -174,14 +176,13 @@ public class ManagerOrder {
         var arrOrderType1:Array = new Array(); //products
         var arrOrderType2:Array = new Array(); //cave res
         var arrOrderType3:Array = new Array(); // plants
-        var arrTemp:Array = new Array();
         var arr:Array = new Array();
         var countResources:int;
         var k:Number;
         var i:int;
-        var id:String;
         var level:int = g.user.level;
         var countFastBuyer:int = 0;
+        var r:StructureDataResource;
 
         for (i = 0; i < n; i++) {
             if (_arrOrders && !g.managerTutorial.isTutorial && _arrOrders.length > 0) {
@@ -207,74 +208,19 @@ public class ManagerOrder {
                 order.resourceIds.push(168);
                 order.resourceCounts.push(countTemp);
                 order.fasterBuy = true;
-//                arrTemp = g.userInventory.getResourcesForAmbarAndSklad();
-//                if (arrTemp.length >= 1) {
-//                    for (i = 0; i < arrTemp.length; i++) {
-//                        if (g.dataResource.objectResources[arrTemp[i].id].orderType != 0) {
-//                            arr.push(arrTemp[i]);
-//                        }
-//                    }
-//                    if (arr.length >= 1) {
-//                        if (arr.length == 1) {
-//                            order.resourceIds.push(arr[0].id);
-//                            order.resourceCounts.push(int(arr[0].count / 2 + 1));
-//                        } else {
-//                            arr.sortOn('count', Array.DESCENDING | Array.NUMERIC);
-//                            if (Math.random() < .5) {
-//                                k = Math.random();
-//                                if (k < .5) {
-//                                    order.resourceIds.push(arr[0].id);
-//                                    order.resourceCounts.push(int(arr[0].count / 2 + 1));
-//                                } else if (k < .7) {
-//                                    order.resourceIds.push(arr[0].id);
-//                                    order.resourceCounts.push(int(arr[0].count - 1 ));
-//                                    if ( order.resourceCounts[0] <= 0) {
-//                                        order.resourceCounts[0] = 1
-//                                    }
-//                                } else {
-//                                    order.resourceIds.push(arr[0].id);
-//                                    order.resourceCounts.push(int(arr[0].count) + 3);
-//                                }
-//                            } else {
-//                                order.resourceIds.push(arr[1].id);
-//                                order.resourceCounts.push(int(arr[1].count / 2 + 1));
-//                            }
-//                        }
-//                    } else {
-//                        for (id in g.dataResource.objectResources) if (g.dataResource.objectResources[id].blockByLevel <= level) if (g.dataResource.objectResources[id].orderType == 1) arrOrderType1.push(int(id));
-//                        order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
-//                        order.resourceCounts.push(int(Math.random() * 10) + 1);
-//                    }
-//                } else {
-//                    for (id in g.dataResource.objectResources) if (g.dataResource.objectResources[id].blockByLevel <= level) if (g.dataResource.objectResources[id].orderType == 1) arrOrderType1.push(int(id));
-//                    order.resourceIds.push(arrOrderType1[int(Math.random() * arrOrderType1.length)]);
-//                    order.resourceCounts.push(int(Math.random() * 10) + 1);
-//                }
-//                order.fasterBuy = true;
             } else {
                 var arR:Array = g.allData.resource;
                 for (i = 0; i < arR.length; i++) {
                     if (arR[i].blockByLevel <= g.user.level) {
                         if (arR[i].orderType == 1) {
-                            arrOrderType1.push(i);
+                            arrOrderType1.push(arR[i].id);
                         } else if (arR[i].orderType == 2) {
-                            arrOrderType2.push(i);
+                            arrOrderType2.push(arR[i].id);
                         } else if (arR[i].orderType == 3) {
-                            arrOrderType3.push(i);
+                            arrOrderType3.push(arR[i].id);
                         }
                     }
                 }
-//                for (id in g.dataResource.objectResources) {
-//                    if (g.dataResource.objectResources[id].blockByLevel <= g.user.level) {
-//                        if (g.dataResource.objectResources[id].orderType == 1) {
-//                            arrOrderType1.push(int(id));
-//                        } else if (g.dataResource.objectResources[id].orderType == 2) {
-//                            arrOrderType2.push(int(id));
-//                        } else if (g.dataResource.objectResources[id].orderType == 3) {
-//                            arrOrderType3.push(int(id));
-//                        }
-//                    }
-//                }
 
                 order = new ManagerOrderItem();
                 order.resourceIds = [];
@@ -985,8 +931,13 @@ public class ManagerOrder {
             order.xp = 0;
             for (k = 0; k < order.resourceIds.length; k++) {
                 if (order.resourceIds[k]) {
-                    order.coins += g.allData.getResourceById(order.resourceIds[k]).orderPrice * order.resourceCounts[k];
-                    order.xp += g.allData.getResourceById(order.resourceIds[k]).orderXP * order.resourceCounts[k];
+                    r = g.allData.getResourceById(order.resourceIds[k]);
+                    if (r) {
+                        order.coins += r.orderPrice * order.resourceCounts[k];
+                        order.xp += r.orderXP * order.resourceCounts[k];
+                    } else {
+                        Cc.error('ManagerOrder::::::: no resource with id: ' + order.resourceCounts[k]);
+                    }
                 }
             }
             order.startTime = int(new Date().getTime() / 1000);
