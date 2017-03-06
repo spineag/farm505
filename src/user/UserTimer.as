@@ -60,7 +60,7 @@ public class UserTimer {
 
     private function nyashukTimerRed():void {
         timerAtNyashukRed--;
-        if (timerAtNyashukRed <= 0) {
+        if (timerAtNyashukRed <= 0 && !g.isAway) {
             timerAtNyashukRed = 0;
             g.managerBuyerNyashuk.timeToNewNyashuk();
             g.gameDispatcher.removeFromTimer(nyashukTimerRed);
@@ -74,7 +74,7 @@ public class UserTimer {
 
     private function nyashukTimerBlue():void {
         timerAtNyashukBlue--;
-        if (timerAtNyashukBlue <= 0) {
+        if (timerAtNyashukBlue <= 0 && !g.isAway) {
             timerAtNyashukBlue = 0;
             g.managerBuyerNyashuk.timeToNewNyashuk();
             g.gameDispatcher.removeFromTimer(nyashukTimerBlue);

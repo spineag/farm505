@@ -235,7 +235,7 @@ public class Train extends WorldObject{
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
 
-        if (g.user.level < _dataBuild.blockByLevel[0]) return;
+//        if (g.user.level < _dataBuild.blockByLevel[0]) return;
         if (g.isAway) {
             var f1:Function = function (ob:Object, t:Train):void {
                 fillList(ob);
@@ -306,7 +306,7 @@ public class Train extends WorldObject{
         if (_bolAnimation) return;
 //        if (g.isAway) return;
         if (g.isAway) {
-            if (g.user.level < _dataBuild.blockByLevel[0]) return;
+//            if (g.user.level < _dataBuild.blockByLevel[0]) return;
             if (_stateBuild == STATE_READY) {
                 onOut();
                 if (list.length) {

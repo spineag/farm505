@@ -6,6 +6,8 @@ import build.tree.Tree;
 
 import com.junkbyte.console.Cc;
 
+import utils.Utils;
+
 public class ManagerTree {
     private var arrTree:Array; // список всех деревьев юзера
 
@@ -34,7 +36,10 @@ public class ManagerTree {
             Cc.error('no such Tree with dbId: ' + ob.user_db_building_id);
             return;
         }
-        curTree.releaseTreeFromServer(ob);
+        var f1:Function = function ():void {
+            curTree.releaseTreeFromServer(ob);
+        };
+        Utils.createDelay(int(Math.random() * 5) + 3,f1);
     }
 
     public function updateTreeState(treeDbId:String, state:int):void {
