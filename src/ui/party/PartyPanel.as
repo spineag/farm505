@@ -25,7 +25,7 @@ public class PartyPanel {
 
     public function PartyPanel() {
         _source = new CSprite();
-        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('maslenitsa_icon'));
+        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('8m_icon'));
         _source.addChild(im);
 
         _txtData = new CTextField(100,60,'');
@@ -66,7 +66,7 @@ public class PartyPanel {
     }
 
     private function onHover():void {
-        g.hint.showIt('Масленица','none', _source.x);
+        g.hint.showIt('8 Марта','none', _source.x);
     }
 
     private function onOut():void {

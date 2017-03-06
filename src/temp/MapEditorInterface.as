@@ -114,6 +114,17 @@ public class MapEditorInterface {
                 i++;
             }
         }
+//        for(var id:String in obj) {
+//            if (obj[id].buildType == BuildType.WILD || obj[id].buildType == BuildType.CAT_HOUSE || obj[id].buildType == BuildType.DECOR || obj[id].buildType == BuildType.CHEST_YELLOW || obj[id].buildType == BuildType.DECOR_ANIMATION) {
+//
+//                item = new MapEditorInterfaceItem(Utils.objectDeepCopy(obj[id]));
+//                item.source.y = 20;
+//                item.source.x = i * 80;
+//                _contBuildings.addChild(item.source);
+//                _arrWilds.push(item);
+//                i++;
+//            }
+//        }
     }
 
     private function rightMove():void {
