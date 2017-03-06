@@ -16,6 +16,7 @@ import starling.utils.Color;
 
 import utils.CSprite;
 import utils.MCScaler;
+import utils.Utils;
 
 public class MapEditorInterfaceItem {
     public var source:CSprite;

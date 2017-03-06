@@ -198,9 +198,9 @@
             <filename>progress.png</filename>
             <filename>valik_timer.png</filename>
             <filename>hint_button.png</filename>
-            <filename>maslenitsa_window.png</filename>
-            <filename>maslenitsa_icon.png</filename>
-            <filename>maslenitsa_pancake.png</filename>
+            <filename>tulip_icon.png</filename>
+            <filename>8m_icon.png</filename>
+            <filename>8_march_window_1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

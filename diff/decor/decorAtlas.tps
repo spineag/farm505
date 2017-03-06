@@ -279,6 +279,11 @@
             <filename>fountain_green.png</filename>
             <filename>fountain_pink.png</filename>
             <filename>fountain_yellow.png</filename>
+            <filename>8_march_statue.png</filename>
+            <filename>alpine_garden.png</filename>
+            <filename>bird_house.png</filename>
+            <filename>cat_bouquet.png</filename>
+            <filename>cycle_flower.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

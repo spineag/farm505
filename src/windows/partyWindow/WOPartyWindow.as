@@ -51,9 +51,9 @@ public class WOPartyWindow extends WindowMain{
             g.gameDispatcher.addEnterFrame(checkAtlas);
         } else {
             var im:Image;
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('maslenitsa_window'));
-            im.x = -im.width / 2 + 10;
-            im.y = -im.height / 2 - 10;
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('8_march_window_1'));
+            im.x = -im.width / 2;
+            im.y = -im.height / 2 - 13;
             _source.addChild(im);
             createExitButton(onClickExit);
             _callbackClickBG = onClickExit;
@@ -88,9 +88,9 @@ public class WOPartyWindow extends WindowMain{
         if (g.allData.atlas['partyAtlas']) {
             g.gameDispatcher.removeEnterFrame(checkAtlas);
             var im:Image;
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('maslenitsa_window'));
-            im.x = -im.width / 2 + 10;
-            im.y = -im.height / 2 - 10;
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('8_march_window_1'));
+            im.x = -im.width / 2;
+            im.y = -im.height / 2 - 13;
             _source.addChild(im);
             createExitButton(onClickExit);
             _callbackClickBG = onClickExit;
@@ -191,7 +191,7 @@ public class WOPartyWindow extends WindowMain{
         _source.addChild(im);
 
 
-        im = new Image(g.allData.atlas['partyAtlas'].getTexture('maslenitsa_pancake'));
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('tulip_icon'));
         im.x = -215;
         im.y = 55;
         MCScaler.scale(im,45,45);

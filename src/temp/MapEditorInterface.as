@@ -121,13 +121,15 @@ public class MapEditorInterface {
 
         _arrWilds = [];
         for (var k:int = 0; k < g.allData.building.length; k++) {
-            if (g.allData.building[k] && g.allData.building[k].buildType == BuildType.WILD || g.allData.building[k].buildType == BuildType.CAT_HOUSE || g.allData.building[k].buildType == BuildType.DECOR || g.allData.building[k].buildType == BuildType.CHEST_YELLOW || g.allData.building[k].buildType == BuildType.DECOR_ANIMATION) {
-                item = new MapEditorInterfaceItem(Utils.objectFromStructureBuildToObject(g.allData.building[k]));
-                item.source.y = 20;
-                item.source.x = i * 80;
-                _contBuildings.addChild(item.source);
-                _arrWilds.push(item);
-                i++;
+            if (g.allData.building[k]) {
+                if (g.allData.building[k].buildType == BuildType.WILD || g.allData.building[k].buildType == BuildType.CAT_HOUSE || g.allData.building[k].buildType == BuildType.DECOR || g.allData.building[k].buildType == BuildType.CHEST_YELLOW || g.allData.building[k].buildType == BuildType.DECOR_ANIMATION) {
+                    item = new MapEditorInterfaceItem(Utils.objectFromStructureBuildToObject(g.allData.building[k]));
+                    item.source.y = 20;
+                    item.source.x = i * 80;
+                    _contBuildings.addChild(item.source);
+                    _arrWilds.push(item);
+                    i++;
+                }
             }
         }
 //        for(var id:String in obj) {

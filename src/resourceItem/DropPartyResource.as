@@ -45,7 +45,7 @@ public class DropPartyResource {
     public function DropPartyResource(_x:int, _y:int, prise:Object, delay:Number = .3, fromSize:int = 50) {
         var endPoint:Point;
         _source = new Sprite();
-        _image = new Image(g.allData.atlas['partyAtlas'].getTexture('maslenitsa_pancake'));
+        _image = new Image(g.allData.atlas['partyAtlas'].getTexture('tulip_icon'));
         if (!_image) {
             Cc.error('DropPartyResource:: no image for type: ' + prise.id + ' ' + prise.type);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'DropPartyResource');
