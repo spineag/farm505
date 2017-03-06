@@ -7,6 +7,7 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import data.OwnEvent;
+import data.StructureDataAnimal;
 import data.StructureDataResource;
 
 import manager.Vars;
@@ -101,8 +102,9 @@ public class UserInventory {
 //        var res:Object = g.dataResource.objectResources;
 
         arr = [];
-        for (var i:int = 0; i < g.allData.resource.length; i++) {
-            if (g.allData.resource[i] && g.allData.resource[i].placeBuild == BuildType.PLACE_AMBAR && g.allData.resource[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
+        var arR:Array = g.allData.resource;
+        for (var i:int = 0; i < arR.length; i++) {
+            if (arR[i].placeBuild == BuildType.PLACE_AMBAR && arR[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
                 obj = {};
                 obj.id = i;
                 obj.count = _inventoryResource[i];
@@ -126,8 +128,9 @@ public class UserInventory {
 //        var res:Object = g.dataResource.objectResources;
 
         arr = [];
-        for (var i:int = 0; i < g.allData.resource.length; i++) {
-            if (g.allData.resource[i] && g.allData.resource[i].placeBuild == BuildType.PLACE_SKLAD  && g.allData.resource[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
+        var arR:Array = g.allData.resource;
+        for (var i:int = 0; i < arR.length; i++) {
+            if (arR[i].placeBuild == BuildType.PLACE_SKLAD  && arR[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
                 obj = {};
                 obj.id = int(i);
                 obj.count = _inventoryResource[i];
@@ -144,26 +147,16 @@ public class UserInventory {
     public function getResourcesForAmbarAndSklad():Array {
         var obj:Object;
         var arr:Array;
-//        var res:Object = g.dataResource.objectResources;
-
         arr = [];
-        for (var i:int = 0; i < g.allData.resource.length; i++) {
-            if (g.allData.resource[i] && (g.allData.resource[i].placeBuild == BuildType.PLACE_SKLAD || g.allData.resource[i].placeBuild == BuildType.PLACE_AMBAR) && g.allData.resource[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
+        var arR:Array = g.allData.resource;
+        for (var i:int = 0; i < arR.length; i++) {
+            if ((arR[i].placeBuild == BuildType.PLACE_SKLAD || arR[i].placeBuild == BuildType.PLACE_AMBAR) && arR[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
                 obj = {};
                 obj.id = int(i);
                 obj.count = _inventoryResource[i];
                 arr.push(obj);
             }
         }
-
-//        for (var id:String in _inventoryResource) {
-//            if ((res[id].placeBuild == BuildType.PLACE_SKLAD || res[id].placeBuild == BuildType.PLACE_AMBAR) && res[id].blockByLevel <= g.user.level && _inventoryResource[id]>0) {
-//                obj = {};
-//                obj.id = int(id);
-//                obj.count = _inventoryResource[id];
-//                arr.push(obj);
-//            }
-//        }
         return arr;
     }
 
@@ -303,51 +296,29 @@ public class UserInventory {
     }
 
     public function addNewElementsAfterGettingNewLevel():void {
-//         = g.dataResource.objectResources;
-//        for (var id:String in res) {
-//            if (res[id].buildType == BuildType.PLANT && res[id].blockByLevel == g.user.level) {
-//                addResource(int(id), 3);
-//            }
-//        }
-        for (var i:int = 0; i < g.allData.resource.length; i++) {
-            if (g.allData.resource[i] && (g.allData.resource[i] as StructureDataResource).buildType == BuildType.PLANT && (g.allData.resource[i] as StructureDataResource).blockByLevel == g.user.level) {
-                addResource((g.allData.resource[i] as StructureDataResource).id, 3);
+        var arR:Array = g.allData.resource;
+        for (var i:int = 0; i < arR.length; i++) {
+            if (arR[i].buildType == BuildType.PLANT && arR[i].blockByLevel == g.user.level) {
+                addResource(arR[i].id, 3);
             }
         }
 
-//      var buil2d:Object = g.dataBuilding.objectBuilding;
-        var res:Object = g.dataAnimal.objectAnimal;
         var k:int;
-        var idA:String;
-        for (i = 0; i < g.allData.building.length; i++) {
-            if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.FARM) {
-                for (k = 0; k < g.allData.building[i].blockByLevel.length; k++) {
-                    if (g.allData.building[i].blockByLevel[k] == g.user.level) {
-                        for (idA in res) {
-                            if (g.allData.building[i].id == res[idA].buildId) {
-                                addResource(res[idA].idResourceRaw, 3);  // add feed for animals
-                                return;
-                            }
+        arR = g.allData.building;
+        var animal:StructureDataAnimal;
+        for (i = 0; i < arR.length; i++) {
+            if (arR[i].buildType == BuildType.FARM) {
+                for (k = 0; k < arR[i].blockByLevel.length; k++) {
+                    if (arR[i].blockByLevel[k] == g.user.level) {
+                        animal = g.allData.getAnimalByFarmId(arR[i].buildId);
+                        if (animal) {
+                            addResource(animal.idResourceRaw, 3);  // add feed for animals
                         }
+                        break;
                     }
                 }
             }
         }
-//            for (var id:String in build) {
-//                if (build[id].buildType == BuildType.FARM) {
-//                    for (i = 0; i < build[id].blockByLevel.length; i++) {
-//                        if (build[id].blockByLevel[i] == g.user.level) {
-//                            for (var idA:String in res) {
-//                                if (build[id].id == res[idA].buildId) {
-//                                    addResource(res[idA].idResourceRaw, 3);  // add feed for animals
-//                                    return;
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-
     }
 
     public function checkLastResource(id:int):Boolean {

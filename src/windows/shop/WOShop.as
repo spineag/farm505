@@ -196,6 +196,7 @@ public class WOShop extends WindowMain {
         var obj:Object;
         var st:String;
         var i:int;
+        var arR:Array;
         if (g.user.allNotification > 0) {
             switch (curentTab) {
                 case VILLAGE:
@@ -220,75 +221,51 @@ public class WOShop extends WindowMain {
 
         switch (a) {
             case VILLAGE:
-//                obj = g.dataBuilding.objectBuilding;
+                arR = g.allData.building;
                 arr.push(g.managerCats.catInfo);
-                    for (i = 0; i < g.allData.building.length; i++) {
-                        if (g.allData.building[i] && (g.allData.building[i].buildType == BuildType.RIDGE || g.allData.building[i].buildType == BuildType.FARM)) {
-                            arr.push(Utils.objectFromStructureBuildToObject(g.allData.building[i]));
-                        }
+                for (i = 0; i < arR.length; i++) {
+                    if (arR[i].buildType == BuildType.RIDGE || arR[i].buildType == BuildType.FARM) {
+                        arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
                     }
-//                for (st in obj) {
-//                    if (obj[st].buildType == BuildType.RIDGE || obj[st].buildType == BuildType.FARM) {
-//                        arr.push(Utils.objectDeepCopy(obj[st]));
-//                    }
-//                }
+                }
                 break;
             case ANIMAL:
-                obj = g.dataAnimal.objectAnimal;
-                for (st in obj) {
-                        arr.push(Utils.objectDeepCopy(obj[st]));
+                arR = g.allData.animal;
+                for (i = 0; i < arR.length; i++) {
+                    arr.push(Utils.objectFromStructureAnimaToObject(arR[i]));
                 }
                 break;
             case FABRICA:
-//                obj = g.dataBuilding.objectBuilding;
-                for (i = 0; i < g.allData.building.length; i++) {
-                    if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.FABRICA) {
-                        arr.push(Utils.objectFromStructureBuildToObject(g.allData.building[i]));
+                arR = g.allData.building;
+                for (i = 0; i < arR.length; i++) {
+                    if (arR[i].buildType == BuildType.FABRICA) {
+                        arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
                     }
                 }
-//                for (st in obj) {
-//                    if (obj[st].buildType == BuildType.FABRICA) {
-//                        arr.push(Utils.objectDeepCopy(obj[st]));
-//                    }
-//                }
                 break;
             case PLANT:
-                for (i = 0; i < g.allData.building.length; i++) {
-                    if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.TREE) {
-                        arr.push(Utils.objectFromStructureBuildToObject(g.allData.building[i]));
+                arR = g.allData.building;
+                for (i = 0; i < arR.length; i++) {
+                    if (arR[i].buildType == BuildType.TREE) {
+                        arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
                     }
                 }
                 break;
             case DECOR:
-//                obj = g.dataBuilding.objectBuilding;
-                for (i = 0; i < g.allData.building.length; i++) {
-                    if (g.allData.building[i]) {
-                        if (g.allData.building[i].buildType == BuildType.DECOR || g.allData.building[i].buildType == BuildType.DECOR_ANIMATION || g.allData.building[i].buildType == BuildType.DECOR_FULL_FENСE ||
-                                g.allData.building[i].buildType == BuildType.DECOR_POST_FENCE || g.allData.building[i].buildType == BuildType.DECOR_TAIL || g.allData.building[i].buildType == BuildType.DECOR_FENCE_GATE ||
-                                g.allData.building[i].buildType == BuildType.DECOR_FENCE_ARKA) {
-                            if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == g.allData.building[i].filterType) {
-                                if (g.allData.building[i].buildType == BuildType.DECOR || g.allData.building[i].buildType == BuildType.DECOR_ANIMATION || g.allData.building[i].buildType == BuildType.DECOR_TAIL) {
-                                    if (g.allData.building[i].group && !g.allData.isFirstInGroupDecor(g.allData.building[i].group, g.allData.building[i].id))
-                                        continue;
-                                }
-                                arr.push(Utils.objectFromStructureBuildToObject(g.allData.building[i]));
+                arR = g.allData.building;    
+                for (i = 0; i < arR.length; i++) {
+                    if (arR[i].buildType == BuildType.DECOR || arR[i].buildType == BuildType.DECOR_ANIMATION || arR[i].buildType == BuildType.DECOR_FULL_FENСE ||
+                            arR[i].buildType == BuildType.DECOR_POST_FENCE || arR[i].buildType == BuildType.DECOR_TAIL || arR[i].buildType == BuildType.DECOR_FENCE_GATE ||
+                            arR[i].buildType == BuildType.DECOR_FENCE_ARKA) {
+                        if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == arR[i].filterType) {
+                            if (arR[i].buildType == BuildType.DECOR || arR[i].buildType == BuildType.DECOR_ANIMATION || arR[i].buildType == BuildType.DECOR_TAIL) {
+                                if (arR[i].group && !g.allData.isFirstInGroupDecor(arR[i].group, arR[i].id))
+                                    continue;
                             }
+                            arr.push(Utils.objectFromStructureBuildToObject(arR[i]));
                         }
                     }
                 }
-//                for (st in obj) {
-//                    if (obj[st].buildType == BuildType.DECOR || obj[st].buildType == BuildType.DECOR_ANIMATION || obj[st].buildType == BuildType.DECOR_FULL_FENСE ||
-//                            obj[st].buildType == BuildType.DECOR_POST_FENCE || obj[st].buildType == BuildType.DECOR_TAIL || obj[st].buildType == BuildType.DECOR_FENCE_GATE ||
-//                            obj[st].buildType == BuildType.DECOR_FENCE_ARKA) {
-//                        if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == obj[st].filterType) {
-//                            if (obj[st].buildType == BuildType.DECOR || obj[st].buildType == BuildType.DECOR_ANIMATION || obj[st].buildType == BuildType.DECOR_TAIL) {
-//                                if (obj[st].group && !g.allData.isFirstInGroupDecor(obj[st].group, obj[st].id))
-//                                    continue;
-//                            }
-//                            arr.push(Utils.objectDeepCopy(obj[st]));
-//                        }
-//                    }
-//                }
                 break;
         }
         if (curentTab == DECOR) {

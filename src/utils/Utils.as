@@ -4,6 +4,10 @@
 package utils {
 import com.junkbyte.console.Cc;
 
+import data.StructureDataAnimal;
+
+import data.StructureDataBuilding;
+
 import flash.events.TimerEvent;
 
 import flash.utils.ByteArray;
@@ -104,7 +108,7 @@ public class Utils {
         timer.start();
     }
 
-    public static function objectFromStructureBuildToObject(oldOb:Object):Object {
+    public static function objectFromStructureBuildToObject(oldOb:StructureDataBuilding):Object {
         var newOb:Object = {};
         var i:int = 0;
         if (oldOb.blockByLevel) {
@@ -186,6 +190,25 @@ public class Utils {
                 newOb.variaty.push(oldOb.variaty[i]);
             }
         }
+        return newOb;
+    }
+
+    public static function objectFromStructureAnimaToObject(oldOb:StructureDataAnimal):Object {
+        var newOb:Object = {};
+        newOb.id = oldOb.id;
+        newOb.buildId = oldOb.buildId;
+        newOb.name = oldOb.name;
+        newOb.width = oldOb.width;
+        newOb.height = oldOb.height;
+        newOb.url = oldOb.url;
+        newOb.image = oldOb.image;
+        newOb.cost = oldOb.cost;
+        newOb.cost2 = oldOb.cost2;
+        newOb.cost3 = oldOb.cost3;
+        newOb.idResource = oldOb.idResource;
+        newOb.idResourceRaw = oldOb.idResourceRaw;
+        newOb.buildType = oldOb.buildType;
+        newOb.costNew = oldOb.costNew;
         return newOb;
     }
 }

@@ -72,9 +72,10 @@ public class MarketFriendItem {
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         visitBtn = new CButton();
-        visitBtn.addButtonTexture(70, 30, CButton.BLUE, true);
-        _txtBtn = new CTextField(70, 25, "Посетить");
-        _txtBtn.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        visitBtn.addButtonTexture(80, 30, CButton.BLUE, true);
+        _txtBtn = new CTextField(76, 25, "Посетить");
+        _txtBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtBtn.x = 2;
         _txtBtn.y = 3;
         visitBtn.addChild(_txtBtn);
         visitBtn.x = 55;
@@ -142,6 +143,9 @@ public class MarketFriendItem {
         _ava.x = 4;
         _ava.y = 2;
         if (source) source.addChild(_ava);
+        if (visitBtn && source.contains(visitBtn)) {
+            source.setChildIndex(visitBtn, source.numChildren-1);
+        }
     }
 
     private function chooseThis():void {

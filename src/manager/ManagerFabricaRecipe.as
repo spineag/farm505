@@ -7,6 +7,8 @@ import build.fabrica.Fabrica;
 
 import com.junkbyte.console.Cc;
 
+import data.StructureDataRecipe;
+
 import resourceItem.ResourceItem;
 
 public class ManagerFabricaRecipe {
@@ -42,14 +44,15 @@ public class ManagerFabricaRecipe {
             Cc.error('no such Fabrica with dbId: ' + ob.user_db_building_id);
             return;
         }
-        resItem.fillIt(g.allData.resource[g.allData.recipe[int(ob.recipe_id)].idResource]);
+        var r:StructureDataRecipe = g.allData.getRecipeById(int(ob.recipe_id));
+        resItem.fillIt(g.allData.getResourceById(r.idResource));
         resItem.idFromServer = ob.id;
         if (int(ob.delay) > int(ob.time_work)) {
-            curFabrica.onRecipeFromServer(resItem, g.allData.recipe[int(ob.recipe_id)], 0, int(ob.delay) - int(ob.time_work));
+            curFabrica.onRecipeFromServer(resItem, g.allData.getRecipeById(int(ob.recipe_id)), 0, int(ob.delay) - int(ob.time_work));
         } else if (int(ob.delay) + resItem.buildTime <= int(ob.time_work)) {
             curFabrica.craftResource(resItem);
         } else {
-            curFabrica.onRecipeFromServer(resItem, g.allData.recipe[int(ob.recipe_id)], int(ob.time_work) - int(ob.delay), 0);
+            curFabrica.onRecipeFromServer(resItem, g.allData.getRecipeById(int(ob.recipe_id)), int(ob.time_work) - int(ob.delay), 0);
         }
     }
 

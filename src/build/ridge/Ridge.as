@@ -7,6 +7,8 @@ import analytic.AnalyticManager;
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 
+import data.StructureDataResource;
+
 import dragonBones.Slot;
 
 import flash.geom.Point;
@@ -39,7 +41,7 @@ public class Ridge extends WorldObject{
     public static const GROW3:int = 4;
     public static const GROWED:int = 5;
 
-    private var _dataPlant:Object;
+    private var _dataPlant:StructureDataResource;
     private var _resourceItem:ResourceItem;
     private var _plant:PlantOnRidge;
     private var _plantSprite:Sprite;
@@ -92,22 +94,22 @@ public class Ridge extends WorldObject{
 
     public function plantThePlant():void {
         g.soundManager.playSound(SoundConst.CRAFT_RAW_PLANT);
-        fillPlant(g.allData.resource[g.toolsModifier.plantId]);
+        fillPlant(g.allData.getResourceById(g.toolsModifier.plantId));
         g.managerPlantRidge.checkFreeRidges();
     }
 
-    public function fillPlant(data:Object, isFromServer:Boolean = false, timeWork:int = 0):void {
+    public function fillPlant(d:StructureDataResource, isFromServer:Boolean = false, timeWork:int = 0):void {
         if (_stateRidge != EMPTY) {
-            Cc.error('Try to plant already planted ridge data.name: ' + data.name);
+            Cc.error('Try to plant already planted ridge data.name: ' + d.name);
             return;
         }
-        if (!data) {
+        if (!d) {
             Cc.error('no data for fillPlant at Ridge');
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             return;
         }
         _stateRidge = GROW1;
-        _dataPlant = data;
+        _dataPlant = d;
         _plant = new PlantOnRidge(this, _dataPlant);
         if (timeWork < _dataPlant.buildTime) {
             _plant.checkTimeGrowing(timeWork);

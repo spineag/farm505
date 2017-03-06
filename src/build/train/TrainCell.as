@@ -42,7 +42,7 @@ public class TrainCell {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for TrainCell');
             return;
         }
-        _dataResource = g.allData.resource[int(d.resource_id)];
+        _dataResource = g.allData.getResourceById(int(d.resource_id));
         if (!_dataResource) {
             Cc.error('TrainCell:: no _dataResource for id:' + d.resource_id);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'trainCell no _dataResource');
@@ -101,7 +101,7 @@ public class TrainCell {
         if (_dataResource.buildType == BuildType.PLANT) {
             im = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));
         } else {
-            im = new Image(g.allData.atlas[g.allData.resource[_dataResource.id].url].getTexture(g.allData.resource[_dataResource.id].imageShop));
+            im = new Image(g.allData.atlas[g.allData.getResourceById(_dataResource.id).url].getTexture(g.allData.getResourceById(_dataResource.id).imageShop));
         }
         return im;
     }

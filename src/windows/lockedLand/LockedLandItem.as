@@ -91,7 +91,7 @@ public class LockedLandItem {
     }
 
     public function fillWithResource(id:int, count:int):void {
-        if (!g.allData.resource[id]) {
+        if (!g.allData.getResourceById(id)) {
             Cc.error('LockedLandItem fillWithResource:: g.dataResource.objectResources[id] == null for id: ' + id);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'LockedLandItem');
             return;
@@ -99,12 +99,12 @@ public class LockedLandItem {
         var icon:Image;
         _id = id;
         _count = count;
-        if (g.allData.resource[id].buildType == BuildType.PLANT)
-            icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[id].imageShop + '_icon'));
+        if (g.allData.getResourceById(id).buildType == BuildType.PLANT)
+            icon = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(id).imageShop + '_icon'));
         else
-            icon = new Image(g.allData.atlas[g.allData.resource[id].url].getTexture(g.allData.resource[id].imageShop));
+            icon = new Image(g.allData.atlas[g.allData.getResourceById(id).url].getTexture(g.allData.getResourceById(id).imageShop));
         if (!icon) {
-            Cc.error('LockedLandItem fillWithResource:: no such image: ' + g.allData.resource[id].imageShop);
+            Cc.error('LockedLandItem fillWithResource:: no such image: ' + g.allData.getResourceById(id).imageShop);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'lockedLandItem');
             return;
         }
@@ -117,7 +117,7 @@ public class LockedLandItem {
         _txtCount.y = 50;
         _txtCount.x = -35;
         source.addChild(_txtCount);
-        _txtInfo = new CTextField(200,90,'Собрать '+String(count)+' '+g.allData.resource[id].name + ' (пропадут после открытия)');
+        _txtInfo = new CTextField(200,90,'Собрать '+String(count)+' '+g.allData.getResourceById(id).name + ' (пропадут после открытия)');
         _txtInfo.setFormat(CTextField.BOLD18, 16, ManagerFilters.BROWN_COLOR);
         _txtInfo.x = 90;
         _txtInfo.y = -2;
@@ -133,7 +133,7 @@ public class LockedLandItem {
         } else {
             _btn = new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
-            _txtBtn = new CTextField(120,30,'Купить ' + String(g.allData.resource[id].priceHard *(count - g.userInventory.getCountResourceById(id))));
+            _txtBtn = new CTextField(120,30,'Купить ' + String(g.allData.getResourceById(id).priceHard *(count - g.userInventory.getCountResourceById(id))));
             _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
             _txtBtn.x = -15;
             _txtBtn.y = 2;

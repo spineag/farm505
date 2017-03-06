@@ -5,6 +5,7 @@ package windows.buyPlant {
 import build.ridge.Ridge;
 import com.junkbyte.console.Cc;
 import data.BuildType;
+import data.StructureDataResource;
 
 import flash.geom.Point;
 
@@ -75,16 +76,11 @@ public class WOBuyPlant extends WindowMain {
 
     private function updatePlantArray():void {
         _arrAllPlants.length = 0;
-//        for (var id:String in g.dataResource.objectResources) {
-//            if (g.dataResource.objectResources[id].buildType == BuildType.PLANT && g.dataResource.objectResources[id].blockByLevel <= g.user.level + 1) {
-//                if (g.dataResource.objectResources[id].id != 168) _arrAllPlants.push(g.dataResource.objectResources[id]);
-//                else if (g.userTimer.partyTimer > 0) _arrAllPlants.push(g.dataResource.objectResources[id]);
-//            }
-//        }
-        for (var i:int = 0; i < g.allData.resource.length; i++) {
-            if (g.allData.resource[i] && g.allData.resource[i].buildType == BuildType.PLANT && g.allData.resource[i].blockByLevel <= g.user.level + 1) {
-                if (g.allData.resource[i].id != 168) _arrAllPlants.push(g.allData.resource[i]);
-                else if (g.userTimer.partyTimer > 0) _arrAllPlants.push(g.allData.resource[i]);
+        var arR:Array = g.allData.resource;
+        for (var i:int = 0; i < arR.length; i++) {
+            if (arR[i].buildType == BuildType.PLANT && arR[i].blockByLevel <= g.user.level + 1) {
+                if (arR[i].id != 168) _arrAllPlants.push(arR[i]);
+                else if (g.userTimer.partyTimer > 0) _arrAllPlants.push(arR[i]);
             }
         }
         _arrAllPlants.sortOn('blockByLevel', Array.NUMERIC);
@@ -133,7 +129,7 @@ public class WOBuyPlant extends WindowMain {
         }
     }
 
-    private function onClickItem(d:Object, r:Ridge = null,calllback:Function = null):void {
+    private function onClickItem(d:StructureDataResource, r:Ridge = null,calllback:Function = null):void {
         if (g.userInventory.getCountResourceById(d.id) <= 0) {
 //            g.windowsManager.cashWindow = this;
             var ob:Object = {};

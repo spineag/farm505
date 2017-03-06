@@ -157,7 +157,7 @@ public class WOPapperItem {
         source.visible = true;
         _txtCost.text = String(_data.cost);
         _txtCountResource.text = String(_data.resourceCount) + ' шт.';
-        _dataResource = g.allData.resource[_data.resourceId];
+        _dataResource = g.allData.getResourceById(_data.resourceId);
         _txtResourceName.text = _dataResource.name;
         if (_dataResource.buildType == BuildType.PLANT)
             _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(_dataResource.imageShop + '_icon'));

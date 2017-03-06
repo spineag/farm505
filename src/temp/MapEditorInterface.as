@@ -92,44 +92,26 @@ public class MapEditorInterface {
 
         _contBuildings = new Sprite();
         _allTable.addChild(_contBuildings);
-//        _leftArrow.addEventListener(Event.TRIGGERED,onTriggered);
-//        _rightArrow.addEventListener(Event.TRIGGERED,onTriggered);
-
         _leftArrow.endClickCallback = leftMove;
         _rightArrow.endClickCallback = rightMove;
-
         fillWilds();
-
         _mouseCoordinates.startIt();
     }
 
-//    private function onTriggered(e:Event):void{
-//        switch (e.target) {
-//            case _leftArrow:
-//                scroleType(-500);
-//                break;
-//            case _rightArrow:
-//                scroleType(500);
-//                break;
-//        }
-//    }
-
     private function fillWilds():void{
-//        var obj:Object = g.dataBuilding.objectBuilding;
         var item:MapEditorInterfaceItem;
         var i:int = 0;
 
         _arrWilds = [];
-        for (var k:int = 0; k < g.allData.building.length; k++) {
-            if (g.allData.building[k]) {
-                if (g.allData.building[k].buildType == BuildType.WILD || g.allData.building[k].buildType == BuildType.CAT_HOUSE || g.allData.building[k].buildType == BuildType.DECOR || g.allData.building[k].buildType == BuildType.CHEST_YELLOW || g.allData.building[k].buildType == BuildType.DECOR_ANIMATION) {
-                    item = new MapEditorInterfaceItem(Utils.objectFromStructureBuildToObject(g.allData.building[k]));
-                    item.source.y = 20;
-                    item.source.x = i * 80;
-                    _contBuildings.addChild(item.source);
-                    _arrWilds.push(item);
-                    i++;
-                }
+        var arR:Array = g.allData.building;
+        for (var k:int = 0; k < arR.length; k++) {
+            if (arR[k].buildType == BuildType.WILD || arR[k].buildType == BuildType.CAT_HOUSE || arR[k].buildType == BuildType.DECOR || arR[k].buildType == BuildType.CHEST_YELLOW || arR[k].buildType == BuildType.DECOR_ANIMATION) {
+                item = new MapEditorInterfaceItem(Utils.objectDeepCopy(arR[k]));
+                item.source.y = 20;
+                item.source.x = i * 80;
+                _contBuildings.addChild(item.source);
+                _arrWilds.push(item);
+                i++;
             }
         }
 //        for(var id:String in obj) {

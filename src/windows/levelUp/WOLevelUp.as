@@ -4,6 +4,7 @@
 package windows.levelUp {
 import data.BuildType;
 import data.DataMoney;
+import data.StructureDataAnimal;
 
 import dragonBones.Armature;
 import dragonBones.Slot;
@@ -337,60 +338,41 @@ public class WOLevelUp extends WindowMain {
     }
 
     private function createList():void {
-        var obj:Object;
+        var arR:Array;
         var objDataLevel:Object;
         var id:String;
         var arr:Array;
         var im:WOLevelUpItem;
         var i:int;
+        var k:int;
         _leftArrow.visible = false;
         _rightArrow.visible = false;
         arr = [];
-        obj = g.allData.resource;
-        for (id in obj) {
-            if (obj[id].buildType == BuildType.INSTRUMENT) continue;
-            if (g.user.level == obj[id].blockByLevel) {
-                arr.push(obj[id]);
+        arR = g.allData.resource;
+        for (i=0; i<arR.length; i++) {
+            if (arR[i].buildType == BuildType.INSTRUMENT) continue;
+            if (g.user.level == arR[i].blockByLevel) {
+                arr.push(arR[i]);
             }
         }
-//        obj = g.dataBuilding.objectBuilding;
-//        for (id in obj) {
-//            if (obj[id].buildType != BuildType.CHEST) {
-//                if (obj[id].buildType == BuildType.TREE || obj[id].buildType == BuildType.FARM || obj[id].buildType == BuildType.FABRICA) {
-//                    for (i = 0; i < obj[id].blockByLevel.length; i++) {
-//                        if (g.user.level == obj[id].blockByLevel[i]) {
-//                            arr.push(obj[id]);
-//                            if (obj[id].buildType == BuildType.TREE) g.user.plantNotification++;
-//                            if (obj[id].buildType == BuildType.FARM) g.user.villageNotification++;
-//                            if (obj[id].buildType == BuildType.FABRICA) g.user.fabricaNotification++;
-//                        }
-//                    }
-//                } else if (g.user.level == obj[id].blockByLevel && obj[id].visibleAction) {
-//                    if (obj[id].buildType != BuildType.CAVE && obj[id].buildType != BuildType.TRAIN && obj[id].buildType != BuildType.PAPER && obj[id].buildType != BuildType.DAILY_BONUS
-//                            && obj[id].buildType != BuildType.ORDER && obj[id].buildType != BuildType.MARKET) {
-//                        g.user.decorNotification++;
-//                    }
-//                    arr.push(obj[id]);
-//                }
-//            }
-//        }
-        for (i = 0; i < g.allData.building.length; i++) {
-            if (g.allData.building[i] && g.allData.building[i].buildType != BuildType.CHEST) {
-                if (g.allData.building[i].buildType == BuildType.TREE || g.allData.building[i].buildType == BuildType.FARM || g.allData.building[i].buildType == BuildType.FABRICA) {
-                    for (var k:int = 0; k < g.allData.building[i].blockByLevel.length; k++) {
-                        if (g.user.level == g.allData.building[i].blockByLevel[k]) {
-                            arr.push(g.allData.building[i]);
-                            if (g.allData.building[i].buildType == BuildType.TREE) g.user.plantNotification++;
-                            if (g.allData.building[i].buildType == BuildType.FARM) g.user.villageNotification++;
-                            if (g.allData.building[i].buildType == BuildType.FABRICA) g.user.fabricaNotification++;
+        arR = g.allData.building;
+        for (i = 0; i < arR.length; i++) {
+            if (arR[i].buildType != BuildType.CHEST) {
+                if (arR[i].buildType == BuildType.TREE || arR[i].buildType == BuildType.FARM || arR[i].buildType == BuildType.FABRICA) {
+                    for (k = 0; k < arR[i].blockByLevel.length; k++) {
+                        if (g.user.level == arR[i].blockByLevel[k]) {
+                            arr.push(arR[i]);
+                            if (arR[i].buildType == BuildType.TREE) g.user.plantNotification++;
+                            if (arR[i].buildType == BuildType.FARM) g.user.villageNotification++;
+                            if (arR[i].buildType == BuildType.FABRICA) g.user.fabricaNotification++;
                         }
                     }
-                } else if (g.user.level == g.allData.building[i].blockByLevel && g.allData.building[i].visibleAction) {
-                    if (g.allData.building[i].buildType != BuildType.CAVE && g.allData.building[i].buildType != BuildType.TRAIN && g.allData.building[i].buildType != BuildType.PAPER && g.allData.building[i].buildType != BuildType.DAILY_BONUS
-                            && g.allData.building[i].buildType != BuildType.ORDER && g.allData.building[i].buildType != BuildType.MARKET) {
+                } else if (g.user.level == arR[i].blockByLevel && arR[i].visibleAction) {
+                    if (arR[i].buildType != BuildType.CAVE && arR[i].buildType != BuildType.TRAIN && arR[i].buildType != BuildType.PAPER && arR[i].buildType != BuildType.DAILY_BONUS
+                            && arR[i].buildType != BuildType.ORDER && arR[i].buildType != BuildType.MARKET) {
                         g.user.decorNotification++;
                     }
-                    arr.push(g.allData.building[i]);
+                    arr.push(arR[i]);
                 }
             }
         }
@@ -430,7 +412,7 @@ public class WOLevelUp extends WindowMain {
             objDataLevel.id = -1;
             objDataLevel.count = g.dataLevel.objectLevels[g.user.level].catCount;
             arr.push(objDataLevel);
-            g.user.villageNotification++
+            g.user.villageNotification++;
         }
         if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) {
             objDataLevel = {};
@@ -438,16 +420,13 @@ public class WOLevelUp extends WindowMain {
 //            objDataLevel.id = -2;
             objDataLevel.count = g.dataLevel.objectLevels[g.user.level].ridgeCount;
             arr.push(objDataLevel);
-            g.user.villageNotification++
+            g.user.villageNotification++;
         }
+        var animal:StructureDataAnimal;
         for (i = 0; i < arr.length; i++) {
             if (arr[i].buildType == BuildType.FARM) {
-                obj = g.dataAnimal.objectAnimal;
-                for (id in obj) {
-                    if (obj[id].buildId == arr[i].id){
-                       arr.push(obj[id]);
-                    }
-                }
+                animal = g.allData.getAnimalByFarmId(arr[i]);
+                if (animal) arr.push(animal);
             }
             _arrItems.push(arr[i]);
             if (_arrItems[i].buildType == BuildType.RESOURCE || _arrItems[i].buildType == BuildType.PLANT) {

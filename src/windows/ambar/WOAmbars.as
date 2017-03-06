@@ -3,6 +3,9 @@
  */
 package windows.ambar {
 import com.junkbyte.console.Cc;
+
+import data.StructureDataBuilding;
+
 import manager.ManagerFilters;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -343,14 +346,17 @@ public class WOAmbars extends WindowMain {
     }
 
     private function updateItemsForUpdate():void {
+        var b:StructureDataBuilding;
         if (_type == AMBAR) {
-            _item1.updateIt(g.allData.building[12].upInstrumentId1, true);
-            _item2.updateIt(g.allData.building[12].upInstrumentId2, true);
-            _item3.updateIt(g.allData.building[12].upInstrumentId3, true);
+            b = g.allData.getBuildingById(12);
+            _item1.updateIt(b.upInstrumentId1, true);
+            _item2.updateIt(b.upInstrumentId2, true);
+            _item3.updateIt(b.upInstrumentId3, true);
         } else {
-            _item1.updateIt(g.allData.building[13].upInstrumentId1, false);
-            _item2.updateIt(g.allData.building[13].upInstrumentId2, false);
-            _item3.updateIt(g.allData.building[13].upInstrumentId3, false);
+            b = g.allData.getBuildingById(13);
+            _item1.updateIt(b.upInstrumentId1, false);
+            _item2.updateIt(b.upInstrumentId2, false);
+            _item3.updateIt(b.upInstrumentId3, false);
         }
         checkUpdateBtn();
     }
@@ -373,29 +379,32 @@ public class WOAmbars extends WindowMain {
     private function onUpdate():void {
         var needCountForUpdate:int;
         var st:String;
+        var b:StructureDataBuilding;
         if (_type == AMBAR) {
+            b = g.allData.getBuildingById(12);
             if (!g.userValidates.checkInfo('ambarMax', g.user.ambarMaxCount)) return;
             if (!g.userValidates.checkInfo('ambarLevel', g.user.ambarLevel)) return;
-            needCountForUpdate = g.allData.building[12].startCountInstrumets + g.allData.building[12].deltaCountAfterUpgrade * (g.user.ambarLevel - 1);
-            g.userInventory.addResource(g.allData.building[12].upInstrumentId1, -needCountForUpdate);
-            g.userInventory.addResource(g.allData.building[12].upInstrumentId2, -needCountForUpdate);
-            g.userInventory.addResource(g.allData.building[12].upInstrumentId3, -needCountForUpdate);
+            needCountForUpdate = b.startCountInstrumets + b.deltaCountAfterUpgrade * (g.user.ambarLevel - 1);
+            g.userInventory.addResource(b.upInstrumentId1, -needCountForUpdate);
+            g.userInventory.addResource(b.upInstrumentId2, -needCountForUpdate);
+            g.userInventory.addResource(b.upInstrumentId3, -needCountForUpdate);
             g.user.ambarLevel++;
-            g.user.ambarMaxCount += g.allData.building[12].deltaCountResources;
+            g.user.ambarMaxCount += b.deltaCountResources;
             g.userValidates.updateInfo('ambarLevel', g.user.ambarLevel);
             g.userValidates.updateInfo('ambarMax', g.user.ambarMaxCount);
             st = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
             _progress.setProgress(g.userInventory.currentCountInAmbar / g.user.ambarMaxCount);
             g.directServer.updateUserAmbar(1, g.user.ambarLevel, g.user.ambarMaxCount, null);
         } else {
+            b = g.allData.getBuildingById(13);
             if (!g.userValidates.checkInfo('skladMax', g.user.skladMaxCount)) return;
             if (!g.userValidates.checkInfo('skladLevel', g.user.skladLevel)) return;
-            needCountForUpdate = g.allData.building[13].startCountInstrumets + g.allData.building[13].deltaCountAfterUpgrade * (g.user.skladLevel - 1);
-            g.userInventory.addResource(g.allData.building[13].upInstrumentId1, -needCountForUpdate);
-            g.userInventory.addResource(g.allData.building[13].upInstrumentId2, -needCountForUpdate);
-            g.userInventory.addResource(g.allData.building[13].upInstrumentId3, -needCountForUpdate);
+            needCountForUpdate = b.startCountInstrumets + b.deltaCountAfterUpgrade * (g.user.skladLevel - 1);
+            g.userInventory.addResource(b.upInstrumentId1, -needCountForUpdate);
+            g.userInventory.addResource(b.upInstrumentId2, -needCountForUpdate);
+            g.userInventory.addResource(b.upInstrumentId3, -needCountForUpdate);
             g.user.skladLevel++;
-            g.user.skladMaxCount += g.allData.building[13].deltaCountResources;
+            g.user.skladMaxCount += b.deltaCountResources;
             g.userValidates.updateInfo('skladLevel', g.user.skladLevel);
             g.userValidates.updateInfo('skladMax', g.user.skladMaxCount);
             st = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;

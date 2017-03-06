@@ -40,7 +40,7 @@ public class FabricHintItem {
 //        _txtOrange.x = 34;
         source.addChild(_txtWhite);
         source.addChild(_txtOrange);
-        var userCount:int = g.userInventory.getCountResourceById(g.allData.resource[obId].id);
+        var userCount:int = g.userInventory.getCountResourceById(g.allData.getResourceById(obId).id);
         _txtOrange.text = String(userCount);
         if (userCount >= needCount) {
             _txtOrange.changeTextColor = ManagerFilters.GREEN_COLOR;
@@ -51,15 +51,15 @@ public class FabricHintItem {
         _txtOrange.y = 55;
         _txtWhite.x = _txtOrange.x + _txtOrange.textBounds.width - 2;
         _txtWhite.y = 55;
-        if (!g.allData.resource[obId]) {
+        if (!g.allData.getResourceById(obId)) {
             Cc.error('FabricHintItem error: g.dataResource.objectResources[obId] = null');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHintItem');
             return;
         }
-        if (g.allData.resource[obId].buildType == BuildType.PLANT) {
-            _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[obId].imageShop + '_icon'));
-        } else if (g.allData.resource[obId].buildType == BuildType.RESOURCE) {
-            _image = new Image(g.allData.atlas[g.allData.resource[obId].url].getTexture(g.allData.resource[obId].imageShop));
+        if (g.allData.getResourceById(obId).buildType == BuildType.PLANT) {
+            _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(obId).imageShop + '_icon'));
+        } else if (g.allData.getResourceById(obId).buildType == BuildType.RESOURCE) {
+            _image = new Image(g.allData.atlas[g.allData.getResourceById(obId).url].getTexture(g.allData.getResourceById(obId).imageShop));
         }
         _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture("production_window_blue_d"));
         _imageBg.width = _imageBg.height = 44;
@@ -72,13 +72,13 @@ public class FabricHintItem {
             _image.x = 50 - _image.width / 2;
             _image.y = 50 - _image.height / 2;
         } else {
-            Cc.error('no such image: ' + g.allData.resource[obId].imageShop + ' for id: ' +  obId);
+            Cc.error('no such image: ' + g.allData.getResourceById(obId).imageShop + ' for id: ' +  obId);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'fabricHintItem');
         }
     }
 
     public function updateCount():void {
-        var userCount:int = g.userInventory.getCountResourceById(g.allData.resource[_id].id);
+        var userCount:int = g.userInventory.getCountResourceById(g.allData.getResourceById(_id).id);
         userCount -= _needCount;
         if (userCount >= _needCount) {
             _txtOrange.changeTextColor = ManagerFilters.GREEN_COLOR;

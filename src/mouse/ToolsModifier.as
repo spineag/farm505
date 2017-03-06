@@ -185,7 +185,7 @@ public class ToolsModifier {
                 if (_plantId <= 0) return;
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle'));
                 _mouseIcon.addChild(im);
-                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_plantId].imageShop + '_icon'));
+                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_plantId).imageShop + '_icon'));
                 if (im) {
                     MCScaler.scale(im, 40, 40);
                     im.x = 27 - im.width/2;

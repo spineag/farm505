@@ -52,30 +52,31 @@ public class MarketHint {
 
         objTrees = [];
         objCave = [];
-//        obj = g.dataBuilding.objectBuilding;
-        for (var i:int = 0; i < g.allData.building.length; i++) {
-            if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.TREE)
-                objTrees.push(g.allData.building[i]);
-            else if (g.allData.building[i] && g.allData.building[i].buildType == BuildType.CAVE)
-                objCave = g.allData.building[i].idResource;
+        var arR:Array = g.allData.building;
+        for (var i:int = 0; i < arR.length; i++) {
+            if (arR.buildType == BuildType.TREE)
+                objTrees.push(arR[i]);
+            else if (arR[i].buildType == BuildType.CAVE)
+                objCave = arR[i].idResource;
         }
 
         objAnimals = [];
-        obj = g.dataAnimal.objectAnimal;
-        for (var id:String in obj) {
-            objAnimals[obj[id].idResource] = obj[id];
+        arR = g.allData.animal;
+        for (i = 0; i < arR.length; i++) {
+            objAnimals[arR[i].idResource] = arR[i];
         }
 
         objRecipes = {};
-       for (i = 0; i < g.allData.recipe.length; i++) {
-           if (g.allData.recipe[i]) objRecipes[g.allData.recipe[i].idResource] = g.allData.recipe[i];
+        arR = g.allData.recipe;
+        for (i = 0; i < arR.length; i++) {
+           objRecipes[arR[i].idResource] = arR[i];
         }
     }
 
     public function showIt(_dataId:int, sX:int, sY:int, source:Sprite,noResource:Boolean = false): void {
         var wText:int = 0;
         var wName:int = 0;
-        if (!g.allData.resource[_dataId]) {
+        if (!g.allData.getResourceById(_dataId)) {
             Cc.error('MarketHint showIt:: empty g.dataResource.objectResources[_dataId]');
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'MarketHint');
             return;
@@ -110,12 +111,12 @@ public class MarketHint {
         _txtSklad = new CTextField(70,20,'');
         _txtSklad.setFormat(CTextField.BOLD18, 12, ManagerFilters.LIGHT_BLUE_COLOR);
         
-        if (g.allData.resource[_dataId].buildType == BuildType.PLANT) {
-            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_dataId].imageShop + '_icon'));
+        if (g.allData.getResourceById(_dataId).buildType == BuildType.PLANT) {
+            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop + '_icon'));
             MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 70;
             _imageItem.x = 10;
-            _txtName.text = g.allData.resource[_dataId].name;
+            _txtName.text = g.allData.getResourceById(_dataId).name;
             _txtName.x = -100;
             _txtName.y = 20;
             _txtText.text = 'Растет на грядке';
@@ -142,15 +143,15 @@ public class MarketHint {
             g.cont.hintCont.addChild(_source);
             return;
         }
-        if (g.allData.resource[_dataId].buildType == BuildType.INSTRUMENT) {
-            _txtName.text = String(g.allData.resource[_dataId].name);
+        if (g.allData.getResourceById(_dataId).buildType == BuildType.INSTRUMENT) {
+            _txtName.text = String(g.allData.getResourceById(_dataId).name);
             _txtName.x = -100;
             _txtName.y = 20;
-            _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.resource[_dataId].imageShop));
+            _imageItem = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
             MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 80;
             _imageItem.x = 10;
-            _txtText.text = String(g.allData.resource[_dataId].opys);
+            _txtText.text = String(g.allData.getResourceById(_dataId).opys);
             _txtText.x = -100;
             _txtText.y = 15;
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
@@ -175,11 +176,11 @@ public class MarketHint {
 
         for (var i:int=0; i<objTrees.length; i++) {
             if (_dataId == objTrees[i].craftIdResource) {
-                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_dataId].imageShop));
+                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
                 MCScaler.scale(_imageItem,30,30);
                 _imageItem.y = 70;
                 _imageItem.x = 10;
-                _txtName.text = g.allData.resource[_dataId].name;
+                _txtName.text = g.allData.getResourceById(_dataId).name;
                 _txtName.x = -100;
                 _txtName.y = 20;
                 _txtText.text = "Растет на: " + objTrees[i].name;
@@ -208,11 +209,11 @@ public class MarketHint {
 
         for (i=0; i<objCave.length; i++) {
             if (_dataId == int(objCave[i])) {
-                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_dataId].imageShop));
+                _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
                 MCScaler.scale(_imageItem,30,30);
                 _imageItem.y = 70;
                 _imageItem.x = 15;
-                _txtName.text = String(g.allData.resource[_dataId].name);
+                _txtName.text = String(g.allData.getResourceById(_dataId).name);
                 _txtName.x = -100;
                 _txtName.y = 20;
                 _txtText.text = "Место производства: Пещера";
@@ -240,14 +241,14 @@ public class MarketHint {
         }
 
         if (objRecipes[_dataId]) {
-            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_dataId].imageShop));
+            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
             MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 70;
             _imageItem.x = 15;
-            _txtName.text = String(g.allData.resource[_dataId].name);
+            _txtName.text = String(g.allData.getResourceById(_dataId).name);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtText.text = "Место производства: " + g.allData.building[objRecipes[_dataId].buildingId].name;
+            _txtText.text = "Место производства: " + g.allData.getBuildingById(objRecipes[_dataId].buildingId).name;
             _txtText.x = -100;
             _txtText.y = 5;
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));
@@ -271,14 +272,14 @@ public class MarketHint {
         }
 
         if (objAnimals[_dataId]) {
-            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.resource[_dataId].imageShop));
+            _imageItem = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(_dataId).imageShop));
             MCScaler.scale(_imageItem,30,30);
             _imageItem.y = 70;
             _imageItem.x = 15;
-            _txtName.text = String(g.allData.resource[_dataId].name);
+            _txtName.text = String(g.allData.getResourceById(_dataId).name);
             _txtName.x = -100;
             _txtName.y = 20;
-            _txtText.text = "Место производства: " + g.allData.building[objAnimals[_dataId].buildId].name;
+            _txtText.text = "Место производства: " + g.allData.getBuildingById(objAnimals[_dataId].buildId).name;
             _txtText.x = -100;
             _txtText.y = 5;
             _txtCount.text = String(g.userInventory.getCountResourceById(_dataId));

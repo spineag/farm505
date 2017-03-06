@@ -404,7 +404,7 @@ public class WOTrain extends WindowMain {
             g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
             _arrItems[_activeItemIndex].fullItHelp();
         } else {
-            if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree && g.allData.resource[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT
+            if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree && g.allData.getResourceById(_arrItems[_activeItemIndex].idFree).buildType == BuildType.PLANT
                     && g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
                 if (_btnHelp) {
                     _rightBlock.removeChild(_btnHelp);
@@ -419,11 +419,11 @@ public class WOTrain extends WindowMain {
                 new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
                 g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
                 _arrItems[_activeItemIndex].fullItHelp();
-            } else if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree && g.allData.resource[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT
+            } else if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree && g.allData.getResourceById(_arrItems[_activeItemIndex].idFree).buildType == BuildType.PLANT
                     && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
                 g.windowsManager.cashWindow = this;
                 super.hideIt();
-                g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, giftHelpClick, g.allData.resource[_arrItems[_activeItemIndex].idFree], 'trainHelp');
+                g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, giftHelpClick, g.allData.getResourceById(_arrItems[_activeItemIndex].idFree), 'trainHelp');
                 return;
             } else if (_arrItems[_activeItemIndex].countFree > g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)) {
                 g.windowsManager.cashWindow = this;
@@ -450,7 +450,7 @@ public class WOTrain extends WindowMain {
     private function onResourceLoad(lastResource:Boolean = false):void {
         if (_activeItemIndex == -1) return;
         if (!lastResource && _arrItems[_activeItemIndex].countFree == g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)
-                && g.allData.resource[_arrItems[_activeItemIndex].idFree].buildType == BuildType.PLANT && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
+                && g.allData.getResourceById(_arrItems[_activeItemIndex].idFree).buildType == BuildType.PLANT && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
             g.windowsManager.cashWindow = this;
             super.hideIt();
             g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onResourceLoad, {id: _arrItems[_activeItemIndex].idFree}, 'market');
@@ -473,7 +473,7 @@ public class WOTrain extends WindowMain {
     private function onClickBuy():void {
         if (g.managerCutScenes.isCutScene) return;
         var ob:Object = {};
-        ob.data = g.allData.resource[_idFree];
+        ob.data = g.allData.getResourceById(_idFree);
         ob.count = _countFree - g.userInventory.getCountResourceById(_idFree);
         g.windowsManager.cashWindow = this;
         super.hideIt();

@@ -170,7 +170,7 @@ public class WODailyGift extends WindowMain {
             id = DataMoney.SOFT_CURRENCY;
             type = DropResourceVariaty.DROP_TYPE_MONEY;
         } else if (int(type) == BuildType.INSTRUMENT) {
-            im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.resource[id].imageShop));
+            im = new Image(g.allData.atlas['instrumentAtlas'].getTexture(g.allData.getResourceById(id).imageShop));
             MCScaler.scale(im,im.height-10,im.width-10);
             im.pivotX = im.width/2;
             im.pivotY = im.height/2;
@@ -178,7 +178,7 @@ public class WODailyGift extends WindowMain {
             im.y = bg.width/2;
             type = DropResourceVariaty.DROP_TYPE_RESOURSE;
         } else if (int(type) == BuildType.DECOR) {
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[id].image+ '_icon'));
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).image+ '_icon'));
             MCScaler.scale(im,im.height-60,im.width-60);
 //            im.scale = 100;
             im.pivotX = im.width/2;
@@ -186,7 +186,7 @@ public class WODailyGift extends WindowMain {
             im.x = bg.width/2 - 20;
             im.y = bg.width/2 - 20;
         } else if (int(type) == BuildType.DECOR_ANIMATION) {
-            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[id].url+ '_icon'));
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).url+ '_icon'));
             MCScaler.scale(im,im.height-60,im.width-60);
 //            im.scale = 100;
             im.pivotX = im.width/2;
@@ -250,8 +250,8 @@ public class WODailyGift extends WindowMain {
         if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = .5;
         else v = .2;
         var im:Image;
-        if (int(_itemToday.type) == BuildType.DECOR) im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[_itemToday.id].image + '_icon'));
-        else if (int(_itemToday.type) == BuildType.DECOR_ANIMATION) im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.building[_itemToday.id].url + '_icon'));
+        if (int(_itemToday.type) == BuildType.DECOR) im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(_itemToday.id).image + '_icon'));
+        else if (int(_itemToday.type) == BuildType.DECOR_ANIMATION) im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(_itemToday.id).url + '_icon'));
         new TweenMax(im, v, {scaleX:.3, scaleY:.3, ease:Back.easeIn, onComplete:f});
     }
 

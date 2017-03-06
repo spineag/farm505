@@ -4,6 +4,7 @@
 package resourceItem {
 import data.BuildType;
 import data.DataMoney;
+import data.StructureDataResource;
 
 public class ResourceItem {
     private var _data:Object;
@@ -14,7 +15,7 @@ public class ResourceItem {
     private var _currency:int;
     private var _costMax:int;
     private var _costMin:int;
-    private var _priceHard:int;  // покупка за хард
+    private var _priceHard:int; 
     private var _priceSkipHard:int;
     private var _blockByLevel:int;
     private var _buildTime:int;
@@ -27,7 +28,7 @@ public class ResourceItem {
     public var idFromServer:String; // в табличке user_recipe_fabrica
     public function ResourceItem() {}
 
-    public function fillIt(dataResource:Object):void {
+    public function fillIt(dataResource:StructureDataResource):void {
         _data = dataResource;
 
         dataResource.id ?_id = dataResource.id : _id = -1;

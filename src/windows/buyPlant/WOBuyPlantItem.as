@@ -4,6 +4,9 @@
 package windows.buyPlant {
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
+
+import data.StructureDataResource;
+
 import manager.ManagerFilters;
 import manager.Vars;
 
@@ -25,7 +28,7 @@ public class WOBuyPlantItem {
     public var source:CSprite;
     private var _bg:Image;
     private var _icon:Image;
-    private var _dataPlant:Object;
+    private var _dataPlant:StructureDataResource;
     private var _clickCallback:Function;
     private var _txtNumber:CTextField;
     private var _countPlants:int;
@@ -63,7 +66,7 @@ public class WOBuyPlantItem {
         source.y = _y;
     }
     
-    public function fillData(ob:Object, f:Function):void {
+    public function fillData(ob:StructureDataResource, f:Function):void {
         _dataPlant = ob;
         if (!_dataPlant) {
             Cc.error('WOBuyPlantItem:: empty _dataPlant');
@@ -139,7 +142,7 @@ public class WOBuyPlantItem {
         TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:delay});
     }
 
-    public function showChangeAnimate(d:Number, ob:Object, f:Function):void {
+    public function showChangeAnimate(d:Number, ob:StructureDataResource, f:Function):void {
         if (_dataPlant) {
             TweenMax.to(source, .3, {scaleX:.9, scaleY:.9, alpha:0, y: _defaultY - 35, onComplete: onChangeAnimationComplete, delay: d, onCompleteParams: [0, ob, f]});
         } else {
@@ -147,7 +150,7 @@ public class WOBuyPlantItem {
         }
     }
 
-    private function onChangeAnimationComplete(d:Number, ob:Object, f:Function):void {
+    private function onChangeAnimationComplete(d:Number, ob:StructureDataResource, f:Function):void {
         if (_dataPlant) {
             unfillIt();
             _dataPlant = null;

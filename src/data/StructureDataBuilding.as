@@ -11,7 +11,7 @@ import utils.Utils;
 import utils.Utils;
 
 
-public class StructureDataBuildings {
+public class StructureDataBuilding {
     private var _blockByLevel:Array;
     private var _buildTime:Array;
     private var _buildType:int;
@@ -53,7 +53,7 @@ public class StructureDataBuildings {
     private var _variaty:Array;
     private var g:Vars = Vars.getInstance();
 
-    public function StructureDataBuildings(ob:Object) {
+    public function StructureDataBuilding(ob:Object) {
         var obj:Object = {};
         var k:int;
         _innerX =[];
