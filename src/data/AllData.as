@@ -53,7 +53,7 @@ public class AllData {
         else Cc.error('registerAnimal id <= 0');
     }
 
-    public function addToDecorGroup(dataDecor:Object):void {
+    public function addToDecorGroup(dataDecor:StructureDataBuilding):void {
         if (!decorGroups[dataDecor.group]) decorGroups[dataDecor.group] = [];
         decorGroups[dataDecor.group].push(dataDecor);
     }

@@ -50,7 +50,7 @@ public class DecorRadioButton {
             _activeItem.activateIt(false);
             _activeItem = item;
             if (_updateCallback != null) {
-                _updateCallback.apply(null, [_activeItem.dataItem]);
+                _updateCallback.apply(null, [ob]);
             }
         }
     }
