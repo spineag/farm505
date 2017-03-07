@@ -202,7 +202,7 @@ public class StructureDataBuilding {
         if (ob.group) {
             if (int(ob.group) > 0) {
                 _group = int(ob.group);
-                g.allData.addToDecorGroup(ob);
+                g.allData.addToDecorGroup(this);
             }
         }
         if (ob.visibleAction || g.user.isTester) _visibleAction = true;

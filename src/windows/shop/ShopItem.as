@@ -130,6 +130,7 @@ public class ShopItem {
         source.endClickCallback = onClick;
         setInfo();
 
+        _data.buildType = int(_data.buildType);
         if (_data.group && _data.blockByLevel[0] <= g.user.level && (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION)) {
             var arr:Array = g.allData.getGroup(_data.group);
             if (arr.length > 1) {
@@ -174,10 +175,10 @@ public class ShopItem {
             _btnActivationPink.deleteIt();
             _btnActivationPink = null;
         }
-        _data = activeItemData;
         if (_countBoxTxt) {
             _countBoxTxt.text = ' ';
         }
+        _data = activeItemData;
         setInfo();
     }
 
@@ -372,12 +373,10 @@ public class ShopItem {
             _imCont.x = 72;
             _imCont.y = 90;
             source.addChildAt(_imCont, 1);
-
         } else {
             Cc.error('ShopItem:: no image in _data for _data.id: ' + _data.id);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
         }
-
         if (_data.buildType == BuildType.CAT) {
             if (g.catPanel.catBuing) {
                 if (g.managerCats.curCountCats+1 < g.managerCats.maxCountCats) {
@@ -420,7 +419,6 @@ public class ShopItem {
         if (!_data) return;
         if (_data.buildType == BuildType.FABRICA ) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-//                createLockedSprite();
                 _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -445,8 +443,6 @@ public class ShopItem {
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[maxCountAtCurrentLevel]) + ' уровне';
                     _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(_data.blockByLevel.length);
-//                    createShopLimitSprite();
-//                    _shopLimitSprite.y = 50;
                     _im.filter = ManagerFilters.getButtonDisableFilter();
                 } else {
                     _nameTxt.text = _data.name;
@@ -464,7 +460,6 @@ public class ShopItem {
             }
         } else if (_data.buildType == BuildType.FARM) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
-//                createLockedSprite();
                 _txtAvailable.visible = true;
                 _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                 _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -478,7 +473,6 @@ public class ShopItem {
                 }
                 if (arr.length >= maxCountAtCurrentLevel) {
                     if (g.user.level < _data.blockByLevel[arr.length]) {
-//                        createLockedSprite();
                         _txtAvailable.visible = true;
                         _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[arr.length]) + ' уровне';
                         _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -522,7 +516,6 @@ public class ShopItem {
                 }
 
                 if (_data.blockByLevel[0] > g.user.level) {
-//                    createLockedSprite();
                     _txtAvailable.visible = true;
                     _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
                     _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -549,16 +542,16 @@ public class ShopItem {
                         }
                         if (decorMax >= arr.length) _countCost = (decorMax * _data.deltaCost) + int(_data.cost);
                         else  _countCost = (arr.length * _data.deltaCost) + int(_data.cost);
-                            if(_data.currency[0] == DataMoney.SOFT_CURRENCY) {
-                                createButtons('blue');
-                                _txtBtnBuyBlue.text = String(_countCost);
-                            } else if(_data.currency[0] == DataMoney.HARD_CURRENCY) {
-                                _countCost = _data.cost;
-                                createButtons('green');
-                                _txtBtnBuyGreen.text = String(_countCost);
-                            } else {
-                                createCouponeButtons();
-                            }
+                        if(_data.currency[0] == DataMoney.SOFT_CURRENCY) {
+                            createButtons('blue');
+                            _txtBtnBuyBlue.text = String(_countCost);
+                        } else if(_data.currency[0] == DataMoney.HARD_CURRENCY) {
+                            _countCost = _data.cost;
+                            createButtons('green');
+                            _txtBtnBuyGreen.text = String(_countCost);
+                        } else {
+                            createCouponeButtons();
+                        }
                         _nameTxt.text = _data.name;
                     }
                 }
