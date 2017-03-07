@@ -1025,7 +1025,7 @@ public class TownArea extends Sprite {
                     return;
                 }
                 g.toolsModifier.modifierType = ToolsModifier.MOVE;
-                g.buyHint.showIt((decorMax * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
+                if (worldObject.dataBuild.currency[0] == DataMoney.SOFT_CURRENCY) g.buyHint.showIt((decorMax * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
                 build = createNewBuild(worldObject.dataBuild);
                 g.selectedBuild = build;
                 (build as WorldObject).source.filter = null;
@@ -1046,7 +1046,7 @@ public class TownArea extends Sprite {
                         return;
                     }
                     g.toolsModifier.modifierType = ToolsModifier.MOVE;
-                    g.buyHint.showIt((arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
+                if (worldObject.dataBuild.currency[0] == DataMoney.SOFT_CURRENCY) g.buyHint.showIt((arr.length * worldObject.dataBuild.deltaCost) + int(worldObject.dataBuild.cost));
                     build = createNewBuild(worldObject.dataBuild);
                     g.selectedBuild = build;
                     (build as WorldObject).source.filter = null;

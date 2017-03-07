@@ -147,17 +147,17 @@ public class WOTrain extends WindowMain {
         im.y = 325;
         im.x = 20;
         _rightBlock.addChild(im);
-
-        _btnLoad = new CButton();
-        _btnLoad.addButtonTexture(130, 36, CButton.YELLOW, true);
-        _txtLoad2 = new CTextField(130,36,'Загрузить');
-        _txtLoad2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
-        _txtLoad2.y = -2;
-        _btnLoad.addChild(_txtLoad2);
-        _btnLoad.x = 200;
-        _btnLoad.y = 150;
-        _rightBlock.addChild(_btnLoad);
-
+        if (!g.isAway) {
+            _btnLoad = new CButton();
+            _btnLoad.addButtonTexture(130, 36, CButton.YELLOW, true);
+            _txtLoad2 = new CTextField(130, 36, 'Загрузить');
+            _txtLoad2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
+            _txtLoad2.y = -2;
+            _btnLoad.addChild(_txtLoad2);
+            _btnLoad.x = 200;
+            _btnLoad.y = 150;
+            _rightBlock.addChild(_btnLoad);
+        }
         _txtPrise = new CTextField(240,50,'Награда за полную загрузку:');
         _txtPrise.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtPrise.y = 240;
@@ -304,22 +304,22 @@ public class WOTrain extends WindowMain {
 
     private function onItemClick(k:int):void {
         _activeItemIndex = k;
-        _btnLoad.visible = true;
+        if (_btnLoad) _btnLoad.visible = true;
 //        _btnHelp.visible = true;
         for (var i:int = 0; i<_arrItems.length; i++) {
             _arrItems[i].activateIt(false);
         }
         _arrItems[_activeItemIndex].activateIt(true);
         if (_arrItems[k].isResourceLoaded) {
-            _btnLoad.visible = false;
+            if (_btnLoad) _btnLoad.visible = false;
 //            _btnHelp.visible = false;
-            _txtLoad.text = 'Вы уже загрузили ячейку и получили награду';
+            if (_txtLoad) _txtLoad.text = 'Вы уже загрузили ячейку и получили награду';
         } else {
-            _txtLoad.text = 'Загрузите корзинку товаром и получите награду';
+            if (_txtLoad) _txtLoad.text = 'Загрузите корзинку товаром и получите награду';
             if (_arrItems[k].canFull()) {
-                _btnLoad.clickCallback = onResourceLoad;
+                if (_btnLoad) _btnLoad.clickCallback = onResourceLoad;
             } else  {
-                _btnLoad.clickCallback = onClickBuy;
+                if (_btnLoad) _btnLoad.clickCallback = onClickBuy;
                _idFree = _arrItems[k].idFree;
                _countFree = _arrItems[k].countFree;
             }
@@ -340,16 +340,18 @@ public class WOTrain extends WindowMain {
         _rightBlock.addChild(_imageItem);
         if (g.user.isTester) {
             if (g.isAway) {
-                if (_arrItems[k].needHelp && int(_arrItems[k].idWhoHelp) < 0) {
-                    _btnHelp = new CButton();
-                    _btnHelp.addButtonTexture(240, 52, CButton.BLUE, true);
-                    _btnHelp.x = 143;
-                    _btnHelp.y = 210;
-                    _rightBlock.addChild(_btnHelp);
-                    _txtHelp = new CTextField(240, 52, 'Помочь загрузить');
-                    _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-                    _btnHelp.addChild(_txtHelp);
-                    _btnHelp.clickCallback = giftHelpClick;
+                if (_arrItems[k].needHelp && int(_arrItems[k].idWhoHelp) <= 0) {
+                    if (!_btnHelp) {
+                        _btnHelp = new CButton();
+                        _btnHelp.addButtonTexture(240, 52, CButton.BLUE, true);
+                        _btnHelp.x = 143;
+                        _btnHelp.y = 210;
+                        _rightBlock.addChild(_btnHelp);
+                        _txtHelp = new CTextField(240, 52, 'Помочь загрузить');
+                        _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+                        _btnHelp.addChild(_txtHelp);
+                        _btnHelp.clickCallback = giftHelpClick;
+                    }
                     return;
                 } else {
                     if (_btnHelp) {
@@ -622,9 +624,9 @@ public class WOTrain extends WindowMain {
         _source.removeChild(_btnSend);
         _btnSend.deleteIt();
         _btnSend = null;
-        _rightBlock.removeChild(_btnLoad);
-        _btnLoad.deleteIt();
-        _btnLoad = null;
+        if (_btnLoad) _rightBlock.removeChild(_btnLoad);
+        if (_btnLoad) _btnLoad.deleteIt();
+        if (_btnLoad) _btnLoad = null;
 //        _rightBlock.removeChild(_btnHelp);
 //        _btnHelp.deleteIt();
 //        _btnHelp = null;
