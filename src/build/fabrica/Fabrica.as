@@ -499,17 +499,11 @@ public class Fabrica extends WorldObject {
         var countResources:int = 1;
         var arR:Array = g.allData.recipe;
         for (var i:int = 0; i < arR.length; i++) {
-            if (arR.buildingId == _dataBuild.id && item.resourceID == arR[i].idResource) {
+            if (arR[i].buildingId == _dataBuild.id && item.resourceID == arR[i].idResource) {
                 countResources = arR[i].numberCreate;
                 break;
             }
         }
-//        for(var id:String in g.dataRecipe.objectRecipe) {
-//            if (g.dataRecipe.objectRecipe[id].buildingId == _dataBuild.id &&
-//                    item.resourceID == g.dataRecipe.objectRecipe[id].idResource) {
-//                countResources = g.dataRecipe.objectRecipe[id].numberCreate;
-//            }
-//        }
         _craftSprite.visible = true;
         var craftItem:CraftItem = new CraftItem(0, 0, item, _craftSprite, countResources, useCraftedResource, true);
         _arrCrafted.push(craftItem);

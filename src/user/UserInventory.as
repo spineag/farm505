@@ -98,62 +98,50 @@ public class UserInventory {
 
     public function getResourcesForAmbar():Array {
         var obj:Object;
-        var arr:Array;
-//        var res:Object = g.dataResource.objectResources;
-
-        arr = [];
+        var arr:Array = [];
+        var r:StructureDataResource;
         var arR:Array = g.allData.resource;
         for (var i:int = 0; i < arR.length; i++) {
-            if (arR[i].placeBuild == BuildType.PLACE_AMBAR && arR[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
+            r = arR[i];
+            if (r.placeBuild == BuildType.PLACE_AMBAR && r.blockByLevel <= g.user.level && _inventoryResource[r.id]>0) {
                 obj = {};
-                obj.id = i;
-                obj.count = _inventoryResource[i];
+                obj.id = r.id;
+                obj.count = _inventoryResource[r.id];
                 arr.push(obj);
             }
         }
-//        for (var id:String in _inventoryResource) {
-//            if (res[id] && res[id].placeBuild == BuildType.PLACE_AMBAR && res[id].blockByLevel <= g.user.level && _inventoryResource[id]>0) {
-//                obj = {};
-//                obj.id = id;
-//                obj.count = _inventoryResource[id];
-//                arr.push(obj);
-//            }
-//        }
         return arr;
     }
 
     public function getResourcesForSklad():Array {
         var obj:Object;
-        var arr:Array;
-//        var res:Object = g.dataResource.objectResources;
-
-        arr = [];
+        var arr:Array = [];
+        var r:StructureDataResource;
         var arR:Array = g.allData.resource;
         for (var i:int = 0; i < arR.length; i++) {
-            if (arR[i].placeBuild == BuildType.PLACE_SKLAD  && arR[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
+            r = arR[i];
+            if (r.placeBuild == BuildType.PLACE_SKLAD  && r.blockByLevel <= g.user.level && _inventoryResource[r.id]>0) {
                 obj = {};
-                obj.id = int(i);
-                obj.count = _inventoryResource[i];
+                obj.id = r.id;
+                obj.count = _inventoryResource[r.id];
                 arr.push(obj);
             }
 
         }
-//        for (var id:String in _inventoryResource) {
-//
-//        }
         return arr;
     }
 
     public function getResourcesForAmbarAndSklad():Array {
         var obj:Object;
-        var arr:Array;
-        arr = [];
+        var arr:Array = [];
+        var r:StructureDataResource;
         var arR:Array = g.allData.resource;
         for (var i:int = 0; i < arR.length; i++) {
-            if ((arR[i].placeBuild == BuildType.PLACE_SKLAD || arR[i].placeBuild == BuildType.PLACE_AMBAR) && arR[i].blockByLevel <= g.user.level && _inventoryResource[i]>0) {
+            r = arR[i];
+            if ((r.placeBuild == BuildType.PLACE_SKLAD || r[i].placeBuild == BuildType.PLACE_AMBAR) && r.blockByLevel <= g.user.level && _inventoryResource[r.id]>0) {
                 obj = {};
-                obj.id = int(i);
-                obj.count = _inventoryResource[i];
+                obj.id = r.id;
+                obj.count = _inventoryResource[r.id];
                 arr.push(obj);
             }
         }

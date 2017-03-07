@@ -147,7 +147,6 @@ public class CraftItem {
         }
         _image.filter = null;
         if (_resourceItem.placeBuild == BuildType.PLACE_AMBAR && g.userInventory.currentCountInAmbar + count > g.user.ambarMaxCount) {
-//            g.flyMessage.showIt(_source,"Амбар заполнен");
             g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, true);
             while (_source.numChildren) {
                 _source.removeChildAt(0);
@@ -160,7 +159,6 @@ public class CraftItem {
             var p:Point = new Point(_source.x, _source.y);
             p = _source.parent.localToGlobal(p);
             g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
-//            new FlyMessage(p,"Склад заполнен");
             return;
         }
         deleteParticle();
@@ -176,18 +174,14 @@ public class CraftItem {
         _source.filter = null;
         _txtNumber.visible = true;
         _source.isTouchable = false;
-        var arR:Array = g.allData.recipe;
-        for (var i:int = 0; i < arR.length; i++) {
-            if (arR[i].idResource == _resourceItem.resourceID) {
-                _txtNumber.text = String(arR[i].numberCreate);
-                break;
-            }
-        }
-//        for(var id:String in g.dataRecipe.objectRecipe) {
-//            if (g.dataRecipe.objectRecipe[id].idResource == _resourceItem.resourceID) {
-//                _txtNumber.text = String(g.dataRecipe.objectRecipe[id].numberCreate);
+//        var arR:Array = g.allData.recipe;
+//        for (var i:int = 0; i < arR.length; i++) {
+//            if (arR[i].idResource == _resourceItem.resourceID) {
+//                _txtNumber.text = String(arR[i].numberCreate);
+//                break;
 //            }
 //        }
+        _txtNumber.text = String(count);
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
         if (_source.parent && _source.parent.contains(_source)) _source.parent.removeChild(_source);

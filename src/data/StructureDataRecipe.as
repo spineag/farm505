@@ -35,7 +35,6 @@ public class StructureDataRecipe {
             _blockByLevel = d.blockByLevel;
             _buildType = d.buildType;
         }
-//        g.allData.recipe[_id] = obj;
     }
 
     public function get id():int {return _id;}

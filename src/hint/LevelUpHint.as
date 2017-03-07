@@ -42,7 +42,6 @@ public class LevelUpHint {
     private var g:Vars = Vars.getInstance();
 
     public function LevelUpHint() {
-        var obj:Object;
         _source = new Sprite();
         _source.touchable = false;
         isShowed = false;
@@ -73,11 +72,6 @@ public class LevelUpHint {
     public function showIt(_dataId:int, sX:int, sY:int, source:Sprite, house:Boolean,animal:Boolean):void {
         var wText:int = 0;
         var wName:int = 0;
-//        if (_dataId == 0 ) {
-//            Cc.error('ResourceHint showIt:: empty g.dataResource.objectResources[_dataId]');
-//            g.woGameError.showIt();
-//            return;
-//        }
         isShowed = true;
         var start:Point = new Point(int(sX-13), int(sY - 5));
         start = source.parent.localToGlobal(start);
@@ -87,11 +81,9 @@ public class LevelUpHint {
         _txtName = new CTextField(200, 30, '');
         _txtName.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         _txtText = new CTextField(200, 100, '');
-//        _txtText.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtText.setFormat(CTextField.MEDIUM18, 14, ManagerFilters.BLUE_COLOR);
         _txtText.leading = -5;
         _txtTime = new CTextField(200,100,'');
-//        _txtTime.setFormat(CTextField.BOLD14, 12, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtTime.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
 
         if (_dataId == -1) {
