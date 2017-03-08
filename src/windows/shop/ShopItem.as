@@ -136,7 +136,7 @@ public class ShopItem {
             if (arr.length > 1) {
                 _radioButton = new DecorRadioButton(source, onClickRadioButton);
                 for (var i:int=0; i<arr.length; i++) {
-                    _radioButton.addItem(arr[i]);
+                    _radioButton.addItem(Utils.objectFromStructureBuildToObject(arr[i]));
                 }
                 _radioButton.calculatePositions();
             }
