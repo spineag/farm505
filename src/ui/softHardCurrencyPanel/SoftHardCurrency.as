@@ -129,6 +129,19 @@ public class SoftHardCurrency {
         return _contHard.localToGlobal(new Point(14, 30));
     }
 
+    public function get actionON():Boolean{
+        var arr:Array = g.allData.dataBuyMoney;
+        var b:Boolean = false;
+
+        for (var i:int = 0; i < arr.length; i++) {
+            if (arr[i].sale > 0) {
+                b = true;
+                break;
+            }
+        }
+        return b;
+    }
+
     public function getSoftCurrencyPoint():Point {
         return _contSoft.localToGlobal(new Point(14, 30));
     }

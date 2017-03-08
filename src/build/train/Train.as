@@ -109,6 +109,7 @@ public class Train extends WorldObject{
     }
 
     private function onNewStateWait():void {
+        trace('onNewStateWait');
         g.directServer.releaseUserTrainPack(_train_db_id, onResetPack);
     }
 

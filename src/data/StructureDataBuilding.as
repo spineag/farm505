@@ -195,7 +195,10 @@ public class StructureDataBuilding {
             for (k = 0; k < obj.variaty.length; k++) _variaty[k] = Number(obj.variaty[k]);
         }
         if (ob.visible) _visibleTester = Boolean(int(ob.visible));
-        if (ob.color) _color = String(ob.color);
+        if (ob.color && ob.color != 'default') {
+            _color = String(ob.color);
+        }
+
         if (ob.group) {
             if (int(ob.group) > 0) {
                 _group = int(ob.group);

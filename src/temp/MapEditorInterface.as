@@ -106,7 +106,7 @@ public class MapEditorInterface {
         var arR:Array = g.allData.building;
         for (var k:int = 0; k < arR.length; k++) {
             if (arR[k].buildType == BuildType.WILD || arR[k].buildType == BuildType.CAT_HOUSE || arR[k].buildType == BuildType.DECOR || arR[k].buildType == BuildType.CHEST_YELLOW || arR[k].buildType == BuildType.DECOR_ANIMATION) {
-                item = new MapEditorInterfaceItem(Utils.objectDeepCopy(arR[k]));
+                item = new MapEditorInterfaceItem(Utils.objectFromStructureBuildToObject(arR[k]));
                 item.source.y = 20;
                 item.source.x = i * 80;
                 _contBuildings.addChild(item.source);

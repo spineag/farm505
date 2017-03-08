@@ -298,7 +298,7 @@ public class UserInventory {
             if (arR[i].buildType == BuildType.FARM) {
                 for (k = 0; k < arR[i].blockByLevel.length; k++) {
                     if (arR[i].blockByLevel[k] == g.user.level) {
-                        animal = g.allData.getAnimalByFarmId(arR[i].buildId);
+                        animal = g.allData.getAnimalByFarmId(arR[i].id);
                         if (animal) {
                             addResource(animal.idResourceRaw, 3);  // add feed for animals
                         }

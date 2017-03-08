@@ -165,7 +165,7 @@ public class Animal {
         var p:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
         p = source.globalToLocal(p);
 
-        if (p.x > _rect.x && p.x < _rect.x+_rect.width && p.y > _rect.y && p.y < _rect.y+_rect.height) {
+        if (_rect && p.x > _rect.x && p.x < _rect.x+_rect.width && p.y > _rect.y && p.y < _rect.y+_rect.height) {
             return true;
         } else return false;
     }
@@ -338,8 +338,9 @@ public class Animal {
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
             if (!g.managerTutorial.isTutorial) {
                 g.managerAnimal.activeFeedAnimalId = _data.id;
-                g.toolsModifier.modifierType = ToolsModifier.FEED_ANIMAL_ACTIVE;
+                if (g.toolsModifier.modifierType == ToolsModifier.FEED_ANIMAL_ACTIVE) trace('kyky');
                 _wasStartActiveFeeding = true;
+                g.toolsModifier.modifierType = ToolsModifier.FEED_ANIMAL_ACTIVE;
             }
         }
     }
