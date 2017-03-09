@@ -37,12 +37,12 @@ public class WOPartyWindowClose extends WindowMain{
     public function WOPartyWindowClose() {
         _woHeight = 451;
         _woWidth = 695;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/end_event_maslenitsa_window.png',onLoad);
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/end_event_8_march_window.png',onLoad);
     }
 
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'qui/end_event_maslenitsa_window.png'].create() as Bitmap;
+        bitmap = g.pBitmaps[st + 'qui/end_event_8_march_window.png'].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
@@ -52,24 +52,24 @@ public class WOPartyWindowClose extends WindowMain{
         image.pivotY = image.height/2;
         _source.addChild(image);
         createExitButton(hideIt);
-        _txtResource = new CTextField(415, 172, 'Вы собрали ' + g.managerParty.userParty.countResource + ' праздничных блинов.');
+        _txtResource = new CTextField(701, 172, 'Вы собрали ' + g.managerParty.userParty.countResource + ' тюльпанов.');
         _txtResource.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
-        _txtResource.alignH = Align.LEFT;
-        _txtResource.x = -187;
-        _txtResource.y = -105;
+//        _txtResource.alignH = Align.LEFT;
+        _txtResource.x = -350;
+        _txtResource.y = -115;
         _source.addChild(_txtResource);
-        _txtText = new CTextField(415, 172, 'Событие "Масленица" завершено.');
+        _txtText = new CTextField(701, 172, 'Событие "Весеннее настроение" завершено.');
         _txtText.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
-        _txtText.alignH = Align.LEFT;
-        _txtText.x = -175;
-        _txtText.y = -140;
+//        _txtText.alignH = Align.LEFT;
+        _txtText.x = -350;
+        _txtText.y = -150;
         _source.addChild(_txtText);
 
-        _txtTextNagrada = new CTextField(415, 172, 'Награда была начислена!');
+        _txtTextNagrada = new CTextField(701, 172, 'Награда была начислена!');
         _txtTextNagrada.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
-        _txtTextNagrada.alignH = Align.LEFT;
-        _txtTextNagrada.x = -145;
-        _txtTextNagrada.y = -70;
+//        _txtTextNagrada.alignH = Align.LEFT;
+        _txtTextNagrada.x = -350;
+        _txtTextNagrada.y = -80;
         _source.addChild(_txtTextNagrada);
 //        var _quad:Quad = new Quad(3.2, 3, 0xfbaaa7);
 //        _quad.x = 75;
@@ -92,6 +92,7 @@ public class WOPartyWindowClose extends WindowMain{
     override public function hideIt():void {
         var obj:Object;
         obj = {};
+        g.directServer.updateUserParty('1&1&1&1&1',0,1,null);
         for (var i:int = 0; i < g.managerParty.userParty.tookGift.length; i++) {
             if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countResource >= g.managerParty.dataParty.countToGift[i] ) {
                 if (g.managerParty.dataParty.typeGift[i] == BuildType.DECOR_ANIMATION) {

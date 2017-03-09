@@ -180,6 +180,7 @@ public class ManagerOrder {
         var countResources:int;
         var k:Number;
         var i:int;
+        var j:int;
         var level:int = g.user.level;
         var countFastBuyer:int = 0;
         var r:StructureDataResource;
@@ -924,7 +925,26 @@ public class ManagerOrder {
                     }
                 }
             }
-
+            var caveIt:int = 0;
+            for (i = 0; i < order.resourceIds.length; i++) {
+                r = g.allData.getResourceById(order.resourceIds[i]);
+                if (r.orderType == 2) {
+                    for (k = 0; k < _arrOrders.length; k++) {
+                        for (j = 0; j < _arrOrders[k].resourceIds.length; j++) {
+                            if (_arrOrders[k].resourceIds[j]) {
+                                r = g.allData.getResourceById(_arrOrders[k].resourceIds[j]);
+                                if (r.orderType == 2) caveIt++;
+                                if (caveIt >= 2) break;
+                            }
+                        }
+                    }
+                    if (caveIt >=2) break;
+                }
+            }
+            if (caveIt >= 2) {
+                addNewOrders(n, delay, f, place,del);
+                return;
+            }
 //             order.catName = g.dataOrderCats.arrCats[int(Math.random()*g.dataOrderCats.arrCats.length)].name;
             order.catOb = g.dataOrderCats.getRandomCat();
             order.coins = 0;
