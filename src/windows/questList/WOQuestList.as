@@ -37,7 +37,7 @@ public class WOQuestList extends WindowMain{
         _source.addChild(_woBG);
         _callbackClickBG = hideIt;
 
-        _birka = new Birka('Задания', _source, _woWidth, _woHeight);
+        _birka = new Birka(g.managerLanguage.allTexts[623], _source, _woWidth, _woHeight);
         _birka.flipItY();
         _birka.source.rotation = Math.PI/2;
         _birka.source.x = 40;

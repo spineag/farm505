@@ -35,10 +35,10 @@ public class WALLDoneTrain {
         bitmap = g.pBitmaps[st + 'wall/wall_done_train.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Корзинка собрана и отправлена по Канатной дороге! Пора получить награду за выполнение заказа!'),bitmap,'interfaceAtlas');
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[468]),bitmap,'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             st = 'https://505.ninja/content/wall/ok/wall_OK_2.jpg';
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Ура! Корзинка собрана и отправлена по Канатной дороге! Пора получить награду за выполнение заказа!'),
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[468]),
                     null, st);
         }
         (g.pBitmaps[st + 'wall/wall_done_train.jpg'] as PBitmap).deleteIt();

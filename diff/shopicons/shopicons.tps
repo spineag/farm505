@@ -230,7 +230,6 @@
             <filename>cupidon_statue_blue_icon.png</filename>
             <filename>cupidon_statue_pink_icon.png</filename>
             <filename>dairy_icon.png</filename>
-            <filename>dandelion_icon.png</filename>
             <filename>easel_clear_icon.png</filename>
             <filename>farm_bee_icon.png</filename>
             <filename>farm_chicken_icon.png</filename>
@@ -331,6 +330,10 @@
             <filename>cat_bouquet_icon.png</filename>
             <filename>cycle_flower_icon.png</filename>
             <filename>bird_house_icon.png</filename>
+            <filename>dandelion_blue_icon.png</filename>
+            <filename>dandelion_green_icon.png</filename>
+            <filename>dandelion_orange_icon.png</filename>
+            <filename>dandelion_red_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

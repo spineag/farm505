@@ -75,7 +75,7 @@ public class WOPartyWindow extends WindowMain{
 
             _btn = new CButton();
             _btn.addButtonTexture(172, 45, CButton.GREEN, true);
-            _txtBtn = new CTextField(172, 45, "ОК");
+            _txtBtn = new CTextField(172, 45, String(g.managerLanguage.allTexts[328]));
             _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _btn.addChild(_txtBtn);
             _btn.clickCallback = onClick;
@@ -111,7 +111,7 @@ public class WOPartyWindow extends WindowMain{
 
             _btn = new CButton();
             _btn.addButtonTexture(172, 45, CButton.GREEN, true);
-            _txtBtn = new CTextField(172, 45, "ОК");
+            _txtBtn = new CTextField(172, 45, String(g.managerLanguage.allTexts[328]));
             _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _btn.addChild(_txtBtn);
             _btn.clickCallback = onClick;
@@ -124,7 +124,7 @@ public class WOPartyWindow extends WindowMain{
     private function onHoverHint():void {
         if (_isHover) return;
         _isHover = true;
-        g.hint.showIt('Справка');
+        g.hint.showIt(String(g.managerLanguage.allTexts[356]));
     }
 
     private function onOutHint():void {
@@ -179,7 +179,7 @@ public class WOPartyWindow extends WindowMain{
         _txtBabl.x = -365;
         _txtBabl.y = -215;
 
-        _txtTimeLost = new CTextField(120,60,'Осталось времени:');
+        _txtTimeLost = new CTextField(120,60,String(g.managerLanguage.allTexts[357]));
         _txtTimeLost.setFormat(CTextField.BOLD18, 16, 0xff7575);
         _source.addChild(_txtTimeLost);
         _txtTimeLost.x = 287;

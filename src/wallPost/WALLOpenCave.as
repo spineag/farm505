@@ -35,10 +35,10 @@ public class WALLOpenCave {
         bitmap = g.pBitmaps[st + 'wall/wall_open_cave.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Проход в шахту расчищен! Теперь мы можем самостоятельно добывать руду в Долине Рукоделия!'),bitmap,'interfaceAtlas');
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[472]),bitmap,'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             st = 'https://505.ninja/content/wall/ok/wall_OK_4.jpg';
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Проход в шахту расчищен! Теперь мы можем самостоятельно добывать руду в Долине Рукоделия!'),
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[472]),
                     null, st);
         }
         (g.pBitmaps[st + 'wall/wall_open_cave.jpg'] as PBitmap).deleteIt();

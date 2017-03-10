@@ -108,7 +108,7 @@ public class WOOrder extends WindowMain{
         createTopCats();
         _waitForAnswer = false;
         _rightBlock.visible = false;
-        _birka = new Birka('ЛАВКА', _source, 764, 570);
+        _birka = new Birka(String(g.managerLanguage.allTexts[362]), _source, 764, 570);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -162,7 +162,7 @@ public class WOOrder extends WindowMain{
         _rightBlockBG.filter = ManagerFilters.SHADOW_LIGHT;
         _rightBlock.addChild(_rightBlockBG);
 
-        _txtName = new CTextField(320, 35, "Самбука заказывает");
+        _txtName = new CTextField(320, 35, String(g.managerLanguage.allTexts[364]));
         _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtName.x = 407;
         _txtName.y = 175;
@@ -178,7 +178,7 @@ public class WOOrder extends WindowMain{
             _arrResourceItems.push(item);
         }
 
-        _txtNagrada = new CTextField(90, 30, "Награда:");
+        _txtNagrada = new CTextField(90, 30, String(g.managerLanguage.allTexts[363]));
         _txtNagrada.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtNagrada.x = 411;
         _txtNagrada.y = 418;
@@ -222,7 +222,7 @@ public class WOOrder extends WindowMain{
         _rightBlock.addChild(_btnDeleteOrder);
         _btnDeleteOrder.clickCallback = deleteOrder;
 
-        _btnDeleteOrder.hoverCallback = function():void { g.hint.showIt('отменить заказ'); };
+        _btnDeleteOrder.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[365])); };
         _btnDeleteOrder.outCallback = function():void {g.hint.hideIt();};
     }
 
@@ -246,7 +246,7 @@ public class WOOrder extends WindowMain{
         im.x = 98;
         im.y = -15;
         _btnSell.addDisplayObject(im);
-        _txtBtnBuy = new CTextField(110, 60, "Продать");
+        _txtBtnBuy = new CTextField(110, 60, String(g.managerLanguage.allTexts[366]));
         _txtBtnBuy.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtBtnBuy.y = -10;
         _btnSell.addChild(_txtBtnBuy);
@@ -264,7 +264,7 @@ public class WOOrder extends WindowMain{
         im.x = 98;
         im.y = 15;
         _btnSkipDelete.addDisplayObject(im);
-        _txtBtnSkip = new CTextField(80, 50, "Получить сейчас");
+        _txtBtnSkip = new CTextField(80, 50, String(g.managerLanguage.allTexts[367]));
         _txtBtnSkip.setFormat(CTextField.BOLD18, 16, Color.WHITE);
         _btnSkipDelete.addChild(_txtBtnSkip);
         _txtBtnSkip2 = new CTextField(20, 50, '');
@@ -439,12 +439,12 @@ public class WOOrder extends WindowMain{
                     stopCatsAnimations();
                     emptyCarCustomer();
                 }
-                _txtOrder.text = 'ЗАКАЗ ОФОРМЛЕН';
+                _txtOrder.text = String(g.managerLanguage.allTexts[368]);
                 _btnSkipDelete.visible = false;
             } else {
                 stopCatsAnimations();
             if (!g.managerTutorial.isTutorial) emptyCarCustomer();
-                _txtOrder.text = 'ЗАКАЗ УДАЛЕН';
+                _txtOrder.text = String(g.managerLanguage.allTexts[369]);
             }
 
             g.gameDispatcher.addToTimer(onTimer);
@@ -475,7 +475,7 @@ public class WOOrder extends WindowMain{
     }
 
     private function fillResourceItems(order:ManagerOrderItem):void {
-        _txtName.text = order.catOb.name + ' заказывает';
+        _txtName.text = order.catOb.name + ' ' + String(g.managerLanguage.allTexts[370]);
         _txtXP.text = String(_activeOrderItem.getOrder().xp);
         _txtCoins.text = String(_activeOrderItem.getOrder().coins);
         for (var i:int=0; i<_activeOrderItem.getOrder().resourceIds.length; i++) {
@@ -623,7 +623,7 @@ public class WOOrder extends WindowMain{
         _txtOrder.y = 40;
         _rightBlockTimer.addChild(_txtOrder);
 
-        var t:CTextField = new CTextField(280, 30, "следующий поступит через:");
+        var t:CTextField = new CTextField(280, 30, String(g.managerLanguage.allTexts[371]));
         t.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         t.x = 14;
         t.y = 65;

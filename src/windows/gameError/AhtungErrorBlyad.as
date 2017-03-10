@@ -27,7 +27,7 @@ public class AhtungErrorBlyad {
         var q:Quad = new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK);
         g.cont.popupCont.addChild(q);
         q.alpha = .9;
-        var txt:TextField = new TextField(500, 200, 'Критическая ошибка. Перезагрузите игру');
+        var txt:TextField = new TextField(500, 200, String(g.managerLanguage.allTexts[285]));
         var format:TextFormat = new TextFormat();
         format.size = 36;
         format.color = Color.WHITE;
@@ -44,7 +44,7 @@ public class AhtungErrorBlyad {
         _b.addChild(q);
         _b.x = g.managerResize.stageWidth/2;
         _b.y = g.managerResize.stageHeight/2 + 100;
-        txt = new TextField(210, 34, "Перезагрузить");
+        txt = new TextField(210, 34, String(g.managerLanguage.allTexts[281]));
         format = new TextFormat();
         format.size = 24;
         format.color = Color.WHITE;

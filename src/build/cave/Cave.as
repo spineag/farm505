@@ -340,10 +340,10 @@ public class Cave extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p1:Point = new Point(_source.x, _source.y - 100);
                 p1 = _source.parent.localToGlobal(p1);
-                new FlyMessage(p1,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
+                new FlyMessage(p1,String(g.managerLanguage.allTexts[342]) + " " + String(_dataBuild.blockByLevel) + ' ' + String(g.managerLanguage.allTexts[343]));
                 return;
             }
-            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, onBuy, _dataBuild, "Откройте пещеру", 'cave');
+            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, onBuy, _dataBuild, String(g.managerLanguage.allTexts[618]), 'cave');
             onOut();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (_source.wasGameContMoved) return;
@@ -375,7 +375,7 @@ public class Cave extends WorldObject{
         if (g.user.softCurrencyCount < _dataBuild.cost) {
             var p:Point = new Point(_source.x, _source.y);
             p = _source.parent.localToGlobal(p);
-            new FlyMessage(p, "Недостаточно денег");
+            new FlyMessage(p, String(g.managerLanguage.allTexts[393]));
             return;
         }
         _build.visible = false;

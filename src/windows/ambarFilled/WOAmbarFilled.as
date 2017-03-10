@@ -88,14 +88,14 @@ public class WOAmbarFilled extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         _isAmbar = params[0];
         if (_isAmbar) {
-            _txtCount.text = "ВМЕСТИМОСТЬ: " + String(g.userInventory.currentCountInAmbar) + "/" + String(g.user.ambarMaxCount);
-            _txtAmbarFilled.text = "АМБАР ЗАПОЛНЕН";
-            _txtBtn.text = "Увеличить Амбар";
+            _txtCount.text = String(g.managerLanguage.allTexts[458]) + " " + String(g.userInventory.currentCountInAmbar) + "/" + String(g.user.ambarMaxCount);
+            _txtAmbarFilled.text = String(g.managerLanguage.allTexts[457]);
+            _txtBtn.text = String(g.managerLanguage.allTexts[458]);
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
         } else {
-            _txtCount.text = "ВМЕСТИМОСТЬ: " + String(g.userInventory.currentCountInSklad) + "/" + String(g.user.skladMaxCount);
-            _txtAmbarFilled.text = "СКЛАД ЗАПОЛНЕН";
-            _txtBtn.text = "Увеличить Склад";
+            _txtCount.text = String(g.managerLanguage.allTexts[458]) + " " + String(g.userInventory.currentCountInSklad) + "/" + String(g.user.skladMaxCount);
+            _txtAmbarFilled.text = String(g.managerLanguage.allTexts[461]);
+            _txtBtn.text = String(g.managerLanguage.allTexts[459]);
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
         }
         _bar.progress = 1;

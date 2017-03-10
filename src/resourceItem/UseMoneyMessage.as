@@ -27,9 +27,9 @@ public class UseMoneyMessage {
         source = new Sprite();
         source.touchable = false;
         var st:String = String(count) + ' ';
-        if (typeMoney == DataMoney.HARD_CURRENCY) st += 'рубинов';
-        else if (typeMoney == DataMoney.BLUE_COUPONE || typeMoney == DataMoney.GREEN_COUPONE || typeMoney == DataMoney.RED_COUPONE || typeMoney == DataMoney.YELLOW_COUPONE) st += 'ваучера';
-        else st += 'монет';
+        if (typeMoney == DataMoney.HARD_CURRENCY) st += String(g.managerLanguage.allTexts[593]);
+        else if (typeMoney == DataMoney.BLUE_COUPONE || typeMoney == DataMoney.GREEN_COUPONE || typeMoney == DataMoney.RED_COUPONE || typeMoney == DataMoney.YELLOW_COUPONE) st += String(g.managerLanguage.allTexts[594]);
+        else st += String(g.managerLanguage.allTexts[595]);
 
         _txt = new CTextField(200,50, st);
         _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);

@@ -53,7 +53,7 @@ public class WOTrainOrder extends WindowMain{
         im.y = 10;
         im.x = 35;
         _btn.addDisplayObject(im);
-        _txtNow = new CTextField(100,50,"Привезти сейчас");
+        _txtNow = new CTextField(100,50,String(g.managerLanguage.allTexts[302]));
         _txtNow.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtNow.x = 60;
         _btn.addChild(_txtNow);
@@ -65,19 +65,19 @@ public class WOTrainOrder extends WindowMain{
         _btn.clickCallback = onClickBtn;
         _source.addChild(_btn);
 
-        _txtArrive = new CTextField(300,50,"ПРИБЫТИЕ КОРЗИНКИ ");
+        _txtArrive = new CTextField(300,50,String(g.managerLanguage.allTexts[303]));
         _txtArrive.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtArrive.x = -150;
         _txtArrive.y = -145;
         _source.addChild(_txtArrive);
 
-        _txtNext = new CTextField(150,50,"Следующий заказ:");
+        _txtNext = new CTextField(150,50,String(g.managerLanguage.allTexts[304]));
         _txtNext.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
         _txtNext.x = -80;
         _txtNext.y = -60;
         _source.addChild(_txtNext);
 
-        _txtTime2 = new CTextField(300,50,"Корзина прибудет к станции через:");
+        _txtTime2 = new CTextField(300,50,String(g.managerLanguage.allTexts[305]));
         _txtTime2 .setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
         _txtTime2.cacheIt = false;
         _txtTime2 .x = -150;

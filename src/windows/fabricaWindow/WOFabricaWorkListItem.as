@@ -80,7 +80,7 @@ public class WOFabricaWorkListItem {
 
         if (type == SMALL_CELL) {
             _source.visible = false;
-            _txt = new CTextField(42, 30, 'пусто');
+            _txt = new CTextField(42, 30, String(g.managerLanguage.allTexts[430]));
             _txt.setFormat(CTextField.BOLD18, 15, ManagerFilters.LIGHT_BROWN);
             _txt.x = 5;
             _txt.y = 5;
@@ -102,7 +102,7 @@ public class WOFabricaWorkListItem {
             _timerBlock.addChild(_txtTimer);
             _source.addChild(_timerBlock);
             _timerBlock.visible = false;
-            _txt = new CTextField(100, 90, 'загрузите ячейку очереди');
+            _txt = new CTextField(100, 90, String(g.managerLanguage.allTexts[431]));
             _txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.LIGHT_BROWN);
             _txt.x = 2;
             _txt.y = 5;
@@ -120,7 +120,7 @@ public class WOFabricaWorkListItem {
             _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _btnSkip.x = 52;
             _btnSkip.y = 117;
-            _txtForce = new CTextField(70,35,"ускорить");
+            _txtForce = new CTextField(70,35,String(g.managerLanguage.allTexts[432]));
             _txtForce.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _txtForce.x = 10;
             _txtForce.y = -8;
@@ -237,7 +237,7 @@ public class WOFabricaWorkListItem {
             _source.hoverCallback =  function():void {
                 if (_isHover) return;
                 _isHover = true;
-                g.hint.showIt("в очереди");
+                g.hint.showIt(String(g.managerLanguage.allTexts[433]));
                 _source.filter = ManagerFilters.BUTTON_HOVER_FILTER;
             };
             _source.outCallback =  function():void {
@@ -335,7 +335,7 @@ public function destroyTimer():void {
             _proposeBtn.clickCallback = f1;
             _proposeBtn.hoverCallback = function():void {
                 _proposeBtn.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-                    g.hint.showIt("докупить ячейку");
+                    g.hint.showIt(String(g.managerLanguage.allTexts[434]));
             };
             _proposeBtn.outCallback = function():void {
                 _proposeBtn.filter = null;

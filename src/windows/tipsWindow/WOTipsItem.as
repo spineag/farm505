@@ -37,7 +37,7 @@ public class WOTipsItem {
         source.addChild(_bg);
         _btn = new CButton();
         _btn.addButtonTexture(95, 34, CButton.GREEN, true);
-        _txtBtn = new CTextField(95, 34, "Показать");
+        _txtBtn = new CTextField(95, 34, String(g.managerLanguage.allTexts[312]));
         _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtBtn.cacheIt = false;
         _btn.addChild(_txtBtn);
@@ -62,43 +62,43 @@ public class WOTipsItem {
 //                MCScaler.scale(im, 70, 70);
 //                im.x = 17;
 //                im.y = 17;
-                _txt.text = 'Засеять грядки';
+                _txt.text = String(g.managerLanguage.allTexts[313]);
 //                isPos = false;
                 break;
             case ManagerTips.TIP_CRAFT_RIDGE:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('crops_icon'));
-                _txt.text = 'Собрать урожай';
+                _txt.text = String(g.managerLanguage.allTexts[314]);
                 break;
             case ManagerTips.TIP_RAW_FABRICA:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('factories_icon'));
-                _txt.text = 'Создать продукты';
+                _txt.text = String(g.managerLanguage.allTexts[315]);
                 break;
             case ManagerTips.TIP_CRAFT_FABRICA:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('products_icon'));
-                _txt.text = 'Собрать продукты фабрик';
+                _txt.text = String(g.managerLanguage.allTexts[316]);
                 break;
             case ManagerTips.TIP_MARKET:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('marcet_icon'));
-                _txt.text = 'Продать продукты';
+                _txt.text = String(g.managerLanguage.allTexts[317]);
                 break;
             case ManagerTips.TIP_PAPPER:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('newspaper_icon'));
-                _txt.text = 'Купить продукты';
+                _txt.text = String(g.managerLanguage.allTexts[318]);
                 break;
             case ManagerTips.TIP_ORDER:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('orders_icon'));
-                _txt.text = 'Выполнить заказы в Лавке';
+                _txt.text = String(g.managerLanguage.allTexts[319]);
                 break;
             case ManagerTips.TIP_DAILY_BONUS:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('wheel_of_fortune_icon'));
-                _txt.text = 'Запустить Колесо фортуны';
+                _txt.text = String(g.managerLanguage.allTexts[320]);
                 break;
             case ManagerTips.TIP_WILD:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('tree_saw_icon'));
 //                MCScaler.scale(im, 65, 65);
 //                im.x = 27;
 //                im.y = 25;
-                _txt.text = 'Убрать деревья и камни';
+                _txt.text = String(g.managerLanguage.allTexts[321]);
 //                isPos = false;
                 break;
             case ManagerTips.TIP_BUY_HERO:
@@ -106,12 +106,12 @@ public class WOTipsItem {
 //                MCScaler.scale(im, 70, 70);
 //                im.x = 22;
 //                im.y = 15;
-                _txt.text = 'Купить помощника';
+                _txt.text = String(g.managerLanguage.allTexts[322]);
 //                isPos = false;
                 break;
             case ManagerTips.TIP_RAW_ANIMAL:
                 im = new Image(g.allData.atlas['tipsAtlas'].getTexture('animals_icon'));
-                _txt.text = 'Покормить животных';
+                _txt.text = String(g.managerLanguage.allTexts[323]);
                 break;
 
         }

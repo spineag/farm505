@@ -41,11 +41,11 @@ public class WOSalePackItem {
         _txtCount.setFormat(CTextField.BOLD30, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCount.y = 135;
         if (objectId == 1 && objectType  == 1) {
-            _txtName.text = 'Монеты';
+            _txtName.text = String(g.managerLanguage.allTexts[325]);
             _txtCount.text = String(_objectCount);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
         } else if (objectId == 2 && objectType == 2) {
-            _txtName.text = 'Рубины';
+            _txtName.text = String(g.managerLanguage.allTexts[326]);
             _txtCount.text = String(_objectCount);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
         }  else if (_objectType == BuildType.RESOURCE || _objectType == BuildType.INSTRUMENT || _objectType == BuildType.PLANT) {

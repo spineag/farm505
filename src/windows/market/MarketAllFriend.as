@@ -68,7 +68,7 @@ public class MarketAllFriend {
             _scrollSprite.addNewCell(item.source);
         }
         source.addChild(_scrollSprite.source);
-        _txtPanel = new CTextField(220, 25, 'Быстрый доступ к друзьям:');
+        _txtPanel = new CTextField(220, 25, String(g.managerLanguage.allTexts[385]));
         _txtPanel.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtPanel.x = 80;
         _txtPanel.y = 16;

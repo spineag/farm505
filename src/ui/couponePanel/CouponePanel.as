@@ -128,7 +128,7 @@ public class CouponePanel {
         _txtBlue.text = String(g.user.blueCouponCount);
         _txtRed.text = String(g.user.redCouponCount);
         _txtYellow.text = String(g.user.yellowCouponCount);
-        g.hint.showIt("Ваучеры",'none',1);
+        g.hint.showIt(String(g.managerLanguage.allTexts[484]),'none',1);
         _contClipRect.mask = new Quad(400, 400);
         _contClipRect.mask.x = 15;
         

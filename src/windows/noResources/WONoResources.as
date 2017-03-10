@@ -52,12 +52,12 @@ public class WONoResources extends WindowMain {
         _callbackClickBG = onClickExit;
         SOUND_OPEN = SoundConst.WO_AHTUNG;
 
-        _txtNoResource = new CTextField(300, 30, "НЕДОСТАТОЧНО РЕСУРСОВ!");
+        _txtNoResource = new CTextField(300, 30, String(g.managerLanguage.allTexts[373]));
         _txtNoResource.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtNoResource.x = -150;
         _txtNoResource.y = -130;
         _source.addChild(_txtNoResource);
-        _text = new CTextField(350, 75, "Не хватает ингредиентов. Вы можете купить их за рубины и начать производство немедленно.");
+        _text = new CTextField(350, 75, String(g.managerLanguage.allTexts[374]));
         _text.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _text.x = -175;
         _text.y = -100;
@@ -68,7 +68,7 @@ public class WONoResources extends WindowMain {
         _btnBuy.x = 0;
         _btnBuy.y = 110;
         _source.addChild(_btnBuy);
-        _txtHardCost = new CTextField(180, 34, "Купить ресурсы за 8888");
+        _txtHardCost = new CTextField(180, 34, String(g.managerLanguage.allTexts[375]));
         _txtHardCost.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnBuy.addChild(_txtHardCost);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
@@ -84,12 +84,12 @@ public class WONoResources extends WindowMain {
         _paramData = params[1];
         if (params[2]) _nyashuk = params[2];
         _callbackBuy = callback;
-        _text.text = 'Не хватает ингредиентов. Вы можете купить их за рубины и начать производство немедленно.';
+        _text.text = String(g.managerLanguage.allTexts[374]);
         switch (params[0]) {
             case 'animal':
                 _countOfResources = 1;
                 _countCost = g.allData.getResourceById(_paramData.idResourceRaw).priceHard * _countOfResources;
-                _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.idResourceRaw, _countOfResources);
                 item.source.x =  - item.source.width/2;
@@ -106,7 +106,7 @@ public class WONoResources extends WindowMain {
             case 'trainHelp':
                 _countOfResources = _paramData.count;
                 _countCost = g.allData.getResourceById(_paramData.id).priceHard * _countOfResources;
-                _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
                 item = new WONoResourcesItem();
                 item.fillWithResource(_paramData.id, _countOfResources);
                 item.source.x =  - item.source.width/2;
@@ -118,13 +118,13 @@ public class WONoResources extends WindowMain {
             case 'money':
                 _countOfResources = _paramData.count;
                 _countCost = Math.ceil(_countOfResources / g.HARD_IN_SOFT);
-                _text.text = 'Не хватает монет. Вы можете купить их за рубины и начать производство немедленно.';
+                _text.text = String(g.managerLanguage.allTexts[374]);
                 if (_paramData.currency == DataMoney.HARD_CURRENCY) {
                     Cc.error('hard currency can"t be in woNoResourceWindow');
                     g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woNoResource');
                     return;
                 }
-                _txtHardCost.text = 'Купить ресурсы ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
                 item = new WONoResourcesItem();
                 item.fillWithMoney(_countOfResources);
                 item.source.x = - item.source.width/2;
@@ -142,7 +142,7 @@ public class WONoResources extends WindowMain {
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
-                _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
                 _btnBuy.clickCallback = onClickNyashuk;
                 break;
             case 'order':
@@ -185,7 +185,7 @@ public class WONoResources extends WindowMain {
                         _arrItems[4].source.x = -200 + 307;
                         break;
                 }
-                _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
                 _btnBuy.clickCallback = onClickOrder;
                 break;
             case 'papper':
@@ -197,7 +197,7 @@ public class WONoResources extends WindowMain {
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
-                _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
                 _btnBuy.clickCallback = onClickPapper;
                 break;
             case 'train':
@@ -209,7 +209,7 @@ public class WONoResources extends WindowMain {
                 _source.addChild(item.source);
                 _arrItems.push(item);
                 _countCost = _paramData.count * int(_paramData.data.priceHard);
-                _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+                _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
                 _btnBuy.clickCallback = onClickTrain;
         }
         super.showIt();
@@ -232,7 +232,7 @@ public class WONoResources extends WindowMain {
             _source.addChild(im.source);
             _arrItems.push(im);
             _countCost = int(_data.priceHard)*_countOfResources;
-            _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+            _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
         } else if (_data.buildType && _data.buildType == BuildType.PLANT) {
             im = new WONoResourcesItem();
             im.fillWithResource(_data.id, _countOfResources);
@@ -241,7 +241,7 @@ public class WONoResources extends WindowMain {
             _source.addChild(im.source);
             _arrItems.push(im);
             _countCost = int(_data.priceHard) * _countOfResources;
-            _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+            _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
         } else if (_data.ingridientsId && _data.ingridientsId) {
             var countR:int;
             _countCost = 0;
@@ -256,7 +256,7 @@ public class WONoResources extends WindowMain {
                     _arrItems.push(im);
                 }
             }
-            _txtHardCost.text = 'Купить ресурсы за ' + String(_countCost);
+            _txtHardCost.text = String(g.managerLanguage.allTexts[375]) + ' ' + String(_countCost);
             switch (_arrItems.length) {
                 case 1:
                     _arrItems[0].source.x = - im.source.width/2;

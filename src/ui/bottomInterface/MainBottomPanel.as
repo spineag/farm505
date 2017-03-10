@@ -107,7 +107,7 @@ public class MainBottomPanel {
         _toolsBtn.x = 3 + _toolsBtn.width/2;
         _toolsBtn.y = 8 + _toolsBtn.height/2;
         _source.addChild(_toolsBtn);
-        _toolsBtn.hoverCallback = function():void { g.hint.showIt("Редактирование карты"); };
+        _toolsBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[478])); };
         _toolsBtn.outCallback = function():void { g.hint.hideIt(); };
         _toolsBtn.clickCallback = function():void {onClick('tools')};
 
@@ -122,7 +122,7 @@ public class MainBottomPanel {
         _shopBtn.x = 66 + _shopBtn.width/2;
         _shopBtn.y = 8 + _shopBtn.height/2;
         _source.addChild(_shopBtn);
-        _shopBtn.hoverCallback = function():void { g.hint.showIt("Магазин"); };
+        _shopBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[475])); };
         _shopBtn.outCallback = function():void { g.hint.hideIt(); };
         _shopBtn.clickCallback = function():void {onClick('shop')};
 
@@ -137,7 +137,7 @@ public class MainBottomPanel {
         _ambarBtn.x = 129 + _ambarBtn.width/2;
         _ambarBtn.y = 8 + _ambarBtn.height/2;
         _source.addChild(_ambarBtn);
-        _ambarBtn.hoverCallback = function():void { g.hint.showIt("Амбар/Склад"); };
+        _ambarBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[132]) + "/" + String(g.managerLanguage.allTexts[133])); };
         _ambarBtn.outCallback = function():void { g.hint.hideIt(); };
         _ambarBtn.clickCallback = function():void {onClick('ambar')};
 
@@ -162,7 +162,7 @@ public class MainBottomPanel {
         _checkSprite.y = 20 + _checkImage.height/2;
         _orderBtn.addChild(_checkSprite);
         _checkSprite.visible = false;
-        _orderBtn.hoverCallback = function():void { g.hint.showIt("Заказы"); };
+        _orderBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[476])); };
         _orderBtn.outCallback = function():void { g.hint.hideIt(); };
         _orderBtn.clickCallback = function():void {onClick('order')};
 
@@ -177,7 +177,7 @@ public class MainBottomPanel {
         _cancelBtn.x = 3 + _cancelBtn.width/2;
         _cancelBtn.y = 8 + _cancelBtn.height/2;
         _source.addChild(_cancelBtn);
-        _cancelBtn.hoverCallback = function():void {g.hint.showIt("Отменить");};
+        _cancelBtn.hoverCallback = function():void {g.hint.showIt(String(g.managerLanguage.allTexts[477]));};
         _cancelBtn.outCallback = function():void { g.hint.hideIt(); };
         _cancelBtn.clickCallback = function():void {onClick('cancel')};
         _cancelBtn.visible = false;
@@ -198,7 +198,7 @@ public class MainBottomPanel {
         _homeBtn.x = 0 + _homeBtn.width/2;
         _homeBtn.y = 2 + _homeBtn.height/2;
         _source.addChild(_homeBtn);
-        _homeBtn.hoverCallback = function():void { g.hint.showIt("Вернутся домой") };
+        _homeBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[479])) };
         _homeBtn.outCallback = function():void { g.hint.hideIt() };
         _homeBtn.clickCallback = function():void {onClick('door')};
         _homeBtn.visible = false;
@@ -210,7 +210,7 @@ public class MainBottomPanel {
         _optionBtn.x = 214;
         _optionBtn.y = -70;
         _source.addChild(_optionBtn);
-        _optionBtn.hoverCallback = function():void { g.hint.showIt("Настройки"); };
+        _optionBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[480])); };
         _optionBtn.outCallback = function():void { g.hint.hideIt(); };
         _optionBtn.endClickCallback = function():void {onClick('option')};
     }
@@ -469,7 +469,7 @@ public class MainBottomPanel {
             _friendBoardHelpInfo.x = 65;
             _friendBoardHelpInfo.y = 5;
             sp.addChild(_friendBoardHelpInfo);
-            sp.hoverCallback = function():void { g.hint.showIt("Мне нужна помощь"); };
+            sp.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[481])); };
             sp.outCallback = function():void { g.hint.hideIt(); };
             _friendBoard.addChild(sp);
         }

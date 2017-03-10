@@ -54,6 +54,7 @@ public class ConsoleWrapper {
         Cc.bindKey(new KeyBind(Keyboard.F, true, false, true, true), makeFullscreen);
         Cc.bindKey(new KeyBind(Keyboard.I, true, false, true, true), showStats);
         Cc.bindKey(new KeyBind(Keyboard.T, true,false,true,true), makeTester);
+        Cc.bindKey(new KeyBind(Keyboard.Q, true,false,true,true), g.managerLanguage.changeLanguage);
         Cc.bindKey(new KeyBind(Keyboard.X, true,false,true,true), showXY);
     }
 

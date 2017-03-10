@@ -94,7 +94,7 @@ public class WOPartyWindowItem {
             im.y = _bg.height/2;
         }
         _btn.addButtonTexture(80, 20, CButton.GREEN, true);
-        _txtBtn = new CTextField(80,20,"ВЗЯТЬ");
+        _txtBtn = new CTextField(80,20,String(g.managerLanguage.allTexts[358]));
         _txtBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btn.addChild(_txtBtn);
         _btn.y = 120;

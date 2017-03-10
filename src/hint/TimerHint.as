@@ -68,7 +68,7 @@ public class TimerHint {
         _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -88;
         _txtName.y = -130;
-        _txtText = new CTextField(78,50,'ускорить');
+        _txtText = new CTextField(78,50,String(g.managerLanguage.allTexts[432]));
         _txtText.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtText.y = -17;
         _imageClock = new Image(g.allData.atlas['interfaceAtlas'].getTexture("order_window_del_clock"));

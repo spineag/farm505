@@ -42,13 +42,13 @@ public class DecorShopFilterItem {
         _source.y = pos * 33;
         _parent.addChild(_source);
         switch (_typeFilter) {
-            case DecorShopFilter.FILTER_ALL: _txt.text = 'Все'; break;
-            case DecorShopFilter.FILTER_OTHER: _txt.text = 'Другое'; break;
-            case DecorShopFilter.FILTER_FENCE: _txt.text = 'Заборчики'; break;
-            case DecorShopFilter.FILTER_TAIL: _txt.text = 'Плитки'; break;
-            case DecorShopFilter.FILTER_TREES: _txt.text = 'Деревья'; break;
-            case DecorShopFilter.FILTER_SPECIAL: _txt.text = 'Особое'; break;
-            case DecorShopFilter.FILTER_HOLIDAY: _txt.text = 'Праздничное'; break;
+            case DecorShopFilter.FILTER_ALL: _txt.text = String(g.managerLanguage.allTexts[332]); break;
+            case DecorShopFilter.FILTER_OTHER: _txt.text = String(g.managerLanguage.allTexts[333]); break;
+            case DecorShopFilter.FILTER_FENCE: _txt.text = String(g.managerLanguage.allTexts[334]); break;
+            case DecorShopFilter.FILTER_TAIL: _txt.text = String(g.managerLanguage.allTexts[335]); break;
+            case DecorShopFilter.FILTER_TREES: _txt.text = String(g.managerLanguage.allTexts[336]); break;
+            case DecorShopFilter.FILTER_SPECIAL: _txt.text = String(g.managerLanguage.allTexts[337]); break;
+            case DecorShopFilter.FILTER_HOLIDAY: _txt.text = String(g.managerLanguage.allTexts[338]); break;
         }
         _source.endClickCallback = onClick;
         _source.hoverCallback = onHover;

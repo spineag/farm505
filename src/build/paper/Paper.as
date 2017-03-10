@@ -90,7 +90,7 @@ public class Paper extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
+                new FlyMessage(p,String(g.managerLanguage.allTexts[342]) + " " + String(_dataBuild.blockByLevel) + ' ' + String(g.managerLanguage.allTexts[343]));
                 return;
             }
             g.windowsManager.openWindow(WindowsManager.WO_PAPPER, null);

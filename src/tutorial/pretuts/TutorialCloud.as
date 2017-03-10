@@ -60,7 +60,7 @@ public class TutorialCloud {
         _btn.addButtonTexture(120, 40, CButton.BLUE, true);
         _btn.x = 500;
         _btn.y = 520;
-        _btnTxt = new CTextField(120, 40, 'Далее');
+        _btnTxt = new CTextField(120, 40, String(g.managerLanguage.allTexts[532]));
         _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btn.addChild(_btnTxt);
         _btn.clickCallback = onClick;

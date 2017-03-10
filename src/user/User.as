@@ -56,6 +56,7 @@ public class User extends Someone {
     public var starterPack:Boolean;
     public var salePack:Boolean;
     public var day:int;
+    public var language:int;
 
     private var g:Vars = Vars.getInstance();
 

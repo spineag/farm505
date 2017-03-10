@@ -99,7 +99,7 @@ public class GameHelper {
     private function createShowButton():void {
         _btnShow = new CButton();
         _btnShow.addButtonTexture(126, 40, CButton.YELLOW, true);
-        _txtBtnShow = new CTextField(125, 40, 'Показать');
+        _txtBtnShow = new CTextField(125, 40, String(g.managerLanguage.allTexts[312]));
         _txtBtnShow.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
         _btnShow.addChild(_txtBtnShow);
         _btnShow.x = 4;

@@ -36,7 +36,7 @@ public class WOTips  extends WindowMain {
         _carton.x = -232;
         _carton.y = -221;
         _source.addChild(_carton);
-        _txtList = new CTextField(420,80,'Список действий');
+        _txtList = new CTextField(420,80,String(g.managerLanguage.allTexts[310]));
         _txtList.setFormat(CTextField.BOLD30, 26, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtList.x = -210;
         _txtList.y = -242;
@@ -48,7 +48,7 @@ public class WOTips  extends WindowMain {
         _scrollSprite.createScoll(440, 0, 400, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
         _source.addChild(_scrollSprite.source);
         createExitButton(hideIt);
-        _birka = new Birka('ПОДСКАЗКИ', _source, _woWidth, _woHeight);
+        _birka = new Birka(String(g.managerLanguage.allTexts[311]), _source, _woWidth, _woHeight);
     }
 
     override public function showItParams(callback:Function, params:Array):void {

@@ -33,12 +33,12 @@ public class WOServerCrack  extends WindowMain {
         _woHeight = 340;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        txt = new CTextField(420,80,'Не правильные данные');
+        txt = new CTextField(420,80,String(g.managerLanguage.allTexts[290]));
         txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -210;
         txt.y = -130;
         _source.addChild(txt);
-        _txtError = new CTextField(340,100,'Ошибка данных');
+        _txtError = new CTextField(340,100,String(g.managerLanguage.allTexts[282]));
         _txtError.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtError.x = -170;
         _txtError.y = -170;
@@ -48,7 +48,7 @@ public class WOServerCrack  extends WindowMain {
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        txt2 = new CTextField(200, 34, "Перезагрузить");
+        txt2 = new CTextField(200, 34, String(g.managerLanguage.allTexts[281]));
         txt2.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _b.addChild(txt2);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
@@ -63,7 +63,7 @@ public class WOServerCrack  extends WindowMain {
         super.showIt();
 
         if (params[0]) {
-            _txtError.text = 'Ошибка данных ' + String(params[0]);
+            _txtError.text = String(g.managerLanguage.allTexts[282]) + ' ' + String(params[0]);
             Cc.error('WOServerCrack: status=' + params[0]);
         }
     }

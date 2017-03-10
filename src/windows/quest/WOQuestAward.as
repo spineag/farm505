@@ -40,7 +40,7 @@ public class WOQuestAward {
 //        var q:Quad = new Quad(176, 70, Color.BLACK);
 //        _source.addChild(q);
 
-        _txtAward = new CTextField(176,48,'Награда:');
+        _txtAward = new CTextField(176,48,g.managerLanguage.allTexts[363]);
         _txtAward.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
         _txtAward.y = -3;
         _source.addChild(_txtAward);

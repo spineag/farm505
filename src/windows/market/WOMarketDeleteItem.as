@@ -37,12 +37,12 @@ public class WOMarketDeleteItem extends WindowMain{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        _txtInfo = new CTextField(300,30,'Этот продукт будет возвращен в хранилище.');
+        _txtInfo = new CTextField(300,30,String(g.managerLanguage.allTexts[408]));
         _txtInfo.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtInfo.x = -150;
         _txtInfo.y = -20;
         _source.addChild(_txtInfo);
-        _txt = new CTextField(300,30,'УБРАТЬ ТОВАР С ПРИЛАВКА?');
+        _txt = new CTextField(300,30,String(g.managerLanguage.allTexts[400]));
         _txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -157;
         _txt.y = -60;
@@ -52,7 +52,7 @@ public class WOMarketDeleteItem extends WindowMain{
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        _txtBtn = new CTextField(200, 34, "Убрать за 1");
+        _txtBtn = new CTextField(200, 34, String(g.managerLanguage.allTexts[410]));
         _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _b.addChild(_txtBtn);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

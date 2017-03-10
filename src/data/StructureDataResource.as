@@ -2,6 +2,7 @@
  * Created by user on 2/24/17.
  */
 package data {
+import manager.Vars;
 
 public class StructureDataResource {
     private var _id:int = -1;
@@ -24,12 +25,15 @@ public class StructureDataResource {
     private var _buildTime:int;
     private var _craftXP:int;
     private var _image:String;
+    private var g:Vars = Vars.getInstance();
 
     public function StructureDataResource(ob:Object) {
         if (ob.id) _id = int(ob.id);
         if (ob.block_by_level) _blockByLevel = int(ob.block_by_level);
         if (ob.cost_hard) _priceHard = int(ob.cost_hard);
-        if (ob.name) _name = ob.name;
+//        if (ob.name) _name = ob.name;
+        if (ob.text_id_name) _name = g.managerLanguage.allTexts[ob.text_id_name];
+        if (ob.text_id_description) _opys = g.managerLanguage.allTexts[ob.text_id_description];
         if (ob.url) _url = ob.url;
         if (ob.image_shop) _imageShop = ob.image_shop;
         if (ob.currency) _currency = int(ob.currency);
@@ -41,7 +45,7 @@ public class StructureDataResource {
         if (ob.resource_type) _buildType = int(ob.resource_type);
         if (ob.resource_place) _placeBuild = int(ob.resource_place);
         if (ob.order_type) _orderType = int(ob.order_type);
-        if (ob.descript) _opys = ob.descript;
+//        if (ob.descript) _opys = ob.descript;
         if (ob.image) _image = ob.image;
         if (ob.cost_skip) _priceSkipHard = int(ob.cost_skip);
         if (ob.build_time) _buildTime = int(ob.build_time);

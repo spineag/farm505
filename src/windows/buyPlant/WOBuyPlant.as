@@ -42,7 +42,7 @@ public class WOBuyPlant extends WindowMain {
         _callbackClickBG = onClickExit;
         _arrAllPlants = [];
 
-        _birka = new Birka('Огород', _source, 455, 580);
+        _birka = new Birka(String(g.managerLanguage.allTexts[445]), _source, 455, 580);
         _birka.flipIt();
         _birka.source.rotation = Math.PI/2;
         _birka.source.x = 80;

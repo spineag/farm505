@@ -53,7 +53,7 @@ public class AirTextBubble {
         _btn.addButtonTexture(120, 40, CButton.BLUE, true);
         _btn.x = 180;
         _btn.y = 140;
-        _btnTxt = new CTextField(120, 38, 'Далее');
+        _btnTxt = new CTextField(120, 38, String(g.managerLanguage.allTexts[532]));
         _btnTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btn.addChild(_btnTxt);
         _source.addChild(_btn);

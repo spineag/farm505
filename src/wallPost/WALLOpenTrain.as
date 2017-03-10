@@ -36,10 +36,10 @@ public class WALLOpenTrain {
         bitmap = g.pBitmaps[st + 'wall/wall_open_train.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Канатная дорога открыта! Теперь, загружая корзинку и выполняя заказы, я буду получать еще больше опыта, монет и ваучеров!'),bitmap,'interfaceAtlas');
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[474]),bitmap,'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             st = 'https://505.ninja/content/wall/ok/wall_OK_3.jpg';
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Канатная дорога открыта! Теперь, загружая корзинку и выполняя заказы, я буду получать еще больше опыта, монет и ваучеров!'),
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[474]),
                     null, st);
         }
         (g.pBitmaps[st + 'wall/wall_open_train.jpg'] as PBitmap).deleteIt();

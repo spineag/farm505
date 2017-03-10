@@ -895,6 +895,7 @@ public class DirectServer {
             g.user.salePack = Boolean(int(ob.sale_pack));
             g.user.dayDailyGift  = int(ob.day_daily_gift);
             g.user.countDailyGift  = int(ob.count_daily_gift);
+            g.user.language = int(ob.language);
             g.user.day = int (ob.day);
             if (!g.isDebug) {
                 if (ob.music == '1') g.soundManager.enabledMusic(true);
@@ -7085,8 +7086,9 @@ public class DirectServer {
 
         obj.timeToEnd = d.message.time_to_end;
         g.userTimer.party(obj.timeToEnd - int(new Date().getTime() / 1000));
-        obj.name = d.message.name;
-        obj.description = d.message.description;
+//        obj.name = d.message.name;
+        obj.name = g.managerLanguage[int(d.message.text_id_name)];
+        obj.description = g.managerLanguage[int(d.message.text_id_description)];
         obj.partyOn = Boolean(int(d.message.party_on));
         if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
         for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
@@ -7465,8 +7467,9 @@ public class DirectServer {
         if (!g.user.salePack && (obj.timeToEnd - int(new Date().getTime() / 1000)) > 0 && (obj.timeToStart - int(new Date().getTime() / 1000)) <= 0) g.userTimer.saleToEnd(obj.timeToEnd - int(new Date().getTime() / 1000));
         else if (obj.timeToStart > 0) g.userTimer.saleToStart(obj.timeToEnd - int(new Date().getTime() / 1000));
         obj.profit = int(d.message.profit);
-        obj.name = String(d.message.name);
-        obj.description = String(d.message.description);
+//        obj.name = String(d.message.name);
+        obj.name = String(g.managerLanguage.allTexts[int(d.message.text_id_name)]);
+        obj.description = String(g.managerLanguage.allTexts[int(d.message.text_id_description)]);
         g.managerSalePack.dataSale = obj;
         if (d.id == 0) {
             Cc.ch('server', 'getDataSalePack OK', 5);
@@ -7649,6 +7652,109 @@ public class DirectServer {
             if (callback != null) {
                 callback.apply();
             }
+        }
+    }
+
+    public function getAllTexts(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_ALL_TEXTS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getAllTexts', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.languageId = g.user.language;
+//        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetAllTexts);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetAllTexts(e:Event):void { completeGetAllTexts(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getAllTexts error:' + error.errorID);
+        }
+    }
+
+    private function completeGetAllTexts(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getAllTexts: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllTexts: wrong JSON:' + String(response));
+            return;
+        }
+        for (var i:int = 0; i < d.message.length; i++) {
+            g.managerLanguage.allTexts[int(d.message[i].id)] = d.message[i].text;
+        }
+        if (d.id == 0) {
+            Cc.ch('server', 'getAllTexts OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getAllTexts: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function changeLanguage(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_CHANGE_LANGUAGE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'changeLanguage', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        if (g.user.language == 1) variables.languageId = 2;
+        else variables.languageId = 1;
+//        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteChangeLanguage);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteChangeLanguage(e:Event):void { completeChangeLanguage(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('changeLanguage error:' + error.errorID);
+        }
+    }
+
+    private function completeChangeLanguage(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('changeLanguage: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'changeLanguage: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'changeLanguage OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('changeLanguage: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
 

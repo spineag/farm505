@@ -19,7 +19,7 @@ public class StockPanel {
         _source = new CSprite();
         _source.endClickCallback = onClick;
         _source.hoverCallback = function ():void {
-            g.hint.showIt("Акция")
+            g.hint.showIt(String(g.managerLanguage.allTexts[454]))
         };
         _source.outCallback = function ():void {
             g.hint.hideIt()

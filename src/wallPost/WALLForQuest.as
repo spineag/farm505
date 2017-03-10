@@ -38,9 +38,9 @@ public class WALLForQuest {
         bitmap = g.pBitmaps[st + 'wall/quest_posting.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Новая увлекательная игра о Долине Рукоделия!'), bitmap, 'interfaceAtlas');
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[469]), bitmap, 'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Новая увлекательная игра о Долине Рукоделия!'),
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[469]),
                     null, st + 'wall/quest_posting.jpg');
         }
         (g.pBitmaps[st + 'wall/quest_posting.jpg'] as PBitmap).deleteIt();

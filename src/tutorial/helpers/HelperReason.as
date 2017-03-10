@@ -2,6 +2,8 @@
  * Created by andy on 6/28/16.
  */
 package tutorial.helpers {
+import manager.Vars;
+
 public class HelperReason {
     public static const REASON_BUY_RIDGE:int = 1;
     public static const REASON_RAW_PLANT:int = 2;
@@ -15,7 +17,7 @@ public class HelperReason {
     public static const REASON_BUY_ANIMAL:int = 10;
     public static const REASON_FEED_ANIMAL:int = 11;
     public static const REASON_WILD_DELETE:int = 12;
-
+    private var g:Vars = Vars.getInstance();
     private static var _arr:Array;
 
     public function HelperReason() {
@@ -23,62 +25,62 @@ public class HelperReason {
 
         var ob:Object = {};
         ob.reason = REASON_ORDER;
-        ob.txt = 'Можно выполнить заказ лавки!';
+        ob.txt = String(g.managerLanguage.allTexts[504]);
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_FEED_ANIMAL;
-        ob.txt = 'Животные проголодались, давай их накормим!';
+        ob.txt = String(g.managerLanguage.allTexts[505]);
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_CRAFT_PLANT;
-        ob.txt = 'Можно собирать урожай!';
+        ob.txt = String(g.managerLanguage.allTexts[506]);
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_RAW_PLANT;
-        ob.txt = 'Давай что-нибудь посадим!';
+        ob.txt = String(g.managerLanguage.allTexts[507]);
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_RAW_FABRICA;
-        ob.txt = 'Давай что-нибудь произведем на фабрике!';
+        ob.txt = String(g.managerLanguage.allTexts[508]);
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_BUY_FABRICA;
-        ob.txt = 'Давай построим новую фабрику!';
+        ob.txt = String(g.managerLanguage.allTexts[509]);
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_BUY_FARM;
-        ob.txt = 'Мы можем построить новый питомник!';
+        ob.txt = String(g.managerLanguage.allTexts[510]);
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_BUY_HERO;
-        ob.txt = 'Можно нанять еще одного помощника';
+        ob.txt = String(g.managerLanguage.allTexts[511]);
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_BUY_ANIMAL;
-        ob.txt = 'Можно приобрести еще несколько животных!';
+        ob.txt = String(g.managerLanguage.allTexts[512]);
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_BUY_RIDGE;
-        ob.txt = 'Давай вскопаем еще несколько грядок!';
+        ob.txt = String(g.managerLanguage.allTexts[513]);
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_CRAFT_ANY_PRODUCT;
-        ob.txt = 'Давай отправим продукт на склад';
+        ob.txt = String(g.managerLanguage.allTexts[514]);
         _arr.push(ob);
 
         ob = {};
         ob.reason = REASON_WILD_DELETE;
-        ob.txt = 'Давай расчистим долину';
+        ob.txt = String(g.managerLanguage.allTexts[515]);
         _arr.push(ob);
     }
 

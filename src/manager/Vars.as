@@ -137,6 +137,7 @@ public class Vars {
     public var managerTimerSkip:ManagerTimerSkip;
     public var managerParty:ManagerPartyNew;
     public var managerSalePack:ManagerSalePack;
+    public var managerLanguage:ManagerLanguage;
     public var cont:Containers;
     public var ownMouse:OwnMouse;
     public var toolsModifier:ToolsModifier;
@@ -225,31 +226,35 @@ public class Vars {
             throw(new Error("use Objects.getInstance() instead!!"));
         }
     }
+    private function loadManagerLanguqage():void {
+        managerLanguage = new ManagerLanguage(initInterface);
+    }
 
     public function initInterface():void {
 //        try {
             cont.hideAll(true);
-            startPreloader.setProgress(77);
+            startPreloader.setProgress(83);
+//            directServer.getUserInfo(null);
+
 
             event = new OwnEvent();
-            userValidates = new UserValidateResources();
+//            userValidates = new UserValidateResources();
 
-            dataLevel = new DataLevel();
             dataOrderCats = new DataCat();
             userInventory = new UserInventory();
-            userTimer = new UserTimer();
+//            userTimer = new UserTimer();
             gameDispatcher = new FarmDispatcher(mainStage);
 
-            townArea = new TownArea();
-            farmGrid = new FarmGrid();
-            managerDailyBonus = new ManagerDailyBonus();
-            socialNetwork = new SocialNetwork(flashVars);
-            if (isDebug) {
-                socialNetworkID = SocialNetworkSwitch.SN_OK_ID;
-            } else {
-                socialNetworkID = int(flashVars['channel']);
-            }
-            SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
+//            townArea = new TownArea();
+//            farmGrid = new FarmGrid();
+//            managerDailyBonus = new ManagerDailyBonus();
+//            socialNetwork = new SocialNetwork(flashVars);
+//            if (isDebug) {
+//                socialNetworkID = SocialNetworkSwitch.SN_OK_ID;
+//            } else {
+//                socialNetworkID = int(flashVars['channel']);
+//            }
+//            SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
 //        } catch (e:Error) {
 //            errorManager.onGetError(ErrorConst.ON_INIT1, true, true);
 //            Cc.stackch('error', 'initVariables1::', 10);
@@ -272,49 +277,69 @@ public class Vars {
             managerCats = new ManagerCats();
             managerOrderCats = new ManagerOrderCats();
             catPanel = new CatPanel();
-            managerChest = new ManagerChest();
+//            managerChest = new ManagerChest();
             townAreaTouchManager = new TownAreaTouchManager();
-            soundManager = new SoundManager();
+//            soundManager = new SoundManager();
+            onUserInfo();
 
-            socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
-            socialNetwork.init();
 //        } catch (e:Error) {
 //            errorManager.onGetError(ErrorConst.ON_INIT2, true, true);
 //            Cc.stackch('error', 'initVariables::', 10);
 //        }
     }
 
+    public function startUserLoad():void {
+        socialNetwork = new SocialNetwork(flashVars);
+        if (isDebug) {
+            socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
+        } else {
+            socialNetworkID = int(flashVars['channel']);
+        }
+        townArea = new TownArea();
+        farmGrid = new FarmGrid();
+        dataLevel = new DataLevel();
+        userValidates = new UserValidateResources();
+        soundManager = new SoundManager();
+        userTimer = new UserTimer();
+        managerDailyBonus = new ManagerDailyBonus();
+        managerChest = new ManagerChest();
+
+        SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
+        socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
+        socialNetwork.init();
+    }
+
     private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
-        startPreloader.setProgress(78);
+        startPreloader.setProgress(77);
         socialNetwork.removeEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
         socialNetwork.addEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
         socialNetwork.getProfile(socialNetwork.currentUID);
     }
 
     private function authoriseUser(e:SocialNetworkEvent = null):void {
-        startPreloader.setProgress(79);
+        startPreloader.setProgress(78);
         socialNetwork.removeEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
         directServer.authUser(loadMap);
     }
 
     private function loadMap():void {
-        startPreloader.setProgress(80);
+        startPreloader.setProgress(79);
         background = new BackgroundArea(onAuthUser);
     }
 
     private function onAuthUser():void {
-        startPreloader.setProgress(81);
+        startPreloader.setProgress(80);
         directServer.getDataOutGameTiles(onGetOutGameTiles);
     }
 
     private function onGetOutGameTiles():void {
-        startPreloader.setProgress(82);
+        startPreloader.setProgress(81);
         directServer.getDataLevel(onDataLevel);
     }
 
-    private function onDataLevel():void {
-        directServer.getUserInfo(onUserInfo);
-        startPreloader.setProgress(83);
+    public function onDataLevel():void {
+        directServer.getUserInfo(loadManagerLanguqage);
+        startPreloader.setProgress(82);
     }
 
     private function onUserInfo():void {

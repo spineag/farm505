@@ -99,31 +99,9 @@ public class WODailyBonus extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         _namePng = 'qui/wheels_of_fortune_disk.png';
         g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
-//        _namePng = 'qui/wheels_of_fortune_text.png';
-//        trace(_namePng);
-//        g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
-//        _namePng = 'qui/wheels_of_fortune_str.png';
-//        trace(_namePng);
-//        g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
-//        createKoleso();
-//        _koleso.rotation = 0;
-//        _curActivePosition = 0;
-//        fillItems();
-//        checkBtns();
-//        onWoShowCallback = onShow;
-//        super.showIt();
     }
 
     override protected function deleteIt():void {
-//        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_disk.png'] as PBitmap).deleteIt();
-//        delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_disk.png'];
-//        g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_disk.png'] =  null;
-//        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_text.png'] as PBitmap).deleteIt();
-//        delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_text.png'];
-//        g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_text.png'] = null;
-//        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_str.png'] as PBitmap).deleteIt();
-//        delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_str.png'];
-//        g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/wheels_of_fortune_str.png'] = null;
         if (_txtBtnBuy) {
             _btnBuy.removeChild(_txtBtnBuy);
             _txtBtnBuy.deleteIt();
@@ -146,26 +124,6 @@ public class WODailyBonus extends WindowMain {
 
     private function createKoleso():void {
         var im:Image;
-//        im.x = -im.width/2;
-//        im.y = -im.height/2;
-//        _koleso = new Sprite();
-//        _koleso.addChild(im);
-//        _koleso.x = 0;
-//        _koleso.y = 14;
-//        _source.addChild(_koleso);
-//
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wheels_of_fortune_text'));
-//        im.x = -186;
-//        im.y = -284;
-//        im.touchable = false;
-//        _source.addChild(im);
-//
-//        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('wheels_of_fortune _str'));
-//        im.x = -71;
-//        im.y = -238;
-//        im.touchable = false;
-//        _source.addChild(im);
-
         _btnFree = new CButton();
         _btnFree.addButtonTexture(146, 40, CButton.BLUE, true);
         _txtBtnBuy2  = new CTextField(146, 40, 'Вращать колесо');
@@ -217,7 +175,7 @@ public class WODailyBonus extends WindowMain {
             if (_btnBuy) _btnBuy.visible = true;
             if (_btnFree) _btnFree.visible = false;
             if (_btnBuy) _btnBuy.clickCallback = rotateKoleso;
-            if (_txtBtnBuy) _txtBtnBuy.text = 'Вращать колесо за ' + String(g.managerDailyBonus.count);
+            if (_txtBtnBuy) _txtBtnBuy.text = String(g.managerLanguage.allTexts[441]) + String(g.managerDailyBonus.count);
         }
     }
 

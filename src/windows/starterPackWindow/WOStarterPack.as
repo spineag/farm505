@@ -85,7 +85,7 @@ public class WOStarterPack extends WindowMain{
         var txt:CTextField;
         var im:Image;
 
-        txt = new CTextField(500, 70, 'Уникальное предложение');
+        txt = new CTextField(500, 70, String(g.managerLanguage.allTexts[324]));
         txt.setFormat(CTextField.BOLD30, 35, Color.RED, Color.WHITE);
         txt.alignH = Align.LEFT;
         txt.x = -190;
@@ -110,21 +110,21 @@ public class WOStarterPack extends WindowMain{
         _source.addChild(txt);
         _arrCTex.push(txt);
 
-        txt = new CTextField(90, 50, 'Монеты');
+        txt = new CTextField(90, 50, String(g.managerLanguage.allTexts[325]));
         txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -200;
         txt.y = -170;
         _source.addChild(txt);
         _arrCTex.push(txt);
 
-        txt = new CTextField(90, 50, "Рубины");
+        txt = new CTextField(90, 50, String(g.managerLanguage.allTexts[326]));
         txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.y = -170;
         txt.x = -20;
         _source.addChild(txt);
         _arrCTex.push(txt);
 
-        txt = new CTextField(77, 40, "Бонус");
+        txt = new CTextField(77, 40, String(g.managerLanguage.allTexts[327]));
         txt.setFormat(CTextField.BOLD30, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = 175;
         txt.y = -170;
@@ -170,28 +170,28 @@ public class WOStarterPack extends WindowMain{
 
 
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            txt = new CTextField(160, 40, String(_data.old_cost) +' ок');
+            txt = new CTextField(160, 40, String(_data.old_cost) +' ' +String(g.managerLanguage.allTexts[328]));
             txt.setFormat(CTextField.BOLD30, 24, ManagerFilters.BLUE_COLOR);
             txt.x = -100;
             txt.y = 40;
             _source.addChild(txt);
             _arrCTex.push(txt);
 
-            txt = new CTextField(160, 40, 'за ' +String(_data.new_cost) + ' ок');
+            txt = new CTextField(160, 40, String(g.managerLanguage.allTexts[329]) + ' ' +String(_data.new_cost) + ' ' + String(g.managerLanguage.allTexts[328]));
             txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
             txt.x = -100;
             txt.y = 80;
             _source.addChild(txt);
             _arrCTex.push(txt);
         } else {
-            txt = new CTextField(160, 40, String(_data.old_cost) +' голосов');
+            txt = new CTextField(160, 40, String(_data.old_cost) +' '+ String(g.managerLanguage.allTexts[330]));
             txt.setFormat(CTextField.BOLD30, 24, ManagerFilters.BLUE_COLOR);
             txt.x = -100;
             txt.y = 40;
             _source.addChild(txt);
             _arrCTex.push(txt);
 
-            txt = new CTextField(160, 40, 'за ' +String(_data.new_cost) + ' голосов');
+            txt = new CTextField(160, 40, String(g.managerLanguage.allTexts[329]) + ' ' +String(_data.new_cost) + ' ' + String(g.managerLanguage.allTexts[330]));
             txt.setFormat(CTextField.BOLD30, 26,  ManagerFilters.BLUE_COLOR);
             txt.x = -100;
             txt.y = 80;
@@ -206,7 +206,7 @@ public class WOStarterPack extends WindowMain{
 
         var btn:CButton = new CButton();
         btn.addButtonTexture(200, 45, CButton.GREEN, true);
-        txt = new CTextField(200, 45, 'Купить сейчас!');
+        txt = new CTextField(200, 45, String(g.managerLanguage.allTexts[331]));
         txt.setFormat(CTextField.BOLD30, 26,  Color.WHITE,ManagerFilters.GREEN_COLOR);
         btn.addChild(txt);
         btn.clickCallback = onClick;

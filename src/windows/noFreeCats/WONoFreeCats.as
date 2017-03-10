@@ -36,13 +36,13 @@ public class WONoFreeCats extends WindowMain {
         _source.addChild(_woBG);
         _callbackClickBG = hideIt;
         createExitButton(hideIt);
-        _txt1 = new CTextField(400,100,"НЕТ СВОБОДНЫХ ПОМОЩНИКОВ!");
+        _txt1 = new CTextField(400,100,String(g.managerLanguage.allTexts[382]));
         _txt1.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt1.x = -200;
         _txt1.y = -155;
         _txt1.touchable = false;
         _source.addChild(_txt1);
-        _txt2 = new CTextField(400,100,'Подождите окончания производства или купите еще одного!');
+        _txt2 = new CTextField(400,100,String(g.managerLanguage.allTexts[383]));
         _txt2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt2.x = -200;
         _txt2.y = -120;
@@ -53,7 +53,7 @@ public class WONoFreeCats extends WindowMain {
         _btn.clickCallback = onClick;
         _btn.y = 100;
         _source.addChild(_btn);
-        _txtBtn = new CTextField(130, 40, "КУПИТЬ");
+        _txtBtn = new CTextField(130, 40, String(g.managerLanguage.allTexts[355]));
         _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtBtn.touchable = false;
         _btn.addChild(_txtBtn);

@@ -33,12 +33,12 @@ public class WOQuestFinishAward extends WindowMain {
         im.y = -195;
         im.touchable = false;
         _source.addChild(im);
-        var txt:CTextField = new CTextField(400,100,"Задание выполнено!");
+        var txt:CTextField = new CTextField(400,100,g.managerLanguage.allTexts[627]);
         txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
         txt.x = -200;
         txt.y = -190;
         _source.addChild(txt);
-        txt = new CTextField(200,100,"Ваша награда");
+        txt = new CTextField(200,100,g.managerLanguage.allTexts[626]);
         txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -100;
         txt.y = 10;
@@ -49,7 +49,7 @@ public class WOQuestFinishAward extends WindowMain {
         _btn.clickCallback = onClick;
         _btn.y = 160;
         _source.addChild(_btn);
-        txt = new CTextField(130, 40, "Далее");
+        txt = new CTextField(130, 40, g.managerLanguage.allTexts[532]);
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btn.addChild(txt);
 

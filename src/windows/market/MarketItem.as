@@ -105,7 +105,7 @@ public class MarketItem {
         isFill = 0;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
-        _txtAdditem = new CTextField(80,70,'Добавить товар');
+        _txtAdditem = new CTextField(80,70,String(g.managerLanguage.allTexts[388]));
         _txtAdditem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtAdditem.cacheIt = false;
         _txtAdditem.x = 15;
@@ -144,7 +144,7 @@ public class MarketItem {
 
         _plawkaLvl.visible = false;
 
-        _txtPlawka = new CTextField(100,60, 'Продано');
+        _txtPlawka = new CTextField(100,60, String(g.managerLanguage.allTexts[389]));
         _txtPlawka.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.GRAY_HARD_COLOR);
         _txtPlawka.cacheIt = false;
         _txtPlawka.y = 85;
@@ -178,7 +178,7 @@ public class MarketItem {
         _papperBtn.clickCallback = onPaper;
         _papperBtn.hoverCallback = function ():void {
             if (_inPapper || isFill == 2) return;
-            g.hint.showIt('Поместить объявление в газету','market_paper');
+            g.hint.showIt(String(g.managerLanguage.allTexts[390]),'market_paper');
         };
         _papperBtn.outCallback = function ():void {
             g.hint.hideIt();
@@ -202,7 +202,7 @@ public class MarketItem {
         _delete.clickCallback = onDelete;
         _delete.hoverCallback = function ():void {
             if (g.marketHint.isShowed) g.marketHint.hideIt();
-            g.hint.showIt('забрать товар','market_delete');
+            g.hint.showIt(String(g.managerLanguage.allTexts[391]),'market_delete');
         };
         _delete.outCallback = function ():void {
             g.hint.hideIt();
@@ -214,7 +214,7 @@ public class MarketItem {
             if (numberCell == 5) _countBuyCell = 5;
             else _countBuyCell = (numberCell - 5) * 2 + 5;
             source.addChild(buyCont);
-            _txtBuyNewPlace = new CTextField(100,90,'Докупить торговое место');
+            _txtBuyNewPlace = new CTextField(100,90,String(g.managerLanguage.allTexts[392]));
             _txtBuyNewPlace.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
             _txtBuyNewPlace.cacheIt = false;
             _txtBuyNewPlace.x = 5;
@@ -432,7 +432,7 @@ public class MarketItem {
                 if (g.user.softCurrencyCount < _dataFromServer.cost) {
                     p = new Point(source.x, source.y);
                     p = source.parent.localToGlobal(p);
-                    new FlyMessage(p, "Недостаточно денег");
+                    new FlyMessage(p, String(g.managerLanguage.allTexts[393]));
                     return;
                 }
                 var d:Object = g.allData.getResourceById(_dataFromServer.resourceId);
@@ -440,14 +440,14 @@ public class MarketItem {
                     if (g.userInventory.currentCountInAmbar + _dataFromServer.resourceCount > g.user.ambarMaxCount) {
                         p = new Point(source.x, source.y);
                         p = source.parent.localToGlobal(p);
-                        new FlyMessage(p, "Амбар заполнен");
+                        new FlyMessage(p,String(g.managerLanguage.allTexts[394]));
                         return;
                     }
                 } else if (d.placeBuild == BuildType.PLACE_SKLAD) {
                     if (g.userInventory.currentCountInSklad + _dataFromServer.resourceCount > g.user.skladMaxCount) {
                         p = new Point(source.x, source.y);
                         p = source.parent.localToGlobal(p);
-                        new FlyMessage(p, "Склад заполнен");
+                        new FlyMessage(p, String(g.managerLanguage.allTexts[395]));
                         return;
                     }
                 }
@@ -518,14 +518,14 @@ public class MarketItem {
         if (!bDelete) {
             p = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
-            new FlyMessage(p, "товар был забран игроком");
+            new FlyMessage(p, String(g.managerLanguage.allTexts[396]));
             _wo.refreshItemWhenYouBuy();
             return;
         }
         if (!b) {
             p = new Point(source.x, source.y);
             p = source.parent.localToGlobal(p);
-            new FlyMessage(p, "товар был куплен другим игроком");
+            new FlyMessage(p, String(g.managerLanguage.allTexts[397]));
             _wo.refreshItemWhenYouBuy();
         } else {
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
@@ -660,7 +660,7 @@ public class MarketItem {
                 _plawkaLvl.y = 50;
                 _txtPlawka.visible = true;
                 _txtPlawka.y = 75;
-                _txtPlawka.text = String("Доступно на уровне: " + g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel);
+                _txtPlawka.text = String(String(g.managerLanguage.allTexts[398]) + " " + g.allData.getResourceById(_dataFromServer.resourceId).blockByLevel);
                 _txtAdditem.visible = false;
                 isFill = 3;
             }
@@ -809,7 +809,7 @@ public class MarketItem {
 
         _btnGoAwaySaleItem = new CButton();
         _btnGoAwaySaleItem.addButtonTexture(76, 29, CButton.BLUE, true);
-        _txtGo = new CTextField(70, 30, 'Посетить');
+        _txtGo = new CTextField(70, 30, String(g.managerLanguage.allTexts[386]));
         _txtGo.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtGo.x = 3;
         _btnGoAwaySaleItem.addChild(_txtGo);

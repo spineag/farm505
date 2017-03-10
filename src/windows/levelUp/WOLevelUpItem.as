@@ -113,21 +113,21 @@ public class WOLevelUpItem {
             if (ob.buildType == BuildType.FARM) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
             } else if (ob.buildType == BuildType.RIDGE) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
             } else if (ob.buildType == BuildType.FABRICA) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon'));
                 _bolHouse = true;
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
             } else if (ob.buildType == BuildType.TREE) {
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
             } else if (ob.buildType == BuildType.RESOURCE) {
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
                 if (ob is StructureDataAnimal) _txtCount.text = '+3';
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
             } else if (ob.buildType == BuildType.PLANT) {
@@ -135,7 +135,7 @@ public class WOLevelUpItem {
                 _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(ob.imageShop + '_icon'));
             } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
                     || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.DECOR) {
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
                 if (ob.image) {
                     var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon');
                     if (!texture) {
@@ -145,30 +145,30 @@ public class WOLevelUpItem {
                 _image = new Image(texture);
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.ANIMAL) {
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 _bolHouse = true;
                 _bolAnimal = true;
             } else if (ob.buildType == BuildType.INSTRUMENT) {
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
                 _image = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
             } else if (ob.buildType == BuildType.MARKET || ob.buildType == BuildType.PAPER || ob.buildType == BuildType.TRAIN) {
                  _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.CAVE) {
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.DAILY_BONUS) {
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('daily_bonus_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.ORDER) {
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture('orders_icon'));
                 _bolHouse = true;
             } else if (ob.buildType == BuildType.DECOR_ANIMATION) {
-                _txtNew.text = 'НОВОЕ!';
+                _txtNew.text = String(g.managerLanguage.allTexts[424]);
                 _image = new Image(g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon'));
                 _bolHouse = true;
             }

@@ -96,25 +96,25 @@ public class WOSalePack extends WindowMain{
         _source.addChild(_txtDescription);
 
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            _txtOldCost = new CTextField(200,60,  String(g.managerSalePack.dataSale.oldCost) + ' ОК');
+            _txtOldCost = new CTextField(200,60,  String(g.managerSalePack.dataSale.oldCost) + ' ' + String(g.managerLanguage.allTexts[328]));
             _txtOldCost.setFormat(CTextField.BOLD24, 24, Color.RED);
             _txtOldCost.y = 80;
             _txtOldCost.x = -110;
             _source.addChild(_txtOldCost);
 
-            _txtNewCost = new CTextField(200,60,'за ' + String(g.managerSalePack.dataSale.newCost) + ' ОК');
+            _txtNewCost = new CTextField(200,60,String(g.managerLanguage.allTexts[329]) + ' ' + String(g.managerSalePack.dataSale.newCost) + ' ' +String(g.managerLanguage.allTexts[328]));
             _txtNewCost.setFormat(CTextField.BOLD18, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
             _txtNewCost.y = 110;
             _txtNewCost.x = -110;
             _source.addChild(_txtNewCost);
         } else {
-            _txtOldCost = new CTextField(200,60,String(g.managerSalePack.dataSale.oldCost) + ' голосов');
+            _txtOldCost = new CTextField(200,60,String(g.managerSalePack.dataSale.oldCost) + ' ' + String(g.managerLanguage.allTexts[330]));
             _txtOldCost.setFormat(CTextField.BOLD24, 24, Color.RED);
             _txtOldCost.y = 80;
             _txtOldCost.x = -110;
             _source.addChild(_txtOldCost);
 
-            _txtNewCost = new CTextField(200,60,'за ' + String(g.managerSalePack.dataSale.newCost) + ' голосов');
+            _txtNewCost = new CTextField(200,60,String(g.managerLanguage.allTexts[329]) + ' ' + String(g.managerSalePack.dataSale.newCost) + ' ' + String(g.managerLanguage.allTexts[330]));
             _txtNewCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
             _txtNewCost.y = 110;
             _txtNewCost.x = -110;
@@ -136,7 +136,7 @@ public class WOSalePack extends WindowMain{
         _txtProfit.x = 145;
         _txtProfit.y = 100;
         _source.addChild(_txtProfit);
-        _txtVugoda = new CTextField(150,60,'Выгода');
+        _txtVugoda = new CTextField(150,60,String(g.managerLanguage.allTexts[354]));
         _txtVugoda.setFormat(CTextField.BOLD18, 18, Color.WHITE, Color.RED);
         _txtVugoda.x = 147;
         _txtVugoda.y = 120;
@@ -148,7 +148,7 @@ public class WOSalePack extends WindowMain{
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(100, 45, CButton.GREEN, true);
-        _txtBtn = new CTextField(100, 45, 'Купить');
+        _txtBtn = new CTextField(100, 45, String(g.managerLanguage.allTexts[355]));
         _txtBtn.setFormat(CTextField.BOLD30, 26,  Color.WHITE,ManagerFilters.GREEN_COLOR);
         _btnBuy.addChild(_txtBtn);
         _btnBuy.clickCallback = onClick;

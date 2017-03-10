@@ -90,7 +90,7 @@ public class FriendPanel {
         im.x = 20;
         im.y = -23;
         _tab1.addChild(im);
-        var txt:CTextField = new CTextField(106, 27, "Мои друзья");
+        var txt:CTextField = new CTextField(106, 27, String(g.managerLanguage.allTexts[485]));
         txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
         txt.x = 30;
         txt.y = -23;
@@ -102,7 +102,7 @@ public class FriendPanel {
         im.x = 20;
         im.y = -23;
         _tab2.addChild(im);
-        txt = new CTextField(106, 27, "Нужна помощь");
+        txt = new CTextField(106, 27, String(g.managerLanguage.allTexts[486]));
         txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
         txt.x = 30;
         txt.y = -23;
@@ -261,7 +261,7 @@ public class FriendPanel {
                 bt = new CButton();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
                 bt.addDisplayObject(im);
-                txt = new CTextField(64, 50, "Добавить друга");
+                txt = new CTextField(64, 50, String(g.managerLanguage.allTexts[487]));
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
                 txt.x = 4;
                 txt.y = 12;
@@ -275,7 +275,7 @@ public class FriendPanel {
                 bt = new CButton();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
                 bt.addDisplayObject(im);
-                txt = new CTextField(60, 50, "Добавить друга");
+                txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
                 txt.x = 4;
                 txt.y = 12;
@@ -289,7 +289,7 @@ public class FriendPanel {
                 bt = new CButton();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
                 bt.addDisplayObject(im);
-                txt = new CTextField(60, 50, "Добавить друга");
+                txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
                 txt.x = 4;
                 txt.y = 12;
@@ -304,7 +304,7 @@ public class FriendPanel {
                 bt = new CButton();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
                 bt.addDisplayObject(im);
-                txt = new CTextField(60, 50, "Добавить друга");
+                txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
                 txt.x = 4;
                 txt.y = 12;
@@ -318,7 +318,7 @@ public class FriendPanel {
                 bt = new CButton();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
                 bt.addDisplayObject(im);
-                txt = new CTextField(60, 50, "Добавить друга");
+                txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
                 txt.x = 4;
                 txt.y = 12;
@@ -333,7 +333,7 @@ public class FriendPanel {
                 bt = new CButton();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
                 bt.addDisplayObject(im);
-                txt = new CTextField(60, 50, "Добавить друга");
+                txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
                 txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
                 txt.x = 4;
                 txt.y = 12;

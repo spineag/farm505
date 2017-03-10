@@ -400,11 +400,11 @@ public class Train extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel[0]) + ' уровне');
+                new FlyMessage(p,String(g.managerLanguage.allTexts[342]) + " " + String(_dataBuild.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[343]));
                 return;
             }
             onOut();
-            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, onBuy, _dataBuild, "Откройте поезд", 'train');
+            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, onBuy, _dataBuild, String(g.managerLanguage.allTexts[621]), 'train');
             g.hint.hideIt();
             if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TRAIN_AVAILABLE)) g.managerCutScenes.checkCutSceneCallback();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {

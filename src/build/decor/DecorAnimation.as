@@ -159,11 +159,11 @@ public class DecorAnimation extends WorldObject{
                 if (g.managerCats.curCountCats == g.managerCats.maxCountCats && !_decorWork) {
                     p = new Point(_source.x, _source.y);
                     p = _source.parent.localToGlobal(p);
-                    new FlyMessage(p, "Нет свободных помощников");
+                    new FlyMessage(p, String(g.managerLanguage.allTexts[619]));
                 } else {
                     p = new Point(_source.x, _source.y);
                     p = _source.parent.localToGlobal(p);
-                    new FlyMessage(p, "Нет свободных помощников");
+                    new FlyMessage(p, String(g.managerLanguage.allTexts[619]));
                 }
                 return;
             } else h = null;

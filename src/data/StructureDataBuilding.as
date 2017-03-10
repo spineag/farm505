@@ -79,7 +79,8 @@ public class StructureDataBuilding {
                 }
             }
         }
-        _name = ob.name;
+//        _name = ob.name;
+        _name = g.managerLanguage.allTexts[ob.text_id];
         _url = ob.url;
         _image = ob.image;
         _xpForBuild = int(ob.xp_for_build);

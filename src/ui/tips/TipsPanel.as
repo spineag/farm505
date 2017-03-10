@@ -109,7 +109,7 @@ public class TipsPanel {
         _armature.addEventListener(EventObject.COMPLETE, fEndOver);
         _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
         _armature.animation.gotoAndPlayByFrame('idle_6');
-        g.hint.showIt("Подсказки",'tips',1);
+        g.hint.showIt(String(g.managerLanguage.allTexts[498]),'tips',1);
     }
 
     private function onOut():void {

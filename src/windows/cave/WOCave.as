@@ -20,7 +20,7 @@ public class WOCave extends WindowMain {
         createBG();
         createCaveItems();
         _callbackClickBG = hideIt;
-        _birka = new Birka('Шахта', _source, 455, 580);
+        _birka = new Birka(String(g.managerLanguage.allTexts[444]), _source, 455, 580);
         _birka.flipIt();
         _birka.source.rotation = Math.PI/2;
         _birka.source.x = 0;

@@ -27,7 +27,7 @@ public class WOBuyCoupone extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-        _txt = new CTextField(400,100,'Собирай ваучеры, выполняя заказы, загружая корзину, и приобретайте на них особые товары');
+        _txt = new CTextField(400,100,String(g.managerLanguage.allTexts[455]));
         _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -200;
         _txt.y = -135;

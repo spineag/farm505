@@ -113,7 +113,7 @@ public class ResourceHint {
         _txtTime.alignH = Align.LEFT;
         
         if (_fabrickBoo) {
-            _txtText.text = "Будет доступно на: " + g.allData.getRecipeById(_id).blockByLevel + ' уровне';
+            _txtText.text = String(g.managerLanguage.allTexts[607]) + " " + g.allData.getRecipeById(_id).blockByLevel + ' ' + String(g.managerLanguage.allTexts[343]);
             _txtText.x = -100;
             _txtText.y = -10;
             wName = _txtText.textBounds.width + 40;
@@ -126,7 +126,7 @@ public class ResourceHint {
             return;
         }
         if (g.allData.getResourceById(_id).blockByLevel > g.user.level) {
-            _txtText.text = "Будет доступно на: " + g.allData.getResourceById(_id).blockByLevel + ' уровне';
+            _txtText.text = String(g.managerLanguage.allTexts[607]) + " " + g.allData.getResourceById(_id).blockByLevel + ' ' + String(g.managerLanguage.allTexts[343]);
             _txtText.x = -100;
             _txtText.y = -10;
             wName = _txtText.textBounds.width + 40;
@@ -152,9 +152,9 @@ public class ResourceHint {
             if(_bool) {
                 _source.x = int(start.x);
                 _source.y = int(start.y);
-                _txtText.text = 'Время роста:';
+                _txtText.text = String(g.managerLanguage.allTexts[613]);
             } else {
-                _txtText.text = "Растет на грядке";
+                _txtText.text = String(g.managerLanguage.allTexts[608]);
                 _source.x = int(start.x + _newSource.width/2);
                 _source.y = int(start.y + _newSource.height) + 5;
             }
@@ -212,7 +212,7 @@ public class ResourceHint {
                 _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_id).buildTime);
 //                _txtTime.x = -10;
                 _txtTime.y = 57;
-                _txtText.text = "Растет на: " + objTrees[i].name;
+                _txtText.text = String(g.managerLanguage.allTexts[609]) + objTrees[i].name;
                 _txtText.x = -100;
                 _txtText.y = 5;
 //                if (_txtTime.textBounds.width >= 40) {
@@ -241,7 +241,7 @@ public class ResourceHint {
                 _txtName.text = String(g.allData.getResourceById(_id).name);
                 _txtName.x = -100;
                 _txtName.y = 20;
-                _txtText.text = "Место производства: Пещера";
+                _txtText.text = String(g.managerLanguage.allTexts[610]) ;
                 _txtText.x = -100;
                 _txtText.y = 8;
                 wText = _txtText.textBounds.width + 20;
@@ -264,7 +264,7 @@ public class ResourceHint {
             _txtName.y = 20;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_id).buildTime);
             _txtTime.x = 20;
-            _txtText.text = "Место производства: " + g.allData.getBuildingById(objRecipes[_id].buildingId).name;
+            _txtText.text = String(g.managerLanguage.allTexts[611])  + g.allData.getBuildingById(objRecipes[_id].buildingId).name;
             _txtText.x = -100;
             wText = _txtText.textBounds.width + 20;
             wName = _txtName.textBounds.width + 40;
@@ -304,7 +304,7 @@ public class ResourceHint {
             _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_id).buildTime);
 //            _txtTime.x = -10;
             _txtTime.y = 62;
-            _txtText.text = "Место производства: " + g.allData.getBuildingById(objAnimals[_id].buildId).name;
+            _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objAnimals[_id].buildId).name;
             _txtText.x = -100;
             _txtText.y = 7;
             wText = _txtText.textBounds.width + 20;

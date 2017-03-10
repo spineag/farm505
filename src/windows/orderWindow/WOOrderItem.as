@@ -314,7 +314,7 @@ public class WOOrderItem {
     private function onEnterFram():void {
         _timer --;
         if (_timer <= 0) {
-            g.hint.showIt('Заказ');
+            g.hint.showIt(String(g.managerLanguage.allTexts[372]));
             g.gameDispatcher.removeEnterFrame(onEnterFram);
         }
     }
