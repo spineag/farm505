@@ -291,7 +291,7 @@ public class Vars {
     public function startUserLoad():void {
         socialNetwork = new SocialNetwork(flashVars);
         if (isDebug) {
-            socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
+            socialNetworkID = SocialNetworkSwitch.SN_OK_ID;
         } else {
             socialNetworkID = int(flashVars['channel']);
         }

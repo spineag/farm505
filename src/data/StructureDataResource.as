@@ -32,7 +32,7 @@ public class StructureDataResource {
         if (ob.block_by_level) _blockByLevel = int(ob.block_by_level);
         if (ob.cost_hard) _priceHard = int(ob.cost_hard);
 //        if (ob.name) _name = ob.name;
-        if (ob.text_id_name) _name = g.managerLanguage.allTexts[ob.text_id_name];
+        if (ob.text_id_name) _name = String(g.managerLanguage.allTexts[int(ob.text_id_name)]);
         if (ob.text_id_description) _opys = g.managerLanguage.allTexts[ob.text_id_description];
         if (ob.url) _url = ob.url;
         if (ob.image_shop) _imageShop = ob.image_shop;

@@ -159,30 +159,30 @@ public class WOTrain extends WindowMain {
             _rightBlock.addChild(_btnLoad);
         }
         _txtPrise = new CTextField(240,50,String(g.managerLanguage.allTexts[295]));
-        _txtPrise.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtPrise.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtPrise.y = 240;
         _txtPrise.x = 23;
         _rightBlock.addChild(_txtPrise);
 
-        _txtCostItem = new CTextField(40,30,'-3');
-        _txtCostItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCostItem = new CTextField(50,40,'-3');
+        _txtCostItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCostItem.x = 236;
-        _txtCostItem.y = 80;
+        _txtCostItem.y = 75;
         _txtCostItem.alignH = Align.LEFT;
-        _txtXpItem = new CTextField(40,30,'-3');
-        _txtXpItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtXpItem = new CTextField(50,40,'-3');
+        _txtXpItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXpItem.x = 165;
-        _txtXpItem.y = 80;
+        _txtXpItem.y = 75;
         _txtXpItem.alignH = Align.LEFT;
-        _txtCostAll = new CTextField(40,30,'-5');
-        _txtCostAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCostAll = new CTextField(50,40,'-5');
+        _txtCostAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCostAll.x = 160;
-        _txtCostAll.y = 280;
+        _txtCostAll.y = 275;
         _txtCostAll.alignH = Align.LEFT;
-        _txtXpAll = new CTextField(40,30,'-5');
-        _txtXpAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtXpAll = new CTextField(50,40,'-5');
+        _txtXpAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXpAll.x = 75;
-        _txtXpAll.y = 280;
+        _txtXpAll.y = 275;
         _txtXpAll.alignH = Align.LEFT;
 
         _rightBlock.addChild(_txtCostItem);

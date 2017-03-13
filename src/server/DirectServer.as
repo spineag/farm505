@@ -132,6 +132,7 @@ public class DirectServer {
             Cc.ch('server', 'getTextHelp OK', 5);
             var randomPos:int  = int(Math.random() * d.message.length);
             g.startPreloader.textHelp(String(d.message[randomPos].text));
+//            g.startPreloader.textHelp(String(g.managerLanguage.allTexts[d.message[randomPos].text_id]));
             if (callback != null) {
                 callback.apply();
             }

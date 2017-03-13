@@ -674,11 +674,11 @@ public class Train extends WorldObject{
         var im:Image;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
         _sprHelp.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
-        MCScaler.scale(im,im.height-5,im.width-5);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+//        MCScaler.scale(im,im.height-5,im.width-5);
         _sprHelp.addChild(im);
-        im.x = 6;
-        im.y = 5;
+        im.x = 21;
+        im.y = 20;
         _sprHelp.endClickCallback = onClick;
         }
     }
