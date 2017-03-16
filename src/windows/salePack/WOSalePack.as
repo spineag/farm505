@@ -95,34 +95,29 @@ public class WOSalePack extends WindowMain{
         _txtDescription.y = -167;
         _source.addChild(_txtDescription);
 
+        var st:String;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            _txtOldCost = new CTextField(200,60,  String(g.managerSalePack.dataSale.oldCost) + ' ОК');
-            _txtOldCost.setFormat(CTextField.BOLD24, 24, Color.RED);
-            _txtOldCost.y = 80;
-            _txtOldCost.x = -110;
-            _source.addChild(_txtOldCost);
-
-            _txtNewCost = new CTextField(200,60,'за ' + String(g.managerSalePack.dataSale.newCost) + ' ОК');
-            _txtNewCost.setFormat(CTextField.BOLD18, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            _txtNewCost.y = 110;
-            _txtNewCost.x = -110;
-            _source.addChild(_txtNewCost);
-        } else {
-            _txtOldCost = new CTextField(200,60,String(g.managerSalePack.dataSale.oldCost) + ' голосов');
-            _txtOldCost.setFormat(CTextField.BOLD24, 24, Color.RED);
-            _txtOldCost.y = 80;
-            _txtOldCost.x = -110;
-            _source.addChild(_txtOldCost);
-
-            _txtNewCost = new CTextField(200,60,'за ' + String(g.managerSalePack.dataSale.newCost) + ' голосов');
-            _txtNewCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            _txtNewCost.y = 110;
-            _txtNewCost.x = -110;
-            _source.addChild(_txtNewCost);
+            st = ' OK';
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            st = ' голосов';
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
+            st = ' $';
         }
 
+        _txtOldCost = new CTextField(200,60,String(g.managerSalePack.dataSale.oldCost) + st);
+        _txtOldCost.setFormat(CTextField.BOLD24, 24, Color.RED);
+        _txtOldCost.y = 80;
+        _txtOldCost.x = -110;
+        _source.addChild(_txtOldCost);
+
+        _txtNewCost = new CTextField(200,60,'за ' + String(g.managerSalePack.dataSale.newCost) + st);
+        _txtNewCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtNewCost.y = 110;
+        _txtNewCost.x = -110;
+        _source.addChild(_txtNewCost);
+
         var quad:Quad = new Quad(_txtOldCost.textBounds.width, 3, Color.RED);
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)  {
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID )  {
             quad.x = -50;
             quad.y = 110;
         } else {

@@ -57,6 +57,7 @@ public class WOSalePackItem {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(_objectId).url + '_icon'));
             MCScaler.scale(im,100,100);
         } else if (_objectType == BuildType.DECOR) {
+            _txtCount.text = '';
             _txtName.text = g.allData.getBuildingById(_objectId).name;
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(_objectId).image +'_icon'));
             MCScaler.scale(im,100,100);
@@ -66,6 +67,10 @@ public class WOSalePackItem {
         source.addChild(im);
         source.addChild(_txtName);
         source.addChild(_txtCount);
+        if (_objectType == BuildType.DECOR || _objectType == BuildType.DECOR_ANIMATION) {
+            im.y -= 15;
+            _txtName.y = 120;
+        }
     }
 }
 }
