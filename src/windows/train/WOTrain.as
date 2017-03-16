@@ -165,22 +165,26 @@ public class WOTrain extends WindowMain {
         _rightBlock.addChild(_txtPrise);
 
         _txtCostItem = new CTextField(50,40,'-3');
-        _txtCostItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtCostItem.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        else _txtCostItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCostItem.x = 236;
         _txtCostItem.y = 75;
         _txtCostItem.alignH = Align.LEFT;
         _txtXpItem = new CTextField(50,40,'-3');
-        _txtXpItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtXpItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, Color.WHITE);
+        else _txtXpItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXpItem.x = 165;
         _txtXpItem.y = 75;
         _txtXpItem.alignH = Align.LEFT;
         _txtCostAll = new CTextField(50,40,'-5');
-        _txtCostAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtCostAll.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        else _txtCostAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCostAll.x = 160;
         _txtCostAll.y = 275;
         _txtCostAll.alignH = Align.LEFT;
         _txtXpAll = new CTextField(50,40,'-5');
-        _txtXpAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtXpAll.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        else _txtXpAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXpAll.x = 75;
         _txtXpAll.y = 275;
         _txtXpAll.alignH = Align.LEFT;
@@ -398,10 +402,12 @@ public class WOTrain extends WindowMain {
                 _btnHelp = null;
             }
             g.directServer.updateUserTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
-            new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
+            if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
+            else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
             obj = {};
             obj.id = DataMoney.SOFT_CURRENCY;
-            obj.count = _arrItems[_activeItemIndex].countCoins;
+            if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) obj.count = _arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient;
+            else obj.count = _arrItems[_activeItemIndex].countCoins;
             new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
             g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
             _arrItems[_activeItemIndex].fullItHelp();
@@ -414,10 +420,13 @@ public class WOTrain extends WindowMain {
                     _btnHelp = null;
                 }
                 g.directServer.updateUserTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
-                new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
+                if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
+                else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
                 obj = {};
                 obj.id = DataMoney.SOFT_CURRENCY;
                 obj.count = _arrItems[_activeItemIndex].countCoins;
+                if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) obj.count = _arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient;
+                else obj.count = _arrItems[_activeItemIndex].countCoins;
                 new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
                 g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
                 _arrItems[_activeItemIndex].fullItHelp();

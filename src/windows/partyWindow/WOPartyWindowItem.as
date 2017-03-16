@@ -39,6 +39,7 @@ public class WOPartyWindowItem {
     private var g:Vars = Vars.getInstance();
     private var _bg:Image;
     private var _data:Object;
+    private var _imCheck:Image;
 
     public function WOPartyWindowItem(id:int, type:int, countResource:int, countToGift:int, number:int) {
         source = new CSprite();
@@ -57,11 +58,12 @@ public class WOPartyWindowItem {
         if (number == 5) _txtCountResource.y = 35;
         else _txtCountResource.y = 35;
         var im:Image;
-        if (number == 5) {
-            _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_2'));
-            _bg.y = -30;
-        }
-        else _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
+//        if (number == 5) {
+//            _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_2'));
+//            _bg.y = -30;
+//        }
+//        else _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
+        _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
         source.addChild(_bg);
         if (id == 1 && type  == 1) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
@@ -86,13 +88,13 @@ public class WOPartyWindowItem {
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
         MCScaler.scale(im, 80,80);
-        if (number == 5) {
-            im.x = _bg.width/2;
-            im.y = _bg.height/2 - 30;
-        } else {
+//        if (number == 5) {
+//            im.x = _bg.width/2;
+//            im.y = _bg.height/2 - 30;
+//        } else {
             im.x = _bg.width/2;
             im.y = _bg.height/2;
-        }
+//        }
         _btn.addButtonTexture(80, 20, CButton.GREEN, true);
         _txtBtn = new CTextField(80,20,String(g.managerLanguage.allTexts[358]));
         _txtBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
@@ -105,10 +107,10 @@ public class WOPartyWindowItem {
         } else if (Boolean(g.managerParty.userParty.tookGift[_data.number - 1])) {
             _btn.setEnabled = false;
             _btn.visible = false;
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-            im.x = 45;
-            im.y = 106;
-            source.addChild(im);
+            _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+            _imCheck.x = 45;
+            _imCheck.y = 106;
+            source.addChild(_imCheck);
         } else _btn.setEnabled = false;
 
         source.addChild(_btn);
@@ -123,25 +125,37 @@ public class WOPartyWindowItem {
 
         _txtCountUser = new CTextField(119,100,String(g.managerParty.userParty.countResource));
         _txtCountUser.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PURPLE_COLOR);
-        _txtCountUser.y = 125;
-
+        _txtCountUser.y = 130;
+        if (_txtCountUser) {
+            if (number == 1) {
+                _txtCountUser.x = 18;
+            } else if (number == 2) {
+                _txtCountUser.x = 11;
+            } else if (number == 3) {
+                _txtCountUser.x = 5;
+            } else if (number == 4) {
+                _txtCountUser.x = -3;
+            }else if (number == 5) {
+                _txtCountUser.x = -11;
+            }
+        }
         var _quad:Quad;
         var width:int;
         if (number > 1) {
-            width = ((100 * (g.managerParty.userParty.countResource - g.managerParty.dataParty.countToGift[number - 2])) / (countToGift - g.managerParty.dataParty.countToGift[number -2])) * .75;
+            width = ((100 * (g.managerParty.userParty.countResource - g.managerParty.countToGift[number - 2])) / (countToGift - g.managerParty.countToGift[number -2])) * .75;
 
         } else width = (100 * g.managerParty.userParty.countResource / countToGift) * .75;
         if (g.managerParty.userParty.countResource > countToGift) {
             _quad = new Quad(75, 30, 0xff3da5);
-            _quad.y = 162;
+            _quad.y = 165;
             source.addChild(_quad);
         }
-        else if (number != 1 && g.managerParty.userParty.countResource > g.managerParty.dataParty.countToGift[number - 2]) {
+        else if (number != 1 && g.managerParty.userParty.countResource > g.managerParty.countToGift[number - 2]) {
 //            width = 1;
             if (width > 0) {
                 _quad = new Quad(width, 30, 0xff3da5);
                 _quad.x = 20;
-                _quad.y = 162;
+                _quad.y = 165;
                 source.addChild(_quad);
             }
             source.addChild(_txtCountUser);
@@ -150,7 +164,7 @@ public class WOPartyWindowItem {
             if (width > 0) {
                 _quad = new Quad(width, 30, 0xff3da5);
                 _quad.x = 20;
-                _quad.y = 162;
+                _quad.y = 165;
                 source.addChild(_quad);
             }
             source.addChild(_txtCountUser);
@@ -163,15 +177,104 @@ public class WOPartyWindowItem {
         }
         if (_quad) {
             if (number == 1) {
-                _quad.x = 27;
+                _quad.x = 44;
             } else if (number == 2) {
-                _quad.x = 25;
+                _quad.x = 37;
             } else if (number == 3) {
-                _quad.x = 23;
+                _quad.x = 31;
             } else if (number == 4) {
-                _quad.x = 20;
+                _quad.x = 23;
             }else if (number == 5) {
-                _quad.x = 18;
+                _quad.x = 16;
+            }
+        }
+    }
+
+    public function reload():void {
+        source.removeChild(_imCheck);
+        source.removeChild(_btn);
+        source.removeChild(_txtCountResource);
+        source.removeChild(_txtCountToGift);
+        source.removeChild(_txtCountUser);
+        if (!Boolean(g.managerParty.userParty.tookGift[_data.number - 1]) && g.managerParty.userParty.countResource >= _data.countToGift)  {
+            _btn.setEnabled = true;
+        } else if (Boolean(g.managerParty.userParty.tookGift[_data.number - 1])) {
+            _btn.setEnabled = false;
+            _btn.visible = false;
+            _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+            _imCheck.x = 45;
+            _imCheck.y = 106;
+            source.addChild(_imCheck);
+        } else _btn.setEnabled = false;
+        source.addChild(_btn);
+        source.addChild(_txtCountResource);
+        _txtCountToGift = new CTextField(119,100,String(_data.countToGift));
+        _txtCountToGift.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtCountToGift.y = 93;
+        source.addChild(_txtCountToGift);
+        _txtCountUser = new CTextField(119,100,String(g.managerParty.userParty.countResource));
+        _txtCountUser.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PURPLE_COLOR);
+        _txtCountUser.y = 130;
+        if (_txtCountUser) {
+            if (_data.number == 1) {
+                _txtCountUser.x = 18;
+            } else if (_data.number == 2) {
+                _txtCountUser.x = 11;
+            } else if (_data.number == 3) {
+                _txtCountUser.x = 5;
+            } else if (_data.number == 4) {
+                _txtCountUser.x = -3;
+            }else if (_data.number == 5) {
+                _txtCountUser.x = -11;
+            }
+        }
+        var _quad:Quad;
+        var width:int;
+        if (_data.number > 1) {
+            width = ((100 * (g.managerParty.userParty.countResource - g.managerParty.countToGift[_data.number - 2])) / (_data.countToGift - g.managerParty.countToGift[_data.number -2])) * .75;
+
+        } else width = (100 * g.managerParty.userParty.countResource / _data.countToGift) * .75;
+        if (g.managerParty.userParty.countResource > _data.countToGift) {
+            _quad = new Quad(75, 30, 0xff3da5);
+            _quad.y = 165;
+            source.addChild(_quad);
+        }
+        else if (_data.number != 1 && g.managerParty.userParty.countResource > g.managerParty.countToGift[_data.number - 2]) {
+//            width = 1;
+            if (width > 0) {
+                _quad = new Quad(width, 30, 0xff3da5);
+                _quad.x = 20;
+                _quad.y = 165;
+                source.addChild(_quad);
+            }
+            source.addChild(_txtCountUser);
+
+        } else if (_data.number == 1 && g.managerParty.userParty.countResource > 0) {
+            if (width > 0) {
+                _quad = new Quad(width, 30, 0xff3da5);
+                _quad.x = 20;
+                _quad.y = 165;
+                source.addChild(_quad);
+            }
+            source.addChild(_txtCountUser);
+        }
+        if (_data.number == 1 && g.managerParty.userParty.countResource == 0) {
+            source.addChild(_txtCountUser);
+        }
+        if (_data.number == 5 && g.managerParty.userParty.countResource > _data.countToGift) {
+            source.addChild(_txtCountUser);
+        }
+        if (_quad) {
+            if (_data.number == 1) {
+                _quad.x = 44;
+            } else if (_data.number == 2) {
+                _quad.x = 37;
+            } else if (_data.number == 3) {
+                _quad.x = 31;
+            } else if (_data.number == 4) {
+                _quad.x = 23;
+            }else if (_data.number == 5) {
+                _quad.x = 16;
             }
         }
     }

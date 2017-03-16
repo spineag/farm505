@@ -2,6 +2,8 @@ package build.train {
 import analytic.AnalyticManager;
 import build.WorldObject;
 import com.junkbyte.console.Cc;
+
+import data.BuildType;
 import data.DataMoney;
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
@@ -548,12 +550,15 @@ public class Train extends WorldObject{
             onOut();
             return;
         }
-        new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp * g.managerParty.coefficient);
+        else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp);
         var prise:Object = {};
         var priseCoupone:Object = {};
         prise.id = DataMoney.SOFT_CURRENCY;
         prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
         prise.count = _dataPack.count_money;
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) prise.count = _dataPack.count_money * g.managerParty.coefficient;
+        else prise.count = _dataPack.count_money;
         new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
         priseCoupone.id = int(Math.random() * 4) + 3;
         priseCoupone.type = DropResourceVariaty.DROP_TYPE_MONEY;

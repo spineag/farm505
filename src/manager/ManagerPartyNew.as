@@ -16,6 +16,8 @@ import starling.textures.TextureAtlas;
 
 import temp.DropResourceVariaty;
 
+import utils.Utils;
+
 import windows.WindowsManager;
 
 public class ManagerPartyNew {
@@ -23,8 +25,10 @@ public class ManagerPartyNew {
     private var count:int = 0;
     public var dataParty:Object;
     public var userParty:Object;
+    public var eventOn:Boolean;
 
     public function ManagerPartyNew() {
+        eventOn = false;
     }
 
     private function dropPartyResourceWhenEnd():void {
@@ -139,5 +143,18 @@ public class ManagerPartyNew {
         delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')];
     }
 
+    public function get  timeToStart():int {return dataParty.timeToStart;}
+    public function get  timeToEnd():int {return dataParty.timeToEnd;}
+    public function get  levelToStart():int {return dataParty.levelToStart;}
+    public function get  idResource():int {return dataParty.idResource;}
+    public function get  typeBuilding():int {return dataParty.typeBuilding;}
+    public function get  coefficient():int {return dataParty.coefficient;}
+    public function get  typeParty():int {return dataParty.typeParty;}
+    public function get  name():String {return dataParty.name;}
+    public function get  description():String {return dataParty.description;}
+    public function get  idGift():Array {return dataParty.idGift;}
+    public function get  countGift():Array {return dataParty.countGift;}
+    public function get  countToGift():Array {return dataParty.countToGift;}
+    public function get  typeGift():Array {return dataParty.typeGift;}
 }
 }

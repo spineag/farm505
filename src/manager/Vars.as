@@ -231,7 +231,7 @@ public class Vars {
     }
 
     public function initInterface():void {
-//        try {
+        try {
             cont.hideAll(true);
             startPreloader.setProgress(83);
 //            directServer.getUserInfo(null);
@@ -243,7 +243,7 @@ public class Vars {
             dataOrderCats = new DataCat();
             userInventory = new UserInventory();
 //            userTimer = new UserTimer();
-            gameDispatcher = new FarmDispatcher(mainStage);
+//            gameDispatcher = new FarmDispatcher(mainStage);
 
 //            townArea = new TownArea();
 //            farmGrid = new FarmGrid();
@@ -282,16 +282,16 @@ public class Vars {
 //            soundManager = new SoundManager();
             onUserInfo();
 
-//        } catch (e:Error) {
-//            errorManager.onGetError(ErrorConst.ON_INIT2, true, true);
-//            Cc.stackch('error', 'initVariables::', 10);
-//        }
+        } catch (e:Error) {
+            errorManager.onGetError(ErrorConst.ON_INIT2, true, true);
+            Cc.stackch('error', 'initVariables::', 10);
+        }
     }
 
     public function startUserLoad():void {
         socialNetwork = new SocialNetwork(flashVars);
         if (isDebug) {
-            socialNetworkID = SocialNetworkSwitch.SN_OK_ID;
+            socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
         } else {
             socialNetworkID = int(flashVars['channel']);
         }
@@ -303,7 +303,8 @@ public class Vars {
         userTimer = new UserTimer();
         managerDailyBonus = new ManagerDailyBonus();
         managerChest = new ManagerChest();
-
+        managerMouseHero = new ManagerMouse();
+        gameDispatcher = new FarmDispatcher(mainStage);
         SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
         socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
         socialNetwork.init();
@@ -474,10 +475,8 @@ public class Vars {
             optionPanel = new OptionPanel();
             friendPanel = new FriendPanel();
             toolsPanel = new ToolsPanel();
-            if ((user as User).level >= 6) {
-                managerParty = new ManagerPartyNew();
-                directServer.getDataParty(null);
-            }
+            managerParty = new ManagerPartyNew();
+            directServer.getDataParty(null);
             if ((user as User).level >= 5 && userTimer.saleTimerToEnd <= 0 && softHardCurrency.actionON) {
                 stock = new StockPanel();
             }
@@ -490,8 +489,8 @@ public class Vars {
     }
 
     public function party():void {
-        if (userTimer.partyTimer > 0) partyPanel = new PartyPanel();
-        if (!windowsManager.currentWindow && userTimer.partyTimer > 0) windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+        if (userTimer.partyToEndTimer > 0) partyPanel = new PartyPanel();
+        if (!windowsManager.currentWindow && userTimer.partyToEndTimer > 0) windowsManager.openWindow(WindowsManager.WO_PARTY,null);
     }
 
     private function afterLoadAll():void {

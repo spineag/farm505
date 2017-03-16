@@ -80,7 +80,7 @@ public class WOBuyPlant extends WindowMain {
         for (var i:int = 0; i < arR.length; i++) {
             if (arR[i].buildType == BuildType.PLANT && arR[i].blockByLevel <= g.user.level + 1) {
                 if (arR[i].id != 168) _arrAllPlants.push(arR[i]);
-                else if (g.userTimer.partyTimer > 0) _arrAllPlants.push(arR[i]);
+                else if (g.userTimer.partyToEndTimer > 0) _arrAllPlants.push(arR[i]);
             }
         }
         _arrAllPlants.sortOn('blockByLevel', Array.NUMERIC);

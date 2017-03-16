@@ -42,15 +42,11 @@ public class DropPartyResource {
 
     private var g:Vars = Vars.getInstance();
 
-    public function DropPartyResource(_x:int, _y:int, prise:Object, delay:Number = .3, fromSize:int = 50) {
+    public function DropPartyResource(_x:int, _y:int, delay:Number = .3, fromSize:int = 50) {
         var endPoint:Point;
         _source = new Sprite();
         _image = new Image(g.allData.atlas['partyAtlas'].getTexture('tulip_icon'));
-        if (!_image) {
-            Cc.error('DropPartyResource:: no image for type: ' + prise.id + ' ' + prise.type);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'DropPartyResource');
-            return;
-        }
+
         MCScaler.scale(_image, fromSize, fromSize);
         _source.addChild(_image);
         _source.pivotX = _source.width / 2;
@@ -59,8 +55,8 @@ public class DropPartyResource {
         _source.y = _y;
         g.cont.animationsResourceCont.addChild(_source);
         endPoint = g.partyPanel.getPoint();
-        if (g.managerParty.userParty.countResource < g.managerParty.dataParty.countToGift[4]) {
-            if (g.managerParty.userParty.countResource + 1 <= g.managerParty.dataParty.countToGift[4]) {
+        if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
+            if (g.managerParty.userParty.countResource + 1 <= g.managerParty.countToGift[4]) {
                 g.managerParty.userParty.countResource = g.managerParty.userParty.countResource + 1;
                 var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
                         + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
