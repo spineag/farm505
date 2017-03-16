@@ -63,7 +63,7 @@ public class WOBuyCurrency extends WindowMain {
         _contItems.y = -167;
         _source.addChild(_contItems);
 
-        _birka = new Birka('БАНК', _source, 700, 560);
+        _birka = new Birka(String(g.managerLanguage.allTexts[453]), _source, 700, 560);
     }
 
     private function createTabs():void {
@@ -72,7 +72,7 @@ public class WOBuyCurrency extends WindowMain {
         _cartonHardTab.touchable = true;
         _tabHard.addChild(_cartonHardTab);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins"));
-        _txtRubins = new CTextField(160, 67, 'Рубины');
+        _txtRubins = new CTextField(160, 67, String(g.managerLanguage.allTexts[326]));
         _txtRubins.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtRubins.x = 85;
         _tabHard.addChild(_txtRubins);
@@ -91,7 +91,7 @@ public class WOBuyCurrency extends WindowMain {
         _cartonSoftTab.touchable = true;
         _tabSoft.addChild(_cartonSoftTab);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins"));
-        _txtCoins = new CTextField(160, 67, 'Монеты');
+        _txtCoins = new CTextField(160, 67, String(g.managerLanguage.allTexts[325]));
         _txtCoins.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCoins.x = 85;
         _txtCoins.touchable = false;

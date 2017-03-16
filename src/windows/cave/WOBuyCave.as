@@ -100,7 +100,7 @@ public class WOBuyCave extends WindowMain {
         var st:String;
         switch (params[2]) {
             case 'cave':
-                _priceTxt.text = 'Отремонтировать ' + String(_dataObject.cost);
+                _priceTxt.text = String(g.managerLanguage.allTexts[443]) + String(_dataObject.cost);
                 st = g.dataPath.getGraphicsPath();
                 _nameImage = 'imageWindows/mine_window.png';
                 g.load.loadImage(st + 'imageWindows/mine_window.png',onLoad);
@@ -112,7 +112,7 @@ public class WOBuyCave extends WindowMain {
                 g.load.loadImage(st + 'imageWindows/hobbit_house_window.png',onLoad);
                 break;
             case 'train':
-                _priceTxt.text = 'Отремонтировать ' + String(_dataObject.cost);
+                _priceTxt.text = String(g.managerLanguage.allTexts[443]) + String(_dataObject.cost);
                 st = g.dataPath.getGraphicsPath();
                 _nameImage = 'imageWindows/aerial_tram_window.png';
                 g.load.loadImage(st + 'imageWindows/aerial_tram_window.png',onLoad);

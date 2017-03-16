@@ -63,7 +63,7 @@ public class AfterTutorialWindow {
         _btn.clickCallback = onClick;
         g.cont.popupCont.addChild(_source);
         _source.addChild(_btn);
-        _btnTex= new CTextField(110,100,"Далее");
+        _btnTex= new CTextField(110,100,String(g.managerLanguage.allTexts[532]));
         _btnTex.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btnTex.y = -28;
         _btnTex.x = 30;

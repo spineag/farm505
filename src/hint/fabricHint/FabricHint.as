@@ -104,7 +104,7 @@ public class FabricHint {
         _newX = sX;
         _newY = sY;
         if (_data && g.allData.getResourceById(_data.idResource)) {
-            _txtName.text = String(g.allData.getResourceById(_data.idResource).name);
+            _txtName.text = String(g.allData.getResourceById(int(_data.idResource)).name);
             _txtName.visible = false;
             _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_data.idResource).buildTime);
             _txtItem.text = String(g.userInventory.getCountResourceById(_data.idResource));

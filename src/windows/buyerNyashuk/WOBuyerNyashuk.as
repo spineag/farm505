@@ -55,7 +55,7 @@ public class WOBuyerNyashuk extends WindowMain{
         _callbackClickBG = onClickExit;
         var btn:CButton = new CButton();
         btn.addButtonTexture(172, 45, CButton.GREEN, true);
-        var txt:CTextField =  new CTextField(172,45,"Принять");
+        var txt:CTextField =  new CTextField(172,45,String(g.managerLanguage.allTexts[448]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         btn.addChild(txt);
         btn.x = 120;
@@ -67,7 +67,7 @@ public class WOBuyerNyashuk extends WindowMain{
 
         btn = new CButton();
         btn.addButtonTexture(172, 45, CButton.YELLOW, true);
-        txt =  new CTextField(172,45,"Отказать");
+        txt =  new CTextField(172,45,String(g.managerLanguage.allTexts[449]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
         btn.addChild(txt);
         btn.clickCallback = onClickDelete;
@@ -76,7 +76,7 @@ public class WOBuyerNyashuk extends WindowMain{
         _source.addChild(btn);
         _arrCTex.push(btn);
         _arrCTex.push(txt);
-        txt =  new CTextField(_woWidth,_woHeight,"Покупатель");
+        txt =  new CTextField(_woWidth,_woHeight,String(g.managerLanguage.allTexts[450]));
         txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
         txt.x = -_woWidth/2;
         txt.y = -_woHeight+50;
@@ -117,13 +117,13 @@ public class WOBuyerNyashuk extends WindowMain{
             return;
         }
         var dataResource:Object = {};
-        var txt:CTextField =  new CTextField(172,45,"Здравствуйте!");
+        var txt:CTextField =  new CTextField(172,45,String(g.managerLanguage.allTexts[451]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = -165;
         txt.y = -120;
         _source.addChild(txt);
         _arrCTex.push(txt);
-        txt =  new CTextField(250,45,"Можете продать мне это?");
+        txt =  new CTextField(250,45,String(g.managerLanguage.allTexts[452]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = -200;
         txt.y = -95;

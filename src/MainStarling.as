@@ -60,7 +60,7 @@ public class MainStarling extends Sprite {
 
     private function onAllLoaded():void {
         dispatchEventWith(MainStarling.LOADED);
-        g.initInterface();
+        g.startUserLoad();
     }
 
 }

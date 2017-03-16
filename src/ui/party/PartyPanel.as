@@ -66,7 +66,7 @@ public class PartyPanel {
     }
 
     private function onHover():void {
-        g.hint.showIt('8 Марта','none', _source.x);
+        g.hint.showIt(String(g.managerLanguage.allTexts[497]),'none', _source.x);
     }
 
     private function onOut():void {

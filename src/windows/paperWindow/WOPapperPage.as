@@ -83,7 +83,7 @@ public class WOPapperPage {
         q.x = 70;
         q.y = 38;
         _bg.addChild(q);
-        _txtTitle = new CTextField(300, 100, "НьюсМяу");
+        _txtTitle = new CTextField(300, 100, String(g.managerLanguage.allTexts[361]));
         _txtTitle.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
         _txtTitle.alignH = Align.LEFT;
         _txtTitle.x = 66;

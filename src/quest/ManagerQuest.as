@@ -198,7 +198,7 @@ public class ManagerQuest {
                     }
                     g.cont.moveCenterToPos((arr[0] as Ridge).posX, (arr[0] as Ridge).posY);
                 } else {
-                    new FlyMessage(p,'Нет подходящих засеянных грядок');
+                    new FlyMessage(p,String(g.managerLanguage.allTexts[596]));
                 }
                 break;
             case RAW_PLANT:
@@ -216,7 +216,7 @@ public class ManagerQuest {
                     }
                     g.cont.moveCenterToPos((arr[0] as Ridge).posX, (arr[0] as Ridge).posY);
                 } else {
-                    new FlyMessage(p,'Нет свободных грядок');
+                    new FlyMessage(p,String(g.managerLanguage.allTexts[597]));
                 }
                 break;
             case BUILD_BUILDING:
@@ -231,7 +231,7 @@ public class ManagerQuest {
                     (arrT[0] as WorldObject).showArrow(3);
                     g.cont.moveCenterToPos((arrT[0] as WorldObject).posX - 1, (arrT[0] as WorldObject).posY - 1);
                 } else {
-                    new FlyMessage(p,'Нужное здание еще не построено');
+                    new FlyMessage(p,String(g.managerLanguage.allTexts[598]));
                 }
                 break;
             case INVITE_FRIENDS:
@@ -258,7 +258,7 @@ public class ManagerQuest {
                         }
                         g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
                     } else {
-                        new FlyMessage(p,'Нужное здание еще не построено');
+                        new FlyMessage(p,String(g.managerLanguage.allTexts[598]));
                     }
                 } else {
                     Cc.error('ManagerQuest checkOnClickAtWoQuestItem CRAFT_PRODUCT:: unknowm resource id: ' + t.resourceId);
@@ -292,7 +292,7 @@ public class ManagerQuest {
                         }
                         g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
                     } else {
-                        new FlyMessage(p,'Нужное здание еще не построено');
+                        new FlyMessage(p,String(g.managerLanguage.allTexts[598]));
                     }
                 } else {
                     Cc.error('ManagerQuest checkOnClickAtWoQuestItem FEED_ANIMAL:: no farm for aminalId: ' + t.resourceId);
@@ -315,7 +315,7 @@ public class ManagerQuest {
                     }
                     g.cont.moveCenterToPos((arr[0] as WorldObject).posX, (arr[0] as WorldObject).posY);
                 } else {
-                    new FlyMessage(p,'Для открытия новых территорий увеличьте свой уровень');
+                    new FlyMessage(p,String(g.managerLanguage.allTexts[599]));
                 }
                 break;
             case BUY_PAPER:
@@ -347,12 +347,12 @@ public class ManagerQuest {
                     }
                     g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
                 } else {
-                    new FlyMessage(p,'Нет доступных объектов');
+                    new FlyMessage(p,String(g.managerLanguage.allTexts[600]));
                 }
                 break;
             case KILL_MOUSE:
                 g.windowsManager.closeAllWindows();
-                new FlyMessage(p,'Перейдите на поляну друга');
+                new FlyMessage(p,String(g.managerLanguage.allTexts[601]));
                 break;
             case NIASH_BUYER:
                 g.windowsManager.closeAllWindows();

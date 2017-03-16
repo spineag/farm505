@@ -106,9 +106,9 @@ public class WOBuyCurrencyItem {
         _btn.addButtonTexture(120, 40, CButton.GREEN, true);
         var valuta:String;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            valuta = ' голосов';
+            valuta = ' '+ String(g.managerLanguage.allTexts[330]);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            valuta = ' OK';
+            valuta = ' ' + String(g.managerLanguage.allTexts[328]);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
             valuta = ' $';
         }
@@ -124,7 +124,7 @@ public class WOBuyCurrencyItem {
         if (sale > 0) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('sale_icon'));
             _action.addChild(im);
-            txt = new CTextField(60, 30, 'Акция');
+            txt = new CTextField(60, 30, String(g.managerLanguage.allTexts[454]));
             txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PINK_COLOR);
             txt.y = 12;
             _action.addChild(txt);
@@ -148,7 +148,7 @@ public class WOBuyCurrencyItem {
                 txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
                 txt.y = 5;
                 _action.addChild(txt);
-                txt = new CTextField(60, 30, 'Выгода');
+                txt = new CTextField(60, 30, String(g.managerLanguage.allTexts[354]));
                 txt.y = 20;
                 txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.ORANGE_COLOR);
                 _arrCTex.push(txt);

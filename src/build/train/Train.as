@@ -400,11 +400,11 @@ public class Train extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel[0]) + ' уровне');
+                new FlyMessage(p,String(g.managerLanguage.allTexts[342]) + " " + String(_dataBuild.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[343]));
                 return;
             }
             onOut();
-            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, onBuy, _dataBuild, "Откройте поезд", 'train');
+            if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, onBuy, _dataBuild, String(g.managerLanguage.allTexts[621]), 'train');
             g.hint.hideIt();
             if (g.managerCutScenes.isCutScene && g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TRAIN_AVAILABLE)) g.managerCutScenes.checkCutSceneCallback();
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
@@ -674,11 +674,11 @@ public class Train extends WorldObject{
         var im:Image;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
         _sprHelp.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('a_tr_kor_ico'));
-        MCScaler.scale(im,im.height-5,im.width-5);
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+//        MCScaler.scale(im,im.height-5,im.width-5);
         _sprHelp.addChild(im);
-        im.x = 6;
-        im.y = 5;
+        im.x = 21;
+        im.y = 20;
         _sprHelp.endClickCallback = onClick;
         }
     }

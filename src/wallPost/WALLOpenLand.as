@@ -37,10 +37,10 @@ public class WALLOpenLand {
         bitmap = g.pBitmaps[st + 'wall/wall_new_land.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Новая территория открыта! Теперь моя Долина Рукоделия в игре Умелые Лапки стала еще больше!'),bitmap,'interfaceAtlas');
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[473]),bitmap,'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             st = 'https://505.ninja/content/wall/ok/wall_OK_6.jpg';
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Новая территория открыта! Теперь моя Долина Рукоделия в игре Умелые Лапки стала еще больше!'),
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[473]),
                     null, st);
         }
 //        (g.pBitmaps[st + 'wall/wall_new_land.jpg'] as PBitmap).deleteIt();

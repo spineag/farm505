@@ -48,18 +48,18 @@ public class WOLastResource extends WindowMain {
         _source.addChild(_woBG);
         createExitButton(hideIt);
 
-        _txtAhtung = new CTextField(150,50,"ВНИМАНИЕ!");
+        _txtAhtung = new CTextField(150,50,String(g.managerLanguage.allTexts[425]));
         _txtAhtung.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtAhtung.x = -75;
         _txtAhtung.y = -130;
         _source.addChild(_txtAhtung);
-        _txt = new CTextField(420,60,"Вы подтверждаете использование этого ресурса? После этого у вас не останется семян для посадки!");
+        _txt = new CTextField(420,60,String(g.managerLanguage.allTexts[426]));
         _txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -210;
         _txt.y = -90;
         _source.addChild(_txt);
         _btnYes = new CButton();
-        _txtYes = new CTextField(50, 50, "ДА");
+        _txtYes = new CTextField(50, 50, String(g.managerLanguage.allTexts[308]));
         _txtYes.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtYes.x = 15;
         _txtYes.y = -5;
@@ -68,7 +68,7 @@ public class WOLastResource extends WindowMain {
         _source.addChild(_btnYes);
 
         _btnNo = new CButton();
-        _txtNo = new CTextField(50, 50, "НЕТ");
+        _txtNo = new CTextField(50, 50, String(g.managerLanguage.allTexts[309]));
         _txtNo.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
         _txtNo.x = 15;
         _txtNo.y = -5;

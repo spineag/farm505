@@ -53,7 +53,7 @@ public class PostDoneOrder extends WindowMain {
         _btn = new CButton();
         _btn.addButtonTexture(200, 45, CButton.BLUE, true);
         _btn.clickCallback = onClick;
-        txt = new CTextField(120,30,'Рассказать');
+        txt = new CTextField(120,30,String(g.managerLanguage.allTexts[291]));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = 5;
         txt.y = 7;

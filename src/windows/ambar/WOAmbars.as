@@ -69,7 +69,7 @@ public class WOAmbars extends WindowMain {
         createWOElements();
         createWOUpdateElements();
 
-        _birka = new Birka('Амбар', _source, _woWidth, _woHeight);
+        _birka = new Birka(String(g.managerLanguage.allTexts[132]), _source, _woWidth, _woHeight);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -93,7 +93,7 @@ public class WOAmbars extends WindowMain {
         im.x = 12;
         im.y = 1;
         _tabAmbar.addChild(im);
-        _txtAmbar = new CTextField(90, 40, "Амбар");
+        _txtAmbar = new CTextField(90, 40, String(g.managerLanguage.allTexts[132]));
         _txtAmbar.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtAmbar.x = 31;
         _txtAmbar.y = 2;
@@ -126,7 +126,7 @@ public class WOAmbars extends WindowMain {
         im.x = 12;
         im.y = 2;
         _tabSklad.addChild(im);
-        _txtSklad = new CTextField(90, 40, "Склад");
+        _txtSklad = new CTextField(90, 40, String(g.managerLanguage.allTexts[133]));
         _txtSklad.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtSklad.x = 37;
         _txtSklad.y = 2;
@@ -172,7 +172,7 @@ public class WOAmbars extends WindowMain {
         _progress.source.y = -_woHeight/2 + 458;
         _source.addChild(_progress.source);
 
-        _txtCount = new CTextField(290, 67, "Вместимость: 0/0");
+        _txtCount = new CTextField(290, 67, String(g.managerLanguage.allTexts[462]) + " 0/0");
         _txtCount.setFormat(CTextField.BOLD24, 22, ManagerFilters.ORANGE_COLOR, Color.WHITE);
         _txtCount.alignH = Align.LEFT;
         _txtCount.x = -_woWidth/2 + 47;
@@ -183,7 +183,7 @@ public class WOAmbars extends WindowMain {
         _btnShowUpdate.addButtonTexture(120, 40, CButton.GREEN, true);
         _btnShowUpdate.x = -_woWidth/2 + 430;
         _btnShowUpdate.y = -_woHeight/2 + 514;
-        _txtBtnShowUpdate = new CTextField(90, 50, "Увеличить склад");
+        _txtBtnShowUpdate = new CTextField(90, 50, String(g.managerLanguage.allTexts[463]));
         _txtBtnShowUpdate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtBtnShowUpdate.leading = -1;
         _txtBtnShowUpdate.x = 18;
@@ -196,7 +196,7 @@ public class WOAmbars extends WindowMain {
     private function createWOUpdateElements():void {
         _btnBackFromUpdate = new CButton();
         _btnBackFromUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
-        _txtBtnBack = new CTextField(90, 50, "Назад");
+        _txtBtnBack = new CTextField(90, 50, String(g.managerLanguage.allTexts[464]));
         _txtBtnBack.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtBtnBack.x = 18;
         _txtBtnBack.y = -5;
@@ -222,7 +222,7 @@ public class WOAmbars extends WindowMain {
         _updateSprite.addChild(_item1.source);
         _updateSprite.addChild(_item2.source);
         _updateSprite.addChild(_item3.source);
-        _txtNeed = new CTextField(284,45,'Необходимые материалы');
+        _txtNeed = new CTextField(284,45,String(g.managerLanguage.allTexts[465]));
         _txtNeed.setFormat(CTextField.MEDIUM24, 22, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtNeed.x = 59;
         _txtNeed.y = -35;
@@ -230,7 +230,7 @@ public class WOAmbars extends WindowMain {
 
         _btnMakeUpdate = new CButton();
         _btnMakeUpdate.addButtonTexture(120, 40, CButton.BLUE, true);
-        _txtBtnUpdate = new CTextField(90, 50, "Увеличить");
+        _txtBtnUpdate = new CTextField(90, 50, String(g.managerLanguage.allTexts[466]));
         _txtBtnUpdate.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtBtnUpdate.x = 17;
         _txtBtnUpdate.y = -5;
@@ -264,8 +264,8 @@ public class WOAmbars extends WindowMain {
                 _tabSklad.y = _defaultY + 10;
                 _tabSklad.isTouchable = true;
                 _tabSklad.filter = ManagerFilters.SHADOW;
-                _birka.updateText('Амбар');
-                _txtBtnShowUpdate.text = 'Увеличить амбар';
+                _birka.updateText(String(g.managerLanguage.allTexts[132]));
+                _txtBtnShowUpdate.text = String(g.managerLanguage.allTexts[459]);
                 break;
             case SKLAD:
                 _mainSprite.addChild(_tabSklad);
@@ -277,8 +277,8 @@ public class WOAmbars extends WindowMain {
                 _tabAmbar.y = _defaultY + 10;
                 _tabAmbar.isTouchable = true;
                 _tabAmbar.filter = ManagerFilters.SHADOW;
-                _birka.updateText('Склад');
-                _txtBtnShowUpdate.text = 'Увеличить склад';
+                _birka.updateText(String(g.managerLanguage.allTexts[133]));
+                _txtBtnShowUpdate.text = String(g.managerLanguage.allTexts[460]);
                 break;
         }
     }
@@ -322,12 +322,12 @@ public class WOAmbars extends WindowMain {
             case AMBAR:
                 a = g.userInventory.currentCountInAmbar;
                 _progress.setProgress(a/g.user.ambarMaxCount);
-                _txtCount.text = 'Вместимость: ' + String(a) + '/' + String(g.user.ambarMaxCount);
+                _txtCount.text = String(g.managerLanguage.allTexts[462]) + ' ' + String(a) + '/' + String(g.user.ambarMaxCount);
                 break;
             case SKLAD:
                 a = g.userInventory.currentCountInSklad;
                 _progress.setProgress(a/g.user.skladMaxCount);
-                _txtCount.text = 'Вместимость: ' + String(a) + '/' + String(g.user.skladMaxCount);
+                _txtCount.text = String(g.managerLanguage.allTexts[462]) + ' ' + String(a) + '/' + String(g.user.skladMaxCount);
                 break;
         }
     }
@@ -387,7 +387,7 @@ public class WOAmbars extends WindowMain {
             g.user.ambarMaxCount += b.deltaCountResources;
             g.userValidates.updateInfo('ambarLevel', g.user.ambarLevel);
             g.userValidates.updateInfo('ambarMax', g.user.ambarMaxCount);
-            st = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
+            st = String(g.managerLanguage.allTexts[458])+ ' ' + g.userInventory.currentCountInAmbar + '/' + g.user.ambarMaxCount;
             _progress.setProgress(g.userInventory.currentCountInAmbar / g.user.ambarMaxCount);
             g.directServer.updateUserAmbar(1, g.user.ambarLevel, g.user.ambarMaxCount, null);
         } else {
@@ -402,7 +402,7 @@ public class WOAmbars extends WindowMain {
             g.user.skladMaxCount += b.deltaCountResources;
             g.userValidates.updateInfo('skladLevel', g.user.skladLevel);
             g.userValidates.updateInfo('skladMax', g.user.skladMaxCount);
-            st = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
+            st = String(g.managerLanguage.allTexts[458])+ ' ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
             _progress.setProgress(g.userInventory.currentCountInSklad / g.user.skladMaxCount);
             g.directServer.updateUserAmbar(2, g.user.skladLevel, g.user.skladMaxCount, null);
         }
@@ -418,7 +418,7 @@ public class WOAmbars extends WindowMain {
 
     public function smallUpdate():void {  // after buy resources for update
         if (_type == SKLAD) {
-            _txtCount.text = 'ВМЕСТИМОСТЬ: ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
+            _txtCount.text = String(g.managerLanguage.allTexts[458]) + ' ' + g.userInventory.currentCountInSklad + '/' + g.user.skladMaxCount;
             _progress.setProgress(g.userInventory.currentCountInSklad / g.user.skladMaxCount);
             unfillItems();
             fillItems();

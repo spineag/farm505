@@ -3,6 +3,9 @@
  */
 package quest {
 import com.junkbyte.console.Cc;
+
+import manager.Vars;
+
 import starling.display.Image;
 
 public class QuestStructure {
@@ -14,6 +17,7 @@ public class QuestStructure {
     private var _isDone:Boolean;
     private var _questId:int;
     public var isNew:Boolean;
+    private var g:Vars = Vars.getInstance();
 
     public function QuestStructure() {
         _tasks = [];
@@ -92,10 +96,10 @@ public class QuestStructure {
     public function get iconPath():String { return _questData.icon_quest; }
     public function get id():int { return _questId; }
     public function get idDB():String { return _questUserDbId; }
-    public function get description():String { return _questData.description; }
+    public function get description():String { return g.managerLanguage.allTexts[int(_questData.description)]; }
     public function get awards():Array { return _awards; }
     public function get tasks():Array { return _tasks; }
-    public function get questName():String { return _questData.name; }
+    public function get questName():String { return g.managerLanguage.allTexts[int(_questData.text_id_name)]; }
     public function get isDone():Boolean { return _isDone; }  
     public function set isDone(v:Boolean):void { _isDone = v; }
 

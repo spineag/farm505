@@ -19,7 +19,7 @@ public class PreloadInfoTab {
         q.x = g.managerResize.stageWidth/2 - 250;
         q.y = g.managerResize.stageHeight/2 - 100;
         q.alpha = .9;
-        var txt:TextField = new TextField(500, 200, st+' Перезагрузите игру');
+        var txt:TextField = new TextField(500, 200, st+' ' + String(g.managerLanguage.allTexts[284]));
         var format:TextFormat = new TextFormat();
         format.size = 36;
         format.color = Color.WHITE;

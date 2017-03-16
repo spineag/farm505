@@ -284,6 +284,7 @@
             <filename>part_products/wool_icon.png</filename>
             <filename>part_products/grape_juice_icon.png</filename>
             <filename>part_products/bracelet_icon.png</filename>
+            <filename>part_products/orange_jam_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

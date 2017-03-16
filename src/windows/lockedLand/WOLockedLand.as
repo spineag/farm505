@@ -47,7 +47,7 @@ public class WOLockedLand extends WindowMain {
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-        _birka = new Birka('Новая территория', _source, _woWidth, _woHeight);
+        _birka = new Birka(String(g.managerLanguage.allTexts[417]), _source, _woWidth, _woHeight);
 
         _bgC = new CartonBackground(460, 320);
         _bgC.filter =  ManagerFilters.SHADOW;
@@ -57,7 +57,7 @@ public class WOLockedLand extends WindowMain {
 
         _btnOpen = new CButton();
         _btnOpen.addButtonTexture(158, 46, CButton.BLUE, true);
-        _txtBtn = new CTextField(158,46,'Открыть участок');
+        _txtBtn = new CTextField(158,46,String(g.managerLanguage.allTexts[418]));
         _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btnOpen.addChild(_txtBtn);
         _btnOpen.x = 0;
@@ -69,7 +69,7 @@ public class WOLockedLand extends WindowMain {
         _pl.y = -_woHeight/2 + 109;
         _pl.addShadow();
         _source.addChild(_pl);
-        _txtInfo = new CTextField(310,97,'Выполните следующие задания, чтобы открыть этот участок');
+        _txtInfo = new CTextField(310,97,String(g.managerLanguage.allTexts[419]));
         _txtInfo.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
         _pl.inSprite.addChild(_txtInfo);
         addAnimation();

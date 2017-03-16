@@ -73,7 +73,7 @@ public class CatPanel {
     }
 
     private function onHover():void {
-        g.hint.showIt('Готовы поработать: ' + g.managerCats.countFreeCats + '  Всего помощников: ' + g.managerCats.curCountCats,'xp',_source.x);
+        g.hint.showIt(String(g.managerLanguage.allTexts[482]) + g.managerCats.countFreeCats + String(g.managerLanguage.allTexts[483]) + g.managerCats.curCountCats,'xp',_source.x);
     }
 
     private function onOut():void {

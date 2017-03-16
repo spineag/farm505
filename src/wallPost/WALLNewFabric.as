@@ -86,9 +86,9 @@ public class WALLNewFabric {
 //        rbd.draw(sp);
 //        var rb:Bitmap = new Bitmap(rbd);
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String('Ура! Мы построили новую фабрику! Теперь в Долине Рукоделия еще больше прибыльного производства!'),bitMap,'interfaceAtlas');
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[470]),bitMap,'interfaceAtlas');
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String('Ура! Мы построили новую фабрику! Теперь в Долине Рукоделия еще больше прибыльного производства!'),
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[470]),
                     null, 'https://505.ninja/content/wall/ok/wall_OK_fabric.png');
         }
         

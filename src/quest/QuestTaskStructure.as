@@ -41,7 +41,7 @@ public class QuestTaskStructure {
     public function get taskId():int { return _taskId; }
     public function get questId():int { return _questId; }
     public function get isDone():Boolean { return _isDone; }
-    public function get description():String { return _taskData.description; }
+    public function get description():String { return g.managerLanguage.allTexts[int(_taskData.text_id)]}
     public function get adds():String { return _taskData.adds; }
     public function get dbID():String { return _taskUserDbId; }
     public function get resourceId():int { return _taskData.id_resource; }

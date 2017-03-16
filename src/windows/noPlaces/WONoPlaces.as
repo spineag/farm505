@@ -51,7 +51,7 @@ public class WONoPlaces extends WindowMain {
         _btn.y = 120;
         _source.addChild(_btn);
         _btn.clickCallback = onClick;
-        _txtName = new CTextField(300,30,"Недостаточно места!");
+        _txtName = new CTextField(300,30,String(g.managerLanguage.allTexts[376]));
         _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtName.x = -150;
         _txtName.y = -150;
@@ -78,7 +78,7 @@ public class WONoPlaces extends WindowMain {
         _txtAdd = new CTextField(100,100,"");
         _txtAdd.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _last = false;
-        _txtIcon = new CTextField(80,200,"добавить ячейку очереди");
+        _txtIcon = new CTextField(80,200,String(g.managerLanguage.allTexts[377]));
         _txtIcon.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
         _txtIcon.x = -37;
         _txtIcon.y = -102;
@@ -100,7 +100,7 @@ public class WONoPlaces extends WindowMain {
         _exitCallback = params[2];
         _last = params[3];
         if (_last) {
-            _txtText.text = 'Подождите пока освободится ячейка или ускорьте изготовление текущего продукта.';
+            _txtText.text = String(g.managerLanguage.allTexts[378]);
             _imageItem = new Image(g.allData.atlas[g.allData.getResourceById(params[1]).url].getTexture(g.allData.getResourceById(params[1]).imageShop));
             MCScaler.scale(_imageItem,80,80);
             _imageItem.x = -40;
@@ -109,8 +109,8 @@ public class WONoPlaces extends WindowMain {
             _source.addChild(_txtAdd);
             _last = true;
             _cost = params[0];
-            _txtCost.text = String('Ускорить за  ' + _price);
-            _txtAdd.text = 'Ускорить';
+            _txtCost.text = String(String(g.managerLanguage.allTexts[379]) + " " + String(g.managerLanguage.allTexts[329]) + '  ' + _price);
+            _txtAdd.text = String(g.managerLanguage.allTexts[379]);
             _txtAdd.x = -47;
             _txtAdd.y = -15;
             _txtText.x = -175;
@@ -118,12 +118,12 @@ public class WONoPlaces extends WindowMain {
             _txtIcon.visible = false;
 //            _txtButton.text = 'Ускорить за '
         } else {
-            _txtText.text = 'У вас нет свободных ячеек. Вы можете купить их за рубины и продолжить производство.';
+            _txtText.text = String(g.managerLanguage.allTexts[380]);
             _btn.visible = true;
-            _txtCost.text = String('Добавить ячейку за ' + _price);
+            _txtCost.text = String(String(g.managerLanguage.allTexts[381]) + " " + String(g.managerLanguage.allTexts[329]) + ' ' + _price);
             _txtAdd.x = -47;
             _txtAdd.y = -50;
-            _txtAdd.text = 'Добавить ячейку';
+            _txtAdd.text = String(g.managerLanguage.allTexts[381]);
             _txtText.x = -170;
             _txtText.y = -118;
 //            _txtButton.text = 'Добавить ячейку за '

@@ -32,7 +32,7 @@ public class WOFabrica extends WindowMain {
         _arrShiftBtns = [];
         _woHeight = 455;
         _woWidth = 580;
-        _birka = new Birka('Фабрика', _source, 455, 580);
+        _birka = new Birka(String(g.managerLanguage.allTexts[429]), _source, 455, 580);
         _birka.flipIt();
         _birka.source.rotation = Math.PI/2;
         _callbackClickBG = onClickExit;

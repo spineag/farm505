@@ -133,7 +133,7 @@ public class Order extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 p = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,"Будет доступно на 3 уровне");
+                new FlyMessage(p,String(g.managerLanguage.allTexts[342])+  " 3 " + String(g.managerLanguage.allTexts[343]));
             } else {
                 _stateBuild = STATE_ACTIVE;
                 _armature.addEventListener(EventObject.COMPLETE, onOpenOrder);
@@ -174,7 +174,7 @@ public class Order extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 p = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,"Будет доступно на " + String(_dataBuild.blockByLevel) + ' уровне');
+                new FlyMessage(p,String(g.managerLanguage.allTexts[342]) + " " + String(_dataBuild.blockByLevel) + ' ' + String(g.managerLanguage.allTexts[343]));
                 return;
             }
             if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.OPEN_ORDER) && g.user.level == 3) return;

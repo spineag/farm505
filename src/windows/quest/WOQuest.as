@@ -42,7 +42,7 @@ public class WOQuest extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(hideIt);
         _callbackClickBG = hideIt;
-        _birka = new Birka('Задание', _source, _woWidth, _woHeight);
+        _birka = new Birka(String(g.managerLanguage.allTexts[623]), _source, _woWidth, _woHeight);
 
         _bgC = new CartonBackground(480, 240);
         _bgC.filter =  ManagerFilters.SHADOW;

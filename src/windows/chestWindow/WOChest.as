@@ -65,7 +65,7 @@ public class WOChest  extends WindowMain{
             im.x = 120;
             im.y = 4;
             _btnOpen.addChild(im);
-            _txtBtn = new CTextField(116,30,'Открыть за ' + String(ManagerChest.COST_OPEN));
+            _txtBtn = new CTextField(116,30,String(g.managerLanguage.allTexts[442]) + String(ManagerChest.COST_OPEN));
             _txtBtn.setFormat(CTextField.BOLD18, 18 , Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _txtBtn.y = 5;
             _btnOpen.addChild(_txtBtn);

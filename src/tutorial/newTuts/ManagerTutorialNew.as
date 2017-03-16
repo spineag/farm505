@@ -361,7 +361,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     private function initScene_9():void {
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep9_2);
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep9_2);
         addBlackUnderInterface();
     }
 
@@ -591,7 +591,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         _currentAction = TutorialAction.NONE;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep11_1);
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep11_1);
 //        g.bottomPanel.animateShowingMainPanel();
 //        Utils.createDelay(1.1, subStep7_1);
         _tutorialCallback = null;
@@ -672,7 +672,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
             subStep12_4();
         } else {
             addBlackUnderInterface();
-            cutScene.showIt(texts[g.user.tutorialStep][_subStep], 'Далее', subStep12_1a);
+            cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep12_1a);
         }
     }
 

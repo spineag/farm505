@@ -38,7 +38,7 @@ public class ManagerCats {
         _matrixLength = g.matrixGrid.getLengthMatrix();
         _catsArray = [];
         _catInfo = new Object();
-        _catInfo.name = 'Помощник';
+        _catInfo.name = String(g.managerLanguage.allTexts[602]);
         _catInfo.url = 'cat';
         _catInfo.image = 'cat';
         _catInfo.image2 = 'cat_woman';

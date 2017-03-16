@@ -58,7 +58,7 @@ public class LockedLandItem {
         _txtCount.y = 52;
         _txtCount.x = -25;
         source.addChild(_txtCount);
-        _txtInfo = new CTextField(200,90,'Накопи состояние - '+ String(count)+ ' монет (спишутся после открытия)');
+        _txtInfo = new CTextField(200,90,String(g.managerLanguage.allTexts[411])+ String(count)+ String(g.managerLanguage.allTexts[412]));
         _txtInfo.setFormat(CTextField.BOLD18, 16, ManagerFilters.BROWN_COLOR);
         _txtInfo.x = 90;
         _txtInfo.y = -2;
@@ -74,7 +74,7 @@ public class LockedLandItem {
         } else {
             _btn= new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
-            _txtBtn = new CTextField(120,30,'Купить');
+            _txtBtn = new CTextField(120,30,String(g.managerLanguage.allTexts[355]));
             _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             _txtBtn.y = 2;
             _btn.addChild(_txtBtn);
@@ -117,7 +117,7 @@ public class LockedLandItem {
         _txtCount.y = 50;
         _txtCount.x = -35;
         source.addChild(_txtCount);
-        _txtInfo = new CTextField(200,90,'Собрать '+String(count)+' '+g.allData.getResourceById(id).name + ' (пропадут после открытия)');
+        _txtInfo = new CTextField(200,90,String(g.managerLanguage.allTexts[413])+String(count)+' '+g.allData.getResourceById(id).name + String(g.managerLanguage.allTexts[414]));
         _txtInfo.setFormat(CTextField.BOLD18, 16, ManagerFilters.BROWN_COLOR);
         _txtInfo.x = 90;
         _txtInfo.y = -2;
@@ -133,7 +133,7 @@ public class LockedLandItem {
         } else {
             _btn = new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
-            _txtBtn = new CTextField(120,30,'Купить ' + String(g.allData.getResourceById(id).priceHard *(count - g.userInventory.getCountResourceById(id))));
+            _txtBtn = new CTextField(120,30,String(g.managerLanguage.allTexts[355]) + ' ' + String(g.allData.getResourceById(id).priceHard *(count - g.userInventory.getCountResourceById(id))));
             _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
             _txtBtn.x = -15;
             _txtBtn.y = 2;
@@ -173,7 +173,7 @@ public class LockedLandItem {
         txt.y = 55;
         source.addChild(txt);
         _arrCTex.push(txt);
-        txt = new CTextField(200,60,'Пригласить ' +String(count) + ' друзей');
+        txt = new CTextField(200,60,String(g.managerLanguage.allTexts[415]) + ' ' +String(count) + ' ' + String(g.managerLanguage.allTexts[416]));
         txt.setFormat(CTextField.BOLD18, 16, ManagerFilters.BROWN_COLOR);
         txt.x = 90;
         txt.y = 15;
@@ -189,7 +189,7 @@ public class LockedLandItem {
         } else {
             _btn = new CButton();
             _btn.addButtonTexture(120, 30, CButton.YELLOW, true);
-            txt = new CTextField(120,30,'Пригласить');
+            txt = new CTextField(120,30,String(g.managerLanguage.allTexts[415]));
             txt.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.YELLOW_COLOR);
             _btn.addChild(txt);
             _btn.x = 362;

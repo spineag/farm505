@@ -65,7 +65,7 @@ public class OptionPanel {
         _contFullScreen.y = 115;
         _source.addChild(_contFullScreen);
         _contFullScreen.hoverCallback = function ():void {
-            g.hint.showIt("На весь экран");
+            g.hint.showIt(String(g.managerLanguage.allTexts[488]));
         };
         _contFullScreen.outCallback = function ():void {
             g.hint.hideIt();
@@ -94,7 +94,7 @@ public class OptionPanel {
             _contScalePlus.removeChild(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_in"));
             _contScalePlus.addChild(im);
-            g.hint.showIt("Приблизить");
+            g.hint.showIt(String(g.managerLanguage.allTexts[489]));
         };
         _contScalePlus.outCallback = function ():void {
             _contScalePlus.removeChild(im);
@@ -116,7 +116,7 @@ public class OptionPanel {
             _contScaleMinus.removeChild(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_out"));
             _contScaleMinus.addChild(im);
-            g.hint.showIt("Отдалить");
+            g.hint.showIt(String(g.managerLanguage.allTexts[490]));
         };
         _contScaleMinus.outCallback = function ():void {
             _contScaleMinus.removeChild(im);
@@ -135,7 +135,7 @@ public class OptionPanel {
         _contScreenShot.y = 149;
 //        _source.addChild(_contScreenShot);
         _contScreenShot.hoverCallback = function ():void {
-            g.hint.showIt("Сделать снимок");
+            g.hint.showIt(String(g.managerLanguage.allTexts[491]));
         };
         _contScreenShot.outCallback = function ():void {
             g.hint.hideIt();
@@ -151,7 +151,7 @@ public class OptionPanel {
         _contAnim.y = 205;
 //        _source.addChild(_contAnim);
         _contAnim.hoverCallback = function ():void {
-            g.hint.showIt("Включить эфекты");
+            g.hint.showIt(String(g.managerLanguage.allTexts[492]));
         };
         _contAnim.outCallback = function ():void {
             g.hint.hideIt();
@@ -172,9 +172,9 @@ public class OptionPanel {
         _source.addChild(_contMusic);
         _contMusic.hoverCallback = function ():void {
             if (g.soundManager.isPlayingMusic) {
-                g.hint.showIt("Выключить музыку");
+                g.hint.showIt(String(g.managerLanguage.allTexts[493]));
             } else {
-                g.hint.showIt("Включить музыку");
+                g.hint.showIt(String(g.managerLanguage.allTexts[494]));
             }
         };
         _contMusic.outCallback = function ():void {
@@ -196,9 +196,9 @@ public class OptionPanel {
         _source.addChild(_contSound);
         _contSound.hoverCallback = function ():void {
             if (g.soundManager.isPlayingSound) {
-                g.hint.showIt("Выключить звук");
+                g.hint.showIt(String(g.managerLanguage.allTexts[495]));
             } else {
-                g.hint.showIt("Включить звук");
+                g.hint.showIt(String(g.managerLanguage.allTexts[496]));
             }
         };
         _contSound.outCallback = function ():void {

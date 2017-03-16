@@ -33,14 +33,14 @@ public class WOServerError extends WindowMain {
         _woHeight = 320;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        txt = new CTextField(420,80,'Произошла ошибка в игре. Если подобное происходит часто, обратитесь в службу поддержки.');
+        txt = new CTextField(420,80,String(g.managerLanguage.allTexts[289]));
         txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.autoScale = true;
         txt.x = -210;
         txt.y = -120;
         txt.touchable = false;
         _source.addChild(txt);
-        _txtError = new CTextField(340,100,'Ошибка Сервера');
+        _txtError = new CTextField(340,100,String(g.managerLanguage.allTexts[288]));
         _txtError.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtError.x = -170;
         _txtError.y = -170;
@@ -56,7 +56,7 @@ public class WOServerError extends WindowMain {
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        txt2 = new CTextField(200, 34, "Перезагрузить");
+        txt2 = new CTextField(200, 34, String(g.managerLanguage.allTexts[281]));
         txt2.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _b.addChild(txt2);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
@@ -68,7 +68,7 @@ public class WOServerError extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        _txtError.text = "Ошибка сервера " + params[0];
+        _txtError.text = String(g.managerLanguage.allTexts[288])+ " " + params[0];
         super.showIt();
     }
 

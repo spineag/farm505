@@ -40,14 +40,14 @@ public class WOInviteFriends extends WindowMain {
         _cartonBackground.y = -165;
         _cartonBackground.x = -165;
         _source.addChild(_cartonBackground);
-        _txt = new CTextField(300,30,'ПРИГЛАСИ ДРУЗЕЙ');
+        _txt = new CTextField(300,30,String(g.managerLanguage.allTexts[427]));
         _txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -150;
         _txt.y = -200;
         _source.addChild(_txt);
         _btn = new CButton();
         _btn.addButtonTexture(100, 34, CButton.BLUE, true);
-        var txt:CTextField = new CTextField(100,30,'Пригласить');
+        var txt:CTextField = new CTextField(100,30,String(g.managerLanguage.allTexts[415]));
         txt.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btn.addChild(txt);
         _btn.x = 0;
@@ -98,7 +98,7 @@ public class WOInviteFriends extends WindowMain {
                 arr.push((_arrItem[i] as WOInviteFriendsItem).data.userSocialId);
             }
         }
-        g.socialNetwork.requestBoxArray(arr,'Приглашаю играть со мной в Умелых Лапках!','1');
+        g.socialNetwork.requestBoxArray(arr,String(g.managerLanguage.allTexts[428]),'1');
     }
 
 

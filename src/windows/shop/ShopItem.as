@@ -119,7 +119,7 @@ public class ShopItem {
         source.addChild(_txtAvailable);
         _txtAvailable.visible = false;
         _hand = new CSprite();
-        _hand.hoverCallback = function():void { g.hint.showIt("Интерактивный декор"); };
+        _hand.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[339])); };
         _hand.outCallback = function():void { g.hint.hideIt(); };
         source.addChild(_hand);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('animated_decor'));
@@ -204,7 +204,7 @@ public class ShopItem {
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_limit'));
         im.x = -7;
         _shopLimitSprite.addChild(im);
-        _txtLimit = new CTextField(145, 26, 'Достигнут лимит');
+        _txtLimit = new CTextField(145, 26, String(g.managerLanguage.allTexts[340]));
         _txtLimit.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtLimit.cacheIt = false;
         _txtLimit.y = 33;
@@ -260,7 +260,7 @@ public class ShopItem {
                 if (_btnActivationYellow) return;
                 _btnActivationYellow = new CButton();
                 _btnActivationYellow.addButtonTexture(126, 40, CButton.YELLOW, true);
-                _txtBtnYellow = new CTextField(125, 40, 'УСТАНОВИТЬ');
+                _txtBtnYellow = new CTextField(125, 40, String(g.managerLanguage.allTexts[341]));
                 _txtBtnYellow.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.YELLOW_COLOR);
                 _txtBtnYellow.cacheIt = false;    
                 _btnActivationYellow.addChild(_txtBtnYellow);
@@ -273,7 +273,7 @@ public class ShopItem {
                 if (_btnActivationPink) return;
                 _btnActivationPink = new CButton();
                 _btnActivationPink.addButtonTexture(126, 40, CButton.PINK, true);
-                _txtAvailablePink = new CTextField(125, 40, 'УСТАНОВИТЬ');
+                _txtAvailablePink = new CTextField(125, 40, String(g.managerLanguage.allTexts[341]));
                 _txtAvailablePink.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.YELLOW_COLOR);
                 _txtAvailablePink.cacheIt = false;
                 _btnActivationPink.addChild(_txtAvailablePink);
@@ -420,7 +420,7 @@ public class ShopItem {
         if (_data.buildType == BuildType.FABRICA ) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _txtAvailable.visible = true;
-                _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+                _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[0]) + ' ' +String(g.managerLanguage.allTexts[343]);
                 _im.filter = ManagerFilters.getButtonDisableFilter();
                 _nameTxt.text = _data.name;
             } else {
@@ -440,7 +440,7 @@ public class ShopItem {
                 } else if (arr.length >= maxCountAtCurrentLevel) {
                     _nameTxt.text = _data.name;
                     _txtAvailable.visible = true;
-                    _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[maxCountAtCurrentLevel]) + ' уровне';
+                    _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[maxCountAtCurrentLevel]) + ' ' + String(g.managerLanguage.allTexts[343]);
                     _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(_data.blockByLevel.length);
                     _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -461,7 +461,7 @@ public class ShopItem {
         } else if (_data.buildType == BuildType.FARM) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _txtAvailable.visible = true;
-                _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+                _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[343]);
                 _im.filter = ManagerFilters.getButtonDisableFilter();
                 _nameTxt.text = _data.name;
             } else {
@@ -474,7 +474,7 @@ public class ShopItem {
                 if (arr.length >= maxCountAtCurrentLevel) {
                     if (g.user.level < _data.blockByLevel[arr.length]) {
                         _txtAvailable.visible = true;
-                        _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[arr.length]) + ' уровне';
+                        _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[arr.length]) + ' ' + String(g.managerLanguage.allTexts[343]);
                         _im.filter = ManagerFilters.getButtonDisableFilter();
                         _nameTxt.text = _data.name;
                     } else {
@@ -517,7 +517,7 @@ public class ShopItem {
 
                 if (_data.blockByLevel[0] > g.user.level) {
                     _txtAvailable.visible = true;
-                    _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+                    _txtAvailable.text =  String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[343]);
                     _im.filter = ManagerFilters.getButtonDisableFilter();
                     if (_data.buildType == BuildType.DECOR_ANIMATION) {
                         _hand.filter = ManagerFilters.getButtonDisableFilter();
@@ -528,7 +528,7 @@ public class ShopItem {
                         _countCost = 0;
                         _nameTxt.text = _data.name;
                         _countBoxTxt.visible = true;
-                        _countBoxTxt.text = 'В ИНВЕНТАРЕ: ' + String(g.userInventory.decorInventory[_data.id].count);
+                        _countBoxTxt.text = String(g.managerLanguage.allTexts[344]) + ' ' + String(g.userInventory.decorInventory[_data.id].count);
                         if (decorMax >= arr.length) _countCost = (decorMax * _data.deltaCost) + int(_data.cost);
                         else  _countCost = (arr.length * _data.deltaCost) + int(_data.cost);
                         createButtons('yellow');
@@ -562,7 +562,7 @@ public class ShopItem {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
 //                    createLockedSprite();
                     _txtAvailable.visible = true;
-                    _txtAvailable.text = 'Будет доступно на ' + String(dataFarm.blockByLevel[0]) + ' уровне';
+                    _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(dataFarm.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[342]);
                     _im.filter = ManagerFilters.getButtonDisableFilter();
                     _nameTxt.text = _data.name;
                 } else {
@@ -588,7 +588,7 @@ public class ShopItem {
                             _countCost = 0;
                         } else {
                             _txtAvailable.visible = true;
-                            _txtAvailable.text = 'Необходимо построить: ' + String(dataFarm.name);
+                            _txtAvailable.text = String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
                             _im.filter = ManagerFilters.getButtonDisableFilter();
                             _nameTxt.text = _data.name;
                         }
@@ -614,7 +614,7 @@ public class ShopItem {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
 //                createLockedSprite();
                 _txtAvailable.visible = true;
-                _txtAvailable.text = 'Будет доступно на ' + String(_data.blockByLevel[0]) + ' уровне';
+                _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[343]);
                 _im.filter = ManagerFilters.getButtonDisableFilter();
             } else {
                 arr = g.townArea.getCityTreeById(_data.id, true);
@@ -751,7 +751,7 @@ public class ShopItem {
                     if (g.user.level < _data.blockByLevel[i]) {
                         var p:Point = new Point(source.x, source.y);
                         p = source.parent.localToGlobal(p);
-                        new FlyMessage(p, "откроется на " + String(_data.blockByLevel[i]) + " уровне");
+                        new FlyMessage(p, String(g.managerLanguage.allTexts[346 ]) + " " + String(_data.blockByLevel[i]) + " " + String(g.managerLanguage.allTexts[343]));
                         return;
                     }
                 }

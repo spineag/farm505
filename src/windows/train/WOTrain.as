@@ -92,7 +92,7 @@ public class WOTrain extends WindowMain {
         _btnSend.addButtonTexture(120, 40, CButton.GREEN, true);
         _btnSend.x = _woWidth/2 - 180;
         _btnSend.y = 205;
-        _txtSend = new CTextField(89,62,"Отправить");
+        _txtSend = new CTextField(89,62,String(g.managerLanguage.allTexts[292]));
         _txtSend.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtSend.x = 5;
         _txtSend.y = -12;
@@ -115,7 +115,7 @@ public class WOTrain extends WindowMain {
         _txtCounter.y = 130;
         _source.addChild(_txtCounter);
         _callbackClickBG = hideIt;
-        _birka = new Birka('Корзинка', _source, _woWidth, _woHeight);
+        _birka = new Birka(String(g.managerLanguage.allTexts[293]), _source, _woWidth, _woHeight);
     }
 
     private function onClickExit(e:Event=null):void {
@@ -150,7 +150,7 @@ public class WOTrain extends WindowMain {
         if (!g.isAway) {
             _btnLoad = new CButton();
             _btnLoad.addButtonTexture(130, 36, CButton.YELLOW, true);
-            _txtLoad2 = new CTextField(130, 36, 'Загрузить');
+            _txtLoad2 = new CTextField(130, 36, String(g.managerLanguage.allTexts[294]));
             _txtLoad2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
             _txtLoad2.y = -2;
             _btnLoad.addChild(_txtLoad2);
@@ -158,31 +158,31 @@ public class WOTrain extends WindowMain {
             _btnLoad.y = 150;
             _rightBlock.addChild(_btnLoad);
         }
-        _txtPrise = new CTextField(240,50,'Награда за полную загрузку:');
-        _txtPrise.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtPrise = new CTextField(240,50,String(g.managerLanguage.allTexts[295]));
+        _txtPrise.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtPrise.y = 240;
         _txtPrise.x = 23;
         _rightBlock.addChild(_txtPrise);
 
-        _txtCostItem = new CTextField(40,30,'-3');
-        _txtCostItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCostItem = new CTextField(50,40,'-3');
+        _txtCostItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCostItem.x = 236;
-        _txtCostItem.y = 80;
+        _txtCostItem.y = 75;
         _txtCostItem.alignH = Align.LEFT;
-        _txtXpItem = new CTextField(40,30,'-3');
-        _txtXpItem.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtXpItem = new CTextField(50,40,'-3');
+        _txtXpItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXpItem.x = 165;
-        _txtXpItem.y = 80;
+        _txtXpItem.y = 75;
         _txtXpItem.alignH = Align.LEFT;
-        _txtCostAll = new CTextField(40,30,'-5');
-        _txtCostAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtCostAll = new CTextField(50,40,'-5');
+        _txtCostAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCostAll.x = 160;
-        _txtCostAll.y = 280;
+        _txtCostAll.y = 275;
         _txtCostAll.alignH = Align.LEFT;
-        _txtXpAll = new CTextField(40,30,'-5');
-        _txtXpAll.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtXpAll = new CTextField(50,40,'-5');
+        _txtXpAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXpAll.x = 75;
-        _txtXpAll.y = 280;
+        _txtXpAll.y = 275;
         _txtXpAll.alignH = Align.LEFT;
 
         _rightBlock.addChild(_txtCostItem);
@@ -234,7 +234,7 @@ public class WOTrain extends WindowMain {
         _leftBlock.y = -205;
         _leftBlock.x = -int(_woWidth/2) + 40;
         _source.addChild(_leftBlock);
-        _txtNeed = new CTextField(200,30,'Требуются продукты:');
+        _txtNeed = new CTextField(200,30,String(g.managerLanguage.allTexts[296]));
         _txtNeed.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtNeed.y = 13;
         _txtNeed.x = 60;
@@ -246,7 +246,7 @@ public class WOTrain extends WindowMain {
         var list:Array = params[0];
         _build = params[1];
         _counter = params[3];
-            _txt.text = 'До отправления:';
+            _txt.text = String(g.managerLanguage.allTexts[297]);
                 _isBigCount = list.length > 9;
                 var type:int;
                 for (var i:int = 0; i < list.length; i++) {
@@ -313,9 +313,9 @@ public class WOTrain extends WindowMain {
         if (_arrItems[k].isResourceLoaded) {
             if (_btnLoad) _btnLoad.visible = false;
 //            _btnHelp.visible = false;
-            if (_txtLoad) _txtLoad.text = 'Вы уже загрузили ячейку и получили награду';
+            if (_txtLoad) _txtLoad.text = String(g.managerLanguage.allTexts[298]);
         } else {
-            if (_txtLoad) _txtLoad.text = 'Загрузите корзинку товаром и получите награду';
+            if (_txtLoad) _txtLoad.text = String(g.managerLanguage.allTexts[299]);
             if (_arrItems[k].canFull()) {
                 if (_btnLoad) _btnLoad.clickCallback = onResourceLoad;
             } else  {
@@ -347,7 +347,7 @@ public class WOTrain extends WindowMain {
                         _btnHelp.x = 143;
                         _btnHelp.y = 210;
                         _rightBlock.addChild(_btnHelp);
-                        _txtHelp = new CTextField(240, 52, 'Помочь загрузить');
+                        _txtHelp = new CTextField(240, 52, String(g.managerLanguage.allTexts[300]));
                         _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
                         _btnHelp.addChild(_txtHelp);
                         _btnHelp.clickCallback = giftHelpClick;
@@ -373,7 +373,7 @@ public class WOTrain extends WindowMain {
                     _btnHelp.x = 143;
                     _btnHelp.y = 210;
                     _rightBlock.addChild(_btnHelp);
-                    _txtHelp = new CTextField(240, 52, 'Помогите!!');
+                    _txtHelp = new CTextField(240, 52, String(g.managerLanguage.allTexts[301]));
                     _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
                     _btnHelp.addChild(_txtHelp);
                     _txtHelp.x = 10;

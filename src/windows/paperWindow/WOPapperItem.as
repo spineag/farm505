@@ -156,7 +156,7 @@ public class WOPapperItem {
         }
         source.visible = true;
         _txtCost.text = String(_data.cost);
-        _txtCountResource.text = String(_data.resourceCount) + ' шт.';
+        _txtCountResource.text = String(_data.resourceCount) + ' ' + String(g.managerLanguage.allTexts[360]);
         _dataResource = g.allData.getResourceById(_data.resourceId);
         _txtResourceName.text = _dataResource.name;
         if (_dataResource.buildType == BuildType.PLANT)
@@ -186,37 +186,36 @@ public class WOPapperItem {
 //            g.socialNetwork.getTempUsersInfoById([_p.userSocialId]);
 //            _txtUserName.text = '. . .';
             var arr:Array = new Array();
-            arr.push('Александр Лугинин');
-            arr.push('Вадим Бойцов');
-            arr.push('Вадим Чебаненко');
-            arr.push('Мария Головина');
-            arr.push('Ирина Павлова');
-            arr.push('Карина Коршикова');
-            arr.push('Алена Фартушная');
-            arr.push('Галина Лыжина');
-            arr.push('Катя Маркелова');
-            arr.push('Дарья Чиркова');
-            arr.push('Лиза Степанова');
-            arr.push('Виктория Попова');
-            arr.push('Рената Романенко');
-            arr.push('Анатолий Кузнецов');
-            arr.push('Юлия Фуксова');
-            arr.push('Валентина Жаброва');
-            arr.push('Варвара Мешкова');
-            arr.push('Анна Виленская');
-            arr.push('Колян Иваныч');
-            arr.push('Вера Баюк');
-            arr.push('Марина Новикова');
-            arr.push('Юлия Лепилова');
-            arr.push('Виктория Ващенко');
-            arr.push('Дима Донской');
-            arr.push('Ольга Шелехова');
-            arr.push('Софья Изденская');
-            arr.push('Настя Рыжова');
-            arr.push('Катя Ляшук');
-            arr.push('Гена Колисниченко');
-            arr.push('Елза Авдеенко');
-            arr.push('Светлана Тимофеева');
+            arr.push(String(g.managerLanguage.allTexts[628]));
+            arr.push(String(g.managerLanguage.allTexts[629]));
+            arr.push(String(g.managerLanguage.allTexts[630]));
+            arr.push(String(g.managerLanguage.allTexts[631]));
+            arr.push(String(g.managerLanguage.allTexts[632]));
+            arr.push(String(g.managerLanguage.allTexts[633]));
+            arr.push(String(g.managerLanguage.allTexts[634]));
+            arr.push(String(g.managerLanguage.allTexts[635]));
+            arr.push(String(g.managerLanguage.allTexts[636]));
+            arr.push(String(g.managerLanguage.allTexts[637]));
+            arr.push(String(g.managerLanguage.allTexts[638]));
+            arr.push(String(g.managerLanguage.allTexts[639]));
+            arr.push(String(g.managerLanguage.allTexts[640]));
+            arr.push(String(g.managerLanguage.allTexts[641]));
+            arr.push(String(g.managerLanguage.allTexts[642]));
+            arr.push(String(g.managerLanguage.allTexts[643]));
+            arr.push(String(g.managerLanguage.allTexts[644]));
+            arr.push(String(g.managerLanguage.allTexts[645]));
+            arr.push(String(g.managerLanguage.allTexts[646]));
+            arr.push(String(g.managerLanguage.allTexts[647]));
+            arr.push(String(g.managerLanguage.allTexts[648]));
+            arr.push(String(g.managerLanguage.allTexts[649]));
+            arr.push(String(g.managerLanguage.allTexts[650]));
+            arr.push(String(g.managerLanguage.allTexts[651]));
+            arr.push(String(g.managerLanguage.allTexts[652]));
+            arr.push(String(g.managerLanguage.allTexts[653]));
+            arr.push(String(g.managerLanguage.allTexts[654]));
+            arr.push(String(g.managerLanguage.allTexts[655]));
+            arr.push(String(g.managerLanguage.allTexts[656]));
+            arr.push(String(g.managerLanguage.allTexts[657]));
 
             _txtUserName.text = String(arr[int(Math.random()*arr.length-1)]);
         }
@@ -233,7 +232,7 @@ public class WOPapperItem {
         }
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(70, 24, CButton.GREEN, true);
-        var txt:CTextField = new CTextField(60, 30, 'купить');
+        var txt:CTextField = new CTextField(60, 30, String(g.managerLanguage.allTexts[355]));
         txt.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         txt.x = 4;
         txt.y = -4;

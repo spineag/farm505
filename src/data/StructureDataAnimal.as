@@ -2,6 +2,8 @@
  * Created by andy on 3/3/17.
  */
 package data {
+import manager.Vars;
+
 import utils.Utils;
 
 public class StructureDataAnimal {
@@ -19,11 +21,13 @@ public class StructureDataAnimal {
     private var _idResourceRaw:int;
     private var _costNew:Array;
     private var _buildType:int;
+    private var g:Vars = Vars.getInstance();
 
     public function StructureDataAnimal(ob:Object) {
         _id = int(ob.id);
         _buildId = int(ob.build_id);
-        _name = ob.name;
+//        _name = ob.name;
+        _name = g.managerLanguage.allTexts[ob.text_id];
         _width = 1;
         _height = 1;
         _url = ob.url;

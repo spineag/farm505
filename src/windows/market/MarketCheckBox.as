@@ -26,7 +26,7 @@ public class MarketCheckBox {
     public function MarketCheckBox() {
         source = new Sprite();
         _stateChecked = true;
-        _txt = new CTextField(250, 40, 'Обьявление в газету на 4 часа');
+        _txt = new CTextField(250, 40, String(g.managerLanguage.allTexts[387]));
         _txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         source.addChild(_txt);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plawka7'));

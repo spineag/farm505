@@ -88,7 +88,7 @@ public class WOShop extends WindowMain {
         createMoneyBlock();
         if (g.user.level < 17) _contCoupone.visible = false;
             else _contCoupone.visible = true;
-        _birka = new Birka('МАГАЗИН', _source, _woWidth, _woHeight);
+        _birka = new Birka(String(g.managerLanguage.allTexts[352]), _source, _woWidth, _woHeight);
     }
 
     private function onClickExit(e:Event=null):void {
@@ -303,7 +303,7 @@ public class WOShop extends WindowMain {
     }
 
     private function createMoneyBlock():void {
-        _txtR = new CTextField(250, 40, 'Ваши сбережения:');
+        _txtR = new CTextField(250, 40, String(g.managerLanguage.allTexts[353]));
         _txtR.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtR.x = -_woWidth/2 + 238;
         _txtR.y = -_woHeight/2 + 461;

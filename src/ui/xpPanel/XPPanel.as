@@ -153,7 +153,7 @@ public class XPPanel {
     }
 
     private function onHover():void {
-        g.hint.showIt(_maxXP - _countXP + ' XP до ' + (g.user.level+1) + ' уровня','none', _source.x);
+        g.hint.showIt(_maxXP - _countXP + String(g.managerLanguage.allTexts[503]) + (g.user.level+1) + ' '+  String(g.managerLanguage.allTexts[502]),'none', _source.x);
     }
 
     private function onOut():void {

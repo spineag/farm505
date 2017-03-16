@@ -97,9 +97,9 @@ public class WOSalePack extends WindowMain{
 
         var st:String;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            st = ' OK';
+            st = ' ' + String(g.managerLanguage.allTexts[328]);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            st = ' голосов';
+            st = ' ' + String(g.managerLanguage.allTexts[330]);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
             st = ' $';
         }
@@ -131,7 +131,7 @@ public class WOSalePack extends WindowMain{
         _txtProfit.x = 145;
         _txtProfit.y = 100;
         _source.addChild(_txtProfit);
-        _txtVugoda = new CTextField(150,60,'Выгода');
+        _txtVugoda = new CTextField(150,60,String(g.managerLanguage.allTexts[354]));
         _txtVugoda.setFormat(CTextField.BOLD18, 18, Color.WHITE, Color.RED);
         _txtVugoda.x = 147;
         _txtVugoda.y = 120;
@@ -143,7 +143,7 @@ public class WOSalePack extends WindowMain{
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(100, 45, CButton.GREEN, true);
-        _txtBtn = new CTextField(100, 45, 'Купить');
+        _txtBtn = new CTextField(100, 45, String(g.managerLanguage.allTexts[355]));
         _txtBtn.setFormat(CTextField.BOLD30, 26,  Color.WHITE,ManagerFilters.GREEN_COLOR);
         _btnBuy.addChild(_txtBtn);
         _btnBuy.clickCallback = onClick;

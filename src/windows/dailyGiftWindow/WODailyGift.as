@@ -73,20 +73,20 @@ public class WODailyGift extends WindowMain {
         _callbackClickBG = onClickExit;
         _btnGet = new CButton();
         _btnGet.addButtonTexture(160,40,CButton.GREEN,true);
-        var _txt:CTextField = new CTextField(160,40,'Получить');
+        var _txt:CTextField = new CTextField(160,40,String(g.managerLanguage.allTexts[437]));
         _txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnGet.addChild(_txt);
         _btnGet.y = 270;
         _source.addChild(_btnGet);
         _btnGet.clickCallback = onClick;
-        _txt = new CTextField(680, 340, "Ежедневный подарок");
+        _txt = new CTextField(680, 340, String(g.managerLanguage.allTexts[438]));
         _txt.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -350;
         _txt.y = -393;
         _source.addChild(_txt);
         _arrCTex.push(_txt);
 
-        _txt = new CTextField(600,40, "Заходите каждый день чтобы получить новую награду");
+        _txt = new CTextField(600,40, String(g.managerLanguage.allTexts[439]));
         _txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -300;
         _txt.y = -208;
@@ -195,7 +195,7 @@ public class WODailyGift extends WindowMain {
             im.y = bg.width/2 - 20;
         }
         source.addChild(im);
-        var txt:CTextField = new CTextField(130,40, "День " + (number+1));
+        var txt:CTextField = new CTextField(130,40, String(g.managerLanguage.allTexts[440]) + " " + (number+1));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.y = -5;
         source.addChild(txt);

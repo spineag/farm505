@@ -61,7 +61,7 @@ public class WOMarketChoose extends WindowMain {
         booleanPlus = true;
         booleanMinus = true;
         createWOElements();
-        _birka = new Birka('Амбар', _source, _woWidth, _woHeight);
+        _birka = new Birka(String(g.managerLanguage.allTexts[132]), _source, _woWidth, _woHeight);
         _arrCells = [];
         _scrollSprite = new DefaultVerticalScrollSprite(405, 303, 101, 101);
         _scrollSprite.source.x = 55 - _woWidth/2;
@@ -80,12 +80,12 @@ public class WOMarketChoose extends WindowMain {
         _source.addChild(_countMoneyBlock.source);
         _source.addChild(_countResourceBlock.source);
 
-        _txtCount = new CTextField(100, 30, 'Количество:');
+        _txtCount = new CTextField(100, 30, String(g.managerLanguage.allTexts[405]));
         _txtCount.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtCount.x = -190;
         _txtCount.y = 145;
         _source.addChild(_txtCount);
-        _txtPrice = new CTextField(150, 30, 'Цена продажи:');
+        _txtPrice = new CTextField(150, 30, String(g.managerLanguage.allTexts[406]));
         _txtPrice.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtPrice.x = -55;
         _txtPrice.y = 145;
@@ -96,7 +96,7 @@ public class WOMarketChoose extends WindowMain {
         var im:Image  = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_market'));
         im.x = 10;
         _btnSell.addChild(im);
-        _txtSellBtn = new CTextField(108, 50, 'Выставить на продажу');
+        _txtSellBtn = new CTextField(108, 50, String(g.managerLanguage.allTexts[407]));
         _txtSellBtn.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtSellBtn.leading = -2;
         _txtSellBtn.y = 45;
@@ -128,7 +128,7 @@ public class WOMarketChoose extends WindowMain {
         im.x = 12;
         im.y = 1;
         _tabAmbar.addChild(im);
-        _txtAmbar = new CTextField(90, 40, "Амбар");
+        _txtAmbar = new CTextField(90, 40, String(g.managerLanguage.allTexts[132]));
         _txtAmbar.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtAmbar.touchable = true;
         _txtAmbar.x = 31;
@@ -160,7 +160,7 @@ public class WOMarketChoose extends WindowMain {
         im.x = 12;
         im.y = 2;
         _tabSklad.addChild(im);
-        _txtSklad = new CTextField(90, 40, "Склад");
+        _txtSklad = new CTextField(90, 40, String(g.managerLanguage.allTexts[133]));
         _txtSklad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtSklad.touchable = true;
         _txtSklad.x = 34;
@@ -218,7 +218,7 @@ public class WOMarketChoose extends WindowMain {
                 _tabSklad.y = _defaultY + 10;
                 _tabSklad.isTouchable = true;
                 _tabSklad.filter = ManagerFilters.SHADOW;
-                _birka.updateText('Амбар');
+                _birka.updateText(String(g.managerLanguage.allTexts[132]));
                 break;
             case SKLAD:
                 _mainSprite.addChild(_tabSklad);
@@ -230,7 +230,7 @@ public class WOMarketChoose extends WindowMain {
                 _tabAmbar.y = _defaultY + 10;
                 _tabAmbar.isTouchable = true;
                 _tabAmbar.filter = ManagerFilters.SHADOW;
-                _birka.updateText('Склад');
+                _birka.updateText(String(g.managerLanguage.allTexts[133]));
                 break;
         }
     }

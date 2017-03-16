@@ -96,7 +96,7 @@ public class WOMarket  extends WindowMain {
         c.y = -_woHeight/2 + 40;
         _cont.filter = ManagerFilters.SHADOW;
         _cont.addChild(c);
-        _txtAllFriends = new CTextField(96, 24, 'Все друзья');
+        _txtAllFriends = new CTextField(96, 24, String(g.managerLanguage.allTexts[399]));
         _txtAllFriends.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtAllFriends.y = 6;
         _btnFriends.addChild(_txtAllFriends);
@@ -122,7 +122,7 @@ public class WOMarket  extends WindowMain {
         _btnRefresh.hoverCallback =  function():void { };
         _callbackClickBG = hideIt;
 //        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, fillFriends);
-        _birka = new Birka('РЫНОК', _source, _woWidth, _woHeight);
+        _birka = new Birka(String(g.managerLanguage.allTexts[400]), _source, _woWidth, _woHeight);
         _panelBool = false;
 
         _leftBtn = new CSprite();
@@ -193,7 +193,7 @@ public class WOMarket  extends WindowMain {
 //        _contPaper.addChild(_imCheck);
 //        _imCheck.visible = false;
 
-        _txtToPaper = new CTextField(200,30,'Выставить в газету:');
+        _txtToPaper = new CTextField(200,30,String(g.managerLanguage.allTexts[401]));
         _txtToPaper.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtToPaper.x = 12;
         _txtToPaper.y = 135;
@@ -561,14 +561,14 @@ public class WOMarket  extends WindowMain {
             return;
         }
         if (_curUser.userSocialId == g.user.userSocialId) {
-            _txtName.text = 'Вы продаете:';
+            _txtName.text = String(g.managerLanguage.allTexts[402]);
         } else {
             if (paper) {
-                if (_curUser.name == null ) _txtName.text = 'Игрок продает:';
-                else _txtName.text = _curUser.name + ' продает:';
+                if (_curUser.name == null ) _txtName.text = String(g.managerLanguage.allTexts[403]);
+                else _txtName.text = _curUser.name + ' ' + String(g.managerLanguage.allTexts[404]);
             } else {
-                if (_arrFriends[_shiftFriend].name == null ) _txtName.text = 'Игрок продает:';
-                else _txtName.text = _arrFriends[_shiftFriend].name + ' продает:';
+                if (_arrFriends[_shiftFriend].name == null ) _txtName.text = String(g.managerLanguage.allTexts[403]);
+                else _txtName.text = _arrFriends[_shiftFriend].name + ' ' + String(g.managerLanguage.allTexts[404]);
             }
         }
         _source.addChild(_txtName);

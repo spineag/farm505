@@ -75,7 +75,7 @@ public class MarketAllFriendItem{
         if (_person.userSocialId != g.user.userSocialId) {
             _planet = new CSprite();
             _visitBtn = new WOButtonTexture(65, 25, WOButtonTexture.YELLOW);
-            _btnTxt = new CTextField(65, 25, "Посетить");
+            _btnTxt = new CTextField(65, 25, String(g.managerLanguage.allTexts[386]));
             _btnTxt.setFormat(CTextField.BOLD18, 12, Color.WHITE);
             _planet.addChild(_visitBtn);
             _planet.addChild(_btnTxt);

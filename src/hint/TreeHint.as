@@ -134,9 +134,9 @@ public class TreeHint {
         _source.addChildAt(_quad,0);
 
         if ( data.removeByResourceId == 124) {
-            _txtName.text = "Засохшее дерево";
+            _txtName.text = String(g.managerLanguage.allTexts[614]);
         } else {
-            _txtName.text = "Засохший куст";
+            _txtName.text = String(g.managerLanguage.allTexts[615]);
         }
         _worldObject = worldobject;
         _data = data;
@@ -284,7 +284,7 @@ public class TreeHint {
     }
 
     private function onHoverDelete():void {
-        g.hint.showIt("Убрать Объект");
+        g.hint.showIt(String(g.managerLanguage.allTexts[616]));
     }
 
     private function onOutDelete():void {
@@ -292,7 +292,7 @@ public class TreeHint {
     }
 
     private function onHoverWatering():void {
-        g.hint.showIt("Попросить помощи");
+        g.hint.showIt(String(g.managerLanguage.allTexts[617]));
     }
     private function onOutWatering():void {
         g.hint.hideIt();

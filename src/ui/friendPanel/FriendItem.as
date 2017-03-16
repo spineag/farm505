@@ -110,7 +110,7 @@ public class FriendItem {
             help.x = 38;
             help.y = 18;
             _friendBoardHelpInfo.addChild(help);
-            _friendBoardHelpInfo.hoverCallback = function():void { g.hint.showIt("Мне нужна помощь"); };
+            _friendBoardHelpInfo.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[481])); };
             _friendBoardHelpInfo.outCallback = function():void { g.hint.hideIt(); };
             source.addChild(_friendBoardHelpInfo);
         }

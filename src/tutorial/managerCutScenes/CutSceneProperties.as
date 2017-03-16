@@ -2,10 +2,12 @@
  * Created by user on 4/28/16.
  */
 package tutorial.managerCutScenes {
+import manager.Vars;
 
 public class CutSceneProperties {
     private var _prop:Array;
     private var _manager:ManagerCutScenes;
+    private var g:Vars = Vars.getInstance();
 
     public function CutSceneProperties(man:ManagerCutScenes) {
         _manager = man;
@@ -23,68 +25,68 @@ public class CutSceneProperties {
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
         obj.level = 5;
         obj.id_action = ManagerCutScenes.ID_ACTION_SHOW_MARKET;
-        obj.text = "Ура! Теперь ты можешь продавать продукты по желаемой цене, а также выставлять объявления об этом в газету. Попробуй!";
-        obj.text2 = "На рынке ты всегда можешь продавать различные товары.";
+        obj.text = String(g.managerLanguage.allTexts[516]);
+        obj.text2 = String(g.managerLanguage.allTexts[517]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
         obj.level = 5;
         obj.id_action = ManagerCutScenes.ID_ACTION_SHOW_PAPPER;
-        obj.text = "Открой газету, посмотри, что продают другие!";
+        obj.text = String(g.managerLanguage.allTexts[518]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
         obj.level = 8;
         obj.id_action = ManagerCutScenes.ID_ACTION_BUY_DECOR;
-        obj.text = 'Нашу долину можно украшать! Нажми на кнопку “Магазин”';
+        obj.text = String(g.managerLanguage.allTexts[519]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
         obj.level = 8;
         obj.id_action = ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR;
-        obj.text = 'Между прочим, декор еще можно помещать в инвентарь!';
+        obj.text = String(g.managerLanguage.allTexts[520]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
         obj.level = 8;
         obj.id_action = ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR;
-        obj.text = 'Декор всегда можно достать из инвентаря и вернуть на поляну.';
+        obj.text = String(g.managerLanguage.allTexts[521]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
         obj.level = 17;
         obj.id_action = ManagerCutScenes.ID_ACTION_TRAIN_AVAILABLE;
-        obj.text = 'Мы уже многому научились и вырабатываем отличные продукты. Теперь можно открыть канатную дорожку для доставки в самые отдаленные места!';
+        obj.text = String(g.managerLanguage.allTexts[522]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_OPEN_TRAIN;
         obj.level = 0;
         obj.id_action = ManagerCutScenes.ID_ACTION_OPEN_TRAIN;
-        obj.text = 'Первая корзинка уже прибыла. Давай посмотрим, что заказывают.';
-        obj.text2 = 'Сначала выбираем ячейку с запрашиваемым продуктом';
-        obj.text3 = 'Затем загружаем продукт нажав “загрузить”';
-        obj.text4 = 'За загрузку ячейки получай опыт и монеты, а загрузив корзинку полностью - дополнительную награду.';
-        obj.text5 = 'После полной загрузки корзинку можно отправить или подождать пока она отправиться сама.';
-        obj.text6 = 'Также за полную загрузку корзинки ты получаешь один случайный ваучер. Их можно обменять в магазине на особые покупки.';
+        obj.text = String(g.managerLanguage.allTexts[523]);
+        obj.text2 = String(g.managerLanguage.allTexts[524]);
+        obj.text3 = String(g.managerLanguage.allTexts[525]);
+        obj.text4 = String(g.managerLanguage.allTexts[526]);
+        obj.text5 = String(g.managerLanguage.allTexts[527]);
+        obj.text6 = String(g.managerLanguage.allTexts[528]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_OPEN_WO_PLANT;
         obj.level = 10;
-        obj.text = 'Новые растения на следующей странице';
+        obj.text = String(g.managerLanguage.allTexts[529]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_ADD_TO_PAPPER;
         obj.level = 4;
-        obj.text = 'Нажми на иконку, чтобы опубликовать объявление в газету!';
-        obj.text2 = 'Новое объявление будет доступно через 5 минут';
+        obj.text = String(g.managerLanguage.allTexts[530]);
+        obj.text2 = String(g.managerLanguage.allTexts[531]);
         _prop.push(obj);
     }
 }

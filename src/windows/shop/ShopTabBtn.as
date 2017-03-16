@@ -57,7 +57,7 @@ public class ShopTabBtn {
         _txtNotification.visible = false;
         switch (type) {
             case WOShop.VILLAGE:
-                _txtTabName.text = 'Двор';
+                _txtTabName.text = String(g.managerLanguage.allTexts[347]);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_court'));
                 if (g.user.villageNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
@@ -70,11 +70,11 @@ public class ShopTabBtn {
                 }
                 break;
             case WOShop.ANIMAL:
-                _txtTabName.text = 'Животные';
+                _txtTabName.text = String(g.managerLanguage.allTexts[348]);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_animals'));
                 break;
             case WOShop.FABRICA:
-                _txtTabName.text = 'Фабрики';
+                _txtTabName.text = String(g.managerLanguage.allTexts[349]);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_fabric'));
                 if (g.user.fabricaNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
@@ -87,7 +87,7 @@ public class ShopTabBtn {
                 }
                 break;
             case WOShop.PLANT:
-                _txtTabName.text = 'Растения';
+                _txtTabName.text = String(g.managerLanguage.allTexts[350]);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_plants'));
                 if (g.user.plantNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
@@ -100,7 +100,7 @@ public class ShopTabBtn {
                 }
                 break;
             case WOShop.DECOR:
-                _txtTabName.text = 'Декор';
+                _txtTabName.text = String(g.managerLanguage.allTexts[351]);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_decor'));
                 if (g.user.decorNotification > 0) {
                     _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));

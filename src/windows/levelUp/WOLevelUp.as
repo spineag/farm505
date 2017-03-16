@@ -187,7 +187,7 @@ public class WOLevelUp extends WindowMain {
         _contClipRect.x = -_woWidth/2 + 55;
         _contClipRect.y = 55;
 
-        _txtNewLvl = new CTextField(200,100,"НОВЫЙ УРОВЕНЬ");
+        _txtNewLvl = new CTextField(200,100,String(g.managerLanguage.allTexts[420]));
         _txtNewLvl.setFormat(CTextField.BOLD18, 16, Color.WHITE);
         _txtNewLvl.leading = -3;
         var sp:Sprite = new Sprite();
@@ -196,7 +196,7 @@ public class WOLevelUp extends WindowMain {
             b.displayList = null;
             b.display = sp;
         }
-        _txtNewObject = new CTextField(400,100,"ДОСТУПНЫ НОВЫЕ ОБЪЕКТЫ");
+        _txtNewObject = new CTextField(400,100,String(g.managerLanguage.allTexts[421]));
         _txtNewObject.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtLevel = new CTextField(300,100,"");
         _txtLevel.setFormat(CTextField.BOLD72, 51, Color.WHITE, ManagerFilters.BROWN_COLOR);
@@ -205,7 +205,7 @@ public class WOLevelUp extends WindowMain {
             b.displayList = null;
             b.display = sp;
         }
-        _txtContinue = new CTextField(110,100,"РАССКАЗАТЬ");
+        _txtContinue = new CTextField(110,100,String(g.managerLanguage.allTexts[422]));
         _txtContinue.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtContinue.x = 3;
         _txtHard = new CTextField(50,50,' +'+String(_count));
@@ -213,7 +213,7 @@ public class WOLevelUp extends WindowMain {
         if (g.user.level <= 5 || ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) && g.user.level > 30)) {
             _contBtn = new CButton();
             _contBtn.addButtonTexture(172, 45, CButton.GREEN, true);
-            _txtContinue.text = 'ПРОДОЛЖИТЬ';
+            _txtContinue.text = String(g.managerLanguage.allTexts[423]);
             _txtContinue.y = -26;
             _txtContinue.x = 36;
             _contBtn.addChild(_txtContinue);

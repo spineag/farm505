@@ -87,10 +87,10 @@ public class LevelUpHint {
         _txtTime.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
 
         if (_dataId == -1) {
-            _txtName.text = 'Помощник';
+            _txtName.text = String(g.managerLanguage.allTexts[602]);
             _txtName.x = -100;
             _txtName.y = 25;
-            _txtText.text = 'Работает на ферме';
+            _txtText.text = String(g.managerLanguage.allTexts[603]);
             _txtText.x = -100;
             _txtText.y = 10;
             wName = _txtText.textBounds.width + 40;
@@ -102,10 +102,10 @@ public class LevelUpHint {
             return;
         }
         if (_dataId == -2) {
-            _txtName.text = 'Грядка';
+            _txtName.text = String(g.managerLanguage.allTexts[131]);
             _txtName.x = -100;
             _txtName.y = 25;
-            _txtText.text = 'На ней растут растения';
+            _txtText.text = String(g.managerLanguage.allTexts[604]);
             _txtText.x = -100;
             _txtText.y = 10;
             wName = _txtText.textBounds.width + 40;
@@ -120,11 +120,11 @@ public class LevelUpHint {
             _txtName.text = String(g.allData.getAnimalById(_dataId).name);
             _txtName.x = -100;
             _txtName.y = 25;
-            _txtText.text = 'Производит: ' + g.allData.getResourceById(g.allData.getAnimalById(_dataId).idResource).name;
+            _txtText.text = String(g.managerLanguage.allTexts[605]) + ' ' + g.allData.getResourceById(g.allData.getAnimalById(_dataId).idResource).name;
             _txtText.x = -100;
             _txtText.y = 10;
             _txtTime.leading = -5;
-            _txtTime.text = 'Место жительства: ' + String(g.allData.getBuildingById(g.allData.getAnimalById(_dataId).buildId).name);
+            _txtTime.text = String(g.managerLanguage.allTexts[606]) + ' ' + String(g.allData.getBuildingById(g.allData.getAnimalById(_dataId).buildId).name);
             _txtTime.x = -100;
             _txtTime.y = 30;
             wName = _txtTime.textBounds.width + 40;
@@ -155,7 +155,7 @@ public class LevelUpHint {
             }
         }
         if (g.allData.getResourceById(_dataId).blockByLevel > g.user.level) {
-            _txtText.text = "Будет доступно на: " + g.allData.getResourceById(_dataId).blockByLevel + ' уровне';
+            _txtText.text = String(g.managerLanguage.allTexts[607]) + " " + g.allData.getResourceById(_dataId).blockByLevel + ' уровне';
             _txtText.x = -100;
             _txtText.y = -5;
             wName = _txtText.textBounds.width + 40;
@@ -181,7 +181,7 @@ public class LevelUpHint {
                 _txtTime.x = -90;
             }
             _txtTime.y = 33;
-            _txtText.text = 'Растет на грядке';
+            _txtText.text = String(g.managerLanguage.allTexts[608]);
             _txtText.x = -100;
             _txtText.y = 5;
             _source.x = int(start.x + source.width/2);
@@ -226,7 +226,7 @@ public class LevelUpHint {
                 _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_dataId).buildTime);
                 _txtTime.x = -90;
                 _txtTime.y = 33;
-                _txtText.text = "Растет на: " + objTrees[i].name;
+                _txtText.text = String(g.managerLanguage.allTexts[609]) + objTrees[i].name;
                 _txtText.x = -100;
                 _txtText.y = 5;
                 if (_txtTime.textBounds.width >= 40) {
@@ -253,7 +253,7 @@ public class LevelUpHint {
                 _txtName.text = String(g.allData.getResourceById(_dataId).name);
                 _txtName.x = -100;
                 _txtName.y = 20;
-                _txtText.text = "Место производства: Пещера";
+                _txtText.text = String(g.managerLanguage.allTexts[610]);
                 _txtText.x = -100;
                 _txtText.y = 5;
                 wText = _txtText.textBounds.width + 20;
@@ -282,7 +282,7 @@ public class LevelUpHint {
                 _txtTime.x = -80;
             }
             _txtTime.y = 33;
-            _txtText.text = "Место производства: " + g.allData.getBuildingById(objRecipes[_dataId].buildingId).name;
+            _txtText.text = String(g.managerLanguage.allTexts[611])+ g.allData.getBuildingById(objRecipes[_dataId].buildingId).name;
             _txtText.x = -100;
             _txtText.y = 5;
             wText = _txtText.textBounds.width + 20;
@@ -308,7 +308,7 @@ public class LevelUpHint {
             _txtTime.text = TimeUtils.convertSecondsForHint(g.allData.getResourceById(_dataId).buildTime);
             _txtTime.x = -80;
             _txtTime.y = 33;
-            _txtText.text = "Место производства: " + g.allData.getBuildingById(objAnimals[_dataId].buildId).name;
+            _txtText.text = String(g.managerLanguage.allTexts[611]) + g.allData.getBuildingById(objAnimals[_dataId].buildId).name;
             _txtText.x = -100;
             _txtText.y = 5;
             wText = _txtText.textBounds.width + 20;

@@ -83,7 +83,7 @@ internal class Item extends Sprite {
             if (c == 1) {
                 _btn = new CButton();
                 _btn.addButtonTexture(120, 40, CButton.GREEN, true);
-                _txtBtn = new CTextField(120, 40, 'Показать');
+                _txtBtn = new CTextField(120, 40, g.managerLanguage.allTexts[312]);
                 _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 _btn.x = 390;
                 _btn.y = 25;
@@ -94,7 +94,7 @@ internal class Item extends Sprite {
             } else if (c == 2) {
                 _btn = new CButton();
                 _btn.addButtonTexture(100, 40, CButton.GREEN, true);
-                _txtBtn = new CTextField(96, 40, 'Показать');
+                _txtBtn = new CTextField(96, 40, g.managerLanguage.allTexts[312]);
                 _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 _txtBtn.x = 2;
                 _btn.x = 397;
@@ -105,7 +105,7 @@ internal class Item extends Sprite {
             } else if (c == 3) {
                 _btn = new CButton();
                 _btn.addButtonTexture(80, 30, CButton.GREEN, true);
-                _txtBtn = new CTextField(76, 30, 'Показать');
+                _txtBtn = new CTextField(76, 30, g.managerLanguage.allTexts[312]);
                 _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
                 _txtBtn.x = 2;
                 _btn.x = 410;
@@ -144,13 +144,13 @@ internal class Item extends Sprite {
             addChild(_btn);
             _btn.clickCallback = onClick;
             if (_task.typeAction == ManagerQuest.POST) {
-                _txtBtn.text = 'Рассказать';
+                _txtBtn.text = g.managerLanguage.allTexts[291];
             } else if (_task.typeAction == ManagerQuest.ADD_LEFT_MENU) {
-                _txtBtn.text = 'Добавить';
+                _txtBtn.text = g.managerLanguage.allTexts[624];
             } else if (_task.typeAction == ManagerQuest.INVITE_FRIENDS) {
-                _txtBtn.text = 'Пригласить';
+                _txtBtn.text = g.managerLanguage.allTexts[415];
             } else if (_task.typeAction == ManagerQuest.ADD_TO_GROUP) {
-                _txtBtn.text = 'Вступить';
+                _txtBtn.text = g.managerLanguage.allTexts[625];
             }
         }
         addChild(_txt);

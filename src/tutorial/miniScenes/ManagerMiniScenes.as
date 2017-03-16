@@ -220,7 +220,7 @@ public class ManagerMiniScenes {
         if ((_miniSceneBuildings[0] as Order).stateBuild == WorldObject.STATE_UNACTIVE) {
             if (!_cutScene) _cutScene = new CutScene();
             addBlack();
-            _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', order_1);
+            _cutScene.showIt(_curMiniScenePropertie.text, String(g.managerLanguage.allTexts[532]), order_1);
         } else {
             order_2();
         }
@@ -280,7 +280,7 @@ public class ManagerMiniScenes {
         (_miniSceneBuildings[0] as Order).showArrow();
         if (!_cutScene) _cutScene = new CutScene();
         addBlack();
-        _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', buyer_1);
+        _cutScene.showIt(_curMiniScenePropertie.text, String(g.managerLanguage.allTexts[532]), buyer_1);
     }
 
     private function buyer_1():void {
@@ -297,7 +297,7 @@ public class ManagerMiniScenes {
     private function buyer_3():void {
         _onShowWindowCallback = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_ORDERS) {
-            (g.windowsManager.currentWindow as WOOrder).setTextForCustomer('Здравствуйте! Хочу купить несколько яиц.');
+            (g.windowsManager.currentWindow as WOOrder).setTextForCustomer(String(g.managerLanguage.allTexts[533]));
             var ob:Object = (g.windowsManager.currentWindow as WOOrder).getSellBtnProperties();
             _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
             _arrow.scaleIt(.5);
@@ -368,7 +368,7 @@ public class ManagerMiniScenes {
         isMiniScene = true;
         _curMiniScenePropertie = _properties[2];
         if (!_cutScene) _cutScene = new CutScene();
-        _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', bulo4na_1);
+        _cutScene.showIt(_curMiniScenePropertie.text, String(g.managerLanguage.allTexts[532]), bulo4na_1);
         addBlack();
     }
 
@@ -417,7 +417,7 @@ public class ManagerMiniScenes {
         isMiniScene = true;
         _curMiniScenePropertie = _properties[3];
         if (!_cutScene) _cutScene = new CutScene();
-        _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', letGo_1);
+        _cutScene.showIt(_curMiniScenePropertie.text, String(g.managerLanguage.allTexts[532]), letGo_1);
         addBlack();
     }
 
@@ -452,7 +452,7 @@ public class ManagerMiniScenes {
         isMiniScene = true;
         _curMiniScenePropertie = _properties[4];
         if (!_cutScene) _cutScene = new CutScene();
-        _cutScene.showIt(_curMiniScenePropertie.text, 'Далее', atN_1);
+        _cutScene.showIt(_curMiniScenePropertie.text, String(g.managerLanguage.allTexts[532]), atN_1);
         addBlack();
     }
 

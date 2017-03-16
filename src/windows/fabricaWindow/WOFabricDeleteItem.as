@@ -31,12 +31,12 @@ public class WOFabricDeleteItem extends WindowMain{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         createExitButton(onClickExit);
-        _txtInfo = new CTextField(300,30,'Загруженные ресурсы не будут возвращены!');
+        _txtInfo = new CTextField(300,30,String(g.managerLanguage.allTexts[436]));
         _txtInfo.setFormat(CTextField.MEDIUM24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtInfo.x = -150;
         _txtInfo.y = -20;
         _source.addChild(_txtInfo);
-        _txt = new CTextField(300,30,'УБРАТЬ ПРОДУКТ С ОЧЕРЕДИ?');
+        _txt = new CTextField(300,30,String(g.managerLanguage.allTexts[435]));
         _txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -157;
         _txt.y = -60;
@@ -46,7 +46,7 @@ public class WOFabricDeleteItem extends WindowMain{
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        _txtBtn = new CTextField(200, 34, "Убрать за 1");
+        _txtBtn = new CTextField(200, 34, String(g.managerLanguage.allTexts[410]));
         _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _b.addChild(_txtBtn);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));

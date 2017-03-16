@@ -31,14 +31,14 @@ public class WOGameError extends WindowMain {
         _woHeight = 340;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        _txt = new CTextField(420,80,'Произошла ошибка в игре. Если подобное происходит часто, обратитесь в службу поддержки.');
+        _txt = new CTextField(420,80,String(g.managerLanguage.allTexts[289]));
         _txt.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.autoScale = true;
         _txt.x = -210;
         _txt.y = -115;
         _txt.touchable = false;
         _source.addChild(_txt);
-        _txtError = new CTextField(340,100,'Ошибка');
+        _txtError = new CTextField(340,100,String(g.managerLanguage.allTexts[283]));
         _txtError.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtError.x = -170;
         _txtError.y = -173;
@@ -48,7 +48,7 @@ public class WOGameError extends WindowMain {
         _b.addButtonTexture(210, 34, CButton.GREEN, true);
         _b.y = 120;
         _source.addChild(_b);
-        _txtBtn = new CTextField(210, 34, "Перезагрузить");
+        _txtBtn = new CTextField(210, 34, String(g.managerLanguage.allTexts[281]));
         _txtBtn.setFormat(CTextField.MEDIUM18, 20, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _b.addChild(_txtBtn);
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cat_blue'));
