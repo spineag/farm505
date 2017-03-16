@@ -12,6 +12,10 @@ import loaders.allLoadMb.AllLoadMb;
 import manager.Vars;
 import manager.hitArea.ManagerHitArea;
 import server.DirectServer;
+
+import social.SocialNetwork;
+import social.SocialNetworkSwitch;
+
 import starling.display.Sprite;
 import starling.utils.AssetManager;
 
@@ -50,6 +54,12 @@ public class MainStarling extends Sprite {
     private function loadVersion():void {
         g.directServer = new DirectServer();
         g.version = {};
+        g.socialNetwork = new SocialNetwork(g.flashVars);
+        if (g.isDebug) {
+            g.socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
+        } else {
+            g.socialNetworkID = int(g.flashVars['channel']);
+        }
         g.directServer.getVersion(loadComponents);
         g.directServer.getTextHelp(null);
     }

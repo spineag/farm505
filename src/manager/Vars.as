@@ -289,12 +289,6 @@ public class Vars {
     }
 
     public function startUserLoad():void {
-        socialNetwork = new SocialNetwork(flashVars);
-        if (isDebug) {
-            socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
-        } else {
-            socialNetworkID = int(flashVars['channel']);
-        }
         townArea = new TownArea();
         farmGrid = new FarmGrid();
         dataLevel = new DataLevel();
