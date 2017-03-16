@@ -86,6 +86,46 @@ public class CatPanel {
     }
 
     private function onClick():void {
+//        g.directServer.getUserParty(null);
+//        var ob:Object = {};
+//        ob.timeToStart = 1;
+//        ob.timeToEnd = 1489556993;
+//        ob.levelToStart = 5;
+//        ob.idResource = 15;
+//        ob.typeBuilding = BuildType.ORDER;
+//        ob.coefficient = 5;
+//        ob.typeParty = 1;
+//        ob.name = 'Erynda';
+//        ob.description = 'Blalbllalalbllalalbllalalalblalalal';
+//        ob.idGift = [];
+//        ob.idGift[0] = 2;
+//        ob.idGift[1] = 1;
+//        ob.idGift[2] = 212;
+//        ob.idGift[3] = 229;
+//        ob.idGift[4] = 225;
+//        ob.countGift = [];
+//        ob.countGift[0] = 10;
+//        ob.countGift[1] = 5000;
+//        ob.countGift[2] = 1;
+//        ob.countGift[3] = 1;
+//        ob.countGift[4] = 1;
+//        ob.countToGift = [];
+//        ob.countToGift[0] = 5;
+//        ob.countToGift[1] = 15;
+//        ob.countToGift[2] = 25;
+//        ob.countToGift[3] = 35;
+//        ob.countToGift[4] = 55;
+//        ob.typeGift = [];
+//        ob.typeGift[0] = 2;
+//        ob.typeGift[1] = 1;
+//        ob.typeGift[2] = 30;
+//        ob.typeGift[3] = 4;
+//        ob.typeGift[4] = 4;
+//        g.managerParty.dataParty = ob;
+//        g.userTimer.partyToEnd(1200);
+//        g.managerParty.atlasLoad();
+//        g.managerParty.eventOn = true;
+
         if ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
             if (g.user.userSocialId == '252433337505') {
                 g.user.level++;

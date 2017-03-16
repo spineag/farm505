@@ -7084,13 +7084,15 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataParty: wrong JSON:' + String(response));
             return;
         }
-
+        obj.timeToStart = d.message.time_to_start;
         obj.timeToEnd = d.message.time_to_end;
-        g.userTimer.party(obj.timeToEnd - int(new Date().getTime() / 1000));
-//        obj.name = d.message.name;
-        obj.name = g.managerLanguage[int(d.message.text_id_name)];
-        obj.description = g.managerLanguage[int(d.message.text_id_description)];
-        obj.partyOn = Boolean(int(d.message.party_on));
+        obj.levelToStart = int(d.message.level_to_start);
+        obj.idResource = int(d.message.id_resource);
+        obj.typeBuilding = int(d.message.type_building);
+        obj.coefficient = int(d.message.coefficient);
+        obj.typeParty = int(d.message.type_party);
+        obj.name = String(g.managerLanguage.allTexts[int(d.message.text_id_name)]);
+        obj.description = String(g.managerLanguage.allTexts[int(d.message.text_id_description)]);
         if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
         for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
 
@@ -7102,10 +7104,20 @@ public class DirectServer {
 
         if (d.message.count_to_gift) obj.countToGift = String(d.message.count_to_gift).split('&');
         for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.countToGift[k]);
-        g.managerParty.dataParty = obj;
-        if (g.managerParty.dataParty.partyOn) {
-            getUserParty(null);
-            g.managerParty.atlasLoad();
+        if (obj.timeToStart - int(new Date().getTime() / 1000) < 0 && obj.timeToEnd - int(new Date().getTime() / 1000) > 0) {
+            g.userTimer.partyToEnd(obj.timeToEnd - int(new Date().getTime() / 1000));
+            g.managerParty.dataParty = obj;
+            g.managerParty.eventOn = true;
+            if (obj.levelToStart <= g.user.level) {
+                var f:Function = function ():void {
+                    g.managerParty.atlasLoad();
+                };
+                getUserParty(f);
+            }
+        } else if (obj.timeToStart - int(new Date().getTime() / 1000) > 0) {
+            g.userTimer.partyToStart(obj.timeToStart - int(new Date().getTime() / 1000));
+            g.managerParty.dataParty = obj;
+            g.managerParty.eventOn = false;
         }
         if (d.id == 0) {
             Cc.ch('server', 'getDataParty OK', 5);

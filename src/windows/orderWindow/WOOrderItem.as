@@ -5,6 +5,8 @@ package windows.orderWindow {
 
 import com.greensock.TweenMax;
 
+import data.BuildType;
+
 import manager.ManagerFilters;
 import manager.ManagerOrder;
 import manager.ManagerOrderItem;
@@ -82,7 +84,8 @@ public class WOOrderItem {
         _starImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_starImage);
         _txtXP = new CTextField(52, 30, "8888");
-        _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER) _txtXP.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        else _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXP.x = 48;
         _txtXP.y = 26;
         source.addChild(_txtXP);
@@ -93,7 +96,8 @@ public class WOOrderItem {
         _coinsImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_coinsImage);
         _txtCoins = new CTextField(52, 30, "8888");
-        _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER) _txtCoins.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        else _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCoins.x = 48;
         _txtCoins.y = 55;
         source.addChild(_txtCoins);

@@ -25,7 +25,7 @@ public class PartyPanel {
 
     public function PartyPanel() {
         _source = new CSprite();
-        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('8m_icon'));
+        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('event_icon'));
         _source.addChild(im);
 
         _txtData = new CTextField(100,60,'');
@@ -49,8 +49,8 @@ public class PartyPanel {
     }
 
     private function startTimer():void {
-        if (g.userTimer.partyTimer > 0) {
-            if (_txtData)_txtData.text = TimeUtils.convertSecondsForHint(g.userTimer.partyTimer);
+        if (g.userTimer.partyToEndTimer > 0) {
+            if (_txtData)_txtData.text = TimeUtils.convertSecondsForHint(g.userTimer.partyToEndTimer);
         } else {
             visiblePartyPanel(false);
             if (!g.managerParty.userParty.showWindow) {
@@ -79,7 +79,7 @@ public class PartyPanel {
     }
 
     private function onClick():void {
-        if (g.userTimer.partyTimer > 0) g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+        if (g.userTimer.partyToEndTimer > 0) g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
     }
 
     public function getPoint():Point {

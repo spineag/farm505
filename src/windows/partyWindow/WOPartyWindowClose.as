@@ -94,29 +94,29 @@ public class WOPartyWindowClose extends WindowMain{
         obj = {};
         g.directServer.updateUserParty('1&1&1&1&1',0,1,null);
         for (var i:int = 0; i < g.managerParty.userParty.tookGift.length; i++) {
-            if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countResource >= g.managerParty.dataParty.countToGift[i] ) {
-                if (g.managerParty.dataParty.typeGift[i] == BuildType.DECOR_ANIMATION) {
+            if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countResource >= g.managerParty.countToGift[i] ) {
+                if (g.managerParty.typeGift[i] == BuildType.DECOR_ANIMATION) {
                     obj.count = 1;
-                    obj.id =  g.managerParty.dataParty.idGift[i];
+                    obj.id =  g.managerParty.idGift[i];
                     obj.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
-                } else if (g.managerParty.dataParty.typeGift[i] == BuildType.DECOR) {
+                } else if (g.managerParty.typeGift[i] == BuildType.DECOR) {
                     obj.count = 1;
-                    obj.id =  g.managerParty.dataParty.idGift[i];
+                    obj.id =  g.managerParty.idGift[i];
                     obj.type = DropResourceVariaty.DROP_TYPE_DECOR;
                 } else {
-                    if (g.managerParty.dataParty.idGift[i] == 1 && g.managerParty.dataParty.typeGift[i] == 1) {
+                    if (g.managerParty.idGift[i] == 1 && g.managerParty.typeGift[i] == 1) {
                         obj.id = DataMoney.SOFT_CURRENCY;
                         obj.type = DropResourceVariaty.DROP_TYPE_MONEY;
                     }
-                    else if (g.managerParty.dataParty.idGift[i] == 2 && g.managerParty.dataParty.typeGift[i] == 2) {
+                    else if (g.managerParty.idGift[i] == 2 && g.managerParty.typeGift[i] == 2) {
                         obj.id = DataMoney.HARD_CURRENCY;
                         obj.type = DropResourceVariaty.DROP_TYPE_MONEY;
                     }
                     else {
-                        obj.id = g.managerParty.dataParty.idGift[i];
+                        obj.id = g.managerParty.idGift[i];
                         obj.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
                     }
-                    obj.count = g.managerParty.dataParty.countGift[i];
+                    obj.count = g.managerParty.countGift[i];
                 }
                 new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
             }

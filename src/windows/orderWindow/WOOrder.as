@@ -189,7 +189,8 @@ public class WOOrder extends WindowMain{
         _starSmall.filter = ManagerFilters.SHADOW_TINY;
         _rightBlock.addChild(_starSmall);
         _txtXP = new CTextField(52, 30, "8888");
-        _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER) _txtXP.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        else _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXP.x = 523;
         _txtXP.y = 418;
         _rightBlock.addChild(_txtXP);
@@ -210,7 +211,8 @@ public class WOOrder extends WindowMain{
         _txtCoupone.visible = false;
         _rightBlock.addChild(_txtCoupone);
         _txtCoins = new CTextField(52, 30, "8888");
-        _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER) _txtCoins.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        else _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCoins.x = 590;
         _txtCoins.y = 418;
         _rightBlock.addChild(_txtCoins);
@@ -320,13 +322,15 @@ public class WOOrder extends WindowMain{
         var prise:Object = {};
         var p:Point = new Point(134, 147);
         p = _source.localToGlobal(p);
-        new XPStar(p.x, p.y, _activeOrderItem.getOrder().xp);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER) new XPStar(p.x, p.y, _activeOrderItem.getOrder().xp * g.managerParty.coefficient);
+        else new XPStar(p.x, p.y, _activeOrderItem.getOrder().xp);
         p = new Point(186, 147);
         p = _source.localToGlobal(p);
         prise.id = DataMoney.SOFT_CURRENCY;
-        prise.count = _activeOrderItem.getOrder().coins;
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER) prise.count = _activeOrderItem.getOrder().coins * g.managerParty.coefficient;
+        else prise.count = _activeOrderItem.getOrder().coins;
         new DropItem(p.x, p.y, prise);
-        if (g.managerParty && !g.managerParty.userParty.showWindow && g.userTimer.partyTimer > 0 && g.managerParty.userParty.countResource < g.managerParty.dataParty.countToGift[4]) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.ORDER) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         if (_activeOrderItem.getOrder().addCoupone) {
             p.x = _btnSell.x + _btnSell.width * 4 / 5;
             p.y = _btnSell.y + _btnSell.height / 2;
@@ -475,7 +479,7 @@ public class WOOrder extends WindowMain{
     }
 
     private function fillResourceItems(order:ManagerOrderItem):void {
-        _txtName.text = order.catOb.name + ' ' + String(g.managerLanguage.allTexts[370]);
+        if (order)_txtName.text = order.catOb.name + ' ' + String(g.managerLanguage.allTexts[370]);
         _txtXP.text = String(_activeOrderItem.getOrder().xp);
         _txtCoins.text = String(_activeOrderItem.getOrder().coins);
         for (var i:int=0; i<_activeOrderItem.getOrder().resourceIds.length; i++) {

@@ -91,7 +91,7 @@ public class ManagerDailyBonus {
         arR = g.allData.building;
         for (i = 0; i < arR.length; i++) {
             if (arR[i].buildType == BuildType.DECOR && arR[i].blockByLevel && arR[i].blockByLevel[0] <= g.user.level) {
-                arr.push(i);
+                arr.push(arR[i].id);
             }
         }
         obj.id = arr[int(Math.random()*arr.length)];

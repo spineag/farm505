@@ -192,7 +192,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>baloon.png</filename>
             <filename>place_1.png</filename>
             <filename>place_2.png</filename>
             <filename>progress.png</filename>
@@ -200,7 +199,13 @@
             <filename>hint_button.png</filename>
             <filename>tulip_icon.png</filename>
             <filename>8m_icon.png</filename>
-            <filename>8_march_window_1.png</filename>
+            <filename>event_window_n.png</filename>
+            <filename>new_event_window_l.png</filename>
+            <filename>event_window_w.png</filename>
+            <filename>new_event_window_r.png</filename>
+            <filename>event_window_baloon.png</filename>
+            <filename>event_icon.png</filename>
+            <filename>new_event_window_r_2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

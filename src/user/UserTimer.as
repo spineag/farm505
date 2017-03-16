@@ -15,7 +15,8 @@ public class UserTimer {
     public var _arrOrderItem:Array;
     private var _orderManagerItem:ManagerOrderItem;
     private var g:Vars = Vars.getInstance();
-    public var partyTimer:int;
+    public var partyToEndTimer:int;
+    public var partyToStartTimer:int;
     public var saleTimerToEnd:int;
     public var saleTimerToStart:int;
 
@@ -81,16 +82,38 @@ public class UserTimer {
         }
     }
 
-    public function party(time:int):void {
-        partyTimer = time;
+    public function partyToEnd(time:int):void {
+        partyToEndTimer = time;
         g.gameDispatcher.addToTimer(partyTimerToEnd);
     }
 
     private function partyTimerToEnd():void {
-        partyTimer--;
-        if (partyTimer <= 0) {
-            partyTimer = 0;
+        partyToEndTimer--;
+        if (partyToEndTimer <= 0) {
+            partyToEndTimer = 0;
+            g.managerParty.eventOn = false;
             g.gameDispatcher.removeFromTimer(partyTimerToEnd);
+        }
+    }
+
+    public function partyToStart(time:int):void {
+        partyToStartTimer = time;
+        g.gameDispatcher.addToTimer(partyTimerToStart);
+    }
+
+    private function partyTimerToStart():void {
+        partyToStartTimer--;
+        if (partyToStartTimer <= 0) {
+            partyToEnd(g.managerParty.timeToEnd - int(new Date().getTime() / 1000));
+            g.managerParty.eventOn = true;
+            if ( g.managerParty.levelToStart <= g.user.level) {
+                var f:Function = function ():void {
+                    g.managerParty.atlasLoad();
+                };
+                g.directServer.getUserParty(f);
+            }
+            partyToStartTimer = 0;
+            g.gameDispatcher.removeFromTimer(partyTimerToStart);
         }
     }
 
