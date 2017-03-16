@@ -1,6 +1,7 @@
 package social {
 import com.adobe.crypto.MD5;
 import social.blank.SN_Blank;
+import social.fb.SN_FB;
 import social.ok.SN_OK;
 import social.vk.SN_Vkontakte;
 import manager.Vars;
@@ -9,6 +10,7 @@ public class SocialNetworkSwitch {
     public static var SN_VK_DEV:int = 1;
     public static var SN_VK_ID:int = 2;
     public static var SN_OK_ID:int = 3;
+    public static var SN_FB_ID:int = 4;
 
     protected static var _viewerID:String = "";
     private static var SECRET_KEY_VK_DEV:String = '';
@@ -38,13 +40,13 @@ public class SocialNetworkSwitch {
                 if (isDebug) {
                     flashVars["api_id"] = "5448769";
                     flashVars["viewer_id"] = "191561520";
-                    flashVars["sid"] = "3ca847d7113b81b19adf0d55c1bd1341d68979830f18d6741552eb8dab4b786dfa2cb6d85416b4d7302b2";
-                    flashVars["secret"] = "edcc408dab";
-//
+                    flashVars["sid"] = "2cf4a3baf15aaa92fefb07cee011f6fd74edd9b9650dae2763351da70f12edb81a55063ff1b927010d97e";
+                    flashVars["secret"] = "3b93dddfcb";
+
 //                    flashVars["api_id"] = "5448769";
 //                    flashVars["viewer_id"] = "8726902";
-//                    flashVars["sid"] = "001770cb869652e0f160952d890b821ca4c04e3f0689318af4d13c543e7a3cce00c1268d031db612a2257";
-//                    flashVars["secret"] = "0d07042c83";
+//                    flashVars["sid"] = "4c5f68095369c92a12f5a7fe1c808a53e8584e6c82dc1b8787139bf11efd7a059e2ed9cdf5968ecf9c774";
+//                    flashVars["secret"] = "e790b2b01a";
                 }
 
                 flashVars["access_key"] = MD5.hash(flashVars["api_id"] + flashVars["viewer_id"] + SECRET_KEY);
@@ -66,17 +68,19 @@ public class SocialNetworkSwitch {
                 }
                 g.user.userSocialId =  flashVars["uid"];
                 break;
-//            case MainGame.SN_MAILRU_ID:
-//                if (isDebug) {
-//                    flashVars["uid"] = "16517280194407900295";
-//                   // g.socialNetwork = new SN_Blank(flashVars, "mm", "http://bt.mm.joyrocks.com/", "http://i1.bt.mm.joyrocks.com/");
-//                } else {
-////                    g.socialNetwork = new SN_MAIL_RU(flashVars);
-//                }
-//                break;
+            case SN_FB_ID:
+                if (isDebug) {
+                    flashVars["uid"] = "500430446703918";
+                    g.socialNetwork = new SN_Blank(flashVars, "fb", "https://505.ninja/", "https://505.ninja/");
+                } else {
+                    flashVars["uid"] = flashVars["logged_user_id"];
+                    g.socialNetwork = new SN_FB(flashVars);
+                }
+                break;
             default:
                 break;
         }
+        
 //        if (isDebug && _viewerID) {
 //            v.config.setViewer(_viewerID);
 //        }
