@@ -946,7 +946,7 @@ public class DirectServer {
                 Cc.info('User cutscenes:: ' + ob.cut_scene);
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                     g.user.cutScenes = Utils.intArray( String(ob.cut_scene).split('&') );
-                } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+                } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
                     g.user.cutScenes = Utils.intArray( Utils.convert16to2(ob.cut_scene).split('') );
                     Cc.info('g.user.cutScenes: ' + g.user.cutScenes.join(' - '));
                 }
@@ -959,7 +959,7 @@ public class DirectServer {
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                     g.user.miniScenes = Utils.intArray( String(ob.mini_scene).split('&') );
 
-                } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+                } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
                     g.user.miniScenes = Utils.intArray( Utils.convert16to2(ob.mini_scene).split('') );
                     Cc.info('g.user.miniScenes: ' + g.user.miniScenes.join(' - '));
                 }
@@ -5659,7 +5659,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             variables.cutScene = g.user.cutScenes.join('&');
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
             variables.cutScene = Utils.convert2to16(g.user.cutScenes.join(''));
             Cc.info('OK updateUserCutSceneData variables.cutScene: ' + variables.cutScene);
         }
@@ -5711,7 +5711,7 @@ public class DirectServer {
         variables.userId = g.user.userId;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             variables.miniScene = g.user.miniScenes.join('&');
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
             variables.miniScene = Utils.convert2to16(g.user.miniScenes.join(''));
             Cc.info('OK updateUserMiniSceneData variables.miniScene: ' + variables.miniScene);
         }

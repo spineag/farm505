@@ -168,36 +168,28 @@ public class WOStarterPack extends WindowMain{
         im.x = 160;
         im.y = -138;
 
-
+        var st:String;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            txt = new CTextField(160, 40, String(_data.old_cost) +' ' +String(g.managerLanguage.allTexts[328]));
-            txt.setFormat(CTextField.BOLD30, 24, ManagerFilters.BLUE_COLOR);
-            txt.x = -100;
-            txt.y = 40;
-            _source.addChild(txt);
-            _arrCTex.push(txt);
-
-            txt = new CTextField(160, 40, String(g.managerLanguage.allTexts[329]) + ' ' +String(_data.new_cost) + ' ' + String(g.managerLanguage.allTexts[328]));
-            txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
-            txt.x = -100;
-            txt.y = 80;
-            _source.addChild(txt);
-            _arrCTex.push(txt);
-        } else {
-            txt = new CTextField(160, 40, String(_data.old_cost) +' '+ String(g.managerLanguage.allTexts[330]));
-            txt.setFormat(CTextField.BOLD30, 24, ManagerFilters.BLUE_COLOR);
-            txt.x = -100;
-            txt.y = 40;
-            _source.addChild(txt);
-            _arrCTex.push(txt);
-
-            txt = new CTextField(160, 40, String(g.managerLanguage.allTexts[329]) + ' ' +String(_data.new_cost) + ' ' + String(g.managerLanguage.allTexts[330]));
-            txt.setFormat(CTextField.BOLD30, 26,  ManagerFilters.BLUE_COLOR);
-            txt.x = -100;
-            txt.y = 80;
-            _source.addChild(txt);
-            _arrCTex.push(txt);
+            st = ' ' +String(g.managerLanguage.allTexts[328]);
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID ) {
+            st = ' ' +String(g.managerLanguage.allTexts[330]);
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
+            st = ' $';
         }
+        txt = new CTextField(160, 40, String(_data.old_cost) + st);
+        txt.setFormat(CTextField.BOLD30, 24, ManagerFilters.BLUE_COLOR);
+        txt.x = -100;
+        txt.y = 40;
+        _source.addChild(txt);
+        _arrCTex.push(txt);
+
+        txt = new CTextField(160, 40, String(g.managerLanguage.allTexts[329]) + ' ' +String(_data.new_cost) + st);
+        txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
+        txt.x = -100;
+        txt.y = 80;
+        _source.addChild(txt);
+        _arrCTex.push(txt);
+        
         var quad:Quad = new Quad(160, 3, Color.RED);
         quad.x = -100;
         quad.y = 62;

@@ -2,10 +2,7 @@
  * Created by user on 9/30/15.
  */
 package data {
-import build.farm.Farm;
-
 import com.junkbyte.console.Cc;
-
 import manager.Vars;
 
 public class AllData {
@@ -16,9 +13,13 @@ public class AllData {
     public var dataBuyMoney:Array;
     public var decorGroups:Object;
     private var _recipe:Array;
+    private var _recipeObj:Object;
     private var _resource:Array;
+    private var _resourceObj:Object;
     private var _building:Array;
+    private var _buildingObj:Object;
     private var _animal:Array;
+    private var _animalObj:Object;
     private var g:Vars = Vars.getInstance();
 
     public function AllData() {
@@ -31,26 +32,38 @@ public class AllData {
         _resource = [];
         _building = [];
         _animal = [];
+        _recipeObj = {};
+        _resourceObj = {};
+        _buildingObj = {};
+        _animalObj = {};
     }
 
     public function registerBuilding(b:StructureDataBuilding):void {
-        if (b.id > 0) _building.push(b);
-            else Cc.error('registerBuilding id <= 0');
+        if (b.id > 0) {
+            _building.push(b);
+            _buildingObj[b.id] = b;
+        } else Cc.error('registerBuilding id <= 0');
     }
     
     public function registerResource(b:StructureDataResource):void {
-        if (b.id > 0) _resource.push(b);
-            else Cc.error('registerResource id <= 0');
+        if (b.id > 0) {
+            _resource.push(b);
+            _resourceObj[b.id] = b;
+        } else Cc.error('registerResource id <= 0');
     }
 
     public function registerRecipe(b:StructureDataRecipe):void {
-        if (b.id > 0) _recipe.push(b);
-            else Cc.error('registerRecipe id <= 0');
+        if (b.id > 0) {
+            _recipe.push(b);
+            _recipeObj[b.id] = b;
+        } else Cc.error('registerRecipe id <= 0');
     }
 
     public function registerAnimal(b:StructureDataAnimal):void {
-        if (b.id > 0) _animal.push(b);
-        else Cc.error('registerAnimal id <= 0');
+        if (b.id > 0) {
+            _animal.push(b);
+            _animalObj[b.id] = b;
+        } else Cc.error('registerAnimal id <= 0');
     }
 
     public function addToDecorGroup(dataDecor:StructureDataBuilding):void {
@@ -115,31 +128,35 @@ public class AllData {
     }
 
     public function getResourceById(idResourse:int):StructureDataResource {
-        for (var i:int=0; i<_resource.length; i++) {
-            if ((_resource[i] as StructureDataResource).id == idResourse) return _resource[i];
-        }
-        return null;
+//        for (var i:int=0; i<_resource.length; i++) {
+//            if ((_resource[i] as StructureDataResource).id == idResourse) return _resource[i];
+//        }
+//        return null;
+        return _resourceObj[idResourse];
     }
 
     public function getRecipeById(idRecipe:int):StructureDataRecipe {
-        for (var i:int=0; i<_recipe.length; i++) {
-            if ((_recipe[i] as StructureDataRecipe).id == idRecipe) return _recipe[i];
-        }
-        return null;
+//        for (var i:int=0; i<_recipe.length; i++) {
+//            if ((_recipe[i] as StructureDataRecipe).id == idRecipe) return _recipe[i];
+//        }
+//        return null;
+        return _recipeObj[idRecipe];
     }
 
     public function getBuildingById(idBuilding:int):StructureDataBuilding {
-        for (var i:int=0; i<_building.length; i++) {
-            if ((_building[i] as StructureDataBuilding).id == idBuilding) return _building[i];
-        }
-        return null;
+//        for (var i:int=0; i<_building.length; i++) {
+//            if ((_building[i] as StructureDataBuilding).id == idBuilding) return _building[i];
+//        }
+//        return null;
+        return _buildingObj[idBuilding];
     }
 
     public function getAnimalById(idAnimal:int):StructureDataAnimal {
-        for (var i:int=0; i<_animal.length; i++) {
-            if ((_animal[i] as StructureDataAnimal).id == idAnimal) return _animal[i];
-        }
-        return null;
+//        for (var i:int=0; i<_animal.length; i++) {
+//            if ((_animal[i] as StructureDataAnimal).id == idAnimal) return _animal[i];
+//        }
+//        return null;
+        return _animalObj[idAnimal];
     }
 
     public function getAnimalByFarmId(idBuild:int):StructureDataAnimal {
