@@ -238,6 +238,7 @@ public class WOPartyWindow extends WindowMain{
 
     private function checkAtlas():void {
         if (g.allData.atlas['partyAtlas']) {
+            g.gameDispatcher.removeEnterFrame(checkAtlas);
             var im:Image;
             if (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2) {
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('new_event_window_l'));
@@ -412,6 +413,7 @@ public class WOPartyWindow extends WindowMain{
             }
             createExitButton(onClickExit);
             _callbackClickBG = onClickExit;
+            showItParams(null,null);
         }
     }
 

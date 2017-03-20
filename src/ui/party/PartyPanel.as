@@ -79,7 +79,9 @@ public class PartyPanel {
     }
 
     private function onClick():void {
-        if (g.userTimer.partyToEndTimer > 0) g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+        if (g.userTimer.partyToEndTimer > 0) {
+            g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+        }
     }
 
     public function getPoint():Point {

@@ -267,7 +267,9 @@ public class WOSalePack extends WindowMain{
                     g.directServer.getDailyGift(null);
                 } else {
                     g.managerCats.helloCats();
-                    if (g.userTimer.partyToEndTimer > 0) g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+                    if (g.userTimer.partyToEndTimer > 0) {
+                        g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+                    }
                     else if (!g.managerParty.userParty.showWindow) g.managerParty.endPartyWindow();
                 }
             }
