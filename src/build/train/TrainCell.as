@@ -62,6 +62,14 @@ public class TrainCell {
         return g.userInventory.getCountResourceById(_dataResource.id) >= _count;
     }
 
+    public function whoHelpId(s:String):void {
+        helpId = s;
+    }
+
+    public function needHelpNow(b:Boolean):void {
+        needHelp = b;
+    }
+
     public function get count():int {
         return _count;
     }

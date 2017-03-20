@@ -401,7 +401,7 @@ public class WOTrain extends WindowMain {
                 _btnHelp.deleteIt();
                 _btnHelp = null;
             }
-            g.directServer.updateUserTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
+            g.directServer.updateTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
             if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
             else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
             obj = {};
@@ -412,14 +412,20 @@ public class WOTrain extends WindowMain {
             g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
             _arrItems[_activeItemIndex].fullItHelp();
         } else {
-            if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree && g.allData.getResourceById(_arrItems[_activeItemIndex].idFree).buildType == BuildType.PLANT
-                    && g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
+            if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree) {
+                if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree && g.allData.getResourceById(_arrItems[_activeItemIndex].idFree).buildType == BuildType.PLANT
+                        && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
+                    g.windowsManager.cashWindow = this;
+                    super.hideIt();
+                    g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, giftHelpClick, g.allData.getResourceById(_arrItems[_activeItemIndex].idFree), 'trainHelp');
+                    return;
+                }
                 if (_btnHelp) {
                     _rightBlock.removeChild(_btnHelp);
                     _btnHelp.deleteIt();
                     _btnHelp = null;
                 }
-                g.directServer.updateUserTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
+                g.directServer.updateTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
                 if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
                 else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
                 obj = {};
@@ -430,13 +436,7 @@ public class WOTrain extends WindowMain {
                 new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
                 g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
                 _arrItems[_activeItemIndex].fullItHelp();
-            } else if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree && g.allData.getResourceById(_arrItems[_activeItemIndex].idFree).buildType == BuildType.PLANT
-                    && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
-                g.windowsManager.cashWindow = this;
-                super.hideIt();
-                g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, giftHelpClick, g.allData.getResourceById(_arrItems[_activeItemIndex].idFree), 'trainHelp');
-                return;
-            } else if (_arrItems[_activeItemIndex].countFree > g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)) {
+            }  else if (_arrItems[_activeItemIndex].countFree > g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)) {
                 g.windowsManager.cashWindow = this;
                 super.hideIt();
                 obj = {};

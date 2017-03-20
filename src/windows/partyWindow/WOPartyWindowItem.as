@@ -31,6 +31,7 @@ import utils.MCScaler;
 
 public class WOPartyWindowItem {
     public var source:CSprite;
+    private var _sprItem:CSprite;
     private var _btn:CButton;
     private var _txtBtn:CTextField;
     private var _txtCountResource:CTextField;
@@ -43,6 +44,7 @@ public class WOPartyWindowItem {
 
     public function WOPartyWindowItem(id:int, type:int, countResource:int, countToGift:int, number:int) {
         source = new CSprite();
+        _sprItem = new CSprite();
         _btn = new CButton();
         _data = {};
         _data.idResource = id;
@@ -67,27 +69,35 @@ public class WOPartyWindowItem {
         source.addChild(_bg);
         if (id == 1 && type  == 1) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
-            source.addChild(im);
+            _sprItem.addChild(im);
             _txtCountResource.text = String(countResource);
         } else if (id == 2 && type == 2) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins'));
-            source.addChild(im);
+            _sprItem.addChild(im);
             _txtCountResource.text = String(countResource);
         }  else if (type == BuildType.RESOURCE || type == BuildType.INSTRUMENT || type == BuildType.PLANT) {
             im = new Image(g.allData.atlas[g.allData.getResourceById(id).url].getTexture(g.allData.getResourceById(id).imageShop));
-            source.addChild(im);
+            _sprItem.addChild(im);
             _txtCountResource.text = String(countResource);
+            _sprItem.hoverCallback = function():void { g.hint.showIt(String(g.allData.getResourceById(id).name)); };
+            _sprItem.outCallback = function():void { g.hint.hideIt(); };
         } else if (type == BuildType.DECOR_ANIMATION) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).url + '_icon'));
-            source.addChild(im);
-
+            _sprItem.addChild(im);
+            _sprItem.hoverCallback = function():void { g.hint.showIt(String(g.allData.getBuildingById(id).name)); };
+            _sprItem.outCallback = function():void { g.hint.hideIt(); };
         } else if (type == BuildType.DECOR) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).image +'_icon'));
-            source.addChild(im);
+            _sprItem.addChild(im);
+            _sprItem.hoverCallback = function():void { g.hint.showIt(String(g.allData.getBuildingById(id).name)); };
+            _sprItem.outCallback = function():void { g.hint.hideIt(); };
+
         }
         im.pivotX = im.width/2;
         im.pivotY = im.height/2;
         MCScaler.scale(im, 80,80);
+        source.addChild(_sprItem);
+
 //        if (number == 5) {
 //            im.x = _bg.width/2;
 //            im.y = _bg.height/2 - 30;
