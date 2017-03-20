@@ -69,7 +69,9 @@ public class QuestTaskStructure {
                 im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 break;
             case BuildType.WILD:
-                im = new Image(g.allData.atlas['wildAtlas'].getTexture('swamp'));
+                ob = g.allData.getBuildingById(int(_taskData.id_resource));
+                im = new Image(g.allData.atlas['wildAtlas'].getTexture(ob.image));
+                if (!im) im = new Image(g.allData.atlas['wildAtlas'].getTexture('swamp'));
                 break;
             case BuildType.ANIMAL:
                 ob = g.allData.getAnimalById(int(_taskData.id_resource));

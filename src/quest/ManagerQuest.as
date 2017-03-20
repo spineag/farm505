@@ -62,7 +62,6 @@ public class ManagerQuest {
     }
 
     public function get userQuests():Array { return _userQuests; }
-    public function get questCount():int { return _userQuests.length; }
     public function hideQuestsIcons(v:Boolean):void { if (_questUI) _questUI.hideIt(v); }
 
     public function addUI():void {
@@ -75,6 +74,8 @@ public class ManagerQuest {
     private function onGetUserQuests(d:Object):void {
         addQuests(d, false);
         var isDone:Boolean = false;
+        checkForEmptyQuests();
+        if (_questUI) _questUI.updateIcons();
         for (var i:int=0; i<_userQuests.length; i++) {
             (_userQuests[i] as QuestStructure).checkQuestForDone();
             if ((_userQuests[i] as QuestStructure).isDone) {
@@ -97,6 +98,8 @@ public class ManagerQuest {
 
     private function onGetNewQuests(d:Object):void {
         addQuests(d, true);
+        checkForEmptyQuests();
+        if (_questUI) _questUI.updateIcons();
     }
 
     private function getUserQuestById(id:int):QuestStructure {
@@ -142,7 +145,16 @@ public class ManagerQuest {
             } else {
                 Cc.error('ManagerQuests addQuest award:: no awards');
             }
-            if (_questUI) _questUI.updateIcons();
+        }
+    }
+
+    private function checkForEmptyQuests():void {
+        for (var i:int=0; i<_userQuests.length; i++) {
+            if (_userQuests[i] && !(_userQuests[i] as QuestStructure).tasks.length) {
+                Cc.error('ManagerQuest:: no tasks for questID: ' + (_userQuests[i] as QuestStructure).id);
+                _userQuests.removeAt(i);
+                i--;
+            }
         }
     }
 

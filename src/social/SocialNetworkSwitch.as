@@ -73,7 +73,6 @@ public class SocialNetworkSwitch {
                     flashVars["uid"] = "500430446703918";
                     g.socialNetwork = new SN_Blank(flashVars, "fb", "https://505.ninja/", "https://505.ninja/");
                 } else {
-                    flashVars["uid"] = flashVars["logged_user_id"];
                     g.socialNetwork = new SN_FB(flashVars);
                 }
                 break;
