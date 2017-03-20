@@ -32,6 +32,10 @@ public class SN_FB extends SocialNetwork  {
         super(flashVars);
     }
 
+    override public function get currentUID():String {
+        return g.user.userSocialId;
+    }
+
     override public function getProfile(uid:String):void {
         super.getProfile(uid);
         ExternalInterface.call("getProfile", uid);
@@ -41,6 +45,8 @@ public class SN_FB extends SocialNetwork  {
         Cc.ch('social', 'FB: getProfileHandler:');
         Cc.obj('social', e);
         try {
+            g.flashVars["uid"] = String(e.id);
+            g.user.userSocialId = String(e.id);
             _paramsUser = {};
             _paramsUser.firstName = String(e.first_name);
             _paramsUser.lastName = String(e.last_name);
