@@ -123,10 +123,10 @@ public class WOPartyWindow extends WindowMain{
                 im.y = -im.height / 2 - 115;
                 _source.addChild(im);
 
-                _txtName = new CTextField(500, 70, String(g.managerParty.name));
-                _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
+                _txtName = new CTextField(_woWidth, 70, String(g.managerParty.name));
+                _txtName.setFormat(CTextField.BOLD30, 50, Color.RED, Color.WHITE);
                 _txtName.alignH = Align.LEFT;
-                _txtName.x = -170;
+                _txtName.x = -_txtName.textBounds.width/2;
                 _txtName.y = -215;
                 _source.addChild(_txtName);
                 if (g.managerParty.typeParty == 3) {
@@ -155,7 +155,7 @@ public class WOPartyWindow extends WindowMain{
                     im.y = 22;
                     _source.addChild(im);
 
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('tulip_icon'));
+                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('clover_leaf_icon'));
                     MCScaler.scale(im, 45, 45);
                     im.x = -202;
                     im.y = 38;
@@ -251,7 +251,7 @@ public class WOPartyWindow extends WindowMain{
                 _txtName = new CTextField(_woWidth, 70, String(g.managerParty.name));
                 _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
                 _txtName.alignH = Align.LEFT;
-                _txtName.x = -_txtName.textBounds.width / 2;
+                _txtName.x = -_txtName.textBounds.width/2;
                 _txtName.y = -215;
                 _source.addChild(_txtName);
                 _txtTime = new CTextField(120, 60, '    ');
@@ -303,10 +303,10 @@ public class WOPartyWindow extends WindowMain{
                 im.y = -im.height / 2 - 115;
                 _source.addChild(im);
 
-                _txtName = new CTextField(500, 70, String(g.managerParty.name));
-                _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
+                _txtName = new CTextField(_woWidth, 70, String(g.managerParty.name));
+                _txtName.setFormat(CTextField.BOLD30, 50, Color.RED, Color.WHITE);
                 _txtName.alignH = Align.LEFT;
-                _txtName.x = -170;
+                _txtName.x = -_txtName.textBounds.width/2;
                 _txtName.y = -215;
                 _source.addChild(_txtName);
                 if (g.managerParty.typeParty == 3) {
@@ -335,7 +335,7 @@ public class WOPartyWindow extends WindowMain{
                     im.y = 22;
                     _source.addChild(im);
 
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('tulip_icon'));
+                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('clover_leaf_icon'));
                     MCScaler.scale(im, 45, 45);
                     im.x = -202;
                     im.y = 38;
@@ -549,7 +549,6 @@ public class WOPartyWindow extends WindowMain{
 //        im.y = 40;
 //        _source.addChild(im);
 //
-//
 //        im = new Image(g.allData.atlas['partyAtlas'].getTexture('tulip_icon'));
 //        im.x = -215;
 //        im.y = 55;
@@ -557,7 +556,6 @@ public class WOPartyWindow extends WindowMain{
 //        _source.addChild(im);
 //        var date:Date = new Date();
 //        var dateClose:int = new Date(g.managerParty.dataParty.timeToEnd * 1000).dateUTC;
-//        trace(date + '   ' );
         super.showIt();
     }
 

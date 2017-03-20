@@ -131,7 +131,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'getTextHelp OK', 5);
             var randomPos:int  = int(Math.random() * d.message.length);
-            g.startPreloader.textHelp(String(d.message[randomPos].text));
+//            g.startPreloader.textHelp(String(d.message[randomPos].text));
 //            g.startPreloader.textHelp(String(g.managerLanguage.allTexts[d.message[randomPos].text_id]));
             if (callback != null) {
                 callback.apply();
@@ -7609,17 +7609,17 @@ public class DirectServer {
         }
     }
 
-    public function updateUserTrainPackGetHelp(train_item_db_id:int, helpId:String, callback:Function):void {
+    public function updateTrainPackGetHelp(train_item_db_id:int, helpId:String, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_TRAIN_PACK_GET_HELP);
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'updateUserTrainPackGetHelp', 1);
         variables = addDefault(variables);
-        variables.userId = g.user.userId;
+        variables.userId = g.visitedUser.userId;
         variables.id = train_item_db_id;
         variables.helpId = helpId;
-        variables.hash = MD5.hash(String(g.user.userId)+String(helpId)+String(train_item_db_id)+SECRET);
+//        variables.hash = MD5.hash(String(g.visitedUser.userId)+String(helpId)+String(train_item_db_id)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();

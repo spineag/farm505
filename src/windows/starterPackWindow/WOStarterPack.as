@@ -241,7 +241,6 @@ public class WOStarterPack extends WindowMain{
             g.socialNetwork.showOrderWindow({id: 13, price: int(_data.new_cost)});
             Cc.info('try to buy packId: ' + 13);
         }
-        hideIt();
     }
 
     private function orderWindowSuccessHandler(e:SocialNetworkEvent):void {

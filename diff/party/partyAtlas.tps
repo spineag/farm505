@@ -197,15 +197,14 @@
             <filename>progress.png</filename>
             <filename>valik_timer.png</filename>
             <filename>hint_button.png</filename>
-            <filename>tulip_icon.png</filename>
-            <filename>8m_icon.png</filename>
             <filename>event_window_n.png</filename>
             <filename>new_event_window_l.png</filename>
             <filename>event_window_w.png</filename>
             <filename>new_event_window_r.png</filename>
             <filename>event_window_baloon.png</filename>
-            <filename>event_icon.png</filename>
             <filename>new_event_window_r_2.png</filename>
+            <filename>clover_leaf_event_timer.png</filename>
+            <filename>clover_leaf_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

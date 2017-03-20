@@ -348,6 +348,9 @@ public class WOTrainItem {
         _galo4ka.visible = true;
         _txtWhite.visible = false;
         _txtRed.visible = false;
+        _needHelp.visible = false;
+        _info.whoHelpId(String(g.user.userSocialId));
+        _info.needHelpNow(false);
     }
 
     public function clearIt():void {
