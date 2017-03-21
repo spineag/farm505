@@ -7776,12 +7776,8 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_DATA_ACHIEVEMENT);
         var variables:URLVariables = new URLVariables();
 
-        Cc.ch('server', 'changeLanguage', 1);
+        Cc.ch('server', 'getDataAchievement', 1);
         variables = addDefault(variables);
-        variables.userId = g.user.userId;
-//        if (g.user.language == 1) variables.languageId = 2;
-//        else variables.languageId = 1;
-//        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -7791,24 +7787,40 @@ public class DirectServer {
         try {
             loader.load(request);
         } catch (error:Error) {
-            Cc.error('changeLanguage error:' + error.errorID);
+            Cc.error('getDataAchievement error:' + error.errorID);
         }
     }
 
     private function completeGetDataAchievement(response:String, callback:Function = null):void {
         iconMouse.endConnect();
         var d:Object;
-
+        var k:int;
+        var ob:Object;
+        ob = {};
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
-            Cc.error('changeLanguage: wrong JSON:' + String(response));
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'changeLanguage: wrong JSON:' + String(response));
+            Cc.error('getDataAchievement: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataAchievement: wrong JSON:' + String(response));
             return;
         }
-
+        for (var i:int = 0; i < d.message.length; i++) {
+            ob.id = int(d.message[i].id);
+            ob.name = String(g.managerLanguage.allTexts[d.message[i].text_id_name]);
+            ob.description = String(g.managerLanguage.allTexts[d.message[i].text_id_description]);
+            if (d.message[i].count_to_gift) ob.countToGift = String(d.message[i].count_to_gift).split('&');
+            for (k = 0; k < ob.countToGift.length; k++) ob.countToGift[k] = int(ob.countToGift[k]);
+            if (d.message[i].count_xp) ob.countXp = String(d.message[i].count_xp).split('&');
+            for (k = 0; k < ob.countXp.length; k++) ob.countXp[k] = int(ob.countXp[k]);
+            if (d.message[i].count_hard) ob.countHard = String(d.message[i].count_hard).split('&');
+            for (k = 0; k < ob.countHard.length; k++) ob.countHard[k] = int(ob.countHard[k]);
+            ob.typeAction = int(d.message[i].type_action);
+            ob.idResource =  int(d.message[i].id_resource);
+            g.managerAchievement.dataAchievement.push(ob);
+        }
+        trace('asd');
         if (d.id == 0) {
-            Cc.ch('server', 'changeLanguage OK', 5);
+            Cc.ch('server', 'getDataAchievement OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -7817,7 +7829,65 @@ public class DirectServer {
         } else if (d.id == 6) {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
-            Cc.error('changeLanguage: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            Cc.error('getDataAchievement: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function getUserAchievement(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_ACHIEVEMENT);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserAchievement', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetUserAchievement);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetUserAchievement(e:Event):void { completeGetUserAchievement(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserAchievement error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserAchievement(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var k:int;
+        var ob:Object;
+        ob = {};
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserAchievement: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserAchievement: wrong JSON:' + String(response));
+            return;
+        }
+        for (var i:int = 0; i < d.message.length; i++) {
+            ob.id = int(d.message[i].achievement_id);
+            ob.resourceCount =  int(d.message[i].resource_count);
+            if (d.message[i].took_gift) ob.tookGift = String(d.message[i].took_gift).split('&');
+            for (k = 0; k < ob.tookGift.length; k++) ob.tookGift[k] = int(ob.tookGift[k]);
+            g.managerAchievement.userAchievement.push(ob);
+        }
+        trace('asd');
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserAchievement OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getUserAchievement: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }

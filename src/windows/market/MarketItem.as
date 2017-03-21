@@ -18,6 +18,7 @@ import quest.ManagerQuest;
 
 import resourceItem.CraftItem;
 import resourceItem.DropItem;
+import resourceItem.DropPartyResource;
 import resourceItem.ResourceItem;
 
 import social.SocialNetworkEvent;
@@ -480,6 +481,7 @@ public class MarketItem {
                         break;
                     }
                 }
+                if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.MARKET && g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
                 animCoin();
                 isFill = 0;
                 unFillIt();

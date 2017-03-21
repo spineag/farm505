@@ -37,6 +37,8 @@ public class LoadComponents {
         g.load.loadXML(st + 'resourceAtlas.xml' + g.getVersion('resourceAtlas'), onLoad);
         g.load.loadImage(st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas'), onLoad);
         g.load.loadXML(st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas'), onLoad);
+        g.load.loadImage(st + 'achievementAtlas.png' + g.getVersion('achievementAtlas'), onLoad);
+        g.load.loadXML(st + 'achievementAtlas.xml' + g.getVersion('achievementAtlas'), onLoad);
 
         g.load.loadImage(st + 'x1/buildAtlas.png' + g.getVersion('buildAtlas'), onLoad);
         g.load.loadXML(st + 'x1/buildAtlas.xml' + g.getVersion('buildAtlas'), onLoad);
@@ -53,7 +55,7 @@ public class LoadComponents {
     private function onLoad(smth:*=null):void {
         count++;
         g.startPreloader.setProgress(6 + 2*count);
-        if (count >=20) createAtlases();
+        if (count >=22) createAtlases();
     }
 
     private function createAtlases():void {

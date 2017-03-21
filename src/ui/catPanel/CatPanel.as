@@ -86,6 +86,7 @@ public class CatPanel {
     }
 
     private function onClick():void {
+//        g.directServer.getDataAchievement(null);
 //        g.directServer.getUserParty(null);
 //        var ob:Object = {};
 //        ob.timeToStart = 1;

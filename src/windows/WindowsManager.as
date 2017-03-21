@@ -4,6 +4,8 @@
 package windows {
 import com.junkbyte.console.Cc;
 import manager.Vars;
+
+import windows.achievementWindow.WOAchievement;
 import windows.ambar.WOAmbars;
 import windows.ambarFilled.WOAmbarFilled;
 import windows.anotherGameError.WOAnotherGame;
@@ -112,6 +114,7 @@ public class WindowsManager {
     public static const WO_PARTY_CLOSE:String = 'party_close';
     public static const WO_FABRIC_DELETE_ITEM:String = 'fabric_delete_item';
     public static const WO_SALE_PACK:String = 'sale_pack';
+    public static const WO_ACHIEVEMENT:String = 'achievement';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -297,6 +300,9 @@ public class WindowsManager {
                 break;
             case WO_SALE_PACK:
                 wo = new WOSalePack();
+                break;
+            case WO_ACHIEVEMENT:
+                wo = new WOAchievement();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

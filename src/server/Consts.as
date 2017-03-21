@@ -141,5 +141,6 @@ public class Consts {
     public static var INQ_GET_ALL_TEXTS:String = 'getAllTexts.php';
     public static var INQ_CHANGE_LANGUAGE:String = 'changeLanguage.php';
     public static var INQ_GET_DATA_ACHIEVEMENT:String = 'getDataAchievement.php';
+    public static var INQ_GET_USER_ACHIEVEMENT:String = 'getUserAchievement.php';
 }
 }
