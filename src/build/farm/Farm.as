@@ -445,6 +445,7 @@ public class Farm extends WorldObject{
 
     private function useCraftedResource(item:ResourceItem, crItem:CraftItem):void {
         (crItem.animal as Animal).onCraft();
+        g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
         _arrCrafted.splice(_arrCrafted.indexOf(crItem), 1);
         g.managerFabricaRecipe.onCraft(item);
         checkForCraft();
