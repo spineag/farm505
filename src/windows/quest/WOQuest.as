@@ -67,6 +67,8 @@ public class WOQuest extends WindowMain{
 
     override public function showItParams(callback:Function, params:Array):void {
         _quest = params[0];
+        if (!_quest.tasks.length) { Cc.error('WOQuest showItParams: no tasks for questId: ' + _quest.id); return; }
+        if (!_quest.awards.length) { Cc.error('WOQuest showItParams: no awards for questId: ' + _quest.id); return; }
         if (g.allData.atlas['questAtlas']) {
             var im:Image;
             im = new Image(g.allData.atlas['questAtlas'].getTexture('quest_window_back'));
@@ -81,14 +83,21 @@ public class WOQuest extends WindowMain{
         } else {
             Cc.error('WOQuest showItParams:: no questAtlas');
         }
+        Cc.info("woQuest showItParams 1");
         _txtDescription.text = _quest.description;
-        _txtName.text = _quest.questName;
+        Cc.info("woQuest showItParams 2");
+        if (g.user.isTester) _txtName.text = String(_quest.id) + ': ' + _quest.questName;
+            else _txtName.text = _quest.questName;
+        Cc.info("woQuest showItParams 3");
         _source.setChildIndex(_txtDescription, _source.numChildren-1);
         _source.setChildIndex(_txtName, _source.numChildren-1);
         _source.setChildIndex(_btnExit, _source.numChildren-1);
 
+        Cc.info("woQuest showItParams 4");
         _award = new WOQuestAward(_source, _quest.awards);
+        Cc.info("woQuest showItParams 5");
         _questItem = new WOQuestItem(_source, _quest.tasks);
+        Cc.info("woQuest showItParams 6");
         super.showIt();
 
         var st:String = _quest.iconPath;
@@ -102,6 +111,7 @@ public class WOQuest extends WindowMain{
         } else {
             g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
         }
+        Cc.info("woQuest showItParams 7");
     }
 
     private function onLoadIcon(bitmap:Bitmap):void { addIm(new Image(Texture.fromBitmap(bitmap))); }

@@ -313,6 +313,7 @@ public class Vars {
         socialNetwork.removeEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
         socialNetwork.addEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
         socialNetwork.getProfile(socialNetwork.currentUID);
+        Cc.info('userSocialId == ' + socialNetwork.currentUID + " --- " + (user as User).userSocialId); // should be the same
     }
 
     private function authoriseUser(e:SocialNetworkEvent = null):void {

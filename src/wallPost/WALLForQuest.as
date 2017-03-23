@@ -39,7 +39,7 @@ public class WALLForQuest {
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[469]), bitmap, 'interfaceAtlas');
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[469]),
                     null, st + 'wall/quest_posting.jpg');
         }

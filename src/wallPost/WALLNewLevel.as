@@ -69,7 +69,7 @@ public class WALLNewLevel {
         bitmap.bitmapData.draw(sp);
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[471]),bitmap,'interfaceAtlas');
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
             try {
                 st = "https://505.ninja/content/wall/ok/wall_OK_7_" + g.user.level + ".jpg";
                 g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]),

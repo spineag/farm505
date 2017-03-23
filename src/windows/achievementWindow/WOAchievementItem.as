@@ -93,7 +93,7 @@ public class WOAchievementItem {
         }
     }
 
-    public function starShow() {
+    public function starShow():void {
         var im:Image;
         if (g.managerAchievement.dataAchievement[_number].countToGift[0] >= g.managerAchievement.userAchievement) {
             im = new Image(g.allData.atlas['achievementAtlas'].getTexture('star'));

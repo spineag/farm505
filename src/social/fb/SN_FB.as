@@ -3,8 +3,13 @@
  */
 package social.fb {
 import com.junkbyte.console.Cc;
+
+import flash.display.Bitmap;
 import flash.external.ExternalInterface;
 import flash.utils.getTimer;
+
+import quest.ManagerQuest;
+
 import social.SocialNetwork;
 import user.Friend;
 
@@ -20,14 +25,13 @@ public class SN_FB extends SocialNetwork  {
         if (ExternalInterface.available) {
             ExternalInterface.addCallback('getProfileHandler', getProfileHandler);
             ExternalInterface.addCallback('getAllFriendsHandler', getAllFriendsHandler);
-//            ExternalInterface.addCallback('getUsersInfoHandler', getUsersInfoHandler);
             ExternalInterface.addCallback('getAppUsersHandler', getAppUsersHandler);
             ExternalInterface.addCallback('getFriendsByIdsHandler', getFriendsByIdsHandler);
 //            ExternalInterface.addCallback('onPaymentCallback', onPaymentCallback);
             ExternalInterface.addCallback('getTempUsersInfoByIdHandler', getTempUsersInfoByIdCallback);
-//            ExternalInterface.addCallback('isInGroupCallback', isInGroupCallback);
-//            ExternalInterface.addCallback('wallPostSave', wallSavePublic);
-//            ExternalInterface.addCallback('wallPostCancel', wallCancelPublic);
+            ExternalInterface.addCallback('isInGroupCallback', isInGroupCallback);
+            ExternalInterface.addCallback('wallPostSave', wallSavePublic);
+            ExternalInterface.addCallback('wallPostCancel', wallCancelPublic);
         }
         super(flashVars);
     }
@@ -72,7 +76,7 @@ public class SN_FB extends SocialNetwork  {
         for (var key:String in e) {
             if (key != "method") {
                 buffer = e[key];
-                setFriendInfo(buffer.id, buffer.first_name, buffer.last_name, buffer.picture);
+                setFriendInfo(buffer.id, buffer.first_name, buffer.last_name, buffer.picture.data.url);
                 _friendsApp.push(buffer);
             }
         }
@@ -94,15 +98,12 @@ public class SN_FB extends SocialNetwork  {
             ob.uid = e[key].id;
             ob.first_name = e[key].first_name;
             ob.last_name = e[key].last_name;
-            ob.photo_100 = e[key].picture;
+            ob.photo_100 = e[key].picture.data.url;
             ar.push(ob);
         }
         g.user.addTempUsersInfo(ar);
         super.getTempUsersInfoByIdSucces();
     }
-
-
-
 
     // friends in App
     override public function getAppUsers():void {
@@ -112,8 +113,12 @@ public class SN_FB extends SocialNetwork  {
 
     private function getAppUsersHandler(e:Object):void {
         Cc.ch('social', 'FB: getAppUsersHandler:');
-        if (e) Cc.obj('social', e);
-        _friendsApp = e["uids"] as Array;
+        var ob:Object = e.context.friends_using_app.data;
+        if (e) Cc.obj('social', ob);
+        _friendsApp = [];
+        for(var st:String in ob) {
+            _friendsApp.push(ob[st].id);
+        }
         var f:Friend;
         for (var i:int=0; i<_friendsApp.length; i++) {
             f = new Friend();
@@ -144,11 +149,7 @@ public class SN_FB extends SocialNetwork  {
     }
 
     private function getFriendsByIDsWithDelay(ids:Array):void {
-        var arr:Array = [];
-        for (var i:int = 0; i < ids.length; i++) {
-            arr.push(ids[i]);
-        }
-        ExternalInterface.call("getFriendsByIds", arr);
+        ExternalInterface.call("getFriendsByIds", ids);
     }
 
     private function getFriendsByIdsHandler(e:Object):void {
@@ -160,13 +161,53 @@ public class SN_FB extends SocialNetwork  {
             ob.uid = e[key].id;
             ob.first_name = e[key].first_name;
             ob.last_name = e[key].last_name;
-            ob.photo_100 = e[key].picture;
+            ob.photo_100 = e[key].picture.data.url;
             g.user.addFriendInfo(ob);
         }
         if (_friendsApp.length) {
             getFriendsByIDs(_friendsApp);
         } else {
             super.getFriendsByIDsSuccess(e);
+        }
+    }
+
+    override public function showInviteWindow():void {
+        ExternalInterface.call("showInviteWindowAll");
+    }
+
+    override public function reloadGame():void {
+        try {
+            Cc.stackch("info", "SocialNetwork:: game reloading");
+            ExternalInterface.call("reloadGame");
+        } catch (e:Error) {
+            Cc.warn("SocialNetwork:: cannot reload game");
+        }
+    }
+
+    override public function wallPostBitmap(uid:String, message:String, image:Bitmap, url:String = null, title:String = null, posttype:String = null):void {
+        super.wallPostBitmap(uid, message, image, url, title, posttype);
+        ExternalInterface.call("makeWallPost", uid, message, url);
+    }
+
+    public function wallCancelPublic():void {
+        super.wallCancel();
+    }
+
+    public function wallSavePublic():void {
+        super.wallSave();
+    }
+
+    public override function checkIsInSocialGroup(id:String):void {
+        ExternalInterface.call("isInGroup", id, g.user.userSocialId);
+        super.checkIsInSocialGroup(id);
+    }
+
+    private function isInGroupCallback(status:int):void {
+        Cc.obj('social', status, 'is in group');
+        if (status == 1) {
+            g.managerQuest.onActionForTaskType(ManagerQuest.ADD_TO_GROUP);
+//        } else {
+//            Link.openURL(urlSocialGroup);
         }
     }
 }

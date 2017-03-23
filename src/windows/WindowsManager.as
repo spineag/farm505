@@ -133,6 +133,7 @@ public class WindowsManager {
             if (type == WO_GAME_ERROR || type == WO_RELOAD_GAME || type == WO_SERVER_ERROR || type == WO_ANOTHER_GAME_ERROR || type == WO_SERVER_CRACK) {
                 closeAllWindows();
             } else {
+                Cc.info("is open another window:: _currentWindow type: " + _currentWindow.windowType);
                 _nextWindow = {};
                 _nextWindow.type = type;
                 _nextWindow.callback = callback;

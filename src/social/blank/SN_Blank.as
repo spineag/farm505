@@ -12,7 +12,7 @@ public class SN_Blank extends SocialNetwork {
     public function SN_Blank(flashVars:Object, channelMark:String, serverPath:String, contentPath:String = null) {
 
         flashVars["channelGUID"] ||= "d3a603c8017548938c30c3f13a2d7741";
-
+        g.user.userSocialId = flashVars['uid'];
         super(flashVars);
     }
 
