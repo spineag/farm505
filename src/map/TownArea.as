@@ -694,9 +694,9 @@ public class TownArea extends Sprite {
                         fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
-                if (isNewAtMap && g.isActiveMapEditor)
+                if (isNewAtMap)
                     g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-                if (updateAfterMove && g.isActiveMapEditor) {
+                if (updateAfterMove) {
                     g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 }
                 return;
@@ -1422,7 +1422,7 @@ public class TownArea extends Sprite {
         if (build is Ridge) (build as Ridge).checkAfterMove();
     }
 
-    private function addFenceLenta(d:WorldObject):void {
+    public function addFenceLenta(d:WorldObject):void {
         // проверяем, есть ли по соседству еще столбы забора, если да - то проводим между ними ленту
         var obj:Object;
 
@@ -1498,7 +1498,7 @@ public class TownArea extends Sprite {
         }
     }
 
-    private function removeFenceLenta(d:WorldObject):void {
+    public function removeFenceLenta(d:WorldObject):void {
         // проверяем, есть ли по соседству еще столбы забора, если да - то забираем между ними ленту
         var obj:Object;
 

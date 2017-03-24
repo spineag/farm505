@@ -37,7 +37,7 @@ public class WALLOpenTrain {
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[474]),bitmap,'interfaceAtlas');
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
             st = 'https://505.ninja/content/wall/ok/wall_OK_3.jpg';
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[474]),
                     null, st);

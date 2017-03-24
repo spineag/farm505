@@ -38,6 +38,9 @@ public class CTextField extends DisplayObjectContainer {
     private var _cacheIt:Boolean = true;
 
     public function CTextField(width:int, height:int, text:String="") {
+        if (!text) {
+            text = 'undefined';
+        }
         _width = width;
         _height = height;
         _text = text;
