@@ -47,7 +47,9 @@ public class TutorialMultNew {
     public function TutorialMultNew() {
         _isLoad = false;
         _needStart = false;
-        g.loadAnimation.load('animations_json/tuts/box_mult_3/', 'tutorial_mult', onLoad);
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            g.loadAnimation.load('animations_json/tuts/box_mult_fb/', 'tutorial_mult', onLoad);
+        } else g.loadAnimation.load('animations_json/tuts/box_mult_3/', 'tutorial_mult', onLoad);
     }
 
     private function onLoad():void {

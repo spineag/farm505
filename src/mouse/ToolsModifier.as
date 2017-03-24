@@ -7,6 +7,8 @@ import build.chestYellow.ChestYellow;
 import build.decor.Decor;
 import build.decor.DecorAnimation;
 import build.decor.DecorFence;
+import build.decor.DecorFenceGate;
+import build.decor.DecorPostFence;
 import build.decor.DecorTail;
 import build.wild.Wild;
 import com.junkbyte.console.Cc;
@@ -473,6 +475,11 @@ public class ToolsModifier {
         var pointPos:Point = g.matrixGrid.getIndexFromXY(new Point(_spriteForMove.x, _spriteForMove.y));
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, pointPos);
         if (spriteForMoveIndexX != pointPos.x || spriteForMoveIndexY != pointPos.y) {
+
+            if (_activeBuilding is DecorPostFence) {
+                g.townArea.removeFenceLenta(_activeBuilding);
+            }
+
             spriteForMoveIndexX = pointPos.x;
             spriteForMoveIndexY = pointPos.y;
             if (_activeBuilding is DecorTail) {
@@ -484,10 +491,14 @@ public class ToolsModifier {
                 }
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
             } else {
-                if (g.isActiveMapEditor && _activeBuilding is Wild) return;
-                if (g.isActiveMapEditor && _activeBuilding is Decor) return;
-                if (g.isActiveMapEditor && _activeBuilding is ChestYellow) return;
-                if (g.isActiveMapEditor && _activeBuilding is DecorAnimation) return;
+                if (g.isActiveMapEditor && (_activeBuilding is Wild || _activeBuilding is Decor || _activeBuilding is ChestYellow || _activeBuilding is DecorAnimation)) return;
+
+                if (_activeBuilding is DecorPostFence) {
+                    _activeBuilding.posX = pointPos.x;
+                    _activeBuilding.posY = pointPos.y;
+                    g.townArea.addFenceLenta(_activeBuilding);
+                }
+
                 _moveGrid.checkIt(spriteForMoveIndexX, spriteForMoveIndexY);
                 if (_moveGrid.isFree) {
                     _activeBuilding.source.filter = null;
