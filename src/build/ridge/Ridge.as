@@ -176,6 +176,7 @@ public class Ridge extends WorldObject{
             var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
             item.flyIt();
             onOut();
+            g.managerAchievement.addResource(_resourceItem.resourceID);
         }
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.CRAFT_RIDGE) {
             if (_tutorialCallback != null) {
@@ -205,20 +206,11 @@ public class Ridge extends WorldObject{
         if (_stateRidge == EMPTY && g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) {
         } else {
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) return;
-//            _count = 10;
-//            _countMouse = 7;
-//            if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-//                g.timerHint.managerHide();
-//                g.wildHint.managerHide();
-//                g.treeHint.managerHide();
-//            }
             if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
                     g.mouseHint.showMouseHint(MouseHint.CLOCK);
             } else if (_stateRidge == GROWED) {
                 g.mouseHint.showMouseHint(MouseHint.SERP);
             }
-//            if (g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED && g.toolsModifier.modifierType != ToolsModifier.PLANT_SEED_ACTIVE)
-//                g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }
 
@@ -231,7 +223,6 @@ public class Ridge extends WorldObject{
             _isOnHover = false;
             if (_source.filter) _source.filter.dispose();
             _source.filter = null;
-//            g.gameDispatcher.addEnterFrame(countMouseEnterFrame);
         }
     }
 
@@ -325,24 +316,6 @@ public class Ridge extends WorldObject{
                     g.toolsModifier.onTouchEnded();
                 } else return;
             }
-//        } else if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-//            if (!g.managerTutorial.isTutorial) onOut();
-//            if (g.selectedBuild) {
-//                if (g.selectedBuild == this) {
-//                    g.toolsModifier.onTouchEnded();
-//                } else return;
-//            } else {
-//                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3 || _stateRidge == GROWED) {
-//                    g.toolsModifier.ridgeId = _dataPlant.id;
-//                }
-//                checkBeforeMove();
-//                g.townArea.moveBuild(this);
-//            }
-//        } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-//            g.toolsModifier.modifierType = ToolsModifier.NONE;
-//        } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
-//            releaseFlip();
-//            g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
         }  else if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.GRID_DEACTIVATED) {
@@ -366,8 +339,6 @@ public class Ridge extends WorldObject{
                     hideArrow();
                 }
                 g.windowsManager.openWindow(WindowsManager.WO_BUY_PLANT, onBuy, this);
-//            } else if (_stateRidge == GROWED) {
-//                craftThePlant();
             }
         }
     }
@@ -417,38 +388,6 @@ public class Ridge extends WorldObject{
         updateRidgeHitArea();
     }
 
-//    public function countMouseEnterFrame():void {
-//        if(_isOnHover == false) {
-////                _source.filter = null;
-//            g.timerHint.hideIt();
-//            g.mouseHint.hideIt();
-//            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
-//            return;
-//        }
-//        _countMouse--;
-//        if (_countMouse <= 5) {
-//            if (_isOnHover == true) {
-//                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-//                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
-//                } else if (_stateRidge == GROWED) {
-//                    g.mouseHint.checkMouseHint(MouseHint.SERP);
-//                    g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
-//                }
-//            }
-//        }
-//        if(_countMouse <= 0){
-//            g.gameDispatcher.removeEnterFrame(countMouseEnterFrame);
-//            if (_isOnHover == true) {
-//                if (_stateRidge == GROW1 || _stateRidge == GROW2 || _stateRidge == GROW3) {
-//                    g.timerHint.showIt(50, g.cont.gameCont.x + _source.x * g.currentGameScale, g.cont.gameCont.y + (_source.y +_source.height/2 -  _plantSprite.height) /*_source.height/10) */* g.currentGameScale, _plant.getTimeToGrowed(), _dataPlant.priceSkipHard, _dataPlant.name,callbackSkip,onOut,true);
-//                    g.mouseHint.checkMouseHint(MouseHint.CLOCK);
-//                } else if (_stateRidge == GROWED) {
-//                    g.mouseHint.checkMouseHint(MouseHint.SERP);
-//                }
-//            }
-//        }
-//    }
-
     public function get plant():PlantOnRidge {
         return _plant;
     }
@@ -458,8 +397,6 @@ public class Ridge extends WorldObject{
     }
 
     override public function clearIt():void {
-//        _bg.touchable = false;
-//        while (_bg.numChildren) _bg.removeChildAt(0);
         while (_plantSprite.numChildren) _plantSprite.removeChildAt(0);
         if (_plant) _plant.clearIt();
         _plant = null;

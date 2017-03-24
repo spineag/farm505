@@ -1,1 +1,1 @@
-{"name":"newspaper","SubTexture":[{"name":"paper","height":122,"width":73,"y":0,"x":0}],"imagePath":"texture.png"}
+{"imagePath":"texture.png","SubTexture":[{"height":162,"y":0,"width":77,"x":0,"name":"paper"}],"name":"newspaper"}

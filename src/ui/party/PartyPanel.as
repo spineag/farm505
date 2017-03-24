@@ -25,7 +25,7 @@ public class PartyPanel {
 
     public function PartyPanel() {
         _source = new CSprite();
-        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('clover_leaf_event_timer'));
+        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('adv_icon'));
         _source.addChild(im);
 
         _txtData = new CTextField(100,60,'');

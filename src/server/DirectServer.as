@@ -7796,7 +7796,7 @@ public class DirectServer {
         var d:Object;
         var k:int;
         var ob:Object;
-        ob = {};
+
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
@@ -7805,6 +7805,7 @@ public class DirectServer {
             return;
         }
         for (var i:int = 0; i < d.message.length; i++) {
+            ob = {};
             ob.id = int(d.message[i].id);
             ob.name = String(g.managerLanguage.allTexts[d.message[i].text_id_name]);
             ob.description = String(g.managerLanguage.allTexts[d.message[i].text_id_description]);
@@ -7816,9 +7817,8 @@ public class DirectServer {
             for (k = 0; k < ob.countHard.length; k++) ob.countHard[k] = int(ob.countHard[k]);
             ob.typeAction = int(d.message[i].type_action);
             ob.idResource =  int(d.message[i].id_resource);
-            g.managerAchievement.dataAchievement.push(ob);
+            if (Boolean(int(d.message[i].is_tester)) == false || (Boolean(int(d.message[i].is_tester)) == true && g.user.isTester)) g.managerAchievement.dataAchievement.push(ob);
         }
-        trace('asd');
         if (d.id == 0) {
             Cc.ch('server', 'getDataAchievement OK', 5);
             if (callback != null) {
@@ -7876,7 +7876,6 @@ public class DirectServer {
             for (k = 0; k < ob.tookGift.length; k++) ob.tookGift[k] = int(ob.tookGift[k]);
             g.managerAchievement.userAchievement.push(ob);
         }
-        trace('asd');
         if (d.id == 0) {
             Cc.ch('server', 'getUserAchievement OK', 5);
             if (callback != null) {
@@ -7892,6 +7891,57 @@ public class DirectServer {
         }
     }
 
+    public function updateUserAchievement(achievementId:int, resourceCount:int, tookGift:String, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_ACHIEVEMENT);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserAchievement', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.achievementId = achievementId;
+        variables.resourceCount = resourceCount;
+        variables.tookGift = tookGift;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateUserAchievement);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteUpdateUserAchievement(e:Event):void { completeUpdateUserAchievement(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserAchievement error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserAchievement(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        var k:int;
+        var ob:Object;
+        ob = {};
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('updateUserAchievement: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserAchievement: wrong JSON:' + String(response));
+            return;
+        }
+        if (d.id == 0) {
+            Cc.ch('server', 'updateUserAchievement OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('updateUserAchievement: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
 
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError on Auth User:: ' + e.text);

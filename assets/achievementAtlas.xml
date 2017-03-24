@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:8d52636253ecc5fc3ddd6b0fa223f423:409496d41d091df59cf6ede3186171cc:4a73aa2c06de268f26946a86d2b2a2dc$ -->
-<TextureAtlas imagePath="achievementAtlas.png" width="855" height="173">
-    <SubTexture name="kubok" x="597" y="58" width="105" height="114" frameX="-2" frameY="-3" frameWidth="109" frameHeight="120"/>
-    <SubTexture name="plashka" x="1" y="1" width="594" height="171" frameX="-3" frameY="-2" frameWidth="599" frameHeight="175"/>
-    <SubTexture name="plashka_dwn" x="597" y="1" width="214" height="55"/>
-    <SubTexture name="star" x="704" y="58" width="74" height="73" frameX="0" frameY="-2" frameWidth="74" frameHeight="75"/>
-    <SubTexture name="star_off" x="780" y="58" width="74" height="73" frameX="0" frameY="-2" frameWidth="74" frameHeight="75"/>
+<!-- $TexturePacker:SmartUpdate:4eb9db1a1c2b099cc5c05a305f725987:9a6808a99afe2b7afbe05b0d0caf5418:4a73aa2c06de268f26946a86d2b2a2dc$ -->
+<TextureAtlas imagePath="achievementAtlas.png" width="739" height="151">
+    <SubTexture name="kubok" x="515" y="51" width="91" height="99" frameX="-1" frameY="-2" frameWidth="95" frameHeight="104"/>
+    <SubTexture name="plashka" x="1" y="1" width="512" height="149" frameX="-3" frameY="-2" frameWidth="519" frameHeight="154"/>
+    <SubTexture name="plashka_dwn" x="515" y="1" width="184" height="48"/>
+    <SubTexture name="star" x="608" y="51" width="64" height="64"/>
+    <SubTexture name="star_off" x="674" y="51" width="64" height="64"/>
 </TextureAtlas>

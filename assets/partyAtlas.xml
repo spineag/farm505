@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:3695788e0d0c8456d1189ab2699b545c:57e2be38789c27aa837d018ebd49104a:ac880a930f9f4f68bee3173fda432350$ -->
+<!-- $TexturePacker:SmartUpdate:d7a15f17c49dcfecf6880a79a91042a2:1af5ee2d43586c54ed2109fdfdf024cc:ac880a930f9f4f68bee3173fda432350$ -->
 <TextureAtlas imagePath="partyAtlas.png" width="1821" height="460">
-    <SubTexture name="clover_leaf_event_timer" x="793" y="340" width="100" height="100"/>
-    <SubTexture name="clover_leaf_icon" x="895" y="340" width="88" height="100" frameX="-6" frameY="0" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="adv_icon" x="793" y="340" width="100" height="100"/>
+    <SubTexture name="adv_sh_icon" x="895" y="340" width="79" height="89" frameX="-11" frameY="-9" frameWidth="100" frameHeight="100"/>
     <SubTexture name="event_window_baloon" x="1551" y="1" width="269" height="219" frameX="-2" frameY="-9" frameWidth="281" frameHeight="237"/>
     <SubTexture name="event_window_n" x="1" y="1" width="669" height="438"/>
-    <SubTexture name="event_window_w" x="985" y="340" width="80" height="81"/>
-    <SubTexture name="hint_button" x="1067" y="392" width="47" height="47"/>
+    <SubTexture name="event_window_w" x="976" y="340" width="80" height="81"/>
+    <SubTexture name="hint_button" x="1058" y="392" width="47" height="47"/>
     <SubTexture name="new_event_window_l" x="672" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
     <SubTexture name="new_event_window_r" x="965" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
     <SubTexture name="new_event_window_r_2" x="1258" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
     <SubTexture name="place_1" x="672" y="340" width="119" height="119"/>
     <SubTexture name="place_2" x="1551" y="222" width="119" height="149"/>
-    <SubTexture name="progress" x="1067" y="340" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
+    <SubTexture name="progress" x="1058" y="340" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
     <SubTexture name="valik_timer" x="1672" y="222" width="124" height="129" frameX="-9" frameY="-9" frameWidth="145" frameHeight="145"/>
 </TextureAtlas>

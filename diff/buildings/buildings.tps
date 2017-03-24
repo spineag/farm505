@@ -194,7 +194,6 @@
         <array>
             <filename>cat_shadow.png</filename>
             <filename>paper.png</filename>
-            <filename>ribbon</filename>
             <filename>ridge.png</filename>
             <filename>sklad.png</filename>
             <filename>ambar_indicator_main.png</filename>
@@ -206,6 +205,7 @@
             <filename>busket_2.png</filename>
             <filename>pillar_new.png</filename>
             <filename>building_table_white.png</filename>
+            <filename>advertisement.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -155,7 +155,7 @@ public class WOPartyWindow extends WindowMain{
                     im.y = 22;
                     _source.addChild(im);
 
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('clover_leaf_icon'));
+                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('adv_sh_icon'));
                     MCScaler.scale(im, 45, 45);
                     im.x = -202;
                     im.y = 38;
@@ -336,7 +336,7 @@ public class WOPartyWindow extends WindowMain{
                     im.y = 22;
                     _source.addChild(im);
 
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('clover_leaf_icon'));
+                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('adv_sh_icon'));
                     MCScaler.scale(im, 45, 45);
                     im.x = -202;
                     im.y = 38;

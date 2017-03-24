@@ -37,12 +37,12 @@ public class WOPartyWindowClose extends WindowMain{
     public function WOPartyWindowClose() {
         _woHeight = 451;
         _woWidth = 695;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/end_event_8_march_window.png',onLoad);
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/end_event_clover.png',onLoad);
     }
 
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'qui/end_event_8_march_window.png'].create() as Bitmap;
+        bitmap = g.pBitmaps[st + 'qui/end_event_clover.png'].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
@@ -52,7 +52,7 @@ public class WOPartyWindowClose extends WindowMain{
         image.pivotY = image.height/2;
         _source.addChild(image);
         createExitButton(hideIt);
-        _txtResource = new CTextField(701, 172, 'Вы собрали ' + g.managerParty.userParty.countResource + ' тюльпанов.');
+        _txtResource = new CTextField(701, 172, 'Вы собрали ' + g.managerParty.userParty.countResource + ' клевера.');
         _txtResource.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
 //        _txtResource.alignH = Align.LEFT;
         _txtResource.x = -350;

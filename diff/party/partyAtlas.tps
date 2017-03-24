@@ -203,8 +203,8 @@
             <filename>new_event_window_r.png</filename>
             <filename>event_window_baloon.png</filename>
             <filename>new_event_window_r_2.png</filename>
-            <filename>clover_leaf_event_timer.png</filename>
-            <filename>clover_leaf_icon.png</filename>
+            <filename>adv_sh_icon.png</filename>
+            <filename>adv_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

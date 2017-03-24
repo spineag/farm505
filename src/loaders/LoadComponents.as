@@ -106,6 +106,11 @@ public class LoadComponents {
         delete  g.pBitmaps[st + 'x1/customisationAtlas.png' + g.getVersion('customisationAtlas')];
         delete  g.pXMLs[st + 'x1/customisationAtlas.xml' + g.getVersion('customisationAtlas')];
 
+        g.allData.atlas['achievementAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'achievementAtlas.png' + g.getVersion('achievementAtlas')].create() as Bitmap), g.pXMLs[st + 'achievementAtlas.xml' + g.getVersion('achievementAtlas')]);
+        (g.pBitmaps[st + 'achievementAtlas.png' + g.getVersion('achievementAtlas')] as PBitmap).deleteIt();
+        delete  g.pBitmaps[st + 'achievementAtlas.png' + g.getVersion('achievementAtlas')];
+        delete  g.pXMLs[st + 'achievementAtlas.xml' + g.getVersion('achievementAtlas')];
+
         g.allData.atlas['customisationInterfaceAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')].create() as Bitmap), g.pXMLs[st + 'customisationInterfaceAtlas.xml' + g.getVersion('customisationInterfaceAtlas')]);
         (g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'customisationInterfaceAtlas.png' + g.getVersion('customisationInterfaceAtlas')];

@@ -584,20 +584,7 @@ public class Vars {
                            else managerCats.helloCats();
                        }
                    }
-//               } else {
-//                    if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
-//                        windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
-//                    } else {
-//                        if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
-//                        else {
-//                            todayDailyGift = new Date((user as User).dayDailyGift * 1000);
-//                            today = new Date((user as User).day * 1000);
-//                            if ((user as User).level >= 5 && todayDailyGift.date != today.date) {
-//                                directServer.getDailyGift(null);
-//                            } else managerCats.helloCats();
-//                        }
-//                    }
-//                }
+                if (!windowsManager.currentWindow && userTimer.partyToEndTimer < 0 && !managerParty.userParty.showWindow) managerParty.endPartyWindow();
             }
             if ((user as User).miniScenes[3] == 0) friendPanel.hideIt(true);
             managerMiniScenes.updateMiniScenesLengthOnGameStart();
