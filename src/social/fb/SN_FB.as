@@ -210,5 +210,10 @@ public class SN_FB extends SocialNetwork  {
 //            Link.openURL(urlSocialGroup);
         }
     }
+    
+    override public function checkUserLanguageForIFrame():void {
+        super.checkUserLanguageForIFrame();
+        ExternalInterface.call("checkUserLanguageForIFrame", g.user.userSocialId);
+    }
 }
 }

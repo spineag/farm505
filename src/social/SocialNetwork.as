@@ -30,7 +30,6 @@ public class SocialNetwork extends EventDispatcher {
         super();
 
         _flashVars = flashVars;
-
         if (ExternalInterface.available) {
             try {
                 ExternalInterface.addCallback("getLog", getLog);
@@ -40,47 +39,33 @@ public class SocialNetwork extends EventDispatcher {
         }
     }
 
-    public function get currentUID():String {
-        return "";
-    }
-
-    public function get referrer():String {
-        return "unknown";
-    }
-
-    public function get urlApp():String {
-        return null;
-    }
-    
-    public function get urlSocialGroup():String {
-        return null;
-    }
-
-    public function get idSocialGroup():String {
-        return null;
-    }
-
-    public function get urlForAnySocialGroup():String {
-        return "";
-    }
-
-    public function get protocol():String {
-        return "http";
-    }
+    public function get currentUID():String { return ""; }
+    public function get referrer():String { return "unknown"; }
+    public function get urlApp():String { return null; }
+    public function get urlSocialGroup():String { return null; }
+    public function get idSocialGroup():String { return null; }
+    public function get urlForAnySocialGroup():String { return ""; }
+    public function get protocol():String { return "http"; }
+    public function get applicationGUID():String { return _flashVars["applicationGUID"]; }
+    public function get channelGUID():String { return _flashVars["channelGUID"]; }
+    public function get sessionGUID():String { return _flashVars["sessionGUID"]; }
+    public function get friendIDs():Array { return _friendsIDs || []; }
+    public function setUserLevel():void {}
+    public function checkUserLanguageForIFrame():void { Cc.ch('social', 'checkUserLanguageForIFrame') };
 
     public function init():void {
-        Cc.ch("info", "SocialNetwork:: channel API initialization finished successfully", 14);
+        Cc.ch("social", "SocialNetwork:: channel API initialization finished successfully", 14);
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.INIT));
     }
 
     public function getProfile(uid:String):void {
-        Cc.ch("info", "SocialNetwork:: send request to get info about current user with socUID " + uid, 14);
+        Cc.ch("social", "SocialNetwork:: send request to get info about current user with socUID " + uid, 14);
         _paramsUser = {};
     }
 
     protected function getProfileSuccess(e:Object):void {
         Cc.ch('social', "SocialNetwork:: request to get info about current user completed successfully");
-        Cc.obj("info", _paramsUser, "SocialNetwork:: user info", 18);
+        Cc.obj("social", _paramsUser, "SocialNetwork:: user info", 18);
 
         g.user.name = _paramsUser.firstName;
         g.user.lastName = _paramsUser.lastName || "";
@@ -117,7 +102,7 @@ public class SocialNetwork extends EventDispatcher {
 
     protected function getFriendsSuccess(e:Object):void {
         Cc.ch('social', "SocialNetwork:: request to get info about friends of current user completed successfully");
-        Cc.ch("info", "SocialNetwork:: got " + e + " friends", 18);
+        Cc.ch("social", "SocialNetwork:: got " + e + " friends", 18);
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_FRIENDS));
     }
 
@@ -159,7 +144,7 @@ public class SocialNetwork extends EventDispatcher {
 
     protected function getAppUsersSuccess(e:Object):void {
         Cc.ch('social', "SocialNetwork:: request to get info about friends of current user completed successfully");
-        Cc.ch("info", "SocialNetwork:: got " + _friendsApp.length + " app friends", 18);
+        Cc.ch("social", "SocialNetwork:: got " + _friendsApp.length + " app friends", 18);
         //_friendsIDs = _paramsFriends.concat();
 //        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_APP_USERS, false, false));
     }
@@ -262,10 +247,6 @@ public class SocialNetwork extends EventDispatcher {
         Cc.ch('social', "SocialNetwork:: check is in social group with id:" + id);
     }
 
-    public function getUserParams():Object {
-//        return {sex: g.user.sex, bdate: g.user.bdate, flash_player: Capabilities.version, auth_key: g.sessionKey};
-        return {};
-    }
 
     private function clearScreen():void {
 //        if (g.mainStage.displayState == StageDisplayState.FULL_SCREEN) {
@@ -275,7 +256,7 @@ public class SocialNetwork extends EventDispatcher {
 
     private function getLog(obj:Object = null):void {
         try {
-            Cc.obj("info", obj, "SocialNetwork:: processing info for sending log with params");
+            Cc.obj("social", obj, "SocialNetwork:: processing info for sending log with params");
 //            ExternalInterface.call("setLog", Cc.getLogHTML());
         } catch (e:Error) {
             Cc.warn("SocialNetwork:: cannot send log");
@@ -292,17 +273,12 @@ public class SocialNetwork extends EventDispatcher {
             _matrix = new Matrix();
             _bitmap.bitmapData = new BitmapData(g.mainStage.stageWidth, g.mainStage.stageHeight, false);
             _matrix.translate(0, 0);
-//            _bitmap.bitmapData.draw(v.area.fon, _matrix);
-//            _bitmap.bitmapData.draw(v.area.containerElementsBottom, _matrix);
-//            _bitmap.bitmapData.draw(v.area.containerElements, _matrix);
         } catch (error:Error) {
             visiblePanels(true);
             if (isAfterError) {
                 return null;
             }
             Cc.error("SocialNetwork:: problem with screenshot at draw() with error: " + error.errorID);
-//            v.managerCutSceneWarning.activate(v.language.warnings.screenShotFail);
-//            v.managerCutSceneWarning.visible = true;
             return null;
         }
 
@@ -320,7 +296,7 @@ public class SocialNetwork extends EventDispatcher {
 
     public function reloadGame():void {
         try {
-            Cc.stackch("info", "SocialNetwork:: game reloading");
+            Cc.stackch("social", "SocialNetwork:: game reloading");
             ExternalInterface.call("FarmNinja.reload");
         } catch (e:Error) {
             Cc.warn("SocialNetwork:: cannot reload game");
@@ -352,22 +328,5 @@ public class SocialNetwork extends EventDispatcher {
         Cc.ch('social', "SocialNetwork:: checkLeftMenu");
     }
 
-    public function get applicationGUID():String {
-        return _flashVars["applicationGUID"];
-    }
-
-    public function get channelGUID():String {
-        return _flashVars["channelGUID"];
-    }
-
-    public function get sessionGUID():String {
-        return _flashVars["sessionGUID"];
-    }
-
-    public function get friendIDs():Array {
-        return _friendsIDs || [];
-    }
-
-    public function setUserLevel():void {}
 }
 }
