@@ -308,6 +308,20 @@ public class Tree extends WorldObject {
         var b:Bone;
         var item:CraftItem = new CraftItem(0, 0, _resourceItem, _source, 1);
         item.flyIt();
+        if (_dataBuild.id == 25) { //Яблоня
+            g.managerAchievement.addAll(14,1);
+        } else if (_dataBuild.id == 26) { // Вишня
+            g.managerAchievement.addAll(14,1);
+        } else if (_dataBuild.id == 154) { // Лемон
+            g.managerAchievement.addAll(14,1);
+        } else if (_dataBuild.id == 155) { // Апельсин
+            g.managerAchievement.addAll(14,1);
+        } else if (_dataBuild.id == 41) { //Малина
+            g.managerAchievement.addAll(15,1);
+        } else if (_dataBuild.id == 42) { //Черника
+            g.managerAchievement.addAll(15,1);
+        }
+
         st = 'fruit' + _countCrafted;
         b = _armature.getBone(st);
         if (b) b.visible = false;
@@ -1147,6 +1161,7 @@ public class Tree extends WorldObject {
             if (_state == ASK_FIX) {
                 for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
                     if (g.visitedUser.userDataCity.treesInfo[i].id == tree_db_id) {
+                        g.managerAchievement.addAll(16,1);
                         g.directServer.getAwayUserTreeWatering(int(tree_db_id),int(g.visitedUser.userSocialId),wateringTree);
                         break;
                     }

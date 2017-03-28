@@ -335,6 +335,7 @@
             <filename>dandelion_orange_icon.png</filename>
             <filename>dandelion_red_icon.png</filename>
             <filename>gnome_horseshoe_icon.png</filename>
+            <filename>garden_gnome_coin_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

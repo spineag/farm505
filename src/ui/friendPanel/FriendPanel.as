@@ -378,7 +378,7 @@ public class FriendPanel {
             createArrows();
             checkArrows();
         }
-
+        g.managerAchievement.achievementCountFriend(_arrFriends.length);
         var l:int = _arrFriends.length;
         if (l>5) l = 5;
         for (var i:int = 0; i < l; i++) {

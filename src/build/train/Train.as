@@ -557,6 +557,7 @@ public class Train extends WorldObject{
         prise.id = DataMoney.SOFT_CURRENCY;
         prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
         prise.count = _dataPack.count_money;
+        g.managerAchievement.addAll(10,1);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) prise.count = _dataPack.count_money * g.managerParty.coefficient;
         else prise.count = _dataPack.count_money;
         new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);

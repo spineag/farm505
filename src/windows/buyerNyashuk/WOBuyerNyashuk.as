@@ -215,6 +215,7 @@ public class WOBuyerNyashuk extends WindowMain{
         else  g.userTimer.buyerNyashukRed(1200);
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
         g.managerQuest.onActionForTaskType(ManagerQuest.NIASH_BUYER);
+        g.managerAchievement.addAll(1,1);
         super.hideIt();
     }
 

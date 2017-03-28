@@ -410,6 +410,7 @@ public class WOTrain extends WindowMain {
             else obj.count = _arrItems[_activeItemIndex].countCoins;
             new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
             g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
+            g.managerAchievement.addAll(19,1);
             _arrItems[_activeItemIndex].fullItHelp();
         } else {
             if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree) {
@@ -434,6 +435,7 @@ public class WOTrain extends WindowMain {
                 if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) obj.count = _arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient;
                 else obj.count = _arrItems[_activeItemIndex].countCoins;
                 new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
+                g.managerAchievement.addAll(19,1);
                 g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
                 _arrItems[_activeItemIndex].fullItHelp();
             }  else if (_arrItems[_activeItemIndex].countFree > g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)) {

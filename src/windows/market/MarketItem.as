@@ -121,7 +121,7 @@ public class MarketItem {
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2 - 5;
 
-        _countTxt = new CTextField(30, 30, '');
+        _countTxt = new CTextField(30, 30, ' ');
         _countTxt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _countTxt.cacheIt = false;
         _countTxt.x = 77;
@@ -346,6 +346,7 @@ public class MarketItem {
         _papperBtn.visible = true;
         _imCheck.visible = true;
         _papperBtn.alpha = .8;
+        g.managerAchievement.addAll(11,1);
         g.hint.hideIt();
         _dataFromServer.timeInPapper = int(new Date().getTime() / 1000);
         _wo.startPapperTimer();
@@ -481,7 +482,8 @@ public class MarketItem {
                         break;
                     }
                 }
-                if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.MARKET && g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+                g.managerAchievement.addAll(2,_countMoney);
+                if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.MARKET && g.allData.atlas['partyAtlas']&&g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
                 animCoin();
                 isFill = 0;
                 unFillIt();
@@ -533,6 +535,7 @@ public class MarketItem {
             g.userInventory.addMoney(DataMoney.SOFT_CURRENCY, -_dataFromServer.cost);
             var d:StructureDataResource = g.allData.getResourceById(_dataFromServer.resourceId);
             showFlyResource(d, _dataFromServer.resourceCount);
+            g.managerAchievement.addAll(24,_dataFromServer.cost);
             _plawkaCoins.visible = false;
             _plawkaSold.visible = true;
             _txtPlawka.visible = true;

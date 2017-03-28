@@ -67,30 +67,6 @@ public class WOBuyCave extends WindowMain {
         createExitButton(hideIt);
         _source.addChildAt(im,0);
         super.showIt();
-//        _image = new Image(tex);
-//        _image.pivotX = _image.width/2;
-//        _image.pivotY = _image.height/2;
-//        _source.addChild(_image);
-//        _btn = new CButton();
-//        _btn.addButtonTexture(200, 45, CButton.BLUE, true);
-//        _btn.clickCallback = onClick;
-//        txt = new CTextField(120,30,'Рассказать');
-//        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-//        txt.x = 5;
-//        txt.y = 7;
-//        _btn.addChild(txt);
-//        txt = new CTextField(50,50,'200');
-//        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-//        txt.x = 119;
-//        txt.y = -2;
-//        _btn.addChild(txt);
-//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture("coins_small"));
-//        im.x = 165;
-//        im.y = 8;
-//        _btn.addChild(im);
-//        _btn.y = 240;
-//        _source.addChild(_btn);
-//        createExitButton(hideIt);
     }
 
     override public function showItParams(callback:Function, params:Array):void {

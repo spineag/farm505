@@ -90,12 +90,12 @@ public class WOAmbarFilled extends WindowMain {
         if (_isAmbar) {
             _txtCount.text = String(g.managerLanguage.allTexts[458]) + " " + String(g.userInventory.currentCountInAmbar) + "/" + String(g.user.ambarMaxCount);
             _txtAmbarFilled.text = String(g.managerLanguage.allTexts[457]);
-            _txtBtn.text = String(g.managerLanguage.allTexts[458]);
+            _txtBtn.text = String(g.managerLanguage.allTexts[459]);
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('ambar_icon'));
         } else {
             _txtCount.text = String(g.managerLanguage.allTexts[458]) + " " + String(g.userInventory.currentCountInSklad) + "/" + String(g.user.skladMaxCount);
             _txtAmbarFilled.text = String(g.managerLanguage.allTexts[461]);
-            _txtBtn.text = String(g.managerLanguage.allTexts[459]);
+            _txtBtn.text = String(g.managerLanguage.allTexts[460]);
             _imAmbarSklad = new Image(g.allData.atlas['iconAtlas'].getTexture('sklad_icon'));
         }
         _bar.progress = 1;

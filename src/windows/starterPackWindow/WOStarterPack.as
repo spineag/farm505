@@ -221,7 +221,7 @@ public class WOStarterPack extends WindowMain{
                 g.directServer.getDailyGift(null);
             } else {
                 g.managerCats.helloCats();
-                if (g.userTimer.partyToEndTimer > 0) {
+                if (g.userTimer.partyToEndTimer > 0 && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level) {
                     g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
                 }
 //                else if (!g.managerParty.userParty.showWindow) g.managerParty.endPartyWindow();

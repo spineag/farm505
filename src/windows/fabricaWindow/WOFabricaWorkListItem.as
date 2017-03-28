@@ -67,7 +67,7 @@ public class WOFabricaWorkListItem {
         _number = number;
         _woFabrica = woFabrica;
         _isHover = false;
-        _txtNumberCreate = new CTextField(20,20,"");
+        _txtNumberCreate = new CTextField(20,20," ");
         if (type == SMALL_CELL) {
             _bg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
             MCScaler.scale(_bg, 50, 50);
@@ -94,7 +94,7 @@ public class WOFabricaWorkListItem {
             im.x = 13;
             im.y = -20;
             _timerBlock.addChild(im);
-            _txtTimer = new CTextField(78, 33, '');
+            _txtTimer = new CTextField(78, 33, ' ');
             _txtTimer.setFormat(CTextField.BOLD18, 18, Color.WHITE);
             _txtTimer.cacheIt = false;
             _txtTimer.x = 13;
@@ -225,7 +225,7 @@ public class WOFabricaWorkListItem {
         var r:StructureDataRecipe = g.allData.getRecipeById(_resource.resourceID);
         if ( r && r.numberCreate > 1) {
             _txtNumberCreate.text = String(r.numberCreate);
-        } else _txtNumberCreate.text = "";
+        } else _txtNumberCreate.text = " ";
 
         _source.addChildAt(_icon,1);
         if (_type == BIG_CELL) {
@@ -400,7 +400,7 @@ public function destroyTimer():void {
 
     public function unfillIt():void {
         if (_icon) {
-            _txtNumberCreate.text = "";
+            _txtNumberCreate.text = " ";
             _source.removeChild(_txtNumberCreate);
             _source.removeChild(_icon);
             _icon = null;
