@@ -39,7 +39,7 @@ public class CTextField extends DisplayObjectContainer {
 
     public function CTextField(width:int, height:int, text:String="") {
         if (!text) {
-            text = 'undefined';
+            text = '';
         }
         _width = width;
         _height = height;
