@@ -72,7 +72,7 @@ public class WOAchievementItem {
         for (var i:int = 0; i < g.managerAchievement.userAchievement.length; i++) {
             if (g.managerAchievement.userAchievement[i].id == g.managerAchievement.dataAchievement[_number].id) {
                 for (var k:int = 0 ; k < g.managerAchievement.dataAchievement[_number].countToGift.length; k++) {
-                    if (g.managerAchievement.userAchievement[i].resourceCount >= g.managerAchievement.dataAchievement[_number].countToGift[k] && !g.managerAchievement.dataAchievement[_number].tookGift[k]) {
+                    if (g.managerAchievement.userAchievement[i].resourceCount >= g.managerAchievement.dataAchievement[_number].countToGift[k] && !g.managerAchievement.userAchievement[i].tookGift[k]) {
                         _btn = new CButton();
                         _btn.addButtonTexture(174, 30, CButton.GREEN, true);
                         _txtBtn = new CTextField(174, 30, String(g.managerLanguage.allTexts[923]));
@@ -195,6 +195,16 @@ public class WOAchievementItem {
     }
 
     private function onClick():void {
+        if (_txtBtn) {
+            _btn.removeChild(_txtBtn);
+            _txtBtn.deleteIt();
+            _txtBtn = null;
+        }
+        if (_btn) {
+            source.removeChild(_btn);
+            _btn.deleteIt();
+            _btn = null;
+        }
 
     }
 }

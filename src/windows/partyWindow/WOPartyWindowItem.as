@@ -53,7 +53,7 @@ public class WOPartyWindowItem {
         _data.countToGift = countToGift;
         _data.number = number;
 
-        _txtCountResource = new CTextField(119,100,'');
+        _txtCountResource = new CTextField(119,100,' ');
         _txtCountResource.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCountResource.alignH = Align.RIGHT;
         _txtCountResource.x = -19;

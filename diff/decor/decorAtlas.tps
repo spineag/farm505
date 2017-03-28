@@ -285,6 +285,7 @@
             <filename>cat_bouquet.png</filename>
             <filename>cycle_flower.png</filename>
             <filename>gnome_horseshoe.png</filename>
+            <filename>garden_gnome_coin.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

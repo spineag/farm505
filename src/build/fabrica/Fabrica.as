@@ -312,6 +312,7 @@ public class Fabrica extends WorldObject {
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.PUT_FABRICA) return;
             _stateBuild = STATE_ACTIVE;
+            g.managerAchievement.addAll(12,1);
             g.user.userBuildingData[_dataBuild.id].isOpen = 1;
             g.directServer.openBuildedBuilding(this, onOpenBuilded);
             clearBuildingBuildSprite();
@@ -540,6 +541,8 @@ public class Fabrica extends WorldObject {
     
     private function useCraftedResource(item:ResourceItem, crItem:CraftItem):void {
         g.managerAchievement.addResource((_arrCrafted[0] as CraftItem).resourceId);
+        if ((_arrCrafted[0] as CraftItem).resourceId == 126|| (_arrCrafted[0] as CraftItem).resourceId == 127|| (_arrCrafted[0] as CraftItem).resourceId == 128 || (_arrCrafted[0] as CraftItem).resourceId == 129) g.managerAchievement.addAll(18,1);
+
         _arrCrafted.splice(_arrCrafted.indexOf(crItem), 1);
         g.managerFabricaRecipe.onCraft(item);
     }

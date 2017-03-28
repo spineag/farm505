@@ -86,6 +86,7 @@ public class DropItem {
                 case DataMoney.SOFT_CURRENCY:
                     _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
                     endPoint = g.softHardCurrency.getSoftCurrencyPoint();
+                    g.managerAchievement.achievementCountSoft(g.user.softCurrencyCount + prise.count);
                     break;
                 case DataMoney.BLUE_COUPONE:
                     _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('blue_coupone'));

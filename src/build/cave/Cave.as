@@ -228,8 +228,6 @@ public class Cave extends WorldObject{
             }
         } else if (_stateBuild == STATE_BUILD) {
             if (!_isOnHover) buildingBuildFoundationOver();
-//            _countTimer = 7;
-//            g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             if (!_isOnHover) buildingBuildDoneOver();
         }
@@ -249,28 +247,7 @@ public class Cave extends WorldObject{
             _source.filter = null;
         }
         if (_isAnimate) return;
-//        g.hint.hideIt();
-//        if (_stateBuild == STATE_BUILD) {
-//            g.gameDispatcher.addEnterFrame(countEnterFrame);
-////            g.timerHint.hideIt();
-//        }
     }
-
-//    private function countEnterFrame():void {
-//        _countTimer--;
-//        if (_countTimer <= 0) {
-//            g.gameDispatcher.removeEnterFrame(countEnterFrame);
-//            if (_isOnHover == true) {
-//                g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/3) * g.currentGameScale, _leftBuildTime,_dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
-//                g.hint.hideIt();
-//            }
-//            if (_isOnHover == false) {
-//                _source.filter = null;
-//                g.timerHint.hideIt();
-//                g.gameDispatcher.removeEnterFrame(countEnterFrame);
-//            }
-//        }
-//    }
 
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
@@ -464,6 +441,7 @@ public class Cave extends WorldObject{
                     craftItem.animIt();
                     _arrCrafted.push(craftItem);
                 }
+                if (item.resourceID == 129) g.managerAchievement.addResource(item.resourceID);
                 g.directServer.addUserCave(item.resourceID,craftItem.count,null);
             }
             _isAnimate = false;

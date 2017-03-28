@@ -7861,7 +7861,6 @@ public class DirectServer {
         var d:Object;
         var k:int;
         var ob:Object;
-        ob = {};
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
@@ -7870,6 +7869,7 @@ public class DirectServer {
             return;
         }
         for (var i:int = 0; i < d.message.length; i++) {
+            ob = {};
             ob.id = int(d.message[i].achievement_id);
             ob.resourceCount =  int(d.message[i].resource_count);
             if (d.message[i].took_gift) ob.tookGift = String(d.message[i].took_gift).split('&');

@@ -19,6 +19,80 @@ public class ManagerAchievement {
         g.directServer.getUserAchievement(null);
     }
 
+    public function achievementCountFriend(count:int):void {
+        var ob:Object;
+        var b:Boolean = false;
+        if (userAchievement.length > 0) {
+            for (var i:int = 0; i < userAchievement.length; i++) {
+                if (userAchievement[i].id == 22) {
+                    if (count > userAchievement[i].resourceCount) {
+                        b = true;
+                        userAchievement[i].resourceCount = count;
+                        break;
+                    }
+                }
+            }
+            if (!b) {
+                ob = {};
+                ob.id = 22;
+                ob.resourceCount = int(count);
+                ob.tookGift = [];
+                ob.tookGift[0] = 0;
+                ob.tookGift[1] = 0;
+                ob.tookGift[2] = 0;
+                userAchievement.push(ob);
+                g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+            }
+        } else {
+            ob = {};
+            ob.id = 22;
+            ob.resourceCount = int(count);
+            ob.tookGift = [];
+            ob.tookGift[0] = 0;
+            ob.tookGift[1] = 0;
+            ob.tookGift[2] = 0;
+            userAchievement.push(ob);
+            g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+        }
+    }
+
+     public function achievementCountSoft(count:int):void {
+            var ob:Object;
+            var b:Boolean = false;
+            if (userAchievement.length > 0) {
+                for (var i:int = 0; i < userAchievement.length; i++) {
+                    if (userAchievement[i].id == 23) {
+                        if (count > userAchievement[i].resourceCount) {
+                            b = true;
+                            userAchievement[i].resourceCount = count;
+                            break;
+                        }
+                    }
+                }
+                if (!b) {
+                    ob = {};
+                    ob.id = 23;
+                    ob.resourceCount = int(count);
+                    ob.tookGift = [];
+                    ob.tookGift[0] = 0;
+                    ob.tookGift[1] = 0;
+                    ob.tookGift[2] = 0;
+                    userAchievement.push(ob);
+                    g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+                }
+            } else {
+                ob = {};
+                ob.id = 23;
+                ob.resourceCount = int(count);
+                ob.tookGift = [];
+                ob.tookGift[0] = 0;
+                ob.tookGift[1] = 0;
+                ob.tookGift[2] = 0;
+                userAchievement.push(ob);
+                g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+            }
+        }
+
     public function addResource(idResource:int):void {
         var i:int = 0;
         var b:Boolean = false;
@@ -48,7 +122,7 @@ public class ManagerAchievement {
                         ob.tookGift[0] = 0;
                         ob.tookGift[1] = 0;
                         ob.tookGift[2] = 0;
-                        g.managerAchievement.userAchievement.push(ob);
+                        userAchievement.push(ob);
                         g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
                         break;
                     }
@@ -64,7 +138,7 @@ public class ManagerAchievement {
                     ob.tookGift[0] = 0;
                     ob.tookGift[1] = 0;
                     ob.tookGift[2] = 0;
-                    g.managerAchievement.userAchievement.push(ob);
+                    userAchievement.push(ob);
                     g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
                     break;
                 }
@@ -72,7 +146,7 @@ public class ManagerAchievement {
         }
     }
 
-    public function addAll(achievementId,count:int = 1):void {
+    public function addAll(achievementId:int,count:int = 1):void {
         var i:int = 0;
         var b:Boolean = false;
         var ob:Object = {};
@@ -94,7 +168,7 @@ public class ManagerAchievement {
                 ob.tookGift[0] = 0;
                 ob.tookGift[1] = 0;
                 ob.tookGift[2] = 0;
-                g.managerAchievement.userAchievement.push(ob);
+                userAchievement.push(ob);
                 g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
             }
         } else {
@@ -105,7 +179,7 @@ public class ManagerAchievement {
             ob.tookGift[0] = 0;
             ob.tookGift[1] = 0;
             ob.tookGift[2] = 0;
-            g.managerAchievement.userAchievement.push(ob);
+            userAchievement.push(ob);
             g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
         }
     }

@@ -149,6 +149,7 @@ public class WOLockedLand extends WindowMain {
     private function onBtnOpen():void {
         _land.showBoom();
         _land = null;
+        g.managerAchievement.addAll(20,1);
         hideIt();
     }
 

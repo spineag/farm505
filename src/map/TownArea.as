@@ -1087,6 +1087,7 @@ public class TownArea extends Sprite {
                 else cost = (arr.length) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
             }
+            g.managerAchievement.addAll(13,cost);
         } else {
             g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -(build as WorldObject).dataBuild.cost);
         }

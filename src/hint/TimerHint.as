@@ -247,6 +247,7 @@ public class TimerHint {
         }
         managerHide();
         g.userInventory.addMoney(1,-int(_txtCost.text));
+        g.managerAchievement.addAll(25,1);
         _isOnHover = false;
 //        managerHide();
         hideIt();
