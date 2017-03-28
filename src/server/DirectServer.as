@@ -7728,8 +7728,7 @@ public class DirectServer {
         Cc.ch('server', 'changeLanguage', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        if (g.user.language == 1) variables.languageId = 2;
-        else variables.languageId = 1;
+         variables.languageId = g.user.language;
 //        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
