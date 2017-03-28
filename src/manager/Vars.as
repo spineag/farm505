@@ -229,6 +229,58 @@ public class Vars {
             throw(new Error("use Objects.getInstance() instead!!"));
         }
     }
+
+    public function startUserLoad():void {
+        townArea = new TownArea();
+        farmGrid = new FarmGrid();
+        dataLevel = new DataLevel();
+        userValidates = new UserValidateResources();
+        soundManager = new SoundManager();
+        userTimer = new UserTimer();
+        managerDailyBonus = new ManagerDailyBonus();
+        managerChest = new ManagerChest();
+        managerMouseHero = new ManagerMouse();
+        gameDispatcher = new FarmDispatcher(mainStage);
+        SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
+        socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
+        socialNetwork.init();
+    }
+
+    private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
+        startPreloader.setProgress(77);
+        socialNetwork.removeEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
+        socialNetwork.addEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
+        socialNetwork.getProfile(socialNetwork.currentUID);
+    }
+
+    private function authoriseUser(e:SocialNetworkEvent = null):void {
+        Cc.info('userSocialId == ' + socialNetwork.currentUID + " --- " + (user as User).userSocialId); // should be the same
+        socialNetwork.checkUserLanguageForIFrame();
+        startPreloader.setProgress(78);
+        socialNetwork.removeEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
+        directServer.authUser(loadMap);
+    }
+
+    private function loadMap():void {
+        startPreloader.setProgress(79);
+        background = new BackgroundArea(onAuthUser);
+    }
+
+    private function onAuthUser():void {
+        startPreloader.setProgress(80);
+        directServer.getDataOutGameTiles(onGetOutGameTiles);
+    }
+
+    private function onGetOutGameTiles():void {
+        startPreloader.setProgress(81);
+        directServer.getDataLevel(onDataLevel);
+    }
+
+    public function onDataLevel():void {
+        directServer.getUserInfo(loadManagerLanguqage);
+        startPreloader.setProgress(82);
+    }
+
     private function loadManagerLanguqage():void {
         managerLanguage = new ManagerLanguage(initInterface);
     }
@@ -290,56 +342,6 @@ public class Vars {
             errorManager.onGetError(ErrorConst.ON_INIT2, true, true);
             Cc.stackch('error', 'initVariables::', 10);
         }
-    }
-
-    public function startUserLoad():void {
-        townArea = new TownArea();
-        farmGrid = new FarmGrid();
-        dataLevel = new DataLevel();
-        userValidates = new UserValidateResources();
-        soundManager = new SoundManager();
-        userTimer = new UserTimer();
-        managerDailyBonus = new ManagerDailyBonus();
-        managerChest = new ManagerChest();
-        managerMouseHero = new ManagerMouse();
-        gameDispatcher = new FarmDispatcher(mainStage);
-        SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
-        socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
-        socialNetwork.init();
-    }
-
-    private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
-        startPreloader.setProgress(77);
-        socialNetwork.removeEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
-        socialNetwork.addEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
-        socialNetwork.getProfile(socialNetwork.currentUID);
-        Cc.info('userSocialId == ' + socialNetwork.currentUID + " --- " + (user as User).userSocialId); // should be the same
-    }
-
-    private function authoriseUser(e:SocialNetworkEvent = null):void {
-        startPreloader.setProgress(78);
-        socialNetwork.removeEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
-        directServer.authUser(loadMap);
-    }
-
-    private function loadMap():void {
-        startPreloader.setProgress(79);
-        background = new BackgroundArea(onAuthUser);
-    }
-
-    private function onAuthUser():void {
-        startPreloader.setProgress(80);
-        directServer.getDataOutGameTiles(onGetOutGameTiles);
-    }
-
-    private function onGetOutGameTiles():void {
-        startPreloader.setProgress(81);
-        directServer.getDataLevel(onDataLevel);
-    }
-
-    public function onDataLevel():void {
-        directServer.getUserInfo(loadManagerLanguqage);
-        startPreloader.setProgress(82);
     }
 
     private function onUserInfo():void {

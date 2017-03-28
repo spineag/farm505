@@ -61,11 +61,6 @@ public class SN_Blank extends SocialNetwork {
         super.showOrderWindow(e);
     }
 
-    override public function getUserParams():Object {
-//        return {auth_key: g.sessionKey};
-        return {};
-    }
-
     override public function saveScreenshotToAlbum(oid:String):void {
         //g.managerCutSceneWarning.visible = false;
         saveLocal();
