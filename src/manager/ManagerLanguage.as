@@ -21,9 +21,11 @@ public class ManagerLanguage {
         }
     }
 
-    public function changeLanguage():void {
-        g.directServer.changeLanguage(null);
-        g.windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME,null);
+    public function changeLanguage(v:int):void {
+        if (g.user.language == v) return;
+        if (g.user.language == 1) g.user.language = 2;
+            else g.user.language = 1;
+        g.directServer.changeLanguage(g.socialNetwork.reloadGame);
     }
 }
 }

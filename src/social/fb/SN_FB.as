@@ -11,12 +11,20 @@ import flash.utils.getTimer;
 import quest.ManagerQuest;
 
 import social.SocialNetwork;
+
+import starling.display.Quad;
+
+import starling.utils.Color;
+
 import user.Friend;
+
+import utils.CSprite;
 
 public class SN_FB extends SocialNetwork  {
     private static const API_SECRET_KEY:String = "dd3c1b11a323f01a3ac23a3482724c49";
 
     private var _friendsRest:Array;
+    private var _black:CSprite;
 
     public function SN_FB(flashVars:Object) {
         _friendsRest = [];
@@ -32,6 +40,9 @@ public class SN_FB extends SocialNetwork  {
             ExternalInterface.addCallback('isInGroupCallback', isInGroupCallback);
             ExternalInterface.addCallback('wallPostSave', wallSavePublic);
             ExternalInterface.addCallback('wallPostCancel', wallCancelPublic);
+            ExternalInterface.addCallback('onOpenLanguage', onOpenLanguage);
+            ExternalInterface.addCallback('onHideLanguage', onHideLanguage);
+            ExternalInterface.addCallback('changeLanguage', changeLanguage);
         }
         super(flashVars);
     }
@@ -215,5 +226,34 @@ public class SN_FB extends SocialNetwork  {
         super.checkUserLanguageForIFrame();
         ExternalInterface.call("checkUserLanguageForIFrame", g.user.userSocialId);
     }
+
+    private function onOpenLanguage():void {
+        if (_black) return;
+        var onBlackClick:Function = function():void {
+            ExternalInterface.call("hideLanguage");
+            onHideLanguage();
+        };
+        _black = new CSprite();
+        _black.addChild(new Quad(g.managerResize.stageWidth, g.managerResize.stageHeight, Color.BLACK));
+        g.cont.mouseCont.addChildAt(_black, 0);
+        _black.alpha = .8;
+        _black.endClickCallback = onBlackClick;
+    }
+
+    private function onHideLanguage():void {
+        if (_black) {
+            if (g.cont.mouseCont.contains(_black)) g.cont.mouseCont.removeChild(_black);
+            _black.deleteIt();
+            _black = null;
+        }
+    }
+    
+    private function changeLanguage(v:int):void {
+        Cc.ch('social', 'change language to: ' + v);
+        onHideLanguage();
+        g.managerLanguage.changeLanguage(v);
+    }
+
+
 }
 }
