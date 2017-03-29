@@ -2,20 +2,10 @@
  * Created by andriy.grynkiv on 16/03/14.
  */
 package {
-import loaders.DataPath;
 import loaders.EmbedAssets;
-import loaders.LoadAnimationManager;
 import loaders.LoadComponents;
-import loaders.LoaderManager;
-import loaders.allLoadMb.AllLoadMb;
-
 import manager.Vars;
 import manager.hitArea.ManagerHitArea;
-import server.DirectServer;
-
-import social.SocialNetwork;
-import social.SocialNetworkSwitch;
-
 import starling.display.Sprite;
 import starling.utils.AssetManager;
 
@@ -28,12 +18,6 @@ public class MainStarling extends Sprite {
     public function MainStarling() {}
 
     public function start():void {
-        g.dataPath = new DataPath();
-        g.loadMb = new AllLoadMb();
-        g.load = LoaderManager.getInstance();
-        g.pXMLs = {};
-        g.pJSONs = {};
-        g.loadAnimation = new LoadAnimationManager();
         g.managerHitArea = new ManagerHitArea();
 
         sAssets = new AssetManager();
@@ -52,14 +36,6 @@ public class MainStarling extends Sprite {
     }
 
     private function loadVersion():void {
-        g.directServer = new DirectServer();
-        g.version = {};
-        g.socialNetwork = new SocialNetwork(g.flashVars);
-        if (g.isDebug) {
-            g.socialNetworkID = SocialNetworkSwitch.SN_VK_ID;
-        } else {
-            g.socialNetworkID = int(g.flashVars['channel']);
-        }
         g.directServer.getVersion(loadComponents);
         g.directServer.getTextHelp(null);
     }

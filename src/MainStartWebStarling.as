@@ -14,7 +14,12 @@ import flash.system.Security;
 import flash.utils.clearTimeout;
 import flash.utils.setTimeout;
 
+import loaders.DataPath;
+
 import loaders.EmbedAssets;
+import loaders.LoadAnimationManager;
+import loaders.LoaderManager;
+import loaders.allLoadMb.AllLoadMb;
 
 import manager.ManagerResize;
 import manager.ownError.OwnErrorManager;
@@ -25,6 +30,12 @@ import manager.Vars;
 import map.MatrixGrid;
 
 import preloader.StartPreloader;
+
+import server.DirectServer;
+
+import social.SocialNetwork;
+import social.SocialNetworkSwitch;
+
 import starling.core.Starling;
 import starling.events.Event;
 import user.User;
@@ -111,10 +122,23 @@ public class MainStartWebStarling extends flash.display.Sprite{
         g.matrixGrid.createMatrix();
         g.managerResize = new ManagerResize();
         g.managerResize.checkResizeOnStart();
-        g.startPreloader = new StartPreloader();
-        g.startPreloader.showIt();
 
-        game.start();
+        g.dataPath = new DataPath();
+        g.loadMb = new AllLoadMb();
+        g.load = LoaderManager.getInstance();
+        g.pXMLs = {};
+        g.pJSONs = {};
+        g.loadAnimation = new LoadAnimationManager();
+        g.directServer = new DirectServer();
+        g.version = {};
+        g.socialNetwork = new SocialNetwork(g.flashVars);
+        if (g.isDebug) {
+            g.socialNetworkID = SocialNetworkSwitch.SN_FB_ID;
+        } else {
+            g.socialNetworkID = int(g.flashVars['channel']);
+        }
+        
+        g.startPreloader = new StartPreloader(game.start);
     }
 
     private function onLoaded(event : starling.events.Event):void {
