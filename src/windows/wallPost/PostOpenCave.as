@@ -82,7 +82,7 @@ public class PostOpenCave extends WindowMain {
         if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
         }
-        g.managerWallPost.openWindow(ManagerWallPost.OPEN_CAVE, null, 100, 9);
+        g.managerWallPost.postWallpost(ManagerWallPost.OPEN_CAVE, null, 100, 9);
         hideIt();
     }
 

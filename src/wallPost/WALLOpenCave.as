@@ -19,28 +19,19 @@ import utils.DrawToBitmap;
 
 public class WALLOpenCave {
     protected var g:Vars = Vars.getInstance();
-    private var _source:Sprite;
 
-    public function WALLOpenCave() {
-        _source = new Sprite();
-    }
-
-    public function showItParams(callback:Function, params:Array):void {
-        var st:String = g.dataPath.getGraphicsPath();
-        g.load.loadImage(st + 'wall/wall_open_cave.jpg',onLoad);
+    public function WALLOpenCave(callback:Function, params:Array):void {
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[472]), null, 'https://505.ninja/content/wall/ok/wall_OK_4.jpg');
+        } else {
+            g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/wall_open_cave.jpg', onLoad);
+        }
     }
 
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_open_cave.jpg'].create() as Bitmap;
-        _source.addChild(new Image(Texture.fromBitmap(bitmap)));
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[472]),bitmap,'interfaceAtlas');
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            st = 'https://505.ninja/content/wall/ok/wall_OK_4.jpg';
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[472]),
-                    null, st);
-        }
+        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[472]),bitmap,'interfaceAtlas');
         (g.pBitmaps[st + 'wall/wall_open_cave.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[st + 'wall/wall_open_cave.jpg'];
     }

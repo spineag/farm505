@@ -192,7 +192,7 @@ public class ManagerQuest {
                 g.gameDispatcher.addToTimer(checkWithTimer);
                 break;
             case POST:
-                g.managerWallPost.openWindow(ManagerWallPost.POST_FOR_QUEST, null, 0, DataMoney.SOFT_CURRENCY);
+                g.managerWallPost.postWallpost(ManagerWallPost.POST_FOR_QUEST, null, 0, DataMoney.SOFT_CURRENCY);
                 break;
             case CRAFT_PLANT:
                 g.windowsManager.closeAllWindows();

@@ -115,7 +115,7 @@ public class PostOpenFabric  extends WindowMain {
         if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
         }
-        g.managerWallPost.openWindow(ManagerWallPost.NEW_FABRIC,null,200,DataMoney.SOFT_CURRENCY,_data);
+        g.managerWallPost.postWallpost(ManagerWallPost.NEW_FABRIC,null,200,DataMoney.SOFT_CURRENCY,_data);
         _btn.clickCallback = null;
         hideIt();
     }

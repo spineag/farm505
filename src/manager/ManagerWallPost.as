@@ -3,8 +3,14 @@
  */
 package manager {
 import com.junkbyte.console.Cc;
+
+import flash.display.StageDisplayState;
+
 import quest.ManagerQuest;
 import resourceItem.DropItem;
+
+import starling.core.Starling;
+
 import ui.xpPanel.XPStar;
 import wallPost.WALLDoneOrder;
 import wallPost.WALLDoneTrain;
@@ -30,62 +36,34 @@ public class ManagerWallPost {
     private var _typePost:String;
     private var g:Vars = Vars.getInstance();
 
-    public function ManagerWallPost() {
+    public function ManagerWallPost() {}
 
-    }
-
-    public function openWindow(type:String,callback:Function=null, ...params):void {
+    public function postWallpost(type:String, callback:Function=null, ...params):void {
+        if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
+            Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
+        }
         _count = params[0];// количество подарка
         _type = params[1];//тип подарка
         _typePost = type;
         switch (type) {
-            case NEW_LEVEL:
-               var woLevel:WALLNewLevel = new WALLNewLevel();
-                woLevel.showItParams(callback,params);
-                break;
-            case NEW_FABRIC:
-                var woNewFabric:WALLNewFabric = new WALLNewFabric();
-                woNewFabric.showItParams(callback,params[2]);
-                break;
-            case NEW_LAND:
-                var woNewLand:WALLOpenLand = new WALLOpenLand();
-                woNewLand.showItParams(callback,params);
-                break;
-            case OPEN_TRAIN:
-                var woOpenTrain:WALLOpenTrain = new WALLOpenTrain();
-                woOpenTrain.showItParams(callback,params);
-                break;
-            case OPEN_CAVE:
-               var woCave:WALLOpenCave = new WALLOpenCave();
-                woCave.showItParams(callback,params);
-                break;
-            case DONE_TRAIN:
-                var woDoneTrain:WALLDoneTrain = new WALLDoneTrain();
-                woDoneTrain.showItParams(callback,params);
-                break;
-            case DONE_ORDER:
-                var woDoneOrder:WALLDoneOrder = new WALLDoneOrder();
-                woDoneOrder.showItParams(callback,params);
-                break;
-            case POST_FOR_QUEST:
-                var woForQuest:WALLForQuest = new WALLForQuest();
-                woForQuest.showItParams(callback, params);
-                break;
-            default:
-                Cc.error('WindowsManager:: unknown window type: ' + type);
-                break;
+            case NEW_LEVEL: new WALLNewLevel(callback,params); break;
+            case NEW_FABRIC: new WALLNewFabric(callback,params[2]); break;
+            case NEW_LAND: new WALLOpenLand(callback,params); break;
+            case OPEN_TRAIN: new WALLOpenTrain(callback,params); break;
+            case OPEN_CAVE: new WALLOpenCave(callback,params); break;
+            case DONE_TRAIN: new WALLDoneTrain(callback,params); break;
+            case DONE_ORDER: new WALLDoneOrder(callback,params); break;
+            case POST_FOR_QUEST: new WALLForQuest(callback, params); break;
+            default: Cc.error('WindowsManager:: unknown window type: ' + type); break;
         }
-
     }
-
 
     public function callbackAward():void {
         if (_typePost == POST_FOR_QUEST) {
             g.managerQuest.onActionForTaskType(ManagerQuest.POST);
         } else {
-            if (_type == 9) {
-                new XPStar(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2, _count);
-            } else {
+            if (_type == 9) new XPStar(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2, _count);
+            else {
                 var obj:Object;
                 obj = {};
                 obj.count = _count;

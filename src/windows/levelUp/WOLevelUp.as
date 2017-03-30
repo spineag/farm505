@@ -469,7 +469,7 @@ public class WOLevelUp extends WindowMain {
         if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
         }
-        g.managerWallPost.openWindow(ManagerWallPost.NEW_LEVEL,null,_count,DataMoney.HARD_CURRENCY);
+        g.managerWallPost.postWallpost(ManagerWallPost.NEW_LEVEL,null,_count,DataMoney.HARD_CURRENCY);
         hideIt();
     }
 
