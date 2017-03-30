@@ -480,8 +480,10 @@ public class WOOrder extends WindowMain{
 
     private function fillResourceItems(order:ManagerOrderItem):void {
         if (order)_txtName.text = order.catOb.name + ' ' + String(g.managerLanguage.allTexts[370]);
-        _txtXP.text = String(_activeOrderItem.getOrder().xp);
-        _txtCoins.text = String(_activeOrderItem.getOrder().coins);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER) _txtXP.text = String(_activeOrderItem.getOrder().xp * g.managerParty.coefficient);
+        else _txtXP.text = String(_activeOrderItem.getOrder().xp);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER) _txtCoins.text = String(_activeOrderItem.getOrder().coins * g.managerParty.coefficient);
+        else _txtCoins.text = String(_activeOrderItem.getOrder().coins);
         for (var i:int=0; i<_activeOrderItem.getOrder().resourceIds.length; i++) {
             _arrResourceItems[i].fillIt(_activeOrderItem.getOrder().resourceIds[i], _activeOrderItem.getOrder().resourceCounts[i]);
         }

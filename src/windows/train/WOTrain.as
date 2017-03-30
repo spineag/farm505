@@ -171,7 +171,7 @@ public class WOTrain extends WindowMain {
         _txtCostItem.y = 75;
         _txtCostItem.alignH = Align.LEFT;
         _txtXpItem = new CTextField(50,40,'-3');
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtXpItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtXpItem.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
         else _txtXpItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXpItem.x = 165;
         _txtXpItem.y = 75;
@@ -264,8 +264,11 @@ public class WOTrain extends WindowMain {
                     _arrItems[10].fillIt(null, 10, CELL_GRAY);
                     _arrItems[11].fillIt(null, 11, CELL_GRAY);
                 }
-            _txtCostAll.text = String(_build.allCoinsCount);
-            _txtXpAll.text = String(_build.allXPCount);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtCostAll.text = String(_build.allCoinsCount * g.managerParty.coefficient);
+        else _txtCostAll.text = String(_build.allCoinsCount);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtXpAll.text = String(_build.allXPCount * g.managerParty.coefficient);
+        else _txtXpAll.text = String(_build.allXPCount);
+
         var num:int = 0;
         if (!g.managerCutScenes.isCutScene) {
             for (i = 0; i < list.length; i++) {
@@ -328,9 +331,11 @@ public class WOTrain extends WindowMain {
                _countFree = _arrItems[k].countFree;
             }
         }
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtCostItem.text = String(_arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient);
+        else _txtCostItem.text = String(_arrItems[_activeItemIndex].countCoins);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN)  _txtXpItem.text = String(_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
+        else  _txtXpItem.text = String(_arrItems[_activeItemIndex].countXP);
 
-        _txtCostItem.text = String(_arrItems[_activeItemIndex].countCoins);
-        _txtXpItem.text = String(_arrItems[_activeItemIndex].countXP);
         if (_imageItem) {
             _rightBlock.removeChild(_imageItem);
             _imageItem.filter = null;
@@ -502,20 +507,22 @@ public class WOTrain extends WindowMain {
         _btnSend.clickCallback = null;
         var i:int;
         _lock = 0;
+        var b:Boolean = false;
         for (i = 0; i<_arrItems.length; i++) {
+            if (_arrItems[i].needHelp) b = true;
             if (!_isBigCount && i == 9 || !_isBigCount && i == 10 || !_isBigCount && i == 11){
                 _lock++;
             } else if (_arrItems[i].isResourceLoaded) {
                 _lock++;
             }
         }
-        if (_lock >= _arrItems.length || _lock == 0 || !_isBigCount && _lock <= 3) {
+
+            if (_lock >= _arrItems.length || _lock == 0 && !b || !_isBigCount && _lock <= 3 && !b) {
             _btnSend.setEnabled = true;
         } else {
             _btnSend.setEnabled = false;
             return;
         }
-        var b:Boolean;
         for (i = 0; i<_arrItems.length; i++) {
             b = false;
             if (_arrItems[i].isResourceLoaded) {

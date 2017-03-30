@@ -136,8 +136,11 @@ public class WOOrderItem {
         _order = order;
         _clickCallback = f;
         _txtName.text = _order.catOb.name;
-        _txtXP.text = String(_order.xp);
-        _txtCoins.text = String(_order.coins);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER) _txtXP.text = String(_order.xp * g.managerParty.coefficient);
+        else _txtXP.text = String(_order.xp);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER) _txtCoins.text = String(_order.coins * g.managerParty.coefficient);
+        else _txtCoins.text = String(_order.coins);
+
         source.visible = true;
         if (b) _check.visible = true;
         else _check.visible = false;

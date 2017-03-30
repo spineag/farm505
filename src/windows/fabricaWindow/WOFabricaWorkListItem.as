@@ -222,7 +222,7 @@ public class WOFabricaWorkListItem {
             _icon.x = int(23 - _icon.width/2);
             _icon.y = int(22 - _icon.height/2);
         }
-        var r:StructureDataRecipe = g.allData.getRecipeById(_resource.resourceID);
+        var r:StructureDataRecipe = g.allData.getRecipeByResourceId(_resource.resourceID);
         if ( r && r.numberCreate > 1) {
             _txtNumberCreate.text = String(r.numberCreate);
         } else _txtNumberCreate.text = " ";

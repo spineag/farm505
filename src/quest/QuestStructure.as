@@ -93,15 +93,53 @@ public class QuestStructure {
         return null;
     }
     
-    public function get iconPath():String { return _questData.icon_quest; }
-    public function get id():int { return _questId; }
-    public function get idDB():String { return _questUserDbId; }
-    public function get description():String { return g.managerLanguage.allTexts[int(_questData.text_id_description)]; }
-    public function get awards():Array { return _awards; }
-    public function get tasks():Array { return _tasks; }
-    public function get questName():String { return g.managerLanguage.allTexts[int(_questData.text_id_name)]; }
-    public function get isDone():Boolean { return _isDone; }  
-    public function set isDone(v:Boolean):void { _isDone = v; }
+    public function get iconPath():String {
+       if (_questData)  return _questData.icon_quest;
+        else {
+           Cc.error('_questData.icon_quest = null');
+           return null;
+       }
+    }
+    public function get id():int {
+         if (_questId) return _questId;
+        else {
+             Cc.error('_questId = null');
+             return null;
+        }
+    }
+    public function get idDB():String {
+         if (_questUserDbId) return _questUserDbId;
+        else {
+             Cc.error('_questUserDbId = null');
+             return null;
+            }
+    }
+    public function get description():String {
+        if (_questData.text_id_description) return g.managerLanguage.allTexts[int(_questData.text_id_description)];
+        else {
+            Cc.error('_questData.text_id_description = null');
+            return null;
+        }
+    }
+    public function get awards():Array {
+        return _awards;
+    }
+    public function get tasks():Array {
+        return _tasks;
+    }
+    public function get questName():String {
+        if (_questData.text_id_name) return g.managerLanguage.allTexts[int(_questData.text_id_name)];
+        else {
+            Cc.error('_questData.text_id_name = null');
+            return null;
+        }
+    }
+    public function get isDone():Boolean {
+        return _isDone;
+    }
+    public function set isDone(v:Boolean):void {
+        _isDone = v;
+    }
 
     public function getUrlFromTask():String {
         if (!_tasks.length) {

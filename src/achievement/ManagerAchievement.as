@@ -146,7 +146,7 @@ public class ManagerAchievement {
         }
     }
 
-    public function addAll(achievementId:int, count:int = 1):void {
+    public function addAll(achievementId:int,count:int = 1):void {
         var i:int = 0;
         var b:Boolean = false;
         var ob:Object = {};
