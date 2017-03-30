@@ -21,6 +21,7 @@ public class SocialNetwork extends EventDispatcher {
     protected var _friendsNoApp:Array;
     protected var _friendsApp:Array;
     protected var _timerRender:uint = 0;
+    protected var _userLocale:String = 'none';
 
     protected static var g:Vars = Vars.getInstance();
 
@@ -39,6 +40,8 @@ public class SocialNetwork extends EventDispatcher {
         }
     }
 
+    public function checkLocaleForLanguage():int { return 1; }
+    public function get userLocale():String { _userLocale; }
     public function get currentUID():String { return ""; }
     public function get referrer():String { return "unknown"; }
     public function get urlApp():String { return null; }
