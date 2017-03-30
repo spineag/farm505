@@ -52,10 +52,6 @@ public class WALLNewFabric {
                       var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
                        if (!texture) {
                                texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
-
-
-
-//
 //        var bitmap:Bitmap = g.pBitmaps[st + 'wall/wall_new_fabric.jpg'].create() as Bitmap;
 //        var sp:flash.display.Sprite = new flash.display.Sprite();
 //        sp.addChild(bitmap);
@@ -72,8 +68,8 @@ public class WALLNewFabric {
         }
 
         var im:Image = new Image(texture);
-                im.x = 200;
-               im.y = 160;
+                im.x = 180;
+               im.y = 180;
                 _source.addChild(im);
             var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, _source);
 //        if (bd) {

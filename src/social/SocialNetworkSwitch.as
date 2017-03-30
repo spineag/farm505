@@ -44,9 +44,9 @@ public class SocialNetworkSwitch {
 //                    flashVars["secret"] = "4d1630dcda";
 
                     flashVars["api_id"] = "5448769";
-                    flashVars["viewer_id"] = "168207096";
-                    flashVars["sid"] = "0b9fe4a90fb746eba4ba8ea70f34175a89765aafd85c5d1fc66f90aecddd8ec19f5db22b5e8194b5458d5";
-                    flashVars["secret"] = "2193f31822";
+                    flashVars["viewer_id"] = "146353874";
+                    flashVars["sid"] = "4b8269a4a0a4358d193a675641008f4cd52847b72c4e9740ff374b5ad2c89fa1f5ab931c458ef9a80d4c1";
+                    flashVars["secret"] = "d3c8ea1886";
 //                    flashVars["api_id"] = "5448769";
 //                    flashVars["viewer_id"] = "8726902";
 //                    flashVars["sid"] = "4c5f68095369c92a12f5a7fe1c808a53e8584e6c82dc1b8787139bf11efd7a059e2ed9cdf5968ecf9c774";
@@ -64,7 +64,8 @@ public class SocialNetworkSwitch {
 //                     Ссылка на приложение: http://www.odnoklassniki.ru/game/1248696832
 
                 if (isDebug) {
-                    flashVars["uid"] = "509085867850";
+                    flashVars["uid"] = "575729796770";
+//                    flashVars["uid"] = "581762674478";
                     g.socialNetwork = new SN_Blank(flashVars, "ok", "https://505.ninja/", "https://505.ninja/");
                 } else {
                     flashVars["uid"] = flashVars["logged_user_id"];

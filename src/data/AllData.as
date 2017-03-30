@@ -143,6 +143,18 @@ public class AllData {
         return _recipeObj[idRecipe];
     }
 
+    public function getRecipeByResourceId(idRecipe:int):StructureDataRecipe {
+        for(var id:String in _recipeObj) {
+            if (_recipeObj[id].idResource == idRecipe) return _recipeObj[id];
+        }
+        return _recipeObj[idRecipe];
+//        for (var i:int=0; i<_recipe.length; i++) {
+//            if ((_recipe[i] as StructureDataRecipe).id == idRecipe) return _recipe[i];
+//        }
+//        return null;
+
+    }
+
     public function getBuildingById(idBuilding:int):StructureDataBuilding {
 //        for (var i:int=0; i<_building.length; i++) {
 //            if ((_building[i] as StructureDataBuilding).id == idBuilding) return _building[i];

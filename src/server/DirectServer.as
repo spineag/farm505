@@ -6486,7 +6486,7 @@ public class DirectServer {
         }
     }
 
-    public function getAwayUserTreeWatering(id:int,userSocialId:int,callback:Function):void {
+    public function getAwayUserTreeWatering(id:int,userSocialId:String,callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_AWAY_USER_TREE_WATERING);
         var variables:URLVariables = new URLVariables();

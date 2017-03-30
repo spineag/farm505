@@ -528,7 +528,7 @@ public class Tree extends WorldObject {
             if (_state == ASK_FIX) {
                 for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
                     if (g.visitedUser.userDataCity.treesInfo[i].id == tree_db_id) {
-                        g.directServer.getAwayUserTreeWatering(int(tree_db_id),int(g.visitedUser.userSocialId),wateringTree);
+                        g.directServer.getAwayUserTreeWatering(int(tree_db_id),g.visitedUser.userSocialId,wateringTree);
                         break;
                     }
                 }
@@ -1162,7 +1162,7 @@ public class Tree extends WorldObject {
                 for (var i:int = 0; i < g.visitedUser.userDataCity.treesInfo.length; i++) {
                     if (g.visitedUser.userDataCity.treesInfo[i].id == tree_db_id) {
                         g.managerAchievement.addAll(16,1);
-                        g.directServer.getAwayUserTreeWatering(int(tree_db_id),int(g.visitedUser.userSocialId),wateringTree);
+                        g.directServer.getAwayUserTreeWatering(int(tree_db_id),g.visitedUser.userSocialId,wateringTree);
                         break;
                     }
                 }
