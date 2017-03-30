@@ -784,6 +784,7 @@ public class DirectServer {
         variables.lastName = g.user.lastName;
         variables.sex = g.user.sex;
         variables.bornDate = g.user.bornDate;
+        variables.defaultLanguage = g.socialNetwork.checkLocaleForLanguage();
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();

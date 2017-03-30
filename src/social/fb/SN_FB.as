@@ -68,6 +68,7 @@ public class SN_FB extends SocialNetwork  {
             _paramsUser.photo = String(e.picture) || URL_AVATAR_BLANK;
             _paramsUser.sex = String(e.gender);
             _paramsUser.bdate = String(e.birthday);
+            _userLocale = String(e.locale);
 
             super.getProfileSuccess(_paramsUser);
         } catch (e:Error) {
@@ -252,6 +253,12 @@ public class SN_FB extends SocialNetwork  {
         Cc.ch('social', 'change language to: ' + v);
         onHideLanguage();
         g.managerLanguage.changeLanguage(v);
+    }
+
+    override public function checkLocaleForLanguage():int {
+        var lang:int = 2;
+        if (_userLocale == 'ru_RU' || _userLocale == 'be_BY' || _userLocale == 'uk_UA') lang = 1;
+        return lang;
     }
 
 
