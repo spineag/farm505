@@ -25,7 +25,7 @@ public class PartyPanel {
 
     public function PartyPanel() {
         _source = new CSprite();
-        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('event_icon'));
+        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('grape_mood_icon'));
         _source.addChild(im);
 
         _txtData = new CTextField(100,60,'');
@@ -59,7 +59,7 @@ public class PartyPanel {
                     _txtData.deleteIt();
                     _txtData = null;
                 }
-                g.managerParty.endPartyWindow()
+//                g.managerParty.endPartyWindow()
             }
             g.gameDispatcher.removeFromTimer(startTimer);
         }

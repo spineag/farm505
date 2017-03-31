@@ -4,6 +4,8 @@
 package windows.partyWindow {
 import data.BuildType;
 
+import flash.geom.Point;
+
 import manager.ManagerFilters;
 
 import starling.display.Image;
@@ -13,6 +15,8 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.utils.Align;
 import starling.utils.Color;
+
+import ui.xpPanel.XPStar;
 
 import utils.CButton;
 import utils.CTextField;
@@ -472,6 +476,9 @@ public class WOPartyWindow extends WindowMain{
                 + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
         g.managerParty.userParty.countResource += _countLoad;
         g.directServer.updateUserParty(st,g.managerParty.userParty.countResource,0,null);
+        var p:Point = new Point(0, 0);
+        p = _btnLoad.localToGlobal(p);
+        new XPStar(p.x, p.y,_countLoad * g.allData.getResourceById(g.managerParty.idResource).orderXP);
         g.userInventory.addResource(g.managerParty.idResource, - _countLoad);
         _countLoad =  g.userInventory.getCountResourceById(g.managerParty.idResource);
         _txtCountLoad.text = String(_countLoad);

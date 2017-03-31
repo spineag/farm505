@@ -86,7 +86,7 @@ public class CatPanel {
     }
 
     private function onClick():void {
-//        g.windowsManager.openWindow(WindowsManager.WO_ACHIEVEMENT,null);
+        if (g.user.isMegaTester) g.windowsManager.openWindow(WindowsManager.WO_ACHIEVEMENT,null);
 
 //        g.directServer.getDataAchievement(null);
 //        g.directServer.getUserParty(null);

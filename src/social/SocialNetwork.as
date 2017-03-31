@@ -41,7 +41,7 @@ public class SocialNetwork extends EventDispatcher {
     }
 
     public function checkLocaleForLanguage():int { return 1; }
-    public function get userLocale():String { _userLocale; }
+    public function get userLocale():String { return _userLocale;}
     public function get currentUID():String { return ""; }
     public function get referrer():String { return "unknown"; }
     public function get urlApp():String { return null; }

@@ -197,7 +197,7 @@ public class CButton extends Sprite {
         if (_isHover) return;
         _isHover = true;
         if (_hoverImage) _hoverImage.visible = false;
-        _bg.filter = ManagerFilters.getButtonHoverFilter();
+        if(_bg) _bg.filter = ManagerFilters.getButtonHoverFilter();
         g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
     }
 

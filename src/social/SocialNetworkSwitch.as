@@ -44,9 +44,9 @@ public class SocialNetworkSwitch {
 //                    flashVars["secret"] = "4d1630dcda";
 
                     flashVars["api_id"] = "5448769";
-                    flashVars["viewer_id"] = "146353874";
-                    flashVars["sid"] = "4b8269a4a0a4358d193a675641008f4cd52847b72c4e9740ff374b5ad2c89fa1f5ab931c458ef9a80d4c1";
-                    flashVars["secret"] = "d3c8ea1886";
+                    flashVars["viewer_id"] = "168207096";
+                    flashVars["sid"] = "21c3d78ee0e054c8fe88a765977a18570d4f4d18f0ba9ed2b689227ab490731944016a549a5e519c7b368";
+                    flashVars["secret"] = "39a208b854";
 //                    flashVars["api_id"] = "5448769";
 //                    flashVars["viewer_id"] = "8726902";
 //                    flashVars["sid"] = "4c5f68095369c92a12f5a7fe1c808a53e8584e6c82dc1b8787139bf11efd7a059e2ed9cdf5968ecf9c774";

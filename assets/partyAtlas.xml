@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:e6af7a6f19e69aa7d498e45768026dfc:0651deabe6d3f1986086400399af242a:ac880a930f9f4f68bee3173fda432350$ -->
+<!-- $TexturePacker:SmartUpdate:4866156680f75525f35079c31fde4656:8df02d0a3123706036a99d5bffd7e769:ac880a930f9f4f68bee3173fda432350$ -->
 <TextureAtlas imagePath="partyAtlas.png" width="1821" height="460">
     <SubTexture name="event_icon" x="793" y="340" width="100" height="100"/>
     <SubTexture name="event_window_baloon" x="1551" y="1" width="269" height="219" frameX="-2" frameY="-9" frameWidth="281" frameHeight="237"/>
     <SubTexture name="event_window_n" x="1" y="1" width="669" height="438"/>
-    <SubTexture name="event_window_w" x="895" y="340" width="80" height="81"/>
-    <SubTexture name="hint_button" x="977" y="392" width="47" height="47"/>
+    <SubTexture name="event_window_w" x="997" y="340" width="80" height="81"/>
+    <SubTexture name="grape_mood_icon" x="895" y="340" width="100" height="87" frameX="0" frameY="-13" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="hint_button" x="1079" y="392" width="47" height="47"/>
     <SubTexture name="new_event_window_l" x="672" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
     <SubTexture name="new_event_window_r" x="965" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
     <SubTexture name="new_event_window_r_2" x="1258" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
     <SubTexture name="place_1" x="672" y="340" width="119" height="119"/>
     <SubTexture name="place_2" x="1551" y="222" width="119" height="149"/>
-    <SubTexture name="progress" x="977" y="340" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
+    <SubTexture name="progress" x="1079" y="340" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
     <SubTexture name="valik_timer" x="1672" y="222" width="124" height="129" frameX="-9" frameY="-9" frameWidth="145" frameHeight="145"/>
 </TextureAtlas>

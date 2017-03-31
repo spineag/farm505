@@ -20,14 +20,19 @@ public class ManagerDropBonusResource {
     private var _makeDrop:MakeDrop;
 //    private var arr:Array;
     private var g:Vars = Vars.getInstance();
-
+    private var _countBonus:int;
 
     public function ManagerDropBonusResource() {
+        _countBonus =0;
     }
 
     public function checkDrop():Boolean {
+        _countBonus ++ ;
             if (g.user.level <= 7 && !g.managerTutorial.isTutorial) return int(Math.random()*100) < DROP_VARIATY_5 + 1;
-             else return int(Math.random()*100) < DROP_VARIATY + 1;
+             else if (_countBonus == 2) {
+                _countBonus = 0;
+                return int(Math.random()*100) < DROP_VARIATY + 1;
+            } else  return false;
     }
     public function createDrop(_x:int, _y:int):void {
         _makeDrop = new MakeDrop(_x, _y);

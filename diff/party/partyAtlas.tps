@@ -204,6 +204,7 @@
             <filename>event_window_baloon.png</filename>
             <filename>new_event_window_r_2.png</filename>
             <filename>event_icon.png</filename>
+            <filename>grape_mood_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

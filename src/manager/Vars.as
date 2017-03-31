@@ -66,6 +66,8 @@ import tutorial.managerCutScenes.ManagerCutScenes;
 import tutorial.miniScenes.ManagerMiniScenes;
 import tutorial.newTuts.ManagerTutorialNew;
 import tutorial.tips.ManagerTips;
+
+import ui.achievementPanel.AchievementPanel;
 import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
 import ui.couponePanel.CouponePanel;
@@ -178,6 +180,7 @@ public class Vars {
     public var stock:StockPanel;
     public var partyPanel:PartyPanel;
     public var salePanel:SalePanel;
+    public var achievementPanel:AchievementPanel;
 
     public var windowsManager:WindowsManager;
     public var managerHitArea:ManagerHitArea;
@@ -336,6 +339,7 @@ public class Vars {
 //            managerChest = new ManagerChest();
             townAreaTouchManager = new TownAreaTouchManager();
 //            soundManager = new SoundManager();
+            achievementPanel = new AchievementPanel();
             onUserInfo();
 
         } catch (e:Error) {
@@ -587,7 +591,7 @@ public class Vars {
                            else managerCats.helloCats();
                        }
                    }
-                if (!windowsManager.currentWindow && userTimer.partyToEndTimer < 0 && !managerParty.userParty.showWindow) managerParty.endPartyWindow();
+//                if (!windowsManager.currentWindow && userTimer.partyToEndTimer < 0 && !managerParty.userParty.showWindow) managerParty.endPartyWindow();
             }
             if ((user as User).miniScenes[3] == 0) friendPanel.hideIt(true);
             managerMiniScenes.updateMiniScenesLengthOnGameStart();
