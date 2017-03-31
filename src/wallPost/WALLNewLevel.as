@@ -32,16 +32,16 @@ public class WALLNewLevel {
     private var _source:starling.display.Sprite;
     private var _txtLevel:CTextField;
 
-    public function WALLNewLevel() {
-        _source = new starling.display.Sprite();
-    }
-
-    public function showItParams(callback:Function, params:Array):void {
-        var st:String = g.dataPath.getGraphicsPath();
-        g.load.loadImage(st + 'wall/wall_new_level.jpg',onLoad);
+    public function WALLNewLevel(callback:Function, params:Array):void {
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]), null, "https://505.ninja/content/wall/ok/wall_OK_7_" + g.user.level + ".jpg");
+        } else {
+            g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/wall_new_level.jpg', onLoad);
+        }
     }
 
     private function onLoad(bitmap:Bitmap):void {
+        _source = new starling.display.Sprite();
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'wall/wall_new_level.jpg'].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
@@ -67,17 +67,7 @@ public class WALLNewLevel {
         t.y = 235;
         t.filters = [new GlowFilter(ManagerFilters.BROWN_COLOR)];
         bitmap.bitmapData.draw(sp);
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[471]),bitmap,'interfaceAtlas');
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            try {
-                st = "https://505.ninja/content/wall/ok/wall_OK_7_" + g.user.level + ".jpg";
-                g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]),
-                        null, st);
-            } catch (e:Error) {
-                Cc.error('error during wallpost');
-            }
-        }
+        g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[471]),bitmap,'interfaceAtlas');
         _txtLevel.deleteIt();
         _txtLevel = null;
         (g.pBitmaps[st + 'wall/wall_new_level.jpg'] as PBitmap).deleteIt();

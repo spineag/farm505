@@ -77,7 +77,7 @@ public class PostDoneTrain extends WindowMain {
         if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
         }
-        g.managerWallPost.openWindow(ManagerWallPost.DONE_TRAIN,null,100,9);
+        g.managerWallPost.postWallpost(ManagerWallPost.DONE_TRAIN,null,100,9);
         super.hideIt();
     }
 

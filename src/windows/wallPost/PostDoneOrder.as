@@ -76,7 +76,7 @@ public class PostDoneOrder extends WindowMain {
         if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
         }
-        g.managerWallPost.openWindow(ManagerWallPost.DONE_ORDER,null,200,DataMoney.SOFT_CURRENCY);
+        g.managerWallPost.postWallpost(ManagerWallPost.DONE_ORDER,null,200,DataMoney.SOFT_CURRENCY);
         super.hideIt();
     }
 

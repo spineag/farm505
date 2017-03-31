@@ -77,7 +77,7 @@ public class PostOpenLand  extends WindowMain {
         if (Starling.current.nativeStage.displayState != StageDisplayState.NORMAL) {
             Starling.current.nativeStage.displayState = StageDisplayState.NORMAL;
         }
-        g.managerWallPost.openWindow(ManagerWallPost.NEW_LAND,null,3,DataMoney.HARD_CURRENCY);
+        g.managerWallPost.postWallpost(ManagerWallPost.NEW_LAND,null,3,DataMoney.HARD_CURRENCY);
         super.hideIt();
     }
 

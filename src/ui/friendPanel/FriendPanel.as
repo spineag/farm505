@@ -13,6 +13,7 @@ import manager.ManagerFilters;
 import manager.Vars;
 
 import social.SocialNetworkEvent;
+import social.SocialNetworkSwitch;
 
 import starling.animation.Tween;
 
@@ -143,7 +144,9 @@ public class FriendPanel {
 
     private function createAddFriendBtn():void {
         _addFriendsBtn = new CButton();
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_bt_add'));
+        var st:String = '';
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'Invite_friends_eng';
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
         _addFriendsBtn.addDisplayObject(im);
         _addFriendsBtn.setPivots();
         _addFriendsBtn.x = 5 + _addFriendsBtn.width/2;

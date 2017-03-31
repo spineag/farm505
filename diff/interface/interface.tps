@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.1</string>
+        <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/interface/interface.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/interface/interface.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,8 +43,6 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
-        <key>atfCompressData</key>
-        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -175,16 +173,14 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
+            <key>innerPadding</key>
+            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
-            <key>trimMargin</key>
-            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
-            <key>tracerTolerance</key>
-            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -200,17 +196,21 @@
             <filename>a_tr_red.png</filename>
             <filename>a_tr_rup_ico.png</filename>
             <filename>add_friend_button.png</filename>
+            <filename>animated_decor.png</filename>
             <filename>available_on_level.png</filename>
             <filename>baloon_1.png</filename>
             <filename>baloon_2.png</filename>
             <filename>baloon_3.png</filename>
             <filename>basket_big.png</filename>
+            <filename>best_price.png</filename>
             <filename>bg</filename>
             <filename>birka_c.png</filename>
             <filename>birka_cat.png</filename>
             <filename>birka_d.png</filename>
             <filename>birka_t.png</filename>
             <filename>blue_coupone.png</filename>
+            <filename>bonus.png</filename>
+            <filename>bottom_newspaper.png</filename>
             <filename>bt_close.png</filename>
             <filename>button_yel_left_mini.png</filename>
             <filename>button_yel_left.png</filename>
@@ -221,9 +221,12 @@
             <filename>cat_icon.png</filename>
             <filename>cat_shadow.png</filename>
             <filename>cave</filename>
+            <filename>centre_newspaper.png</filename>
+            <filename>check_big.png</filename>
             <filename>check.png</filename>
             <filename>circle.png</filename>
             <filename>coins_back.png</filename>
+            <filename>coins_icon.png</filename>
             <filename>coins_market.png</filename>
             <filename>coins_medium.png</filename>
             <filename>coins_small.png</filename>
@@ -232,8 +235,11 @@
             <filename>cross.png</filename>
             <filename>currency_buy_window.png</filename>
             <filename>cursor_basket.png</filename>
+            <filename>cursor_circle_1_eng.png</filename>
             <filename>cursor_circle_1.png</filename>
+            <filename>cursor_circle_2_eng.png</filename>
             <filename>cursor_circle_2.png</filename>
+            <filename>cursor_circle_3_eng.png</filename>
             <filename>cursor_circle_3.png</filename>
             <filename>cursor_circle.png</filename>
             <filename>cursor_clock.png</filename>
@@ -244,6 +250,7 @@
             <filename>default_avatar_big.png</filename>
             <filename>empty_green_tile.png</filename>
             <filename>empty_red_tile.png</filename>
+            <filename>exclamation_point.png</filename>
             <filename>friend_board.png</filename>
             <filename>friends_panel_ar.png</filename>
             <filename>green_coupone.png</filename>
@@ -254,9 +261,14 @@
             <filename>hintSidePixels.png</filename>
             <filename>hintSidePixels2.png</filename>
             <filename>hintTopLeftPart.png</filename>
+            <filename>Invite_friends_eng.png</filename>
+            <filename>main_quest_icon.png</filename>
             <filename>minus.png</filename>
             <filename>neighbor.jpg</filename>
             <filename>new_m.png</filename>
+            <filename>newspaper_icon_small.png</filename>
+            <filename>nyash_blue.png</filename>
+            <filename>nyash_red.png</filename>
             <filename>op_bt_a_off.png</filename>
             <filename>op_bt_a_on.png</filename>
             <filename>op_bt_fs_off.png</filename>
@@ -278,6 +290,7 @@
             <filename>order_window_left.png</filename>
             <filename>order_window_paket.png</filename>
             <filename>order_window_right_top.png</filename>
+            <filename>order_window_right.png</filename>
             <filename>particle_yelow.png</filename>
             <filename>particles</filename>
             <filename>plawka7.png</filename>
@@ -287,14 +300,17 @@
             <filename>progress_bar_center.png</filename>
             <filename>progress_bar_left.png</filename>
             <filename>progress_bar_right.png</filename>
+            <filename>radio</filename>
             <filename>red_coupone.png</filename>
             <filename>red_m_big.png</filename>
             <filename>red_tile.png</filename>
             <filename>refresh_icon.png</filename>
             <filename>roadside_shop_tabl.png</filename>
+            <filename>rubins_icon.png</filename>
             <filename>rubins_medium.png</filename>
             <filename>rubins_small.png</filename>
             <filename>rubins.png</filename>
+            <filename>sale_icon.png</filename>
             <filename>sale.png</filename>
             <filename>server_clock</filename>
             <filename>shop</filename>
@@ -315,32 +331,17 @@
             <filename>storage_window_prl_r.png</filename>
             <filename>storage_window_scr_c.png</filename>
             <filename>storage_window_scr_line.png</filename>
+            <filename>top_newspaper.png</filename>
+            <filename>top_sells.png</filename>
+            <filename>tutorial_arrow_pink.png</filename>
             <filename>tutorial_nyam.png</filename>
             <filename>ui</filename>
+            <filename>visitor_window_back.png</filename>
             <filename>wait.png</filename>
             <filename>watering_can.png</filename>
             <filename>yellow_coupone.png</filename>
             <filename>yellow_tile.png</filename>
-            <filename>newspaper_icon_small.png</filename>
-            <filename>animated_decor.png</filename>
-            <filename>best_price.png</filename>
-            <filename>bonus.png</filename>
-            <filename>top_sells.png</filename>
-            <filename>exclamation_point.png</filename>
-            <filename>radio</filename>
-            <filename>bottom_newspaper.png</filename>
-            <filename>centre_newspaper.png</filename>
-            <filename>top_newspaper.png</filename>
-            <filename>order_window_right.png</filename>
-            <filename>coins_icon.png</filename>
-            <filename>rubins_icon.png</filename>
-            <filename>check_big.png</filename>
-            <filename>nyash_blue.png</filename>
-            <filename>nyash_red.png</filename>
-            <filename>visitor_window_back.png</filename>
-            <filename>tutorial_arrow_pink.png</filename>
-            <filename>main_quest_icon.png</filename>
-            <filename>sale_icon.png</filename>
+            <filename>friends_panel_bt_add.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -104,7 +104,7 @@ public class QuestStructure {
          if (_questId) return _questId;
         else {
              Cc.error('_questId = null');
-             return 0;
+             return -1;
         }
     }
     public function get idDB():String {

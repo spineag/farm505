@@ -11,6 +11,8 @@ import manager.ManagerFilters;
 
 import manager.Vars;
 
+import social.SocialNetworkSwitch;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
@@ -94,20 +96,24 @@ public class MouseHint {
         g.cont.hintContUnder.addChild(_source);
         g.gameDispatcher.addEnterFrame(onEnterFrame);
         onEnterFrame();
+        var st:String;
         switch (s) {
             case SERP:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(SERP));
                 _image.x = 7;
                 _image.y = 8;
-                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_2'));
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'cursor_circle_2_eng';
+                    else st = 'cursor_circle_2';
+                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
                 break;
             case CLOCK:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(CLOCK));
                 MCScaler.scale(_image,_image.height-2,_image.width-2);
                 _image.x = 7;
                 _image.y = 12;
-                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_3'));
-
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'cursor_circle_3_eng';
+                    else st = 'cursor_circle_3';
+                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
                 break;
             case VEDRO:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(VEDRO));
@@ -134,7 +140,9 @@ public class MouseHint {
                 MCScaler.scale(_image, 40, 40);
                 _image.x = 6;
                 _image.y = 10;
-                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_1'));
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'cursor_circle_1_eng';
+                    else st = 'cursor_circle_1';
+                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
                 break;
         }
 
