@@ -57,6 +57,7 @@ public class IManagerTutorial {
     public function get useNewTuts():Boolean { return _useNewTuts; }
     protected function initScenes():void {}
     public function get currentAction():int { return _currentAction; }
+    public function currentActionNone():void { _currentAction = TutorialAction.NONE; }
     public function get subStep():int { return _subStep; }
     public function isTutorialResource(id:int):Boolean { return _tutorialResourceIDs.indexOf(id) > -1; }
     public function get isTutorial():Boolean { return TUTORIAL_ON && g.user.tutorialStep < MAX_STEPS; }

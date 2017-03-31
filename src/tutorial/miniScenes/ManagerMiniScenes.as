@@ -426,7 +426,7 @@ public class ManagerMiniScenes {
         removeBlack();
         var ob:Object = g.friendPanel.getNeighborItemProperties();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
-        _arrow.scaleIt(.5);
+        _arrow.scaleIt(.8);
         _arrow.animateAtPosition(ob.x + ob.width/2, ob.y);
         g.user.miniScenes[3] = 1;
         _miniSceneCallback = letGo_2;

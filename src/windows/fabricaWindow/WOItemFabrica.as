@@ -171,6 +171,7 @@ public class WOItemFabrica {
         g.fabricHint.hideIt();
         if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResource(_dataRecipe.id)) {
             removeArrow();
+            g.managerTutorial.currentActionNone();
 //            g.managerTutorial.checkTutorialCallback();
         }
     }
