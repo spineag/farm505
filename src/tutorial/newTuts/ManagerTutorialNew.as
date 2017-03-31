@@ -806,7 +806,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
             var ob:Object = (g.windowsManager.currentWindow as WOFabrica).getSkipBtnProperties();
             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
             _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
-            _arrow.scaleIt(.5);
+            _arrow.scaleIt(.8);
             _arrow.animateAtPosition(ob.x, ob.y + ob.height/2);
             _tutorialCallback = subStep13_3;
         } else {
