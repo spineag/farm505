@@ -550,7 +550,7 @@ public class Train extends WorldObject{
             onOut();
             return;
         }
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp * g.managerParty.coefficient);
         else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, _dataPack.count_xp);
         var prise:Object = {};
         var priseCoupone:Object = {};
@@ -558,7 +558,7 @@ public class Train extends WorldObject{
         prise.type = DropResourceVariaty.DROP_TYPE_MONEY;
         prise.count = _dataPack.count_money;
         g.managerAchievement.addAll(10,1);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) prise.count = _dataPack.count_money * g.managerParty.coefficient;
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) prise.count = _dataPack.count_money * g.managerParty.coefficient;
         else prise.count = _dataPack.count_money;
         new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
         priseCoupone.id = int(Math.random() * 4) + 3;

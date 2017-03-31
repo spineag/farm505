@@ -189,7 +189,7 @@ public class WOOrder extends WindowMain{
         _starSmall.filter = ManagerFilters.SHADOW_TINY;
         _rightBlock.addChild(_starSmall);
         _txtXP = new CTextField(52, 30, "8888");
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER) _txtXP.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtXP.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
         else _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXP.x = 523;
         _txtXP.y = 418;
@@ -211,7 +211,7 @@ public class WOOrder extends WindowMain{
         _txtCoupone.visible = false;
         _rightBlock.addChild(_txtCoupone);
         _txtCoins = new CTextField(52, 30, "8888");
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER) _txtCoins.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtCoins.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
         else _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCoins.x = 590;
         _txtCoins.y = 418;
@@ -322,12 +322,12 @@ public class WOOrder extends WindowMain{
         var prise:Object = {};
         var p:Point = new Point(134, 147);
         p = _source.localToGlobal(p);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER) new XPStar(p.x, p.y, _activeOrderItem.getOrder().xp * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) new XPStar(p.x, p.y, _activeOrderItem.getOrder().xp * g.managerParty.coefficient);
         else new XPStar(p.x, p.y, _activeOrderItem.getOrder().xp);
         p = new Point(186, 147);
         p = _source.localToGlobal(p);
         prise.id = DataMoney.SOFT_CURRENCY;
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER) prise.count = _activeOrderItem.getOrder().coins * g.managerParty.coefficient;
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) prise.count = _activeOrderItem.getOrder().coins * g.managerParty.coefficient;
         else prise.count = _activeOrderItem.getOrder().coins;
         new DropItem(p.x, p.y, prise);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.ORDER && g.allData.atlas['partyAtlas'] &&g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
@@ -480,9 +480,9 @@ public class WOOrder extends WindowMain{
 
     private function fillResourceItems(order:ManagerOrderItem):void {
         if (order)_txtName.text = order.catOb.name + ' ' + String(g.managerLanguage.allTexts[370]);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER) _txtXP.text = String(_activeOrderItem.getOrder().xp * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtXP.text = String(_activeOrderItem.getOrder().xp * g.managerParty.coefficient);
         else _txtXP.text = String(_activeOrderItem.getOrder().xp);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER) _txtCoins.text = String(_activeOrderItem.getOrder().coins * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtCoins.text = String(_activeOrderItem.getOrder().coins * g.managerParty.coefficient);
         else _txtCoins.text = String(_activeOrderItem.getOrder().coins);
         for (var i:int=0; i<_activeOrderItem.getOrder().resourceIds.length; i++) {
             _arrResourceItems[i].fillIt(_activeOrderItem.getOrder().resourceIds[i], _activeOrderItem.getOrder().resourceCounts[i]);
