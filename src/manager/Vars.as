@@ -215,9 +215,6 @@ public class Vars {
     public var managerResize:ManagerResize;
     public var managerAchievement:ManagerAchievement;
 
-//    private var testersArrayTuts:Array = ['191561520', '14663166', '33979940', '201166703', '23038255', '155912975' ,'272989922', '168207096', '8024599',
-//        '102042944',  '206512584',  '34667267', '208452662', '201152139', '148154256', '122302536', '82812915', '202427318', '216083575', '382171121'];
-    private var testersArrayQuests:Array = ['191561520'];
     public var useQuests:Boolean = false;
 
     public static function getInstance():Vars {
@@ -244,44 +241,28 @@ public class Vars {
         managerChest = new ManagerChest();
         managerMouseHero = new ManagerMouse();
         gameDispatcher = new FarmDispatcher(mainStage);
-        SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
-        socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
-        socialNetwork.init();
-    }
 
-    private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
-        startPreloader.setProgress(77);
-        socialNetwork.removeEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
-        socialNetwork.addEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
-        socialNetwork.getProfile(socialNetwork.currentUID);
-    }
-
-    private function authoriseUser(e:SocialNetworkEvent = null):void {
-        Cc.info('userSocialId == ' + socialNetwork.currentUID + " --- " + (user as User).userSocialId); // should be the same
-        socialNetwork.checkUserLanguageForIFrame();
-        startPreloader.setProgress(78);
-        socialNetwork.removeEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
-        directServer.authUser(loadMap);
+        loadMap();
     }
 
     private function loadMap():void {
-        startPreloader.setProgress(79);
+        startPreloader.setProgress(76);
         background = new BackgroundArea(onAuthUser);
     }
 
     private function onAuthUser():void {
-        startPreloader.setProgress(80);
+        startPreloader.setProgress(77);
         directServer.getDataOutGameTiles(onGetOutGameTiles);
     }
 
     private function onGetOutGameTiles():void {
-        startPreloader.setProgress(81);
+        startPreloader.setProgress(78);
         directServer.getDataLevel(onDataLevel);
     }
 
     public function onDataLevel():void {
         directServer.getUserInfo(loadManagerLanguqage);
-        startPreloader.setProgress(82);
+        startPreloader.setProgress(79);
     }
 
     private function loadManagerLanguqage():void {
@@ -291,28 +272,10 @@ public class Vars {
     public function initInterface():void {
         try {
             cont.hideAll(true);
-            startPreloader.setProgress(83);
-//            directServer.getUserInfo(null);
-
-
+            startPreloader.setProgress(80);
             event = new OwnEvent();
-//            userValidates = new UserValidateResources();
-
             dataOrderCats = new DataCat();
             userInventory = new UserInventory();
-//            userTimer = new UserTimer();
-//            gameDispatcher = new FarmDispatcher(mainStage);
-
-//            townArea = new TownArea();
-//            farmGrid = new FarmGrid();
-//            managerDailyBonus = new ManagerDailyBonus();
-//            socialNetwork = new SocialNetwork(flashVars);
-//            if (isDebug) {
-//                socialNetworkID = SocialNetworkSwitch.SN_OK_ID;
-//            } else {
-//                socialNetworkID = int(flashVars['channel']);
-//            }
-//            SocialNetworkSwitch.init(socialNetworkID, flashVars, isDebug);
 //        } catch (e:Error) {
 //            errorManager.onGetError(ErrorConst.ON_INIT1, true, true);
 //            Cc.stackch('error', 'initVariables1::', 10);
@@ -336,9 +299,7 @@ public class Vars {
             managerCats = new ManagerCats();
             managerOrderCats = new ManagerOrderCats();
             catPanel = new CatPanel();
-//            managerChest = new ManagerChest();
             townAreaTouchManager = new TownAreaTouchManager();
-//            soundManager = new SoundManager();
             achievementPanel = new AchievementPanel();
             onUserInfo();
 
@@ -352,7 +313,7 @@ public class Vars {
         soundManager.load();
         managerCats.addAllHeroCats();
         managerSalePack = new ManagerSalePack();
-        startPreloader.setProgress(84);
+        startPreloader.setProgress(81);
         if (managerTutorial.isTutorial) {
             loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial); // no need for loading this
         } else {
@@ -363,30 +324,33 @@ public class Vars {
     }
     
     private function onLoadCatTutorial():void {
+        startPreloader.setProgress(82);
         loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', onLoadCatTutorialBig);
     }
     
     private function onLoadCatTutorialBig():void {
+        startPreloader.setProgress(83);
         directServer.getDataResource(onDataResource);
     }
 
     private function onDataResource():void {
         directServer.getDataRecipe(onDataRecipe);
-        startPreloader.setProgress(85);
+        startPreloader.setProgress(84);
     }
 
     private function onDataRecipe():void {
         directServer.getDataAnimal(onDataAnimal);
-        startPreloader.setProgress(86);
+        startPreloader.setProgress(85);
     }
 
     private function onDataAnimal():void {
-        startPreloader.setProgress(87);
+        startPreloader.setProgress(86);
         directServer.getDataCats(onDataCats);
     }
 
     private function onDataCats():void {
         directServer.getDataBuyMoney(onDataBuyMoney);
+        startPreloader.setProgress(87);
     }
 
     private function onDataBuyMoney():void {
@@ -502,7 +466,6 @@ public class Vars {
 
     private function afterLoadAll():void {
 //        try {
-            var test:TestTime = new TestTime();
             cont.onLoadAll();
             startPreloader.setProgress(100);
             if (currentGameScale != 1) {

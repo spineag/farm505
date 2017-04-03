@@ -23,6 +23,7 @@ public class MainStarling extends Sprite {
         sAssets = new AssetManager();
         sAssets.verbose = true;
         sAssets.enqueue(EmbedAssets);
+        g.startPreloader.setProgress(4);
 
         var max:int = 5;
         var cur:int;
@@ -36,6 +37,7 @@ public class MainStarling extends Sprite {
     }
 
     private function loadVersion():void {
+        g.startPreloader.setProgress(5);
         g.directServer.getVersion(loadComponents);
         g.directServer.getTextHelp(null);
     }

@@ -54,7 +54,7 @@ public class LoadComponents {
 
     private function onLoad(smth:*=null):void {
         count++;
-        g.startPreloader.setProgress(6 + 2*count);
+        g.startPreloader.setProgress(6 + count);
         if (count >=22) createAtlases();
     }
 
@@ -120,7 +120,7 @@ public class LoadComponents {
     }
 
     private function loadDBAnimations():void {
-        g.startPreloader.setProgress(48);
+        g.startPreloader.setProgress(30);
         count = 0;
 
         g.loadAnimation.load('animations_json/arrow', 'arrow', onLoadDB);
@@ -131,19 +131,18 @@ public class LoadComponents {
         g.loadAnimation.load('animations_json/visit_preloader', 'visit_preloader', onLoadDB);
         g.loadAnimation.load('animations_json/explode_gray_fabric', 'explode_gray_fabric', onLoadDB);
         g.loadAnimation.load('animations_json/add_coins', 'add_coins', onLoadDB);
-
     }
 
     private function onLoadDB():void {
         count++;
-        g.startPreloader.setProgress(48 + count*2);
+        g.startPreloader.setProgress(30 + count*2);
         if (count >=8) {
             loadDBX();
         }
     }
 
     private function loadDBX():void {
-        g.startPreloader.setProgress(60);
+        g.startPreloader.setProgress(50);
         count = 0;
 
         g.loadAnimation.load('animations_json/x1/bfly', 'bfly', onLoadDB_X);
@@ -160,7 +159,7 @@ public class LoadComponents {
 
     private function onLoadDB_X():void {
         count++;
-        g.startPreloader.setProgress(60 + 2*count);
+        g.startPreloader.setProgress(50 + 2*count);
         if (count >=10) {
             loadHitArea();
         }
@@ -173,7 +172,7 @@ public class LoadComponents {
     }
 
     private function loadedHitArea(response:ApplicationDomain):void {
-        g.startPreloader.setProgress(83);
+        g.startPreloader.setProgress(72);
         g.managerHitArea.registerLoadedHitArea(response);
         if (_callback != null) _callback.apply();
     }
