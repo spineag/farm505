@@ -60,7 +60,8 @@ public class SocialNetworkSwitch {
 //                     Ссылка на приложение: http://www.odnoklassniki.ru/game/1248696832
 
                 if (isDebug) {
-                    flashVars["uid"] = "555480938615";
+                    flashVars["uid"] = "575729796770";
+//                    flashVars["uid"] = "581762674478";
                     g.socialNetwork = new SN_Blank(flashVars, "ok", "https://505.ninja/", "https://505.ninja/");
                 } else {
                     flashVars["uid"] = flashVars["logged_user_id"];
@@ -70,7 +71,7 @@ public class SocialNetworkSwitch {
                 break;
             case SN_FB_ID:
                 if (isDebug) {
-                    flashVars["uid"] = "1302214063192215";
+                    flashVars["uid"] = "500430446703918";
                     g.socialNetwork = new SN_Blank(flashVars, "fb", "https://505.ninja/", "https://505.ninja/");
                 } else {
                     g.socialNetwork = new SN_FB(flashVars);

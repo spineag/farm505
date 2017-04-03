@@ -144,7 +144,7 @@ public class FriendPanel {
 
     private function createAddFriendBtn():void {
         _addFriendsBtn = new CButton();
-        var st:String = '';
+        var st:String = 'friends_panel_bt_add';
         if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'Invite_friends_eng';
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
         _addFriendsBtn.addDisplayObject(im);

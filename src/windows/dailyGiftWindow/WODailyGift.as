@@ -128,7 +128,7 @@ public class WODailyGift extends WindowMain {
         if (g.userTimer.partyToEndTimer > 0 && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level) {
             g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
         }
-        else if (g.userTimer.partyToEndTimer < 0 && !g.managerParty.userParty.showWindow) g.managerParty.endPartyWindow();
+//        else if (g.userTimer.partyToEndTimer < 0 && !g.managerParty.userParty.showWindow) g.managerParty.endPartyWindow();
         super.hideIt();
     }
 

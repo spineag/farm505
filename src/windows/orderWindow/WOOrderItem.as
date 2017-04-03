@@ -84,7 +84,7 @@ public class WOOrderItem {
         _starImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_starImage);
         _txtXP = new CTextField(52, 30, "8888");
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER) _txtXP.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtXP.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
         else _txtXP.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXP.x = 48;
         _txtXP.y = 26;
@@ -96,7 +96,7 @@ public class WOOrderItem {
         _coinsImage.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_coinsImage);
         _txtCoins = new CTextField(52, 30, "8888");
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER) _txtCoins.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtCoins.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
         else _txtCoins.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCoins.x = 48;
         _txtCoins.y = 55;
@@ -136,9 +136,9 @@ public class WOOrderItem {
         _order = order;
         _clickCallback = f;
         _txtName.text = _order.catOb.name;
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER) _txtXP.text = String(_order.xp * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtXP.text = String(_order.xp * g.managerParty.coefficient);
         else _txtXP.text = String(_order.xp);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER) _txtCoins.text = String(_order.coins * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtCoins.text = String(_order.coins * g.managerParty.coefficient);
         else _txtCoins.text = String(_order.coins);
 
         source.visible = true;

@@ -165,25 +165,25 @@ public class WOTrain extends WindowMain {
         _rightBlock.addChild(_txtPrise);
 
         _txtCostItem = new CTextField(50,40,'-3');
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtCostItem.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtCostItem.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
         else _txtCostItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCostItem.x = 236;
         _txtCostItem.y = 75;
         _txtCostItem.alignH = Align.LEFT;
         _txtXpItem = new CTextField(50,40,'-3');
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtXpItem.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtXpItem.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
         else _txtXpItem.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXpItem.x = 165;
         _txtXpItem.y = 75;
         _txtXpItem.alignH = Align.LEFT;
         _txtCostAll = new CTextField(50,40,'-5');
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtCostAll.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtCostAll.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
         else _txtCostAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCostAll.x = 160;
         _txtCostAll.y = 275;
         _txtCostAll.alignH = Align.LEFT;
         _txtXpAll = new CTextField(50,40,'-5');
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtXpAll.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtXpAll.setFormat(CTextField.BOLD18, 18, ManagerFilters.PINK_COLOR, Color.WHITE);
         else _txtXpAll.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtXpAll.x = 75;
         _txtXpAll.y = 275;
@@ -264,9 +264,9 @@ public class WOTrain extends WindowMain {
                     _arrItems[10].fillIt(null, 10, CELL_GRAY);
                     _arrItems[11].fillIt(null, 11, CELL_GRAY);
                 }
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtCostAll.text = String(_build.allCoinsCount * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtCostAll.text = String(_build.allCoinsCount * g.managerParty.coefficient);
         else _txtCostAll.text = String(_build.allCoinsCount);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtXpAll.text = String(_build.allXPCount * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtXpAll.text = String(_build.allXPCount * g.managerParty.coefficient);
         else _txtXpAll.text = String(_build.allXPCount);
 
         var num:int = 0;
@@ -331,9 +331,9 @@ public class WOTrain extends WindowMain {
                _countFree = _arrItems[k].countFree;
             }
         }
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) _txtCostItem.text = String(_arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtCostItem.text = String(_arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient);
         else _txtCostItem.text = String(_arrItems[_activeItemIndex].countCoins);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN)  _txtXpItem.text = String(_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level)  _txtXpItem.text = String(_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
         else  _txtXpItem.text = String(_arrItems[_activeItemIndex].countXP);
 
         if (_imageItem) {
@@ -407,11 +407,11 @@ public class WOTrain extends WindowMain {
                 _btnHelp = null;
             }
             g.directServer.updateTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
-            if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
+            if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
             else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
             obj = {};
             obj.id = DataMoney.SOFT_CURRENCY;
-            if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) obj.count = _arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient;
+            if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) obj.count = _arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient;
             else obj.count = _arrItems[_activeItemIndex].countCoins;
             new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
             g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
@@ -432,12 +432,12 @@ public class WOTrain extends WindowMain {
                     _btnHelp = null;
                 }
                 g.directServer.updateTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,String(g.user.userSocialId), null);
-                if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
+                if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP * g.managerParty.coefficient);
                 else new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2,_arrItems[_activeItemIndex].countXP);
                 obj = {};
                 obj.id = DataMoney.SOFT_CURRENCY;
                 obj.count = _arrItems[_activeItemIndex].countCoins;
-                if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN) obj.count = _arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient;
+                if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) obj.count = _arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient;
                 else obj.count = _arrItems[_activeItemIndex].countCoins;
                 new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
                 g.managerAchievement.addAll(19,1);
