@@ -38,15 +38,11 @@ public class SocialNetworkSwitch {
             case SN_VK_ID:
                 SECRET_KEY = SECRET_KEY_VK;
                 if (isDebug) {
-//                    flashVars["api_id"] = "5448769";
-//                    flashVars["viewer_id"] = "26373692";
-//                    flashVars["sid"] = "2ae1a3a3f790bba346f3d7ae408c1fc7ae0de72ace5c12d55d74412ca5ba3bbb3f1c6c1965e1c279339f7";
-//                    flashVars["secret"] = "4d1630dcda";
-
                     flashVars["api_id"] = "5448769";
-                    flashVars["viewer_id"] = "146353874";
-                    flashVars["sid"] = "4b8269a4a0a4358d193a675641008f4cd52847b72c4e9740ff374b5ad2c89fa1f5ab931c458ef9a80d4c1";
-                    flashVars["secret"] = "d3c8ea1886";
+                    flashVars["viewer_id"] = "191561520";
+                    flashVars["sid"] = "a6b2d9d7d7644458e3bc6be92e6e0f467d0a0a4d66deeb23c789cb8ad055709449be53466eed12a9bfa23";
+                    flashVars["secret"] = "2193ce906d";
+
 //                    flashVars["api_id"] = "5448769";
 //                    flashVars["viewer_id"] = "8726902";
 //                    flashVars["sid"] = "4c5f68095369c92a12f5a7fe1c808a53e8584e6c82dc1b8787139bf11efd7a059e2ed9cdf5968ecf9c774";
@@ -64,8 +60,7 @@ public class SocialNetworkSwitch {
 //                     Ссылка на приложение: http://www.odnoklassniki.ru/game/1248696832
 
                 if (isDebug) {
-                    flashVars["uid"] = "575729796770";
-//                    flashVars["uid"] = "581762674478";
+                    flashVars["uid"] = "555480938615";
                     g.socialNetwork = new SN_Blank(flashVars, "ok", "https://505.ninja/", "https://505.ninja/");
                 } else {
                     flashVars["uid"] = flashVars["logged_user_id"];
@@ -75,7 +70,7 @@ public class SocialNetworkSwitch {
                 break;
             case SN_FB_ID:
                 if (isDebug) {
-                    flashVars["uid"] = "500430446703918";
+                    flashVars["uid"] = "1302214063192215";
                     g.socialNetwork = new SN_Blank(flashVars, "fb", "https://505.ninja/", "https://505.ninja/");
                 } else {
                     g.socialNetwork = new SN_FB(flashVars);
