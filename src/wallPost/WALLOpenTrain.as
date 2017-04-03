@@ -23,8 +23,10 @@ public class WALLOpenTrain {
     protected var g:Vars = Vars.getInstance();
 
     public function WALLOpenTrain(callback:Function, params:Array):void {
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[474]), null, 'https://505.ninja/content/wall/ok/wall_OK_3.jpg');
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[474]), null, 'https://505.ninja/content/wall/fb/wall_3_eng.jpg');
         } else {
             g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/wall_open_train.jpg', onLoad);
         }

@@ -11,8 +11,10 @@ public class WALLForQuest {
     protected var g:Vars = Vars.getInstance();
 
     public function WALLForQuest(callback:Function, params:Array):void {
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[469]), null, g.dataPath.getGraphicsPath() + 'wall/quest_posting.jpg');
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[469]), null, 'https://505.ninja/content/wall/quest_posting.jpg');
         } else {
             g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/quest_posting.jpg',onLoad);
         }

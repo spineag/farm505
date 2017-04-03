@@ -7,8 +7,12 @@ import flash.display.Bitmap;
 import flash.display.StageDisplayState;
 import flash.geom.Rectangle;
 
+import loaders.PBitmap;
+
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
+
+import social.SocialNetworkSwitch;
 
 import starling.core.Starling;
 import starling.display.Image;
@@ -26,22 +30,26 @@ public class PostOpenCave extends WindowMain {
     private var _image:Image;
     private var _txt1:CTextField;
     private var _txt2:CTextField;
+    private var stUrl:String;
+
     public function PostOpenCave() {
         super();
         _woHeight = 510;
         _woWidth = 510;
-        var st:String = g.dataPath.getGraphicsPath();
-        g.load.loadImage(st + 'wall/wall_open_cave.png',onLoad);
-
     }
 
     override public function showItParams(callback:Function, params:Array):void {
         super.showIt();
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/wall_4_eng.png';
+        } else {
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_open_cave.png';
+        }
+        g.load.loadImage(stUrl, onLoad);
     }
 
     private function onLoad(bitmap:Bitmap):void {
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'wall/wall_open_cave.png'].create() as Bitmap;
+        bitmap = g.pBitmaps[stUrl].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
@@ -99,6 +107,8 @@ public class PostOpenCave extends WindowMain {
         }
         _btn = null;
         _source = null;
+        (g.pBitmaps[stUrl] as PBitmap).deleteIt();
+        delete g.pBitmaps[stUrl];
     }
 }
 }
