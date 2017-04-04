@@ -3,6 +3,8 @@
  */
 package quest {
 import data.BuildType;
+import data.StructureDataBuilding;
+
 import manager.Vars;
 import starling.display.Image;
 
@@ -19,6 +21,7 @@ public class QuestTaskStructure {
     public function QuestTaskStructure() {}
 
     public function fillIt(d:Object):void {
+
         _isSavedOnServerAfterFinish = false;
         _taskId = int(d.task_id);
         _questId = int(d.quest_id);
@@ -26,6 +29,35 @@ public class QuestTaskStructure {
         _taskUserDbId = d.id;
         _countDone = int(d.count_done);
         _taskData = d.task_data;   // adds, count_resource, description, icon_task, id, quest_id, type_action, type_resource, id_resource
+        if (!_isDone) checkDone();
+    }
+
+
+    private function checkDone():void {
+        if (_taskData.type_action == ManagerQuest.BUILD_BUILDING) {
+            var arr:Array = g.townArea.getCityObjectsById(_taskData.id_resource);
+            if (arr && arr.length > 0) _isDone = true;
+        } else if (_taskData.type_action == ManagerQuest.BUY_ANIMAL) {
+            var b:StructureDataBuilding = g.allData.getBuildingById(g.allData.getFarmIdForAnimal(_taskData.id_resource));
+            var maxCountAtCurrentLevel:int = 0;
+            arr = g.townArea.getCityObjectsById(b.id);
+            for (var i:int = 0; b.blockByLevel.length; i++) {
+                if (b.blockByLevel[i] <= g.user.level) {
+                    maxCountAtCurrentLevel += 5;
+                } else break;
+            }
+            var count:int;
+            if (arr.length == 1) {
+                count = arr[0].arrAnimals.length;
+            } else if (arr.length == 2) {
+                count = arr[0].arrAnimals.length + arr[1].arrAnimals.length;
+            } else if (arr.length == 2) {
+                count = arr[0].arrAnimals.length + arr[1].arrAnimals.length + arr[2].arrAnimals.length;
+            }
+            if (count >= maxCountAtCurrentLevel) {
+                _isDone = true
+            }
+        }
     }
 
     public function upgradeCount():void {

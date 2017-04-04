@@ -165,75 +165,75 @@ public class WOPartyWindow extends WindowMain{
                     im.y = 38;
                     _source.addChild(im);
                 } else {
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
-//                    im.x = -218;
-                    im.x = -59;
-                    im.y = 95;
-                    _source.addChild(im);
-                    _countLoad = g.userInventory.getCountResourceById(g.managerParty.idResource);
-                    _btnMinus = new CButton();
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
-                    MCScaler.scale(im, 27, 27);
-                    _btnMinus.addDisplayObject(im);
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus'));
-                    MCScaler.scale(im, 16, 16);
-                    im.x = 6;
-                    im.y = 10;
-                    _btnMinus.addDisplayObject(im);
-                    _btnMinus.x = -79;
-                    _btnMinus.y = 145;
-                    _source.addChild(_btnMinus);
-                    if (_countLoad <=1) _btnMinus.setEnabled = false;
-                    _btnMinus.clickCallback = onClickMinus;
-                    _btnPlus = new CButton();
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
-                    MCScaler.scale(im, 27, 27);
-                    _btnPlus.addDisplayObject(im);
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
-                    MCScaler.scale(im, 16, 16);
-                    im.x = 6;
-                    im.y = 6;
-                    _btnPlus.addDisplayObject(im);
-                    _btnPlus.x = 50;
-                    _btnPlus.y = 145;
-                    _source.addChild(_btnPlus);
-                    if (_countLoad <=0) _btnPlus.setEnabled = false;
-                    _btnPlus.clickCallback = onClickPlus;
+                    if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
+                        im = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
+                        im.x = -59;
+                        im.y = 95;
+                        _source.addChild(im);
+                        _countLoad = g.userInventory.getCountResourceById(g.managerParty.idResource);
+                        _btnMinus = new CButton();
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+                        MCScaler.scale(im, 27, 27);
+                        _btnMinus.addDisplayObject(im);
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus'));
+                        MCScaler.scale(im, 16, 16);
+                        im.x = 6;
+                        im.y = 10;
+                        _btnMinus.addDisplayObject(im);
+                        _btnMinus.x = -79;
+                        _btnMinus.y = 145;
+                        _source.addChild(_btnMinus);
+                        if (_countLoad <= 1) _btnMinus.setEnabled = false;
+                        _btnMinus.clickCallback = onClickMinus;
+                        _btnPlus = new CButton();
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+                        MCScaler.scale(im, 27, 27);
+                        _btnPlus.addDisplayObject(im);
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
+                        MCScaler.scale(im, 16, 16);
+                        im.x = 6;
+                        im.y = 6;
+                        _btnPlus.addDisplayObject(im);
+                        _btnPlus.x = 50;
+                        _btnPlus.y = 145;
+                        _source.addChild(_btnPlus);
+                        if (_countLoad <= 0) _btnPlus.setEnabled = false;
+                        _btnPlus.clickCallback = onClickPlus;
 
-                    _btnLoad = new CButton();
-                    _btnLoad.addButtonTexture(92, 24, CButton.GREEN, true);
-                    _txtBtn = new CTextField(92, 24, String(g.managerLanguage.allTexts[294]));
-                    _txtBtn.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-                    _btnLoad.addChild(_txtBtn);
-                    _btnLoad.clickCallback = onClickLoad;
-                    _btnLoad.y = 205;
-                    _source.addChild(_btnLoad);
-                    if (_countLoad <=0) _btnLoad.setEnabled = false;
-                    if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
-                        im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
-                    } else if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.PLANT) {
-                        im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop + '_icon'));
+                        _btnLoad = new CButton();
+                        _btnLoad.addButtonTexture(92, 24, CButton.GREEN, true);
+                        _txtBtn = new CTextField(92, 24, String(g.managerLanguage.allTexts[294]));
+                        _txtBtn.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+                        _btnLoad.addChild(_txtBtn);
+                        _btnLoad.clickCallback = onClickLoad;
+                        _btnLoad.y = 205;
+                        _source.addChild(_btnLoad);
+                        if (_countLoad <= 0) _btnLoad.setEnabled = false;
+                        if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
+                            im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
+                        } else if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.PLANT) {
+                            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop + '_icon'));
+                        }
+                        MCScaler.scale(im, 80, 80);
+                        im.y = 110;
+                        im.x = -im.width / 2;
+                        _source.addChild(im);
+                        if (_countLoad > 0) {
+                            _countLoad = _countLoad / 2;
+                            if (_countLoad <= 0) {
+                                _countLoad = 1;
+                                _btnMinus.setEnabled = false;
+                                _btnPlus.setEnabled = false;
+                            } else if (_countLoad == 1) _btnMinus.setEnabled = false;
+                        }
+                        _txtCountLoad = new CTextField(220, 200, String(_countLoad));
+                        _txtCountLoad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+                        _txtCountLoad.alignH = Align.RIGHT;
+                        _source.addChild(_txtCountLoad);
+                        _txtCountLoad.x = -190;
+                        _txtCountLoad.y = 80;
                     }
-                    MCScaler.scale(im,80,80);
-                    im.y = 110;
-                    im.x = -im.width/2;
-                    _source.addChild(im);
-                    if (_countLoad > 0) {
-                        _countLoad = _countLoad/2;
-                        if (_countLoad <= 0) {
-                            _countLoad = 1;
-                            _btnMinus.setEnabled = false;
-                            _btnPlus.setEnabled = false;
-                        } else if (_countLoad == 1) _btnMinus.setEnabled = false;
-                    }
-                    _txtCountLoad = new CTextField(220,200,String(_countLoad));
-                    _txtCountLoad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-                    _txtCountLoad.alignH = Align.RIGHT;
-                    _source.addChild(_txtCountLoad);
-                    _txtCountLoad.x = -190;
-                    _txtCountLoad.y = 80;
                 }
-
             }
             createExitButton(onClickExit);
             _callbackClickBG = onClickExit;
@@ -346,73 +346,74 @@ public class WOPartyWindow extends WindowMain{
                     im.y = 38;
                     _source.addChild(im);
                 } else {
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
-//                    im.x = -218;
-                    im.x = -59;
-                    im.y = 95;
-                    _source.addChild(im);
-                    _countLoad = g.userInventory.getCountResourceById(g.managerParty.idResource);
-                    _btnMinus = new CButton();
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
-                    MCScaler.scale(im, 27, 27);
-                    _btnMinus.addDisplayObject(im);
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus'));
-                    MCScaler.scale(im, 16, 16);
-                    im.x = 6;
-                    im.y = 10;
-                    _btnMinus.addDisplayObject(im);
-                    _btnMinus.x = -79;
-                    _btnMinus.y = 145;
-                    _source.addChild(_btnMinus);
-                    if (_countLoad <= 1) _btnMinus.setEnabled = false;
-                    _btnMinus.clickCallback = onClickMinus;
-                    _btnPlus = new CButton();
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
-                    MCScaler.scale(im, 27, 27);
-                    _btnPlus.addDisplayObject(im);
-                    im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
-                    MCScaler.scale(im, 16, 16);
-                    im.x = 6;
-                    im.y = 6;
-                    _btnPlus.addDisplayObject(im);
-                    _btnPlus.x = 50;
-                    _btnPlus.y = 145;
-                    _source.addChild(_btnPlus);
-                    if (_countLoad <= 0) _btnPlus.setEnabled = false;
-                    _btnPlus.clickCallback = onClickPlus;
+                    if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
+                        im = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
+                        im.x = -59;
+                        im.y = 95;
+                        _source.addChild(im);
+                        _countLoad = g.userInventory.getCountResourceById(g.managerParty.idResource);
+                        _btnMinus = new CButton();
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+                        MCScaler.scale(im, 27, 27);
+                        _btnMinus.addDisplayObject(im);
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus'));
+                        MCScaler.scale(im, 16, 16);
+                        im.x = 6;
+                        im.y = 10;
+                        _btnMinus.addDisplayObject(im);
+                        _btnMinus.x = -79;
+                        _btnMinus.y = 145;
+                        _source.addChild(_btnMinus);
+                        if (_countLoad <= 1) _btnMinus.setEnabled = false;
+                        _btnMinus.clickCallback = onClickMinus;
+                        _btnPlus = new CButton();
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+                        MCScaler.scale(im, 27, 27);
+                        _btnPlus.addDisplayObject(im);
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
+                        MCScaler.scale(im, 16, 16);
+                        im.x = 6;
+                        im.y = 6;
+                        _btnPlus.addDisplayObject(im);
+                        _btnPlus.x = 50;
+                        _btnPlus.y = 145;
+                        _source.addChild(_btnPlus);
+                        if (_countLoad <= 0) _btnPlus.setEnabled = false;
+                        _btnPlus.clickCallback = onClickPlus;
 
-                    _btnLoad = new CButton();
-                    _btnLoad.addButtonTexture(92, 24, CButton.GREEN, true);
-                    _txtBtn = new CTextField(92, 24, String(g.managerLanguage.allTexts[294]));
-                    _txtBtn.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-                    _btnLoad.addChild(_txtBtn);
-                    _btnLoad.clickCallback = onClickLoad;
-                    _btnLoad.y = 205;
-                    _source.addChild(_btnLoad);
-                    if (_countLoad <= 0) _btnLoad.setEnabled = false;
-                    if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
-                        im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
-                    } else if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.PLANT) {
-                        im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop + '_icon'));
+                        _btnLoad = new CButton();
+                        _btnLoad.addButtonTexture(92, 24, CButton.GREEN, true);
+                        _txtBtn = new CTextField(92, 24, String(g.managerLanguage.allTexts[294]));
+                        _txtBtn.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+                        _btnLoad.addChild(_txtBtn);
+                        _btnLoad.clickCallback = onClickLoad;
+                        _btnLoad.y = 205;
+                        _source.addChild(_btnLoad);
+                        if (_countLoad <= 0) _btnLoad.setEnabled = false;
+                        if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
+                            im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
+                        } else if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.PLANT) {
+                            im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop + '_icon'));
+                        }
+                        MCScaler.scale(im, 80, 80);
+                        im.y = 110;
+                        im.x = -im.width / 2;
+                        _source.addChild(im);
+                        if (_countLoad > 0) {
+                            _countLoad = _countLoad / 2;
+                            if (_countLoad <= 0) {
+                                _countLoad = 1;
+                                _btnMinus.setEnabled = false;
+                                _btnPlus.setEnabled = false;
+                            } else if (_countLoad == 1) _btnMinus.setEnabled = false;
+                        }
+                        _txtCountLoad = new CTextField(220, 200, String(_countLoad));
+                        _txtCountLoad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+                        _txtCountLoad.alignH = Align.RIGHT;
+                        _source.addChild(_txtCountLoad);
+                        _txtCountLoad.x = -190;
+                        _txtCountLoad.y = 80;
                     }
-                    MCScaler.scale(im, 80, 80);
-                    im.y = 110;
-                    im.x = -im.width / 2;
-                    _source.addChild(im);
-                    if (_countLoad > 0) {
-                        _countLoad = _countLoad / 2;
-                        if (_countLoad <= 0) {
-                            _countLoad = 1;
-                            _btnMinus.setEnabled = false;
-                            _btnPlus.setEnabled = false;
-                        } else if (_countLoad == 1) _btnMinus.setEnabled = false;
-                    }
-                    _txtCountLoad = new CTextField(220, 200, String(_countLoad));
-                    _txtCountLoad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-                    _txtCountLoad.alignH = Align.RIGHT;
-                    _source.addChild(_txtCountLoad);
-                    _txtCountLoad.x = -190;
-                    _txtCountLoad.y = 80;
                 }
             }
             createExitButton(onClickExit);
@@ -485,7 +486,7 @@ public class WOPartyWindow extends WindowMain{
         for (var i:int = 0; i < _arrItem.length; i++) {
             _arrItem[i].reload();
         }
-        if (_countLoad > 0) {
+        if (_countLoad > 0 && g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
             _countLoad = _countLoad/2;
             if (_countLoad <= 0) {
                 _countLoad = 1;
@@ -497,6 +498,7 @@ public class WOPartyWindow extends WindowMain{
             _btnPlus.setEnabled = false;
             _btnLoad.setEnabled = false;
         }
+
     }
 
     override public function showItParams(callback:Function, params:Array):void {

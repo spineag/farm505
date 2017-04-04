@@ -63,10 +63,14 @@ public class MainBottomPanel {
     private var _imNotification:Image;
     private var _txtNotification:CTextField;
     private var _txtHome:CTextField;
+    public var _questBoolean:Boolean;
+    public var _questBuilId:int = 0;
+    private var _typeHelp:int = 0;
 
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
+        _questBoolean = false;
         _source = new Sprite();
         onResize();
         _friendBoard = new Sprite();
@@ -272,9 +276,25 @@ public class MainBottomPanel {
                         _tutorialCallback.apply();
                     }
                 }
+                if (_questBoolean) {
+                    if (_typeHelp == HelperReason.REASON_BUY_ANIMAL) shopTab = WOShop.ANIMAL;
+                }
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
                 if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     g.managerHelpers.onOpenShop();
+                }
+                if (_questBoolean) {
+                    _questBoolean = false;
+                    (g.windowsManager.currentWindow as WOShop).deleteArrow();
+                    if (_typeHelp == HelperReason.REASON_BUY_FABRICA ) {
+                        (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).addArrow(_questBuilId);
+                    } else if (_typeHelp == HelperReason.REASON_BUY_HERO) {
+                        (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0);
+                    } else if (_typeHelp == HelperReason.REASON_BUY_ANIMAL ) {
+                        (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).addArrow(_questBuilId);
+                    }
                 }
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
@@ -544,11 +564,17 @@ public class MainBottomPanel {
         return ob;
     }
 
-    public function addArrow(btnName:String, t:Number = 0):void {
+    public function addArrow(btnName:String, t:Number = 0, resourceId:int = 0, typeId:int = 0):void {
         switch (btnName) {
             case 'shop':
                 _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
                 _arrow.animateAtPosition(_shopBtn.x, _shopBtn.y - _shopBtn.height/2 - 10);
+                if (resourceId >= 1) {
+                    _questBoolean = true;
+                    _questBuilId = resourceId;
+                    _typeHelp = typeId;
+                }
+
                 break;
             case 'home':
                 _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
@@ -567,6 +593,7 @@ public class MainBottomPanel {
             _arrow.deleteIt();
             _arrow = null;
         }
+        _questBoolean = false;
     }
 
     public function hideMainPanel():void { // for tutorial

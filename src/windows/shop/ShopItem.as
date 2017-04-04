@@ -1230,7 +1230,7 @@ public class ShopItem {
         }
     }
     
-    private function deleteArrow():void {
+    public function deleteArrow():void {
         if (_arrow) {
             _arrow.deleteIt();
             _arrow = null;
