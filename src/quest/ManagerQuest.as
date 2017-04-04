@@ -21,8 +21,12 @@ import manager.Vars;
 import mouse.ToolsModifier;
 
 import social.SocialNetworkSwitch;
+
+import tutorial.helpers.HelperReason;
+
 import utils.Link;
 import windows.WindowsManager;
+import windows.shop.WOShop;
 
 public class ManagerQuest {
     public static const ICON_PATH:String = 'https://505.ninja/content/quest_icon/';
@@ -233,7 +237,9 @@ public class ManagerQuest {
                 break;
             case BUILD_BUILDING:
                 g.windowsManager.closeAllWindows();
-                g.bottomPanel.addArrow('shop', 3);
+                g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_FABRICA);
+//                (g.windowsManager.currentWindow as WOShop).openOnResource(_activeTask.resourceId);
+//                (g.windowsManager.currentWindow as WOShop).addArrow(_activeTask.resourceId);
                 break;
             case RAW_PRODUCT:
                 g.windowsManager.closeAllWindows();
@@ -288,7 +294,7 @@ public class ManagerQuest {
                 break;
             case BUY_ANIMAL:
                 g.windowsManager.closeAllWindows();
-                g.bottomPanel.addArrow('shop', 3);
+                g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_ANIMAL);
                 break;
             case FEED_ANIMAL:
                 g.windowsManager.closeAllWindows();
@@ -312,7 +318,7 @@ public class ManagerQuest {
                 break;
             case BUY_CAT:
                 g.windowsManager.closeAllWindows();
-                g.bottomPanel.addArrow('shop', 3);
+                g.bottomPanel.addArrow('shop', 3,2,HelperReason.REASON_BUY_HERO);
                 break;
             case OPEN_TERRITORY:
                 g.windowsManager.closeAllWindows();

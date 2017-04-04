@@ -490,6 +490,10 @@ public class WOShop extends WindowMain {
         return _shopList.getShopDirectItemProperties(a);
     }
 
+    public function deleteArrow():void {
+        _shopList.deleteArrow();
+    }
+
     public function openCoupone(b:Boolean):void {
         _contCoupone.visible = b;
     }

@@ -460,6 +460,11 @@ public class ShopList {
             }
         }
     }
+    public function deleteArrow():void {
+        for (var i:int=0; i<_arrItems.length; i++) {
+                _arrItems[i].deleteArrow();
+        }
+    }
     
     public function addArrowAtPos(n:int, t:int=0):void {
         (_arrItems[n] as ShopItem).addArrow(t);

@@ -419,7 +419,7 @@ public class WOTrain extends WindowMain {
             _arrItems[_activeItemIndex].fullItHelp();
         } else {
             if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree) {
-                if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree && g.allData.getResourceById(_arrItems[_activeItemIndex].idFree).buildType == BuildType.PLANT
+                if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) == _arrItems[_activeItemIndex].countFree && g.allData.getResourceById(_arrItems[_activeItemIndex].idFree).buildType == BuildType.PLANT
                         && !g.userInventory.checkLastResource(_arrItems[_activeItemIndex].idFree)) {
                     g.windowsManager.cashWindow = this;
                     super.hideIt();
