@@ -112,19 +112,19 @@ public class FarmDispatcher {
         }
     }
 
-    private var key:String;
-    private var cObject:Object;
+    private var _key:String;
+    private var _cObject:Object;
     private function timerTimerWithParamsHandler(e:TimerEvent):void {
-        for (key in _timerListenersWithParams) {
-            cObject = _timerListenersWithParams[key];
-            cObject.cDelay += 1000;
-            if (cObject.delay <= cObject.cDelay) {
-                cObject.cDelay = 0;
-                if (cObject.callback != null) {
-                    (cObject.callback as Function).apply(null, cObject.params);
-                    ++cObject.cLoop;
-                    if (cObject.loop <= cObject.cLoop) {
-                        removeFromTimerWithParams(key);
+        for (_key in _timerListenersWithParams) {
+            _cObject = _timerListenersWithParams[_key];
+            _cObject.cDelay += 1000;
+            if (_cObject.delay <= _cObject.cDelay) {
+                _cObject.cDelay = 0;
+                if (_cObject.callback != null) {
+                    (_cObject.callback as Function).apply(null, _cObject.params);
+                    ++_cObject.cLoop;
+                    if (_cObject.loop <= _cObject.cLoop) {
+                        removeFromTimerWithParams(_key);
                     }
                 }
             }
