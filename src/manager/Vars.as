@@ -86,6 +86,8 @@ import user.UserInventory;
 import user.UserTimer;
 import user.UserValidateResources;
 import utils.FarmDispatcher;
+import utils.Utils;
+
 import windows.WindowsManager;
 import build.WorldObject;
 import build.ambar.Ambar;
@@ -421,139 +423,125 @@ public class Vars {
     }
 
     private function initVariables2():void {
-//        try {
-            if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID || ( socialNetworkID == SocialNetworkSwitch.SN_FB_ID && (user as User).isTester) ||
-                   ( socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true;
+        if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID || ( socialNetworkID == SocialNetworkSwitch.SN_FB_ID && (user as User).isTester) ||
+               ( socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true;
 
-            timerHint = new TimerHint();
-            wildHint = new WildHint();
-            hint = new Hint();
-            buyHint = new BuyHint();
-//        farmHint = new FarmHint();
-            mouseHint = new MouseHint();
-            fabricHint = new FabricHint();
-            treeHint = new TreeHint();
-            resourceHint = new ResourceHint();
-            marketHint = new MarketHint();
-            levelUpHint = new LevelUpHint();
-            xpPanel = new XPPanel();
-            couponePanel = new CouponePanel();
-            softHardCurrency = new SoftHardCurrency();
-            bottomPanel = new MainBottomPanel();
-            craftPanel = new CraftPanel();
-            optionPanel = new OptionPanel();
-            friendPanel = new FriendPanel();
-            toolsPanel = new ToolsPanel();
-            managerParty = new ManagerPartyNew();
-            directServer.getDataParty(null);
-            if ((user as User).level >= 5 && userTimer.saleTimerToEnd <= 0 && softHardCurrency.actionON) {
-                stock = new StockPanel();
-            }
-            managerQuest = new ManagerQuest();
-//        } catch (e:Error) {
-//            errorManager.onGetError(ErrorConst.ON_INIT3, true, true);
-//            Cc.stackch('error', 'initVariables2::', 10);
-//        }
-        afterLoadAll();
-    }
-
-    public function party():void {
-        if (userTimer.partyToEndTimer > 0) partyPanel = new PartyPanel();
-        if (!windowsManager.currentWindow && userTimer.partyToEndTimer > 0) {
-            windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+        timerHint = new TimerHint();
+        wildHint = new WildHint();
+        hint = new Hint();
+        buyHint = new BuyHint();
+        mouseHint = new MouseHint();
+        fabricHint = new FabricHint();
+        treeHint = new TreeHint();
+        resourceHint = new ResourceHint();
+        marketHint = new MarketHint();
+        levelUpHint = new LevelUpHint();
+        xpPanel = new XPPanel();
+        couponePanel = new CouponePanel();
+        softHardCurrency = new SoftHardCurrency();
+        bottomPanel = new MainBottomPanel();
+        craftPanel = new CraftPanel();
+        optionPanel = new OptionPanel();
+        friendPanel = new FriendPanel();
+        toolsPanel = new ToolsPanel();
+        managerParty = new ManagerPartyNew();
+        directServer.getDataParty(null);
+        if ((user as User).level >= 5 && userTimer.saleTimerToEnd <= 0 && softHardCurrency.actionON) {
+            stock = new StockPanel();
         }
+        managerQuest = new ManagerQuest();
+        gameDispatcher.addNextFrameFunction(afterLoadAll);
     }
 
     private function afterLoadAll():void {
-//        try {
-            cont.onLoadAll();
-            startPreloader.setProgress(100);
-            if (currentGameScale != 1) {
-                optionPanel.makeScaling(currentGameScale, false, true);
-            }
-            cont.moveCenterToXY(0, realGameTilesHeight / 2 - 400 * scaleFactor, true);
+        cont.onLoadAll();
+        startPreloader.setProgress(100);
+        if (currentGameScale != 1) {
+            optionPanel.makeScaling(currentGameScale, false, true);
+        }
+        cont.moveCenterToXY(0, realGameTilesHeight / 2 - 400 * scaleFactor, true);
 
-            windowsManager = new WindowsManager();
-            managerDropResources = new ManagerDropBonusResource();
-            managerPaper = new ManagerPaper();
-            managerPaper.getPaperItems();
-            managerCats.setAllCatsToRandomPositions();
-            managerDailyBonus.checkDailyBonusStateBuilding();
-            lateAction = new ManagerLateAction();
-            isGameLoaded = true;
+        windowsManager = new WindowsManager();
+        managerDropResources = new ManagerDropBonusResource();
+        managerPaper = new ManagerPaper();
+        managerPaper.getPaperItems();
+        managerCats.setAllCatsToRandomPositions();
+        managerDailyBonus.checkDailyBonusStateBuilding();
+        lateAction = new ManagerLateAction();
+        isGameLoaded = true;
 
-            if ((user as User).isMegaTester) {
-                Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
-                Cc.addSlashCommand("closeMapEditor", closeMapEditorInterface);
-            }
+        if ((user as User).isMegaTester) {
+            Cc.addSlashCommand("openMapEditor", openMapEditorInterface);
+            Cc.addSlashCommand("closeMapEditor", closeMapEditorInterface);
+        }
 
-            if ((user as User).isTester) {
-                var f1:Function = function ():void {
-                    directServer.deleteUser(f2);
-                };
-                var f2:Function = function ():void {
-                    windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME);
-                };
-                Cc.addSlashCommand("deleteUser", f1);
-            }
-//        } catch (e:Error) {
-//            errorManager.onGetError(ErrorConst.ON_INIT4, true, true);
-//            Cc.stackch('error', 'initVariables2::', 10);
-//        }
+        if ((user as User).isTester) {
+            var f1:Function = function ():void {
+                directServer.deleteUser(f2);
+            };
+            var f2:Function = function ():void {
+                windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME);
+            };
+            Cc.addSlashCommand("deleteUser", f1);
+        }
+        softHardCurrency.checkHard();
+        softHardCurrency.checkSoft();
+        xpPanel.checkXP();
+        managerOrder.checkOrders();
+        gameDispatcher.addEnterFrame(onEnterFrameGlobal);
+        updateAmbarIndicator();
+        gameDispatcher.addNextFrameFunction(afterLoadAll_2);
+    }
 
-//        try {
-            softHardCurrency.checkHard();
-            softHardCurrency.checkSoft();
-            xpPanel.checkXP();
-            managerOrder.checkOrders();
-            gameDispatcher.addEnterFrame(onEnterFrameGlobal);
-            updateAmbarIndicator();
-            townArea.zSort();
-            townArea.decorTailSort();
-            townArea.sortAtLockedLands();
-            managerOrder.checkForFullOrder();
-            if ((user as User).level >= allData.getBuildingById(45).blockByLevel[0]) managerDailyBonus.generateDailyBonusItems();
-            townArea.addTownAreaSortCheking();
+    private function afterLoadAll_2():void {
+        townArea.zSort();
+        townArea.decorTailSort();
+        gameDispatcher.addNextFrameFunction(afterLoadAll_3);
+    }
 
-            managerHelpers = new ManagerHelpers();
-            managerPendingRequest = new ManagerPendingRequest();
-            managerChest.createChest();
-            managerVisibleObjects = new ManagerVisibleObjects();
-            managerVisibleObjects.checkInStaticPosition();
-//        } catch (e:Error) {
-//            errorManager.onGetError(ErrorConst.ON_INIT5, true, true);
-//            Cc.stackch('error', 'initVariables2::', 10);
-//        }
-        
-//        try {
-            if (managerTutorial.isTutorial) {
-                if ((user as User).tutorialStep > 1) {
-                    startPreloader.hideIt();
-                    startPreloader = null;
-                }
-                managerOrder.showSmallHeroAtOrder(false);
-                managerTutorial.onGameStart();
-                managerTutorial.checkDefaults();
-            } else {
+    private function afterLoadAll_3():void {
+        townArea.sortAtLockedLands();
+        managerOrder.checkForFullOrder();
+        if ((user as User).level >= allData.getBuildingById(45).blockByLevel[0]) managerDailyBonus.generateDailyBonusItems();
+        townArea.addTownAreaSortCheking();
+
+        managerHelpers = new ManagerHelpers();
+        managerPendingRequest = new ManagerPendingRequest();
+        managerChest.createChest();
+        managerVisibleObjects = new ManagerVisibleObjects();
+        managerVisibleObjects.checkInStaticPosition();
+        gameDispatcher.addNextFrameFunction(afterLoadAll_4);
+    }
+
+    private function afterLoadAll_4():void {
+        if (managerTutorial.isTutorial) {
+            if ((user as User).tutorialStep > 1) {
                 startPreloader.hideIt();
                 startPreloader = null;
-                managerCutScenes.checkAvailableCutScenes();
-                managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
-                var todayDailyGift:Date;
-                var today:Date;
-                    if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - int(new Date().getTime() / 1000)) <= 0 && (user as User).level >= 6) {
-                        windowsManager.openWindow(WindowsManager.WO_SALE_PACK, null, true);
-                    } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
-                       windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
-                   } else {
-                       if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
-                       else {
-                           todayDailyGift = new Date((user as User).dayDailyGift * 1000);
-                           today = new Date((user as User).day * 1000);
-                           if ((user as User).level >= 5 && todayDailyGift.date != today.date) directServer.getDailyGift(null);
-                           else managerCats.helloCats();
-                       }
+            }
+            managerOrder.showSmallHeroAtOrder(false);
+            managerTutorial.onGameStart();
+            managerTutorial.checkDefaults();
+        } else {
+            startPreloader.hideIt();
+            startPreloader = null;
+            managerCutScenes.checkAvailableCutScenes();
+            managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
+            var todayDailyGift:Date;
+            var today:Date;
+                if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - int(new Date().getTime() / 1000)) <= 0 && (user as User).level >= 6) {
+                    windowsManager.openWindow(WindowsManager.WO_SALE_PACK, null, true);
+                } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
+                   windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
+               } else {
+                   if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
+                   else {
+                       todayDailyGift = new Date((user as User).dayDailyGift * 1000);
+                       today = new Date((user as User).day * 1000);
+                       if ((user as User).level >= 5 && todayDailyGift.date != today.date) directServer.getDailyGift(null);
+                       else managerCats.helloCats();
                    }
+               }
 //                if (!windowsManager.currentWindow && userTimer.partyToEndTimer < 0 && !managerParty.userParty.showWindow) managerParty.endPartyWindow();
             }
             if ((user as User).miniScenes[3] == 0) friendPanel.hideIt(true);
@@ -566,10 +554,6 @@ public class Vars {
 
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
-//        } catch (e:Error) {
-//            errorManager.onGetError(ErrorConst.ON_INIT6, true, true);
-//            Cc.stackch('error', 'afterAllLoaded::', 10);
-//        }
     }
 
     private function onEnterFrameGlobal():void {

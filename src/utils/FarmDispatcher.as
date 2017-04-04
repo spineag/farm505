@@ -13,15 +13,21 @@ import starling.events.Event;
 
 public class FarmDispatcher {
     private var _enterFrameListeners:Vector.<Function>;
+    private var _enterFrameListenersLength:int;
     private var _timerListeners:Vector.<Function>;
+    private var _timerListenersLength:int;
     private var _nextFrameFunctions:Vector.<Function>;
+    private var _nextFrameFunctionsLength:int;
     private var _timerListenersWithParams:Dictionary;
     private var timer:Timer;
 
     public function FarmDispatcher(stage:Stage) {
         _enterFrameListeners = new Vector.<Function>;
+        _enterFrameListenersLength = 0;
         _timerListeners = new Vector.<Function>;
+        _timerListenersLength = 0;
         _nextFrameFunctions = new Vector.<Function>;
+        _nextFrameFunctionsLength = 0;
         _timerListenersWithParams = new Dictionary();
 
         timer = new Timer(1000);
@@ -33,42 +39,50 @@ public class FarmDispatcher {
     public function addEnterFrame(listener:Function):void {
         if (!hasListener(listener, _enterFrameListeners)) {
             _enterFrameListeners.push(listener);
+            _enterFrameListenersLength = _enterFrameListeners.length;
         }
     }
     
     public function addNextFrameFunction(f:Function):void {
         _nextFrameFunctions.push(f);
+        _nextFrameFunctionsLength = _nextFrameFunctions.length;
     }
 
     public function removeEnterFrame(listener:Function):void {
         removeListener(listener, _enterFrameListeners);
+        _enterFrameListenersLength = _enterFrameListeners.length;
     }
 
     public function addToTimer(listener:Function):void {
         if (!hasListener(listener, _timerListeners)) {
             _timerListeners.push(listener);
+            _timerListenersLength = _timerListeners.length;
         }
     }
 
     public function removeFromTimer(listener:Function):void {
         removeListener(listener, _timerListeners);
+        _timerListenersLength = _timerListeners.length;
     }
 
+    private var i:int;
     private function enterFrame(e:Event):void {
-        for (var i:int = 0; i < _enterFrameListeners.length; i++) {
+        for (i = 0; i < _enterFrameListenersLength; i++) {
             (_enterFrameListeners[i] as Function).apply();
         }
-//        if (_nextFrameFunctions.length) {
-//            for (i = 0; i < _nextFrameFunctions.length; i++) {
-//                (_nextFrameFunctions[i] as Function).apply();
-//            }
-//            _nextFrameFunctions.length = 0;
-//        }
+        if (_nextFrameFunctionsLength) {
+            for (i = 0; i < _nextFrameFunctionsLength; i++) {
+                (_nextFrameFunctions[i] as Function).apply();
+            }
+            _nextFrameFunctions.length = 0;
+            _nextFrameFunctionsLength = 0;
+        }
     }
 
+    private var k:int;
     private function timerTimerHandler(e:TimerEvent):void {
-        for (var i:int = 0; i < _timerListeners.length; i++) {
-            (_timerListeners[i] as Function).apply();
+        for (k = 0; k < _timerListenersLength; k++) {
+            (_timerListeners[k] as Function).apply();
         }
         timerTimerWithParamsHandler(e);
     }
@@ -98,9 +112,11 @@ public class FarmDispatcher {
         }
     }
 
+    private var key:String;
+    private var cObject:Object;
     private function timerTimerWithParamsHandler(e:TimerEvent):void {
-        for (var key:String in _timerListenersWithParams) {
-            var cObject:Object = _timerListenersWithParams[key];
+        for (key in _timerListenersWithParams) {
+            cObject = _timerListenersWithParams[key];
             cObject.cDelay += 1000;
             if (cObject.delay <= cObject.cDelay) {
                 cObject.cDelay = 0;

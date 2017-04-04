@@ -16,6 +16,8 @@ import starling.textures.TextureAtlas;
 
 import temp.DropResourceVariaty;
 
+import ui.party.PartyPanel;
+
 import utils.Utils;
 
 import windows.WindowsManager;
@@ -138,7 +140,11 @@ public class ManagerPartyNew {
     private function createAtlases():void {
         g.allData.atlas['partyAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')].create() as Bitmap), g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')]);
         (g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')] as PBitmap).deleteIt();
-        g.party();
+        if (g.userTimer.partyToEndTimer > 0) g.partyPanel = new PartyPanel();
+        if (!g.windowsManager.currentWindow && g.userTimer.partyToEndTimer > 0) {
+            g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
+        }
+
         delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')];
         delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')];
     }
