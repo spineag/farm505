@@ -34,6 +34,7 @@ import preloader.StartPreloader;
 import server.DirectServer;
 
 import social.SocialNetwork;
+import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
 
 import starling.core.Starling;
@@ -138,7 +139,28 @@ public class MainStartWebStarling extends flash.display.Sprite{
             g.socialNetworkID = int(g.flashVars['channel']);
         }
         
-        g.startPreloader = new StartPreloader(game.start);
+        g.startPreloader = new StartPreloader(onPreload);
+    }
+
+    private function onPreload():void {
+        SocialNetworkSwitch.init(g.socialNetworkID, g.flashVars, g.isDebug);
+        g.socialNetwork.addEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
+        g.socialNetwork.init();
+    }
+
+    private function onSocialNetworkInit(e:SocialNetworkEvent = null):void {
+        g.startPreloader.setProgress(2);
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.INIT, onSocialNetworkInit);
+        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
+        g.socialNetwork.getProfile(g.socialNetwork.currentUID);
+    }
+
+    private function authoriseUser(e:SocialNetworkEvent = null):void {
+        Cc.info('userSocialId == ' + g.socialNetwork.currentUID + " --- " + g.user.userSocialId); // should be the same
+        g.socialNetwork.checkUserLanguageForIFrame();
+        g.startPreloader.setProgress(3);
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_PROFILES, authoriseUser);
+        g.directServer.authUser(game.start);
     }
 
     private function onLoaded(event : starling.events.Event):void {

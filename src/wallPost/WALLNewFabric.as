@@ -19,8 +19,10 @@ public class WALLNewFabric {
     private var _data:Object;
 
     public function WALLNewFabric(callback:Function, params:Object):void {
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[470]), null, 'https://505.ninja/content/wall/ok/wall_OK_fabric.png');
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[470]), null, 'https://505.ninja/content/wall/fb/wall_5_eng.jpg');
         } else {
             _data = params;
             g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/wall_new_fabric.jpg', onLoad);

@@ -21,8 +21,10 @@ public class WALLDoneOrder {
     protected var g:Vars = Vars.getInstance();
 
     public function WALLDoneOrder(callback:Function, params:Array) {
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[467]), null, 'https://505.ninja/content/wall/ok/wall_OK_1.jpg');
+        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[467]), null, 'https://505.ninja/content/wall/fb/wall_1_eng.jpg');
         } else {
             g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/wall_done_order.jpg',onLoad);
         }

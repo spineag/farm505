@@ -9,8 +9,12 @@ import flash.display.Bitmap;
 import flash.display.StageDisplayState;
 import flash.geom.Rectangle;
 
+import loaders.PBitmap;
+
 import manager.ManagerFilters;
 import manager.ManagerWallPost;
+
+import social.SocialNetworkSwitch;
 
 import starling.core.Starling;
 import starling.display.Image;
@@ -31,31 +35,28 @@ public class PostOpenFabric  extends WindowMain {
     private var _data:Object;
     private var _txt1:CTextField;
     private var _txt2:CTextField;
+    private var stUrl:String;
+    
     public function PostOpenFabric() {
         super();
-//        if (g.windowsManager.currentWindow) {
-//            g.windowsManager.cashWindow = this;
-//            return;
-//        }
-//        g.windowsManager.cashWindow = this;
         _windowType = WindowsManager.POST_OPEN_FABRIC;
         _woHeight = 510;
         _woWidth = 510;
-
-
     }
 
     override public function showItParams(callback:Function, params:Array):void {
         super.showIt();
         _data = params[0];
-        var st:String = g.dataPath.getGraphicsPath();
-        g.load.loadImage(st + 'wall/wall_new_fabric.png',onLoad);
-//        g.windowsManager.cashWindow = this;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/wall_5_eng.png';
+        } else {
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_new_fabric.png';
+        }
+        g.load.loadImage(stUrl, onLoad);
     }
 
     private function onLoad(bitmap:Bitmap):void {
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'wall/wall_new_fabric.png'].create() as Bitmap;
+        bitmap = g.pBitmaps[stUrl].create() as Bitmap;
         try {
             photoFromTexture(Texture.fromBitmap(bitmap));
         } catch (e:Error) {
@@ -93,21 +94,27 @@ public class PostOpenFabric  extends WindowMain {
         _btn.addChild(im);
         _btn.y = 240;
         _source.addChild(_btn);
-        if (_data.image) {
-            var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
-            if (!texture) {
-                texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
+        if (g.socialNetworkID != SocialNetworkSwitch.SN_FB_ID) {
+            if (_data.image) {
+                var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
+                if (!texture) {
+                    texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
+                }
+            }
+            if (texture) {
+                im = new Image(texture);
+                if (im) {
+                    if (_data.id == 3) {
+                        im.y = 10;
+                        im.x = -115;
+                    } else {
+                        im.y = -40;
+                        im.x = -115;
+                    }
+                }
+                _source.addChild(im);
             }
         }
-        im = new Image(texture);
-        if (_data.id == 3) {
-            im.y = 10;
-            im.x = -115;
-        } else {
-            im.y = -40;
-            im.x = -115;
-        }
-        _source.addChild(im);
         createExitButton(hideIt);
     }
 
@@ -139,6 +146,8 @@ public class PostOpenFabric  extends WindowMain {
         _btn = null;
         _source = null;
         _data = null;
+        (g.pBitmaps[stUrl] as PBitmap).deleteIt();
+        delete g.pBitmaps[stUrl];
     }
 }
 
