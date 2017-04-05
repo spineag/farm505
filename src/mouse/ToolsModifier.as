@@ -457,6 +457,10 @@ public class ToolsModifier {
         }
         _spriteForMove = null;
 
+        if (_activeBuilding is DecorPostFence) {
+            g.townArea.removeFenceLenta(_activeBuilding);
+            g.townArea.addFenceLenta(_activeBuilding);
+        }
         if (_callbackAfterMove != null) {
             _callbackAfterMove.apply(null, [_activeBuilding, int(x), int(y)]);
         }
