@@ -40,9 +40,6 @@ public class WODailyBonus extends WindowMain {
         _woHeight = 500;
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
-
-
-//        createKoleso();
     }
 
     private function onLoad(bitmap:Bitmap):void {
@@ -98,7 +95,7 @@ public class WODailyBonus extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         _namePng = 'qui/wheels_of_fortune_disk.png';
-        g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
+        g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng, onLoad);
     }
 
     override protected function deleteIt():void {

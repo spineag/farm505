@@ -161,12 +161,7 @@ public class CraftPanel {
     }
 
     public function pointXY():Point {
-        var p:Point;
-        if (g.windowsManager.currentWindow) {
-            p = new Point(330,55);
-            return p;
-        }
-        p = new Point(-165,-5);
+        var p:Point = new Point(-165,-5);
         p = _source.localToGlobal(p);
         return p;
     }

@@ -156,8 +156,6 @@ public class CraftItem {
         }
 
         if (_resourceItem.placeBuild == BuildType.PLACE_SKLAD && g.userInventory.currentCountInSklad + count > g.user.skladMaxCount) {
-            var p:Point = new Point(_source.x, _source.y);
-            p = _source.parent.localToGlobal(p);
             g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
             return;
         }
@@ -174,13 +172,6 @@ public class CraftItem {
         _source.filter = null;
         _txtNumber.visible = true;
         _source.isTouchable = false;
-//        var arR:Array = g.allData.recipe;
-//        for (var i:int = 0; i < arR.length; i++) {
-//            if (arR[i].idResource == _resourceItem.resourceID) {
-//                _txtNumber.text = String(arR[i].numberCreate);
-//                break;
-//            }
-//        }
         _txtNumber.text = String(count);
         var start:Point = new Point(int(_source.x), int(_source.y));
         start = _source.parent.localToGlobal(start);
