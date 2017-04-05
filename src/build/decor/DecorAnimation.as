@@ -63,16 +63,16 @@ public class DecorAnimation extends WorldObject{
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
         _armature.animation.gotoAndPlayByFrame('idle');
-        if (g.managerHitArea.hasLoadedHitAreaByName(_dataBuild.url)) {
-            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
-        } else {
+//        if (g.managerHitArea.hasLoadedHitAreaByName(_dataBuild.url)) {
+//            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
+//        } else {
             if (_dataBuild.color) {
                 var name:String = (_dataBuild.url as String).replace(new RegExp("_" + String(_dataBuild.color), ""), '');
                 _hitArea = g.managerHitArea.getHitArea(_source, name, ManagerHitArea.TYPE_LOADED);
             } else {
                 _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
             }
-        }
+//        }
         _source.registerHitArea(_hitArea);
         if (!g.isAway) {
             _source.hoverCallback = onHover;

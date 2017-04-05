@@ -85,7 +85,7 @@ public class LoadComponents {
         delete  g.pXMLs[st + 'x1/buildAtlas.xml' + g.getVersion('buildAtlas')];
 
         g.allData.atlas['decorAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/decorAtlas.xml' + g.getVersion('decorAtlas')]);
-        g.managerHitArea.registerFromAtlas(g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')].create() as Bitmap, g.pXMLs[st + 'x1/decorAtlas.xml' + g.getVersion('decorAtlas')]);
+//        g.managerHitArea.registerFromAtlas(g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')].create() as Bitmap, g.pXMLs[st + 'x1/decorAtlas.xml' + g.getVersion('decorAtlas')]);
         (g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'x1/decorAtlas.png' + g.getVersion('decorAtlas')];
         delete  g.pXMLs[st + 'x1/decorAtlas.xml' + g.getVersion('decorAtlas')];
@@ -96,7 +96,7 @@ public class LoadComponents {
         delete  g.pXMLs[st + 'x1/farmAtlas.xml' + g.getVersion('farmAtlas')];
 
         g.allData.atlas['wildAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')].create() as Bitmap), g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')]);
-        g.managerHitArea.registerFromAtlas(g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')].create() as Bitmap, g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')]);
+//        g.managerHitArea.registerFromAtlas(g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')].create() as Bitmap, g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')]);
         (g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[st + 'x1/wildAtlas.png' + g.getVersion('wildAtlas')];
         delete  g.pXMLs[st + 'x1/wildAtlas.xml' + g.getVersion('wildAtlas')];
@@ -161,20 +161,21 @@ public class LoadComponents {
         count++;
         g.startPreloader.setProgress(50 + 2*count);
         if (count >=10) {
-            loadHitArea();
+            if (_callback != null) _callback.apply();
+//            loadHitArea();
         }
     }
 
-    private function loadHitArea():void {
-        var url:String = g.dataPath.getGraphicsPath() + 'hitArea.swf';
-        g.load.loadSWFModule(url, loadedHitArea);
-
-    }
-
-    private function loadedHitArea(response:ApplicationDomain):void {
-        g.startPreloader.setProgress(72);
-        g.managerHitArea.registerLoadedHitArea(response);
-        if (_callback != null) _callback.apply();
-    }
+//    private function loadHitArea():void {
+//        var url:String = g.dataPath.getGraphicsPath() + 'hitArea.swf';
+//        g.load.loadSWFModule(url, loadedHitArea);
+//
+//    }
+//
+//    private function loadedHitArea(response:ApplicationDomain):void {
+//        g.startPreloader.setProgress(72);
+//        g.managerHitArea.registerLoadedHitArea(response);
+//        if (_callback != null) _callback.apply();
+//    }
 }
 }

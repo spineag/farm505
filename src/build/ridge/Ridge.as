@@ -370,7 +370,7 @@ public class Ridge extends WorldObject{
         if (_stateRidge == EMPTY) {
             _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild', ManagerHitArea.TYPE_RIDGE);
         } else {
-            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild_' + String(_dataPlant.id) + '_' + String(_stateRidge), ManagerHitArea.TYPE_RIDGE, 2, 2, _plantSprite);
+            _hitArea = g.managerHitArea.getHitArea(_source, 'ridgeBuild_' + String(_dataPlant.id) + '_' + String(_stateRidge), ManagerHitArea.TYPE_RIDGE, 2, 2);
         }
         _source.registerHitArea(_hitArea);
     }

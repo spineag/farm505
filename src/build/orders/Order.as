@@ -14,6 +14,8 @@ import manager.hitArea.ManagerHitArea;
 
 import media.SoundConst;
 import mouse.ToolsModifier;
+
+import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -26,6 +28,8 @@ import windows.orderWindow.WOOrder;
 public class Order extends WorldObject{
     private var _isOnHover:Boolean;
     private var _smallHero:SmallHeroAnimation;
+    private var _boomOpen:Image;
+    private var _topOpen:Image;
 
     public function Order (data:Object) {
         super (data);
@@ -41,13 +45,6 @@ public class Order extends WorldObject{
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
-        if (!g.isAway) {
-            _source.endClickCallback = onClick;
-            _hitArea = g.managerHitArea.getHitArea(_source, 'order_area', ManagerHitArea.TYPE_LOADED);
-            _source.registerHitArea(_hitArea);
-        }
-        _source.hoverCallback = onHover;
-        _source.outCallback = onOut;
         if (!g.user.isOpenOrder && !g.isAway) {
             _stateBuild = STATE_UNACTIVE;
             _armature.animation.gotoAndStopByFrame('top');
@@ -55,6 +52,25 @@ public class Order extends WorldObject{
             _stateBuild = STATE_ACTIVE;
             _armature.addEventListener(EventObject.COMPLETE, makeAnimation);
             _armature.addEventListener(EventObject.LOOP_COMPLETE, makeAnimation);
+        }
+        var b:Slot = _armature.getSlot('boom');
+        if (b && b.display) {
+            _boomOpen = b.display as Image;
+            if (_boomOpen) _boomOpen.visible = false;
+        }
+        b = _armature.getSlot('top');
+        if (b && b.display) {
+            _topOpen = b.display as Image;
+            if (_topOpen && _stateBuild == STATE_ACTIVE) _topOpen.visible = false;
+        }
+        if (!g.isAway) {
+            _source.endClickCallback = onClick;
+            _hitArea = g.managerHitArea.getHitArea(_source, 'order_area', ManagerHitArea.TYPE_LOADED);
+            _source.registerHitArea(_hitArea);
+        }
+        _source.hoverCallback = onHover;
+        _source.outCallback = onOut;
+        if (_stateBuild == STATE_ACTIVE) {
             makeAnimation();
             createSmallHero();
         }
@@ -136,6 +152,8 @@ public class Order extends WorldObject{
                 new FlyMessage(p,String(g.managerLanguage.allTexts[342])+  " 3 " + String(g.managerLanguage.allTexts[343]));
             } else {
                 _stateBuild = STATE_ACTIVE;
+                if (_topOpen) _topOpen.visible = true;
+                if (_boomOpen) _boomOpen.visible = true;
                 _armature.addEventListener(EventObject.COMPLETE, onOpenOrder);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, onOpenOrder);
                 _armature.animation.gotoAndPlayByFrame('top_l');
@@ -191,6 +209,8 @@ public class Order extends WorldObject{
     }
 
     private function onOpenOrder(e:Event=null):void {
+        if (_topOpen) _topOpen.visible = false;
+        if (_boomOpen) _boomOpen.visible = false;
         if (g.managerMiniScenes.isMiniScene && g.user.level == 3) {
             g.managerMiniScenes.checkMiniSceneCallback();
         } else {
@@ -217,6 +237,8 @@ public class Order extends WorldObject{
             _smallHero.deleteIt();
             _smallHero = null;
         }
+        _topOpen = null;
+        _boomOpen = null;
         _source.touchable = false;
         _armature.removeEventListener(EventObject.COMPLETE, makeAnimation);
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, makeAnimation);

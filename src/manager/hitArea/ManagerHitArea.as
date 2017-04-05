@@ -19,16 +19,16 @@ public class ManagerHitArea {
     public static const TYPE_SIMPLE:int = 6;
 
     private var _areas:Object;
-    private var _obLoaded:Object;
-    private var _bitmapDataFromAtlas:Object;
+//    private var _obLoaded:Object;
+//    private var _bitmapDataFromAtlas:Object;
 
     public function ManagerHitArea() {
         _areas = {};
-        _obLoaded = {};
-        _bitmapDataFromAtlas = {};
+//        _obLoaded = {};
+//        _bitmapDataFromAtlas = {};
     }
 
-    public function getHitArea(sp:starling.display.Sprite, name:String, type:int = 0, sizeX:int=0, sizeY:int=0, additional:starling.display.Sprite=null):OwnHitArea {
+    public function getHitArea(sp:starling.display.Sprite, name:String, type:int = 0, sizeX:int=0, sizeY:int=0):OwnHitArea {
         if (_areas[name]) {
             return _areas[name];
         } else {
@@ -40,23 +40,24 @@ public class ManagerHitArea {
                     area.createFromStarlingSprite(sp, name);
                 }
             } else if (type == TYPE_LOADED) {
-                if (_obLoaded[name]) {
-                    area.createFromLoaded(_obLoaded[name], sp, name);
-                } else {
-                    Cc.error('ManagerHitArea getHitArea - no such loaded for name:' + name);
+//                if (_obLoaded[name]) {
+//                    area.createFromLoaded(_obLoaded[name], sp, name);
+//                } else {
+//                    Cc.error('ManagerHitArea getHitArea - no such loaded for name:' + name);
                     area.createFromStarlingSprite(sp, name);
-                }
+//                }
             } else if (type == TYPE_TILES) {
-                area.createTiled(sp, name, sizeX, sizeY);
+//                area.createTiled(sp, name, sizeX, sizeY);
+                area.createFromStarlingSprite(sp, name);
             } else if (type == TYPE_FROM_ATLAS) {
-                if (_bitmapDataFromAtlas[name]) {
-                    area.createFromBitmapData(_bitmapDataFromAtlas[name], sp, name);
-                } else {
-                    Cc.error('ManagerHitArea getHitArea - no such bitmap for name:' + name);
+//                if (_bitmapDataFromAtlas[name]) {
+//                    area.createFromBitmapData(_bitmapDataFromAtlas[name], sp, name);
+//                } else {
+//                    Cc.error('ManagerHitArea getHitArea - no such bitmap for name:' + name);
                     area.createFromStarlingSprite(sp, name);
-                }
+//                }
             } else if (type == TYPE_RIDGE) {
-                area.createForRidge(sp, name, additional);
+                area.createFromStarlingSprite(sp, name);
             } else if (type == TYPE_SIMPLE) {
                 area.createSimple(sp, name);
             } else {
@@ -67,10 +68,10 @@ public class ManagerHitArea {
         }
     }
 
-    public function hasLoadedHitAreaByName(name:String):Boolean {
-        if (_obLoaded[name]) return true;
-        else return false;
-    }
+//    public function hasLoadedHitAreaByName(name:String):Boolean {
+//        if (_obLoaded[name]) return true;
+//        else return false;
+//    }
 
     public function deleteHitArea(name:String):void {
         if (_areas[name]) {
@@ -79,46 +80,46 @@ public class ManagerHitArea {
         }
     }
     
-    public function registerLoadedHitArea(response:ApplicationDomain):void {
-        var cl:Class;
-        var sp:flash.display.Sprite;
-        var arr:Array = ['order_area', 'aerial_tram', 'buildingBuild', 'sklad', 'chest', 'bbq_grill', 'bakery', 'dairy', 'feed_mill', 'fryer', 'juice_press', 'loom', 'pie_oven',
-                        'pizza_maker', 'smelter', 'smoke_house', 'sugar_mill', 'mine', 'apple1', 'apple2', 'apple3', 'cherry1', 'cherry2', 'cherry3',
-                        'blueberry1', 'blueberry2', 'blueberry3', 'raspberry1', 'raspberry2', 'raspberry3', 'newspaper', 'market', 'daily_bonus', 'cat_nail','confectionery',
-                        'ice_cream_maker', 'jam_machine', 'jeweler', 'toy_factory', 'yogurt_machine', 'arbor', 'beach_chair', 'bridge', 'dandelion', 'teleskope', 'tent',
-                        'trampoline', 'umbrella', 'well_white', 'well_yellow', 'ghost', 'witch_pot', 'scarecrow', 'picnic','kakao1', 'kakao2', 'kakao3',
-                        'lemon1', 'lemon2', 'lemon3', 'orange1', 'orange2', 'orange3', 'balabas', 'snowman', 'new_year_tree_1', 'new_year_tree_2', 'red_n', 'blue_n', 'heart_balabas', 'arbor_for_both'];
-        var n:Array = ['order_area', 'aerial_tram', 'buildingBuild', 'sklad', 'chest', 'bbq_grill', 'bakery', 'dairy', 'feed_mill', 'fryer', 'juice_press', 'loom', 'pie_oven',
-                        'pizza_maker', 'smelter', 'smoke_house', 'sugar_mill', 'mine', 'apple1', 'apple2', 'apple3', 'cherry1', 'cherry2', 'cherry3',
-                        'blueberry1', 'blueberry2', 'blueberry3', 'raspberry1', 'raspberry2', 'raspberry3', 'newspaper', 'market', 'daily_bonus', 'cat_nail','confectionery',
-                        'ice_cream_maker', 'jam_machine', 'jeweler', 'toy_factory', 'yogurt_machine', 'arbor', 'beach_chair', 'bridge', 'dandelion', 'teleskope', 'tent',
-                        'trampoline', 'umbrella', 'well_white', 'well_yellow', 'ghost', 'witch_pot', 'scarecrow', 'picnic','kakao1', 'kakao2', 'kakao3',
-                        'lemon1', 'lemon2', 'lemon3', 'orange1', 'orange2', 'orange3', 'balabas', 'snowman', 'new_year_tree_1', 'new_year_tree_2', 'red_n', 'blue_n', 'heart_balabas', 'arbor_for_both'];
-        for (var i:int=0; i<arr.length; i++) {
-            if (response.hasDefinition(arr[i])) {
-                cl = response.getDefinition(arr[i]) as Class;
-                sp = new cl();
-                _obLoaded[n[i]] = sp as flash.display.Sprite;
-            }
-        }
-    }
+//    public function registerLoadedHitArea(response:ApplicationDomain):void {
+//        var cl:Class;
+//        var sp:flash.display.Sprite;
+//        var arr:Array = ['order_area', 'aerial_tram', 'buildingBuild', 'sklad', 'chest', 'bbq_grill', 'bakery', 'dairy', 'feed_mill', 'fryer', 'juice_press', 'loom', 'pie_oven',
+//                        'pizza_maker', 'smelter', 'smoke_house', 'sugar_mill', 'mine', 'apple1', 'apple2', 'apple3', 'cherry1', 'cherry2', 'cherry3',
+//                        'blueberry1', 'blueberry2', 'blueberry3', 'raspberry1', 'raspberry2', 'raspberry3', 'newspaper', 'market', 'daily_bonus', 'cat_nail','confectionery',
+//                        'ice_cream_maker', 'jam_machine', 'jeweler', 'toy_factory', 'yogurt_machine', 'arbor', 'beach_chair', 'bridge', 'dandelion', 'teleskope', 'tent',
+//                        'trampoline', 'umbrella', 'well_white', 'well_yellow', 'ghost', 'witch_pot', 'scarecrow', 'picnic','kakao1', 'kakao2', 'kakao3',
+//                        'lemon1', 'lemon2', 'lemon3', 'orange1', 'orange2', 'orange3', 'balabas', 'snowman', 'new_year_tree_1', 'new_year_tree_2', 'red_n', 'blue_n', 'heart_balabas', 'arbor_for_both'];
+//        var n:Array = ['order_area', 'aerial_tram', 'buildingBuild', 'sklad', 'chest', 'bbq_grill', 'bakery', 'dairy', 'feed_mill', 'fryer', 'juice_press', 'loom', 'pie_oven',
+//                        'pizza_maker', 'smelter', 'smoke_house', 'sugar_mill', 'mine', 'apple1', 'apple2', 'apple3', 'cherry1', 'cherry2', 'cherry3',
+//                        'blueberry1', 'blueberry2', 'blueberry3', 'raspberry1', 'raspberry2', 'raspberry3', 'newspaper', 'market', 'daily_bonus', 'cat_nail','confectionery',
+//                        'ice_cream_maker', 'jam_machine', 'jeweler', 'toy_factory', 'yogurt_machine', 'arbor', 'beach_chair', 'bridge', 'dandelion', 'teleskope', 'tent',
+//                        'trampoline', 'umbrella', 'well_white', 'well_yellow', 'ghost', 'witch_pot', 'scarecrow', 'picnic','kakao1', 'kakao2', 'kakao3',
+//                        'lemon1', 'lemon2', 'lemon3', 'orange1', 'orange2', 'orange3', 'balabas', 'snowman', 'new_year_tree_1', 'new_year_tree_2', 'red_n', 'blue_n', 'heart_balabas', 'arbor_for_both'];
+//        for (var i:int=0; i<arr.length; i++) {
+//            if (response.hasDefinition(arr[i])) {
+//                cl = response.getDefinition(arr[i]) as Class;
+//                sp = new cl();
+//                _obLoaded[n[i]] = sp as flash.display.Sprite;
+//            }
+//        }
+//    }
 
-    public function registerFromAtlas(b:Bitmap, xl:XML):void {
-        var resultBD:BitmapData;
-        var ob:Object;
-        for each (var prop:XML in xl.SubTexture) {
-            resultBD = new BitmapData(int(prop.@width), int(prop.@height));
-            var m:Matrix = new Matrix();
-            m.translate(-int(prop.@x), -int(prop.@y));
-            resultBD.draw(b, m);
-            ob = {};
-            ob.x = int(prop.@x);
-            ob.y = int(prop.@y);
-            ob.width = int(prop.@width);
-            ob.height = int(prop.@height);
-            ob.bitmapData = resultBD;
-            _bitmapDataFromAtlas[prop.@name] = ob;
-        }
-    }
+//    public function registerFromAtlas(b:Bitmap, xl:XML):void {
+//        var resultBD:BitmapData;
+//        var ob:Object;
+//        for each (var prop:XML in xl.SubTexture) {
+//            resultBD = new BitmapData(int(prop.@width), int(prop.@height));
+//            var m:Matrix = new Matrix();
+//            m.translate(-int(prop.@x), -int(prop.@y));
+//            resultBD.draw(b, m);
+//            ob = {};
+//            ob.x = int(prop.@x);
+//            ob.y = int(prop.@y);
+//            ob.width = int(prop.@width);
+//            ob.height = int(prop.@height);
+//            ob.bitmapData = resultBD;
+//            _bitmapDataFromAtlas[prop.@name] = ob;
+//        }
+//    }
 }
 }

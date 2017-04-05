@@ -113,6 +113,18 @@ public class DrawToBitmap {
         }
         return resultBD;
     }
+
+    public static function scaleBitmapData(bitmapData:BitmapData, scale:Number):BitmapData {
+        scale = Math.abs(scale);
+        var width:int = (bitmapData.width * scale) || 1;
+        var height:int = (bitmapData.height * scale) || 1;
+        var transparent:Boolean = bitmapData.transparent;
+        var result:BitmapData = new BitmapData(width, height, transparent);
+        var matrix:Matrix = new Matrix();
+        matrix.scale(scale, scale);
+        result.draw(bitmapData, matrix);
+        return result;
+    }
     
 }
 }

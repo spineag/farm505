@@ -62,6 +62,7 @@ public class WOStarterPack extends WindowMain{
     }
 
     private function onLoad(bitmap:Bitmap):void {
+        if (!_source) return;
         var st:String = g.dataPath.getGraphicsPath();
         bitmap = g.pBitmaps[st + 'qui/sp_back_empty.png'].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
