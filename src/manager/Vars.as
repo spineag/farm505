@@ -273,6 +273,7 @@ public class Vars {
 
     public function initInterface():void {
         try {
+            (user as User).createNeighbor();
             cont.hideAll(true);
             startPreloader.setProgress(80);
             event = new OwnEvent();

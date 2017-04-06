@@ -4,7 +4,10 @@
 package temp.catCharacters {
 import heroes.OrderCat;
 
+import manager.Vars;
+
 public class DataCat {
+    private var g:Vars = Vars.getInstance();
     public static var BULAVKA:int = 1;
     public static var PRYAGA:int = 2;
     public static var PETELKA:int = 3;
@@ -33,14 +36,14 @@ public class DataCat {
         obj.type = BULAVKA;
         obj.color = OrderCat.BROWN;
         obj.isWoman = true;
-        obj.name = 'Булавка';
+        obj.name = String(g.managerLanguage.allTexts[992]);
         _arrCats.push(obj);
 
         obj = {};
         obj.type = PRYAGA;
         obj.color = OrderCat.GREEN;
         obj.isWoman = true;
-        obj.name = 'Пряжа';
+        obj.name = String(g.managerLanguage.allTexts[993]);
         _arrCats.push(obj);
 
 
@@ -48,7 +51,7 @@ public class DataCat {
         obj.type = PETELKA;
         obj.color = OrderCat.PINK;
         obj.isWoman = true;
-        obj.name = 'Петелька';
+        obj.name = String(g.managerLanguage.allTexts[994]);
         _arrCats.push(obj);
 
 
@@ -56,7 +59,7 @@ public class DataCat {
         obj.type = IGOLOCHKA;
         obj.color = OrderCat.BLACK;
         obj.isWoman = true;
-        obj.name = 'Иголочка';
+        obj.name = String(g.managerLanguage.allTexts[995]);
         _arrCats.push(obj);
 
 
@@ -64,7 +67,7 @@ public class DataCat {
         obj.type = SINTETIKA;
         obj.color = OrderCat.WHITE;
         obj.isWoman = true;
-        obj.name = 'Синтетика';
+        obj.name = String(g.managerLanguage.allTexts[996]);
         _arrCats.push(obj);
 
 
@@ -72,7 +75,7 @@ public class DataCat {
         obj.type = BUSINKA;
         obj.color = OrderCat.ORANGE;
         obj.isWoman = true;
-        obj.name = 'Бусинка';
+        obj.name = String(g.managerLanguage.allTexts[997]);
         obj.png = 'necklace';
         _arrCats.push(obj);
 
@@ -81,7 +84,7 @@ public class DataCat {
         obj.type = LENTOCHKA;
         obj.color = OrderCat.BLUE;
         obj.isWoman = true;
-        obj.name = 'Ленточка';
+        obj.name = String(g.managerLanguage.allTexts[998]);
         _arrCats.push(obj);
 
 //ПАЦАНЫ
@@ -90,7 +93,7 @@ public class DataCat {
         obj.type = IRIS;
         obj.color = OrderCat.BROWN;
         obj.isWoman = false;
-        obj.name = 'Ирис';
+        obj.name = String(g.managerLanguage.allTexts[999]);
         _arrCats.push(obj);
 
 
@@ -98,7 +101,7 @@ public class DataCat {
         obj.type = KRUCHOK;
         obj.color = OrderCat.GREEN;
         obj.isWoman = false;
-        obj.name = 'Крючок';
+        obj.name = String(g.managerLanguage.allTexts[1000]);
         obj.png = 'cepka';
         _arrCats.push(obj);
 
@@ -107,7 +110,7 @@ public class DataCat {
         obj.type = AKRIL;
         obj.color = OrderCat.PINK;
         obj.isWoman = false;
-        obj.name = 'Акрил';
+        obj.name = String(g.managerLanguage.allTexts[1001]);
         obj.png = 'sharf';
         _arrCats.push(obj);
 
@@ -116,7 +119,7 @@ public class DataCat {
         obj.type = YZELOK;
         obj.color = OrderCat.BLACK;
         obj.isWoman = false;
-        obj.name = 'Узелок';
+        obj.name = String(g.managerLanguage.allTexts[1002]);
         obj.png = 'galstuk';
         _arrCats.push(obj);
 
@@ -125,7 +128,7 @@ public class DataCat {
         obj.type = ASHUR;
         obj.color = OrderCat.WHITE;
         obj.isWoman = false;
-        obj.name = 'Ажур';
+        obj.name = String(g.managerLanguage.allTexts[1003]);
         _arrCats.push(obj);
 
 
@@ -133,7 +136,7 @@ public class DataCat {
         obj.type = NAPERSTOK;
         obj.color = OrderCat.ORANGE;
         obj.isWoman = false;
-        obj.name = 'Наперсток';
+        obj.name = String(g.managerLanguage.allTexts[1004]);
         _arrCats.push(obj);
 
 
@@ -141,7 +144,7 @@ public class DataCat {
         obj.type = STESHOK;
         obj.color = OrderCat.BLUE;
         obj.isWoman = false;
-        obj.name = 'Стежок';
+        obj.name = String(g.managerLanguage.allTexts[1005]);
         _arrCats.push(obj);
     }
 

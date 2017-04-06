@@ -2,7 +2,6 @@
  * Created by user on 3/8/17.
  */
 package manager {
-import windows.WindowsManager;
 
 public class ManagerLanguage {
     public var allTexts:Object;

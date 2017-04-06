@@ -67,12 +67,10 @@ public class User extends Someone {
         arrNoAppFriend = [];
         lastVisitAmbar = true;
         countAwayMouse = 0;
-        neighbor = new NeighborBot();
     }
 
-    public function set visitAmbar(b:Boolean):void  {
-        lastVisitAmbar = b;
-    }
+    public function set visitAmbar(b:Boolean):void  { lastVisitAmbar = b; }
+    public function createNeighbor():void { neighbor = new NeighborBot(); }
 
     public function checkUserLevel():void {
 //        var tempLevel:int;

@@ -195,7 +195,7 @@ public class MainBottomPanel {
         im.x = 60;
         im.y = 6;
         _homeBtn.addDisplayObject(im);
-        _txtHome = new CTextField(100, 70, "Домой");
+        _txtHome = new CTextField(100, 70, String(g.managerLanguage.allTexts[988]));
         _txtHome.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.ORANGE_COLOR);
         _txtHome.x = 105;
         _homeBtn.addChild(_txtHome);

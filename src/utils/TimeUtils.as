@@ -55,17 +55,28 @@ public class TimeUtils {
         var sec:uint = (seconds - day * 86400 - hour * 3600 - minutes * 60);
         var strCaption:String = '';
 
+        var d:String = 'д ';
+        var h:String = 'ч ';
+        var m:String = 'м ';
+        var s:String = 'с ';
+        if (g.user.language == 2) {
+            d='d ';
+            h ='h ';
+            m='m ';
+            s='s ';
+        }
+        
         if (day > 0) {
-            strCaption = day + 'д ';
+            strCaption = day + d;
         }
         if (hour > 0) {
-            strCaption += hour + 'ч ';
+            strCaption += hour + h;
         }
         if (minutes > 0) {
-            if (day <= 0) strCaption += minutes + 'м ';
+            if (day <= 0) strCaption += minutes + m;
         }
         if (sec > 0) {
-            if (day <= 0 && hour <= 0) strCaption += sec + 'с ';
+            if (day <= 0 && hour <= 0) strCaption += sec + s;
         }
 
         return strCaption;
