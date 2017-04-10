@@ -55,7 +55,7 @@ public class WOPapper extends WindowMain {
         _source.addChild(_contSprite);
         _btnRefreshGreen = new CButton();
         _btnRefreshGreen.addButtonTexture(130, 40, CButton.GREEN, true);
-        _txtBtn = new CTextField(100, 40, String(g.managerLanguage.allTexts[359]) + "1");
+        _txtBtn = new CTextField(100, 40, String(g.managerLanguage.allTexts[359]) + " 1");
         _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtBtn.x = 2;
         _btnRefreshGreen.addChild(_txtBtn);
