@@ -339,6 +339,10 @@
             <filename>ufo_icon.png</filename>
             <filename>swamp_5х5_icon.png</filename>
             <filename>grape_gnome_icon.png</filename>
+            <filename>gnome_alien_icon.png</filename>
+            <filename>flower_boot_icon.png</filename>
+            <filename>cat_cosmonaut_1_icon.png</filename>
+            <filename>cat_cosmonaut_2_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

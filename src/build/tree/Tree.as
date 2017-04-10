@@ -66,6 +66,7 @@ public class Tree extends WorldObject {
     private var _fruit2:Bone;
     private var _fruit3:Bone;
     private var _fruit4:Bone;
+    private var _timerHint:int;
 
     public function Tree(_data:Object) {
         super(_data);
@@ -124,9 +125,11 @@ public class Tree extends WorldObject {
                 } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW1;
                     _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
+                    _timerHint = _resourceItem.buildTime - ob.time_work;
                 } else {
                     _state = GROW_FLOWER1;
                     _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                    _timerHint = _resourceItem.buildTime - ob.time_work;
                 }
                 break;
             case GROW2:
@@ -137,9 +140,11 @@ public class Tree extends WorldObject {
                 } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW2;
                     _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
+                    _timerHint = _resourceItem.buildTime - ob.time_work;
                 } else {
                     _state = GROW_FLOWER2;
                     _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                    _timerHint = _resourceItem.buildTime - ob.time_work;
                 }
                 break;
             case GROW3:
@@ -150,9 +155,11 @@ public class Tree extends WorldObject {
                 } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW3;
                     _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
+                    _timerHint = _resourceItem.buildTime - ob.time_work;
                 } else {
                     _state = GROW_FLOWER3;
                     _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                    _timerHint = _resourceItem.buildTime - ob.time_work;
                 }
                 break;
             case GROW_FIXED:
@@ -163,9 +170,11 @@ public class Tree extends WorldObject {
                 } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
                     _state = GROW_FIXED;
                     _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
+                    _timerHint = _resourceItem.buildTime - ob.time_work;
                 } else {
                     _state = GROW_FIXED_FLOWER;
                     _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                    _timerHint = _resourceItem.buildTime - ob.time_work;
                 }
                 break;
             default:
@@ -586,12 +595,14 @@ public class Tree extends WorldObject {
             } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
                     _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER ||
                     _state == DEAD || _state == FULL_DEAD || _state == ASK_FIX) {
-                var time:int = _timeToEndState;
-                if (_timeToEndState == 0) {
-                    time += int(_resourceItem.buildTime);
-                    _timeToEndState = int(_resourceItem.buildTime / 2);
-                } else time += int(_resourceItem.buildTime /2 + .5);
-
+//                var time:int = _timeToEndState;
+//                if (_timeToEndState == 0) {
+//                    time += int(_resourceItem.buildTime);
+//                    _timeToEndState = int(_resourceItem.buildTime / 2);
+//                } else time += int(_resourceItem.buildTime /2 + .5);
+                if (_timerHint <= 0 && _state == GROW1 || _state == GROW2 || _state == GROW3) {
+                    startGrow();
+                }
                 var newX:int;
                 var newY:int;
                 if (_dataBuild.id == 25) { //Яблоня
@@ -708,7 +719,7 @@ public class Tree extends WorldObject {
                     g.wildHint.onDelete = deleteTree;
                     g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut,_dataBuild.buildType);
                 } else {
-                    g.timerHint.showIt(_source.height, newX, newY, _dataBuild.buildTime, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+                    g.timerHint.showIt(_source.height, newX, newY, _dataBuild.buildTime, _timerHint, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
                 }
                 _isClick = true;
             } else if (_state == FIXED) {
@@ -736,11 +747,14 @@ public class Tree extends WorldObject {
         } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
                 _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER ||
                 _state == DEAD || _state == FULL_DEAD || _state == ASK_FIX) {
-            var time:int = _timeToEndState;
-            if (_timeToEndState == 0) {
-                time += int(_resourceItem.buildTime);
-                _timeToEndState = int(_resourceItem.buildTime / 2);
-            } else time += int(_resourceItem.buildTime /2 + .5);
+//            var time:int = _timeToEndState;
+//            if (_timeToEndState == 0) {
+//                time += int(_resourceItem.buildTime);
+//                _timeToEndState = int(_resourceItem.buildTime / 2);
+//            } else time += int(_resourceItem.buildTime /2 + .5);
+            if (_timerHint <= 0 && _state == GROW1 || _state == GROW2 || _state == GROW3) {
+                startGrow();
+            }
             var newX:int;
             var newY:int;
             if (_dataBuild.id == 25) { //Яблоня
@@ -860,7 +874,7 @@ public class Tree extends WorldObject {
                 g.wildHint.onDelete = deleteTree;
                 g.wildHint.showIt(_source.height, newX, newY, _dataBuild.removeByResourceId, _dataBuild.name, onOut);
             } else {
-                g.timerHint.showIt(_source.height, newX, newY, _dataBuild.buildTime, time, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
+                g.timerHint.showIt(_source.height, newX, newY, _dataBuild.buildTime, _timerHint, _dataBuild.priceSkipHard, _dataBuild.name, callbackSkip, onOut);
             }
             _isClick = true;
         } else if (_state == FIXED) {
@@ -874,11 +888,13 @@ public class Tree extends WorldObject {
 
     private function startGrow():void {
         _timeToEndState = int(_resourceItem.buildTime / 2 + .5);
+        _timerHint = _resourceItem.buildTime;
         g.gameDispatcher.addToTimer(render);
     }
 
     private function render():void {
         _timeToEndState--;
+        _timerHint --;
         if (_timeToEndState <= 0) {
             switch (_state) {
                 case GROW1:

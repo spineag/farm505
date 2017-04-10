@@ -15,6 +15,8 @@ import flash.geom.Matrix;
 
 import flash.geom.Point;
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
+
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
 import manager.Vars;
@@ -111,6 +113,9 @@ public class WOFabricaWorkListItem {
             _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
             _txtSkip = new CTextField(100,35,"25");
             _txtSkip.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            if (g.user.language == ManagerLanguage.ENGLISH) {
+                _txtSkip.x = 12;
+            }
             _txtSkip.y = 9;
             _btnSkip.addChild(_txtSkip);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
@@ -122,8 +127,13 @@ public class WOFabricaWorkListItem {
             _btnSkip.y = 117;
             _txtForce = new CTextField(70,35,String(g.managerLanguage.allTexts[432]));
             _txtForce.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-            _txtForce.x = 10;
-            _txtForce.y = -8;
+            if (g.user.language == ManagerLanguage.ENGLISH) {
+                _txtForce.x = -2;
+//                _txtForce.y = -4;
+            } else {
+                _txtForce.x = 10;
+                _txtForce.y = -8;
+            }
             _btnSkip.addChild(_txtForce);
             _source.addChild(_btnSkip);
             _btnSkip.visible = false;

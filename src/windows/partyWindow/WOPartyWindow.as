@@ -118,9 +118,11 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(_btn);
 
             } else {
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_n'));
-                im.x = -im.width / 2 - 10;
-                im.y = -im.height / 2;
+                im = new Image(g.allData.atlas['partyAtlas'].getTexture('space_adventure_window'));
+//                im.x = -im.width / 2 - 10;
+//                im.y = -im.height / 2;
+                im.x = -im.width / 2 - 4;
+                im.y = -im.height / 2 - 12;
                 _source.addChild(im);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_baloon'));
                 im.x = -im.width / 2 - 295;
@@ -128,7 +130,7 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(im);
 
                 _txtName = new CTextField(_woWidth, 70, String(g.managerParty.name));
-                _txtName.setFormat(CTextField.BOLD30, 50, Color.RED, Color.WHITE);
+                _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
                 _txtName.alignH = Align.LEFT;
                 _txtName.x = -_txtName.textBounds.width/2;
                 _txtName.y = -215;
@@ -143,15 +145,20 @@ public class WOPartyWindow extends WindowMain{
                     _btn.y = 220;
                     _source.addChild(_btn);
                 }
-                _txtBabl = new CTextField(240,200,String(g.managerParty.description));
+                _txtBabl = new CTextField(220,200,String(g.managerParty.description));
                 _txtBabl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
                 _source.addChild(_txtBabl);
-                _txtBabl.x = -420;
-                _txtBabl.y = -240;
+                _txtBabl.x = -413;
+                _txtBabl.y = -235;
                 _source.addChild(_sprItem);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
-                im.x = -163;
-                im.y = 36;
+//                im.alpha = .5;
+//                im.x = -163;
+//                im.y = 36;
+
+                im.x = -158;
+                im.y = 31;
+
                 _source.addChild(im);
                 if (g.managerParty.typeParty == 3) {
                     im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_w'));
@@ -168,7 +175,7 @@ public class WOPartyWindow extends WindowMain{
                     if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
                         im = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
                         im.x = -59;
-                        im.y = 95;
+                        im.y = 75;
                         _source.addChild(im);
                         _countLoad = g.userInventory.getCountResourceById(g.managerParty.idResource);
                         _btnMinus = new CButton();
@@ -181,7 +188,7 @@ public class WOPartyWindow extends WindowMain{
                         im.y = 10;
                         _btnMinus.addDisplayObject(im);
                         _btnMinus.x = -79;
-                        _btnMinus.y = 145;
+                        _btnMinus.y = 125;
                         _source.addChild(_btnMinus);
                         if (_countLoad <= 1) _btnMinus.setEnabled = false;
                         _btnMinus.clickCallback = onClickMinus;
@@ -195,7 +202,7 @@ public class WOPartyWindow extends WindowMain{
                         im.y = 6;
                         _btnPlus.addDisplayObject(im);
                         _btnPlus.x = 50;
-                        _btnPlus.y = 145;
+                        _btnPlus.y = 125;
                         _source.addChild(_btnPlus);
                         if (_countLoad <= 0) _btnPlus.setEnabled = false;
                         _btnPlus.clickCallback = onClickPlus;
@@ -206,7 +213,7 @@ public class WOPartyWindow extends WindowMain{
                         _txtBtn.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
                         _btnLoad.addChild(_txtBtn);
                         _btnLoad.clickCallback = onClickLoad;
-                        _btnLoad.y = 205;
+                        _btnLoad.y = 198;
                         _source.addChild(_btnLoad);
                         if (_countLoad <= 0) _btnLoad.setEnabled = false;
                         if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
@@ -215,7 +222,7 @@ public class WOPartyWindow extends WindowMain{
                             im = new Image(g.allData.atlas['resourceAtlas'].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop + '_icon'));
                         }
                         MCScaler.scale(im, 80, 80);
-                        im.y = 110;
+                        im.y = 90;
                         im.x = -im.width / 2;
                         _source.addChild(im);
                         if (_countLoad > 0) {
@@ -231,7 +238,7 @@ public class WOPartyWindow extends WindowMain{
                         _txtCountLoad.alignH = Align.RIGHT;
                         _source.addChild(_txtCountLoad);
                         _txtCountLoad.x = -190;
-                        _txtCountLoad.y = 80;
+                        _txtCountLoad.y = 60;
                     }
                 }
             }
@@ -299,9 +306,9 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(_btn);
 
             } else {
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_n'));
-                im.x = -im.width / 2 - 10;
-                im.y = -im.height / 2;
+                im = new Image(g.allData.atlas['partyAtlas'].getTexture('space_adventure_window'));
+                im.x = -im.width / 2 - 4;
+                im.y = -im.height / 2 - 12;
                 _source.addChild(im);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_baloon'));
                 im.x = -im.width / 2 - 295;
@@ -309,7 +316,7 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(im);
 
                 _txtName = new CTextField(_woWidth, 70, String(g.managerParty.name));
-                _txtName.setFormat(CTextField.BOLD30, 50, Color.RED, Color.WHITE);
+                _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
                 _txtName.alignH = Align.LEFT;
                 _txtName.x = -_txtName.textBounds.width/2;
                 _txtName.y = -215;
@@ -324,15 +331,19 @@ public class WOPartyWindow extends WindowMain{
                     _btn.y = 220;
                     _source.addChild(_btn);
                 }
-                _txtBabl = new CTextField(240,200,String(g.managerParty.description));
+                _txtBabl = new CTextField(220,200,String(g.managerParty.description));
                 _txtBabl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
                 _source.addChild(_txtBabl);
-                _txtBabl.x = -420;
-                _txtBabl.y = -240;
+                _txtBabl.x = -413;
+                _txtBabl.y = -235;
                 _source.addChild(_sprItem);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
-                im.x = -163;
-                im.y = 36;
+                im.alpha = .5;
+//                im.x = -163;
+//                im.y = 36;
+
+                im.x = -158;
+                im.y = 31;
                 _source.addChild(im);
                 if (g.managerParty.typeParty == 3) {
                     im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_w'));
@@ -526,20 +537,20 @@ public class WOPartyWindow extends WindowMain{
 
         _imTime = new Image(g.allData.atlas['partyAtlas'].getTexture('valik_timer'));
         _imTime.x = 275;
-        _imTime.y = -185;
+        _imTime.y = -205;
         _source.addChild(_imTime);
         _sprItem.x = -195;
-        _sprItem.y = -120;
+        _sprItem.y = -125;
 
         _txtTimeLost = new CTextField(120,60,String(g.managerLanguage.allTexts[357]));
         _txtTimeLost.setFormat(CTextField.BOLD18, 16, 0xff7575);
         _source.addChild(_txtTimeLost);
         _txtTimeLost.x = 287;
-        _txtTimeLost.y = -163;
+        _txtTimeLost.y = -183;
         _txtTime = new CTextField(120,60,'');
         _txtTime.setFormat(CTextField.BOLD18, 24, 0xd30102);
         _txtTime.x = 286;
-        _txtTime.y = -130;
+        _txtTime.y = -150;
         _source.addChild(_txtTime);
         g.gameDispatcher.addToTimer(startTimer);
 

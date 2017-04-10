@@ -283,23 +283,29 @@ public class WOTrainItem {
     }
 
     public function get idFree():int {
-        return _info.id;
+        if (_info) return _info.id;
+        else return 1;
     }
 
     public function get countFree():int {
-        return _info.count;
+        if (_info) return _info.count;
+        else return 1;
+
     }
 
     public function get needHelp():Boolean {
-        return _info.needHelp;
+        if (_info) return _info.needHelp;
+        else return false;
     }
 
     public function get idWhoHelp():String {
-        return _info.helpId;
+        if (_info) return _info.helpId;
+        else return ' ';
     }
 
     public function get trainDbId():String {
-        return _info.item_db_id;
+        if (_info) return _info.item_db_id;
+        else return '';
     }
 
     public function onClickHelpMePls():void {

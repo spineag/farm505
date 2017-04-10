@@ -4,6 +4,8 @@
 package manager {
 
 public class ManagerLanguage {
+    public static const RUSSIAN:int = 1;
+    public static const ENGLISH:int = 2;
     public var allTexts:Object;
     private var g:Vars = Vars.getInstance();
     private var _callback:Function;

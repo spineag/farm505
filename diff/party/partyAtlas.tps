@@ -197,14 +197,13 @@
             <filename>progress.png</filename>
             <filename>valik_timer.png</filename>
             <filename>hint_button.png</filename>
-            <filename>event_window_n.png</filename>
             <filename>new_event_window_l.png</filename>
             <filename>event_window_w.png</filename>
             <filename>new_event_window_r.png</filename>
             <filename>event_window_baloon.png</filename>
             <filename>new_event_window_r_2.png</filename>
-            <filename>event_icon.png</filename>
-            <filename>grape_mood_icon.png</filename>
+            <filename>space_adventure_icon.png</filename>
+            <filename>space_adventure_window.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

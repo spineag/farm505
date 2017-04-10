@@ -97,9 +97,9 @@ public class CatPanel {
 //        ob.idResource = 15;
 //        ob.typeBuilding = BuildType.ORDER;
 //        ob.coefficient = 5;
-//        ob.typeParty = 1;
-//        ob.name = 'Erynda';
-//        ob.description = 'Blalbllalalbllalalbllalalalblalalal';
+//        ob.typeParty = 4;
+//        ob.name = 'Блинный путь';
+//        ob.description = 'Накорми пришельцев и получи награду';
 //        ob.idGift = [];
 //        ob.idGift[0] = 2;
 //        ob.idGift[1] = 1;

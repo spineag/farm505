@@ -138,15 +138,15 @@ public class WOPartyWindowItem {
         _txtCountUser.y = 130;
         if (_txtCountUser) {
             if (number == 1) {
-                _txtCountUser.x = 18;
+                _txtCountUser.x = 22;
             } else if (number == 2) {
-                _txtCountUser.x = 11;
+                _txtCountUser.x = 15;
             } else if (number == 3) {
-                _txtCountUser.x = 5;
+                _txtCountUser.x = 10;
             } else if (number == 4) {
-                _txtCountUser.x = -3;
+//                _txtCountUser.x = 1;
             }else if (number == 5) {
-                _txtCountUser.x = -11;
+                _txtCountUser.x = -6;
             }
         }
         var _quad:Quad;
@@ -187,15 +187,15 @@ public class WOPartyWindowItem {
         }
         if (_quad) {
             if (number == 1) {
-                _quad.x = 44;
+                _quad.x = 50;
             } else if (number == 2) {
-                _quad.x = 37;
+                _quad.x = 43;
             } else if (number == 3) {
-                _quad.x = 31;
+                _quad.x = 36;
             } else if (number == 4) {
-                _quad.x = 23;
+                _quad.x = 28;
             }else if (number == 5) {
-                _quad.x = 16;
+                _quad.x = 20;
             }
         }
     }

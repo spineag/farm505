@@ -288,6 +288,10 @@
             <filename>well_white.png</filename>
             <filename>well_yellow.png</filename>
             <filename>grape_gnome.png</filename>
+            <filename>cat_cosmonaut_1.png</filename>
+            <filename>cat_cosmonaut_2.png</filename>
+            <filename>flower_boot.png</filename>
+            <filename>gnome_alien.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
