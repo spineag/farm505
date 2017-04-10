@@ -259,7 +259,6 @@ public class TimerHint {
     public function managerHide(callback:Function = null):void {
         if (_isShow) {
             if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ANIMAL_SKIP) return;
-
             _closeTime = 1;
             var tween:Tween = new Tween(_source, 0.1);
             tween.scaleTo(0);

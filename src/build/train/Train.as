@@ -45,7 +45,6 @@ public class Train extends WorldObject{
     private var _isOnHover:Boolean;
     private var _armatureOpenBoom:Armature;
     private var _arriveAnim:ArrivedAnimation;
-//    private var _countTimer:int;
     private var _bolAnimation:Boolean;
     private var _fullTrain:Boolean;
     private var _sprHelp:CSprite;
@@ -61,18 +60,21 @@ public class Train extends WorldObject{
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no data for Train');
             return;
         }
-
         _buildingBuildSprite = new Sprite();
         _source.addChild(_buildingBuildSprite);
+        _stateBuild = STATE_DEFAULT_UNKNOWN;
        checkTrainState();
         _source.releaseContDrag = true;
-//        if (g.isAway) {
-//        }
     }
 
-    public function fillItDefault():void {
-        createAnimatedBuild(onCreateBuild);
-    }
+    public function fillItDefault():void { createAnimatedBuild(onCreateBuild); }
+    private function onResetPack():void { g.directServer.getTrainPack(g.user.userSocialId, fillList); }
+    private function onNewStateWait():void { g.directServer.releaseUserTrainPack(_train_db_id, onResetPack); }
+    private function afterWork():void { makeIdleAnimation(); }
+    private function onOpenTrain(value:Boolean):void { g.directServer.addUserTrain(onAddUserTrain); }
+    private function onUpdate():void { g.directServer.getTrainPack(g.user.userSocialId, fillList); }
+    private function startRenderTrainWork():void { g.gameDispatcher.addToTimer(render); }
+    public function set trainFull(b:Boolean):void { _fullTrain = b; }
 
     public function fillFromServer(ob:Object):void {
         if (!g.isAway) {
@@ -87,7 +89,6 @@ public class Train extends WorldObject{
                     _counter = TIME_WAIT - int(ob.time_work);
                 }
                 g.directServer.getTrainPack(g.user.userSocialId, fillList);
-                createAnimatedBuild(onCreateBuild);
             } else if (_stateBuild == STATE_READY) {
                 if (int(ob.time_work) > TIME_READY) {
                     _stateBuild = STATE_WAIT_BACK;
@@ -97,26 +98,14 @@ public class Train extends WorldObject{
                     _counter = TIME_READY - int(ob.time_work);
                 }
                 g.directServer.getTrainPack(g.user.userSocialId, fillList);
-                createAnimatedBuild(onCreateBuild);
             } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
-                // do nothing
             } else if (_stateBuild == STATE_BUILD) {
-                // do nothing
             } else if (_stateBuild == STATE_UNACTIVE) {
-                // do nothing
             } else {
                 Cc.error('Train:: wrong state');
             }
         }
-    }
-
-    private function onNewStateWait():void {
-        trace('onNewStateWait');
-        g.directServer.releaseUserTrainPack(_train_db_id, onResetPack);
-    }
-
-    private function onResetPack():void {
-        g.directServer.getTrainPack(g.user.userSocialId, fillList);
+        createAnimatedBuild(onCreateBuild);
     }
 
     private function arriveTrain():void {
@@ -133,10 +122,6 @@ public class Train extends WorldObject{
         _armature.animation.gotoAndPlayByFrame('work');
         _arriveAnim.makeAwayKorzina(afterWork);
         _bolAnimation = true;
-    }
-
-    private function afterWork():void {
-        makeIdleAnimation();
     }
 
     private function makeIdleAnimation(e:Event=null):void {
@@ -158,87 +143,76 @@ public class Train extends WorldObject{
     }
 
     private function checkTrainState():void {
-//        try {
-            if (g.isAway) {
-                if (g.visitedUser) {
-                    var ar:Array = g.visitedUser.userDataCity.objects;
-                    for (var i:int=0; i<ar.length; i++) {
-                        if (_dataBuild.id == ar[i].buildId) {
-                            _stateBuild = int(ar[i].state);
-                            break;
-                        }
+        if (g.isAway) {
+            if (g.visitedUser) {
+                var ar:Array = g.visitedUser.userDataCity.objects;
+                for (var i:int=0; i<ar.length; i++) {
+                    if (_dataBuild.id == ar[i].buildId) {
+                        _stateBuild = int(ar[i].state);
+                        break;
                     }
-                    createAnimatedBuild(onCreateBuild);
-                }
-            } else {
-                if (g.user.userBuildingData[_dataBuild.id]) {
-                    if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
-                        _stateBuild = STATE_ACTIVE;
-                    } else {
-                        _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
-                        _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
-                        if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
-                            _stateBuild = STATE_WAIT_ACTIVATE;
-                            _build.visible = false;
-                            addDoneBuilding();
-                            if (_arriveAnim) _arriveAnim.visible = false;
-                        } else {  // еще строится
-                            _stateBuild = STATE_BUILD;
-                            addFoundationBuilding();
-                            if (_arriveAnim) _arriveAnim.visible = false;
-                            _build.visible = false;
-                            g.gameDispatcher.addToTimer(renderBuildTrainProgress);
-                        }
-                    }
-                } else {
-                    _stateBuild = STATE_UNACTIVE;
                 }
             }
-//        } catch (e:Error) {
-//            Cc.error('checkTrainState:: ' + e.errorID + ' - ' + e.message);
-//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'checkTrainState');
-//        }
+        } else {
+            if (g.user.userBuildingData[_dataBuild.id]) {
+                if (g.user.userBuildingData[_dataBuild.id].isOpen) {        // уже построенно и открыто
+                    _stateBuild = STATE_ACTIVE;
+                    if (_arriveAnim) _arriveAnim.visible = true;
+                } else {
+                    _leftBuildTime = Number(g.user.userBuildingData[_dataBuild.id].timeBuildBuilding);  // сколько времени уже строится
+                    _leftBuildTime = _dataBuild.buildTime[0] - _leftBuildTime;                                 // сколько времени еще до конца стройки
+                    if (_leftBuildTime <= 0) {  // уже построенно, но не открыто
+                        _stateBuild = STATE_WAIT_ACTIVATE;
+                        _build.visible = false;
+                        addDoneBuilding();
+                    } else {  // еще строится
+                        _stateBuild = STATE_BUILD;
+                        addFoundationBuilding();
+                        _build.visible = false;
+                        g.gameDispatcher.addToTimer(renderBuildTrainProgress);
+                    }
+                }
+            } else {
+                _stateBuild = STATE_UNACTIVE;
+                if (_arriveAnim) _arriveAnim.visible = true;
+            }
+        }
     }
 
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
         _hitArea = g.managerHitArea.getHitArea(_source, 'aerial_tram', ManagerHitArea.TYPE_LOADED);
         _source.registerHitArea(_hitArea);
+        if (!_arriveAnim) _arriveAnim = new ArrivedAnimation(_source);
         if (g.isAway) {
-            createBrokenTrain();
-            _arriveAnim = new ArrivedAnimation(_source);
-            if (_arriveAnim) _arriveAnim.visible = true;
+            _arriveAnim.visible = true;
             if (_stateBuild == STATE_UNACTIVE) {
                 createBrokenTrain();
-//                _arriveAnim = new ArrivedAnimation(_source);
             } else if (_stateBuild == STATE_READY) {
-//                _arriveAnim = new ArrivedAnimation(_source);
                 onArrivedKorzina();
             } else if (_stateBuild == STATE_WAIT_BACK) {
-//                _arriveAnim = new ArrivedAnimation(_source);
                 makeIdleAnimation();
             }
         } else {
             if (_stateBuild == STATE_UNACTIVE) {
                 createBrokenTrain();
-                _arriveAnim = new ArrivedAnimation(_source);
+                _arriveAnim.visible = true;
             } else if (_stateBuild == STATE_READY) {
-                _arriveAnim = new ArrivedAnimation(_source);
+                _arriveAnim.visible = true;
                 onArrivedKorzina();
                 startRenderTrainWork();
             } else if (_stateBuild == STATE_WAIT_BACK) {
-                _arriveAnim = new ArrivedAnimation(_source);
+                _arriveAnim.visible = true;
                 makeIdleAnimation();
                 startRenderTrainWork();
+            } else if (_stateBuild == STATE_BUILD || _stateBuild == STATE_WAIT_ACTIVATE) {
+                _arriveAnim.visible = false;
             }
         }
-
-
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
 
-//        if (g.user.level < _dataBuild.blockByLevel[0]) return;
         if (g.isAway) {
             var f1:Function = function (ob:Object, t:Train):void {
                 fillList(ob);
@@ -249,6 +223,7 @@ public class Train extends WorldObject{
 
     private function createBrokenTrain():void {
         _build.visible = true;
+        _arriveAnim.visible = false;
         if (_armature) _armature.animation.gotoAndStopByFrame('close');
     }
 
@@ -279,8 +254,6 @@ public class Train extends WorldObject{
         } else if (_stateBuild == STATE_BUILD) {
             _buildingBuildSprite.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             buildingBuildFoundationOver();
-//            _countTimer = 5;
-//            g.gameDispatcher.addEnterFrame(countEnterFrame);
         } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
             _buildingBuildSprite.filter = ManagerFilters.BUILDING_HOVER_FILTER;
             buildingBuildDoneOver();
@@ -289,27 +262,9 @@ public class Train extends WorldObject{
         _isOnHover = true;
     }
 
-//    private function countEnterFrame():void {
-//        _countTimer--;
-//        if (_countTimer <= 0) {
-//            g.gameDispatcher.removeEnterFrame(countEnterFrame);
-//            if (_isOnHover == true) {
-//                g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/9) * g.currentGameScale, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
-//                g.hint.hideIt();
-//            }
-//            if (_isOnHover == false) {
-//                _source.filter = null;
-//                g.timerHint.hideIt();
-//                g.gameDispatcher.removeEnterFrame(countEnterFrame);
-//            }
-//        }
-//    }
-
     private function onClick():void {
         if (_bolAnimation) return;
-//        if (g.isAway) return;
         if (g.isAway) {
-//            if (g.user.level < _dataBuild.blockByLevel[0]) return;
             if (_stateBuild == STATE_READY) {
                 onOut();
                 if (list.length) {
@@ -346,18 +301,7 @@ public class Train extends WorldObject{
             return;
         }
         if (_stateBuild == STATE_BUILD) {
-            if (g.timerHint.isShow) {
-                g.timerHint.managerHide(openHint);
-                return;
-            }
-            else if (g.wildHint.isShow){
-                g.wildHint.managerHide(openHint);
-                return;
-            }
-            else if (g.treeHint.isShow) {
-                g.treeHint.managerHide(openHint);
-                return;
-            }
+            g.hideAllHints();
             g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/9) * g.currentGameScale,_dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
             g.hint.hideIt();
         }
@@ -426,26 +370,14 @@ public class Train extends WorldObject{
             startRenderTrainWork();
             onOut();
             clearBuildingBuildSprite();
-            while (_build.numChildren) {
-                _build.removeChildAt(0);
-            }
-            while (_source.numChildren) {
-                _source.removeChildAt(0);
-            }
-            createAnimatedBuild(onJustOpenedTrain);
+            onJustOpenedTrain();
             showBoom();
             g.soundManager.playSound(SoundConst.OPEN_BUILD);
         }
     }
 
-    private function openHint():void {
-        g.timerHint.showIt(90,g.cont.gameCont.x + _source.x * g.currentGameScale,  g.cont.gameCont.y + (_source.y - _source.height/9) * g.currentGameScale, _dataBuild.buildTime, _leftBuildTime, _dataBuild.priceSkipHard, _dataBuild.name,callbackSkip,onOut);
-        g.hint.hideIt();
-    }
-
     private function onJustOpenedTrain():void {
         _build.visible = true;
-        if (!_arriveAnim) _arriveAnim = new ArrivedAnimation(_source);
         _arriveAnim.visible = true;
         _arriveAnim.makeArriveKorzina(onArrivedKorzina);
         WorldClock.clock.add(_armature);
@@ -453,17 +385,9 @@ public class Train extends WorldObject{
         _bolAnimation = true;
     }
 
-    private function onOpenTrain(value:Boolean):void {
-        g.directServer.addUserTrain(onAddUserTrain);
-    }
-
     private function onAddUserTrain(s_id:String):void {
         _train_db_id = s_id;
         g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onUpdate);
-    }
-
-    private function onUpdate():void {
-        g.directServer.getTrainPack(g.user.userSocialId, fillList);
     }
 
     private function onBuy():void {
@@ -488,10 +412,6 @@ public class Train extends WorldObject{
         _build.filter = null;
         g.hint.hideIt();
         _isOnHover = false;
-//        if (_stateBuild == STATE_BUILD) {
-//            g.gameDispatcher.addEnterFrame(countEnterFrame);
-////            g.timerHint.hideIt();
-//        }
     }
 
     public function get allXPCount():int {
@@ -510,7 +430,6 @@ public class Train extends WorldObject{
 
     private function fillList(ob:Object,t:Train = null):void {
         _dataPack = ob;
-
         list = [];
         for (var i:int=0; i<_dataPack.items.length; i++) {
             list.push(new TrainCell(_dataPack.items[i]));
@@ -543,8 +462,6 @@ public class Train extends WorldObject{
     }
 
     public function fullTrain(free:Boolean):void {
-        //fillList(_dataPack);
-        //g.woTrain.showItWithParams(list, this);
         g.directServer.releaseUserTrainPack(_train_db_id, onReleasePack);
         if (free){
             onOut();
@@ -576,17 +493,10 @@ public class Train extends WorldObject{
     private function onReleasePack():void {
         _stateBuild = STATE_WAIT_BACK;
         g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
-
         _counter = TIME_WAIT;
         leaveTrain();
-//        list = [];
-//        g.directServer.getUserTrain(null);
         g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
         _fullTrain = false;
-    }
-
-    private function startRenderTrainWork():void {
-        g.gameDispatcher.addToTimer(render);
     }
 
     private function render():void {
@@ -615,10 +525,6 @@ public class Train extends WorldObject{
                 Cc.error('renderTrainWork:: wrong _stateBuild');
             }
         }
-    }
-
-    public function set trainFull(b:Boolean):void {
-        _fullTrain = b;
     }
 
     override public function clearIt():void {
@@ -681,7 +587,6 @@ public class Train extends WorldObject{
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
         _sprHelp.addChild(im);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
-//        MCScaler.scale(im,im.height-5,im.width-5);
         _sprHelp.addChild(im);
         im.x = 21;
         im.y = 20;

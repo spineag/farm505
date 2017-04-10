@@ -20,14 +20,10 @@ public class ArrivedAnimation {
     private var g:Vars = Vars.getInstance();
     private var _callback:Function;
 
-    // 6 <- 5 <- 4
-    // 1 -> 2 -> 3   moving basket
-    private var _lenta1:ArrivedLenta;
-    private var _lenta2:ArrivedLenta;
-    private var _lenta3:ArrivedLenta;
-    private var _lentaBack4:ArrivedLenta;
-    private var _lentaBack5:ArrivedLenta;
-    private var _lentaBack6:ArrivedLenta;
+    // <- lentaBack
+    // lenta1    ->       moving basket
+    private var _lenta:ArrivedLenta;
+    private var _lentaBack:ArrivedLenta;
 
     public function ArrivedAnimation(p:TownAreaBuildSprite) {
         _parent = p;
@@ -83,80 +79,40 @@ public class ArrivedAnimation {
     }
 
     private function createLentaFront():void {
-        _lenta3 = new ArrivedLenta(-82*g.scaleFactor, -228*g.scaleFactor, -888*g.scaleFactor, 166*g.scaleFactor, _mediumSprite, true);
-        _lenta3.setEmptyState();
-
-        _lenta2 = new ArrivedLenta(-888*g.scaleFactor, 158*g.scaleFactor, -1694*g.scaleFactor, 548*g.scaleFactor, _mediumSprite, true);
-        _lenta2.setEmptyState();
-
-        _lenta1 = new ArrivedLenta(-1694*g.scaleFactor, 548*g.scaleFactor, -2500*g.scaleFactor, 938*g.scaleFactor, _mediumSprite, true);
-        _lenta1.setEmptyState();
+        _lenta = new ArrivedLenta(-82*g.scaleFactor, -228*g.scaleFactor, -2500*g.scaleFactor, 938*g.scaleFactor, _mediumSprite, true);
     }
 
     private function createLentaBack():void {
-        _lentaBack4 = new ArrivedLenta(-144*g.scaleFactor, -270*g.scaleFactor, -952*g.scaleFactor, 124*g.scaleFactor, _bottomSprite, false);
-        _lentaBack4.setEmptyState();
-
-        _lentaBack5 = new ArrivedLenta(-952*g.scaleFactor, 124*g.scaleFactor, -1756*g.scaleFactor, 512*g.scaleFactor, _bottomSprite, false);
-        _lentaBack5.setEmptyState();
-
-        _lentaBack6 = new ArrivedLenta(-1756*g.scaleFactor, 512*g.scaleFactor, -2560*g.scaleFactor, 900*g.scaleFactor, _bottomSprite, false);
-        _lentaBack6.setEmptyState();
+        _lentaBack = new ArrivedLenta(-144*g.scaleFactor, -270*g.scaleFactor, -2560*g.scaleFactor, 900*g.scaleFactor, _bottomSprite, false);
     }
 
     public function makeArriveKorzina(f:Function):void {
-        _callback = f;
-        _lenta1.startAnimateKorzina(f1);
-    }
-
-    private function f1():void {
-        _lenta2.startAnimateKorzina(f2);
-    }
-
-    private function f2():void {
-        _lenta3.startAnimateKorzina(f3, true);
-    }
-
-    private function f3():void {
-        if (_callback != null) {
-            _callback.apply();
-        }
+        _lenta.startAnimateKorzina(f);
     }
 
     public function makeAwayKorzina(f:Function):void {
         _callback = f;
-        _lenta3.directAway(f0);
+        _lenta.directAway(f0);
     }
 
     private function f0():void {
-        _lentaBack4.startAnimateKorzina(f4);
+        _lentaBack.startAnimateKorzina(fBackEnd);
     }
 
-    private function f4():void {
-        _lentaBack5.startAnimateKorzina(f5);
-    }
-
-    private function f5():void {
-        _lentaBack6.startAnimateKorzina(f6);
-    }
-
-    private function f6():void {
+    private function fBackEnd():void {
         if (_callback != null) {
             _callback.apply();
+            _callback = null;
         }
     }
 
     public function showKorzina():void {
-        _lenta3.showDirectKorzina();
+        _lenta.showDirectKorzina();
     }
 
     public function deleteIt():void {
-        _lenta1.deleteIt();
-        _lenta2.deleteIt();
-        _lenta3.deleteIt();
-        _lentaBack4.deleteIt();
-        _lentaBack5.deleteIt();
-        _lentaBack6.deleteIt();
+        _lenta.deleteIt();
+        _lentaBack.deleteIt();
         _bottomSprite.dispose();
         _mediumSprite.dispose();
         _topSprite.dispose();
