@@ -6,6 +6,7 @@ package hint {
 import flash.geom.Rectangle;
 
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
 import manager.Vars;
 
 import starling.animation.Tween;
@@ -98,6 +99,7 @@ public class Hint {
 //            };
 //            g.starling.juggler.add(tween);
         } else {
+
             _txtHint.width = 150;
         }
         rectangle = _txtHint.textBounds;
@@ -116,7 +118,9 @@ public class Hint {
         if (_fabric) bg = new HintBackground(int(rectangle.width) + 22, int(rectangle.height) + 30);
         else bg = new HintBackground(int(rectangle.width) + 22, int(rectangle.height) + 12);
         if (_catXp) {
-            _txtHint.x = int(bg.x) + 8;
+            if (g.user.language == ManagerLanguage.ENGLISH) _txtHint.x = int(bg.x) +2;
+            else _txtHint.x = int(bg.x) + 8;
+
         }
         source.addChild(bg);
         source.addChild(_txtHint);
