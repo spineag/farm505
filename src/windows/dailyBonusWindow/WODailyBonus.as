@@ -60,12 +60,25 @@ public class WODailyBonus extends WindowMain {
                 _koleso.x = 0;
                 _koleso.y = 14;
                 _source.addChild(_koleso);
-                _namePng = 'qui/wheels_of_fortune_text.png';
+                if (g.user.language == 1) {
+                    _namePng = 'qui/wheels_of_fortune_text.png';
+                } else {
+                    _namePng = 'qui/wheels_of_fortune_text_eng.png';
+                }
                 g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
                  break;
             case 'qui/wheels_of_fortune_text.png':
                 im = new Image(tex);
                 im.x = -186;
+                im.y = -284;
+                im.touchable = false;
+                _source.addChild(im);
+                _namePng = 'qui/wheels_of_fortune_str.png';
+                g.load.loadImage(g.dataPath.getGraphicsPath() + _namePng,onLoad);
+                break;
+            case 'qui/wheels_of_fortune_text_eng.png':
+                im = new Image(tex);
+                im.x = -151;
                 im.y = -284;
                 im.touchable = false;
                 _source.addChild(im);
@@ -123,7 +136,7 @@ public class WODailyBonus extends WindowMain {
         var im:Image;
         _btnFree = new CButton();
         _btnFree.addButtonTexture(146, 40, CButton.BLUE, true);
-        _txtBtnBuy2  = new CTextField(146, 40, 'Вращать колесо');
+        _txtBtnBuy2  = new CTextField(146, 40, String(g.managerLanguage.allTexts[1006]));
         _txtBtnBuy2.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _btnFree.addChild(_txtBtnBuy2);
         _btnFree.y = 260;
@@ -131,7 +144,7 @@ public class WODailyBonus extends WindowMain {
 
         _btnBuy = new CButton();
         _btnBuy.addButtonTexture(200, 40, CButton.GREEN, true);
-        _txtBtnBuy = new CTextField(170, 40, 'Вращать колесо за 10');
+        _txtBtnBuy = new CTextField(170, 40, String(g.managerLanguage.allTexts[1006]) +  ' 10');
         _txtBtnBuy.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnBuy.addChild(_txtBtnBuy);
         _btnBuy.y = 260;

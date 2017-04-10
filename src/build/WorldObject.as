@@ -29,6 +29,7 @@ public class WorldObject {
     public static var STATE_BUILD:int = 2;          // состояние стройки
     public static var STATE_WAIT_ACTIVATE:int = 3;  // построенное, но еще не открытое
     public static var STATE_ACTIVE:int = 4;         // активное состояние, после стройки
+    public static var STATE_DEFAULT_UNKNOWN:int = 0;// еще не определенное
 
     protected var _dataBuild:Object;
     protected var _flip:Boolean;

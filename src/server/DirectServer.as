@@ -2724,7 +2724,6 @@ public class DirectServer {
     public function getUserTrain(callback:Function):void {
         var tr:Train = g.townArea.getCityObjectsByType(BuildType.TRAIN)[0];
         if (g.user.level < 17) {
-
             Cc.ch('server', 'getUserTrain:: g.user.level < 17', 1);
             if (tr) tr.fillItDefault();
             if (callback != null) {
@@ -2732,7 +2731,6 @@ public class DirectServer {
             }
             return;
         }
-
         if (!tr || tr.stateBuild < 4) {
             Cc.ch('server', 'getUserTrain:: train.stateBuild < 4', 1);
             if (tr) tr.fillItDefault();
