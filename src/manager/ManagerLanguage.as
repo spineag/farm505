@@ -24,8 +24,8 @@ public class ManagerLanguage {
 
     public function changeLanguage(v:int):void {
         if (g.user.language == v) return;
-        if (g.user.language == 1) g.user.language = 2;
-            else g.user.language = 1;
+        if (g.user.language == RUSSIAN) g.user.language = ENGLISH;
+            else g.user.language = RUSSIAN;
         g.directServer.changeLanguage(g.socialNetwork.reloadGame);
     }
 }

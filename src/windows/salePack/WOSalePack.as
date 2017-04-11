@@ -101,7 +101,7 @@ public class WOSalePack extends WindowMain{
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
             st = ' ' + String(g.managerLanguage.allTexts[330]);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
-            st = ' $';
+            st = ' USD';
         }
 
         _txtOldCost = new CTextField(200,60,String(g.managerSalePack.dataSale.oldCost) + st);

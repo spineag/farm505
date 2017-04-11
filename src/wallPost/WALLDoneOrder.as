@@ -6,6 +6,8 @@ import flash.display.Bitmap;
 
 import loaders.PBitmap;
 
+import manager.ManagerLanguage;
+
 import manager.Vars;
 
 import social.SocialNetworkSwitch;
@@ -26,7 +28,7 @@ public class WALLDoneOrder {
             stUrl = g.dataPath.getGraphicsPath() + 'wall/ok/wall_OK_1.jpg';
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[467]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            if (g.user.language == 1) {
+            if (g.user.language == ManagerLanguage.RUSSIAN) {
                 stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_1.jpg';
             } else {
                 stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_1_eng.jpg';

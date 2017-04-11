@@ -1,4 +1,5 @@
 package utils {
+import manager.ManagerLanguage;
 import manager.Vars;
 
 public class TimeUtils {
@@ -59,7 +60,7 @@ public class TimeUtils {
         var h:String = 'ч ';
         var m:String = 'м ';
         var s:String = 'с ';
-        if (g.user.language == 2) {
+        if (g.user.language == ManagerLanguage.ENGLISH) {
             d='d ';
             h ='h ';
             m='m ';

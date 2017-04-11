@@ -15,6 +15,7 @@ import loaders.PBitmap;
 import manager.ManagerFabricaRecipe;
 
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
 import manager.Vars;
 
 import social.SocialNetworkSwitch;
@@ -38,7 +39,7 @@ public class WALLNewLevel {
             stUrl = g.dataPath.getGraphicsPath() + "wall/ok/wall_OK_7_" + g.user.level + ".jpg";
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            if (g.user.language == 1) {
+            if (g.user.language == ManagerLanguage.RUSSIAN) {
                 stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_7.jpg';
             } else {
                 stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_7_eng.jpg';
