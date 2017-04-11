@@ -99,7 +99,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         if (!texts) texts = (new TutorialTextsNew()).objText;
         var st:String = texts[g.user.tutorialStep][_subStep];
         if (g.user.name) {
-            st = st.replace(' user_name ', g.user.name);
+            st = st.replace('user_name', g.user.name);
         } else {
             st = st.replace(' user_name', '');
         }
