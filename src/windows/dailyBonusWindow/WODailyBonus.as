@@ -79,7 +79,7 @@ public class WODailyBonus extends WindowMain {
             case 'qui/wheels_of_fortune_text_eng.png':
                 im = new Image(tex);
                 im.x = -151;
-                im.y = -284;
+                im.y = -295;
                 im.touchable = false;
                 _source.addChild(im);
                 _namePng = 'qui/wheels_of_fortune_str.png';

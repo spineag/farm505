@@ -17,22 +17,29 @@ import utils.DrawToBitmap;
 public class WALLNewFabric {
     protected var g:Vars = Vars.getInstance();
     private var _data:Object;
+    private var stUrl:String;
 
     public function WALLNewFabric(callback:Function, params:Object):void {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[470]), null, 'https://505.ninja/content/wall/ok/wall_OK_fabric.png');
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/ok/wall_OK_fabric.png';
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[470]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[470]), null, 'https://505.ninja/content/wall/fb/wall_5_eng.jpg');
+            if (g.user.language == 1) {
+                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_5.jpg';
+            } else {
+                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_5_eng.jpg';
+            }
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[470]), null, stUrl);
         } else {
             _data = params;
-            g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/wall_new_fabric.jpg', onLoad);
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_new_fabric.jpg';
+            g.load.loadImage(stUrl, onLoad);
         }
     }
 
-    private function onLoad(bitmap:Bitmap):void {
+    private function onLoad(bitmap:Bitmap):void { // only for VK
         var source:Sprite = new Sprite();
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'wall/wall_new_fabric.jpg'].create() as Bitmap;
+        bitmap = g.pBitmaps[stUrl].create() as Bitmap;
         source.addChild(new Image(Texture.fromBitmap(bitmap)));
         if (_data.image) {
             var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
@@ -47,8 +54,8 @@ public class WALLNewFabric {
         source.addChild(im);
         var bitMap:Bitmap = DrawToBitmap.drawToBitmap(Starling.current, source);
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[470]),bitMap,'interfaceAtlas');
-        (g.pBitmaps[st + 'wall/wall_new_fabric.jpg'] as PBitmap).deleteIt();
-        delete g.pBitmaps[st + 'wall/wall_new_fabric.jpg'];
+        (g.pBitmaps[stUrl] as PBitmap).deleteIt();
+        delete g.pBitmaps[stUrl];
         _data = null;
     }
 }

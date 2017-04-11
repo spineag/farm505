@@ -19,23 +19,30 @@ import utils.DrawToBitmap;
 
 public class WALLDoneOrder {
     protected var g:Vars = Vars.getInstance();
+    private var stUrl:String;
 
     public function WALLDoneOrder(callback:Function, params:Array) {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[467]), null, 'https://505.ninja/content/wall/ok/wall_OK_1.jpg');
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/ok/wall_OK_1.jpg';
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[467]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[467]), null, 'https://505.ninja/content/wall/fb/wall_1_eng.jpg');
+            if (g.user.language == 1) {
+                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_1.jpg';
+            } else {
+                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_1_eng.jpg';
+            }
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[467]), null, stUrl);
         } else {
-            g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/wall_done_order.jpg',onLoad);
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_done_order.jpg';
+            g.load.loadImage(stUrl,onLoad);
         }
     }
 
-    private function onLoad(bitmap:Bitmap):void {
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'wall/wall_done_order.jpg'].create() as Bitmap;
+    private function onLoad(bitmap:Bitmap):void { // only for VK
+        bitmap = g.pBitmaps[stUrl].create() as Bitmap;
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[467]), bitmap, 'interfaceAtlas');
-        (g.pBitmaps[st + 'wall/wall_done_order.jpg'] as PBitmap).deleteIt();
-        delete g.pBitmaps[st + 'wall/wall_done_order.jpg'];
+        (g.pBitmaps[stUrl] as PBitmap).deleteIt();
+        delete g.pBitmaps[stUrl];
     }
 }
 }

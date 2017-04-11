@@ -19,23 +19,30 @@ import utils.DrawToBitmap;
 
 public class WALLOpenCave {
     protected var g:Vars = Vars.getInstance();
+    private var stUrl:String;
 
     public function WALLOpenCave(callback:Function, params:Array):void {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[472]), null, 'https://505.ninja/content/wall/ok/wall_OK_4.jpg');
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/ok/wall_OK_4.jpg';
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[472]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[472]), null, 'https://505.ninja/content/wall/fb/wall_4_eng.jpg');
+            if (g.user.language == 1) {
+                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_4.jpg';
+            } else {
+                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_4_eng.jpg';
+            }
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[472]), null, stUrl);
         } else {
-            g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/wall_open_cave.jpg', onLoad);
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_open_cave.jpg';
+            g.load.loadImage(stUrl, onLoad);
         }
     }
 
-    private function onLoad(bitmap:Bitmap):void {
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'wall/wall_open_cave.jpg'].create() as Bitmap;
+    private function onLoad(bitmap:Bitmap):void { // only for VK
+        bitmap = g.pBitmaps[stUrl].create() as Bitmap;
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[472]),bitmap,'interfaceAtlas');
-        (g.pBitmaps[st + 'wall/wall_open_cave.jpg'] as PBitmap).deleteIt();
-        delete g.pBitmaps[st + 'wall/wall_open_cave.jpg'];
+        (g.pBitmaps[stUrl] as PBitmap).deleteIt();
+        delete g.pBitmaps[stUrl];
     }
 }
 }
