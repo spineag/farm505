@@ -177,6 +177,7 @@ public class Train extends WorldObject{
                 if (_arriveAnim) _arriveAnim.visible = true;
             }
         }
+        if (g.isAway) createAnimatedBuild(onCreateBuild)
     }
 
     private function onCreateBuild():void {
