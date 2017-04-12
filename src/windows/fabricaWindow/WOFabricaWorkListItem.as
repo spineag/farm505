@@ -109,30 +109,29 @@ public class WOFabricaWorkListItem {
             _txt.x = 2;
             _txt.y = 5;
             _source.addChild(_txt);
+
             _btnSkip = new CButton();
             _btnSkip.addButtonTexture(120, 40, CButton.GREEN, true);
-            _txtSkip = new CTextField(100,35,"25");
+            _txtSkip = new CTextField(60,28,"25");
             _txtSkip.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-            if (g.user.language == ManagerLanguage.ENGLISH) {
-                _txtSkip.x = 12;
-            }
-            _txtSkip.y = 9;
+            _txtSkip.x = 19;
+            _txtSkip.y = 13;
             _btnSkip.addChild(_txtSkip);
             _rubinSmall = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
-            _rubinSmall.x = 78;
+            _rubinSmall.x = 83;
             _rubinSmall.y = 5;
             _btnSkip.addChild(_rubinSmall);
             _rubinSmall.filter = ManagerFilters.SHADOW_TINY;
             _btnSkip.x = 52;
             _btnSkip.y = 117;
-            _txtForce = new CTextField(70,35,String(g.managerLanguage.allTexts[432]));
-            _txtForce.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _txtForce = new CTextField(90,20,String(g.managerLanguage.allTexts[432]));
+            _txtForce.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
             if (g.user.language == ManagerLanguage.ENGLISH) {
-                _txtForce.x = -2;
-//                _txtForce.y = -4;
+                _txtForce.x = 3;
+                _txtForce.y = -3;
             } else {
-                _txtForce.x = 10;
-                _txtForce.y = -8;
+                _txtForce.x = 0;
+                _txtForce.y = -3;
             }
             _btnSkip.addChild(_txtForce);
             _source.addChild(_btnSkip);

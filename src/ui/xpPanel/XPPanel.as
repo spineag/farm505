@@ -82,42 +82,43 @@ public class XPPanel {
         _source.y = 17;
         _source.x = g.managerResize.stageWidth - 170;
     }
+    
     public function getPanelPoints():Point {
         return new Point(g.managerResize.stageWidth - 170,17);
     }
+    
     public function visualAddXP(count:int):void{
         animationStar();
         _countXP += count;
         g.soundManager.playSound(SoundConst.XP_PLUS);
         if (_countXP >= _maxXP){
+            if (!g.userValidates.checkInfo('level', g.user.level)) return;
             _countXP -= _maxXP;
             g.user.xp -= _maxXP;
-            if (!g.userValidates.checkInfo('level', g.user.level)) return;
-            g.userValidates.updateInfo('xp', g.user.xp);
             g.user.level++;
-            if (g.user.level == 5) {
-                g.managerBuyerNyashuk = new ManagerBuyerNyashuk(true);
-            }
-            g.userValidates.updateInfo('level', g.user.level);
+            _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
             _txtLevel.text = String(g.user.level);
-//            if (g.windowsManager.currentWindow.windowType == WindowsManager.POST_OPEN_FABRIC) {
-//                g.windowsManager.cashWindow = g.windowsManager.currentWindow;
-//            }
+            checkXP();
+
+            g.userValidates.updateInfo('xp', g.user.xp);
+            g.userValidates.updateInfo('level', g.user.level);
+
             if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
             if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
-                if (g.managerCutScenes.isCutScene) return;
                 g.toolsModifier.cancelMove();
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 if (g.buyHint.showThis) g.buyHint.hideIt();
             }
             g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
             g.friendPanel.checkLevel();
-            _maxXP = g.dataLevel.objectLevels[g.user.level + 1].xp;
             g.directServer.updateUserLevel(null);
             g.userInventory.addNewElementsAfterGettingNewLevel();
             g.managerCats.calculateMaxCountCats();
-            if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
 
+            if (g.user.level == 5) {
+                g.managerBuyerNyashuk = new ManagerBuyerNyashuk(true);
+            }
+            if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
             if (g.user.level == 4 || g.user.level == 5) g.managerMiniScenes.checkDeleteMiniScene();
             if (g.user.level == g.allData.getBuildingById(45).blockByLevel[0])
                 g.managerDailyBonus.generateDailyBonusItems();
@@ -134,8 +135,8 @@ public class XPPanel {
                 if (g.managerTips) g.managerTips.calculateAvailableTips();
             }
             if (!g.isDebug) g.socialNetwork.setUserLevel();
-        }
-        checkXP();
+        } else 
+            checkXP();
     }
 
     public function serverAddXP(count:int):void {

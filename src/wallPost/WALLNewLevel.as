@@ -15,6 +15,7 @@ import loaders.PBitmap;
 import manager.ManagerFabricaRecipe;
 
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
 import manager.Vars;
 
 import social.SocialNetworkSwitch;
@@ -31,21 +32,28 @@ public class WALLNewLevel {
     protected var g:Vars = Vars.getInstance();
     private var _source:starling.display.Sprite;
     private var _txtLevel:CTextField;
+    private var stUrl:String;
 
     public function WALLNewLevel(callback:Function, params:Array):void {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]), null, "https://505.ninja/content/wall/ok/wall_OK_7_" + g.user.level + ".jpg");
+            stUrl = g.dataPath.getGraphicsPath() + "wall/ok/wall_OK_7_" + g.user.level + ".jpg";
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]), null, 'https://505.ninja/content/wall/fb/wall_7_eng.jpg');
+            if (g.user.language == ManagerLanguage.RUSSIAN) {
+                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_7.jpg';
+            } else {
+                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_7_eng.jpg';
+            }
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[471]), null, stUrl);
         } else {
-            g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/wall_new_level.jpg', onLoad);
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_new_level.jpg';
+            g.load.loadImage(stUrl, onLoad);
         }
     }
 
-    private function onLoad(bitmap:Bitmap):void {
+    private function onLoad(bitmap:Bitmap):void { // only for VK
         _source = new starling.display.Sprite();
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'wall/wall_new_level.jpg'].create() as Bitmap;
+        bitmap = g.pBitmaps[stUrl].create() as Bitmap;
         _source.addChild(new Image(Texture.fromBitmap(bitmap)));
         _txtLevel = new CTextField(500,200,String(g.user.level));
         _txtLevel.setFormat(CTextField.BOLD72, 78, Color.WHITE, ManagerFilters.BROWN_COLOR);
@@ -72,8 +80,8 @@ public class WALLNewLevel {
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[471]),bitmap,'interfaceAtlas');
         _txtLevel.deleteIt();
         _txtLevel = null;
-        (g.pBitmaps[st + 'wall/wall_new_level.jpg'] as PBitmap).deleteIt();
-        delete g.pBitmaps[st + 'wall/wall_new_level.jpg'];
+        (g.pBitmaps[stUrl] as PBitmap).deleteIt();
+        delete g.pBitmaps[stUrl];
     }
 }
 }

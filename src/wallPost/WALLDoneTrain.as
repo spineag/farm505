@@ -6,6 +6,8 @@ import flash.display.Bitmap;
 
 import loaders.PBitmap;
 
+import manager.ManagerLanguage;
+
 import manager.Vars;
 
 import social.SocialNetworkSwitch;
@@ -19,23 +21,30 @@ import utils.DrawToBitmap;
 
 public class WALLDoneTrain {
     protected var g:Vars = Vars.getInstance();
+    private var stUrl:String;
 
     public function WALLDoneTrain(callback:Function, params:Array):void {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[468]), null, 'https://505.ninja/content/wall/ok/wall_OK_2.jpg');
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/ok/wall_OK_2.jpg';
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[468]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[468]), null, 'https://505.ninja/content/wall/fb/wall_2_eng.jpg');
+            if (g.user.language == ManagerLanguage.RUSSIAN) {
+                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_2.jpg';
+            } else {
+                stUrl = g.dataPath.getGraphicsPath() + 'wall/fb/new/fb_2_eng.jpg';
+            }
+            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[468]), null, stUrl);
         } else {
-            g.load.loadImage(g.dataPath.getGraphicsPath() + 'wall/wall_done_train.jpg', onLoad);
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/wall_done_train.jpg';
+            g.load.loadImage(stUrl, onLoad);
         }
     }
 
-    private function onLoad(bitmap:Bitmap):void {
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'wall/wall_done_train.jpg'].create() as Bitmap;
+    private function onLoad(bitmap:Bitmap):void { // only for VK
+        bitmap = g.pBitmaps[stUrl].create() as Bitmap;
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[468]),bitmap,'interfaceAtlas');
-        (g.pBitmaps[st + 'wall/wall_done_train.jpg'] as PBitmap).deleteIt();
-        delete g.pBitmaps[st + 'wall/wall_done_train.jpg'];
+        (g.pBitmaps[stUrl] as PBitmap).deleteIt();
+        delete g.pBitmaps[stUrl];
     }
 }
 }

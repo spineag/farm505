@@ -2,47 +2,27 @@
  * Created by user on 12/28/16.
  */
 package windows.starterPackWindow {
-import analytic.AnalyticManager;
-
-import com.greensock.TweenMax;
-import com.greensock.easing.Back;
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.DataMoney;
-
 import flash.display.Bitmap;
 import flash.display.StageDisplayState;
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
-import manager.Vars;
-
 import resourceItem.DropItem;
-
 import social.SocialNetworkEvent;
-
 import social.SocialNetworkSwitch;
-
 import starling.core.Starling;
-
-
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
-import starling.events.Event;
-
 import starling.textures.Texture;
 import starling.utils.Align;
 import starling.utils.Color;
-
 import temp.DropResourceVariaty;
-
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
-
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -175,7 +155,7 @@ public class WOStarterPack extends WindowMain{
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID ) {
             st = ' ' +String(g.managerLanguage.allTexts[330]);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
-            st = ' $';
+            st = ' USD';
         }
         txt = new CTextField(160, 40, String(_data.old_cost) + st);
         txt.setFormat(CTextField.BOLD30, 24, ManagerFilters.BLUE_COLOR);

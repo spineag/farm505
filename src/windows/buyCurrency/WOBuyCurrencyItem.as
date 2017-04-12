@@ -110,7 +110,7 @@ public class WOBuyCurrencyItem {
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
             valuta = ' ' + String(g.managerLanguage.allTexts[328]);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
-            valuta = ' $';
+            valuta = ' USD';
         }
         _txtBtn = new CTextField(120, 30, String(cost) + valuta);
         _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);

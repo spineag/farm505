@@ -60,7 +60,7 @@ public class MarketItem {
     private var _countMoney:int;
     private var _plawkaSold:Image;
     private var _plawkaLvl:Image;
-    private var _plawkabuy:Image;
+    private var _plawkaBuy:Image;
     private var _coin:Image;
     private var _plawkaCoins:Sprite;
     private var _isUser:Boolean;
@@ -155,10 +155,10 @@ public class MarketItem {
 
         _plawkaCoins = new Sprite();
         source.addChild(_plawkaCoins);
-        _plawkabuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_back'));
-        _plawkabuy.x = 5;
-        _plawkabuy.y = 100;
-        _plawkaCoins.addChild(_plawkabuy);
+        _plawkaBuy = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_back'));
+        _plawkaBuy.x = 5;
+        _plawkaBuy.y = 100;
+        _plawkaCoins.addChild(_plawkaBuy);
         _coin  = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_small'));
         MCScaler.scale(_coin,25,25);
         _coin.y = 102;
@@ -611,7 +611,7 @@ public class MarketItem {
 //            _ava = null;
 //        }
 //        source.removeChild(_ava);
-        if (_plawkabuy) _plawkabuy.visible = true;
+        if (_plawkaBuy) _plawkaBuy.visible = true;
         if (_plawkaCoins) _plawkaCoins.visible = false;
         if (_plawkaSold) _plawkaSold.visible = false;
         if (_plawkaLvl) _plawkaLvl.visible = false;
@@ -638,7 +638,7 @@ public class MarketItem {
                 } catch (e:Error) {
                     Cc.error('at showScaleImage');
                 }
-                _plawkabuy.visible = false;
+                _plawkaBuy.visible = false;
                 _txtAdditem.visible = false;
             } else { // sale anyway item
                 _txtAdditem.visible = false;

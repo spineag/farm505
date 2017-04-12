@@ -10,6 +10,8 @@ import flash.display.Bitmap;
 import loaders.PBitmap;
 
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -60,7 +62,7 @@ public class WODailyBonus extends WindowMain {
                 _koleso.x = 0;
                 _koleso.y = 14;
                 _source.addChild(_koleso);
-                if (g.user.language == 1) {
+                if (g.user.language == ManagerLanguage.RUSSIAN) {
                     _namePng = 'qui/wheels_of_fortune_text.png';
                 } else {
                     _namePng = 'qui/wheels_of_fortune_text_eng.png';
@@ -79,7 +81,7 @@ public class WODailyBonus extends WindowMain {
             case 'qui/wheels_of_fortune_text_eng.png':
                 im = new Image(tex);
                 im.x = -151;
-                im.y = -284;
+                im.y = -295;
                 im.touchable = false;
                 _source.addChild(im);
                 _namePng = 'qui/wheels_of_fortune_str.png';
