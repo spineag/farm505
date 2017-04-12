@@ -191,7 +191,7 @@ public class Train extends WorldObject{
                 createBrokenTrain();
             } else if (_stateBuild == STATE_READY) {
                 onArrivedKorzina();
-            } else if (_stateBuild == STATE_WAIT_BACK) {
+            } else {
                 makeIdleAnimation();
             }
         } else {

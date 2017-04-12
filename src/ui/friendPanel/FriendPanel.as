@@ -256,99 +256,103 @@ public class FriendPanel {
         }
 
         if (_activeTabType == TYPE_NORMAL) {
-            var bt:CButton;
-            var im:Image;
-            var txt:CTextField;
-            if (_arrFriends.length == 0) {
-                Cc.ch('social', 'friendUI: fill 3 add');
-                bt = new CButton();
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-                bt.addDisplayObject(im);
-                txt = new CTextField(64, 50, String(g.managerLanguage.allTexts[487]));
-                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = 4;
-                txt.y = 12;
-                bt.addChild(txt);
-                bt.setPivots();
-                bt.x = 237 + bt.width / 2;
-                bt.y = 6 + bt.height / 2;
-                _addFriend.addChild(bt);
-                bt.clickCallback = inviteFriends;
-
-                bt = new CButton();
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-                bt.addDisplayObject(im);
-                txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
-                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = 4;
-                txt.y = 12;
-                bt.addChild(txt);
-                bt.setPivots();
-                bt.x = 303 + bt.width / 2;
-                bt.y = 6 + bt.height / 2;
-                _addFriend.addChild(bt);
-                bt.clickCallback = inviteFriends;
-
-                bt = new CButton();
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-                bt.addDisplayObject(im);
-                txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
-                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = 4;
-                txt.y = 12;
-                bt.addChild(txt);
-                bt.setPivots();
-                bt.x = 369 + bt.width / 2;
-                bt.y = 6 + bt.height / 2;
-                _addFriend.addChild(bt);
-                bt.clickCallback = inviteFriends;
-            } else if (_arrFriends.length == 1) {
-                Cc.ch('social', 'friendUI: fill 2 add');
-                bt = new CButton();
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-                bt.addDisplayObject(im);
-                txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
-                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = 4;
-                txt.y = 12;
-                bt.addChild(txt);
-                bt.setPivots();
-                bt.x = 303 + bt.width / 2;
-                bt.y = 6 + bt.height / 2;
-                _addFriend.addChild(bt);
-                bt.clickCallback = inviteFriends;
-
-                bt = new CButton();
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-                bt.addDisplayObject(im);
-                txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
-                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = 4;
-                txt.y = 12;
-                bt.addChild(txt);
-                bt.setPivots();
-                bt.x = 369 + bt.width / 2;
-                bt.y = 6 + bt.height / 2;
-                _addFriend.addChild(bt);
-                bt.clickCallback = inviteFriends;
-            } else if (_arrFriends.length == 2) {
-                Cc.ch('social', 'friendUI: fill 1 add');
-                bt = new CButton();
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
-                bt.addDisplayObject(im);
-                txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
-                txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
-                txt.x = 4;
-                txt.y = 12;
-                bt.addChild(txt);
-                bt.setPivots();
-                bt.x = 369 + bt.width / 2;
-                bt.y = 6 + bt.height / 2;
-                _addFriend.addChild(bt);
-                bt.clickCallback = inviteFriends;
-            }
+            addButtonsAddFriends();
         }
         createLevel();
+    }
+
+    private function addButtonsAddFriends():void {
+        var bt:CButton;
+        var im:Image;
+        var txt:CTextField;
+        if (_arrFriends.length == 0) {
+            Cc.ch('social', 'friendUI: fill 3 add');
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new CTextField(64, 50, String(g.managerLanguage.allTexts[487]));
+            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+            txt.x = 4;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 237 + bt.width / 2;
+            bt.y = 6 + bt.height / 2;
+            _addFriend.addChild(bt);
+            bt.clickCallback = inviteFriends;
+
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
+            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+            txt.x = 4;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 303 + bt.width / 2;
+            bt.y = 6 + bt.height / 2;
+            _addFriend.addChild(bt);
+            bt.clickCallback = inviteFriends;
+
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
+            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+            txt.x = 4;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 369 + bt.width / 2;
+            bt.y = 6 + bt.height / 2;
+            _addFriend.addChild(bt);
+            bt.clickCallback = inviteFriends;
+        } else if (_arrFriends.length == 1) {
+            Cc.ch('social', 'friendUI: fill 2 add');
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
+            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+            txt.x = 4;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 303 + bt.width / 2;
+            bt.y = 6 + bt.height / 2;
+            _addFriend.addChild(bt);
+            bt.clickCallback = inviteFriends;
+
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
+            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+            txt.x = 4;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 369 + bt.width / 2;
+            bt.y = 6 + bt.height / 2;
+            _addFriend.addChild(bt);
+            bt.clickCallback = inviteFriends;
+        } else if (_arrFriends.length == 2) {
+            Cc.ch('social', 'friendUI: fill 1 add');
+            bt = new CButton();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('add_friend_button'));
+            bt.addDisplayObject(im);
+            txt = new CTextField(60, 50, String(g.managerLanguage.allTexts[487]));
+            txt.setFormat(CTextField.BOLD18, 12, ManagerFilters.BROWN_COLOR);
+            txt.x = 4;
+            txt.y = 12;
+            bt.addChild(txt);
+            bt.setPivots();
+            bt.x = 369 + bt.width / 2;
+            bt.y = 6 + bt.height / 2;
+            _addFriend.addChild(bt);
+            bt.clickCallback = inviteFriends;
+        }
     }
 
     private function checkHelpIcon():void {
@@ -506,19 +510,20 @@ public class FriendPanel {
             return ob;
     }
 
-    public function noFriends():void {
+    private function noFriends():void {
+        clearItems();
         Cc.ch('social', 'friendUI: no friends');
         var item:FriendItem;
         _arrItems = [];
         _shift = 0;
+        _arrFriends.length = 0;
         if (_activeTabType == TYPE_NORMAL) {
+            addButtonsAddFriends();
             _arrFriends.unshift(g.user.neighbor);
             _arrFriends.unshift(g.user);
         }
         _helpIcon.visible = false;
-        var l:int = _arrFriends.length;
-        if (l>5) l = 5;
-        for (var i:int = 0; i < l; i++) {
+        for (var i:int = 0; i < 2; i++) {
             item = new FriendItem(_arrFriends[i]);
             _arrItems.push(item);
             item.source.x = i*66;

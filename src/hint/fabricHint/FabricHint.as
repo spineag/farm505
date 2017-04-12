@@ -49,10 +49,10 @@ public class FabricHint {
         im.y = 155;
         _source.addChild(im);
 
-        _txtName = new CTextField(240,70,'');
+        _txtName = new CTextField(180,30,'');
         _txtName.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.LIGHT_BLUE_COLOR);
-        _txtName.y = 5;
-        _txtName.x = -20;
+        _txtName.y = 20;
+        _txtName.x = 10;
         _source.addChild(_txtName);
 
         _txtCreate = new CTextField(200, 30 ,String(g.managerLanguage.allTexts[989]) + ':');
