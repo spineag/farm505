@@ -61,6 +61,7 @@ public class Cafe extends WorldObject {
     private var _imFlowerR1:Image;
     private var _imFlowerR2:Image;
     private var _imFlowerR3:Image;
+
     private var _imTable1:Image;
     private var _imTable2:Image;
 
@@ -132,7 +133,7 @@ public class Cafe extends WorldObject {
         _imFlowerR1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
         _imFlowerR2 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
         _imFlowerR3 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
-        _imTable1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'))
+        _imTable1 = new Image(g.allData.atlas['cafeAtlas'].getTexture('plant_3'));
         _imLeftWindow.x = -90;
         _spriteFirst.addChild(_imLeftWindow);
 

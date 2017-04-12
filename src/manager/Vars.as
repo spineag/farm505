@@ -543,7 +543,7 @@ public class Vars {
                        else managerCats.helloCats();
                    }
                }
-//                if (!windowsManager.currentWindow && userTimer.partyToEndTimer < 0 && !managerParty.userParty.showWindow) managerParty.endPartyWindow();
+                if (!windowsManager.currentWindow && userTimer.partyToEndTimer < 0 && !managerParty.userParty.showWindow) managerParty.endPartyWindow();
             }
             if ((user as User).miniScenes[3] == 0) friendPanel.hideIt(true);
             managerMiniScenes.updateMiniScenesLengthOnGameStart();

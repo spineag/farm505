@@ -251,6 +251,12 @@ public class WOAchievementItem {
                 _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
                 source.addChild(_txtCount);
             }
+
+            if (_txtCount) {
+                _txtCount.alignH = Align.LEFT;
+                _txtCount.x = 418 - _txtCount.textBounds.width/2;
+                _txtCount.y = 88;
+            }
             _quad = new Quad(width,35,0xffb900);
             _quad.x = 327;
             _quad.y = 97;

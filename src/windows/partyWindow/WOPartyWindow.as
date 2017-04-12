@@ -152,10 +152,6 @@ public class WOPartyWindow extends WindowMain{
                 _txtBabl.y = -235;
                 _source.addChild(_sprItem);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
-//                im.alpha = .5;
-//                im.x = -163;
-//                im.y = 36;
-
                 im.x = -158;
                 im.y = 31;
 
@@ -338,10 +334,6 @@ public class WOPartyWindow extends WindowMain{
                 _txtBabl.y = -235;
                 _source.addChild(_sprItem);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
-                im.alpha = .5;
-//                im.x = -163;
-//                im.y = 36;
-
                 im.x = -158;
                 im.y = 31;
                 _source.addChild(im);
