@@ -36,8 +36,13 @@ public class WOTrainOrderItem {
     public function fillIt(t:TrainCell, i:int):void {
         _index = i;
         _info = t;
-        if (!t || !g.allData.getResourceById(_info.id)) {
-            Cc.error('WOTrainOrderItem fillIt:: trainCell==null or g.dataResource.objectResources[_info.id]==null');
+        if (!t) {
+            Cc.error('WOTrainOrderItem fillIt:: trainCell==null');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
+            return;
+        }
+        if (!g.allData.getResourceById(_info.id)) {
+            Cc.error('WOTrainOrderItem fillIt:: getResourceById(_info.id)==null for: ' + _info.id);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
