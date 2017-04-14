@@ -202,8 +202,10 @@
             <filename>new_event_window_r.png</filename>
             <filename>event_window_baloon.png</filename>
             <filename>new_event_window_r_2.png</filename>
-            <filename>space_adventure_icon.png</filename>
-            <filename>space_adventure_window.png</filename>
+            <filename>order_window_easter_back.png</filename>
+            <filename>egg_event_icon.png</filename>
+            <filename>event_easter_icon.png</filename>
+            <filename>event_easter.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

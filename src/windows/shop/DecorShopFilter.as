@@ -4,6 +4,8 @@
 package windows.shop {
 import com.greensock.TweenMax;
 
+import data.BuildType;
+
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import manager.Vars;
@@ -63,7 +65,7 @@ public class DecorShopFilter {
         _arrItems = [];
     }
 
-    private function createItems():void {
+    private function createItems(click:Boolean = false):void {
         var arr:Array = [FILTER_ALL,FILTER_FENCE, FILTER_TAIL, FILTER_TREES,  FILTER_OTHER, FILTER_SPECIAL, FILTER_HOLIDAY];
         arr.splice(arr.indexOf(g.user.shopDecorFilter), 1);
         var item:DecorShopFilterItem;
@@ -71,9 +73,9 @@ public class DecorShopFilter {
             item = new DecorShopFilterItem(arr[i], i, onItemClick, _itemsSprite);
             _arrItems.push(item);
         }
-//        if (g.userTimer.partyToEndTimer > 0) _activeItem = new DecorShopFilterItem(6, 0, onActiveItemClick, _source);
-//        else _activeItem = new DecorShopFilterItem(g.user.shopDecorFilter, 0, onActiveItemClick, _source);
-        _activeItem = new DecorShopFilterItem(g.user.shopDecorFilter, 0, onActiveItemClick, _source);
+        if (g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && !click) _activeItem = new DecorShopFilterItem(6, 0, onActiveItemClick, _source);
+        else _activeItem = new DecorShopFilterItem(g.user.shopDecorFilter, 0, onActiveItemClick, _source);
+//        _activeItem = new DecorShopFilterItem(g.user.shopDecorFilter, 0, onActiveItemClick, _source);
         _activeItem.addButton();
         _arrItems.push(_activeItem);
     }
@@ -84,7 +86,7 @@ public class DecorShopFilter {
         _isShow = false;
         deleteBlack();
         deleteItems();
-        createItems();
+        createItems(true);
         _wo.onChangeDecorFilter();
     }
 

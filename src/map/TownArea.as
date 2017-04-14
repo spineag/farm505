@@ -5,6 +5,7 @@ import additional.mouse.MouseHero;
 
 import build.TownAreaBuildSprite;
 import build.WorldObject;
+import build.achievement.Achievement;
 import build.ambar.Ambar;
 import build.ambar.Sklad;
 import build.cafe.Cafe;
@@ -633,6 +634,9 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.CHEST_YELLOW:
                 build = new ChestYellow(_data);
+                break;
+            case BuildType.ACHIEVEMENT:
+                if (g.user.isMegaTester) build = new Achievement(_data);
                 break;
         }
 
@@ -1770,7 +1774,10 @@ public class TownArea extends Sprite {
             case BuildType.CHEST_YELLOW:
                 build = new ChestYellow(_data);
                 break;
-
+            case BuildType.ACHIEVEMENT:
+                if (g.user.isMegaTester) build = new Achievement(_data);
+                else return;
+                break;
         }
 
         if (!build) {

@@ -230,5 +230,22 @@ public class ManagerAchievement {
             g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
         }
     }
+
+    public function checkAchievement():Boolean {
+        var b:Boolean = false;
+        if (userAchievement.length > 0) {
+            for (var i:int = 0; i < userAchievement.length; i++) {
+                for (var k:int = 0; k < dataAchievement.length; k++) {
+                    for (var j:int = 0; j < dataAchievement[k].countToGift[j].length; j++) {
+                        if (userAchievement[i].resourceCount >= dataAchievement[k].countToGift[j] && !userAchievement[k].tookGift[j]) {
+                            b = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return b;
+    }
 }
 }

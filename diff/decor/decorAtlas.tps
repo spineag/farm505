@@ -292,6 +292,13 @@
             <filename>cat_cosmonaut_2.png</filename>
             <filename>flower_boot.png</filename>
             <filename>gnome_alien.png</filename>
+            <filename>easter_egg_light_blue.png</filename>
+            <filename>easter_egg_pink.png</filename>
+            <filename>easter_egg_purple.png</filename>
+            <filename>easter_egg_red.png</filename>
+            <filename>easter_egg_yellow.png</filename>
+            <filename>easter_gnome.png</filename>
+            <filename>easter_tree.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -523,12 +523,16 @@ public class FriendPanel {
             _arrFriends.unshift(g.user);
         }
         _helpIcon.visible = false;
-        for (var i:int = 0; i < 2; i++) {
-            item = new FriendItem(_arrFriends[i]);
-            _arrItems.push(item);
-            item.source.x = i*66;
-            item.source.y = -1;
-            _cont.addChild(item.source);
+        if (_arrFriends.length >= 2) {
+            for (var i:int = 0; i < 2; i++) {
+                item = new FriendItem(_arrFriends[i]);
+                if (item.source) {
+                    _arrItems.push(item);
+                    item.source.x = i * 66;
+                    item.source.y = -1;
+                    _cont.addChild(item.source);
+                }
+            }
         }
     }
 }

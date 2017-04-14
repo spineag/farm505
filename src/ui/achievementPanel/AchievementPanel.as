@@ -2,6 +2,8 @@
  * Created by user on 3/30/17.
  */
 package ui.achievementPanel {
+import data.BuildType;
+
 import manager.ManagerFilters;
 import manager.Vars;
 
@@ -50,6 +52,8 @@ public class AchievementPanel {
         _txtAchiement.x = 40;
         _source.addChild(_txtAchiement);
         g.gameDispatcher.addToTimer(timerEnd);
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.ACHIEVEMENT);
+        if (g.managerAchievement.checkAchievement()) arr[0].onTimer();
     }
 
     private function timerEnd():void {

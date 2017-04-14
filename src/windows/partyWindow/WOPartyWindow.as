@@ -118,7 +118,7 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(_btn);
 
             } else {
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('space_adventure_window'));
+                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_easter'));
 //                im.x = -im.width / 2 - 10;
 //                im.y = -im.height / 2;
                 im.x = -im.width / 2 - 4;
@@ -158,14 +158,14 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(im);
                 if (g.managerParty.typeParty == 3) {
                     im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_w'));
-                    im.x = -218;
-                    im.y = 22;
+                    im.x = -215;
+                    im.y = 17;
                     _source.addChild(im);
 
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('adv_sh_icon'));
+                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('egg_event_icon'));
                     MCScaler.scale(im, 45, 45);
-                    im.x = -202;
-                    im.y = 38;
+                    im.x = -199;
+                    im.y = 33;
                     _source.addChild(im);
                 } else {
                     if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
@@ -302,7 +302,7 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(_btn);
 
             } else {
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('space_adventure_window'));
+                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_easter'));
                 im.x = -im.width / 2 - 4;
                 im.y = -im.height / 2 - 12;
                 _source.addChild(im);
@@ -339,14 +339,14 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(im);
                 if (g.managerParty.typeParty == 3) {
                     im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_w'));
-                    im.x = -218;
-                    im.y = 22;
+                    im.x = -215;
+                    im.y = 17;
                     _source.addChild(im);
 
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('adv_sh_icon'));
+                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('egg_event_icon'));
                     MCScaler.scale(im, 45, 45);
-                    im.x = -202;
-                    im.y = 38;
+                    im.x = -199;
+                    im.y = 33;
                     _source.addChild(im);
                 } else {
                     if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {

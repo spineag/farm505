@@ -45,7 +45,7 @@ public class DropPartyResource {
     public function DropPartyResource(_x:int, _y:int, delay:Number = .3, fromSize:int = 50) {
         var endPoint:Point;
         _source = new Sprite();
-        if(g.allData.atlas['partyAtlas'])_image = new Image(g.allData.atlas['partyAtlas'].getTexture('adv_sh_icon'));
+        if(g.allData.atlas['partyAtlas'])_image = new Image(g.allData.atlas['partyAtlas'].getTexture('egg_event_icon'));
 
         MCScaler.scale(_image, fromSize, fromSize);
         _source.addChild(_image);
@@ -65,6 +65,7 @@ public class DropPartyResource {
         }
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);
+            g.partyPanel.animationBuy();
             while (_source.numChildren) {
                 _source.removeChildAt(0);
             }

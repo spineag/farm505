@@ -86,7 +86,7 @@ public class CatPanel {
     }
 
     private function onClick():void {
-        if (g.user.isMegaTester) g.windowsManager.openWindow(WindowsManager.WO_ACHIEVEMENT,null);
+//        if (g.user.isMegaTester) g.windowsManager.openWindow(WindowsManager.WO_ACHIEVEMENT,null);
 //        g.directServer.getDataAchievement(null);
 //        g.directServer.getUserParty(null);
 //        var ob:Object = {};
@@ -96,7 +96,7 @@ public class CatPanel {
 //        ob.idResource = 15;
 //        ob.typeBuilding = BuildType.ORDER;
 //        ob.coefficient = 5;
-//        ob.typeParty = 4;
+//        ob.typeParty = 3;
 //        ob.name = 'Блинный путь';
 //        ob.description = 'Накорми пришельцев и получи награду';
 //        ob.idGift = [];
