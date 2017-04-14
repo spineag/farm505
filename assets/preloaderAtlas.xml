@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:95ab8073c94959c1351ef5dc2daf8eca:8cb24a1b136b4468614a460701d4ae8f:31eb2820b0f5eb53ce3c6f44c4b6dfc7$ -->
+<TextureAtlas imagePath="preloaderAtlas.png" width="1004" height="676">
+    <SubTexture name="preloader_bg" x="2" y="2" width="1000" height="640"/>
+    <SubTexture name="preloader_line" x="2" y="644" width="613" height="30"/>
+</TextureAtlas>

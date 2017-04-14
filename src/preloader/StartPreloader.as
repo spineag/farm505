@@ -58,15 +58,15 @@ public class StartPreloader {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) _jpgUrl = g.dataPath.getGraphicsPath() + 'preloader/eng_splash_screen_main.jpg';
             else _jpgUrl = g.dataPath.getGraphicsPath() + 'preloader/preloader_bg.jpg';
         g.load.loadImage(_jpgUrl, onLoad);
-        _quad = new Quad(3, 3, 0x33a2f4);
+        _quad = new Quad(3, 3, 0xffe400);
         _quad.x = 327;
-        _quad.y = 569;
+        _quad.y = 599;
         _source.addChild(_quad);
         _txt = new CTextField(75,50,'0');
-        _txt.setFormat(CTextField.BOLD24, 24, 0x0659b6);
+        _txt.setFormat(CTextField.BOLD24, 24, 0xeb762f);
         _source.addChild(_txt);
         _txt.x = 453;
-        _txt.y = 502;
+        _txt.y = 530;
         createBitmap();
         addIms();
     }
