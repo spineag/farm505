@@ -178,6 +178,9 @@ public class WOAchievementItem {
             if (g.managerAchievement.dataAchievement[_number].countToGift[2] <= g.managerAchievement.userAchievement[_numberUser].resourceCount) {
                 _imStar3 = new Image(g.allData.atlas['achievementAtlas'].getTexture('star'));
                 source.addChild(_imStar3);
+            } else {
+                _imStar3 = new Image(g.allData.atlas['achievementAtlas'].getTexture('star_off'));
+                source.addChild(_imStar3);
             }
         } else {
             _imStar1 = new Image(g.allData.atlas['achievementAtlas'].getTexture('star_off'));
@@ -191,8 +194,8 @@ public class WOAchievementItem {
         _imStar1.y = 10;
         _imStar2.x = 382;
         _imStar2.y = 10;
-        _imStar3.x = 440;
-        _imStar3.y = 10;
+        if (_imStar3) _imStar3.x = 440;
+        if (_imStar3) _imStar3.y = 10;
     }
 
     private function onClick():void {

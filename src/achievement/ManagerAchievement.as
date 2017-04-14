@@ -50,9 +50,9 @@ public class ManagerAchievement {
                 ob.id = 22;
                 ob.resourceCount = int(count);
                 ob.tookGift = [];
-                ob.tookGift[0] = 0;
-                ob.tookGift[1] = 0;
-                ob.tookGift[2] = 0;
+                ob.tookGift[0] = int(0);
+                ob.tookGift[1] = int(0);
+                ob.tookGift[2] = int(0);
                 userAchievement.push(ob);
                 g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
             }
@@ -61,9 +61,9 @@ public class ManagerAchievement {
             ob.id = 22;
             ob.resourceCount = int(count);
             ob.tookGift = [];
-            ob.tookGift[0] = 0;
-            ob.tookGift[1] = 0;
-            ob.tookGift[2] = 0;
+            ob.tookGift[0] = int(0);
+            ob.tookGift[1] = int(0);
+            ob.tookGift[2] = int(0);
             userAchievement.push(ob);
             g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
         }
@@ -100,9 +100,9 @@ public class ManagerAchievement {
                     ob.id = 23;
                     ob.resourceCount = int(count);
                     ob.tookGift = [];
-                    ob.tookGift[0] = 0;
-                    ob.tookGift[1] = 0;
-                    ob.tookGift[2] = 0;
+                    ob.tookGift[0] = int(0);
+                    ob.tookGift[1] = int(0);
+                    ob.tookGift[2] = int(0);
                     userAchievement.push(ob);
                     g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
                 }
@@ -111,9 +111,9 @@ public class ManagerAchievement {
                 ob.id = 23;
                 ob.resourceCount = int(count);
                 ob.tookGift = [];
-                ob.tookGift[0] = 0;
-                ob.tookGift[1] = 0;
-                ob.tookGift[2] = 0;
+                ob.tookGift[0] = int(0);
+                ob.tookGift[1] = int(0);
+                ob.tookGift[2] = int(0);
                 userAchievement.push(ob);
                 g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
             }
@@ -153,9 +153,9 @@ public class ManagerAchievement {
                         ob.id = dataAchievement[i].id;
                         ob.resourceCount = int(1);
                         ob.tookGift = [];
-                        ob.tookGift[0] = 0;
-                        ob.tookGift[1] = 0;
-                        ob.tookGift[2] = 0;
+                        ob.tookGift[0] = int(0);
+                        ob.tookGift[1] = int(0);
+                        ob.tookGift[2] = int(0);
                         userAchievement.push(ob);
                         g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
                         break;
@@ -169,9 +169,9 @@ public class ManagerAchievement {
                     ob.id = dataAchievement[i].id;
                     ob.resourceCount = int(1);
                     ob.tookGift = [];
-                    ob.tookGift[0] = 0;
-                    ob.tookGift[1] = 0;
-                    ob.tookGift[2] = 0;
+                    ob.tookGift[0] = int(0);
+                    ob.tookGift[1] = int(0);
+                    ob.tookGift[2] = int(0);
                     userAchievement.push(ob);
                     g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
                     break;
@@ -212,9 +212,9 @@ public class ManagerAchievement {
                 ob.id = achievementId;
                 ob.resourceCount = int(count);
                 ob.tookGift = [];
-                ob.tookGift[0] = 0;
-                ob.tookGift[1] = 0;
-                ob.tookGift[2] = 0;
+                ob.tookGift[0] = int(0);
+                ob.tookGift[1] = int(0);
+                ob.tookGift[2] = int(0);
                 userAchievement.push(ob);
                 g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
             }
@@ -223,9 +223,9 @@ public class ManagerAchievement {
             ob.id = achievementId;
             ob.resourceCount = int(count);
             ob.tookGift = [];
-            ob.tookGift[0] = 0;
-            ob.tookGift[1] = 0;
-            ob.tookGift[2] = 0;
+            ob.tookGift[0] = int(0);
+            ob.tookGift[1] = int(0);
+            ob.tookGift[2] = int(0);
             userAchievement.push(ob);
             g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
         }
@@ -236,8 +236,8 @@ public class ManagerAchievement {
         if (userAchievement.length > 0) {
             for (var i:int = 0; i < userAchievement.length; i++) {
                 for (var k:int = 0; k < dataAchievement.length; k++) {
-                    for (var j:int = 0; j < dataAchievement[k].countToGift[j].length; j++) {
-                        if (userAchievement[i].resourceCount >= dataAchievement[k].countToGift[j] && !userAchievement[k].tookGift[j]) {
+                    for (var j:int = 0; j < dataAchievement[k].countToGift.length; j++) {
+                        if (userAchievement[i].id >= dataAchievement[k].id && userAchievement[i].resourceCount >= int(dataAchievement[k].countToGift[j]) && !userAchievement[i].tookGift[j]) {
                             b = true;
                             break;
                         }
