@@ -102,8 +102,13 @@ public class WOTrainItem {
                 break;
         }
         _info = t;
-        if (!t || !g.allData.getResourceById(_info.id)) {
-            Cc.error('WOTrainItem fillIt:: trainCell==null or g.dataResource.objectResources[_info.id]==null');
+        if (!t) {
+            Cc.error('WOTrainItem fillIt:: trainCell==null');
+            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
+            return;
+        }
+        if (!g.allData.getResourceById(_info.id)) {
+            Cc.error('WOTrainItem fillIt:: g.dataResource.objectResources[_info.id]==null for: ' + _info.id);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
@@ -284,12 +289,12 @@ public class WOTrainItem {
 
     public function get idFree():int {
         if (_info) return _info.id;
-        else return 1;
+        else return 0;
     }
 
     public function get countFree():int {
         if (_info) return _info.count;
-        else return 1;
+        else return 0;
 
     }
 
@@ -339,7 +344,8 @@ public class WOTrainItem {
     }
 
     public function canFull():Boolean {
-        return _info.canBeFull();
+        if (!_info) return false;
+        else return _info.canBeFull();
     }
 
     public function fullIt():void {
@@ -379,19 +385,25 @@ public class WOTrainItem {
     }
 
     public function activateIt(v:Boolean):void {
-        if (v) {
-            _bg.filter = ManagerFilters.YELLOW_STROKE;
+        if (_bg) {
+            if (v) {
+                _bg.filter = ManagerFilters.YELLOW_STROKE;
+            } else {
+                _bg.filter = null;
+            }
         } else {
-            _bg.filter = null;
+            Cc.error('WOTrainItem activateIt:: no _bg');
         }
     }
 
     public function get countXP():int {
-        return _info.countXP;
+        if (_info) return _info.countXP;
+        else return 0;
     }
 
     public function get countCoins():int {
-        return _info.countMoney;
+        if (_info) return _info.countMoney;
+        else return 0;
     }
 
     public function currentImage():Image{

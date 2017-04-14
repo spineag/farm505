@@ -58,29 +58,12 @@ public class TrainCell {
         helpId = String(d.help_id)
     }
 
-    public function canBeFull():Boolean {
-        return g.userInventory.getCountResourceById(_dataResource.id) >= _count;
-    }
-
-    public function whoHelpId(s:String):void {
-        helpId = s;
-    }
-
-    public function needHelpNow(b:Boolean):void {
-        needHelp = b;
-    }
-
-    public function get count():int {
-        return _count;
-    }
-
-    public function get id():int {
-        return _dataResource.id;
-    }
-
-    public function get isFull():Boolean {
-        return _isFull;
-    }
+    public function canBeFull():Boolean { return g.userInventory.getCountResourceById(_dataResource.id) >= _count; }
+    public function whoHelpId(s:String):void { helpId = s; }
+    public function needHelpNow(b:Boolean):void { needHelp = b; }
+    public function get count():int { return _count; }
+    public function get id():int { return _dataResource.id; }
+    public function get isFull():Boolean { return _isFull; }
 
     public function fullIt(im:Image):void {
         g.userInventory.addResource(_dataResource.id, -_count);

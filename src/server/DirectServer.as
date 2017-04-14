@@ -2848,7 +2848,7 @@ public class DirectServer {
 
     public function getTrainPack(userSocialId:String, callback:Function, t:Train = null):void {
         var loader:URLLoader = new URLLoader();
-        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_TRAIN_PACK);
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_TRAIN_PACK_NEW);
         var variables:URLVariables = new URLVariables();
 
         Cc.ch('server', 'getTrainPack', 1);

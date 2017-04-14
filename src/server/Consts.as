@@ -49,6 +49,7 @@ public class Consts {
     public static var INQ_GET_USER_TRAIN:String = 'getUserTrain.php';
     public static var INQ_UPDATE_USER_TRAIN_STATE:String = 'updateUserTrainState.php';
     public static var INQ_GET_USER_TRAIN_PACK:String = 'getUserTrainPack.php';
+    public static var INQ_GET_USER_TRAIN_PACK_NEW:String = 'getUserTrainPackNew.php';
     public static var INQ_RELEASE_USER_TRAIN_PACK:String = 'releaseUserTrainPack.php';
     public static var INQ_UPDATE_USER_TRAIN_PACK_ITEM:String = 'updateUserTrainPackItem.php';
     public static var INQ_DELETE_USER:String = 'deleteUser.php';

@@ -94,9 +94,7 @@ public class WOTrainOrder extends WindowMain{
         _source.addChild(_txtTime);
     }
 
-    public function onClickExit(e:Event=null):void {
-        hideIt();
-    }
+    public function onClickExit(e:Event=null):void { hideIt(); }
 
     private function onClickBtn():void {
         if (g.user.hardCurrency < 30) {
@@ -108,12 +106,10 @@ public class WOTrainOrder extends WindowMain{
 
         g.userInventory.addMoney(1,-30);
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_AERIAL_TRAM_ID});
-//        g.woTrain.clearItems();
         if (_callback != null) {
             _callback.apply(null);
             _callback = null;
         }
-//        g.windowsManager.cashWindow = this;
         hideIt();
     }
 
