@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:c32b667bd78e07951a69514aa269e52f:886bb4945c1f76ac042d2c759eb252db:4793af12d87b93b48c95ed9be00d1ca8$ -->
+<!-- $TexturePacker:SmartUpdate:33da338c5c9df1a2cd1925a0b29ff846:886bb4945c1f76ac042d2c759eb252db:4793af12d87b93b48c95ed9be00d1ca8$ -->
 <TextureAtlas imagePath="iconAtlas.png" width="1597" height="1998">
     <SubTexture name="8_march_statue_icon" x="756" y="290" width="116" height="150" frameX="-18" frameY="0" frameWidth="150" frameHeight="150"/>
     <SubTexture name="aerial_tram_icon" x="756" y="442" width="127" height="141" frameX="0" frameY="-4" frameWidth="150" frameHeight="150"/>
@@ -66,11 +66,11 @@
     <SubTexture name="easel_clear_icon" x="1261" y="1665" width="84" height="127" frameX="-3" frameY="0" frameWidth="88" frameHeight="130"/>
     <SubTexture name="easter_bunny_icon" x="258" y="1410" width="125" height="138" frameX="-12" frameY="-7" frameWidth="150" frameHeight="150"/>
     <SubTexture name="easter_chick_icon" x="1117" y="364" width="126" height="125" frameX="-10" frameY="-12" frameWidth="150" frameHeight="150"/>
-    <SubTexture name="easter_egg_light_blue" x="1515" y="708" width="79" height="71"/>
-    <SubTexture name="easter_egg_pink" x="1264" y="574" width="79" height="70"/>
-    <SubTexture name="easter_egg_purple" x="1493" y="1635" width="79" height="70"/>
-    <SubTexture name="easter_egg_red" x="1261" y="646" width="79" height="71"/>
-    <SubTexture name="easter_egg_yellow" x="1493" y="1707" width="79" height="66"/>
+    <SubTexture name="easter_egg_light_blue_icon" x="1515" y="708" width="79" height="71"/>
+    <SubTexture name="easter_egg_pink_icon" x="1264" y="574" width="79" height="70"/>
+    <SubTexture name="easter_egg_purple_icon" x="1493" y="1635" width="79" height="70"/>
+    <SubTexture name="easter_egg_red_icon" x="1261" y="646" width="79" height="71"/>
+    <SubTexture name="easter_egg_yellow_icon" x="1493" y="1707" width="79" height="66"/>
     <SubTexture name="easter_gnome_icon" x="2" y="2" width="184" height="200" frameX="-7" frameY="0" frameWidth="200" frameHeight="200"/>
     <SubTexture name="easter_tree_icon" x="1015" y="737" width="117" height="150" frameX="-16" frameY="0" frameWidth="150" frameHeight="150"/>
     <SubTexture name="farm_bee_icon" x="1348" y="546" width="146" height="88" frameX="-2" frameY="-50" frameWidth="150" frameHeight="150"/>

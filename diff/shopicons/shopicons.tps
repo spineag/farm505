@@ -345,13 +345,13 @@
             <filename>cat_cosmonaut_2_icon.png</filename>
             <filename>easter_bunny_icon.png</filename>
             <filename>easter_chick_icon.png</filename>
-            <filename>easter_egg_light_blue.png</filename>
-            <filename>easter_egg_pink.png</filename>
-            <filename>easter_egg_purple.png</filename>
-            <filename>easter_egg_red.png</filename>
-            <filename>easter_egg_yellow.png</filename>
             <filename>easter_gnome_icon.png</filename>
             <filename>easter_tree_icon.png</filename>
+            <filename>easter_egg_light_blue_icon.png</filename>
+            <filename>easter_egg_pink_icon.png</filename>
+            <filename>easter_egg_purple_icon.png</filename>
+            <filename>easter_egg_yellow_icon.png</filename>
+            <filename>easter_egg_red_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
