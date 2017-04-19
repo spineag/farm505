@@ -491,10 +491,11 @@ public class WOOrder extends WindowMain{
         else _txtXP.text = String(_activeOrderItem.getOrder().xp);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) _txtCoins.text = String(_activeOrderItem.getOrder().coins * g.managerParty.coefficient);
         else _txtCoins.text = String(_activeOrderItem.getOrder().coins);
-        for (var i:int=0; i<_activeOrderItem.getOrder().resourceIds.length; i++) {
+        for (var i:int = 0; i < _activeOrderItem.getOrder().resourceIds.length; i++) {
             _arrResourceItems[i].fillIt(_activeOrderItem.getOrder().resourceIds[i], _activeOrderItem.getOrder().resourceCounts[i]);
         }
     }
+
 
     private function deleteOrder():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;

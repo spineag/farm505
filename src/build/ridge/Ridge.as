@@ -227,6 +227,8 @@ public class Ridge extends WorldObject{
     }
 
     private function onStartClick():void {
+//        trace(_build.x + '  X');
+//        trace(_build.y + '   Y');
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial && (!g.managerTutorial.isTutorialBuilding(this) || _tutorialCallback == null)) return;

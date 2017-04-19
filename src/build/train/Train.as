@@ -214,7 +214,7 @@ public class Train extends WorldObject{
         _source.endClickCallback = onClick;
         _source.outCallback = onOut;
 
-        if (g.isAway) {
+        if (g.isAway && _stateBuild == STATE_READY) {
             var f1:Function = function (ob:Object, t:Train):void {
                 fillList(ob);
             };

@@ -37,12 +37,12 @@ public class WOPartyWindowClose extends WindowMain{
     public function WOPartyWindowClose() {
         _woHeight = 451;
         _woWidth = 695;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/end_space_adventure_window.png',onLoad);
+        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/end_event_easter.png',onLoad);
     }
 
     private function onLoad(bitmap:Bitmap):void {
         var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'qui/end_space_adventure_window.png'].create() as Bitmap;
+        bitmap = g.pBitmaps[st + 'qui/end_event_easter.png'].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
@@ -52,13 +52,13 @@ public class WOPartyWindowClose extends WindowMain{
         image.pivotY = image.height/2;
         _source.addChild(image);
         createExitButton(hideIt);
-        _txtResource = new CTextField(701, 172, 'Вы собрали ' + g.managerParty.userParty.countResource + ' блины.');
+        _txtResource = new CTextField(701, 172, 'Вы собрали ' + g.managerParty.userParty.countResource + ' пасхальных яиц.');
         _txtResource.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
 //        _txtResource.alignH = Align.LEFT;
         _txtResource.x = -350;
         _txtResource.y = -115;
         _source.addChild(_txtResource);
-        _txtText = new CTextField(701, 172, 'Событие "Блинный Путь" завершено.');
+        _txtText = new CTextField(701, 172, 'Событие "Светлая Пасха" завершено.');
         _txtText.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR , Color.WHITE);
 //        _txtText.alignH = Align.LEFT;
         _txtText.x = -350;

@@ -1,9 +1,12 @@
 package utils {
+import com.greensock.TweenMax;
+import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
 import com.junkbyte.console.KeyBind;
 import com.junkbyte.console.addons.htmlexport.ConsoleHtmlExportAddon;
 
 import flash.display.Sprite;
+import flash.geom.Point;
 import flash.ui.Keyboard;
 
 import flash.ui.Keyboard;
@@ -56,6 +59,8 @@ public class ConsoleWrapper {
         Cc.bindKey(new KeyBind(Keyboard.T, true,false,true,true), makeTester);
 //        Cc.bindKey(new KeyBind(Keyboard.Q, true,false,true,true), g.managerLanguage.changeLanguage);
         Cc.bindKey(new KeyBind(Keyboard.X, true,false,true,true), showXY);
+        Cc.bindKey(new KeyBind(Keyboard.M, true,false,true,true), scaleMoveMinus);
+        Cc.bindKey(new KeyBind(Keyboard.P, true,false,true,true), scaleMovePlus);
     }
 
     public function initTesterMode():void {
@@ -99,6 +104,18 @@ public class ConsoleWrapper {
                 if(g.windowsManager) g.windowsManager.openWindow(WindowsManager.WO_RELOAD_GAME);
             };
             g.directServer.deleteUser(f2);
+        }
+    }
+
+    private function scaleMoveMinus():void {
+        if (g.user.isTester) {
+            g.managerResize.scaleMove();
+        }
+    }
+
+    private function scaleMovePlus():void {
+        if (g.user.isTester) {
+            g.managerResize.scaleMove(true);
         }
     }
 

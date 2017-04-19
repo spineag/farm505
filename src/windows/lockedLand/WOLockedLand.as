@@ -56,9 +56,9 @@ public class WOLockedLand extends WindowMain {
         _source.addChild(_bgC);
 
         _btnOpen = new CButton();
-        _btnOpen.addButtonTexture(158, 46, CButton.BLUE, true);
+        _btnOpen.addButtonTexture(158, 46, CButton.GREEN, true);
         _txtBtn = new CTextField(158,46,String(g.managerLanguage.allTexts[418]));
-        _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtBtn.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnOpen.addChild(_txtBtn);
         _btnOpen.x = 0;
         _btnOpen.y = -_woHeight/2 + 515;

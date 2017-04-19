@@ -146,6 +146,10 @@ public class Fabrica extends WorldObject {
         if (_rect.width) {
             _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
             _source.registerHitArea(_hitArea);
+            if (!g.isAway) _source.endClickCallback = null;
+            if (!g.isAway) _source.endClickCallback = onClick;
+            _source.hoverCallback = onHover;
+            _source.outCallback = onOut;
         }
     }
 
