@@ -30,6 +30,7 @@ public class User extends Someone {
     public var countCats:int;
     public var tutorialStep:int;
     public var lastVisitAmbar:Boolean;
+    public var lastVisitPlant:int = 1;
     public var cutScenes:Array;
     public var miniScenes:Array;
     public var villageNotification:int;

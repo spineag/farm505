@@ -232,6 +232,7 @@ public class FriendPanel {
     public function onGettingInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
         fillFriends();
+        g.managerAchievement.achievementCountFriend(_arrFriends.length - 2);
     }
 
     public function updateFriendsPanel():void {
@@ -254,7 +255,6 @@ public class FriendPanel {
                 if ((ar[i] as Someone).needHelpCount > 0) _arrFriends.push(ar[i]);
             }
         }
-
         if (_activeTabType == TYPE_NORMAL) {
             addButtonsAddFriends();
         }
@@ -385,7 +385,6 @@ public class FriendPanel {
             createArrows();
             checkArrows();
         }
-        g.managerAchievement.achievementCountFriend(_arrFriends.length);
         var l:int = _arrFriends.length;
         if (l>5) l = 5;
         for (var i:int = 0; i < l; i++) {

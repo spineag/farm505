@@ -67,6 +67,7 @@ public class WOBuyPlantItem {
     }
     
     public function fillData(ob:StructureDataResource, f:Function):void {
+//        source.visible = true;
         _dataPlant = ob;
         if (!_dataPlant) {
             Cc.error('WOBuyPlantItem:: empty _dataPlant');
@@ -112,7 +113,6 @@ public class WOBuyPlantItem {
         _icon.x = _bg.width/2 - _icon.width/2;
         _icon.y = _bg.height/2 - _icon.height/2;
         source.addChildAt(_icon,1);
-
         if (g.user.fabricItemNotification.length > 0) {
             var arr:Array = g.user.fabricItemNotification;
             var im:Image;
@@ -159,6 +159,11 @@ public class WOBuyPlantItem {
         if (ob) {
             fillData(ob, f);
             if (_maxAlpha > 0) {
+                _maxAlpha = 1;
+                source.scaleX = 0;
+                source.scaleY = 0;
+                source.y = _defaultY - 35;
+                source.alpha = 0;
                 source.isTouchable = true;
                 source.visible = true;
             } else {
