@@ -56,12 +56,17 @@ public class PostOpenFabric  extends WindowMain {
     }
 
     private function onLoad(bitmap:Bitmap):void {
-        bitmap = g.pBitmaps[stUrl].create() as Bitmap;
-        try {
-            photoFromTexture(Texture.fromBitmap(bitmap));
-        } catch (e:Error) {
-            Cc.error('PostOpenFabrica:: ' + e.message);
-            hideIt();
+        if (g.pBitmaps) {
+            bitmap = g.pBitmaps[stUrl].create() as Bitmap;
+            try {
+                photoFromTexture(Texture.fromBitmap(bitmap));
+            } catch (e:Error) {
+                Cc.error('PostOpenFabrica:: ' + e.message);
+                hideIt();
+            }
+        } else {
+            Cc.error('PostDoneFabrica no stUrl: ' + stUrl);
+            super.hideIt();
         }
     }
 
@@ -148,6 +153,7 @@ public class PostOpenFabric  extends WindowMain {
         _data = null;
         (g.pBitmaps[stUrl] as PBitmap).deleteIt();
         delete g.pBitmaps[stUrl];
+        g.load.removeByUrl(stUrl);
     }
 }
 

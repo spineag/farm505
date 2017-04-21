@@ -64,6 +64,9 @@ public class LoadAnimation {
             delete g.pBitmaps[_url + '/texture.png' + g.getVersion(_name)];
             delete g.pJSONs[_url + '/texture.json' + g.getVersion(_name)];
             delete g.pJSONs[_url + '/skeleton.json' + g.getVersion(_name)];
+            g.load.removeByUrl(_url + '/texture.png' + g.getVersion(_name));
+            g.load.removeByUrl(_url + '/texture.json' + g.getVersion(_name));
+            g.load.removeByUrl(_url + '/skeleton.json' + g.getVersion(_name));
 
             if (_callback != null) _callback.apply(null, [_url, this]);
         }

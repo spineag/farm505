@@ -26,8 +26,6 @@ public class MouseHint {
     public static const SERP:String = "cursor_sickle";
     public static const CLOCK:String = "cursor_clock";
     public static const VEDRO:String = "cursor_basket";
-    public static const SCICCORS:String = "cursor_basket";
-    public static const KOWOLKA:String = "cursor_basket";
     public static const KORZINA:String = "cursor_basket";
     public static const HELP:String = "help_icon";
     public static const ANIMAL:String = "animal";
@@ -119,15 +117,17 @@ public class MouseHint {
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(VEDRO));
                 _image.x = 7;
                 _image.y = 10;
-                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_2'));
-
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'cursor_circle_2_eng';
+                 else st = 'cursor_circle_2';
+                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
                 break;
             case KORZINA:
                 _image = new Image(g.allData.atlas['interfaceAtlas'].getTexture(KORZINA));
                 _image.x = 7;
                 _image.y = 7;
-                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_circle_2'));
-
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) st = 'cursor_circle_2_eng';
+                else st = 'cursor_circle_2';
+                _imageBg = new Image(g.allData.atlas['interfaceAtlas'].getTexture(st));
                 break;
             case ANIMAL:
 //                _imageCircle.visible = true;

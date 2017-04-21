@@ -52,6 +52,8 @@ public class ManagerSalePack {
         (g.pBitmaps[g.dataPath.getGraphicsPath() + 'saleAtlas.png' + g.getVersion('saleAtlas')] as PBitmap).deleteIt();
         delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'saleAtlas.png' + g.getVersion('saleAtlas')];
         delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'saleAtlas.xml' + g.getVersion('saleAtlas')];
+        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'saleAtlas.png' + g.getVersion('saleAtlas'));
+        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'saleAtlas.xml' + g.getVersion('saleAtlas'));
     }
 }
 }

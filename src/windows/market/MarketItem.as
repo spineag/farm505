@@ -636,7 +636,7 @@ public class MarketItem {
                 try {
                     showSaleImage(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.cost);
                 } catch (e:Error) {
-                    Cc.error('at showScaleImage');
+                    Cc.error('at showSaleImage');
                 }
                 _plawkaBuy.visible = false;
                 _txtAdditem.visible = false;
@@ -731,6 +731,7 @@ public class MarketItem {
 //        _costTxt.text = String(_dataFromServer.cost); ?? double
         if (_dataFromServer.buyerSocialId == '1') {
             _personBuyer = g.user.neighbor;
+            _personBuyerTempItem = null;
         } else {
             for (i = 0; i < g.user.arrFriends.length; i++) {
                 if (_dataFromServer.buyerSocialId == g.user.arrFriends[i].userSocialId) {
@@ -930,9 +931,11 @@ public class MarketItem {
     }
 
     private function photoFromTexture(tex:Texture):void {
-        if (source && source.contains(_avaDefault)) source.removeChild(_avaDefault);
-        _avaDefault.dispose();
-        _avaDefault = null;
+        if (_avaDefault) {
+            if (source && source.contains(_avaDefault)) source.removeChild(_avaDefault);
+            _avaDefault.dispose();
+            _avaDefault = null;
+        }
         if (tex) {
             _ava = new Image(tex);
             MCScaler.scale(_ava, 75, 75);

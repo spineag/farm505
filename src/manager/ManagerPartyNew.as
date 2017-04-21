@@ -147,6 +147,8 @@ public class ManagerPartyNew {
 
         delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')];
         delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')];
+        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas'));
+        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas'));
     }
 
     public function get  timeToStart():int {return dataParty.timeToStart;}

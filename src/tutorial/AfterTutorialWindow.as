@@ -73,6 +73,7 @@ public class AfterTutorialWindow {
     public function hideIt():void {
         (g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/after_tutorial_window.png'] as PBitmap).deleteIt();
         delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/after_tutorial_window.png'];
+        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'qui/after_tutorial_window.png');
         g.cont.popupCont.removeChild(_source);
         _btnTex.deleteIt();
         _btnTex = null;

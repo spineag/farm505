@@ -45,6 +45,7 @@ public class TutorialCloud {
         _bg = new Image(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'x1/cloud.jpg'].create() as Bitmap));
         (g.pBitmaps[g.dataPath.getGraphicsPath() + 'x1/cloud.jpg'] as PBitmap).deleteIt();
         delete g.pBitmaps[g.dataPath.getGraphicsPath() + 'x1/cloud.jpg'];
+        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'x1/cloud.jpg');
         _source = new Sprite();
         _source.addChild(_bg);
         _txtSp = new Sprite();
@@ -84,10 +85,12 @@ public class TutorialCloud {
             if (g.pBitmaps['uho1']) {
                 (g.pBitmaps['uho1'] as PBitmap).deleteIt();
                 delete g.pBitmaps['uho1'];
+                g.load.removeByUrl('uho1');
             }
             if (g.pBitmaps['uho2']) {
                 (g.pBitmaps['uho2'] as PBitmap).deleteIt();
                 delete g.pBitmaps['uho2'];
+                g.load.removeByUrl('uho2');
             }
             return;
         }
