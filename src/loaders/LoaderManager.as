@@ -53,6 +53,10 @@ public class LoaderManager {
             _loaders.push(_loader.createQueue('loader' + String(i)));
         }
     }
+    
+    public function removeByUrl(url:String):void {
+        if (_loaderQueue) _loaderQueue.removeByUrl(url);
+    }
 
     public function loadImage(url:String, callback:Function = null, ...callbackParams):void {
         if (url == '' || url == null) return;
@@ -81,6 +85,8 @@ public class LoaderManager {
         Cc.ch('load', 'on load image: ' + url);
 
         g.pBitmaps[url] = new PBitmap(b);
+        loadMb(url);
+        
         if (callback != null) {
             if (b != null) {
                 callback.apply(null, [g.pBitmaps[url].create() as Bitmap].concat(callbackParams));
@@ -96,10 +102,7 @@ public class LoaderManager {
                 }
             }
         }
-
         if (additionalQueue[url]) additionalQueue[url] = null;
-
-        loadMb(url);
     }
 
     public function loadXML(url:String, callback:Function = null, ...callbackParams):void {
@@ -126,6 +129,8 @@ public class LoaderManager {
         Cc.ch('load', 'on load xml: ' + url);
 
         g.pXMLs[url] = xml;
+        loadMb(url);
+        
         if (callback != null) {
             callback.apply(null, callbackParams);
         }
@@ -139,7 +144,6 @@ public class LoaderManager {
         }
 
         if (additionalQueue[url]) additionalQueue[url] = null;
-        loadMb(url);
     }
 
     public function loadJSON(url:String, callback:Function = null, ...callbackParams):void {
@@ -164,6 +168,8 @@ public class LoaderManager {
     private function loadedJSON(url:String, callback:Function, callbackParams:Array):void {
         Cc.ch('load', 'on load json: ' + url);
         g.pJSONs[url] = _loader.get(url).asset;
+        loadMb(url);
+        
         if (callback != null) {
             callback.apply(null, callbackParams);
         }
@@ -175,26 +181,27 @@ public class LoaderManager {
                 }
             }
         }
-
         if (additionalQueue[url]) additionalQueue[url] = null;
-        loadMb(url);
     }
 
     public function loadAtlas(url:String, name:String, f:Function, ...params):void {
         var count:int = 2;
         var st:String = g.dataPath.getGraphicsPath() + url;
+        var v:String = g.getVersion(name);
         var fOnLoad:Function = function(smth:*=null):void {
             count--;
             if (count<=0) {
-                g.allData.atlas[name] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + '.png' + g.getVersion('questAtlas')].create() as Bitmap), g.pXMLs[st + '.xml' + g.getVersion('questAtlas')]);
-                (g.pBitmaps[st + '.png' + g.getVersion('questAtlas')] as PBitmap).deleteIt();
-                delete  g.pBitmaps[st + '.png' + g.getVersion('questAtlas')];
-                delete  g.pXMLs[st + '.xml' + g.getVersion('questAtlas')];
+                g.allData.atlas[name] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[st + '.png' + v].create() as Bitmap), g.pXMLs[st + '.xml' + v]);
+                (g.pBitmaps[st + '.png' + v] as PBitmap).deleteIt();
+                delete  g.pBitmaps[st + '.png' + v];
+                delete  g.pXMLs[st + '.xml' + v];
+                removeByUrl(st + '.png' + v);
+                removeByUrl(st + '.xml' + v);
                 if (f!=null) f.apply(null, params);
             }
         };
-        loadImage(st + '.png' + g.getVersion('questAtlas'), fOnLoad);
-        loadXML(st + '.xml' + g.getVersion('questAtlas'), fOnLoad);
+        loadImage(st + '.png' + v, fOnLoad);
+        loadXML(st + '.xml' + v, fOnLoad);
     }
 
     public function loadSWFModule(url:String, callback:Function, ...callbackParams):void {

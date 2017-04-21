@@ -82,6 +82,7 @@ public class WALLNewLevel {
         _txtLevel = null;
         (g.pBitmaps[stUrl] as PBitmap).deleteIt();
         delete g.pBitmaps[stUrl];
+        g.load.removeByUrl(stUrl);
     }
 }
 }

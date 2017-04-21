@@ -100,10 +100,14 @@ public class Cafe extends WorldObject {
     }
 
     private function createAtlases():void {
-        g.allData.atlas['cafeAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'cafeAtlas.png' + g.getVersion('cafeAtlas')].create() as Bitmap), g.pXMLs[g.dataPath.getGraphicsPath() + 'cafeAtlas.xml' + g.getVersion('cafeAtlas')]);
-        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'cafeAtlas.png' + g.getVersion('cafeAtlas')] as PBitmap).deleteIt();
-        delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'cafeAtlas.png' + g.getVersion('cafeAtlas')];
-        delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'cafeAtlas.xml' + g.getVersion('cafeAtlas')];
+        var url:String = g.dataPath.getGraphicsPath() + 'cafeAtlas.png' + g.getVersion('cafeAtlas');
+        var urlXML:String = g.dataPath.getGraphicsPath() + 'cafeAtlas.xml' + g.getVersion('cafeAtlas');
+        g.allData.atlas['cafeAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[url].create() as Bitmap), g.pXMLs[urlXML]);
+        (g.pBitmaps[url] as PBitmap).deleteIt();
+        delete  g.pBitmaps[url];
+        delete  g.pXMLs[urlXML];
+        g.load.removeByUrl(url);
+        g.load.removeByUrl(urlXML);
         createImage();
     }
 

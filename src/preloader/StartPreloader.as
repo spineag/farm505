@@ -76,6 +76,7 @@ public class StartPreloader {
         _source.addChildAt(_bg, 0);
         (g.pBitmaps[_jpgUrl] as PBitmap).deleteIt();
         delete g.pBitmaps[_jpgUrl];
+        g.load.removeByUrl(_jpgUrl);
 
         onResize();
         g.cont.popupCont.addChild(_source);

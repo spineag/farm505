@@ -958,6 +958,13 @@ AssetManager.getInstance().addFromXML(assetList);
 		{
 			return "(AssetQueue " + id + ", assetsTotal=" + assetsTotal + ", assetsLoading=" + assetsLoading + ", assetsLoaded=" + assetsLoaded + ")";
 		}
+
+		public function removeByUrl(st:String):void { // spineag own function, here st == id == url
+			var existingAsset:Asset = _assetsById[st] || AssetManager.getInstance().get(st);
+			if (existingAsset != null) {
+					disposeAsset(_assetsById[st]);
+			}
+		}
 		
 		
 		// PRIVATE FUNCTIONS

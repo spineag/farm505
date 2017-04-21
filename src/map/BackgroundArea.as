@@ -90,6 +90,7 @@ public class BackgroundArea {
         _additionalCont.addChild(bg);
         (g.pBitmaps[url] as PBitmap).deleteIt();
         delete g.pBitmaps[url];
+        g.load.removeByUrl(url);
         _countLoaded++;
     }
 }

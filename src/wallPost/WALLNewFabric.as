@@ -58,6 +58,7 @@ public class WALLNewFabric {
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[470]),bitMap,'interfaceAtlas');
         (g.pBitmaps[stUrl] as PBitmap).deleteIt();
         delete g.pBitmaps[stUrl];
+        g.load.removeByUrl(stUrl);
         _data = null;
     }
 }

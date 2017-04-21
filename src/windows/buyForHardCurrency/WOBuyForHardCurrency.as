@@ -3,6 +3,8 @@
  */
 package windows.buyForHardCurrency {
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
+
 import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Color;
@@ -60,7 +62,8 @@ public class WOBuyForHardCurrency extends WindowMain {
         _txt2 = new CTextField(300,30,String(g.managerLanguage.allTexts[447]));
         _txt2.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt2.x = -150;
-        _txt2.y = -115;
+        if (g.user.language == ManagerLanguage.RUSSIAN) _txt2.y = -115;
+            else _txt2.y = -122;
         _source.addChild(_txt2);
         _btnNo.clickCallback = onClickExit;
         _btnYes.x = 100;

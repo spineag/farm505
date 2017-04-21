@@ -45,6 +45,7 @@ public class WALLDoneTrain {
         g.socialNetwork.wallPostBitmap(String(g.user.userSocialId),String(g.managerLanguage.allTexts[468]),bitmap,'interfaceAtlas');
         (g.pBitmaps[stUrl] as PBitmap).deleteIt();
         delete g.pBitmaps[stUrl];
+        g.load.removeByUrl(stUrl);
     }
 }
 }

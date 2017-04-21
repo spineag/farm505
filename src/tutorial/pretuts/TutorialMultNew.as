@@ -120,10 +120,12 @@ public class TutorialMultNew {
             if (g.pBitmaps['uho1']) {
                 (g.pBitmaps['uho1'] as PBitmap).deleteIt();
                 delete g.pBitmaps['uho1'];
+                g.load.removeByUrl('uho1');
             }
             if (g.pBitmaps['uho2']) {
                 (g.pBitmaps['uho2'] as PBitmap).deleteIt();
                 delete g.pBitmaps['uho2'];
+                g.load.removeByUrl('uho2');
             }
             return;
         }
@@ -265,6 +267,7 @@ public class TutorialMultNew {
         delete g.allData.factory['tutorial_mult'];
         (g.pBitmaps['tutorial_mult_map'] as PBitmap).deleteIt();
         delete g.pBitmaps['tutorial_mult_map'];
+        g.load.removeByUrl('tutorial_mult_map');
         _armature.dispose();
         _source.dispose();
     }

@@ -3482,6 +3482,7 @@ public class DirectServer {
         variables.hash = MD5.hash(String(g.user.userId)+String(id)+SECRET);
         request.data = variables;
         Cc.ch('server', 'start removeUserLockedLand', 1);
+        Cc.ch('info', 'remove lockedLand id: ' + id);
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteRemoveUserLockedLand);

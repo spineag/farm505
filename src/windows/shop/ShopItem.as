@@ -562,7 +562,7 @@ public class ShopItem {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
 //                    createLockedSprite();
                     _txtAvailable.visible = true;
-                    _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(dataFarm.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[342]);
+                    _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(dataFarm.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[343]);
                     _im.filter = ManagerFilters.getButtonDisableFilter();
                     _nameTxt.text = _data.name;
                 } else {

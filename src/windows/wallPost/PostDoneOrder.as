@@ -2,6 +2,8 @@
  * Created by user on 5/31/16.
  */
 package windows.wallPost {
+import com.junkbyte.console.Cc;
+
 import data.DataMoney;
 import flash.display.Bitmap;
 import flash.display.StageDisplayState;
@@ -49,8 +51,13 @@ public class PostDoneOrder extends WindowMain {
     }
 
     private function onLoad(bitmap:Bitmap):void {
-        bitmap = g.pBitmaps[stUrl].create() as Bitmap;
-        photoFromTexture(Texture.fromBitmap(bitmap));
+        if (g.pBitmaps[stUrl]) {
+            bitmap = g.pBitmaps[stUrl].create() as Bitmap;
+            photoFromTexture(Texture.fromBitmap(bitmap));
+        } else {
+            Cc.error('PostDoneOrder no stUrl: ' + stUrl);
+            super.hideIt();
+        }
     }
 
     private function photoFromTexture(tex:Texture):void {
@@ -98,6 +105,7 @@ public class PostDoneOrder extends WindowMain {
         _source = null;
         (g.pBitmaps[stUrl] as PBitmap).deleteIt();
         delete g.pBitmaps[stUrl];
+        g.load.removeByUrl(stUrl);
     }
 }
 }
