@@ -16,7 +16,7 @@ import starling.events.Event;
 
 import windows.WindowsManager;
 
-public class DecorPostFence extends WorldObject{
+public class DecorPostFence extends WorldObject{ // zabor zi stovp4ukiv
     private var _rightLenta:Sprite;
     private var _leftLenta:Sprite;
     private var g:Vars = Vars.getInstance();
