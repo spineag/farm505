@@ -9,6 +9,8 @@ import flash.display.Bitmap;
 import flash.display.StageDisplayState;
 import flash.geom.Point;
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
+
 import resourceItem.DropItem;
 import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
@@ -43,8 +45,11 @@ public class WOStarterPack extends WindowMain{
 
     private function onLoad(bitmap:Bitmap):void {
         if (!_source) return;
-        var st:String = g.dataPath.getGraphicsPath();
-        bitmap = g.pBitmaps[st + 'qui/sp_back_empty.png'].create() as Bitmap;
+        if (g.user.language == ManagerLanguage.RUSSIAN) {
+            bitmap = g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/sp_back_empty.png'].create() as Bitmap;
+        } else {
+            bitmap = g.pBitmaps[g.dataPath.getGraphicsPath() + 'qui/sp_back_empty_eng.png'].create() as Bitmap;
+        }
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
@@ -59,7 +64,11 @@ public class WOStarterPack extends WindowMain{
 
     private function callbackServer(ob:Object):void {
         _data = ob;
-        g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/sp_back_empty.png',onLoad);
+        if (g.user.language == ManagerLanguage.RUSSIAN) {
+            g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/sp_back_empty.png', onLoad);
+        } else {
+            g.load.loadImage(g.dataPath.getGraphicsPath() + 'qui/sp_back_empty_eng.png', onLoad);
+        }
     }
 
     private function createWindow():void {

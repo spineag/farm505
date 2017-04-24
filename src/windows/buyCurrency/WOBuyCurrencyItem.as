@@ -13,6 +13,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
 import manager.Vars;
 import resourceItem.DropItem;
 
@@ -133,11 +134,13 @@ public class WOBuyCurrencyItem {
             _action.x = 350;
         } else {
             if (bonus[0] == 1) {
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price'));
+                if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price'));
+                else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('best_price_eng'));
                 im.x = 280;
                 source.addChild(im);
             } else if (bonus[0] == 2) {
-                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_sells'));
+                if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_sells'));
+                else im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('top_eng'));
                 im.x = 280;
                 source.addChild(im);
             }

@@ -342,6 +342,8 @@
             <filename>yellow_coupone.png</filename>
             <filename>yellow_tile.png</filename>
             <filename>friends_panel_bt_add.png</filename>
+            <filename>best_price_eng.png</filename>
+            <filename>top_eng.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
