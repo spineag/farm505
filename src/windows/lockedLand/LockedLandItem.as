@@ -72,7 +72,7 @@ public class LockedLandItem {
             source.addChild(_galo4ka);
             _isGood = true;
         } else {
-            _btn= new CButton();
+            _btn = new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
             _txtBtn = new CTextField(120,30,String(g.managerLanguage.allTexts[355]));
             _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
@@ -133,10 +133,10 @@ public class LockedLandItem {
         } else {
             _btn = new CButton();
             _btn.addButtonTexture(120, 30, CButton.GREEN, true);
-            _txtBtn = new CTextField(120,30,String(g.managerLanguage.allTexts[355]) + ' ' + String(g.allData.getResourceById(id).priceHard *(count - g.userInventory.getCountResourceById(id))));
-            _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE);
-            _txtBtn.x = -15;
-            _txtBtn.y = 2;
+            _txtBtn = new CTextField(114,30,String(g.managerLanguage.allTexts[355]) + ' ' + String(g.allData.getResourceById(id).priceHard *(count - g.userInventory.getCountResourceById(id))));
+            _txtBtn.setFormat(CTextField.MEDIUM18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _txtBtn.x = -11;
+            _txtBtn.y = 1;
             _btn.addChild(_txtBtn);
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
             MCScaler.scale(im,25,25);

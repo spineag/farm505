@@ -50,24 +50,11 @@ public class ShopTabBtn {
         _source.outCallback = onOut;
 
         var im:Image;
-        _txtNotification = new CTextField(30, 30, String(g.user.decorNotification));
-        _txtNotification.setFormat(CTextField.BOLD18, 18, Color.WHITE);
-        _txtNotification.x = 95;
-        _txtNotification.y = -11;
-        _txtNotification.visible = false;
         switch (type) {
             case WOShop.VILLAGE:
                 _txtTabName.text = String(g.managerLanguage.allTexts[347]);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_court'));
-                if (g.user.villageNotification > 0) {
-                    _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
-                    MCScaler.scale(_imNotification,25,25);
-                    _imNotification.x = 100;
-                    _imNotification.y = -5;
-                    _source.addChild(_imNotification);
-                    _txtNotification.visible = true;
-                    _txtNotification.text = String(g.user.villageNotification);
-                }
+                if (g.user.villageNotification > 0) addNotification(g.user.villageNotification);
                 break;
             case WOShop.ANIMAL:
                 _txtTabName.text = String(g.managerLanguage.allTexts[348]);
@@ -76,49 +63,37 @@ public class ShopTabBtn {
             case WOShop.FABRICA:
                 _txtTabName.text = String(g.managerLanguage.allTexts[349]);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_fabric'));
-                if (g.user.fabricaNotification > 0) {
-                    _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
-                    MCScaler.scale(_imNotification,25,25);
-                    _imNotification.x = 100;
-                    _imNotification.y = -5;
-                    _source.addChild(_imNotification);
-                    _txtNotification.visible = true;
-                    _txtNotification.text = String(g.user.fabricaNotification);
-                }
+                if (g.user.fabricaNotification > 0) addNotification(g.user.fabricaNotification);
                 break;
             case WOShop.PLANT:
                 _txtTabName.text = String(g.managerLanguage.allTexts[350]);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_plants'));
-                if (g.user.plantNotification > 0) {
-                    _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
-                    MCScaler.scale(_imNotification,25,25);
-                    _imNotification.x = 100;
-                    _imNotification.y = -5;
-                    _source.addChild(_imNotification);
-                    _txtNotification.visible = true;
-                    _txtNotification.text = String(g.user.plantNotification);
-                }
+                if (g.user.plantNotification > 0) addNotification(g.user.plantNotification);
                 break;
             case WOShop.DECOR:
                 _txtTabName.text = String(g.managerLanguage.allTexts[351]);
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('shop_window_decor'));
-                if (g.user.decorNotification > 0) {
-                    _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
-                    MCScaler.scale(_imNotification,25,25);
-                    _imNotification.x = 100;
-                    _imNotification.y = -5;
-                    _source.addChild(_imNotification);
-                    _txtNotification.visible = true;
-                    _txtNotification.text = String(g.user.decorNotification);
-                }
+                if (g.user.decorNotification > 0) addNotification(g.user.decorNotification);
                 break;
         }
-        _source.addChild(_txtNotification);
         im.x = 62 - im.width/2;
         im.y = 38 - im.height/2;
         _source.addChild(im);
         _source.addChild(_txtTabName);
         _txtTabName.touchable = true;
+    }
+
+    private function addNotification(count:int):void {
+        _imNotification = new Image(g.allData.atlas['interfaceAtlas'].getTexture('red_m_big'));
+        MCScaler.scale(_imNotification,25,25);
+        _imNotification.x = 100;
+        _imNotification.y = -5;
+        _source.addChild(_imNotification);
+        _txtNotification = new CTextField(30, 20, String(count));
+        _txtNotification.setFormat(CTextField.BOLD18, 14, Color.WHITE);
+        _txtNotification.x = 98;
+        _txtNotification.y = -4;
+        _source.addChild(_txtNotification);
     }
 
     public function activateIt(value:Boolean):void {
