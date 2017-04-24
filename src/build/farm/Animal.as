@@ -24,6 +24,8 @@ import starling.textures.Texture;
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
 import utils.CSprite;
+import utils.Utils;
+
 import windows.WindowsManager;
 import flash.geom.Rectangle;
 
@@ -87,7 +89,8 @@ public class Animal {
             source.endClickCallback = onEndClick;
             source.startClickCallback = onStartClick;
         }
-       if (g.isAway) source.releaseContDrag = true;
+//       if (g.isAway) source.releaseContDrag = true;
+        source.releaseContDrag = true;
         switch (_data.id) {
             case 1: // chicken
                 defaultLabel = 'walk';
@@ -247,11 +250,9 @@ public class Animal {
             onOut();
             if (g.managerCats.curCountCats == g.managerCats.maxCountCats) {
                 if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_WAIT_FREE_CATS);
-//                source.releaseContDrag = false;
                 return;
             } else {
                 if (!g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_NO_FREE_CATS);
-//                source.releaseContDrag = false;
                 return;
             }
         }
@@ -333,6 +334,8 @@ public class Animal {
     }
 
     public function onStartClick():void {
+
+
         if(_farm.isAnyCrafted) return;
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
@@ -341,6 +344,11 @@ public class Animal {
                 if (g.toolsModifier.modifierType == ToolsModifier.FEED_ANIMAL_ACTIVE) trace('kyky');
                 _wasStartActiveFeeding = true;
                 g.toolsModifier.modifierType = ToolsModifier.FEED_ANIMAL_ACTIVE;
+                source.releaseContDrag = false;
+                var func:Function = function():void {
+                    source.releaseContDrag = true;
+                };
+                Utils.createDelay(2,func);
             }
         }
     }

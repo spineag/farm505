@@ -97,12 +97,12 @@ public class WOOrder extends WindowMain{
         _woHeight = 570;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        if (g.managerParty.eventOn  && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) {
-            _bgParty = new Image(g.allData.atlas['partyAtlas'].getTexture('order_window_easter_back'));
-            _bgParty.x = -_bgParty.width / 2;
-            _bgParty.y = -_bgParty.height / 2;
-            _source.addChild(_bgParty);
-        }
+//        if (g.managerParty.eventOn  && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) {
+//            _bgParty = new Image(g.allData.atlas['partyAtlas'].getTexture('order_window_easter_back'));
+//            _bgParty.x = -_bgParty.width / 2;
+//            _bgParty.y = -_bgParty.height / 2;
+//            _source.addChild(_bgParty);
+//        }
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
 

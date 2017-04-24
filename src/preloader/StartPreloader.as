@@ -56,7 +56,7 @@ public class StartPreloader {
         _callbackInit = f;
         _source = new Sprite();
         if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) _jpgUrl = g.dataPath.getGraphicsPath() + 'preloader/eng_splash_screen_main.jpg';
-            else _jpgUrl = g.dataPath.getGraphicsPath() + 'preloader/preloader_bg.jpg';
+            else _jpgUrl = g.dataPath.getGraphicsPath() + 'preloader/preloader_bg_1.jpg';
         g.load.loadImage(_jpgUrl, onLoad);
         _quad = new Quad(3, 3, 0x33a2f4);
         _quad.x = 327;

@@ -67,7 +67,7 @@ public class WOBuyPlant extends WindowMain {
         }
         updatePlantArray();
         createShiftBtns();
-        if (_arrShiftBtns.length > 0) activateShiftBtn(1, false);
+        activateShiftBtn(g.user.lastVisitPlant, false);
         fillPlantItems();
         showAnimatePlantItems();
         super.showIt();
@@ -239,11 +239,12 @@ public class WOBuyPlant extends WindowMain {
                 g.managerCutScenes.checkCutSceneCallback();
             } else return;
         }
+        g.user.lastVisitPlant = n;
         if (needUpdate && _shift == n-1) return;
         for (var i:int=0; i<_arrShiftBtns.length; i++) {
             _arrShiftBtns[i].source.y = -_woHeight/2 + 117;
         }
-        _arrShiftBtns[n-1].source.y += 8;
+        if (_arrShiftBtns[n-1]) _arrShiftBtns[n-1].source.y += 8;
         _shift = n-1;
         if (needUpdate) {
             animateChangePlantItems();
