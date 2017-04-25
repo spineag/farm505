@@ -230,6 +230,16 @@ public class ManagerCats {
         return null;
     }
 
+    public function getFreeCatDecor():HeroCat {
+        for (var i:int=0; i<_catsArray.length; i++) {
+            if ((_catsArray[i] as HeroCat).isFree && (_catsArray[i] as HeroCat).isFreeDecor) {
+                (_catsArray[i] as HeroCat).stopFreeCatIdle();
+                return _catsArray[i];
+            }
+        }
+        return null;
+    }
+
     public function get countFreeCats():int {
         var j:int = 0;
         for (var i:int=0; i<_catsArray.length; i++) {

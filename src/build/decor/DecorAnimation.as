@@ -47,7 +47,7 @@ public class DecorAnimation extends WorldObject{
     private var _decorWork:Boolean;
     private var _decorAnimation:int;
     private var  _awayAnimation:Boolean = false;
-    private var _catRun:Boolean = true;
+    private var _catRun:Boolean = false;
     private var _curLockedLand:LockedLand;
 
     public function DecorAnimation(_data:Object) {
@@ -104,6 +104,18 @@ public class DecorAnimation extends WorldObject{
             _source.filter = ManagerFilters.BUILD_STROKE;
     }
 
+    public function get catNeed():Boolean {
+        return _dataBuild.catNeed;
+    }
+
+    public function get decorWork():Boolean {
+        return _decorWork;
+    }
+
+    public function get catRun():Boolean {
+        return _catRun;
+    }
+
     private function onClick():void {
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TEST, {id:2}); // temp
         if (g.isActiveMapEditor) return;
@@ -153,7 +165,17 @@ public class DecorAnimation extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            var h:HeroCat =  g.managerCats.getFreeCat();
+            if (_decorWork && _catRun) {
+                var click:Function = function(e:Event=null):void {
+                    _armature.removeEventListener(EventObject.COMPLETE, click);
+                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, click);
+                };
+                _armature.addEventListener(EventObject.COMPLETE, click);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, click);
+                _armature.animation.gotoAndPlayByFrame('over');
+                return;
+            } else if (_decorWork) return;
+            var h:HeroCat =  g.managerCats.getFreeCatDecor();
             if (!h) {
                 var p:Point;
                 if (g.managerCats.curCountCats == g.managerCats.maxCountCats && !_decorWork) {
@@ -167,17 +189,7 @@ public class DecorAnimation extends WorldObject{
                 }
                 return;
             } else h = null;
-            if (_decorWork && _catRun) {
-                var click:Function = function(e:Event=null):void {
-                    _armature.removeEventListener(EventObject.COMPLETE, click);
-                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, click);
-                };
-                _armature.addEventListener(EventObject.COMPLETE, click);
-                _armature.addEventListener(EventObject.LOOP_COMPLETE, click);
-                _armature.animation.gotoAndPlayByFrame('over');
-                return;
-            } else if (_decorWork) return;
-            if (!_dataBuild.catNeed) {
+            if (!_dataBuild.catNeed && !heroCat) {
                 var ob:Object = g.allData.factory[_dataBuild.url].allDragonBonesData[_dataBuild.url];
                 var oldBones:Vector.<String> = ob.armatureNames;
                 var count:int  = oldBones.length - 1;
@@ -185,9 +197,10 @@ public class DecorAnimation extends WorldObject{
                     var heroCat:HeroCat;
                     var armature:Armature;
                     for (var i:int = 0; i < count; i++) {
-                        heroCat = g.managerCats.getFreeCat();
+                        heroCat = g.managerCats.getFreeCatDecor();
                         if (heroCat) {
                             _decorWork = true;
+//                            heroCat.isFreeDecor = false;
                             heroCat.isFree = false;
                             armature = new Armature();
                             armature = g.allData.factory[_dataBuild.url].buildArmature('cat' + String(count - i));
@@ -200,10 +213,11 @@ public class DecorAnimation extends WorldObject{
                         }
                     }
                 } else {
-                    if (!_heroCat) _heroCat = g.managerCats.getFreeCat();
+                    if (!_heroCat) _heroCat = g.managerCats.getFreeCatDecor();
                     if (_heroCat) {
                         _decorWork = true;
-                        _heroCat.isFree = false;
+                        _heroCat.isFreeDecor = false;
+                        _heroCat.decorAnimation = (this as DecorAnimation);
                         _catRun = true;
                         var fEndOver:Function = function(e:Event=null):void {
                             _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
@@ -279,6 +293,7 @@ public class DecorAnimation extends WorldObject{
                         if (armature) armature.animation.gotoAndStopByFrame('idle');
                         if (heroCat) {
                             heroCat.visible = true;
+//                            heroCat.isFreeDecor = true;
                             heroCat.isFree = true;
                             _armatureArray.pop();
                             if (_armatureArray.length <= 0) _decorWork = false;
@@ -293,6 +308,7 @@ public class DecorAnimation extends WorldObject{
                 } else {
                     if (heroCat) {
                         heroCat.visible = true;
+//                        heroCat.isFreeDecor = true;
                         heroCat.isFree = true;
                         _armatureArray.pop();
                         if (_armatureArray.length <= 0) _decorWork = false;
@@ -449,13 +465,14 @@ public class DecorAnimation extends WorldObject{
         if (_decorAnimation >= 4) {
             if (_armature.animation.hasAnimation('back')) {
                 var fEndOver:Function = function (e:Event = null):void {
-                    _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
-                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                     if (_heroCat) {
                         _heroCat.visible = true;
-                        _heroCat.isFree = true;
+                        _heroCat.isFreeDecor = true;
+                        _heroCat.decorAnimation = (this as DecorAnimation);
                     }
                     stopAnimation();
+                    _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                 };
                 _armature.addEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
@@ -465,12 +482,44 @@ public class DecorAnimation extends WorldObject{
                 if (_dataBuild && !_dataBuild.catNeed) {
                     if (_heroCat) {
                         _heroCat.visible = true;
-                        _heroCat.isFree = true;
+                        _heroCat.isFreeDecor = true;
+                        _heroCat.decorAnimation = (this as DecorAnimation);
                     }
                 }
                 stopAnimation();
                 _decorAnimation = 0;
             }
+        }
+    }
+
+    public function forceStopDecorAnimation():void {
+        _decorAnimation = 0;
+        _catRun = false;
+        _isHover = false;
+        _decorWork = false;
+        if (_armature) {
+            _armature.animation.gotoAndPlayByFrame('idle');
+            _heroCat.visible = true;
+            _heroCat.isFreeDecor = true;
+        }
+        if (_heroCat) _heroCat = null;
+    }
+
+    public function forceStartDecorAnimation(h:HeroCat):void {
+        _heroCat = h;
+        if (_heroCat) {
+            _decorWork = true;
+            _heroCat.isFreeDecor = false;
+            _heroCat.decorAnimation = (this as DecorAnimation);
+            _catRun = true;
+            var fEndOver:Function = function(e:Event=null):void {
+                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
+            };
+            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+            _armature.animation.gotoAndPlayByFrame('over');
         }
     }
 
@@ -563,7 +612,6 @@ public class DecorAnimation extends WorldObject{
             if (viyi) {
                 viyi.visible = true;
             }
-
     }
 
     private function releaseWomanBackTexture(armature:Armature = null):void {

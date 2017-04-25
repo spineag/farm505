@@ -298,6 +298,13 @@ public class MarketItem {
         fillIt(g.allData.getResourceById(id),count, cost);
         _txtAdditem.visible = false;
         g.managerCutScenes.checkCutSceneForAddToPapper(this);
+        if(inPapper) {
+            if (_papperBtn) {
+                _papperBtn.visible = true;
+            }
+            if (_imCheck) _imCheck.visible = true;
+            _inPapper = true;
+        }
     }
 
     private function onAddToServer(ob:Object):void {

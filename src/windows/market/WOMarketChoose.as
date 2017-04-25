@@ -12,6 +12,8 @@ import starling.utils.Color;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
+import utils.TimeUtils;
+
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.DefaultVerticalScrollSprite;
@@ -49,6 +51,11 @@ public class WOMarketChoose extends WindowMain {
     private var _txtSellBtn:CTextField;
     private var _txtAmbar:CTextField;
     private var _txtSklad:CTextField;
+    private var _imPapper:Image;
+    private var _txtPapper:CTextField;
+    private var _txtPapperBtn:CTextField;
+    private var _btnPapper:CButton;
+    private var _woMarket:WOMarket;
 
     public function WOMarketChoose() {
         super();
@@ -112,11 +119,95 @@ public class WOMarketChoose extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         _callback = callback;
         _activetedItem = params[0];
+        _woMarket = params[1];
         if (g.user.lastVisitAmbar) _type = AMBAR;
         else _type = SKLAD;
         checkTypes();
         fillItems();
+        checkPapper();
         super.showIt();
+    }
+
+    private function checkPapper():void {
+        if (g.userTimer.papperTimerAtMarket > 0) {
+            _imPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_clock'));
+            _imPapper.x = -220;
+            _imPapper.y = 205;
+            _source.addChild(_imPapper);
+            _txtPapper = new CTextField(210, 60, String(g.managerLanguage.allTexts[1021] + ' ' + TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket)));
+            _txtPapper.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+            _txtPapper.x = -184;
+            _txtPapper.y = 194;
+            _source.addChild(_txtPapper);
+
+            _btnPapper = new CButton();
+            _btnPapper.addButtonTexture(70, 30, CButton.GREEN, true);
+            _txtPapperBtn = new CTextField(70, 30, String(g.managerLanguage.allTexts[359] + ' 1   '));
+            _txtPapperBtn.setFormat(CTextField.BOLD18, 15, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+            _btnPapper.addChild(_txtPapperBtn);
+            _txtPapperBtn.x = 2;
+            _source.addChild(_btnPapper);
+            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
+            MCScaler.scale(im, im.height/2, im.width/2);
+            im.x = 35;
+            im.y = 16;
+            _btnPapper.addChild(im);
+            _btnPapper.x = 55;
+            _btnPapper.y = 225;
+            _btnPapper.clickCallback = onClickRefresh;
+            g.gameDispatcher.addToTimer(timerPapper);
+        } else {
+            _imPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
+            _imPapper.x = -180;
+            _imPapper.y = 202;
+            _source.addChild(_imPapper);
+            MCScaler.scale(_imPapper,_imPapper.height - 35,_imPapper.width - 35);
+            _txtPapper = new CTextField(210, 60, String(g.managerLanguage.allTexts[1022]));
+            _txtPapper.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+            _txtPapper.x = -130;
+            _txtPapper.y = 194;
+            _source.addChild(_txtPapper);
+        }
+    }
+
+    private function onClickRefresh():void {
+        if (g.user.hardCurrency < 1) {
+            g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
+            g.windowsManager.openWindow(WindowsManager.WO_BUY_CURRENCY, null, true);
+            return;
+        } else {
+            g.userInventory.addMoney(1,-1);
+            g.userTimer.papperTimerAtMarket = 0;
+            g.directServer.skipUserInPaper(null);
+            g.gameDispatcher.removeFromTimer(timerPapper);
+            _source.removeChild(_imPapper);
+            _imPapper = null;
+            _imPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
+            _imPapper.x = -180;
+            _imPapper.y = 202;
+            _source.addChild(_imPapper);
+            MCScaler.scale(_imPapper,_imPapper.height - 35,_imPapper.width - 35);
+            _txtPapper.text = String(g.managerLanguage.allTexts[1022]);
+            _txtPapper.x = -130;
+            _btnPapper.visible = false;
+        }
+    }
+
+    private function timerPapper():void {
+        if (g.userTimer.papperTimerAtMarket > 0) _txtPapper.text = String(g.managerLanguage.allTexts[1021] + ' ' + TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket));
+        else {
+            g.gameDispatcher.removeFromTimer(timerPapper);
+            _source.removeChild(_imPapper);
+            _imPapper = null;
+            _imPapper = new Image(g.allData.atlas['interfaceAtlas'].getTexture('newspaper_icon_small'));
+            _imPapper.x = -180;
+            _imPapper.y = 202;
+            _source.addChild(_imPapper);
+            MCScaler.scale(_imPapper,_imPapper.height - 35,_imPapper.width - 35);
+            _txtPapper.text = String(g.managerLanguage.allTexts[1022]);
+            _txtPapper.x = -130;
+            _btnPapper.visible = false;
+        }
     }
 
     private function createWOElements():void {
@@ -421,11 +512,18 @@ public class WOMarketChoose extends WindowMain {
             }
             var level:int = g.allData.getResourceById(_curResourceId).blockByLevel;
             if (!level || level < 1) level = 1;
+            var b:Boolean = false;
+            if (g.userTimer.papperTimerAtMarket <= 0) {
+                g.directServer.updateMarketPapper(_activetedItem.number, true, null);
+                _woMarket.startPapperTimer();
+                b = true
+            }
             if (_callback != null) {
-                _callback.apply(null, [_activetedItem, _curResourceId, level, _countResourceBlock.count, _countMoneyBlock.count]);
+                _callback.apply(null, [_activetedItem, _curResourceId, level, _countResourceBlock.count, _countMoneyBlock.count, b]);
                 _callback = null;
             }
             if (isCashed) g.windowsManager.secondCashWindow = null;
+
             super.hideIt();
         }
     }

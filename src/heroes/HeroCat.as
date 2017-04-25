@@ -4,9 +4,13 @@
 package heroes {
 
 import build.TownAreaBuildSprite;
+import build.decor.DecorAnimation;
 import build.farm.Farm;
 import build.ridge.Ridge;
 import com.greensock.TweenMax;
+
+import data.BuildType;
+
 import dragonBones.Armature;
 import dragonBones.Bone;
 import dragonBones.Slot;
@@ -25,8 +29,10 @@ public class HeroCat extends BasicCat{
     private var _catWateringAndFeed:Sprite;
     private var _catBackImage:Sprite;
     private var _isFree:Boolean;
+    private var _isFreeDecor:Boolean;
     private var _type:int;
     private var heroEyes:HeroEyesAnimation;
+    private var _decorAnimation:DecorAnimation;
     private var freeIdleGo:Boolean;
     public var isLeftForFeedAndWatering:Boolean; // choose the side of ridge for watering
     public var curActiveRidge:Ridge; //  for watering ridge
@@ -38,6 +44,7 @@ public class HeroCat extends BasicCat{
 
         _type = type;
         _isFree = true;
+        _isFreeDecor = true;
         _source = new TownAreaBuildSprite();
         _source.touchable = false;
         _catImage = new Sprite();
@@ -115,11 +122,39 @@ public class HeroCat extends BasicCat{
         return _isFree;
     }
 
+    public function get isFreeDecor():Boolean {
+        return _isFreeDecor;
+    }
+
+    public function get decorAnimation():DecorAnimation {
+        return _decorAnimation;
+    }
+
     public function set isFree(value:Boolean):void {
         _isFree = value;
         g.catPanel.checkCat();
+
+        if (_isFree) makeFreeCatIdle();
+        else {
+            if (!_isFreeDecor) {
+                _decorAnimation.forceStopDecorAnimation();
+            } else stopFreeCatIdle();
+             stopFreeCatIdle();
+        }
+    }
+
+    public function set isFreeDecor(value:Boolean):void {
+        _isFreeDecor = value;
+//        g.catPanel.checkCat();
         if (_isFree) makeFreeCatIdle();
             else stopFreeCatIdle();
+    }
+
+    public function set decorAnimation(decorAnimation:DecorAnimation):void {
+        _decorAnimation = decorAnimation;
+    //       g.catPanel.checkCat();
+//        if (_isFree) makeFreeCatIdle();
+//            else stopFreeCatIdle();
     }
 
     override public function walkAnimation():void {
@@ -201,12 +236,30 @@ public class HeroCat extends BasicCat{
         if (freeIdleGo) {
             g.managerCats.goIdleCatToPoint(this, g.townArea.getRandomFreeCell(), makeFreeCatIdle);
         } else {
-            idleAnimation();
-            timer = 5 + int(Math.random()*15);
-            g.gameDispatcher.addToTimer(renderForIdleFreeCat);
-            renderForIdleFreeCat();
-        }
+            var b:Boolean = false;
+            var r:Number = Math.random();
 
+            if (r <= .02) {
+                if (g.townArea.getCityObjectsByType(BuildType.DECOR_ANIMATION)) {
+                    var arr:Array = g.townArea.getCityObjectsByType((BuildType.DECOR_ANIMATION));
+                    if (arr.length > 0) {
+                        for (var i:int = 0; i < arr.length; i++) {
+                            if (!arr[i].catNeed && !arr[i].decorWork && !arr[i].catRun) {
+                                arr[i].forceStartDecorAnimation(this);
+                                b = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (!b) {
+                idleAnimation();
+                timer = 5 + int(Math.random() * 15);
+                g.gameDispatcher.addToTimer(renderForIdleFreeCat);
+                renderForIdleFreeCat();
+            }
+        }
     }
     
     public function get isIdleGoNow():Boolean {

@@ -60,26 +60,26 @@ public class WOLastResource extends WindowMain {
         _source.addChild(_txt);
         _btnYes = new CButton();
         _txtYes = new CTextField(50, 50, String(g.managerLanguage.allTexts[308]));
-        _txtYes.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        _txtYes.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PINK_COLOR);
         _txtYes.x = 15;
         _txtYes.y = -5;
-        _btnYes.addButtonTexture(80, 40, CButton.GREEN, true);
+        _btnYes.addButtonTexture(80, 40, CButton.PINK, true);
         _btnYes.addChild(_txtYes);
         _source.addChild(_btnYes);
 
         _btnNo = new CButton();
         _txtNo = new CTextField(50, 50, String(g.managerLanguage.allTexts[309]));
-        _txtNo.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.YELLOW_COLOR);
+        _txtNo.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _txtNo.x = 15;
         _txtNo.y = -5;
-        _btnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
+        _btnNo.addButtonTexture(80, 40, CButton.GREEN, true);
         _btnNo.addChild(_txtNo);
         _source.addChild(_btnNo);
         _btnNo.clickCallback = onClickNo;
 
-        _btnYes.x = 100;
+        _btnYes.x = -100;
         _btnYes.y = 80;
-        _btnNo.x = -100;
+        _btnNo.x = 100;
         _btnNo.y = 80;
         _callbackClickBG = hideIt;
         _arrItems = [];
