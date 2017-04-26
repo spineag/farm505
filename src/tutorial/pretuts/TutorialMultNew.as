@@ -70,7 +70,7 @@ public class TutorialMultNew {
         (_armature.display as StarlingArmatureDisplay).x = 500;
         (_armature.display as StarlingArmatureDisplay).y = 320;
         _source.addChild(_armature.display as StarlingArmatureDisplay);
-        g.managerResize.rechekProp();
+        g.managerResize.recheckProperties();
         onResize();
         addIms();
         g.cont.popupCont.addChild(_source);

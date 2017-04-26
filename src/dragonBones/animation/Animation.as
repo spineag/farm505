@@ -5,6 +5,7 @@
 	import dragonBones.core.BaseObject;
 	import dragonBones.core.dragonBones_internal;
 	import dragonBones.objects.AnimationData;
+	import dragonBones.animation.AnimationFadeOutMode;
 	
 	use namespace dragonBones_internal;
 	
@@ -398,7 +399,7 @@
 		 */
 		public function fadeIn(
 			animationName:String, fadeInTime:Number = -1, playTimes:int = -1,
-			layer:int = 0, group:String = null, fadeOutMode:int = AnimationFadeOutMode.SameLayerAndGroup,
+			layer:int = 0, group:String = null, fadeOutMode:int = 3 /*AnimationFadeOutMode.SameLayerAndGroup*/,
 			additiveBlending:Boolean = false, displayControl:Boolean = true,
 			pauseFadeOut:Boolean = true, pauseFadeIn:Boolean = true
 		):AnimationState
@@ -750,7 +751,7 @@
 			playTimes:int = -1,
 			layer:int = 0,
 			group:String = null,
-			fadeOutMode:int = AnimationFadeOutMode.SameLayerAndGroup,
+			fadeOutMode:int = 3 /*AnimationFadeOutMode.SameLayerAndGroup*/,
 			additiveBlending:Boolean = false,
 			pauseFadeOut:Boolean = true,
 			pauseFadeIn:Boolean = true

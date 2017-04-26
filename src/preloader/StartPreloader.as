@@ -49,6 +49,7 @@ public class StartPreloader {
     private var _txtHelp:CTextField;
     private var _jpgUrl:String;
     private var _callbackInit:Function;
+    private var _bottomGreen:Quad;
 
     private var g:Vars = Vars.getInstance();
 
@@ -105,6 +106,12 @@ public class StartPreloader {
 
     private function addIms():void {
         if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) return;
+        if (!_bottomGreen && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            _bottomGreen = new Quad(g.managerResize.stageWidth + 80, 700, 0x68c401);
+            _bottomGreen.x = -_bottomGreen.width/2 + 500;
+            _bottomGreen.y = 640;
+            _source.addChild(_bottomGreen);
+        }
         if (!_leftIm) {
             _leftIm = new Image(Texture.fromBitmap(g.pBitmaps['uho1'].create() as Bitmap));
             _leftIm.x = -_leftIm.width + 2;
@@ -136,6 +143,8 @@ public class StartPreloader {
         if (_txt) _txt.deleteIt();
         if (_txtHelp) _txtHelp.deleteIt();
         if (_bg)_bg.dispose();
+        _leftIm = _rightIm = null;
+        _bottomGreen = null;
         _source.dispose();
         _source = null;
     }
