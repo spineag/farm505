@@ -408,7 +408,7 @@ public function onEndClick(last:Boolean = false):void {
         }
     }
 
-    private function onClickCallbackWhenWork():void {
+    public function onClickCallbackWhenWork():void {
         if (!g.mouseHint.isShowedAnimalFeed) {
             var p1:Point = new Point(0, _rect.y);
             p1 = source.localToGlobal(p1);

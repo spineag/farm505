@@ -58,7 +58,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
                 case 14: curFunc = initScene_14; break;
                 case 15: curFunc = initScene_15; break;
                 case 16: curFunc = initScene_16; break;
-//                case 17: curFunc = initScene_17; break;
 
                 default: Cc.error('unknown tuts step');
                     subStep16_4();
@@ -170,6 +169,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_5():void {
+        _subStep = 0;
         _tutorialResourceIDs = [31];
         _tutorialCallback = null;
         _tutorialObjects = [];
@@ -190,17 +190,18 @@ public class ManagerTutorialNew extends IManagerTutorial{
             r.showArrow();
             r.tutorialCallback = subStep5_1;
         } else {
-            subStep5_10();
+            subStep5_2();
         }
     }
 
     private function subStep5_1(r:Ridge=null):void {
+        _subStep = 1;
         r.hideArrow();
         initScene_5();
     }
 
-    private function subStep5_10():void {
-        _subStep = 10;
+    private function subStep5_2():void {
+        _subStep = 2;
         g.user.tutorialStep = 6;
         _tutorialResourceIDs = [];
         updateTutorialStep();
@@ -208,6 +209,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_6():void {
+        _subStep = 0;
         var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
         if (!arr.length) {
             Cc.error('ManagerTutorialNew substep6_2: no farm');
@@ -248,6 +250,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep6_3(chick:Animal):void {
+        _subStep=3;
         chick.removeArrow();
         chick.tutorialCallback = null;
         subStep6_4();
@@ -261,6 +264,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_7():void {
+        _subStep = 0;
         if (!_tutorialObjects.length) {
             var arr:Array = g.townArea.getCityObjectsByType(BuildType.FARM);
             if (!arr.length) {
@@ -359,6 +363,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_9():void {
+        _subStep=0;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep9_2);
@@ -378,14 +383,11 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep9_2a():void {
-        _subStep = 2;
+        _subStep = 22;
         removeBlack();
         g.bottomPanel.deleteArrow();
         g.bottomPanel.activateShopButtonHoverAnimation(false);
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
+        deleteArrowAndDust();
         _onShowWindowCallback = subStep9_3;
     }
 
@@ -447,14 +449,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         _tutorialPlaceBuilding = _tutorialObjects[0];
         g.cont.moveCenterToPos(21, 35);
         _tutorialPlaceBuilding.activateIt(true);
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteArrowAndDust();
         subStep9_5();
     }
 
@@ -473,14 +468,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
 
     private function subStep9_7():void {
         _subStep = 7;
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteArrowAndDust();
         _tutorialPlaceBuilding = _tutorialObjects[1];
         g.cont.moveCenterToPos(23, 35);
         _tutorialPlaceBuilding.activateIt(true);
@@ -496,14 +484,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
 
     private function subStep9_9():void {
         _subStep = 9;
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteArrowAndDust();
         g.cont.moveCenterToPos(25, 35);
         _tutorialPlaceBuilding = _tutorialObjects[2];
         _tutorialPlaceBuilding.activateIt(true);
@@ -544,6 +525,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     private function subStep10_1():void {
         _subStep = 1;
         _tutorialResourceIDs = [32];
+        g.cont.moveCenterToPos((_tutorialObjects[0] as WorldObject).posX, (_tutorialObjects[0] as WorldObject).posY);
         _currentAction = TutorialAction.PLANT_RIDGE;
         (_tutorialObjects[0] as WorldObject).showArrow();
         (_tutorialObjects[0] as Ridge).tutorialCallback = subStep10_2;
@@ -557,6 +539,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         if (!_tutorialObjects.length) {
             subStep10_4();
         } else {
+            g.cont.moveCenterToPos((_tutorialObjects[0] as WorldObject).posX, (_tutorialObjects[0] as WorldObject).posY);
             (_tutorialObjects[0] as WorldObject).showArrow();
             (_tutorialObjects[0] as Ridge).tutorialCallback = subStep10_3;
         }
@@ -569,6 +552,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         if (!_tutorialObjects.length) {
             subStep10_4();
         } else {
+            g.cont.moveCenterToPos((_tutorialObjects[0] as WorldObject).posX, (_tutorialObjects[0] as WorldObject).posY);
             (_tutorialObjects[0] as WorldObject).showArrow();
             (_tutorialObjects[0] as Ridge).tutorialCallback = subStep10_4;
         }
@@ -588,12 +572,11 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_11():void {
+        _subStep=0;
         _currentAction = TutorialAction.NONE;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep11_1);
-//        g.bottomPanel.animateShowingMainPanel();
-//        Utils.createDelay(1.1, subStep7_1);
         _tutorialCallback = null;
         addBlackUnderInterface();
     }
@@ -615,10 +598,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         g.bottomPanel.deleteArrow();
         g.bottomPanel.activateShopButtonHoverAnimation(false);
         _subStep = 2;
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
+        deleteArrowAndDust();
         _onShowWindowCallback = subStep11_3;
     }
 
@@ -641,14 +621,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         _subStep = 4;
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteArrowAndDust();
         Utils.createDelay(3, subStep11_5);
     }
 
@@ -677,6 +650,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep12_1a():void {
+        _subStep = 12;
         cutScene.hideIt(deleteCutScene);
         _currentAction = TutorialAction.BUY_FABRICA;
         var ob:Object = g.bottomPanel.getShopButtonProperties();
@@ -691,10 +665,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         _subStep = 1;
         g.bottomPanel.deleteArrow();
         g.bottomPanel.activateShopButtonHoverAnimation(false);
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
+        deleteArrowAndDust();
         _onShowWindowCallback = subStep12_2;
     }
 
@@ -727,14 +698,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         _tutorialPlaceBuilding.activateIt(true);
         _currentAction = TutorialAction.PUT_FABRICA;
         _subStep = 3;
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteArrowAndDust();
         _tutorialCallback = subStep12_4;
     }
 
@@ -815,14 +779,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep13_3():void {
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
+        deleteArrowAndDust();
         _tutorialCallback = null;
         _tutorialObjects = [];
         _tutorialResourceIDs = [];
@@ -863,6 +820,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function initScene_15():void {
+        _subStep = 0;
         var ar:Array = g.townArea.getCityObjectsById(57);
         for (var i:int=0; i<ar.length; i++) {
             if ((ar[i] as Wild).posX == 10 && (ar[i] as Wild).posY == 31) {
@@ -882,6 +840,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep15_1():void {
+        _subStep = 1;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         addBlack();
@@ -889,7 +848,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
     private function subStep15_2():void {
-        _subStep = 1;
+        _subStep = 2;
         cutScene.hideIt(deleteCutScene);
         removeBlack();
         _currentAction = TutorialAction.REMOVE_WILD;
@@ -920,6 +879,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
 
 
     private function initScene_16():void {
+        _subStep = 0;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         cutScene.showIt(texts[g.user.tutorialStep][_subStep],texts['next'], subStep16_1);
@@ -955,23 +915,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
         _tutorialCallback = null;
         _tutorialObjects = [];
         _currentAction = TutorialAction.NONE;
-//        g.user.tutorialStep = 17;
-//        updateTutorialStep();
-//        initScenes();
-//    }
-//
-//    private function initScene_17():void {
-//        _afterTutorialWindow = new AfterTutorialWindow();
-//        Utils.createDelay(1.5, subStep17_1);
-//    }
-//
-//    private function subStep17_1():void {
-//        _subStep = 1;
-//        _afterTutorialWindow.showIt(subStep17_2);
-//    }
-//
-//    private function subStep17_2():void {
-//        _subStep = 2;
         g.user.tutorialStep = 101;
         updateTutorialStep();
         TUTORIAL_ON = false;
@@ -981,15 +924,168 @@ public class ManagerTutorialNew extends IManagerTutorial{
     }
 
 
+    override public function onResize():void {
+        Cc.info('tuts: onResize with _subStep: ' + _subStep);
+        if (black) {
+            removeBlack();
+            addBlack();
+        }
+        if (cutScene) cutScene.onResize();
+//        checkDefaults(); ??
+        if (_mult) _mult.onResize();
 
+        var p:Point = new Point();
+        var ob:Object;
+        var b:WorldObject;
+        switch (g.user.tutorialStep) {
+            case 3:
+                if (_subStep == 1) {
+                    _currentAction = TutorialAction.CRAFT_RIDGE;
+                    b = _tutorialObjects[0] as WorldObject;
+                    if (b) g.cont.moveCenterToPos(b.posX, b.posY);
+                }
 
-//    private function subStep8_1():void {
-//        g.user.tutorialStep = 101;
-//        updateTutorialStep();
-//        TUTORIAL_ON = false;
-//        if (g.managerOrder) g.managerOrder.showSmallHeroAtOrder(true);
-//        super.clearAll();
-//    }
+                break;
+            case 5:
+                if (_subStep == 0) {
+                    b = _tutorialObjects[0] as Ridge;
+                    if (b) g.cont.moveCenterToPos(b.posX, b.posY);
+                }
+                break;
+            case 6:
+                g.cont.moveCenterToPos(28, 11);
+                break;
+            case 7:
+                if (_subStep == 2) {
+                    if (g.timerHint) g.timerHint.managerHide();
+                    (_tutorialObjects[0] as Animal).onClickCallbackWhenWork();
+                    (_tutorialObjects[0] as Animal).playDirectIdle();
+                    g.cont.moveCenterToPos(28, 11, true);
+                } else {
+                    g.cont.moveCenterToPos(28, 11);
+                }
+                break;
+            case 9:
+                if (_subStep == 0) {
+                    removeBlack();
+                    addBlackUnderInterface();
+                } else if (_subStep == 2) {
+                    removeBlack();
+                    addBlackUnderInterface();
+                    deleteArrowAndDust();
+                    ob = g.bottomPanel.getShopButtonProperties();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                } else if (_subStep == 3) {
+                    deleteArrowAndDust();
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                        ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
+                        _arrow.scaleIt(.7);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
+                    } else {
+                        Cc.error('wo_SHOP is not opened');
+                    }
+                } else if (_subStep == 4 || _subStep == 5) {
+                    g.cont.moveCenterToPos(21, 35);
+                } else if (_subStep == 6 || _subStep == 7 || _subStep == 8) {
+                    g.cont.moveCenterToPos(23, 35);
+                } else if (_subStep == 9) {
+                    g.cont.moveCenterToPos(25, 35);
+                }
+                break;
+            case 10:
+                    if (_tutorialObjects && _tutorialObjects[0]) g.cont.moveCenterToPos((_tutorialObjects[0] as WorldObject).posX, (_tutorialObjects[0] as WorldObject).posY);
+                break;
+            case 11:
+                if (_subStep == 0) {
+                    removeBlack();
+                    addBlackUnderInterface();
+                } else if (_subStep == 1) {
+                    removeBlack();
+                    addBlackUnderInterface();
+                    deleteArrowAndDust();
+                    ob = g.bottomPanel.getShopButtonProperties();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                } else if (_subStep == 3) {
+                    deleteArrowAndDust();
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                        ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
+                        _arrow.scaleIt(.7);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
+                    } else {
+                        Cc.error('wo_SHOP is not opened');
+                    }
+                }
+                break;
+            case 12:
+                if (_subStep == 12) {
+                    removeBlack();
+                    addBlackUnderInterface();
+                    deleteArrowAndDust();
+                    ob = g.bottomPanel.getShopButtonProperties();
+                    _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                } else if (_subStep == 2) {
+                    deleteArrowAndDust();
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
+                        ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
+                        _arrow.scaleIt(.7);
+                        _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
+
+                    } else {
+                        Cc.error('wo_SHOP is not opened');
+                    }
+                } else if (_subStep >= 3)  g.cont.moveCenterToPos(8, 9);
+                break;
+            case 13:
+                if (_subStep == 0 || _subStep == 1) {
+                    g.cont.moveCenterToPos(8, 9);
+                } else if (_subStep == 2) {
+                    deleteArrowAndDust();
+                    if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_FABRICA) {
+                        ob = (g.windowsManager.currentWindow as WOFabrica).getSkipBtnProperties();
+                        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+                        _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
+                        _arrow.scaleIt(.8);
+                        _arrow.animateAtPosition(ob.x, ob.y + ob.height/2);
+                    } else {
+                        Cc.error('tuts:: WO_fabrica is not opened');
+                    }
+                }
+                break;
+            case 14: g.cont.moveCenterToPos(8, 9);
+                break;
+            case 15:
+                if (_subStep == 1) {
+                    removeBlack();
+                    addBlack();
+                }
+                g.cont.moveCenterToPos(9, 30);
+                break;
+            case 16:
+                if (_subStep == 0) {
+                    removeBlack();
+                    addBlack();
+                }
+                g.cont.moveCenterToPos(31, 31);
+                break;
+        }
+    }
+
+    private function deleteArrowAndDust():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+    }
 
 }
 }

@@ -67,8 +67,7 @@ public class IManagerTutorial {
     public function addTutorialWorldObject(w:WorldObject):void {_tutorialObjects.push(w); }
     protected function emptyFunction(...params):void {}
 
-    protected function clearAll():void {
-    }
+    protected function clearAll():void { }
 
     protected function deleteCutScene():void {
         if (cutScene) {
