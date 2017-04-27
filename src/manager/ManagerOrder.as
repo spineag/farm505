@@ -167,6 +167,132 @@ public class ManagerOrder {
         return c;
     }
 
+    private function addNewFaserOrders():Object {
+        var arr:Array = g.townArea.getCityObjectsByType(BuildType.FABRICA);
+        var i:int = 0;
+        var j:int = 0;
+        var time:int = 0;
+        var ob:Object;
+        var arrResource:Array = g.userInventory.getResourceforTypetoOrder(BuildType.RESOURCE);
+        var resource:Boolean = false;
+        if (arrResource == null || arrResource.length <= 0) {
+            if (g.user.level == 5) time = 60;
+            else if (g.user.level == 6) time = 120;
+            else time = 240;
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].arrList.length > 0) {
+                    for (j = 0; j < arr[i].arrList.length; j++) {
+                        if (arr[i].arrList[j].resourceID != 21 && arr[i].arrList[j].resourceID != 25 && arr[i].arrList[j].resourceID != 27 && arr[i].arrList[j].resourceID != 29 && arr[i].arrList[j].leftTime <= time) {
+                            ob = {};
+                            ob.id = arr[i].arrList[j].resourceID;
+                            ob.count = 1;
+                            resource = true;
+                            trace ('Ресурс готовится на фабрике но при этом подходит по времени для ордера ' + "id " + ob.id + ' count ' + ob.count);
+                            break;
+                        }
+                    }
+                } else if (arr[i].arrCrafted.length > 0) {
+                    for (j = 0; j < arr[i].arrCrafted.length; j++) {
+                        if (arr[i].arrCrafted[j].resourceId != 21 && arr[i].arrCrafted[j].resourceId != 25 && arr[i].arrCrafted[j].resourceId != 27 && arr[i].arrCrafted[j].resourceId != 29) {
+                            ob = {};
+                            ob.id = arr[i].arrCrafted[j].resourceId;
+                            ob.count = 1;
+                            resource = true;
+                            trace ('Ресурс приготовлен но не забарн из фабрике ' + "id " + ob.id + ' count ' + ob.count);
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!resource) {
+                arr = [];
+                arr = g.townArea.getCityObjectsByType(BuildType.FARM);
+                var countAnimalWhoAccept:int = 0;
+                for (i = 0; i < arr.length; i++) {
+                    if (arr[i].arrAnimals.length > 0) {
+                        for (j = 0; j < arr[i].arrAnimals.length; j++) {
+                            if (arr[i].arrAnimals[j].state > 1 && arr[i].arrAnimals[j].timeToEnd <= time) {
+                                countAnimalWhoAccept ++;
+                            }
+                        }
+                        if (countAnimalWhoAccept > 1) {
+                            ob = {};
+                            ob.id = arr[i].dataAnimal.idResource;
+                            ob.count = countAnimalWhoAccept;
+                            trace ('Ресурс готовится на ферме но при этом подходит по времени для ордера ' + "id " + ob.id + ' count ' + ob.count);
+                            resource = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        } else {
+            arrResource.sortOn("count", Array.DESCENDING | Array.NUMERIC);
+            resource = true;
+            ob ={};
+            ob.id = arrResource[0].id;
+            ob.count = arrResource[0].count;
+            trace ('Есть ресурсы на складе ' + "id " + ob.id + ' count ' + ob.count);
+        }
+        if (!resource) {
+            arr = [];
+            arr = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+            if (arr && arr.length > 0) {
+                arrResource = [];
+                for (i = 0; i < arr.length; i++) {
+                    if (arr[i].stateRidge >= 3) {
+                        ob = {};
+                        ob.id = arr[i].plant.dataPlant.id;
+                        ob.count = 1;
+                        if (arrResource != null && arrResource.length > 0) {
+                            for (j = 0; j < arrResource.length; j++) {
+                                if (arrResource[j].id == ob.id) {
+                                    arrResource[j].count++;
+                                    resource = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!resource) arrResource.push(ob);
+                    }
+                }
+                if(arrResource.length > 0) {
+                    arrResource.sortOn("count", Array.DESCENDING | Array.NUMERIC);
+                    ob = {};
+                    ob.id = arrResource[0].id;
+                    ob.count = arrResource[0].count;
+                    trace('ищет самое большое количество ростений которые растут на грядке и отдает его ' + "id " + ob.id + ' count ' + ob.count);
+                }
+            }
+            if (!resource) {
+                arrResource = [];
+                arrResource = g.userInventory.getResourceforTypetoOrder(BuildType.PLANT);
+                if (arrResource && arrResource.length > 0) {
+                    arrResource.sortOn("count", Array.DESCENDING | Array.NUMERIC);
+                    ob = {};
+                    ob.id = arrResource[0].id;
+                    ob.count = arrResource[0].count - 1;
+                    if (ob.count <= 0 || ob.count == 1)  {
+                        ob.id = 31;
+                        ob.count = 4;
+                        trace('ЛАст истанция ' + "id " + ob.id + ' count ' + ob.count);
+                    }
+                    trace('ищет самое большое количество ростений в амбаре ' + "id " + ob.id + ' count ' + ob.count);
+                }
+            }
+        }
+        if (!ob) {
+            ob = {};
+            ob.id = 31;// Пшеница
+            ob.count = 4;
+            trace('ЛАст истанция ' + "id " + ob.id + ' count ' + ob.count);
+        }
+        trace ('Конец');
+        return ob;
+    }
+
+
+
     //types for order:
     // 1 - usual resource fromFabrica
     // 2 - resources made from resources from cave
@@ -197,17 +323,18 @@ public class ManagerOrder {
                     }
                 }
             } else countFastBuyer = 1;
-            countFastBuyer = 1;
-            if (countFastBuyer == 0 && Math.random() < .5 && g.userTimer.partyToEndTimer > 0) {
-               var countTemp:int = g.userInventory.getCountResourceById(168);
-                    if (Math.random() < .5) {
-                        if (countTemp > 6) countTemp = countTemp/2;
-                        else countTemp = 6;
-                    } else {
-                        countTemp += 4;
-                    }
-                order.resourceIds.push(168);
-                order.resourceCounts.push(countTemp);
+//            countFastBuyer = 1;
+            if (countFastBuyer == 0 && g.user.level < 10 && g.user.isMegaTester) {
+//               var countTemp:int = g.userInventory.getCountResourceById(168);
+//                    if (Math.random() < .5) {
+//                        if (countTemp > 6) countTemp = countTemp/2;
+//                        else countTemp = 6;
+//                    } else {
+//                        countTemp += 4;
+//                    }
+                var ob:Object = addNewFaserOrders();
+                order.resourceIds.push(ob.id);
+                order.resourceCounts.push(ob.count);
                 order.fasterBuy = true;
             } else {
                 var arR:Array = g.allData.resource;

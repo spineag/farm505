@@ -363,6 +363,10 @@ public class Fabrica extends WorldObject {
         return _arrList;
     }
 
+    public function get arrCrafted():Array {
+        return _arrCrafted;
+    }
+
     private function onOpenBuilded(value:Boolean):void { }
 
     private function updateRecipes():void {

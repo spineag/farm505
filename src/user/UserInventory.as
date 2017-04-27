@@ -37,6 +37,21 @@ public class UserInventory {
         } return false;
     }
 
+    public function getResourceforTypetoOrder(type:int):Array {
+        var arr:Array = [];
+        var ob:Object;
+        for(var id:String in _inventoryResource) {
+            if (g.allData.getResourceById(int(id)).buildType == type && int(id) != 21 && int(id) != 25 && int(id) != 27 && int(id) != 29 && _inventoryResource[id] > 0) {
+                ob = {};
+                ob.id = id;
+                ob.count = _inventoryResource[id];
+                arr.push(ob);
+            }
+        }
+        if (arr.length > 0) return arr;
+        else return null;
+    }
+
     public function addToDecorInventory(id:int, dbId:int):void {
         if (_decorInventory[id]) {
             _decorInventory[id].count++;

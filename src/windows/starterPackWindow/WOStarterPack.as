@@ -75,10 +75,11 @@ public class WOStarterPack extends WindowMain{
         var txt:CTextField;
         var im:Image;
 
-        txt = new CTextField(500, 70, String(g.managerLanguage.allTexts[324]));
+        txt = new CTextField(_woWidth, 70, String(g.managerLanguage.allTexts[324]));
         txt.setFormat(CTextField.BOLD30, 35, Color.RED, Color.WHITE);
         txt.alignH = Align.LEFT;
-        txt.x = -190;
+//        txt.x = -190;
+        txt.x = -txt.textBounds.width/2 + 20;
         txt.y = -250;
         _source.addChild(txt);
         _arrCTex.push(txt);

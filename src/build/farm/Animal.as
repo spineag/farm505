@@ -156,6 +156,10 @@ public class Animal {
         return source.y;
     }
 
+    public function get timeToEnd():int {
+        return _timeToEnd;
+    }
+
     public function get animalData():Object {
         return _data;
     }
