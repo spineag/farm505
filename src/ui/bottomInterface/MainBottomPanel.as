@@ -224,8 +224,6 @@ public class MainBottomPanel {
         switch (reason) {
             case 'shop':
                 if (g.managerTutorial.isTutorial) {
-                    return; // temp for testing new shop btn in tuts cutscene
-                    
                     if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL || g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA
                             || g.managerTutorial.currentAction == TutorialAction.BUY_FARM || g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
 

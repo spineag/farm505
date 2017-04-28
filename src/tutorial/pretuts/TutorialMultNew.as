@@ -30,8 +30,10 @@ import utils.Utils;
 
 public class TutorialMultNew {
     private var _source:Sprite;
-    private var _leftIm:Image;
-    private var _rightIm:Image;
+    private var _mult:Sprite;
+//    private var _leftIm:Image;
+//    private var _rightIm:Image;
+    private var _bigBG:Image;
     private var _isLoad:Boolean;
     private var _needStart:Boolean;
     private var _startCallback:Function;
@@ -66,13 +68,16 @@ public class TutorialMultNew {
 
     private function startMult():void {
         _source = new Sprite();
+        _mult = new Sprite();
+        _source.addChild(_mult);
         _armature = g.allData.factory['tutorial_mult'].buildArmature('mult');
         (_armature.display as StarlingArmatureDisplay).x = 500;
         (_armature.display as StarlingArmatureDisplay).y = 320;
-        _source.addChild(_armature.display as StarlingArmatureDisplay);
+        _mult.addChild(_armature.display as StarlingArmatureDisplay);
+        _mult.mask = new Quad(1000, 640);
         g.managerResize.recheckProperties();
         onResize();
-        addIms();
+        addBigBG();
         g.cont.popupCont.addChild(_source);
         if (_startCallback != null) {
             _startCallback.apply();
@@ -93,12 +98,8 @@ public class TutorialMultNew {
 
         WorldClock.clock.add(_armature);
         _armature.animation.gotoAndStopByFrame('idle');
-        var rect:Rectangle = new Rectangle();
-        rect.width = 1000;
-        rect.height = 640;
-        rect.x = g.managerResize.stageWidth/2 - 500;
-        var bd:BitmapData = DrawToBitmap.stageScreenShotByRect(rect);
-        var im:Image = new Image(Texture.fromBitmapData(bd));
+        var bd:Bitmap = DrawToBitmap.drawToBitmap(g.starling, _mult);
+        var im:Image = new Image(Texture.fromBitmap(bd));
         _tempBlured = new Sprite();
         _tempBlured.addChild(im);
         _tempBlured.filter = ManagerFilters.HARD_BLUR;
@@ -113,35 +114,43 @@ public class TutorialMultNew {
 
     public function onResize():void {
         _source.x = g.managerResize.stageWidth/2 - 500;
+        _source.y = g.managerResize.stageHeight/2 - 320;
+    }
+    
+    private function addBigBG():void {
+        _bigBG = new Image(Texture.fromBitmap(g.pBitmaps['bigBG'].create() as Bitmap));
+        _bigBG.x = 500 - _bigBG.width/2;
+        _bigBG.y = 320 - _bigBG.height/2;
+        _source.addChildAt(_bigBG, 0);
     }
 
-    private function addIms():void {
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            if (g.pBitmaps['uho1']) {
-                (g.pBitmaps['uho1'] as PBitmap).deleteIt();
-                delete g.pBitmaps['uho1'];
-                g.load.removeByUrl('uho1');
-            }
-            if (g.pBitmaps['uho2']) {
-                (g.pBitmaps['uho2'] as PBitmap).deleteIt();
-                delete g.pBitmaps['uho2'];
-                g.load.removeByUrl('uho2');
-            }
-            return;
-        }
-        if (!_leftIm) {
-            _leftIm = new Image(Texture.fromBitmap(g.pBitmaps['uho1'].create() as Bitmap));
-            _leftIm.x = -_leftIm.width + 2;
-            _source.addChild(_leftIm);
-            _leftIm.touchable = false;
-        }
-        if (!_rightIm) {
-            _rightIm = new Image(Texture.fromBitmap(g.pBitmaps['uho2'].create() as Bitmap));
-            _rightIm.x = 1000;
-            _source.addChild(_rightIm);
-            _rightIm.touchable = false;
-        }
-    }
+//    private function addIms():void {
+//        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+//            if (g.pBitmaps['uho1']) {
+//                (g.pBitmaps['uho1'] as PBitmap).deleteIt();
+//                delete g.pBitmaps['uho1'];
+//                g.load.removeByUrl('uho1');
+//            }
+//            if (g.pBitmaps['uho2']) {
+//                (g.pBitmaps['uho2'] as PBitmap).deleteIt();
+//                delete g.pBitmaps['uho2'];
+//                g.load.removeByUrl('uho2');
+//            }
+//            return;
+//        }
+//        if (!_leftIm) {
+//            _leftIm = new Image(Texture.fromBitmap(g.pBitmaps['uho1'].create() as Bitmap));
+//            _leftIm.x = -_leftIm.width + 2;
+//            _source.addChild(_leftIm);
+//            _leftIm.touchable = false;
+//        }
+//        if (!_rightIm) {
+//            _rightIm = new Image(Texture.fromBitmap(g.pBitmaps['uho2'].create() as Bitmap));
+//            _rightIm.x = 1000;
+//            _source.addChild(_rightIm);
+//            _rightIm.touchable = false;
+//        }
+//    }
 
     private function onIdle1(e:Event=null):void {
         _armature.removeEventListener(EventObject.COMPLETE, onIdle1);
@@ -178,12 +187,8 @@ public class TutorialMultNew {
         _armature.removeEventListener(EventObject.LOOP_COMPLETE, onIdle4);
         _armature.animation.gotoAndStopByFrame('idle_5');
 
-        var rect:Rectangle = new Rectangle();
-        rect.width = 1000;
-        rect.height = 640;
-        rect.x = g.managerResize.stageWidth/2 - 1000/2;
-        var bd:BitmapData = DrawToBitmap.stageScreenShotByRect(rect);
-        var im:Image = new Image(Texture.fromBitmapData(bd));
+        var bd:Bitmap = DrawToBitmap.drawToBitmap(g.starling, _mult);
+        var im:Image = new Image(Texture.fromBitmap(bd));
         _tempBlured = new Sprite();
         _tempBlured.addChild(im);
         _tempBlured.filter = ManagerFilters.HARD_BLUR;
@@ -262,7 +267,7 @@ public class TutorialMultNew {
         _tempBlured.dispose();
         WorldClock.clock.remove(_armature);
         g.cont.popupCont.removeChild(_source);
-        _source.removeChild(_armature.display as Sprite);
+        _mult.removeChild(_armature.display as Sprite);
         (g.allData.factory['tutorial_mult'] as StarlingFactory).clear();
         delete g.allData.factory['tutorial_mult'];
         (g.pBitmaps['tutorial_mult_map'] as PBitmap).deleteIt();

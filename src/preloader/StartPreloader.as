@@ -65,6 +65,7 @@ public class StartPreloader {
         _bigBG.y = 320 - _bigBG.height/2;
         _source.addChildAt(_bigBG, 0);
         g.cont.popupCont.addChild(_source);
+        g.pBitmaps['bigBG'] = new PBitmap(b);
     }
 
     private function onLoad(b:Bitmap):void {
