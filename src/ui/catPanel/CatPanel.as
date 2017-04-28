@@ -7,9 +7,14 @@ import data.BuildType;
 import manager.ManagerFilters;
 import manager.Vars;
 
+import resourceItem.DropItem;
+
 import social.SocialNetworkSwitch;
 
 import starling.display.Image;
+
+import temp.DropResourceVariaty;
+
 import utils.CSprite;
 import utils.CTextField;
 import windows.WOComponents.HorizontalPlawka;
@@ -86,9 +91,7 @@ public class CatPanel {
     }
 
     private function onClick():void {
-
-        check();
-
+//        check();
 //        if (g.user.isMegaTester) g.windowsManager.openWindow(WindowsManager.WO_ACHIEVEMENT,null);
 //        g.directServer.getDataAchievement(null);
 //        g.directServer.getUserParty(null);
@@ -99,7 +102,7 @@ public class CatPanel {
 //        ob.idResource = 15;
 //        ob.typeBuilding = BuildType.ORDER;
 //        ob.coefficient = 5;
-//        ob.typeParty = 3;
+//        ob.typeParty = 4;
 //        ob.name = 'Блинный путь';
 //        ob.description = 'Накорми пришельцев и получи награду';
 //        ob.idGift = [];

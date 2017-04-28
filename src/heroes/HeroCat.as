@@ -188,6 +188,13 @@ public class HeroCat extends BasicCat{
         super.idleAnimation();
     }
 
+    override public function sleepAnimation():void {
+        showFront(true);
+        if (heroEyes) heroEyes.startAnimations();
+        _animation.playIt('sleep');
+        super.sleepAnimation();
+    }
+
 //    public function get armatureCatFront():Armature {  return armature; }
 //    public function get armatureCatBack():Armature {  return armatureBack; }
 
@@ -252,6 +259,14 @@ public class HeroCat extends BasicCat{
                         }
                     }
                 }
+            }
+            if (r <= .08) {
+                sleepAnimation();
+//                _animation.playIt('sleep', true, makeFeedIdle);
+                b = true;
+                timer = 5 + int(Math.random() * 15);
+                g.gameDispatcher.addToTimer(renderForIdleFreeCat);
+                renderForIdleFreeCat();
             }
             if (!b) {
                 idleAnimation();

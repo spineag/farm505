@@ -25,7 +25,7 @@ public class BasicCat {
     protected var _posY:int;
     protected var _depth:Number;
     protected var _source:TownAreaBuildSprite;
-    protected var _speedWalk:int = 2;
+    protected var _speedWalk:int = 1;
     protected var _speedIdleWalk:int = 1;
     protected var _speedRun:int = 8;
     protected var _curSpeed:int;
@@ -128,7 +128,7 @@ public class BasicCat {
         _curTypeMoving = STOP;
     }
     public function idleAnimation():void {}
-
+    public function sleepAnimation():void {}
     public function goWithPath(arr:Array, callbackOnWalking:Function):void {
         _currentPath = arr;
         _callbackOnWalking = callbackOnWalking;

@@ -49,6 +49,7 @@ public class WOPartyWindow extends WindowMain{
     private var _btnLoad:CButton;
     private var _txtCountLoad:CTextField;
     private var _countLoad:int;
+    private var _imName:Image;
 
     public function WOPartyWindow() {
         _windowType = WindowsManager.WO_PARTY;
@@ -118,7 +119,7 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(_btn);
 
             } else {
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_easter'));
+                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_gnome_family'));
 //                im.x = -im.width / 2 - 10;
 //                im.y = -im.height / 2;
                 im.x = -im.width / 2 - 4;
@@ -129,12 +130,16 @@ public class WOPartyWindow extends WindowMain{
                 im.y = -im.height / 2 - 115;
                 _source.addChild(im);
 
-                _txtName = new CTextField(_woWidth, 70, String(g.managerParty.name));
-                _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
-                _txtName.alignH = Align.LEFT;
-                _txtName.x = -_txtName.textBounds.width/2;
-                _txtName.y = -215;
-                _source.addChild(_txtName);
+//                _txtName = new CTextField(_woWidth, 70, String(g.managerParty.name));
+//                _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
+//                _txtName.alignH = Align.LEFT;
+//                _txtName.x = -_txtName.textBounds.width/2;
+//                _txtName.y = -215;
+//                _source.addChild(_txtName);
+                _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('gnoom_text'));
+                _imName.x = -_imName.width/2 + 5;
+                _imName.y = -205;
+                _source.addChild(_imName);
                 if (g.managerParty.typeParty == 3) {
                     _btn = new CButton();
                     _btn.addButtonTexture(172, 45, CButton.GREEN, true);
@@ -302,7 +307,7 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(_btn);
 
             } else {
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_easter'));
+                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_gnome_family'));
                 im.x = -im.width / 2 - 4;
                 im.y = -im.height / 2 - 12;
                 _source.addChild(im);
@@ -311,12 +316,16 @@ public class WOPartyWindow extends WindowMain{
                 im.y = -im.height / 2 - 115;
                 _source.addChild(im);
 
-                _txtName = new CTextField(_woWidth, 70, String(g.managerParty.name));
-                _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
-                _txtName.alignH = Align.LEFT;
-                _txtName.x = -_txtName.textBounds.width/2;
-                _txtName.y = -215;
-                _source.addChild(_txtName);
+//                _txtName = new CTextField(_woWidth, 70, String(g.managerParty.name));
+//                _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
+//                _txtName.alignH = Align.LEFT;
+//                _txtName.x = -_txtName.textBounds.width/2;
+//                _txtName.y = -215;
+//                _source.addChild(_txtName);
+                _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('gnoom_text'));
+                _imName.x = -_imName.width/2 + 5;
+                _imName.y = -205;
+                _source.addChild(_imName);
                 if (g.managerParty.typeParty == 3) {
                     _btn = new CButton();
                     _btn.addButtonTexture(172, 45, CButton.GREEN, true);
