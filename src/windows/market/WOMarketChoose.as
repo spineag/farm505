@@ -128,7 +128,7 @@ public class WOMarketChoose extends WindowMain {
         else _type = SKLAD;
         checkTypes();
         fillItems();
-        if (g.user.isMegaTester) checkPapper();
+        checkPapper();
         super.showIt();
     }
 
