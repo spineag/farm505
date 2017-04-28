@@ -38,20 +38,20 @@ public class CutScene {
         onResize();
     }
 
-    public function showIt(st:String, stBtn:String='', callback:Function=null, delay:Number=0, stURL:String = ''):void {
+    public function showIt(st:String, stBtn:String='', callback:Function=null, delay:Number=0, stURL:String = '', btnUrl:String = ''):void {
         _cont.addChild(_source);
         _source.x = _xStart;
-        TweenMax.to(_source, .5, {x:_xEnd, onComplete:showBubble, onCompleteParams: [st, stBtn, callback, null, stURL], delay:delay});
+        TweenMax.to(_source, .5, {x:_xEnd, onComplete:showBubble, onCompleteParams: [st, stBtn, callback, null, stURL, btnUrl], delay:delay});
         WorldClock.clock.add(_armature);
         animateCat();
     }
 
-    private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null, stURL:String='', startClick:Function = null):void {
+    private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null, stURL:String='', btnUrl:String = '', startClick:Function = null):void {
         try {
-            if (st.length > 100 || stURL != '') {
-                _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.BIG, stURL);
+            if (st.length > 100 || stURL != '' || btnUrl != '') {
+                _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.BIG, stURL, btnUrl);
             } else {
-                _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.MIDDLE);
+                _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.MIDDLE, '', '');
             }
             _bubble.showBubble(st, stBtn, callback, callbackNo, startClick);
         } catch (e:Error) {
@@ -60,9 +60,9 @@ public class CutScene {
         }
     }
 
-    public function reChangeBubble(st:String, stBtn:String='', callback:Function=null, callbackNo:Function = null, startClick:Function=null):void {
+    public function reChangeBubble(st:String, stBtn:String='', callback:Function=null, callbackNo:Function = null, startClick:Function=null, btnUrl:String=''):void {
         var f:Function = function():void {
-            showBubble(st, stBtn, callback, callbackNo, '', startClick);
+            showBubble(st, stBtn, callback, callbackNo, '', btnUrl, startClick);
         };
         if (_bubble) {
             _bubble.hideBubble(f, null);

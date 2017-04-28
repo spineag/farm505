@@ -14,6 +14,7 @@ import starling.display.Sprite;
 import starling.text.TextField;
 import starling.utils.Color;
 import utils.CButton;
+import utils.CSprite;
 import utils.CTextField;
 
 public class CutSceneTextBubble {
@@ -32,22 +33,31 @@ public class CutSceneTextBubble {
     private var _dustRectangle:DustLikeRectangle;
     private var _startClickCallback:Function;
     private var g:Vars = Vars.getInstance();
+    private var _btnUrl:String;
+    private var _imageBtn:CSprite;
 
-    public function CutSceneTextBubble(p:Sprite, type:int, stURL:String = '') {
+    public function CutSceneTextBubble(p:Sprite, type:int, stURL:String = '', btnUrl:String = '') {
         _type = type;
         _parent = p;
         _source = new Sprite();
         _source.y = -140;
         _source.x = 55;
         _parent.addChild(_source);
+        _btnUrl = btnUrl;
         if (stURL != '') {
             _innerImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture(stURL));
+        } else if (btnUrl != '') {
+            _innerImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture(btnUrl));
         }
     }
 
     public function showBubble(st:String, btnSt:String, callback:Function, callbackNo:Function=null, startClick:Function=null):void {
-        if (callback != null) addButton(btnSt, callback, startClick);
-        if (callbackNo != null) addNoButton(callbackNo);
+        if (_btnUrl != '') {
+            addImageButton(callback, startClick);
+        } else {
+            if (callback != null) addButton(btnSt, callback, startClick);
+            if (callbackNo != null) addNoButton(callbackNo);
+        }
         createBubble(st);
         _source.scaleX = _source.scaleY = .3;
         TweenMax.to(_source, .2, {scaleX: 1, scaleY: 1, onComplete:onCompleteShow});
@@ -66,9 +76,16 @@ public class CutSceneTextBubble {
     }
 
     public function set startClick(f:Function):void {
-        if (_btn) {
-            _btn.startClickCallback = f;
-        }
+        if (_btn) _btn.startClickCallback = f;
+        if (_imageBtn) _imageBtn.startClickCallback = f;
+    }
+
+    private function addImageButton(callback:Function, startClick:Function):void {
+        _imageBtn = new CSprite();
+        _innerImage.alignPivot();
+        _imageBtn.addChild(_innerImage);
+        _imageBtn.startClickCallback = startClick;
+        _imageBtn.endClickCallback = callback;
     }
 
     private function addButton(btnSt:String, callback:Function, startClick:Function):void {
@@ -99,7 +116,7 @@ public class CutSceneTextBubble {
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_1'));
                 im.x = -12;
                 im.y = -210;
-                if (_innerImage) {
+                if (_innerImage && !_imageBtn) {
                     _innerImage.x = 201 - _innerImage.width/2;
                     _innerImage.y = -75 - _innerImage.height/2;
                     _txtBubble.x = 62;
@@ -116,6 +133,10 @@ public class CutSceneTextBubble {
                 if (_btn) {
                     _btn.x = 203;
                     _btn.y = -10;
+                } else if (_imageBtn) {
+                    _txtBubble.y -= 15;
+                    _imageBtn.x = 203;
+                    _imageBtn.y = -15;
                 }
                 break;
             case MIDDLE:
@@ -125,6 +146,10 @@ public class CutSceneTextBubble {
                 if (_btn) {
                     _btn.x = 203;
                     _btn.y = -10;
+                    _txtBubble.height = 106;
+                } else if (_imageBtn) {
+                    _imageBtn.x = 203;
+                    _imageBtn.y = -10;
                     _txtBubble.height = 106;
                 } else {
                     _txtBubble.height = 146;
@@ -142,14 +167,18 @@ public class CutSceneTextBubble {
                 if (_btn) {
                     _btn.x = 203;
                     _btn.y = 0;
+                } else if (_imageBtn) {
+                    _imageBtn.x = 203;
+                    _imageBtn.y = 0;
                 }
                 break;
         }
         _source.addChild(im);
-        if (_innerImage) _source.addChild(_innerImage);
+        if (_innerImage && !_imageBtn) _source.addChild(_innerImage);
         _txtBubble.autoScale = true;
         _source.addChild(_txtBubble);
         if (_btn) _source.addChild(_btn);
+        if (_imageBtn) _source.addChild(_imageBtn);
         if (_btnExit) {
             _btnExit.x = im.x + im.width - 20;
             _btnExit.y = im.y + 35;
@@ -176,12 +205,17 @@ public class CutSceneTextBubble {
     }
 
     private function addParticles():void {
+        var p:Point = new Point();
         if (_btn) {
-            var p:Point = new Point();
             p.x = _btn.x - _btn.width/2 - 5;
             p.y = _btn.y - _btn.height/2 - 5;
             p = _source.localToGlobal(p);
             _dustRectangle = new DustLikeRectangle(g.cont.popupCont, _btn.width + 10, _btn.height + 10, p.x, p.y);
+        } else if (_imageBtn) {
+            p.x = _imageBtn.x - _imageBtn.width/2 - 5;
+            p.y = _imageBtn.y - _imageBtn.height/2 - 5;
+            p = _source.localToGlobal(p);
+            _dustRectangle = new DustLikeRectangle(g.cont.popupCont, _imageBtn.width + 10, _imageBtn.height + 10, p.x, p.y);
         }
     }
 
@@ -192,6 +226,11 @@ public class CutSceneTextBubble {
             _btn.dispose();
             _btn = null;
         }
+        if (_imageBtn) {
+            if (_source.contains(_imageBtn)) _source.removeChild(_imageBtn);
+            _imageBtn.dispose();
+            _imageBtn = null;
+        }
         if (_txtBubble) {
             _txtBubble.deleteIt();
             _txtBubble = null;
@@ -199,7 +238,10 @@ public class CutSceneTextBubble {
         _source.dispose();
         _source = null;
         _parent = null;
-        _innerImage = null;
+        if (_innerImage) {
+            _innerImage.dispose();
+            _innerImage = null;
+        }
     }
 }
 }

@@ -224,10 +224,12 @@ public class MainBottomPanel {
         switch (reason) {
             case 'shop':
                 if (g.managerTutorial.isTutorial) {
+                    return; // temp for testing new shop btn in tuts cutscene
+                    
                     if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL || g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA
                             || g.managerTutorial.currentAction == TutorialAction.BUY_FARM || g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
 
-                    } else if (g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE && g.managerTutorial.subStep == 2) {
+                    } else if (g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE && g.managerTutorial.subStep == 2) {  // wo za bred???
                         g.managerCutScenes.checkCutSceneCallback();
                     } else {
                         return;
