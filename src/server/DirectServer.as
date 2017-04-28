@@ -3054,7 +3054,7 @@ public class DirectServer {
         variables.count = count;
         variables.cost = cost;
         variables.numberCell = numberCell;
-        variables.inPapper = inPapper ? 1 : 0;
+        variables.inPapper = inPapper;
         variables.timeInPapper = 0;
         variables.hash = MD5.hash(String(g.user.userId)+String(id)+String(count)+String(cost)+String(numberCell)+SECRET);
         request.data = variables;

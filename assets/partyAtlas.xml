@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:edd7ffeec4bae7623ac7c8abbde0b639:2f84fd456b55814007c2c3975bddc21a:ac880a930f9f4f68bee3173fda432350$ -->
-<TextureAtlas imagePath="partyAtlas.png" width="1479" height="339">
-    <SubTexture name="egg_event_icon" x="1374" y="184" width="86" height="100" frameX="-8" frameY="0" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="event_easter_icon" x="1272" y="184" width="100" height="100"/>
-    <SubTexture name="event_window_baloon" x="880" y="53" width="269" height="219" frameX="-2" frameY="-9" frameWidth="281" frameHeight="237"/>
-    <SubTexture name="event_window_w" x="1398" y="1" width="80" height="81"/>
-    <SubTexture name="hint_button" x="1338" y="1" width="47" height="47"/>
-    <SubTexture name="new_event_window_l" x="1" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
-    <SubTexture name="new_event_window_r" x="294" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
-    <SubTexture name="new_event_window_r_2" x="587" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
-    <SubTexture name="place_1" x="1151" y="204" width="119" height="119"/>
-    <SubTexture name="place_2" x="1151" y="53" width="119" height="149"/>
-    <SubTexture name="progress" x="880" y="1" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
-    <SubTexture name="valik_timer" x="1272" y="53" width="124" height="129" frameX="-9" frameY="-9" frameWidth="145" frameHeight="145"/>
+<!-- $TexturePacker:SmartUpdate:9f4a55652fd566811c528ef70dcdaa8d:4d9a0052e662c993e490da046365a0b1:ac880a930f9f4f68bee3173fda432350$ -->
+<TextureAtlas imagePath="partyAtlas.png" width="1832" height="472">
+    <SubTexture name="event_easter_icon" x="930" y="340" width="100" height="100"/>
+    <SubTexture name="event_gnome_family" x="1" y="1" width="680" height="470" frameX="-9" frameY="-1" frameWidth="689" frameHeight="472"/>
+    <SubTexture name="event_window_baloon" x="1562" y="1" width="269" height="219" frameX="-2" frameY="-9" frameWidth="281" frameHeight="237"/>
+    <SubTexture name="event_window_w" x="1134" y="340" width="80" height="81"/>
+    <SubTexture name="gnoom_text" x="1216" y="340" width="310" height="57" frameX="-6" frameY="-2" frameWidth="320" frameHeight="66"/>
+    <SubTexture name="hint_button" x="1134" y="423" width="47" height="47"/>
+    <SubTexture name="king_icon" x="1032" y="340" width="100" height="98" frameX="0" frameY="-2" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="new_event_window_l" x="683" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
+    <SubTexture name="new_event_window_r" x="976" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
+    <SubTexture name="new_event_window_r_2" x="1269" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
+    <SubTexture name="place_1" x="809" y="340" width="119" height="119"/>
+    <SubTexture name="place_2" x="1562" y="222" width="119" height="149"/>
+    <SubTexture name="progress" x="1216" y="399" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
+    <SubTexture name="valik_timer" x="683" y="340" width="124" height="129" frameX="-9" frameY="-9" frameWidth="145" frameHeight="145"/>
 </TextureAtlas>

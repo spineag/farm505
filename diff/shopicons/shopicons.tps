@@ -352,6 +352,7 @@
             <filename>easter_egg_purple_icon.png</filename>
             <filename>easter_egg_yellow_icon.png</filename>
             <filename>easter_egg_red_icon.png</filename>
+            <filename>gnome_king_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

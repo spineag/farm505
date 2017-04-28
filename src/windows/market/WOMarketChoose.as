@@ -128,7 +128,7 @@ public class WOMarketChoose extends WindowMain {
         else _type = SKLAD;
         checkTypes();
         fillItems();
-        checkPapper();
+        if (g.user.isMegaTester) checkPapper();
         super.showIt();
     }
 
@@ -190,6 +190,9 @@ public class WOMarketChoose extends WindowMain {
             g.userTimer.papperTimerAtMarket = 0;
             g.directServer.skipUserInPaper(null);
             g.gameDispatcher.removeFromTimer(timerPapper);
+            _imPapper = null;
+            _source.removeChild(_imPapper);
+            _btnCheck = null;
             _btnCheck = new CButton();
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('checkbox'));
             _btnCheck.addChild(im);
@@ -210,6 +213,9 @@ public class WOMarketChoose extends WindowMain {
         if (g.userTimer.papperTimerAtMarket > 0) _txtPapper.text = String(g.managerLanguage.allTexts[1021] + ' ' + TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket));
         else {
             g.gameDispatcher.removeFromTimer(timerPapper);
+            _imPapper = null;
+            _source.removeChild(_imPapper);
+            _btnCheck = null;
             _btnCheck = new CButton();
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('checkbox'));
             _btnCheck.addChild(im);
@@ -220,7 +226,7 @@ public class WOMarketChoose extends WindowMain {
             _source.addChild(_btnCheck);
             _btnCheck.clickCallback = onClickCheck;
             _txtPapper.text = String(g.managerLanguage.allTexts[1022]);
-            _txtPapper.x = -130;
+            _txtPapper.x = -174;
             _boolPapper = true;
             _btnPapper.visible = false;
         }
@@ -538,10 +544,6 @@ public class WOMarketChoose extends WindowMain {
             }
             var level:int = g.allData.getResourceById(_curResourceId).blockByLevel;
             if (!level || level < 1) level = 1;
-            if (_boolPapper) {
-                g.directServer.updateMarketPapper(_activetedItem.number, true, null);
-                _woMarket.startPapperTimer();
-            }
             if (_callback != null) {
                 _callback.apply(null, [_activetedItem, _curResourceId, level, _countResourceBlock.count, _countMoneyBlock.count,_boolPapper]);
                 _callback = null;
