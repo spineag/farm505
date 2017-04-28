@@ -1032,7 +1032,10 @@ public class ManagerTutorialNew extends IManagerTutorial{
                 }
                 break;
             case 12:
-                if (_subStep == 12) {
+                if (_subStep == 0) {
+                    removeBlack();
+                    addBlackUnderInterface();
+                } else if (_subStep == 12) {
                     removeBlack();
                     addBlackUnderInterface();
                     deleteArrowAndDust();
