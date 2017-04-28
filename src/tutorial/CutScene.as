@@ -48,6 +48,10 @@ public class CutScene {
 
     private function showBubble(st:String, stBtn:String, callback:Function, callbackNo:Function=null, stURL:String='', btnUrl:String = '', startClick:Function = null):void {
         try {
+            if (!st) {
+                st = '';
+                Cc.error('no text for CutScene');
+            }
             if (st.length > 100 || stURL != '' || btnUrl != '') {
                 _bubble = new CutSceneTextBubble(_source, CutSceneTextBubble.BIG, stURL, btnUrl);
             } else {

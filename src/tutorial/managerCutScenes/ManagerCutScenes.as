@@ -245,9 +245,7 @@ public class ManagerCutScenes {
 
     private function market_3():void {
         _cutSceneStep = 4;
-        _airBubble.hideIt();
-        _airBubble.deleteIt();
-        _airBubble = null;
+        deleteAirBubble();
         g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
         g.user.cutScenes[0] = 1;
         saveUserCutScenesData();
@@ -328,10 +326,7 @@ public class ManagerCutScenes {
         _cutSceneStep = 2;
         g.bottomPanel.deleteArrow();
         _cutScene.hideIt(deleteCutScene);
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
+        deleteDust();
         _cutSceneCallback = decor_2;
     }
 
@@ -349,14 +344,8 @@ public class ManagerCutScenes {
 
     private function decor_3():void {
         _cutSceneStep = 4;
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteDust();
+        deleteArrow();
         _cutSceneCallback = decor_4;
     }
 
@@ -410,14 +399,8 @@ public class ManagerCutScenes {
 
     private function toInventory_2():void {
         _cutSceneStep = 3;
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteDust();
+        deleteArrow();
         _cutScene.hideIt(deleteCutScene);
         g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 150, _cutSceneBuildings[0].source.y - 20, false, .5);
         (_cutSceneBuildings[0] as Decor).showArrow();
@@ -481,14 +464,8 @@ public class ManagerCutScenes {
 
     private function fromInventory_2():void {
         _cutSceneStep = 3;
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteDust();
+        deleteArrow();
         _cutScene.hideIt(deleteCutScene);
         Utils.createDelay(.5, fromInventory_3);
     }
@@ -506,14 +483,8 @@ public class ManagerCutScenes {
     private function fromInventory_4():void {
         _cutSceneStep = 5;
         g.toolsPanel.hideRepository();
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteDust();
+        deleteArrow();
         _cutSceneCallback = fromInventory_5;
     }
 
@@ -638,15 +609,8 @@ public class ManagerCutScenes {
 
     private function openTrain_3():void {
         _cutSceneStep = 5;
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
-        if (_airBubble) {
-            _airBubble.hideIt();
-            _airBubble.deleteIt();
-            _airBubble = null;
-        }
+        deleteArrow();
+        deleteAirBubble();
 
         _airBubble = new AirTextBubble();
         _airBubble.showIt(_curCutScenePropertie.text3, g.cont.popupCont, g.managerResize.stageWidth/2 - 300, g.managerResize.stageHeight/2 - 100, openTrain_4);
@@ -659,15 +623,8 @@ public class ManagerCutScenes {
 
     private function openTrain_4():void {
         _cutSceneStep = 6;
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
-        if (_airBubble) {
-            _airBubble.hideIt();
-            _airBubble.deleteIt();
-            _airBubble = null;
-        }
+        deleteArrow();
+        deleteAirBubble();
 
         _airBubble = new AirTextBubble();
         _airBubble.showIt(_curCutScenePropertie.text4, g.cont.popupCont, g.managerResize.stageWidth/2 - 330, g.managerResize.stageHeight/2 - 200, openTrain_5);
@@ -877,6 +834,28 @@ public class ManagerCutScenes {
         }
     }
 
+    private function deleteAirBubble():void {
+        if (_airBubble) {
+            _airBubble.hideIt();
+            _airBubble.deleteIt();
+            _airBubble = null;
+        }
+    }
+
+    private function deleteArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
+        }
+    }
+
+    private function deleteDust():void {
+        if (_dustRectangle) {
+            _dustRectangle.deleteIt();
+            _dustRectangle = null;
+        }
+    }
+
     public function isCutSceneBuilding(wo:WorldObject):Boolean {
         if(_cutSceneBuildings)  return _cutSceneBuildings.indexOf(wo) > -1;
         else return false;
@@ -888,42 +867,21 @@ public class ManagerCutScenes {
             // add try catch
             if (_curCutScenePropertie.reason == REASON_ADD_TO_PAPPER) {
                 if (_cutSceneStep == 1) {
-                    if (_arrow) {
-                        _arrow.deleteIt();
-                        _arrow = null;
-                    }
-                    if (_airBubble) {
-                        _airBubble.hideIt();
-                        _airBubble.deleteIt();
-                        _airBubble = null;
-                    }
+                    deleteArrow();
+                    deleteAirBubble();
                     if (_temp && _temp is MarketItem) {
                         releaseAddToPapper(_temp as MarketItem);
                     } else {
                         isCutScene = false;
                     }
                 } else if (_cutSceneStep == 2) {
-                    if (_arrow) {
-                        _arrow.deleteIt();
-                        _arrow = null;
-                    }
-                    if (_airBubble) {
-                        _airBubble.hideIt();
-                        _airBubble.deleteIt();
-                        _airBubble = null;
-                    }
+                    deleteArrow();
+                    deleteAirBubble();
                     onAddToPapper();
                 }
             } else if (_curCutScenePropertie.reason == REASON_OPEN_WO_PLANT) {
-                if (_arrow) {
-                    _arrow.deleteIt();
-                    _arrow = null;
-                }
-                if (_airBubble) {
-                    _airBubble.hideIt();
-                    _airBubble.deleteIt();
-                    _airBubble = null;
-                }
+                deleteArrow();
+                deleteAirBubble();
                 releaseWOPlant();
             } else {
                 var ob:Object;
@@ -932,11 +890,7 @@ public class ManagerCutScenes {
                         if (_cutSceneStep == 1 || _cutSceneStep == 2) {
                             g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50);
                         } else if (_cutSceneStep == 3) {
-                            if (_airBubble) {
-                                _airBubble.hideIt();
-                                _airBubble.deleteIt();
-                                _airBubble = null;
-                            }
+                            deleteAirBubble();
                         }
                         market_2();
                         break;
@@ -951,20 +905,11 @@ public class ManagerCutScenes {
                                 endCutScene();
                                 return;
                             }
-                            if (_dustRectangle) {
-                                _dustRectangle.deleteIt();
-                                _dustRectangle = null;
-                            }
+                            deleteDust();
                             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
                         } else if (_cutSceneStep == 3) {
-                            if (_arrow) {
-                                _arrow.deleteIt();
-                                _arrow = null;
-                            }
-                            if (_dustRectangle) {
-                                _dustRectangle.deleteIt();
-                                _dustRectangle = null;
-                            }
+                            deleteArrow();
+                            deleteDust();
                             ob = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_cutSceneResourceIDs[0], true);
                             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
                             _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
@@ -974,14 +919,8 @@ public class ManagerCutScenes {
                         break;
                     case ID_ACTION_TO_INVENTORY_DECOR:
                         if (_cutSceneStep == 2) {
-                            if (_arrow) {
-                                _arrow.deleteIt();
-                                _arrow = null;
-                            }
-                            if (_dustRectangle) {
-                                _dustRectangle.deleteIt();
-                                _dustRectangle = null;
-                            }
+                            deleteArrow();
+                            deleteDust();
                             ob = g.toolsPanel.getRepositoryBoxProperties();
                             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
                             _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
@@ -993,28 +932,16 @@ public class ManagerCutScenes {
                         break;
                     case ID_ACTION_FROM_INVENTORY_DECOR:
                         if (_cutSceneStep == 2) {
-                            if (_arrow) {
-                                _arrow.deleteIt();
-                                _arrow = null;
-                            }
-                            if (_dustRectangle) {
-                                _dustRectangle.deleteIt();
-                                _dustRectangle = null;
-                            }
+                            deleteArrow();
+                            deleteDust();
                             ob = g.toolsPanel.getRepositoryBoxProperties();
                             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
                             _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
                             _arrow.scaleIt(.7);
                             _arrow.animateAtPosition(ob.x + ob.width / 2, ob.y);
                         } else if (_cutSceneStep == 4) {
-                            if (_arrow) {
-                                _arrow.deleteIt();
-                                _arrow = null;
-                            }
-                            if (_dustRectangle) {
-                                _dustRectangle.deleteIt();
-                                _dustRectangle = null;
-                            }
+                            deleteArrow();
+                            deleteDust();
                             ob = g.toolsPanel.getRepositoryBoxFirstItemProperties();
                             _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
                             _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, g.cont.popupCont);
@@ -1028,15 +955,8 @@ public class ManagerCutScenes {
                     case ID_ACTION_OPEN_TRAIN:
                         g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 220, _cutSceneBuildings[0].source.y - 80);
                         if (_cutSceneStep == 4) {
-                            if (_arrow) {
-                                _arrow.deleteIt();
-                                _arrow = null;
-                            }
-                            if (_airBubble) {
-                                _airBubble.hideIt();
-                                _airBubble.deleteIt();
-                                _airBubble = null;
-                            }
+                            deleteArrow();
+                            deleteAirBubble();
                             openTrain_2a();
                         } else if (_cutSceneStep == 5) {
                             openTrain_3();
@@ -1057,19 +977,9 @@ public class ManagerCutScenes {
     }
 
     private function endCutScene():void {
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
-        if (_airBubble) {
-            _airBubble.hideIt();
-            _airBubble.deleteIt();
-            _airBubble = null;
-        }
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
+        deleteArrow();
+        deleteAirBubble();
+        deleteDust();
         deleteCutScene();
         removeBlack();
         if (_cat) {

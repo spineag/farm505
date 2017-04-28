@@ -35,7 +35,7 @@ public class TutorialTextsNew {
         _objText[12][0] = String(g.managerLanguage.allTexts[548]);
 
         _objText[15] = {};
-        _objText[15][0] = String(g.managerLanguage.allTexts[549]);
+        _objText[15][1] = String(g.managerLanguage.allTexts[549]);
 
         _objText[16] = {};
         _objText[16][0] = String(g.managerLanguage.allTexts[550]);

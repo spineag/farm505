@@ -893,7 +893,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
         _subStep = 0;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
-        cutScene.showIt(texts[g.user.tutorialStep][_subStep],texts['next'], subStep16_1);
+        cutScene.showIt(texts[g.user.tutorialStep][_subStep], texts['next'], subStep16_1);
         addBlack();
     }
 
@@ -1006,7 +1006,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
                 }
                 break;
             case 10:
-                    if (_tutorialObjects && _tutorialObjects[0]) g.cont.moveCenterToPos((_tutorialObjects[0] as WorldObject).posX, (_tutorialObjects[0] as WorldObject).posY);
+                if (_tutorialObjects && _tutorialObjects[0]) g.cont.moveCenterToPos((_tutorialObjects[0] as WorldObject).posX, (_tutorialObjects[0] as WorldObject).posY);
                 break;
             case 11:
                 if (_subStep == 0) {
