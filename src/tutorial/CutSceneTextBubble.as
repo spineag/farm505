@@ -82,6 +82,9 @@ public class CutSceneTextBubble {
 
     private function addImageButton(callback:Function, startClick:Function):void {
         _imageBtn = new CSprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_bt'));
+        im.alignPivot();
+        _imageBtn.addChild(im);
         _innerImage.alignPivot();
         _imageBtn.addChild(_innerImage);
         _imageBtn.startClickCallback = startClick;
