@@ -49,11 +49,13 @@ public class WindowMain {
         SOUND_OPEN = SoundConst.DEFAULT_WINDOW;
     }
 
-    public function get windowType():String {
-        return _windowType;
-    }
-
     public function showItParams(callback:Function, params:Array):void { }
+    public function get source():Sprite { return _source; }
+    public function get windowType():String { return _windowType; }
+    public function hideIt():void {  if (_source) TweenMax.to(_source, .3, {y:-g.managerResize.stageHeight/2, onComplete: onHideAnimation}); }
+    public function hideItQuick():void { onHideAnimation(); }
+    public function releaseFromCash():void { showIt(); }
+    public function get isShowed():Boolean { return _isShowed; }
 
     public function showIt():void {
         if (SOUND_OPEN) g.soundManager.playSound(SOUND_OPEN);
@@ -61,18 +63,11 @@ public class WindowMain {
         _isShowed = true;
         if (_source) {
             createBlackBG();
-            _source.x = g.managerResize.stageWidth/2;
-            _source.y = -g.managerResize.stageHeight/2;
+            _source.x = int(g.managerResize.stageWidth/2);
+            _source.y = int(-g.managerResize.stageHeight/2);
             g.cont.addGameContListener(false);
             g.cont.windowsCont.addChild(_source);
-//            if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-//                _source.scale = .8;
-                TweenMax.to(_source, .3, {y: g.managerResize.stageHeight/2, onComplete: onShowingWindow});
-//            } else {
-//                _source.scale = 1;
-//                _source.alpha = 1;
-//            Utils.createDelay(.2, onShowingWindow);
-//            }
+            TweenMax.to(_source, .3, {y: int(g.managerResize.stageHeight/2), onComplete: onShowingWindow});
         }
     }
 
@@ -89,22 +84,6 @@ public class WindowMain {
                 (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_SHOW_PAPPER) && _windowType == WindowsManager.WO_PAPPER) )
                 g.managerCutScenes.checkCutSceneCallback();
         }
-    }
-
-    public function hideIt():void {
-//        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-//            if (g.cont.windowsCont.contains(_source))
-//                TweenMax.to(_source, .1, {scaleX: .8, scaleY: .8, alpha: 0, onComplete: onHideAnimation});
-//            else onHideAnimation();
-//        } else {
-//        Utils.createDelay(.2, onHideAnimation);
-//            onHideAnimation();
-//        }
-        if (_source) TweenMax.to(_source, .3, {y:-g.managerResize.stageHeight/2, onComplete: onHideAnimation});
-    }
-
-    public function hideItQuick():void {
-        onHideAnimation();
     }
 
     private function onHideAnimation():void {
@@ -153,10 +132,6 @@ public class WindowMain {
         }
     }
 
-    public function get source():Sprite {
-        return _source;
-    }
-
     public function onResize():void {
         _source.x = g.managerResize.stageWidth/2;
         _source.y = g.managerResize.stageHeight/2;
@@ -190,14 +165,6 @@ public class WindowMain {
         if (_callbackClickBG != null) {
             _callbackClickBG.apply();
         }
-    }
-
-    public function releaseFromCash():void {
-        showIt();
-    }
-
-    public function get isShowed():Boolean {
-        return _isShowed;
     }
 }
 }

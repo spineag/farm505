@@ -32,7 +32,7 @@ public class StartPreloader {
     private var _jpgUrl:String;
     private var _callbackInit:Function;
     private var _whiteQuad:Quad;
-    private var _whiteShift:int = 10;
+    private var _whiteShift:int = 2;
     private var _bigBG:Image;
 
     private var g:Vars = Vars.getInstance();
