@@ -2,6 +2,8 @@
  * Created by andy on 2/20/17.
  */
 package quest {
+import com.junkbyte.console.Cc;
+
 import flash.display.Bitmap;
 import manager.Vars;
 import starling.display.Image;
@@ -20,6 +22,14 @@ public class QuestItemIcon {
     private var _arrow:SimpleArrow;
 
     public function QuestItemIcon(q:QuestStructure) {
+        if (!q) {
+            Cc.error('QuestItemIcon:: questStructure == null');
+            return;
+        }
+        if (!q.tasks || !q.tasks.length) {
+            Cc.error('QuestItemIcon:: no tasks for quest with id: ' + q.questId);
+            return;
+        }
         _onHover = false;
         _source = new CSprite();
         _quest = q;
@@ -60,11 +70,16 @@ public class QuestItemIcon {
             im.alignPivot();
             _source.addChild(im);
         }
-        var st:String = _quest.getUrlFromTask();
-        if (st == '0') {
-            addSmallIm(_quest.iconImageFromAtlas());
+        var t:QuestTaskStructure = _quest.tasks[0];
+        if (t.typeAction == ManagerQuest.ADD_LEFT_MENU || t.typeAction == ManagerQuest.POST || t.typeAction == ManagerQuest.ADD_LEFT_MENU) {
+
         } else {
-            g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadSmallIcon);
+            var st:String = _quest.getUrlFromTask();
+            if (st == '0') {
+                addSmallIm(_quest.iconImageFromAtlas());
+            } else {
+                g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadSmallIcon);
+            }
         }
     }
 
