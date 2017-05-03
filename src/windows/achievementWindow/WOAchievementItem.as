@@ -54,7 +54,7 @@ public class WOAchievementItem {
         _name = new CTextField(290, 60, String(g.managerAchievement.dataAchievement[_number].name));
         _name.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         _name.alignH = Align.LEFT;
-        _name.x = 270 - _name.textBounds.width/2;
+        _name.x = 250 - _name.textBounds.width/2;
         _name.y = -5;
         source.addChild(_name);
         _description = new CTextField(290, 60, String(g.managerAchievement.dataAchievement[_number].description));
@@ -62,16 +62,16 @@ public class WOAchievementItem {
         _description.alignH = Align.LEFT;
         _description.y = 30;
         source.addChild(_description);
-        _imStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_medium'));
+        _imStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
         _imStar.x = 290;
         _imStar.y = 90;
         source.addChild(_imStar);
-        _imRubi = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
+        _imRubi = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         _imRubi.x = 190;
         _imRubi.y = 90;
         source.addChild(_imRubi);
         _imKubok = new Image(g.allData.atlas['achievementAtlas'].getTexture('kubok_n_n'));
-        _imKubok.x = 10;
+        _imKubok.x = 15;
         _imKubok.y = 20;
         source.addChild(_imKubok);
         var myPattern:RegExp = /count/;
@@ -86,8 +86,8 @@ public class WOAchievementItem {
                         _txtBtn = new CTextField(174, 30, String(g.managerLanguage.allTexts[923]));
                         _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
                         _btn.addChild(_txtBtn);
-                        _btn.x = 509;
-                        _btn.y = 115;
+                        _btn.x = 516;
+                        _btn.y = 110;
                         source.addChild(_btn);
                         _btn.clickCallback = onClick;
                         _txtRubi = new CTextField(120, 40, String(g.managerAchievement.dataAchievement[_number].countHard[k]));
@@ -146,11 +146,11 @@ public class WOAchievementItem {
             _description.text = str.replace(myPattern, String(g.managerAchievement.dataAchievement[_number].countToGift[0]));
         }
         _txtRubi.alignH = Align.LEFT;
-        _txtRubi.x = 236;
-        _txtRubi.y = 90;
+        _txtRubi.x = 232;
+        _txtRubi.y = 87;
         _txtStar.alignH = Align.LEFT;
-        _txtStar.x = 335;
-        _txtStar.y = 90;
+        _txtStar.x = 331;
+        _txtStar.y = 87;
         if (_txtCount) {
             _txtCount.alignH = Align.LEFT;
             _txtCount.x = 520 - _txtCount.textBounds.width/2;
@@ -160,12 +160,8 @@ public class WOAchievementItem {
         _imPlashkaDown.x = _imPlashka.width - _imPlashkaDown.width -13;
         _imPlashkaDown.y = _imPlashka.height - _imPlashkaDown.height -7;
         source.addChildAt(_imPlashkaDown,0);
-        _description.x = 270 - _description.textBounds.width/2;
+        _description.x = 250 - _description.textBounds.width/2;
         starShow();
-        var quad:Quad = new Quad(5,5,0xffb900);
-        quad.x = 270;
-        quad.y = 30;
-//        source.addChild(quad);
     }
 
     public function starShow():void {
