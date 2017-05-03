@@ -777,7 +777,7 @@ public class TownArea extends Sprite {
 
         if (!isNewAtMap) {
             if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market || worldObject is Cave || worldObject is Paper ||
-                    worldObject is Train || worldObject is DailyBonus || worldObject is LockedLand || worldObject is Wild || worldObject is Cafe) {
+                    worldObject is Train || worldObject is DailyBonus || worldObject is LockedLand || worldObject is Wild || worldObject is Cafe || worldObject is Achievement) {
             } else {
                 point = g.matrixGrid.getIndexFromXY(new Point(_x, _y));
                 if (!checkFreeGrids(point.x, point.y, worldObject.sizeX, worldObject.sizeY)) {
@@ -1561,6 +1561,7 @@ public class TownArea extends Sprite {
         if (g.managerHelpers) g.managerHelpers.stopIt();
         g.hideAllHints();
         g.catPanel.visibleCatPanel(false);
+        g.partyPanel.visiblePartyPanel(false);
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(false);
         g.visitedUser = person;
@@ -1853,7 +1854,7 @@ public class TownArea extends Sprite {
         }
             if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
                     worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus|| worldObject is LockedLand || worldObject is Wild ||
-                    worldObject is DecorFenceArka || worldObject is DecorFenceGate) {
+                    worldObject is DecorFenceArka || worldObject is DecorFenceGate || worldObject is Achievement) {
             } else {
                 if (!checkAwayFreeGrids(posX, posY, worldObject.sizeX, worldObject.sizeY)) {
                     Cc.error('TownArea pasteAwayBuild checkFreeGrids::' + posX + ', ' + posY + ' not empty ' + worldObject.dataBuild.name + ' ' + worldObject.dataBuild.id);
@@ -2008,7 +2009,9 @@ public class TownArea extends Sprite {
                 try {
                     _cityAwayObjects.sortOn("depth", Array.NUMERIC);
                     for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                        _cont.setChildIndex(_cityAwayObjects[i].source, i);
+                       if (_cityAwayObjects[i].source && _cont.setChildIndex(_cityAwayObjects[i].source, i)) _cont.setChildIndex(_cityAwayObjects[i].source, i);
+                        else Cc.error('TownArea zAwaySort error: ');
+
                     }
                 } catch (e:Error) {
                     g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');

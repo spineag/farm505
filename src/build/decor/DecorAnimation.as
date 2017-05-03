@@ -200,8 +200,8 @@ public class DecorAnimation extends WorldObject{
                         heroCat = g.managerCats.getFreeCatDecor();
                         if (heroCat) {
                             _decorWork = true;
-//                            heroCat.isFreeDecor = false;
-                            heroCat.isFree = false;
+                            heroCat.isFreeDecor = false;
+//                            heroCat.isFree = false;
                             armature = new Armature();
                             armature = g.allData.factory[_dataBuild.url].buildArmature('cat' + String(count - i));
                             WorldClock.clock.add(armature);
@@ -280,7 +280,7 @@ public class DecorAnimation extends WorldObject{
         }
     }
 
-    private function chooseAnimationArray(e:Event=null, armature:Armature =null,heroCat:HeroCat = null):void {
+    private function chooseAnimationArray(e:Event=null, armature:Armature =null, heroCat:HeroCat = null):void {
         var loop:Function = function (e:Event = null):void {
             armature.removeEventListener(EventObject.COMPLETE, loop);
             armature.removeEventListener(EventObject.LOOP_COMPLETE, loop);
@@ -293,8 +293,8 @@ public class DecorAnimation extends WorldObject{
                         if (armature) armature.animation.gotoAndStopByFrame('idle');
                         if (heroCat) {
                             heroCat.visible = true;
-//                            heroCat.isFreeDecor = true;
-                            heroCat.isFree = true;
+                            heroCat.isFreeDecor = true;
+//                            heroCat.isFree = true;
                             _armatureArray.pop();
                             if (_armatureArray.length <= 0) _decorWork = false;
                             if (heroCat) heroCat = null;
@@ -308,8 +308,8 @@ public class DecorAnimation extends WorldObject{
                 } else {
                     if (heroCat) {
                         heroCat.visible = true;
-//                        heroCat.isFreeDecor = true;
-                        heroCat.isFree = true;
+                        heroCat.isFreeDecor = true;
+//                        heroCat.isFree = true;
                         _armatureArray.pop();
                         if (_armatureArray.length <= 0) _decorWork = false;
                         if (heroCat) heroCat = null;
@@ -419,7 +419,7 @@ public class DecorAnimation extends WorldObject{
 
     private function stopAnimation():void {
         if (!_dataBuild) return;
-        _decorWork = false;
+//        _decorWork = false;
         if (_heroCat) _heroCat = null;
         if (_armature) {
             _armature.animation.gotoAndPlayByFrame('idle');
@@ -470,6 +470,7 @@ public class DecorAnimation extends WorldObject{
                         _heroCat.isFreeDecor = true;
                         _heroCat.decorAnimation = (this as DecorAnimation);
                     }
+                    _decorWork = false;
                     stopAnimation();
                     _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                     _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
@@ -486,6 +487,7 @@ public class DecorAnimation extends WorldObject{
                         _heroCat.decorAnimation = (this as DecorAnimation);
                     }
                 }
+                _decorWork = false;
                 stopAnimation();
                 _decorAnimation = 0;
             }

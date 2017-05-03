@@ -1197,8 +1197,8 @@ public class Tree extends WorldObject {
     private function wateringTree(state:int):void {
         g.user.onMakeHelpAway();
         if (state != _state) {
-            var p:Point = new Point(source.x, source.y);
-            p = source.parent.localToGlobal(p);
+            var p:Point = new Point(_source.x, _source.y);
+            p = _source.parent.localToGlobal(p);
             new FlyMessage(p,String(g.managerLanguage.allTexts[622]));
             _state = FIXED;
             makeWateringIcon();

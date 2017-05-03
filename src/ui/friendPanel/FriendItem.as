@@ -133,6 +133,7 @@ public class FriendItem {
         if (_person == g.user) {
             if (g.isAway) g.townArea.backHome();
             g.catPanel.visibleCatPanel(true);
+            g.partyPanel.visiblePartyPanel(true);
         } else {
             g.townArea.goAway(_person);
         }

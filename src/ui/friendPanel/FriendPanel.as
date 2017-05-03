@@ -232,7 +232,7 @@ public class FriendPanel {
     public function onGettingInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
         fillFriends();
-        g.managerAchievement.achievementCountFriend(_arrFriends.length - 2);
+        g.managerAchievement.achievementCountFriend(_arrFriends.length);
     }
 
     public function updateFriendsPanel():void {

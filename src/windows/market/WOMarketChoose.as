@@ -213,22 +213,25 @@ public class WOMarketChoose extends WindowMain {
         if (g.userTimer.papperTimerAtMarket > 0) _txtPapper.text = String(g.managerLanguage.allTexts[1021] + ' ' + TimeUtils.convertSecondsToStringClassic(g.userTimer.papperTimerAtMarket));
         else {
             g.gameDispatcher.removeFromTimer(timerPapper);
-            _imPapper = null;
-            _source.removeChild(_imPapper);
-            _btnCheck = null;
-            _btnCheck = new CButton();
-            var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('checkbox'));
-            _btnCheck.addChild(im);
-            _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-            _btnCheck.addChild(_imCheck);
-            _btnCheck.x = 35;
-            _btnCheck.y = 212;
-            _source.addChild(_btnCheck);
-            _btnCheck.clickCallback = onClickCheck;
-            _txtPapper.text = String(g.managerLanguage.allTexts[1022]);
-            _txtPapper.x = -174;
-            _boolPapper = true;
-            _btnPapper.visible = false;
+            if (_source) {
+                g.gameDispatcher.removeFromTimer(timerPapper);
+                _imPapper = null;
+                if (_imPapper) _source.removeChild(_imPapper);
+                _btnCheck = null;
+                _btnCheck = new CButton();
+                var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('checkbox'));
+                _btnCheck.addChild(im);
+                _imCheck = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+                _btnCheck.addChild(_imCheck);
+                _btnCheck.x = 35;
+                _btnCheck.y = 212;
+                _source.addChild(_btnCheck);
+                _btnCheck.clickCallback = onClickCheck;
+                _txtPapper.text = String(g.managerLanguage.allTexts[1022]);
+                _txtPapper.x = -174;
+                _boolPapper = true;
+                _btnPapper.visible = false;
+            }
         }
     }
 

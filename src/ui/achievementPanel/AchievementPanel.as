@@ -23,7 +23,7 @@ public class AchievementPanel {
     private var _txtAchiement:CTextField;
     private var _bg:Image;
     private var _timer:int;
-
+    public var show:Boolean;
     public function AchievementPanel() {
         _source = new Sprite();
         _bg = new Image(g.allData.atlas['achievementAtlas'].getTexture('achievement_notification'));
@@ -32,6 +32,7 @@ public class AchievementPanel {
         _source.visible = false;
         _timer = 0;
         onResize();
+        show = false;
     }
 
     public function onResize():void {
@@ -40,6 +41,7 @@ public class AchievementPanel {
     }
 
     public function showIt(name:String):void {
+        show = true;
         _source.visible = true;
         _txtText = new CTextField(435,60,String(g.managerLanguage.allTexts[984]));
         _txtText.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
@@ -71,6 +73,7 @@ public class AchievementPanel {
                 _txtAchiement.deleteIt();
                 _txtAchiement = null;
             }
+            show = false;
             _source.visible = false;
         }
     }

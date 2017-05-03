@@ -7817,6 +7817,7 @@ public class DirectServer {
             ob.typeAction = int(d.message[i].type_action);
             ob.idResource =  int(d.message[i].id_resource);
             if (Boolean(int(d.message[i].is_tester)) == false || (Boolean(int(d.message[i].is_tester)) == true && g.user.isTester)) g.managerAchievement.dataAchievement.push(ob);
+            ob.priotity = 1000;
         }
         if (d.id == 0) {
             Cc.ch('server', 'getDataAchievement OK', 5);
