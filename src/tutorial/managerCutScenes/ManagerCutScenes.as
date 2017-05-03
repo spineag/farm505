@@ -54,7 +54,6 @@ public class ManagerCutScenes {
     private var g:Vars = Vars.getInstance();
     private var _properties:Array;
     private var _curCutScenePropertie:Object;
-    private var _cat:TutorialCat;
     private var _cutScene:CutScene;
     private var _airBubble:AirTextBubble;
     private var _arrow:SimpleArrow;
@@ -67,9 +66,13 @@ public class ManagerCutScenes {
     public var isCutScene:Boolean = false;
     private var _temp:*;
     private var _closeMarket:Boolean = false;
+    private var _NEXT:String;
+    private var _OK:String;
 
     public function ManagerCutScenes() {
         _properties = (new CutSceneProperties(this)).properties;
+        _NEXT = String(g.managerLanguage.allTexts[541]);
+        _OK = String(g.managerLanguage.allTexts[532]);
     }
 
     private function saveUserCutScenesData():void {
@@ -213,9 +216,10 @@ public class ManagerCutScenes {
             _closeMarket = true;
             _cutSceneStep = 1;
             isCutScene = true;
-            addCatToPos(20, 22);
-            g.managerCats.goCatToPoint(_cat, new Point(44, 0), market_1);
-            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 3);
+            addBlack();
+            _cutScene = new CutScene();
+            _cutScene.showIt(_curCutScenePropertie.text, _NEXT, market_1);
+            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 2);
         } else {
             isCutScene = false;
             Cc.error('cutScene for market - no market building');
@@ -223,10 +227,10 @@ public class ManagerCutScenes {
     }
 
     private function market_1():void {
+        removeBlack();
+        _cutScene.hideIt(deleteCutScene);
         _cutSceneStep = 2;
         g.optionPanel.makeScaling(1);
-        _cat.flipIt(false);
-        _cat.showBubble(_curCutScenePropertie.text);
         _closeMarket = false;
         (_cutSceneBuildings[0] as Market).showArrow();
         _airBubble = new AirTextBubble();
@@ -236,7 +240,6 @@ public class ManagerCutScenes {
     private function market_2():void {
         _cutSceneStep = 3;
         _cutSceneCallback = null;
-        _cat.hideBubble();
         (_cutSceneBuildings[0] as Market).hideArrow();
         _airBubble.showIt(_curCutScenePropertie.text2, g.cont.popupCont, g.managerResize.stageWidth/2 - 150, g.managerResize.stageHeight/2, market_3);
         _airBubble.showBtnParticles();
@@ -258,28 +261,23 @@ public class ManagerCutScenes {
         _cutSceneStep = 1;
         isCutScene = true;
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.PAPER);
-        if (_cat) {
-            g.managerCats.goCatToPoint(_cat, new Point(41, 0), papper_1);
-            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 1);
-        } else {
-            addCatToPos(20, 22);
-            g.managerCats.goCatToPoint(_cat, new Point(41, 0), papper_1);
-            g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50, false, 3);
-        }
+        addBlack();
+        _cutScene = new CutScene();
+        _cutScene.showIt(_curCutScenePropertie.text, _NEXT, papper_1);
+        g.cont.moveCenterToXY(_cutSceneBuildings[0].source.x - 50, _cutSceneBuildings[0].source.y + 50);
     }
 
     private function papper_1():void {
         _cutSceneStep = 2;
+        removeBlack();
+        _cutScene.hideIt(deleteCutScene);
         g.optionPanel.makeScaling(1);
-        _cat.flipIt(false);
-        _cat.showBubble(_curCutScenePropertie.text);
         (_cutSceneBuildings[0] as Paper).showArrow();
         _cutSceneCallback = papper_2;
     }
 
     private function papper_2():void {
         _cutSceneStep = 3;
-        _cat.hideBubble();
         (_cutSceneBuildings[0] as Paper).hideArrow();
         papper_3();
     }
@@ -289,11 +287,6 @@ public class ManagerCutScenes {
         _cutSceneCallback = null;
         g.user.cutScenes[1] = 1;
         saveUserCutScenesData();
-        if (_cat) {
-            _cat.removeFromMap();
-            _cat.deleteIt();
-            _cat = null;
-        }
         if (g.managerTips) g.managerTips.setUnvisible(false);
         isCutScene = false;
     }
@@ -637,15 +630,8 @@ public class ManagerCutScenes {
 
     private function openTrain_5():void {
         _cutSceneStep = 7;
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
-        if (_airBubble) {
-            _airBubble.hideIt();
-            _airBubble.deleteIt();
-            _airBubble = null;
-        }
+        deleteArrow();
+        deleteAirBubble();
 
         _airBubble = new AirTextBubble();
         _airBubble.showIt(_curCutScenePropertie.text5, g.cont.popupCont, g.managerResize.stageWidth/2 - 300, g.managerResize.stageHeight/2 + 100, openTrain_6);
@@ -658,15 +644,8 @@ public class ManagerCutScenes {
 
     private function openTrain_6():void {
         _cutSceneStep = 8;
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
-        if (_airBubble) {
-            _airBubble.hideIt();
-            _airBubble.deleteIt();
-            _airBubble = null;
-        }
+        deleteArrow();
+        deleteAirBubble();
         g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
 
         if (!_cutScene) _cutScene = new CutScene();
@@ -678,10 +657,7 @@ public class ManagerCutScenes {
     }
 
     private function openTrain_7():void {
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
+        deleteArrow();
         _cutScene.hideIt(deleteCutScene);
         isCutScene = false;
     }
@@ -710,19 +686,9 @@ public class ManagerCutScenes {
 
     private function onWoPlant():void {
         _cutSceneCallback = null;
-        if (_dustRectangle) {
-            _dustRectangle.deleteIt();
-            _dustRectangle = null;
-        }
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
-        if (_airBubble) {
-            _airBubble.hideIt();
-            _airBubble.deleteIt();
-            _airBubble = null;
-        }
+        deleteDust();
+        deleteArrow();
+        deleteAirBubble();
         g.user.cutScenes[7] = 1;
         isCutScene = false;
         saveUserCutScenesData();
@@ -749,15 +715,8 @@ public class ManagerCutScenes {
         _cutSceneCallback = null;
         _cutSceneStep = 2;
         _temp = null;
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
-        if (_airBubble) {
-            _airBubble.hideIt();
-            _airBubble.deleteIt();
-            _airBubble = null;
-        }
+        deleteArrow();
+        deleteAirBubble();
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
             isCutScene = true;
 //            var ob:Object = (g.windowsManager.currentWindow as WOMarket).getTimerProperties();
@@ -770,15 +729,8 @@ public class ManagerCutScenes {
     }
     
     private function onAddToPapper2():void {
-        if (_arrow) {
-            _arrow.deleteIt();
-            _arrow = null;
-        }
-        if (_airBubble) {
-            _airBubble.hideIt();
-            _airBubble.deleteIt();
-            _airBubble = null;
-        }
+        deleteArrow();
+        deleteAirBubble();
         isCutScene = false;
         g.user.cutScenes[8] = 1;
         saveUserCutScenesData();
@@ -797,16 +749,6 @@ public class ManagerCutScenes {
         if (_cutSceneCallback != null) {
             _cutSceneCallback.apply();
         }
-    }
-
-    private function addCatToPos(_x:int, _y:int):void {
-        if (!_cat) _cat = new TutorialCat();
-        _cat.setPosition(new Point(_x, _y));
-        _cat.addToMap();
-    }
-
-    private function playCatIdle():void {
-        if (_cat) _cat.playDirectLabel('idle', false, null);
     }
 
     private function addBlack():void {
@@ -982,11 +924,6 @@ public class ManagerCutScenes {
         deleteDust();
         deleteCutScene();
         removeBlack();
-        if (_cat) {
-            _cat.removeFromMap();
-            _cat.deleteIt();
-            _cat = null;
-        }
         isCutScene = false;
         if (g.managerTips) g.managerTips.setUnvisible(false);
 

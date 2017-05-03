@@ -241,6 +241,8 @@ public class OptionPanel {
         var im:Image;
         switch (reason) {
             case 'fullscreen':
+                if (g.managerTutorial.isTutorial) return;
+                if (g.managerCutScenes.isCutScene) return;
                 g.bottomPanel.cancelBoolean(false);
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.toolsModifier.cancelMove();
@@ -256,6 +258,8 @@ public class OptionPanel {
                     }
                 break;
             case 'scale_plus':
+                if (g.managerTutorial.isTutorial) return;
+                if (g.managerCutScenes.isCutScene) return;
                 g.bottomPanel.cancelBoolean(false);
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.toolsModifier.cancelMove();
@@ -266,6 +270,8 @@ public class OptionPanel {
                 makeScaling(_arrCells[i]);
                 break;
             case 'scale_minus':
+                if (g.managerTutorial.isTutorial) return;
+                if (g.managerCutScenes.isCutScene) return;
                 g.bottomPanel.cancelBoolean(false);
                 g.toolsModifier.modifierType = ToolsModifier.NONE;
                 g.toolsModifier.cancelMove();

@@ -184,7 +184,7 @@ public class SN_FB extends SocialNetwork  {
     }
 
     override public function showInviteWindow():void {
-        ExternalInterface.call("showInviteWindowAll");
+        ExternalInterface.call("showInviteWindowAll", g.user.language);
     }
 
     override public function reloadGame():void {
@@ -209,8 +209,15 @@ public class SN_FB extends SocialNetwork  {
         super.wallSave();
     }
 
+    override public function get urlForAnySocialGroup():String {
+        return "https://www.facebook.com/";
+    }
+
     public override function checkIsInSocialGroup(id:String):void {
-        ExternalInterface.call("isInGroup", id, g.user.userSocialId);
+        // temp
+        g.managerQuest.onActionForTaskType(ManagerQuest.ADD_TO_GROUP);
+         
+//        ExternalInterface.call("isInGroup", id, g.user.userSocialId);
         super.checkIsInSocialGroup(id);
     }
 

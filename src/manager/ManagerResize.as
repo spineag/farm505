@@ -68,8 +68,8 @@ public class ManagerResize {
     public function get stageHeight():int { return _stageHeight; }
     
     public function recheckProperties():void {
-        _stageWidth = Starling.current.nativeStage.stageWidth;
-        _stageHeight = Starling.current.nativeStage.stageHeight;
+        _stageWidth = int(Starling.current.nativeStage.stageWidth);
+        _stageHeight = int(Starling.current.nativeStage.stageHeight);
 
     }
 

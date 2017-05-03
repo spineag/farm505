@@ -345,7 +345,6 @@ public class MainBottomPanel {
             case 'option':
                 g.managerHelpers.onUserAction();
                 if (g.managerCutScenes.isCutScene) return;
-                if (g.managerTutorial.isTutorial) return;
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
                     g.toolsModifier.cancelMove();
                     cancelBoolean(false);
