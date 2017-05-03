@@ -193,10 +193,11 @@
         <key>fileList</key>
         <array>
             <filename>plashka_dwn.png</filename>
-            <filename>plashka.png</filename>
             <filename>star_off.png</filename>
             <filename>star.png</filename>
             <filename>achievement_notification.png</filename>
+            <filename>plashka_big.png</filename>
+            <filename>kubok_n_n.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

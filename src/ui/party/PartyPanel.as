@@ -86,8 +86,8 @@ public class PartyPanel {
     }
 
     public function visiblePartyPanel(b:Boolean):void {
-        if (b) _source.visible = true;
-        else _source.visible = false;
+        if (b && _source && g.managerParty.eventOn) _source.visible = true;
+        else if (_source) _source.visible = false;
     }
 
     private function onClick():void {

@@ -93,11 +93,13 @@ public class MarketFriendItem {
         if (g.managerCutScenes.isCutScene) return;
         if (_person == g.user) {
             g.catPanel.visibleCatPanel(true);
+            g.partyPanel.visiblePartyPanel(true);
             g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
             g.windowsManager.uncasheWindow();
             g.townArea.backHome();
         } else {
             g.catPanel.visibleCatPanel(false);
+            g.partyPanel.visiblePartyPanel(false);
             g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
             g.windowsManager.uncasheWindow();
             g.townArea.goAway(_person);

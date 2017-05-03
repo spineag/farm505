@@ -23,7 +23,7 @@ import utils.Utils;
 
 import windows.WindowsManager;
 
-public class Achievement extends WorldObject{
+public class Achievement extends WorldObject {
     private var _isHover:Boolean;
 
     public function Achievement(_data:Object) {
@@ -77,7 +77,7 @@ public class Achievement extends WorldObject{
         } else if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_TREES) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
         } else if (g.toolsModifier.modifierType == ToolsModifier.NONE) {
-            g.windowsManager.openWindow(WindowsManager.WO_ACHIEVEMENT,null);
+            g.windowsManager.openWindow(WindowsManager.WO_ACHIEVEMENT, null);
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
@@ -92,7 +92,7 @@ public class Achievement extends WorldObject{
         }
         if (!_isHover) {
             _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
-            var fEndOver:Function = function(e:Event=null):void {
+            var fEndOver:Function = function (e:Event = null):void {
                 _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
                 _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
                 _armature.animation.gotoAndPlayByFrame('idle');
@@ -117,19 +117,23 @@ public class Achievement extends WorldObject{
         g.hint.hideIt();
     }
 
-    public function onTimer():void {
-        var f1:Function = function ():void {
-            var fEndOver:Function = function(e:Event=null):void {
-                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
-                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-                _armature.animation.gotoAndPlayByFrame('idle');
-                onTimer();
+    public function onTimer(b:Boolean = true):void {
+        if (b) {
+            var f1:Function = function ():void {
+                var fEndOver:Function = function (e:Event = null):void {
+                    _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                    _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                    _armature.animation.gotoAndPlayByFrame('idle');
+                    onTimer();
+                };
+                _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+                _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                _armature.animation.gotoAndPlayByFrame('idle_1');
             };
-            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
-            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-            _armature.animation.gotoAndPlayByFrame('idle_1');
-        };
-        Utils.createDelay(int(Math.random() * 2) + 2,f1);
+            Utils.createDelay(int(Math.random() * 2) + 2, f1);
+        } else {
+            _armature.animation.gotoAndPlayByFrame('idle');
+        }
     }
 }
 }

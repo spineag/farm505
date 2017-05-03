@@ -20,6 +20,7 @@ import starling.display.Sprite;
 import starling.utils.Color;
 
 import utils.MCScaler;
+import utils.Utils;
 
 import windows.ambar.AmbarProgress;
 
@@ -79,21 +80,26 @@ public class CraftPanel {
 
     public function showIt(place:int):void {
         _countFlying++;
-        if (!_isShow) {
-            g.cont.windowsCont.addChild(_source);
-            _isShow = true;
-        }
+        var f1:Function = function():void {
+            if (!_isShow) {
+                g.cont.windowsCont.addChild(_source);
+                _isShow = true;
+            }
 
-        _skladImage.visible = false;
-        _ambarImage.visible = false;
+            _skladImage.visible = false;
+            _ambarImage.visible = false;
 
-        if (place == BuildType.PLACE_AMBAR) {
-            _ambarImage.visible = true;
-            _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
-        } else {
-            _skladImage.visible = true;
-            _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
-        }
+            if (place == BuildType.PLACE_AMBAR) {
+                _ambarImage.visible = true;
+                _progress.setProgress(g.userInventory.currentCountInAmbar/g.user.ambarMaxCount);
+            } else {
+                _skladImage.visible = true;
+                _progress.setProgress(g.userInventory.currentCountInSklad/g.user.skladMaxCount);
+            }
+        };
+        if (!g.achievementPanel.show) f1();
+        else Utils.createDelay(3,f1);
+
     }
 
     public function afterFly(item:ResourceItem):void {

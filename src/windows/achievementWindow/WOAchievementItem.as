@@ -2,6 +2,7 @@
  * Created by user on 3/21/17.
  */
 package windows.achievementWindow {
+import data.BuildType;
 import data.DataMoney;
 
 import manager.ManagerFilters;
@@ -48,30 +49,31 @@ public class WOAchievementItem {
     public function WOAchievementItem(number:int) {
         source = new Sprite();
         _number = number;
-        _imPlashka = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka'));
+        _imPlashka = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka_big'));
         source.addChild(_imPlashka);
         _name = new CTextField(290, 60, String(g.managerAchievement.dataAchievement[_number].name));
         _name.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         _name.alignH = Align.LEFT;
-        _name.x = 170 - _name.textBounds.width/2;
+        _name.x = 270 - _name.textBounds.width/2;
         _name.y = -5;
         source.addChild(_name);
         _description = new CTextField(290, 60, String(g.managerAchievement.dataAchievement[_number].description));
-        _description.setFormat(CTextField.BOLD24, 20, ManagerFilters.BLUE_COLOR);
+        _description.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         _description.alignH = Align.LEFT;
-        _description.y = 35;
+        _description.y = 30;
         source.addChild(_description);
         _imStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_medium'));
-        _imStar.x = 190;
+        _imStar.x = 290;
         _imStar.y = 90;
         source.addChild(_imStar);
         _imRubi = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_medium'));
-        _imRubi.x = 90;
+        _imRubi.x = 190;
         _imRubi.y = 90;
         source.addChild(_imRubi);
-        _imKubok = new Image(g.allData.atlas['achievementAtlas'].getTexture('kubok'));
+        _imKubok = new Image(g.allData.atlas['achievementAtlas'].getTexture('kubok_n_n'));
         _imKubok.x = 10;
-        _imKubok.y = 30;
+        _imKubok.y = 20;
+        source.addChild(_imKubok);
         var myPattern:RegExp = /count/;
         var str:String = g.managerAchievement.dataAchievement[_number].description;
 
@@ -84,7 +86,7 @@ public class WOAchievementItem {
                         _txtBtn = new CTextField(174, 30, String(g.managerLanguage.allTexts[923]));
                         _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
                         _btn.addChild(_txtBtn);
-                        _btn.x = 409;
+                        _btn.x = 509;
                         _btn.y = 115;
                         source.addChild(_btn);
                         _btn.clickCallback = onClick;
@@ -119,8 +121,8 @@ public class WOAchievementItem {
                         if (k == 0) width = (100 * g.managerAchievement.userAchievement[i].resourceCount/ g.managerAchievement.dataAchievement[_number].countToGift[k]) * 1.68;
                         if (width > 168) width= 168;
                         _quad = new Quad(width,35,0xffb900);
-                        _quad.x = 327;
-                        _quad.y = 97;
+                        _quad.x = 435;
+                        _quad.y = 94;
                         source.addChildAt(_quad,0);
                         break;
                     }
@@ -144,22 +146,26 @@ public class WOAchievementItem {
             _description.text = str.replace(myPattern, String(g.managerAchievement.dataAchievement[_number].countToGift[0]));
         }
         _txtRubi.alignH = Align.LEFT;
-        _txtRubi.x = 160 - _txtRubi.textBounds.width/2;
+        _txtRubi.x = 236;
         _txtRubi.y = 90;
         _txtStar.alignH = Align.LEFT;
-        _txtStar.x = 255 - _txtStar.textBounds.width/2;
+        _txtStar.x = 335;
         _txtStar.y = 90;
         if (_txtCount) {
             _txtCount.alignH = Align.LEFT;
-            _txtCount.x = 418 - _txtCount.textBounds.width/2;
-            _txtCount.y = 88;
+            _txtCount.x = 520 - _txtCount.textBounds.width/2;
+            _txtCount.y = 86;
         }
         _imPlashkaDown = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka_dwn'));
-        _imPlashkaDown.x = _imPlashka.width - _imPlashkaDown.width -18;
-        _imPlashkaDown.y = _imPlashka.height - _imPlashkaDown.height -14;
+        _imPlashkaDown.x = _imPlashka.width - _imPlashkaDown.width -13;
+        _imPlashkaDown.y = _imPlashka.height - _imPlashkaDown.height -7;
         source.addChildAt(_imPlashkaDown,0);
-        _description.x = 180 - _description.textBounds.width/2;
+        _description.x = 270 - _description.textBounds.width/2;
         starShow();
+        var quad = new Quad(5,5,0xffb900);
+        quad.x = 270;
+        quad.y = 30;
+//        source.addChild(quad);
     }
 
     public function starShow():void {
@@ -178,7 +184,7 @@ public class WOAchievementItem {
             if (g.managerAchievement.dataAchievement[_number].countToGift[2] <= g.managerAchievement.userAchievement[_numberUser].resourceCount) {
                 _imStar3 = new Image(g.allData.atlas['achievementAtlas'].getTexture('star'));
                 source.addChild(_imStar3);
-            } else {
+            } else if (!_imStar3){
                 _imStar3 = new Image(g.allData.atlas['achievementAtlas'].getTexture('star_off'));
                 source.addChild(_imStar3);
             }
@@ -190,11 +196,11 @@ public class WOAchievementItem {
             _imStar3 = new Image(g.allData.atlas['achievementAtlas'].getTexture('star_off'));
             source.addChild(_imStar3);
         }
-        _imStar1.x = 323;
+        _imStar1.x = 425;
         _imStar1.y = 10;
-        _imStar2.x = 382;
+        _imStar2.x = 484;
         _imStar2.y = 10;
-        if (_imStar3) _imStar3.x = 440;
+        if (_imStar3) _imStar3.x = 542;
         if (_imStar3) _imStar3.y = 10;
     }
 
@@ -244,7 +250,7 @@ public class WOAchievementItem {
                 _txtBtn = new CTextField(174, 30, String(g.managerLanguage.allTexts[923]));
                 _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
                 _btn.addChild(_txtBtn);
-                _btn.x = 409;
+                _btn.x = 509;
                 _btn.y = 115;
                 source.addChild(_btn);
                 _btn.clickCallback = onClick;
@@ -257,8 +263,8 @@ public class WOAchievementItem {
 
             if (_txtCount) {
                 _txtCount.alignH = Align.LEFT;
-                _txtCount.x = 418 - _txtCount.textBounds.width/2;
-                _txtCount.y = 88;
+                _txtCount.x = 520 - _txtCount.textBounds.width/2;
+                _txtCount.y = 86;
             }
             _quad = new Quad(width,35,0xffb900);
             _quad.x = 327;
@@ -274,6 +280,11 @@ public class WOAchievementItem {
             _imPlashkaDown.y = _imPlashka.height - _imPlashkaDown.height -14;
             source.addChildAt(_imPlashkaDown,0);
         }
+        if (!g.managerAchievement.checkAchievement()) {
+            var arr:Array = g.townArea.getCityObjectsByType(BuildType.ACHIEVEMENT);
+            arr[0].onTimer(false);
+        }
+
     }
 
     private function dropBonus(number:int):void {

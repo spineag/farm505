@@ -392,6 +392,7 @@ public class MainBottomPanel {
                 }
                 if (g.isAway) g.townArea.backHome();
                 g.catPanel.visibleCatPanel(true);
+                g.partyPanel.visiblePartyPanel(true);
                 break;
         }
     }
