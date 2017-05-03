@@ -42,7 +42,7 @@ public class WOMarketDeleteItem extends WindowMain{
         _txtInfo.x = -150;
         _txtInfo.y = -20;
         _source.addChild(_txtInfo);
-        _txt = new CTextField(300,30,String(g.managerLanguage.allTexts[400]));
+        _txt = new CTextField(300,30,String(g.managerLanguage.allTexts[409]));
         _txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txt.x = -157;
         _txt.y = -60;
