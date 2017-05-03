@@ -1561,7 +1561,7 @@ public class TownArea extends Sprite {
         if (g.managerHelpers) g.managerHelpers.stopIt();
         g.hideAllHints();
         g.catPanel.visibleCatPanel(false);
-        g.partyPanel.visiblePartyPanel(false);
+        if (g.partyPanel) g.partyPanel.visiblePartyPanel(false);
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(false);
         g.visitedUser = person;

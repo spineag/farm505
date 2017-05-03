@@ -577,7 +577,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
 
     private function initScene_11():void {
         _subStep=0;
-        _currentAction = TutorialAction.NONE;
+        _currentAction = TutorialAction.BUY_ANIMAL;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep11_1, 0, '', 'main_panel_bt_shop');
@@ -588,7 +588,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
     private function subStep11_1():void {
         _subStep = 1;
         cutScene.hideIt(deleteCutScene);
-        _currentAction = TutorialAction.BUY_ANIMAL;
         _tutorialResourceIDs = [1];
 //        var ob:Object = g.bottomPanel.getShopButtonProperties();
 //        g.bottomPanel.addArrow('shop');
@@ -642,7 +641,7 @@ public class ManagerTutorialNew extends IManagerTutorial{
 
     private function initScene_12():void {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
-        _currentAction = TutorialAction.NONE;
+        _currentAction = TutorialAction.BUY_FABRICA;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         _subStep = 0;
@@ -660,7 +659,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
     private function subStep12_1a():void {
         _subStep = 12;
         cutScene.hideIt(deleteCutScene);
-        _currentAction = TutorialAction.BUY_FABRICA;
 //        var ob:Object = g.bottomPanel.getShopButtonProperties();
 //        g.bottomPanel.addArrow('shop');
 //        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);

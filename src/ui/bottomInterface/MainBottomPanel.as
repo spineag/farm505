@@ -224,14 +224,8 @@ public class MainBottomPanel {
         switch (reason) {
             case 'shop':
                 if (g.managerTutorial.isTutorial) {
-                    if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL || g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA
-                            || g.managerTutorial.currentAction == TutorialAction.BUY_FARM || g.managerTutorial.currentAction == TutorialAction.BUY_CAT) {
-
-                    } else if (g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE && g.managerTutorial.subStep == 2) {  // wo za bred???
-                        g.managerCutScenes.checkCutSceneCallback();
-                    } else {
-                        return;
-                    }
+                    if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL || g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA) {
+                    } else return;
                 } else if (g.managerCutScenes.isCutScene) {
                     if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR)) {
 
@@ -391,7 +385,7 @@ public class MainBottomPanel {
                 }
                 if (g.isAway) g.townArea.backHome();
                 g.catPanel.visibleCatPanel(true);
-                g.partyPanel.visiblePartyPanel(true);
+                if (g.partyPanel) g.partyPanel.visiblePartyPanel(true);
                 break;
         }
     }

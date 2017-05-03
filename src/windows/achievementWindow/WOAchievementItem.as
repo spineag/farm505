@@ -162,7 +162,7 @@ public class WOAchievementItem {
         source.addChildAt(_imPlashkaDown,0);
         _description.x = 270 - _description.textBounds.width/2;
         starShow();
-        var quad = new Quad(5,5,0xffb900);
+        var quad:Quad = new Quad(5,5,0xffb900);
         quad.x = 270;
         quad.y = 30;
 //        source.addChild(quad);
