@@ -48,8 +48,8 @@ public class XPPanel {
                 g.allData.atlas['interfaceAtlas'].getTexture('xp_back_left'), 163);
         _source.addChild(pl);
         _bar = new ProgressBarComponent(g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_left'), g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_center'),
-                g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_right'), 145);
-        _bar.x = 14;
+                g.allData.atlas['interfaceAtlas'].getTexture('progress_bar_right'), 150);
+        _bar.x = 9;
         _bar.y = 3;
         _source.addChild(_bar);
         _imageStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star'));
