@@ -116,7 +116,7 @@ public class WOPapperItem {
         _txtCountResource.alignH = Align.RIGHT;
         _txtCountResource.leading = 10;
         _txtCountResource.x = 80;
-        _txtCountResource.y = 70;
+        _txtCountResource.y = 65;
         source.addChild(_txtCountResource);
 
         _txtResourceName = new CTextField(100, 30, "");

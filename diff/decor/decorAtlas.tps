@@ -299,6 +299,8 @@
             <filename>easter_egg_yellow.png</filename>
             <filename>easter_gnome.png</filename>
             <filename>easter_tree.png</filename>
+            <filename>camping_tent_green.png</filename>
+            <filename>camping_tent_yellow.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

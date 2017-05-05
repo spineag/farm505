@@ -119,7 +119,7 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(_btn);
 
             } else {
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_gnome_family'));
+                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_picnic_window'));
 //                im.x = -im.width / 2 - 10;
 //                im.y = -im.height / 2;
                 im.x = -im.width / 2 - 4;
@@ -136,7 +136,7 @@ public class WOPartyWindow extends WindowMain{
 //                _txtName.x = -_txtName.textBounds.width/2;
 //                _txtName.y = -215;
 //                _source.addChild(_txtName);
-                _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('gnoom_text'));
+                _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('event_picnic_text'));
                 _imName.x = -_imName.width/2 + 5;
                 _imName.y = -205;
                 _source.addChild(_imName);
@@ -167,7 +167,7 @@ public class WOPartyWindow extends WindowMain{
                     im.y = 17;
                     _source.addChild(im);
 
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('egg_event_icon'));
+                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('zefir_100'));
                     MCScaler.scale(im, 45, 45);
                     im.x = -199;
                     im.y = 33;
@@ -307,7 +307,7 @@ public class WOPartyWindow extends WindowMain{
                 _source.addChild(_btn);
 
             } else {
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_gnome_family'));
+                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_picnic_window'));
                 im.x = -im.width / 2 - 4;
                 im.y = -im.height / 2 - 12;
                 _source.addChild(im);
@@ -322,7 +322,7 @@ public class WOPartyWindow extends WindowMain{
 //                _txtName.x = -_txtName.textBounds.width/2;
 //                _txtName.y = -215;
 //                _source.addChild(_txtName);
-                _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('gnoom_text'));
+                _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('event_picnic_text'));
                 _imName.x = -_imName.width/2 + 5;
                 _imName.y = -205;
                 _source.addChild(_imName);
@@ -352,7 +352,7 @@ public class WOPartyWindow extends WindowMain{
                     im.y = 17;
                     _source.addChild(im);
 
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('egg_event_icon'));
+                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('zefir_100'));
                     MCScaler.scale(im, 45, 45);
                     im.x = -199;
                     im.y = 33;

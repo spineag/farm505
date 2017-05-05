@@ -202,10 +202,10 @@
             <filename>new_event_window_r.png</filename>
             <filename>event_window_baloon.png</filename>
             <filename>new_event_window_r_2.png</filename>
-            <filename>event_easter_icon.png</filename>
-            <filename>event_gnome_family.png</filename>
-            <filename>gnoom_text.png</filename>
-            <filename>king_icon.png</filename>
+            <filename>event_picnic_text.png</filename>
+            <filename>event_picnic_window.png</filename>
+            <filename>zefir_100.png</filename>
+            <filename>zefir_timer.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

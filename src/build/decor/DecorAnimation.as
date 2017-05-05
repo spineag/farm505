@@ -509,19 +509,42 @@ public class DecorAnimation extends WorldObject{
 
     public function forceStartDecorAnimation(h:HeroCat):void {
         _heroCat = h;
-        if (_heroCat) {
-            _decorWork = true;
-            _heroCat.isFreeDecor = false;
-            _heroCat.decorAnimation = (this as DecorAnimation);
-            _catRun = true;
-            var fEndOver:Function = function(e:Event=null):void {
-                _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
-                _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-                g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
-            };
-            _armature.addEventListener(EventObject.COMPLETE, fEndOver);
-            _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
-            _armature.animation.gotoAndPlayByFrame('over');
+        if (!_dataBuild.catNeed) {
+            var ob:Object = g.allData.factory[_dataBuild.url].allDragonBonesData[_dataBuild.url];
+            var oldBones:Vector.<String> = ob.armatureNames;
+            var count:int = oldBones.length - 1;
+            if (count > 1) {
+                if (!_heroCat) _heroCat = g.managerCats.getFreeCatDecor();
+                if (_heroCat) {
+                    _decorWork = true;
+                    _heroCat.isFreeDecor = false;
+//                            heroCat.isFree = false;
+                    var armature:Armature = new Armature();
+                    armature = g.allData.factory[_dataBuild.url].buildArmature('cat' + String(count - 0));
+                    WorldClock.clock.add(armature);
+                    armature.animation.gotoAndPlayByFrame('idle');
+                    _build.addChild(armature.display as StarlingArmatureDisplay);
+                    _armatureArray.push(armature);
+                    _catRun = true;
+                    g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimationArray, armature, _heroCat);
+                }
+            } else {
+                if (!_heroCat) _heroCat = g.managerCats.getFreeCatDecor();
+                if (_heroCat) {
+                    _decorWork = true;
+                    _heroCat.isFreeDecor = false;
+                    _heroCat.decorAnimation = (this as DecorAnimation);
+                    _catRun = true;
+                    var fEndOver:Function = function (e:Event = null):void {
+                        _armature.removeEventListener(EventObject.COMPLETE, fEndOver);
+                        _armature.removeEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                        g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
+                    };
+                    _armature.addEventListener(EventObject.COMPLETE, fEndOver);
+                    _armature.addEventListener(EventObject.LOOP_COMPLETE, fEndOver);
+                    _armature.animation.gotoAndPlayByFrame('over');
+                }
+            }
         }
     }
 

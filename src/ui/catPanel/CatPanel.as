@@ -7,6 +7,8 @@ import data.BuildType;
 import manager.ManagerFilters;
 import manager.Vars;
 
+import quest.QuestStructure;
+
 import resourceItem.DropItem;
 
 import social.SocialNetworkSwitch;

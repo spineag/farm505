@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:060c22d3044aa72e53dd8a2085cc6bea:e258d0c7c542905e0ff9d6a68d0a43f9:819925d908106424c17d1be1fd83d442$ -->
-<TextureAtlas imagePath="questAtlas.png">
-    <SubTexture name="quest_award_window" x="2" y="2" width="519" height="367" frameX="0" frameY="0" frameWidth="519" frameHeight="391"/>
-    <SubTexture name="quest_window_1" x="523" y="2" width="492" height="295" frameX="-3" frameY="-8" frameWidth="503" frameHeight="312"/>
-    <SubTexture name="quest_window_2" x="1017" y="2" width="492" height="295" frameX="-3" frameY="-8" frameWidth="503" frameHeight="312"/>
-    <SubTexture name="quest_window_back" x="1511" y="2" width="492" height="276" frameX="0" frameY="0" frameWidth="492" frameHeight="278"/>
+<!-- $TexturePacker:SmartUpdate:70303d59c2c7690efab7ff47fe987a5d:be8374f074ae121e0fe39d310d78b0fd:819925d908106424c17d1be1fd83d442$ -->
+<TextureAtlas imagePath="questAtlas.png" width="1994" height="301">
+    <SubTexture name="end_quest" x="1488" y="2" width="504" height="265" frameX="-10" frameY="-11" frameWidth="526" frameHeight="288"/>
+    <SubTexture name="quest_window_1" x="2" y="2" width="494" height="297" frameX="-2" frameY="-7" frameWidth="503" frameHeight="312"/>
+    <SubTexture name="quest_window_2" x="498" y="2" width="494" height="297" frameX="-2" frameY="-7" frameWidth="503" frameHeight="312"/>
+    <SubTexture name="quest_window_back" x="994" y="2" width="492" height="277" frameX="0" frameY="0" frameWidth="492" frameHeight="278"/>
 </TextureAtlas>

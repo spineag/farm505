@@ -176,8 +176,8 @@ public class ManagerOrder {
         var arrResource:Array = g.userInventory.getResourceforTypetoOrder(BuildType.RESOURCE);
         var resource:Boolean = false;
         if (arrResource == null || arrResource.length <= 0) {
-            if (g.user.level == 5) time = 60;
-            else if (g.user.level == 6) time = 120;
+            if (g.user.level <= 5) time = 60;
+            else if (g.user.level <= 6) time = 120;
             else time = 240;
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].arrList.length > 0) {
@@ -324,7 +324,7 @@ public class ManagerOrder {
                 }
             } else countFastBuyer = 1;
 //            countFastBuyer = 1;
-            if (countFastBuyer == 0 && g.user.level < 10 && g.user.isMegaTester) {
+            if (countFastBuyer == 0 && g.user.level < 10 && g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
 //               var countTemp:int = g.userInventory.getCountResourceById(168);
 //                    if (Math.random() < .5) {
 //                        if (countTemp > 6) countTemp = countTemp/2;
@@ -1146,7 +1146,7 @@ public class ManagerOrder {
     private function getFreePlace():int {
         var k:int;
         var find:Boolean;
-        for (var i:int=0; i < _curMaxCountOrders; i++) {
+        for (var i:int=1; i < _curMaxCountOrders+1; i++) {
             find = true;
             for (k=0; k<_arrOrders.length; k++) {
                 if (_arrOrders[k].placeNumber == i) {

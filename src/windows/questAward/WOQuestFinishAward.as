@@ -3,12 +3,21 @@
  */
 package windows.questAward {
 import com.junkbyte.console.Cc;
+
+import flash.display.Bitmap;
+
 import manager.ManagerFilters;
+
+import quest.ManagerQuest;
 import quest.QuestStructure;
 import starling.display.Image;
+import starling.display.Quad;
+import starling.textures.Texture;
+import starling.utils.Align;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
+import utils.MCScaler;
 import utils.Utils;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
@@ -20,34 +29,37 @@ public class WOQuestFinishAward extends WindowMain {
     private var _quest:QuestStructure;
     private var _items:Array;
     private var _callback:Function;
+    private var _questIcon:Image;
 
     public function WOQuestFinishAward() {
         super();
         _windowType = WindowsManager.WO_QUEST_AWARD;
-        _woWidth = 550;
-        _woHeight = 400;
-        _woBG = new WindowBackground(_woWidth, _woHeight);
-        _source.addChild(_woBG);
-        var im:Image = new Image(g.allData.atlas['questAtlas'].getTexture('quest_award_window'));
-        im.x = -265;
+        _woWidth = 650;
+        _woHeight = 300;
+//        _woBG = new WindowBackground(_woWidth, _woHeight);
+//        _source.addChild(_woBG);
+        var im:Image = new Image(g.allData.atlas['questAtlas'].getTexture('end_quest'));
+        im.x = -210;
         im.y = -195;
         im.touchable = false;
         _source.addChild(im);
-        var txt:CTextField = new CTextField(400,100,g.managerLanguage.allTexts[627]);
-        txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
-        txt.x = -200;
-        txt.y = -190;
-        _source.addChild(txt);
-        txt = new CTextField(200,100,g.managerLanguage.allTexts[626]);
+//        var txt:CTextField = new CTextField(400, 100, g.managerLanguage.allTexts[627]);
+//        txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
+//        txt.x = -200;
+//        txt.y = -190;
+//        _source.addChild(txt);
+        var txt:CTextField = new CTextField(200, 100, g.managerLanguage.allTexts[626]);
         txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        txt.x = -100;
-        txt.y = 10;
+        txt.alignH = Align.LEFT;
+        txt.x = 58 - txt.textBounds.width/2;
+        txt.y = -155;
         _source.addChild(txt);
 
         _btn = new CButton();
-        _btn.addButtonTexture(130,40,CButton.GREEN, true);
+        _btn.addButtonTexture(130, 40, CButton.GREEN, true);
         _btn.clickCallback = onClick;
-        _btn.y = 160;
+        _btn.y = 72;
+        _btn.x = 60;
         _source.addChild(_btn);
         txt = new CTextField(130, 40, g.managerLanguage.allTexts[532]);
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
@@ -67,18 +79,58 @@ public class WOQuestFinishAward extends WindowMain {
         _items = [];
         var it:Item;
         var aw:Array = _quest.awards;
-        for (var i:int=0; i<aw.length; i++) {
+        for (var i:int = 0; i < aw.length; i++) {
             it = new Item(aw[i]);
             it.y = -35;
             _source.addChild(it);
             _items.push(it);
         }
         switch (_items.length) {
-            case 1: _items[0].x = 0; break;
-            case 2: _items[0].x = -50; _items[1].x = 50; break;
-            case 3: _items[0].x = -80; _items[1].x = 0; _items[2].x = 80; break;
+            case 1:
+                _items[0].x = 60;
+                break;
+            case 2:
+                _items[0].x = 0;
+                _items[1].x = 120;
+                break;
+            case 3:
+                _items[0].x = -20;
+                _items[1].x = 60;
+                _items[2].x = 140;
+                break;
         }
+        var txt:CTextField = new CTextField(400, 100, String(_quest.questName));
+        txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.ORANGE_COLOR, Color.WHITE);
+        txt.alignH = Align.LEFT;
+        txt.x = 58 - txt.textBounds.width/2;
+        txt.y = -210;
+        _source.addChild(txt);
         super.showIt();
+        var st:String = _quest.iconPath;
+        if (st == '0') {
+            st = _quest.getUrlFromTask();
+            if (st == '0') {
+                addIm(_quest.iconImageFromAtlas());
+            } else {
+                g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
+            }
+        } else {
+            g.load.loadImage(ManagerQuest.ICON_PATH + st, onLoadIcon);
+        }
+        Cc.info("woQuest showItParams 7");
+    }
+
+
+    private function onLoadIcon(bitmap:Bitmap):void { addIm(new Image(Texture.fromBitmap(bitmap))); }
+    private function addIm(im:Image):void {
+        _questIcon = im;
+        if (_questIcon) {
+            MCScaler.scale(_questIcon, 146, 146);
+            _questIcon.alignPivot();
+            _questIcon.x = -250;
+            _questIcon.y = -60;
+            _source.addChild(_questIcon);
+        }
     }
 
     private function onClick():void {

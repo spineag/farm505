@@ -27,7 +27,7 @@ import windows.ambar.AmbarProgress;
 public class CraftPanel {
     private var _source:Sprite;
     private var _progress:AmbarProgress;
-    private var _isShow:Boolean;
+    public var isShow:Boolean;
     private var _resourceSprite:Sprite;
     private var _ambarImage:Image;
     private var _skladImage:Image;
@@ -38,7 +38,7 @@ public class CraftPanel {
 
     public function CraftPanel() {
         _countFlying = 0;
-        _isShow = false;
+        isShow = false;
         _source = new Sprite();
         _source.touchable = false;
         _source.pivotX = _source.width/2;
@@ -81,9 +81,9 @@ public class CraftPanel {
     public function showIt(place:int):void {
         _countFlying++;
         var f1:Function = function():void {
-            if (!_isShow) {
+            if (!isShow) {
                 g.cont.windowsCont.addChild(_source);
-                _isShow = true;
+                isShow = true;
             }
 
             _skladImage.visible = false;
@@ -165,7 +165,7 @@ public class CraftPanel {
             _resourceSprite.removeChildAt(0);
         }
         g.cont.windowsCont.removeChild(_source);
-        _isShow = false;
+        isShow = false;
     }
 
     public function pointXY():Point {

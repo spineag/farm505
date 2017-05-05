@@ -30,7 +30,7 @@ public class PartyPanel {
 
     public function PartyPanel() {
         _source = new CSprite();
-        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('king_icon'));
+        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('zefir_timer'));
         _source.addChild(im);
 
         _txtData = new CTextField(100,60,'');

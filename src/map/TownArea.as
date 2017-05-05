@@ -887,7 +887,7 @@ public class TownArea extends Sprite {
         if (updateAfterMove) {
             if (g.isActiveMapEditor) {
                 if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
-                        worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus) {
+                        worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus || worldObject is Achievement) {
                     g.directServer.ME_moveMapBuilding(worldObject.dataBuild.id, worldObject.posX, worldObject.posY, null);
                 }
             } else {
@@ -2006,18 +2006,21 @@ public class TownArea extends Sprite {
         if (_needTownAreaSort) {
             _zSortCounter--;
             if (_zSortCounter <= 0) {
-                try {
+//                try {
                     _cityAwayObjects.sortOn("depth", Array.NUMERIC);
                     for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                       if (_cityAwayObjects[i].source && _cont.setChildIndex(_cityAwayObjects[i].source, i)) _cont.setChildIndex(_cityAwayObjects[i].source, i);
-                        else Cc.error('TownArea zAwaySort error: ');
+                        if (_cityAwayObjects[i].source && _cont.contains(_cityAwayObjects[i].source)) _cont.setChildIndex(_cityAwayObjects[i].source, i);
+                        else {
+                            trace('asd');
+                            Cc.error('TownArea zAwaySort error: ');
+                        }
 
                     }
-                } catch (e:Error) {
-                    g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
-                    g.errorManager.onGetError(ErrorConst.Z_SORT_AWAY, true);
-                    Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
-                }
+//                } catch (e:Error) {
+//                    g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
+//                    g.errorManager.onGetError(ErrorConst.Z_SORT_AWAY, true);
+//                    Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
+//                }
                 _needTownAreaSort = false;
                 if (g.managerTutorial.isTutorial) {
                     _zSortCounter = 3;
@@ -2258,7 +2261,7 @@ public class TownArea extends Sprite {
         g.townAreaTouchManager.tailAreTouchable = v;
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is LockedLand || _cityObjects[i] is Paper || _cityObjects[i] is Cave
-                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest ||  _cityObjects[i] is Cafe) {
+                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest ||  _cityObjects[i] is Cafe || _cityObjects[i] is Achievement) {
                 if (g.isActiveMapEditor) return;
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as TownAreaBuildSprite).isTouchable = !v;
@@ -2273,7 +2276,7 @@ public class TownArea extends Sprite {
         g.townAreaTouchManager.tailAreTouchable = v;
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is LockedLand || _cityObjects[i] is Paper || _cityObjects[i] is Cave
-                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest || _cityObjects[i] is Cafe) {
+                    || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Chest || _cityObjects[i] is Cafe || _cityObjects[i] is Achievement) {
                 if (g.isActiveMapEditor) return;
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as TownAreaBuildSprite).isTouchable = !v;
@@ -2289,7 +2292,7 @@ public class TownArea extends Sprite {
         for (var i:int=0; i<_cityObjects.length; i++) {
             if (_cityObjects[i] is Order || _cityObjects[i] is Wild || _cityObjects[i] is Ridge || _cityObjects[i] is Farm ||
                 _cityObjects[i] is Fabrica || _cityObjects[i] is Tree || _cityObjects[i] is Ambar || _cityObjects[i] is Sklad  ||
-                    _cityObjects[i] is Paper || _cityObjects[i] is Cave || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Cafe || _cityObjects[i] is LockedLand || _cityObjects[i] is Chest) {
+                    _cityObjects[i] is Paper || _cityObjects[i] is Cave || _cityObjects[i] is DailyBonus || _cityObjects[i] is Train || _cityObjects[i] is Market || _cityObjects[i] is Cafe || _cityObjects[i] is LockedLand || _cityObjects[i] is Chest || _cityObjects[i] is Achievement) {
                 v ? _cityObjects[i].source.alpha = .5 : _cityObjects[i].source.alpha = 1;
                 (_cityObjects[i].source as TownAreaBuildSprite).isTouchable = !v;
             }

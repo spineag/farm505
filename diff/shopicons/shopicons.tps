@@ -353,6 +353,14 @@
             <filename>easter_egg_yellow_icon.png</filename>
             <filename>easter_egg_red_icon.png</filename>
             <filename>gnome_king_icon.png</filename>
+            <filename>easel_blue_icon.png</filename>
+            <filename>easel_red_icon.png</filename>
+            <filename>easel_yellow_icon.png</filename>
+            <filename>camping_fire_icon.png</filename>
+            <filename>camping_tent_green_icon.png</filename>
+            <filename>camping_tent_yellow_icon.png</filename>
+            <filename>tree_swing_icon.png</filename>
+            <filename>picnic_table_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

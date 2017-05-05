@@ -230,7 +230,7 @@ public class WOTrainItem {
             _txtRed.visible = false;
         }
         if (g.user.isTester) {
-            if (_info.needHelp && !_needHelp) {
+            if (_info.needHelp && !_needHelp && int(_info.helpId) == 0) {
                 _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
                 source.addChild(_needHelp);
             }

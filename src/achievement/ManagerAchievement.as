@@ -35,7 +35,7 @@ public class ManagerAchievement {
                             if (dataAchievement[k].id == 22) {
                                 for (var j:int = 0; j < dataAchievement[k].countToGift.length; j++) {
                                     if (userAchievement[i].resourceCount >= dataAchievement[k].countToGift[j] && !userAchievement[i].tookGift[j]) {
-                                        g.achievementPanel.showIt(dataAchievement[k].name);
+                                        g.achievementPanel.showIt(dataAchievement[k]);
                                         break;
                                     }
                                 }
@@ -53,8 +53,9 @@ public class ManagerAchievement {
                 ob.tookGift[0] = int(0);
                 ob.tookGift[1] = int(0);
                 ob.tookGift[2] = int(0);
+                ob.showPanel = 0;
                 userAchievement.push(ob);
-                g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+                g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
             }
         } else {
             ob = {};
@@ -64,8 +65,9 @@ public class ManagerAchievement {
             ob.tookGift[0] = int(0);
             ob.tookGift[1] = int(0);
             ob.tookGift[2] = int(0);
+            ob.showPanel = 0;
             userAchievement.push(ob);
-            g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+            g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
         }
     }
 
@@ -85,7 +87,7 @@ public class ManagerAchievement {
                                 if (dataAchievement[k].id == 23) {
                                     for (var j:int = 0; j < dataAchievement[k].countToGift.length; j++) {
                                         if (userAchievement[i].resourceCount >= dataAchievement[k].countToGift[j] && !userAchievement[i].tookGift[j]) {
-                                            g.achievementPanel.showIt(dataAchievement[k].name);
+                                            g.achievementPanel.showIt(dataAchievement[k]);
                                             break;
                                         }
                                     }
@@ -103,8 +105,9 @@ public class ManagerAchievement {
                     ob.tookGift[0] = int(0);
                     ob.tookGift[1] = int(0);
                     ob.tookGift[2] = int(0);
+                    ob.showPanel = 0;
                     userAchievement.push(ob);
-                    g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+                    g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
                 }
             } else {
                 ob = {};
@@ -114,8 +117,9 @@ public class ManagerAchievement {
                 ob.tookGift[0] = int(0);
                 ob.tookGift[1] = int(0);
                 ob.tookGift[2] = int(0);
+                ob.showPanel = 0;
                 userAchievement.push(ob);
-                g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+                g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
             }
         }
 
@@ -131,11 +135,11 @@ public class ManagerAchievement {
                             b = true;
                             userAchievement[k].resourceCount += 1;
                             var st:String = String(userAchievement[k].tookGift[0]) + '&' + String(userAchievement[k].tookGift[1]) + '&' + String(userAchievement[k].tookGift[2]);
-                            g.directServer.updateUserAchievement(userAchievement[k].id, userAchievement[k].resourceCount, st, null);
+                            g.directServer.updateUserAchievement(userAchievement[k].id, userAchievement[k].resourceCount, st, userAchievement[k].showPanel, null);
                             if (g.user.isMegaTester) {
                                 for (var j:int = 0; j < dataAchievement[i].countToGift.length; j++) {
                                     if (userAchievement[k].resourceCount >= dataAchievement[i].countToGift[j] && !userAchievement[k].tookGift[j]) {
-                                        g.achievementPanel.showIt(dataAchievement[i].name);
+                                        g.achievementPanel.showIt(dataAchievement[i]);
                                         break;
                                     }
                                 }
@@ -156,8 +160,9 @@ public class ManagerAchievement {
                         ob.tookGift[0] = int(0);
                         ob.tookGift[1] = int(0);
                         ob.tookGift[2] = int(0);
+                        ob.showPanel = 0;
                         userAchievement.push(ob);
-                        g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+                        g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
                         break;
                     }
                 }
@@ -172,8 +177,9 @@ public class ManagerAchievement {
                     ob.tookGift[0] = int(0);
                     ob.tookGift[1] = int(0);
                     ob.tookGift[2] = int(0);
+                    ob.showPanel = 0;
                     userAchievement.push(ob);
-                    g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+                    g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
                     break;
                 }
             }
@@ -190,13 +196,13 @@ public class ManagerAchievement {
                     b = true;
                     userAchievement[i].resourceCount += count;
                     var st:String = String(userAchievement[i].tookGift[0]) + '&' + String(userAchievement[i].tookGift[1]) + '&' + String(userAchievement[i].tookGift[2]);
-                    g.directServer.updateUserAchievement(userAchievement[i].id, userAchievement[i].resourceCount, st, null);
+                    g.directServer.updateUserAchievement(userAchievement[i].id, userAchievement[i].resourceCount, st, userAchievement[i].showPanel, null);
                     if (g.user.isMegaTester) {
                         for (var k:int = 0; k < dataAchievement.length; k++) {
                             if (dataAchievement[k].id == achievementId) {
                                 for (var j:int = 0; j < dataAchievement[k].countToGift.length; j++) {
                                     if (userAchievement[i].resourceCount >= dataAchievement[k].countToGift[j] && !userAchievement[i].tookGift[j]) {
-                                        g.achievementPanel.showIt(dataAchievement[k].name);
+                                        g.achievementPanel.showIt(dataAchievement[k]);
                                         break;
                                     }
                                 }
@@ -215,8 +221,9 @@ public class ManagerAchievement {
                 ob.tookGift[0] = int(0);
                 ob.tookGift[1] = int(0);
                 ob.tookGift[2] = int(0);
+                ob.showPanel = 0;
                 userAchievement.push(ob);
-                g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+                g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
             }
         } else {
             ob = {};
@@ -226,8 +233,9 @@ public class ManagerAchievement {
             ob.tookGift[0] = int(0);
             ob.tookGift[1] = int(0);
             ob.tookGift[2] = int(0);
+            ob.showPanel = 0;
             userAchievement.push(ob);
-            g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', null);
+            g.directServer.updateUserAchievement(ob.id, ob.resourceCount, '0&0&0', 1, null);
         }
     }
 
@@ -237,7 +245,7 @@ public class ManagerAchievement {
             for (var i:int = 0; i < userAchievement.length; i++) {
                 for (var k:int = 0; k < dataAchievement.length; k++) {
                     for (var j:int = 0; j < dataAchievement[k].countToGift.length; j++) {
-                        if (userAchievement[i].id >= dataAchievement[k].id && userAchievement[i].resourceCount >= int(dataAchievement[k].countToGift[j]) && !userAchievement[i].tookGift[j]) {
+                        if (userAchievement[i].id >= dataAchievement[k].id && userAchievement[i].resourceCount >= int(dataAchievement[k].countToGift[j]) && !userAchievement[i].tookGift[j] && Boolean(userAchievement[i].showPanel) == false) {
                             b = true;
                             break;
                         }

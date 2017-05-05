@@ -109,9 +109,9 @@ public class WOAchievementItem {
                         _txtStar.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
                         source.addChild(_txtStar);
                         var count:int = 0;
-                        var width:int;
+                        var width:int = 0;
                         if (k == 1) {
-                            count = g.managerAchievement.userAchievement[i].resourceCount - g.managerAchievement.dataAchievement[_number].countToGift[0];
+                            count = g.managerAchievement.userAchievement[i].resourceCount - g.managerAchievement.dataAchievement[_number].countToGift[k];
                             width = (100 * count/ g.managerAchievement.dataAchievement[_number].countToGift[k]) * 1.68;
                         }
                         if (k == 2) {
@@ -120,10 +120,12 @@ public class WOAchievementItem {
                         }
                         if (k == 0) width = (100 * g.managerAchievement.userAchievement[i].resourceCount/ g.managerAchievement.dataAchievement[_number].countToGift[k]) * 1.68;
                         if (width > 168) width= 168;
-                        _quad = new Quad(width,35,0xffb900);
-                        _quad.x = 435;
-                        _quad.y = 94;
-                        source.addChildAt(_quad,0);
+                        if (width != 0) {
+                            _quad = new Quad(width,35,0xffb900);
+                            _quad.x = 435;
+                            _quad.y = 94;
+                            source.addChildAt(_quad,0);
+                        }
                         break;
                     }
                 }
@@ -292,7 +294,7 @@ public class WOAchievementItem {
         new XPStar(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, g.managerAchievement.dataAchievement[_number].countXp[number]);
         var st:String = g.managerAchievement.userAchievement[_numberUser].tookGift[0] + '&' + g.managerAchievement.userAchievement[_numberUser].tookGift[1] + '&'
                 + g.managerAchievement.userAchievement[_numberUser].tookGift[2];
-        g.directServer.updateUserAchievement(g.managerAchievement.userAchievement[_numberUser].id, g.managerAchievement.userAchievement[_numberUser].resourceCount, st, null);
+        g.directServer.updateUserAchievement(g.managerAchievement.userAchievement[_numberUser].id, g.managerAchievement.userAchievement[_numberUser].resourceCount, st,0, null);
     }
 }
 }

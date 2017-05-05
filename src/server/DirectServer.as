@@ -7872,6 +7872,7 @@ public class DirectServer {
             ob = {};
             ob.id = int(d.message[i].achievement_id);
             ob.resourceCount =  int(d.message[i].resource_count);
+            ob.showPanel = int(d.message[i].showPanel);
             if (d.message[i].took_gift) ob.tookGift = String(d.message[i].took_gift).split('&');
             for (k = 0; k < ob.tookGift.length; k++) ob.tookGift[k] = int(ob.tookGift[k]);
             g.managerAchievement.userAchievement.push(ob);
@@ -7891,7 +7892,7 @@ public class DirectServer {
         }
     }
 
-    public function updateUserAchievement(achievementId:int, resourceCount:int, tookGift:String, callback:Function):void {
+    public function updateUserAchievement(achievementId:int, resourceCount:int, tookGift:String, showPanel:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_ACHIEVEMENT);
         var variables:URLVariables = new URLVariables();
@@ -7902,6 +7903,7 @@ public class DirectServer {
         variables.achievementId = achievementId;
         variables.resourceCount = resourceCount;
         variables.tookGift = tookGift;
+        variables.showPanel = showPanel;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();

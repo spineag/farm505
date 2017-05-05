@@ -13,6 +13,7 @@ import starling.display.Sprite;
 import starling.utils.Color;
 
 import utils.CTextField;
+import utils.Utils;
 
 import windows.WOComponents.ProgressBarComponent;
 
@@ -40,22 +41,32 @@ public class AchievementPanel {
         _source.x = g.managerResize.stageWidth/2 - _source.width/2;
     }
 
-    public function showIt(name:String):void {
-        show = true;
-        _source.visible = true;
-        _txtText = new CTextField(435,60,String(g.managerLanguage.allTexts[984]));
-        _txtText.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
-        _txtText.y = 12;
-        _txtText.x = 40;
-        _source.addChild(_txtText);
-        _txtAchiement = new CTextField(435,60,name);
-        _txtAchiement.setFormat(CTextField.BOLD24, 22, ManagerFilters.YELLOW_COLOR);
-        _txtAchiement.y = 38;
-        _txtAchiement.x = 40;
-        _source.addChild(_txtAchiement);
-        g.gameDispatcher.addToTimer(timerEnd);
-        var arr:Array = g.townArea.getCityObjectsByType(BuildType.ACHIEVEMENT);
-        if (g.managerAchievement.checkAchievement()) arr[0].onTimer();
+    public function showIt(ob:Object):void {
+        var f1:Function = function():void {
+            show = true;
+            _source.visible = true;
+            _txtText = new CTextField(435, 60, String(g.managerLanguage.allTexts[984]));
+            _txtText.setFormat(CTextField.BOLD24, 22, ManagerFilters.BLUE_COLOR);
+            _txtText.y = 12;
+            _txtText.x = 40;
+            _source.addChild(_txtText);
+            _txtAchiement = new CTextField(435, 60, ob.name);
+            _txtAchiement.setFormat(CTextField.BOLD24, 22, ManagerFilters.YELLOW_COLOR);
+            _txtAchiement.y = 38;
+            _txtAchiement.x = 40;
+            _source.addChild(_txtAchiement);
+            g.gameDispatcher.addToTimer(timerEnd);
+            for (var i:int = 0; i < g.managerAchievement.userAchievement.length; i++) {
+                if (ob.id == g.managerAchievement.userAchievement.id) {
+                    var st:String = String(g.managerAchievement.userAchievement[i].tookGift[0]) + '&' + String(g.managerAchievement.userAchievement[i].tookGift[1]) + '&' + String(g.managerAchievement.userAchievement[i].tookGift[2]);
+                    g.directServer.updateUserAchievement(g.managerAchievement.userAchievement[i].id, g.managerAchievement.userAchievement[i].resourceCount, st, 1, null);
+                }
+            }
+            var arr:Array = g.townArea.getCityObjectsByType(BuildType.ACHIEVEMENT);
+            if (g.managerAchievement.checkAchievement()) arr[0].onTimer();
+        };
+        if (!g.craftPanel.isShow) f1();
+        else Utils.createDelay(4,f1);
     }
 
     private function timerEnd():void {
