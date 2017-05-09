@@ -193,8 +193,11 @@
         <key>fileList</key>
         <array>
             <filename>percent_w.png</filename>
-            <filename>sale_window.png</filename>
             <filename>sp_cell.png</filename>
+            <filename>sale_window_back.png</filename>
+            <filename>sale_window_title_eng.png</filename>
+            <filename>sale_window_title_rus.png</filename>
+            <filename>sale_window.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

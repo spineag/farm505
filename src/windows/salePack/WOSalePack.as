@@ -13,6 +13,7 @@ import flash.display.StageDisplayState;
 import flash.geom.Point;
 
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
 
 import resourceItem.DropItem;
 
@@ -46,6 +47,7 @@ public class WOSalePack extends WindowMain{
     private var _woBG:WindowBackground;
     private var _txtTime:CTextField;
     private var _txtName:CTextField;
+    private var _imName:Image;
     private var _txtDescription:CTextField;
     private var _txtBtn:CTextField;
     private var _txtProfit:CTextField;
@@ -65,15 +67,15 @@ public class WOSalePack extends WindowMain{
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         var im:Image;
-        im = new Image(g.allData.atlas['saleAtlas'].getTexture('sale_window'));
-        im.x = -340;
-        im.y = -245;
+        im = new Image(g.allData.atlas['saleAtlas'].getTexture('sale_window_back'));
+        im.x = -im.width/2 + 10;
+        im.y = -im.height/2 + 30;
         _source.addChild(im);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
         _arrItem = [];
         _imPercent = new Image(g.allData.atlas['saleAtlas'].getTexture('percent_w'));
-        _imPercent.x = -370;
+        _imPercent.x = -405;
         _imPercent.y = -253;
         _source.addChild(_imPercent);
         _txtTime = new CTextField(120,60,'');
@@ -82,17 +84,21 @@ public class WOSalePack extends WindowMain{
 
         _txtTime.y = -137;
         _source.addChild(_txtTime);
-        _txtName = new CTextField(740, 70, String(g.managerSalePack.dataSale.name));
-        _txtName.setFormat(CTextField.BOLD30, 40, Color.RED, Color.WHITE);
-//        _txtName.alignH = Align.LEFT;
-        _txtName.x = -360;
-        _txtName.y = -222;
-        _source.addChild(_txtName);
-
+//        _txtName = new CTextField(740, 70, String(g.managerSalePack.dataSale.name));
+//        _txtName.setFormat(CTextField.BOLD30, 40, Color.RED, Color.WHITE);
+////        _txtName.alignH = Align.LEFT;
+//        _txtName.x = -360;
+//        _txtName.y = -222;
+//        _source.addChild(_txtName);
+        if (g.user.language == ManagerLanguage.ENGLISH) _imName = new Image(g.allData.atlas['saleAtlas'].getTexture('sale_window_title_eng'));
+        else _imName = new Image(g.allData.atlas['saleAtlas'].getTexture('sale_window_title_rus'));
+        _imName.x = -_imName.width/2;
+        _imName.y = -215;
+        _source.addChild(_imName);
         _txtDescription = new CTextField(740,70,String(g.managerSalePack.dataSale.description));
-        _txtDescription.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        _txtDescription.setFormat(CTextField.BOLD24, 24, 0xff8000, Color.WHITE);
         _txtDescription.x = -360;
-        _txtDescription.y = -167;
+        _txtDescription.y = 40;
         _source.addChild(_txtDescription);
 
         var st:String;
@@ -108,13 +114,13 @@ public class WOSalePack extends WindowMain{
         _txtOldCost.setFormat(CTextField.BOLD24, 24, Color.RED);
         _txtOldCost.y = 80;
         _txtOldCost.x = -110;
-        _source.addChild(_txtOldCost);
+//        _source.addChild(_txtOldCost);
 
         _txtNewCost = new CTextField(200,60,'за ' + String(g.managerSalePack.dataSale.newCost) + st);
         _txtNewCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtNewCost.y = 110;
         _txtNewCost.x = -110;
-        _source.addChild(_txtNewCost);
+//        _source.addChild(_txtNewCost);
 
         var quad:Quad = new Quad(_txtOldCost.textBounds.width, 3, Color.RED);
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID )  {
@@ -125,16 +131,18 @@ public class WOSalePack extends WindowMain{
             quad.y = 113;
         }
         quad.alpha = .6;
-        _source.addChild(quad);
+//        _source.addChild(quad);
         _txtProfit = new CTextField(150,60,String(g.managerSalePack.dataSale.profit) + '%');
-        _txtProfit.setFormat(CTextField.BOLD24, 24, Color.WHITE, Color.RED);
-        _txtProfit.x = 145;
-        _txtProfit.y = 100;
+        _txtProfit.setFormat(CTextField.BOLD30, 28, Color.WHITE, 0xff8000);
+//        _txtProfit.x = 145;
+//        _txtProfit.y = 100;
+        _txtProfit.x = -72;
+        _txtProfit.y = 103;
         _source.addChild(_txtProfit);
         _txtVugoda = new CTextField(150,60,String(g.managerLanguage.allTexts[354]));
-        _txtVugoda.setFormat(CTextField.BOLD18, 18, Color.WHITE, Color.RED);
-        _txtVugoda.x = 147;
-        _txtVugoda.y = 120;
+        _txtVugoda.setFormat(CTextField.BOLD30, 28, Color.WHITE, 0xff8000);
+        _txtVugoda.x = -75;
+        _txtVugoda.y = 125;
         _source.addChild(_txtVugoda);
 
         g.gameDispatcher.addToTimer(startTimer);
@@ -142,14 +150,14 @@ public class WOSalePack extends WindowMain{
         _source.addChild(_sprItem);
 
         _btnBuy = new CButton();
-        _btnBuy.addButtonTexture(100, 45, CButton.GREEN, true);
-        _txtBtn = new CTextField(100, 45, String(g.managerLanguage.allTexts[355]));
+        _btnBuy.addButtonTexture(220, 45, CButton.GREEN, true);
+        _txtBtn = new CTextField(220, 45, String(g.managerLanguage.allTexts[355]) + ' ' + String(g.managerLanguage.allTexts[329]) + ' '+ String(g.managerSalePack.dataSale.newCost) + st);
         _txtBtn.setFormat(CTextField.BOLD30, 26,  Color.WHITE,ManagerFilters.GREEN_COLOR);
         _btnBuy.addChild(_txtBtn);
         _btnBuy.clickCallback = onClick;
         _source.addChild(_btnBuy);
         _btnBuy.y = 230;
-        _btnBuy.x = 15;
+//        _btnBuy.x = 15;
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -161,13 +169,13 @@ public class WOSalePack extends WindowMain{
             _arrItem.push(item);
         }
         if (_arrItem.length == 1) {
-            _sprItem.x = -70;
+            _sprItem.x = -80;
         } else if (_arrItem.length == 2) {
-            _sprItem.x = -150;
+            _sprItem.x = -160;
         } else {
-            _sprItem.x = -240;
+            _sprItem.x = -250;
         }
-        _sprItem.y = -105;
+        _sprItem.y = -120;
         _boolOpen = params[0];
         super.showIt();
     }
@@ -240,7 +248,7 @@ public class WOSalePack extends WindowMain{
         if (g.userTimer.saleTimerToEnd > 0) {
             if (_txtTime) {
                 _txtTime.text = TimeUtils.convertSecondsForHint(g.userTimer.saleTimerToEnd);
-                _txtTime.x = -315 - _txtTime.textBounds.width/2;
+                _txtTime.x = -350 - _txtTime.textBounds.width/2;
             }
         } else {
             onClickExit();

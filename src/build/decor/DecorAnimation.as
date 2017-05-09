@@ -230,6 +230,7 @@ public class DecorAnimation extends WorldObject{
                     }
                 }
             } else {
+                _decorWork = true;
                 onHeroAnimation();
             }
         } else {
@@ -255,6 +256,7 @@ public class DecorAnimation extends WorldObject{
                 _heroCat.visible = false;
             }
         } else {
+
             startAnimation();
         }
     }
@@ -551,33 +553,33 @@ public class DecorAnimation extends WorldObject{
     private function releaseHeroCatWoman(armature:Armature = null, heroCar:HeroCat = null):void {
         if (heroCar) {
             if (heroCar.typeMan == BasicCat.MAN) {
-                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 255 || _dataBuild.id == 256 || _dataBuild.id == 257)
                     releaseManBackTexture(armature);
                 else releaseManFrontTexture(armature);
             } else if (heroCar.typeMan == BasicCat.WOMAN) {
-                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 255 || _dataBuild.id == 256 || _dataBuild.id == 257)
                     releaseWomanBackTexture(armature);
                 else releaseWomanFrontTexture(armature);
             }
         } else {
             if (_heroCat) {
                 if (_heroCat.typeMan == BasicCat.MAN) {
-                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 255 || _dataBuild.id == 256 || _dataBuild.id == 257)
                         releaseManBackTexture();
                     else releaseManFrontTexture();
                 } else if (_heroCat.typeMan == BasicCat.WOMAN) {
-                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                    if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 255 || _dataBuild.id == 256 || _dataBuild.id == 257)
                         releaseWomanBackTexture();
                     else releaseWomanFrontTexture();
                 }
             } else {
                 if (g.isAway) {
                     if (Math.random() < .5) {
-                        if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                        if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 255 || _dataBuild.id == 256 || _dataBuild.id == 257)
                             releaseManBackTexture();
                         else releaseManFrontTexture();
                     } else {
-                        if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7)
+                        if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 255 || _dataBuild.id == 256 || _dataBuild.id == 257)
                             releaseWomanBackTexture();
                         else releaseWomanFrontTexture();
                     }

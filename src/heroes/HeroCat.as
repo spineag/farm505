@@ -246,7 +246,7 @@ public class HeroCat extends BasicCat{
             var b:Boolean = false;
             var r:Number = Math.random();
 
-            if (r <= .8) {//02) {
+            if (r <= .02) {
                 if (g.townArea.getCityObjectsByType(BuildType.DECOR_ANIMATION)) {
                     var arr:Array = g.townArea.getCityObjectsByType((BuildType.DECOR_ANIMATION));
                     if (arr.length > 0) {

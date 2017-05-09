@@ -302,7 +302,7 @@ public class MarketItem {
                 _papperBtn.visible = true;
             }
             if (_imCheck) _imCheck.visible = true;
-            _wo.startPapperTimer();
+//            _wo.startPapperTimer();
 //            g.directServer.updateMarketPapper(number, true, null);
             _inPapper = true;
         } else if (_wo.booleanPaper) g.managerCutScenes.checkCutSceneForAddToPapper(this);
@@ -358,7 +358,7 @@ public class MarketItem {
         g.managerAchievement.addAll(11,1);
         g.hint.hideIt();
         _dataFromServer.timeInPapper = int(new Date().getTime() / 1000);
-        _wo.startPapperTimer();
+//        _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
         g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
     }

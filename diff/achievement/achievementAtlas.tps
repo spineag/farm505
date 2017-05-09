@@ -198,6 +198,8 @@
             <filename>achievement_notification.png</filename>
             <filename>plashka_big.png</filename>
             <filename>kubok_n_n.png</filename>
+            <filename>achievements_1.png</filename>
+            <filename>achievements_2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

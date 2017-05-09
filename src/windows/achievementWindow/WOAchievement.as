@@ -5,6 +5,9 @@ package windows.achievementWindow {
 import data.BuildType;
 
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
+
+import starling.display.Image;
 
 import starling.events.Event;
 import starling.utils.Align;
@@ -23,6 +26,7 @@ public class WOAchievement extends WindowMain{
     private var _woBG:WindowBackground;
     private var _scrollSprite:DefaultVerticalScrollSprite;
     private var _name:CTextField;
+    private var _imName:Image;
 
     public function WOAchievement() {
         _windowType = WindowsManager.WO_ACHIEVEMENT;
@@ -32,12 +36,17 @@ public class WOAchievement extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
-        _name = new CTextField(_woWidth, 120, String(g.managerLanguage.allTexts[924]));
-        _name.setFormat(CTextField.BOLD30, 36, 0xea5802, Color.WHITE);
-        _name.alignH = Align.LEFT;
-        _name.x = -_name.textBounds.width/2;
-        _name.y = -305;
-        _source.addChild(_name);
+//        _name = new CTextField(_woWidth, 120, String(g.managerLanguage.allTexts[924]));
+//        _name.setFormat(CTextField.BOLD30, 36, 0xea5802, Color.WHITE);
+//        _name.alignH = Align.LEFT;
+//        _name.x = -_name.textBounds.width/2;
+//        _name.y = -305;
+//        _source.addChild(_name);
+        if (g.user.language == ManagerLanguage.ENGLISH) _imName = new Image(g.allData.atlas['achievementAtlas'].getTexture('achievements_1'));
+        else _imName = new Image(g.allData.atlas['achievementAtlas'].getTexture('achievements_2'));
+        _imName.x = -_imName.width/2;
+        _imName.y = -272;
+        _source.addChild(_imName);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -66,7 +75,7 @@ public class WOAchievement extends WindowMain{
             _scrollSprite.addNewCell(item.source)
         }
         _scrollSprite.source.x = -325;
-        _scrollSprite.source.y = -210;
+        _scrollSprite.source.y = -195;
         _source.addChild(_scrollSprite.source);
 
         super.showIt();
