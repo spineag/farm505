@@ -120,8 +120,8 @@ public class WOQuest extends WindowMain{
         if (_questIcon) {
             MCScaler.scale(_questIcon, 188, 148);
             _questIcon.alignPivot();
-            _questIcon.x = -200;
-            _questIcon.y = -190;
+            _questIcon.x = -215;
+            _questIcon.y = -215;
             _source.addChild(_questIcon);
         }
     }

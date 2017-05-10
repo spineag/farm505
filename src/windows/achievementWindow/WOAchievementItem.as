@@ -274,8 +274,8 @@ public class WOAchievementItem {
             _imPlashkaDown.dispose();
             _imPlashkaDown = null;
             _imPlashkaDown = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka_dwn'));
-            _imPlashkaDown.x = _imPlashka.width - _imPlashkaDown.width -18;
-            _imPlashkaDown.y = _imPlashka.height - _imPlashkaDown.height -14;
+            _imPlashkaDown.x = _imPlashka.width - _imPlashkaDown.width -13;
+            _imPlashkaDown.y = _imPlashka.height - _imPlashkaDown.height -7;
             source.addChildAt(_imPlashkaDown,0);
         }
         if (!g.managerAchievement.checkAchievement()) {
