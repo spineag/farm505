@@ -10,6 +10,8 @@ import flash.geom.Point;
 
 import manager.Vars;
 
+import media.SoundConst;
+
 import resourceItem.ResourceItem;
 
 import starling.core.Starling;
@@ -123,6 +125,7 @@ public class CraftPanel {
         im.x = -im.width/2 - 170;
         im.y = -im.height/2;
         _resourceSprite.addChild(im);
+        g.soundManager.playSound(SoundConst.OBJECT_CELL);
     }
 
     public function afterFlyWithId(id:int):void {
@@ -146,6 +149,7 @@ public class CraftPanel {
         im.x = -im.width/2 - 170;
         im.y = -im.height/2;
         _resourceSprite.addChild(im);
+        g.soundManager.playSound(SoundConst.OBJECT_CELL);
     }
 
     private function onEnterFrame():void {

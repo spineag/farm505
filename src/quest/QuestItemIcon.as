@@ -66,12 +66,12 @@ public class QuestItemIcon {
 
     private function addIm(im:Image):void {
         if (im) {
-            MCScaler.scale(im, 80, 80);
+            MCScaler.scale(im, 85, 85);
             im.alignPivot();
             _source.addChild(im);
         }
         var t:QuestTaskStructure = _quest.tasks[0];
-        if (t.typeAction == ManagerQuest.ADD_LEFT_MENU || t.typeAction == ManagerQuest.POST || t.typeAction == ManagerQuest.ADD_LEFT_MENU) {
+        if (t.typeAction == ManagerQuest.ADD_LEFT_MENU || t.typeAction == ManagerQuest.POST || t.typeAction == ManagerQuest.ADD_TO_GROUP) {
 
         } else {
             var st:String = _quest.getUrlFromTask();

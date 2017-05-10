@@ -118,6 +118,7 @@ public class WOQuest extends WindowMain{
     private function addIm(im:Image):void {
         _questIcon = im;
         if (_questIcon) {
+            MCScaler.scale(_questIcon, 188, 148);
             _questIcon.alignPivot();
             _questIcon.x = -200;
             _questIcon.y = -190;

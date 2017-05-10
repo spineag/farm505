@@ -132,7 +132,7 @@ public class WOPapper extends WindowMain {
 
     override public function showItParams(callback:Function, params:Array):void {
         _arrPaper = g.managerPaper.arr.slice();
-        if (_arrPaper.length > 60) _arrPaper.length = 60;
+        if (_arrPaper.length > 24) _arrPaper.length = 24;
         _maxPages = Math.ceil(_arrPaper.length/6);
         if (_maxPages <2) _maxPages = 2;
 
@@ -241,7 +241,7 @@ public class WOPapper extends WindowMain {
         _leftPage = null;
         _rightPage = null;
         _arrPaper = g.managerPaper.arr.slice();
-        if (_arrPaper.length > 60) _arrPaper.length = 60;
+        if (_arrPaper.length > 24) _arrPaper.length = 24;
         _maxPages = Math.ceil(_arrPaper.length/6);
         if (_maxPages <2) _maxPages = 2;
         createPages();
@@ -293,7 +293,7 @@ public class WOPapper extends WindowMain {
         _leftPage = null;
         _rightPage = null;
         _arrPaper = g.managerPaper.arr.slice();
-        if (_arrPaper.length > 60) _arrPaper.length = 60;
+        if (_arrPaper.length > 24) _arrPaper.length = 24;
         _maxPages = Math.ceil(_arrPaper.length/6);
         if (_maxPages <2) _maxPages = 2;
         createPages();
@@ -337,7 +337,7 @@ public class WOPapper extends WindowMain {
         _rightPage = null;
         _arrPaper = [];
         _arrPaper = g.managerPaper.arr.slice();
-        if (_arrPaper.length > 60) _arrPaper.length = 60;
+        if (_arrPaper.length > 24) _arrPaper.length = 24;
         _maxPages = Math.ceil(_arrPaper.length/6);
         if (_maxPages <2) _maxPages = 2;
         checkArrows();

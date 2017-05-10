@@ -261,13 +261,10 @@ public class HeroCat extends BasicCat{
                 }
             }
             if (r <= .08) {
-//            if (r <= .8) {
-                sleepAnimation();
-//                _animation.playIt('sleep', true, makeFeedIdle);
+                 showFront(true);
+                killAllAnimations();
+                _animation.playIt('sleep', true, jumpCat);
                 b = true;
-                timer = 5 + int(Math.random() * 15);
-                g.gameDispatcher.addToTimer(renderForIdleFreeCat);
-                renderForIdleFreeCat();
             }
             if (!b) {
                 idleAnimation();

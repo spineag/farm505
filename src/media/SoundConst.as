@@ -30,5 +30,9 @@ public class SoundConst {
    public static const DEFAULT_WINDOW:int = 23;
    public static const XP_PLUS:int = 24;
    public static const TOY_CLICK:int = 25;
+   public static const PIG_CLICK:int = 26;
+   public static const BEE_CLICK:int = 27;
+   public static const CHICKEN_CLICK:int = 28;
+   public static const COW_CLICK:int = 29;
 }
 }

@@ -61,7 +61,7 @@ public class WOQuestFinishAward extends WindowMain {
         _btn.y = 72;
         _btn.x = 60;
         _source.addChild(_btn);
-        txt = new CTextField(130, 40, g.managerLanguage.allTexts[532]);
+        txt = new CTextField(130, 40, g.managerLanguage.allTexts[328]);
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btn.addChild(txt);
 

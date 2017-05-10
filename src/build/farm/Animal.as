@@ -285,6 +285,18 @@ public class Animal {
             }
         }
         if (g.managerAnimal.checkIsCat(_farm.dbBuildingId)) {
+            if (_data.id == 1) {
+                    g.soundManager.playSound(SoundConst.CHICKEN_CLICK);
+                } else if (_data.id == 2) {
+                    g.soundManager.playSound(SoundConst.COW_CLICK);
+                } else if (_data.id == 3) {
+                    g.soundManager.playSound(SoundConst.PIG_CLICK);
+                } else if (_data.id == 7) {
+                    g.soundManager.playSound(SoundConst.RAW_SHEEP);
+                } else if (_data.id == 6) {
+                g.soundManager.playSound(SoundConst.BEE_CLICK);
+            }
+            g.soundManager.playSound(SoundConst.OBJECT_CELL);
             if (g.toolsModifier.modifierType != ToolsModifier.FEED_ANIMAL_ACTIVE) g.mouseHint.hideIt();
             _timeToEnd = g.allData.getResourceById(_data.idResource).buildTime; // _data.timeCraft; old from data_animal
             g.gameDispatcher.addToTimer(render);
