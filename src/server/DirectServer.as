@@ -913,10 +913,11 @@ public class DirectServer {
             if (g.userTimer.timerAtPapper > 300) g.userTimer.timerAtPapper = 300;
             if (g.userTimer.timerAtPapper > 0)  g.userTimer.startUserPapperTimer(g.userTimer.timerAtPapper);
 
-            if (int(ob.in_papper) == 0) g.userTimer.papperTimerAtMarket = 0;
-            else g.userTimer.papperTimerAtMarket = 300 - (int(new Date().getTime() / 1000) - int(ob.in_papper));
-            if (g.userTimer.papperTimerAtMarket > 300) g.userTimer.papperTimerAtMarket = 300;
-            if (g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
+//            if (int(ob.in_papper) == 0) g.userTimer.papperTimerAtMarket = 0;
+            g.userTimer.papperTimerAtMarket = 0;
+//            else g.userTimer.papperTimerAtMarket = 300 - (int(new Date().getTime() / 1000) - int(ob.in_papper));
+//            if (g.userTimer.papperTimerAtMarket > 300) g.userTimer.papperTimerAtMarket = 300;
+//            if (g.userTimer.papperTimerAtMarket > 0)  g.userTimer.startUserMarketTimer(g.userTimer.papperTimerAtMarket);
 
             g.user.tutorialStep = int(ob.tutorial_step);
             g.user.marketCell = int(ob.market_cell);

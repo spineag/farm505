@@ -245,7 +245,7 @@ public class WOMarket  extends WindowMain {
                 else createMarketTabBtns(true);
             }
             else createMarketTabBtns();
-            checkPapperTimer();
+//            checkPapperTimer();
             choosePerson(_curUser);
         }
         _timer = 15;
@@ -511,7 +511,7 @@ public class WOMarket  extends WindowMain {
 //        for (var i:int = 0; i < _arrItems.length; i++) {
 //            _arrItems[i].visiblePapperTimer();
 //        }
-        checkPapperTimer();
+//        checkPapperTimer();
     }
 
     private function checkPapperTimer():void {

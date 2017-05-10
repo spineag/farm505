@@ -415,12 +415,14 @@ public class ShopItem {
         _nameTxt.text = '';
         _countTxt.text = '';
         _countBoxTxt.text = '';
+        var myPattern:RegExp = /count/;
+        var str:String =  String(g.managerLanguage.allTexts[342]);
 
         if (!_data) return;
         if (_data.buildType == BuildType.FABRICA ) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _txtAvailable.visible = true;
-                _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[0]) + ' ' +String(g.managerLanguage.allTexts[343]);
+                _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[0])));
                 _im.filter = ManagerFilters.getButtonDisableFilter();
                 _nameTxt.text = _data.name;
             } else {
@@ -440,7 +442,7 @@ public class ShopItem {
                 } else if (arr.length >= maxCountAtCurrentLevel) {
                     _nameTxt.text = _data.name;
                     _txtAvailable.visible = true;
-                    _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[maxCountAtCurrentLevel]) + ' ' + String(g.managerLanguage.allTexts[343]);
+                    _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
                     _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(_data.blockByLevel.length);
                     _im.filter = ManagerFilters.getButtonDisableFilter();
@@ -461,7 +463,7 @@ public class ShopItem {
         } else if (_data.buildType == BuildType.FARM) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _txtAvailable.visible = true;
-                _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[343]);
+                _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
                 _im.filter = ManagerFilters.getButtonDisableFilter();
                 _nameTxt.text = _data.name;
             } else {
@@ -474,7 +476,7 @@ public class ShopItem {
                 if (arr.length >= maxCountAtCurrentLevel) {
                     if (g.user.level < _data.blockByLevel[arr.length]) {
                         _txtAvailable.visible = true;
-                        _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[arr.length]) + ' ' + String(g.managerLanguage.allTexts[343]);
+                        _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
                         _im.filter = ManagerFilters.getButtonDisableFilter();
                         _nameTxt.text = _data.name;
                     } else {
@@ -517,7 +519,7 @@ public class ShopItem {
 
                 if (_data.blockByLevel[0] > g.user.level) {
                     _txtAvailable.visible = true;
-                    _txtAvailable.text =  String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[343]);
+                    _txtAvailable.text =  String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
                     _im.filter = ManagerFilters.getButtonDisableFilter();
                     if (_data.buildType == BuildType.DECOR_ANIMATION) {
                         _hand.filter = ManagerFilters.getButtonDisableFilter();
@@ -562,7 +564,7 @@ public class ShopItem {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
 //                    createLockedSprite();
                     _txtAvailable.visible = true;
-                    _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(dataFarm.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[343]);
+                    _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
                     _im.filter = ManagerFilters.getButtonDisableFilter();
                     _nameTxt.text = _data.name;
                 } else {
@@ -614,7 +616,7 @@ public class ShopItem {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
 //                createLockedSprite();
                 _txtAvailable.visible = true;
-                _txtAvailable.text = String(g.managerLanguage.allTexts[342]) + ' ' + String(_data.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[343]);
+                _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
                 _im.filter = ManagerFilters.getButtonDisableFilter();
             } else {
                 arr = g.townArea.getCityTreeById(_data.id, true);
