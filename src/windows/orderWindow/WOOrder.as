@@ -144,7 +144,7 @@ public class WOOrder extends WindowMain{
         if (delay > 0) i = 0;
         onItemClick(_arrItems[i],false,-1,true);
         _waitForAnswer = false;
-        changeCatTexture(i);
+//        changeCatTexture(i);
         startAnimationCats();
         if (g.user.level == 4 && !g.managerTutorial.isTutorial) {
             if (g.managerOrder.checkIsAnyFullOrder()) showBtnSellArrow();
@@ -840,8 +840,8 @@ public class WOOrder extends WindowMain{
             if (g.managerTutorial.currentAction != TutorialAction.ORDER) return;
         }
         var st:String;
-        if (!_arrOrders[pos] || !_arrOrders[pos].cat) return;
-        switch (_arrOrders[pos].catOb.color){
+        if (!_arrOrders[pos-1] || !_arrOrders[pos-1].cat) return;
+        switch (_arrOrders[pos-1].catOb.color){
             case OrderCat.BLACK:  st = '5'; break;
             case OrderCat.BLUE:   st = '4'; break;
             case OrderCat.GREEN:  st = '3'; break;
@@ -854,11 +854,11 @@ public class WOOrder extends WindowMain{
         releaseFrontTexture(st);
         var b:Slot = _armatureCustomer.getSlot('bant');
         var viyi:Slot= _armatureCustomer.getSlot('viyi');
-        if (!_arrOrders[pos].catOb.isWoman) {
+        if (!_arrOrders[pos-1].catOb.isWoman) {
             if (b.displayList.length) b.displayList[0].visible = false;
             if (viyi.displayList.length) viyi.displayList[0].visible = false;
         } else {
-            changeBant(_arrOrders[pos].cat.bant, b);
+            changeBant(_arrOrders[pos-1].cat.bant, b);
             if (viyi.displayList.length) viyi.displayList[0].visible = true;
         }
         var okuli:Image;
@@ -873,7 +873,7 @@ public class WOOrder extends WindowMain{
         }
         if (okuli) okuli.visible = false;
         if (sharf) sharf.visible = false;
-        switch (_arrOrders[pos].catOb.type) {
+        switch (_arrOrders[pos-1].catOb.type) {
             case DataCat.AKRIL:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = true;
@@ -932,9 +932,9 @@ public class WOOrder extends WindowMain{
                 break;
         }
         b = _armatureCustomer.getSlot('sharf');
-        if (_arrOrders[pos].catOb.png) {
+        if (_arrOrders[pos-1].catOb.png) {
 //            var im:Image = (g.allData.factory['order_window'] as StarlingFactory).getTextureDisplay(_arrOrders[pos].catOb.png, "clothTextureTemp") as Image;
-            var im:Image = new Image(g.allData.atlas['customisationInterfaceAtlas'].getTexture(_arrOrders[pos].catOb.png));
+            var im:Image = new Image(g.allData.atlas['customisationInterfaceAtlas'].getTexture(_arrOrders[pos-1].catOb.png));
             var sp:Sprite = new Sprite();
             if (b.displayList.length) {
                 var imOld:Image;

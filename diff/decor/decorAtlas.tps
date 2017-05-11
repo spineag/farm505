@@ -219,26 +219,15 @@
             <filename>bridge.png</filename>
             <filename>cat_bouquet.png</filename>
             <filename>cat_statue.png</filename>
-            <filename>chair_1.png</filename>
-            <filename>chair_2.png</filename>
             <filename>cupidon_statue_blue.png</filename>
             <filename>cupidon_statue_pink.png</filename>
             <filename>cycle_flower.png</filename>
             <filename>dandelion.png</filename>
             <filename>easel_clear.png</filename>
-            <filename>farming_table.png</filename>
             <filename>fir_1.png</filename>
             <filename>fir_2.png</filename>
             <filename>fir_3.png</filename>
             <filename>fir_4.png</filename>
-            <filename>flower_1.png</filename>
-            <filename>flower_2.png</filename>
-            <filename>flower_3.png</filename>
-            <filename>flower_4.png</filename>
-            <filename>flower_5.png</filename>
-            <filename>flower_6.png</filename>
-            <filename>flower_7.png</filename>
-            <filename>flower_8.png</filename>
             <filename>fountain_blue.png</filename>
             <filename>fountain_green.png</filename>
             <filename>fountain_pink.png</filename>

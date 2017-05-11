@@ -61,8 +61,9 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function onCreateBuild():void {
-        WorldClock.clock.add(_armature);
-        _armature.animation.gotoAndPlayByFrame('idle');
+        if (_armature) {
+            WorldClock.clock.add(_armature);
+            _armature.animation.gotoAndPlayByFrame('idle');
 //        if (g.managerHitArea.hasLoadedHitAreaByName(_dataBuild.url)) {
 //            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
 //        } else {
@@ -73,14 +74,15 @@ public class DecorAnimation extends WorldObject{
                 _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
             }
 //        }
-        _source.registerHitArea(_hitArea);
-        if (!g.isAway) {
-            _source.hoverCallback = onHover;
-            _source.endClickCallback = onClick;
-            _source.outCallback = onOut;
-        }
-        if (_awayAnimation) {
-            awayAnimation();
+            _source.registerHitArea(_hitArea);
+            if (!g.isAway) {
+                _source.hoverCallback = onHover;
+                _source.endClickCallback = onClick;
+                _source.outCallback = onOut;
+            }
+            if (_awayAnimation) {
+                awayAnimation();
+            }
         }
     }
 

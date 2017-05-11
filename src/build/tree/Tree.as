@@ -82,23 +82,25 @@ public class Tree extends WorldObject {
     }
 
     private function onCreateBuild():void {
-        _source.hoverCallback = onHover;
-        _source.outCallback = onOut;
-        _source.endClickCallback = onClick;
-        if (g.isAway) _source.releaseContDrag = true;
-        WorldClock.clock.add(_armature);
-        _fruit1 = _armature.getBone('fruit1');
-        _fruit2 = _armature.getBone('fruit2');
-        _fruit3 = _armature.getBone('fruit3');
-        _fruit4 = _armature.getBone('fruit4');
-        setBuildImage();
-        if (_needShopView) showShopView();
-        var quad:Quad = new Quad(20,20);
+        if (_source) {
+            _source.hoverCallback = onHover;
+            _source.outCallback = onOut;
+            _source.endClickCallback = onClick;
+            if (g.isAway) _source.releaseContDrag = true;
+            WorldClock.clock.add(_armature);
+            _fruit1 = _armature.getBone('fruit1');
+            _fruit2 = _armature.getBone('fruit2');
+            _fruit3 = _armature.getBone('fruit3');
+            _fruit4 = _armature.getBone('fruit4');
+            setBuildImage();
+            if (_needShopView) showShopView();
+            var quad:Quad = new Quad(20, 20);
 //        _source.addChild(quad);
 
-        quad = new Quad(20,20,Color.AQUA);
-        quad.y = -(_source.y - _source.height/2);
+            quad = new Quad(20, 20, Color.AQUA);
+            quad.y = -(_source.y - _source.height / 2);
 //        _source.addChild(quad)
+        }
     }
 
     public function showShopView():void {
@@ -116,79 +118,81 @@ public class Tree extends WorldObject {
         _wateringUserSocialId = ob.fixed_user_id;
         ob.time_work = int(ob.time_work);
         _craftedCountFromServer = int(ob.crafted_count);
-        switch (int(ob.state)) {
-            case GROW1:
-                if (ob.time_work > _resourceItem.buildTime) {
-                    _state = GROWED1;
-                    if (_craftedCountFromServer <= 0) _craftedCountFromServer = 2;
-                    _timeToEndState = 0;
-                } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
-                    _state = GROW1;
-                    _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
-                    _timerHint = _resourceItem.buildTime - ob.time_work;
-                } else {
-                    _state = GROW_FLOWER1;
-                    _timeToEndState = _resourceItem.buildTime - ob.time_work;
-                    _timerHint = _resourceItem.buildTime - ob.time_work;
-                }
-                break;
-            case GROW2:
-                if (ob.time_work > _resourceItem.buildTime) {
-                    _state = GROWED2;
-                    if (_craftedCountFromServer <= 0) _craftedCountFromServer = 3;
-                    _timeToEndState = 0;
-                } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
-                    _state = GROW2;
-                    _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
-                    _timerHint = _resourceItem.buildTime - ob.time_work;
-                } else {
-                    _state = GROW_FLOWER2;
-                    _timeToEndState = _resourceItem.buildTime - ob.time_work;
-                    _timerHint = _resourceItem.buildTime - ob.time_work;
-                }
-                break;
-            case GROW3:
-                if (ob.time_work > _resourceItem.buildTime) {
-                    _state = GROWED3;
-                    if (_craftedCountFromServer <= 0) _craftedCountFromServer = 4;
-                    _timeToEndState = 0;
-                } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
-                    _state = GROW3;
-                    _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
-                    _timerHint = _resourceItem.buildTime - ob.time_work;
-                } else {
-                    _state = GROW_FLOWER3;
-                    _timeToEndState = _resourceItem.buildTime - ob.time_work;
-                    _timerHint = _resourceItem.buildTime - ob.time_work;
-                }
-                break;
-            case GROW_FIXED:
-                if (ob.time_work > _resourceItem.buildTime) {
-                    _state = GROWED_FIXED;
-                    if (_craftedCountFromServer <= 0) _craftedCountFromServer = 4;
-                    _timeToEndState = 0;
-                } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
-                    _state = GROW_FIXED;
-                    _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
-                    _timerHint = _resourceItem.buildTime - ob.time_work;
-                } else {
-                    _state = GROW_FIXED_FLOWER;
-                    _timeToEndState = _resourceItem.buildTime - ob.time_work;
-                    _timerHint = _resourceItem.buildTime - ob.time_work;
-                }
-                break;
-            default:
-                _state = int(ob.state);
-                break;
-        }
-
-        if (!g.isAway) {
-            if (_state == GROW1 || _state == GROW_FLOWER1 || _state == GROW2 || _state == GROW_FLOWER2
-                    || _state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
-                g.gameDispatcher.addToTimer(render);
+       if(_resourceItem) {
+            switch (int(ob.state)) {
+                case GROW1:
+                    if (ob.time_work > _resourceItem.buildTime) {
+                        _state = GROWED1;
+                        if (_craftedCountFromServer <= 0) _craftedCountFromServer = 2;
+                        _timeToEndState = 0;
+                    } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
+                        _state = GROW1;
+                        _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
+                        _timerHint = _resourceItem.buildTime - ob.time_work;
+                    } else {
+                        _state = GROW_FLOWER1;
+                        _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                        _timerHint = _resourceItem.buildTime - ob.time_work;
+                    }
+                    break;
+                case GROW2:
+                    if (ob.time_work > _resourceItem.buildTime) {
+                        _state = GROWED2;
+                        if (_craftedCountFromServer <= 0) _craftedCountFromServer = 3;
+                        _timeToEndState = 0;
+                    } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
+                        _state = GROW2;
+                        _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
+                        _timerHint = _resourceItem.buildTime - ob.time_work;
+                    } else {
+                        _state = GROW_FLOWER2;
+                        _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                        _timerHint = _resourceItem.buildTime - ob.time_work;
+                    }
+                    break;
+                case GROW3:
+                    if (ob.time_work > _resourceItem.buildTime) {
+                        _state = GROWED3;
+                        if (_craftedCountFromServer <= 0) _craftedCountFromServer = 4;
+                        _timeToEndState = 0;
+                    } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
+                        _state = GROW3;
+                        _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
+                        _timerHint = _resourceItem.buildTime - ob.time_work;
+                    } else {
+                        _state = GROW_FLOWER3;
+                        _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                        _timerHint = _resourceItem.buildTime - ob.time_work;
+                    }
+                    break;
+                case GROW_FIXED:
+                    if (ob.time_work > _resourceItem.buildTime) {
+                        _state = GROWED_FIXED;
+                        if (_craftedCountFromServer <= 0) _craftedCountFromServer = 4;
+                        _timeToEndState = 0;
+                    } else if (ob.time_work < int(_resourceItem.buildTime / 2 + .5)) {
+                        _state = GROW_FIXED;
+                        _timeToEndState = int(_resourceItem.buildTime / 2 + .5) - ob.time_work;
+                        _timerHint = _resourceItem.buildTime - ob.time_work;
+                    } else {
+                        _state = GROW_FIXED_FLOWER;
+                        _timeToEndState = _resourceItem.buildTime - ob.time_work;
+                        _timerHint = _resourceItem.buildTime - ob.time_work;
+                    }
+                    break;
+                default:
+                    _state = int(ob.state);
+                    break;
             }
+
+            if (!g.isAway) {
+                if (_state == GROW1 || _state == GROW_FLOWER1 || _state == GROW2 || _state == GROW_FLOWER2
+                        || _state == GROW3 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER) {
+                    g.gameDispatcher.addToTimer(render);
+                }
+            }
+            if (_armature) quickCheckState(true);
         }
-        if (_armature) quickCheckState(true);
     }
 
     private function setBuildImage():void {

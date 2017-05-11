@@ -41,7 +41,7 @@ public class WOTrainSend extends WindowMain {
         _txtB = new CTextField(350,50,String(g.managerLanguage.allTexts[307]));
         _txtB.setFormat(CTextField.MEDIUM18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtB.x = -180;
-        _txtB.y = -110;
+        _txtB.y = -105;
         _source.addChild(_txtB);
         _btnNo = new CButton();
         _btnNo.addButtonTexture(80, 40, CButton.YELLOW, true);
@@ -58,12 +58,12 @@ public class WOTrainSend extends WindowMain {
         _txtNo.y = -5;
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('basket_big'));
         im.y = -70;
-        im.x = -65;
+        im.x = -60;
         _source.addChild(im);
-        _btnYes.x = 100;
-        _btnYes.y = 80;
-        _btnNo.x = -100;
-        _btnNo.y = 80;
+        _btnYes.x = -100;
+        _btnYes.y = 85;
+        _btnNo.x = 100;
+        _btnNo.y = 85;
         _btnNo.addChild(_txtNo);
         _source.addChild(_btnYes);
         _source.addChild(_btnNo);

@@ -347,7 +347,9 @@ public class Train extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p:Point = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,String(g.managerLanguage.allTexts[342]) + " " + String(_dataBuild.blockByLevel[0]) + ' ' + String(g.managerLanguage.allTexts[343]));
+                var myPattern:RegExp = /count/;
+                var str:String =  String(g.managerLanguage.allTexts[342]);
+                new FlyMessage(p,String(String(str.replace(myPattern, String(_dataBuild.blockByLevel)))));
                 return;
             }
             onOut();
@@ -449,6 +451,7 @@ public class Train extends WorldObject{
             _sprHelp.y = -305;
             _sprHelp.x = -40;
         }
+        if (g.isAway) _counter = TIME_WAIT - int(ob.time_work);
     }
 
     public function needHelp(b:Boolean, n:int):void {

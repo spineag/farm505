@@ -116,7 +116,9 @@ public class DailyBonus extends WorldObject{
                     g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                     var p:Point = new Point(_source.x, _source.y - 100);
                     p = _source.parent.localToGlobal(p);
-                    new FlyMessage(p,String(g.managerLanguage.allTexts[342]) + " " + String(_dataBuild.blockByLevel) + ' ' + String(g.managerLanguage.allTexts[343]));
+                    var myPattern:RegExp = /count/;
+                    var str:String =  String(g.managerLanguage.allTexts[342]);
+                    new FlyMessage(p,String(String(str.replace(myPattern, String(_dataBuild.blockByLevel)))));
                     return;
                 }
                 onOut();

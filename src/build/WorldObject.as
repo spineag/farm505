@@ -239,10 +239,12 @@ public class WorldObject {
 
     private function createAnimBuild1(onCreate:Function):void {
         deleteIsoView();
-        _armature = g.allData.factory[_dataBuild.url].buildArmature(_dataBuild.image);
-        _build.addChild(_armature.display as StarlingArmatureDisplay);
-        _rect = _build.getBounds(_build);
-        _source.addChild(_build);
+        if (_dataBuild) {
+            _armature = g.allData.factory[_dataBuild.url].buildArmature(_dataBuild.image);
+            _build.addChild(_armature.display as StarlingArmatureDisplay);
+            _rect = _build.getBounds(_build);
+            _source.addChild(_build);
+        }
         if (onCreate != null) onCreate.apply();
     }
 

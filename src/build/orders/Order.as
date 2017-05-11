@@ -149,7 +149,9 @@ public class Order extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 p = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,String(g.managerLanguage.allTexts[342])+  " 3 " + String(g.managerLanguage.allTexts[343]));
+                var myPattern:RegExp = /count/;
+                var str:String =  String(g.managerLanguage.allTexts[342]);
+                new FlyMessage(p,String(String(str.replace(myPattern, String(3)))));
             } else {
                 _stateBuild = STATE_ACTIVE;
                 if (_topOpen) _topOpen.visible = true;
@@ -192,7 +194,9 @@ public class Order extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 p = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                new FlyMessage(p,String(g.managerLanguage.allTexts[342]) + " " + String(_dataBuild.blockByLevel) + ' ' + String(g.managerLanguage.allTexts[343]));
+                var myPattern:RegExp = /count/;
+                var str:String =  String(g.managerLanguage.allTexts[342]);
+                new FlyMessage(p,String(str.replace(myPattern, String(_dataBuild.blockByLevel))));
                 return;
             }
             if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.OPEN_ORDER) && g.user.level == 3) return;

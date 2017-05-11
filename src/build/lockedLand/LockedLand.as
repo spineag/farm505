@@ -236,7 +236,9 @@ public class LockedLand extends WorldObject {
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
                 p.y -= 50;
-                new FlyMessage(p,String(g.managerLanguage.allTexts[342]) + " " + String(_dataLand.blockByLevel) + ' ' + String(g.managerLanguage.allTexts[343]));
+                var myPattern:RegExp = /count/;
+                var str:String =  String(g.managerLanguage.allTexts[342]);
+                new FlyMessage(p,String(String(str.replace(myPattern, String(_dataBuild.blockByLevel)))));
                 return;
             } else {
                 onOut();

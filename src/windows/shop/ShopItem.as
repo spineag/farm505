@@ -463,7 +463,7 @@ public class ShopItem {
         } else if (_data.buildType == BuildType.FARM) {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
                 _txtAvailable.visible = true;
-                _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
+                _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[0])));
                 _im.filter = ManagerFilters.getButtonDisableFilter();
                 _nameTxt.text = _data.name;
             } else {
@@ -476,7 +476,7 @@ public class ShopItem {
                 if (arr.length >= maxCountAtCurrentLevel) {
                     if (g.user.level < _data.blockByLevel[arr.length]) {
                         _txtAvailable.visible = true;
-                        _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
+                        _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[arr.length])));
                         _im.filter = ManagerFilters.getButtonDisableFilter();
                         _nameTxt.text = _data.name;
                     } else {
@@ -519,7 +519,7 @@ public class ShopItem {
 
                 if (_data.blockByLevel[0] > g.user.level) {
                     _txtAvailable.visible = true;
-                    _txtAvailable.text =  String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
+                    _txtAvailable.text =  String(str.replace(myPattern, String(_data.blockByLevel[0])));
                     _im.filter = ManagerFilters.getButtonDisableFilter();
                     if (_data.buildType == BuildType.DECOR_ANIMATION) {
                         _hand.filter = ManagerFilters.getButtonDisableFilter();
@@ -564,7 +564,7 @@ public class ShopItem {
                 if (g.user.level < dataFarm.blockByLevel[0]) {
 //                    createLockedSprite();
                     _txtAvailable.visible = true;
-                    _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
+                    _txtAvailable.text = String(str.replace(myPattern, String(dataFarm.blockByLevel[0])));
                     _im.filter = ManagerFilters.getButtonDisableFilter();
                     _nameTxt.text = _data.name;
                 } else {
@@ -616,7 +616,7 @@ public class ShopItem {
             if (_data.blockByLevel && g.user.level < _data.blockByLevel[0]) {
 //                createLockedSprite();
                 _txtAvailable.visible = true;
-                _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
+                _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[0])));
                 _im.filter = ManagerFilters.getButtonDisableFilter();
             } else {
                 arr = g.townArea.getCityTreeById(_data.id, true);

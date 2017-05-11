@@ -295,7 +295,7 @@ public class Cave extends WorldObject{
                             g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                             return;
                         }
-                        g.directServer.craftUserCave(_arrCrafted[_arrCrafted.length-1].resourceId,null);
+                        g.directServer.craftUserCave(String(_arrCrafted[_arrCrafted.length-1].resourceId),null);
                         _arrCrafted.pop().flyIt();
 
 //                        g.directServer.craftUserCave();
@@ -317,7 +317,9 @@ public class Cave extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 var p1:Point = new Point(_source.x, _source.y - 100);
                 p1 = _source.parent.localToGlobal(p1);
-                new FlyMessage(p1,String(g.managerLanguage.allTexts[342]) + " " + String(_dataBuild.blockByLevel) + ' ' + String(g.managerLanguage.allTexts[343]));
+                var myPattern:RegExp = /count/;
+                var str:String =  String(g.managerLanguage.allTexts[342]);
+                new FlyMessage(p1,String(str.replace(myPattern, String(_dataBuild.blockByLevel))));
                 return;
             }
             if (!_source.wasGameContMoved) g.windowsManager.openWindow(WindowsManager.WO_BUY_CAVE, onBuy, _dataBuild, String(g.managerLanguage.allTexts[618]), 'cave');
