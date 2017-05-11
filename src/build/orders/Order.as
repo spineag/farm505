@@ -194,9 +194,9 @@ public class Order extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 p = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                var myPattern:RegExp = /count/;
-                var str:String =  String(g.managerLanguage.allTexts[342]);
-                new FlyMessage(p,String(str.replace(myPattern, String(_dataBuild.blockByLevel))));
+                var myPattern2:RegExp = /count/;
+                var str2:String =  String(g.managerLanguage.allTexts[342]);
+                new FlyMessage(p,String(str2.replace(myPattern2, String(_dataBuild.blockByLevel))));
                 return;
             }
             if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.OPEN_ORDER) && g.user.level == 3) return;
