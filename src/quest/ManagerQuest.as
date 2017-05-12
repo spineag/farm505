@@ -360,10 +360,14 @@ public class ManagerQuest {
                 g.windowsManager.closeAllWindows();
                 arrT = g.townArea.getCityObjectsByType(BuildType.WILD);
                 if (arrT.length) {
+                    var c:int = 0;
                     for (i=0; i<arrT.length; i++) {
-                        (arrT[i] as WorldObject).showArrow(3);
+                        if (arrT[i].dataBuild.id == t.resourceId) {
+                            (arrT[i] as WorldObject).showArrow(3);
+                            c = i;
+                        }
                     }
-                    g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
+                    g.cont.moveCenterToPos((arrT[c] as WorldObject).posX, (arrT[c] as WorldObject).posY);
                 } else {
                     new FlyMessage(p,String(g.managerLanguage.allTexts[600]));
                 }

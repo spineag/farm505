@@ -124,7 +124,9 @@ public class ManagerPartyNew {
 
     public function endPartyWindow():void {
         if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
-        g.windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE, null);
+        if (g.managerParty.userParty.countResource > 0) g.windowsManager.openWindow(WindowsManager.WO_PARTY_CLOSE, null);
+        else g.directServer.updateUserParty('1&1&1&1&1',0,1,null);
+
     }
 
     private function onLoad(smth:*=null):void {

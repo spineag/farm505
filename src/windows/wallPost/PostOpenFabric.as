@@ -151,9 +151,11 @@ public class PostOpenFabric  extends WindowMain {
         _btn = null;
         _source = null;
         _data = null;
-        (g.pBitmaps[stUrl] as PBitmap).deleteIt();
-        delete g.pBitmaps[stUrl];
-        g.load.removeByUrl(stUrl);
+        if (g.pBitmaps[stUrl] as PBitmap) {
+            (g.pBitmaps[stUrl] as PBitmap).deleteIt();
+            delete g.pBitmaps[stUrl];
+            g.load.removeByUrl(stUrl);
+        }
     }
 }
 

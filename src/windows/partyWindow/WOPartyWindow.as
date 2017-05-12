@@ -103,7 +103,7 @@ public class WOPartyWindow extends WindowMain{
                 im.y = -133;
                 _source.addChild(im);
 
-                _txtCoefficient = new CTextField(172,200,g.managerParty.coefficient +'X');
+                _txtCoefficient = new CTextField(172,200,'X' + g.managerParty.coefficient);
                 _txtCoefficient.setFormat(CTextField.BOLD30, 30, 0xffde00, ManagerFilters.BROWN_COLOR);
                 _source.addChild(_txtCoefficient);
                 _txtCoefficient.x = 38;
@@ -291,7 +291,7 @@ public class WOPartyWindow extends WindowMain{
                 im.y = -133;
                 _source.addChild(im);
 
-                _txtCoefficient = new CTextField(172, 200, g.managerParty.coefficient + 'X');
+                _txtCoefficient = new CTextField(172, 200,'X' + g.managerParty.coefficient);
                 _txtCoefficient.setFormat(CTextField.BOLD30, 30, 0xffde00, ManagerFilters.BROWN_COLOR);
                 _source.addChild(_txtCoefficient);
                 _txtCoefficient.x = 38;

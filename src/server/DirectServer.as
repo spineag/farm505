@@ -7119,6 +7119,9 @@ public class DirectServer {
             g.userTimer.partyToStart(obj.timeToStart - int(new Date().getTime() / 1000));
             g.managerParty.dataParty = obj;
             g.managerParty.eventOn = false;
+        } else {
+            g.managerParty.dataParty = obj;
+            getUserParty();
         }
         if (d.id == 0) {
             Cc.ch('server', 'getDataParty OK', 5);
@@ -7252,7 +7255,7 @@ public class DirectServer {
         }
     }
 
-    public function getUserParty(callback:Function):void {
+    public function getUserParty(callback:Function = null):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_PARTY);
         var variables:URLVariables = new URLVariables();

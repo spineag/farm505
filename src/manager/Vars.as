@@ -445,13 +445,14 @@ public class Vars {
         optionPanel = new OptionPanel();
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
-        managerParty = new ManagerPartyNew();
-        directServer.getDataParty(null);
+
         if ((user as User).level >= 5 && userTimer.saleTimerToEnd <= 0 && softHardCurrency.actionON) {
             stock = new StockPanel();
         }
         managerQuest = new ManagerQuest();
-        gameDispatcher.addNextFrameFunction(afterLoadAll);
+//        gameDispatcher.addNextFrameFunction();
+        managerParty = new ManagerPartyNew();
+        directServer.getDataParty(afterLoadAll);
     }
 
     private function afterLoadAll():void {
@@ -543,7 +544,10 @@ public class Vars {
                        else managerCats.helloCats();
                    }
                }
-//                if (!windowsManager.currentWindow && userTimer.partyToEndTimer < 0 && !managerParty.userParty.showWindow) managerParty.endPartyWindow();
+            var f1:Function = function ():void {
+                if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && !managerParty.userParty.showWindow && managerParty.dataParty.typeParty == 3 || managerParty.dataParty.typeParty == 4) managerParty.endPartyWindow();
+            };
+               Utils.createDelay(5,f1);
             }
             if ((user as User).miniScenes[3] == 0) friendPanel.hideIt(true);
             managerMiniScenes.updateMiniScenesLengthOnGameStart();

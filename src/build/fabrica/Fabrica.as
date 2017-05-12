@@ -216,7 +216,6 @@ public class Fabrica extends WorldObject {
         g.hint.hideIt();
     }
 
-
     public function openFabricaWindow():void {
         if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_RAW_FABRICA && g.managerHelpers.activeReason.build == this) {
             g.managerHelpers.onOpenFabricaWithDelay();
@@ -278,6 +277,7 @@ public class Fabrica extends WorldObject {
                     if (g.userInventory.currentCountInSklad + _arrCrafted[0].count > g.user.skladMaxCount) {
                         g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                     } else {
+                        g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
                         g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
                         (_arrCrafted[0] as CraftItem).flyIt();
 
@@ -445,7 +445,7 @@ public class Fabrica extends WorldObject {
             g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
         }
         g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
-        g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:dataRecipe.idResource});
+//        g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:dataRecipe.idResource});
         // animation of uploading resources to fabrica
         var p:Point = new Point(source.x, source.y);
         p = source.parent.localToGlobal(p);
