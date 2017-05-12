@@ -2,6 +2,8 @@ package windows.market {
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import manager.ManagerFilters;
+import manager.ManagerLanguage;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -172,9 +174,15 @@ public class WOMarketChoose extends WindowMain {
             _btnCheck.y = 212;
             _source.addChild(_btnCheck);
             _btnCheck.clickCallback = onClickCheck;
-            _txtPapper = new CTextField(210, 60, String(g.managerLanguage.allTexts[1022]));
-            _txtPapper.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
-            _txtPapper.x = -174;
+            if (g.user.language == ManagerLanguage.ENGLISH) {
+                _txtPapper = new CTextField(250, 60, String(g.managerLanguage.allTexts[1022]));
+                _txtPapper.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+                _txtPapper.x = -218;
+            } else {
+                _txtPapper = new CTextField(210, 60, String(g.managerLanguage.allTexts[1022]));
+                _txtPapper.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
+                _txtPapper.x = -174;
+            }
             _txtPapper.y = 194;
             _source.addChild(_txtPapper);
         }
@@ -552,8 +560,8 @@ public class WOMarketChoose extends WindowMain {
                 _callback = null;
             }
             if (isCashed) g.windowsManager.secondCashWindow = null;
-
             super.hideIt();
+
         }
     }
 

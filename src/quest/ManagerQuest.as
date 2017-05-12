@@ -246,7 +246,7 @@ public class ManagerQuest {
                 i = g.allData.getFabricaIdForResourceIdFromRecipe(t.resourceId);
                 arrT = g.townArea.getCityObjectsById(i);
                 if (arrT.length) {
-                    (arrT[0] as WorldObject).showArrow(3);
+                    (arrT[0] as WorldObject).showArrow(3,t.resourceId);
                     g.cont.moveCenterToPos((arrT[0] as WorldObject).posX - 1, (arrT[0] as WorldObject).posY - 1);
                 } else {
                     new FlyMessage(p,String(g.managerLanguage.allTexts[598]));

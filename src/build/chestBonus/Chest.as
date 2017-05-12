@@ -104,7 +104,7 @@ public class Chest extends WorldObject{
         }
     }
 
-    override  public function showArrow(t:Number = 0):void {
+    override  public function showArrow(t:Number = 0, id:int = 0):void {
         super.hideArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
         _arrow.animateAtPosition(0, -34 * g.scaleFactor);

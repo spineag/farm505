@@ -144,13 +144,13 @@ public class Order extends WorldObject{
 
     private function onClick():void {
         var p:Point;
+        var myPattern:RegExp = /count/;
+        var str:String =  String(g.managerLanguage.allTexts[342]);
         if (_stateBuild == STATE_UNACTIVE) {
             if (g.user.level < 3) {
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 p = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                var myPattern:RegExp = /count/;
-                var str:String =  String(g.managerLanguage.allTexts[342]);
                 new FlyMessage(p,String(String(str.replace(myPattern, String(3)))));
             } else {
                 _stateBuild = STATE_ACTIVE;
@@ -194,8 +194,6 @@ public class Order extends WorldObject{
                 g.soundManager.playSound(SoundConst.EMPTY_CLICK);
                 p = new Point(_source.x, _source.y - 100);
                 p = _source.parent.localToGlobal(p);
-                var myPattern:RegExp = /count/;
-                var str:String =  String(g.managerLanguage.allTexts[342]);
                 new FlyMessage(p,String(str.replace(myPattern, String(_dataBuild.blockByLevel))));
                 return;
             }

@@ -4,6 +4,9 @@
 package windows.fabricaWindow {
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
+
+import data.StructureDataRecipe;
+
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
@@ -70,6 +73,10 @@ public class WOItemFabrica {
         if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResource(_dataRecipe.id)) {
             addArrow();
         }
+    }
+
+    public function get dataRecipe ():Object {
+        return _dataRecipe;
     }
 
     private function fillIcon(s:String):void {

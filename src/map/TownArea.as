@@ -1351,7 +1351,7 @@ public class TownArea extends Sprite {
     }
 
     private function onAddNewBuilding(value:Boolean, wObject:WorldObject):void {
-        g.directServer.startBuildBuilding(wObject, null);
+        if (wObject is Fabrica) g.directServer.startBuildBuilding(wObject, null);
         if (wObject is DecorFence && wObject.flip) g.directServer.userBuildingFlip(wObject.dbBuildingId, 1, null);
     }
 

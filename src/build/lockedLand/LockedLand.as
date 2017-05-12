@@ -238,7 +238,7 @@ public class LockedLand extends WorldObject {
                 p.y -= 50;
                 var myPattern:RegExp = /count/;
                 var str:String =  String(g.managerLanguage.allTexts[342]);
-                new FlyMessage(p,String(String(str.replace(myPattern, String(_dataBuild.blockByLevel)))));
+                new FlyMessage(p,String(String(str.replace(myPattern, String(_dataLand.blockByLevel)))));
                 return;
             } else {
                 onOut();

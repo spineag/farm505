@@ -61,7 +61,7 @@ public class WOFabrica extends WindowMain {
         _birka.source.x = 270 - _birka.bg.height;
         showAnimateFabricaItems();
         if (params[3]) {
-            addArrowForPossibleRawItems();
+            addArrowForPossibleRawItems(params[4]);
         }
         super.showIt();
     }
@@ -299,9 +299,9 @@ public class WOFabrica extends WindowMain {
         return _list.getSkipBtnProperties();
     }
     
-    public function addArrowForPossibleRawItems():void {
+    public function addArrowForPossibleRawItems(id:int = 0):void {
         for (var i:int=0; i<_arrFabricaItems.length; i++) {
-            (_arrFabricaItems[i] as WOItemFabrica).addArrowIfPossibleToRaw();
+            if (_arrFabricaItems[i].dataRecipe && _arrFabricaItems[i].dataRecipe.idResource == id || id == 0)(_arrFabricaItems[i] as WOItemFabrica).addArrowIfPossibleToRaw();
         }
     }
 

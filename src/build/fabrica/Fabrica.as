@@ -224,7 +224,7 @@ public class Fabrica extends WorldObject {
         var needShowArrow:Boolean;
         _arrow ? needShowArrow = true : needShowArrow = false;
         hideArrow();
-        g.windowsManager.openWindow(WindowsManager.WO_FABRICA, callbackOnChooseRecipe, _arrRecipes.slice(), _arrList.slice(), this, needShowArrow);
+        g.windowsManager.openWindow(WindowsManager.WO_FABRICA, callbackOnChooseRecipe, _arrRecipes.slice(), _arrList.slice(), this, needShowArrow, idResourceArrow);
     }
 
     private function onClick():void {

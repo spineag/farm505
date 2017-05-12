@@ -271,7 +271,7 @@ public class ManagerOrder {
                     arrResource.sortOn("count", Array.DESCENDING | Array.NUMERIC);
                     ob = {};
                     ob.id = arrResource[0].id;
-                    ob.count = arrResource[0].count - 1;
+                    ob.count = arrResource[0].count/2;
                     if (ob.count <= 0 || ob.count == 1)  {
                         ob.id = 31;
                         ob.count = 4;
@@ -324,7 +324,7 @@ public class ManagerOrder {
                 }
             } else countFastBuyer = 1;
 //            countFastBuyer = 1;
-            if (countFastBuyer == 0 && g.user.level < 10 && g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            if (countFastBuyer == 0 && g.user.level < 10 && g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
 //               var countTemp:int = g.userInventory.getCountResourceById(168);
 //                    if (Math.random() < .5) {
 //                        if (countTemp > 6) countTemp = countTemp/2;
