@@ -470,7 +470,7 @@ public class DirectServer {
                 obj = {};
                 obj.id = int(d.message[i].id);
                 obj.typeMoney = int(d.message[i].type_money);
-                obj.cost = int(d.message[i].cost_for_real);
+                obj.cost = Number(d.message[i].cost_for_real);
                 obj.count = int(d.message[i].count_getted);
                 obj.url = d.message[i].url;
                 obj.sale = d.message[i].sale;
@@ -7350,6 +7350,54 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('onOKTransaction: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function onFBTransaction(callback:Function, isPayed:int, packId:int):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ON_TRANSACTION);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'onFBTransaction', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userSocialId;
+        variables.productCode = packId;
+        variables.isPayed = isPayed;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteFBTransaction);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteFBTransaction(e:Event):void { completeFBTransaction(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserEvent error:' + error.errorID);
+        }
+    }
+
+    private function completeFBTransaction(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('onFBTransaction: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'onFBTransaction: wrong JSON:' + String(response));
+            return;
+        }
+        if (d.id == 0) {
+            Cc.ch('server', 'onFBTransaction OK', 5);
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('onFBTransaction: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }

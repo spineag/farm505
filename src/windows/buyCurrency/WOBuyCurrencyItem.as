@@ -42,17 +42,15 @@ public class WOBuyCurrencyItem {
     private var _im:Image;
     private var _action:Sprite;
     private var _currency:int;
-    private var _costRealMoney:int;
     private var _countGameMoney:int;
     private var _packId:int;
     private var g:Vars = Vars.getInstance();
     private var _arrCTex:Array;
 
-    public function WOBuyCurrencyItem(currency:int, count:int, bonus:Array, cost:int, packId:int, sale:int) {
+    public function WOBuyCurrencyItem(currency:int, count:int, bonus:Array, cost:Number, packId:int, sale:int) {
         _currency = currency;
         _packId = packId;
         _countGameMoney = count;
-        _costRealMoney = cost;
         _arrCTex = [];
         source = new Sprite();
         _bg = new Sprite();

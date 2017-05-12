@@ -3,6 +3,7 @@
  */
 package social.fb {
 import com.junkbyte.console.Cc;
+import com.vk.CustomEvent;
 
 import flash.display.Bitmap;
 import flash.external.ExternalInterface;
@@ -35,7 +36,6 @@ public class SN_FB extends SocialNetwork  {
             ExternalInterface.addCallback('getAllFriendsHandler', getAllFriendsHandler);
             ExternalInterface.addCallback('getAppUsersHandler', getAppUsersHandler);
             ExternalInterface.addCallback('getFriendsByIdsHandler', getFriendsByIdsHandler);
-//            ExternalInterface.addCallback('onPaymentCallback', onPaymentCallback);
             ExternalInterface.addCallback('getTempUsersInfoByIdHandler', getTempUsersInfoByIdCallback);
             ExternalInterface.addCallback('isInGroupCallback', isInGroupCallback);
             ExternalInterface.addCallback('wallPostSave', wallSavePublic);
@@ -43,6 +43,8 @@ public class SN_FB extends SocialNetwork  {
             ExternalInterface.addCallback('onOpenLanguage', onOpenLanguage);
             ExternalInterface.addCallback('onHideLanguage', onHideLanguage);
             ExternalInterface.addCallback('changeLanguage', changeLanguage);
+            ExternalInterface.addCallback('successPayment', orderSuccessHandler);
+            ExternalInterface.addCallback('failPayment', orderFailHandler);
         }
         super(flashVars);
     }
@@ -268,6 +270,25 @@ public class SN_FB extends SocialNetwork  {
         return lang;
     }
 
+    private var orderPackID:int = 0;
+    override public function showOrderWindow(e:Object):void {
+        if (g.isDebug) {
+            super.showOrderWindow(e);
+            return;
+        }
+        orderPackID = e.id;
+        ExternalInterface.call("makePayment", e.id);
+        super.showOrderWindow(e);
+    }
+
+    private function orderFailHandler():void {
+        super.orderFail();
+    }
+
+    private function orderSuccessHandler():void {
+        g.directServer.onFBTransaction(null, 1, orderPackID);
+        super.orderSuccess();
+    }
 
 }
 }
