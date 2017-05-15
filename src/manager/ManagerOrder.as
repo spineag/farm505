@@ -71,7 +71,7 @@ public class ManagerOrder {
         updateMaxCounts();
         if (g.user.level < 3) return;
         if (_arrOrders.length < _curMaxCountOrders) {
-            addNewOrders(_curMaxCountOrders - _arrOrders.length);
+            addNewOrders(_curMaxCountOrders - _arrOrders.length,0,null,-1);
             checkForNewCats();
         }
     }
@@ -1146,7 +1146,8 @@ public class ManagerOrder {
     private function getFreePlace():int {
         var k:int;
         var find:Boolean;
-        for (var i:int=1; i < _curMaxCountOrders+1; i++) {
+        var count:int = _curMaxCountOrders +1;
+        for (var i:int=1; i < count; i++) {
             find = true;
             for (k=0; k<_arrOrders.length; k++) {
                 if (_arrOrders[k].placeNumber == i) {
