@@ -51,22 +51,16 @@ import social.SocialNetworkSwitch;
 import starling.core.Starling;
 import starling.display.Stage;
 import temp.catCharacters.DataCat;
-import temp.dataTemp.DataAnimal;
 import temp.dataTemp.DataLevel;
-import temp.dataTemp.DataRecipe;
-import temp.dataTemp.DataResources;
-import temp.dataTemp.DataBuildings;
 import temp.deactivatedArea.DeactivatedAreaManager;
 import temp.EditorButtonInterface;
 import temp.MapEditorInterface;
 import tutorial.IManagerTutorial;
-import tutorial.ManagerTutorial;
 import tutorial.helpers.ManagerHelpers;
 import tutorial.managerCutScenes.ManagerCutScenes;
 import tutorial.miniScenes.ManagerMiniScenes;
 import tutorial.newTuts.ManagerTutorialNew;
 import tutorial.tips.ManagerTips;
-
 import ui.achievementPanel.AchievementPanel;
 import ui.bottomInterface.MainBottomPanel;
 import ui.catPanel.CatPanel;
@@ -87,13 +81,11 @@ import user.UserTimer;
 import user.UserValidateResources;
 import utils.FarmDispatcher;
 import utils.Utils;
-
 import windows.WindowsManager;
 import build.WorldObject;
 import build.ambar.Ambar;
 import com.junkbyte.console.Cc;
 import dragonBones.animation.WorldClock;
-import temp.TestTime;
 
 public class Vars {
     private static var _instance:Vars;
@@ -163,7 +155,6 @@ public class Vars {
     public var wildHint:WildHint;
     public var hint:Hint;
     public var buyHint:BuyHint;
-//    public var farmHint:FarmHint;
     public var mouseHint:MouseHint;
     public var fabricHint:FabricHint;
     public var treeHint:TreeHint;

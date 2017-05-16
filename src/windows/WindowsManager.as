@@ -124,9 +124,7 @@ public class WindowsManager {
 
     public function WindowsManager() {}
 
-    public function get currentWindow():WindowMain {
-        return _currentWindow;
-    }
+    public function get currentWindow():WindowMain { return _currentWindow;}
 
     public function openWindow(type:String, callback:Function=null, ...params):void {
         if (_currentWindow) {
