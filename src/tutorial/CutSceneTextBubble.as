@@ -16,6 +16,7 @@ import starling.utils.Color;
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
+import utils.SimpleArrow;
 
 public class CutSceneTextBubble {
     public static var SMALL:int = 1;
@@ -35,6 +36,7 @@ public class CutSceneTextBubble {
     private var g:Vars = Vars.getInstance();
     private var _btnUrl:String;
     private var _imageBtn:CSprite;
+    private var _arrow:SimpleArrow;
 
     public function CutSceneTextBubble(p:Sprite, type:int, stURL:String = '', btnUrl:String = '') {
         _type = type;
@@ -187,6 +189,11 @@ public class CutSceneTextBubble {
             _btnExit.y = im.y + 35;
             _source.addChild(_btnExit);
         }
+        if (_imageBtn && _btnUrl != '') {
+            _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
+            _arrow.scaleIt(.5);
+            _arrow.animateAtPosition(_imageBtn.x + _imageBtn.width/2 + 20, _imageBtn.y);
+        }
     }
 
     public function hideBubble(f:Function, f2:Function):void {
@@ -194,6 +201,7 @@ public class CutSceneTextBubble {
             _dustRectangle.deleteIt();
             _dustRectangle = null;
         }
+        deleteArrow();
         TweenMax.to(_source, .2, {scaleX: .1, scaleY: .1, onComplete: directHide, onCompleteParams: [f, f2]});
     }
 
@@ -244,6 +252,13 @@ public class CutSceneTextBubble {
         if (_innerImage) {
             _innerImage.dispose();
             _innerImage = null;
+        }
+    }
+
+    private function deleteArrow():void {
+        if (_arrow) {
+            _arrow.deleteIt();
+            _arrow = null;
         }
     }
 }

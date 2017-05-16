@@ -10,14 +10,11 @@ import build.farm.Farm;
 import build.ridge.Ridge;
 import build.tutorialPlace.TutorialPlace;
 import build.wild.Wild;
-
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import flash.geom.Point;
 import mouse.ToolsModifier;
 import particle.tuts.DustRectangle;
-
-import tutorial.AfterTutorialWindow;
 import tutorial.CutScene;
 import tutorial.IManagerTutorial;
 import tutorial.TutorialAction;
@@ -364,35 +361,25 @@ public class ManagerTutorialNew extends IManagerTutorial{
 
     private function initScene_9():void {
         _subStep=0;
+        _currentAction = TutorialAction.NEW_RIDGE;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep9_2, 0, '', 'main_panel_bt_shop');
         addBlackUnderInterface();
+        var ob:Object = g.bottomPanel.getShopButtonProperties();
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
+        g.bottomPanel.tutorialCallback = subStep9_2;
     }
 
-    private function subStep9_2():void {
+    private function subStep9_2(fromShop:Boolean = false):void {
         _subStep = 2; //  need for shop == 2
+        g.bottomPanel.tutorialCallback = null;
         cutScene.hideIt(deleteCutScene);
-        _currentAction = TutorialAction.NEW_RIDGE;
+        deleteArrowAndDust();
         _tutorialResourceIDs = [11];
-//        var ob:Object = g.bottomPanel.getShopButtonProperties();
-//        g.bottomPanel.addArrow('shop');
-//        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-//        g.bottomPanel.tutorialCallback = subStep9_2a;
-//        g.bottomPanel.activateShopButtonHoverAnimation(true);
-
-        subStep9_2a();
-    }
-
-    private function subStep9_2a():void {
-        _subStep = 22;
         removeBlack();
-//        g.bottomPanel.deleteArrow();
-//        g.bottomPanel.activateShopButtonHoverAnimation(false);
-//        deleteArrowAndDust();
         _onShowWindowCallback = subStep9_3;
-
-        g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.VILLAGE);
+        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.VILLAGE);
     }
 
     private function subStep9_3():void {
@@ -581,36 +568,26 @@ public class ManagerTutorialNew extends IManagerTutorial{
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep11_1, 0, '', 'main_panel_bt_shop');
-        _tutorialCallback = null;
+        g.bottomPanel.tutorialCallback = subStep11_1;
         addBlackUnderInterface();
+        var ob:Object = g.bottomPanel.getShopButtonProperties();
+        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
     }
 
-    private function subStep11_1():void {
+    private function subStep11_1(fromShop:Boolean = false):void {
         _subStep = 1;
+        deleteArrowAndDust();
+        g.bottomPanel.tutorialCallback = null;
         cutScene.hideIt(deleteCutScene);
         _tutorialResourceIDs = [1];
-//        var ob:Object = g.bottomPanel.getShopButtonProperties();
-//        g.bottomPanel.addArrow('shop');
-//        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-//        g.bottomPanel.tutorialCallback = subStep11_2;
-//        g.bottomPanel.activateShopButtonHoverAnimation(true);
+        removeBlack();
+        _onShowWindowCallback = subStep11_2;
 
-        subStep11_2();
+        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
     }
 
     private function subStep11_2():void {
-        removeBlack();
-//        g.bottomPanel.deleteArrow();
-//        g.bottomPanel.activateShopButtonHoverAnimation(false);
         _subStep = 2;
-//        deleteArrowAndDust();
-        _onShowWindowCallback = subStep11_3;
-
-        g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.ANIMAL);
-    }
-
-    private function subStep11_3():void {
-        _subStep = 3;
         _onShowWindowCallback = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {
             var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_tutorialResourceIDs[0]);
@@ -618,22 +595,22 @@ public class ManagerTutorialNew extends IManagerTutorial{
             _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, g.cont.popupCont);
             _arrow.scaleIt(.7);
             _arrow.animateAtPosition(ob.x + ob.width/2, ob.y + ob.height - 15);
-            _tutorialCallback = subStep11_4;
+            _tutorialCallback = subStep11_3;
         } else {
             Cc.error('wo_SHOP is not opened');
         }
     }
 
-    private function subStep11_4():void {
-        _subStep = 4;
+    private function subStep11_3():void {
+        _subStep = 3;
         _tutorialCallback = null;
         _currentAction = TutorialAction.NONE;
         deleteArrowAndDust();
-        Utils.createDelay(3, subStep11_5);
+        Utils.createDelay(3, subStep11_4);
     }
 
-    private function subStep11_5():void {
-        _subStep = 5;
+    private function subStep11_4():void {
+        _subStep = 4;
         g.user.tutorialStep = 12;
         updateTutorialStep();
         initScenes();
@@ -641,7 +618,6 @@ public class ManagerTutorialNew extends IManagerTutorial{
 
     private function initScene_12():void {
         g.toolsModifier.modifierType = ToolsModifier.NONE;
-        _currentAction = TutorialAction.BUY_FABRICA;
         if (!cutScene) cutScene = new CutScene();
         if (!texts) texts = (new TutorialTextsNew()).objText;
         _subStep = 0;
@@ -651,31 +627,24 @@ public class ManagerTutorialNew extends IManagerTutorial{
             g.cont.moveCenterToPos(30, 11, false, 2);
             subStep12_4();
         } else {
+            _currentAction = TutorialAction.BUY_FABRICA;
             addBlackUnderInterface();
-            cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep12_1a, 0, '', 'main_panel_bt_shop'); //-
+            cutScene.showIt(texts[g.user.tutorialStep][_subStep], String(g.managerLanguage.allTexts[532]), subStep12_1a, 0, '', 'main_panel_bt_shop');
+            g.bottomPanel.tutorialCallback = subStep12_1a;
+            var ob:Object = g.bottomPanel.getShopButtonProperties();
+            _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
         }
     }
 
-    private function subStep12_1a():void {
+    private function subStep12_1a(fromShop:Boolean = false):void {
         _subStep = 12;
         cutScene.hideIt(deleteCutScene);
-//        var ob:Object = g.bottomPanel.getShopButtonProperties();
-//        g.bottomPanel.addArrow('shop');
-//        _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
-//        g.bottomPanel.tutorialCallback = subStep12_1;
-//        g.bottomPanel.activateShopButtonHoverAnimation(true);
-        subStep12_1();
-    }
-
-    private function subStep12_1():void {
+        deleteArrowAndDust();
+        g.bottomPanel.tutorialCallback = null;
         removeBlack();
         _subStep = 1;
-//        g.bottomPanel.deleteArrow();
-//        g.bottomPanel.activateShopButtonHoverAnimation(false);
-//        deleteArrowAndDust();
         _onShowWindowCallback = subStep12_2;
-
-        g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.FABRICA);
+        if (!fromShop) g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, WOShop.FABRICA);
     }
 
     private function subStep12_2():void {
