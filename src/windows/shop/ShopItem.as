@@ -104,11 +104,11 @@ public class ShopItem {
         source.addChild(_countTxt);
         _countTxt.visible = false;
 
-        _countBoxTxt = new CTextField(100, 30, '');
+        _countBoxTxt = new CTextField(120, 30, '');
         _countBoxTxt.setFormat(CTextField.BOLD18, 12, Color.YELLOW, ManagerFilters.BROWN_COLOR);
         _countBoxTxt.cacheIt = false;
-        _countBoxTxt.y = 130;
-        _countBoxTxt.x = 20;
+        _countBoxTxt.y = 118;
+        _countBoxTxt.x = 15;
         source.addChild(_countBoxTxt);
         _countBoxTxt.visible = false;
 

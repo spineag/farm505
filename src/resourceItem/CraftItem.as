@@ -23,6 +23,8 @@ import mouse.ToolsModifier;
 
 import particle.CraftItemParticle;
 
+import quest.ManagerQuest;
+
 import social.SocialNetworkSwitch;
 
 import starling.core.Starling;
@@ -107,6 +109,8 @@ public class CraftItem {
     
     private function onStart():void {
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.NONE;
+        g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:_resourceItem.resourceID});
+        g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:_resourceItem.resourceID});
         g.cont.deleteDragPoint();
     }
 

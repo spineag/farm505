@@ -270,8 +270,15 @@ public class MainBottomPanel {
                         _tutorialCallback.apply();
                     }
                 }
+//                _questBoolean = true;
+//                _questBuilId = resourceId;
+//                _typeHelp = typeId;
                 if (_questBoolean) {
                     if (_typeHelp == HelperReason.REASON_BUY_ANIMAL) shopTab = WOShop.ANIMAL;
+                    else if (_typeHelp == HelperReason.REASON_BUY_FABRICA) shopTab = WOShop.FABRICA;
+                    else if (_typeHelp == HelperReason.REASON_BUY_FARM) shopTab = WOShop.VILLAGE;
+                    else if (_typeHelp == HelperReason.REASON_BUY_HERO) shopTab = WOShop.VILLAGE;
+                    else if (_typeHelp == HelperReason.REASON_BUY_RIDGE) shopTab = WOShop.VILLAGE;
                 }
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
                 if (g.managerHelpers && g.managerHelpers.isActiveHelper) {

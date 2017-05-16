@@ -12,6 +12,9 @@ import manager.Vars;
 import manager.hitArea.ManagerHitArea;
 import manager.hitArea.OwnHitArea;
 import preloader.miniPreloader.FlashAnimatedPreloader;
+
+import quest.ManagerQuest;
+
 import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Quad;
@@ -396,6 +399,7 @@ public class WorldObject {
     }
 
     protected function clearBuildingBuildSprite():void {
+        g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:_dataBuild.id});
         if (_buildingBuildSprite) {
             while (_buildingBuildSprite.numChildren) _buildingBuildSprite.removeChildAt(0);
             if (_buildingBuild) {
