@@ -77,7 +77,6 @@ public class WOAchievement extends WindowMain{
         _scrollSprite.source.x = -325;
         _scrollSprite.source.y = -195;
         _source.addChild(_scrollSprite.source);
-
         super.showIt();
     }
 
@@ -85,10 +84,18 @@ public class WOAchievement extends WindowMain{
         if (g.managerTutorial.isTutorial) return;
         g.managerMiniScenes.onHideOrder();
         hideIt();
+    }
+
+    override public function hideIt():void {
+        var arr:Array;
         if (!g.managerAchievement.checkAchievement()) {
-            var arr:Array = g.townArea.getCityObjectsByType(BuildType.ACHIEVEMENT);
+            arr = g.townArea.getCityObjectsByType(BuildType.ACHIEVEMENT);
             arr[0].onTimer(false);
+        } else {
+            arr = g.townArea.getCityObjectsByType(BuildType.ACHIEVEMENT);
+            arr[0].onTimer();
         }
+        super.hideIt();
     }
 }
 }

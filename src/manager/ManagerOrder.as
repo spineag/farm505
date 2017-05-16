@@ -70,9 +70,13 @@ public class ManagerOrder {
     public function checkOrders():void {
         updateMaxCounts();
         if (g.user.level < 3) return;
-        if (_arrOrders.length < _curMaxCountOrders) {
+        var f1:Function = function():void {
             addNewOrders(_curMaxCountOrders - _arrOrders.length,0,null,-1);
             checkForNewCats();
+        };
+
+        if (_arrOrders.length < _curMaxCountOrders) {
+            Utils.createDelay(3,f1);
         }
     }
 
@@ -313,10 +317,6 @@ public class ManagerOrder {
 
         for (i = 0; i < n; i++) {
             if (_arrOrders && !g.managerTutorial.isTutorial && _arrOrders.length > 0) {
-                order = new ManagerOrderItem();
-                order.resourceIds = [];
-                order.resourceCounts = [];
-                order.addCoupone = false;
                 for (i = 0; i < _arrOrders.length; i++) {
                     if (_arrOrders[i].fasterBuy == true) {
                         countFastBuyer++;
@@ -324,7 +324,7 @@ public class ManagerOrder {
                 }
             } else countFastBuyer = 1;
 //            countFastBuyer = 1;
-            if (countFastBuyer == 0 && g.user.level < 10 && g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID ) {
+            if (countFastBuyer == 0 && g.user.level < 10) {
 //               var countTemp:int = g.userInventory.getCountResourceById(168);
 //                    if (Math.random() < .5) {
 //                        if (countTemp > 6) countTemp = countTemp/2;
@@ -332,6 +332,10 @@ public class ManagerOrder {
 //                    } else {
 //                        countTemp += 4;
 //                    }
+                order = new ManagerOrderItem();
+                order.resourceIds = [];
+                order.resourceCounts = [];
+                order.addCoupone = false;
                 var ob:Object = addNewFaserOrders();
                 order.resourceIds.push(ob.id);
                 order.resourceCounts.push(ob.count);

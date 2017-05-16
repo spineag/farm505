@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:a04ab36266bec2201d2a0618f81db3c6:e8a65d9b2a8ef25ed3b3959ad87a6e39:87d64ae7b3043c3093d120a2e53e2fb6$ -->
+<!-- $TexturePacker:SmartUpdate:5d457b93aed9283a9f966d1f12704a2e:8bdc67ae582f7508ab9b6a06a388b647:87d64ae7b3043c3093d120a2e53e2fb6$ -->
 <TextureAtlas imagePath="interfaceAtlas.png" width="2047" height="728">
     <SubTexture name="Invite_friends_eng" x="1924" y="105" width="63" height="77"/>
     <SubTexture name="a_tr_blue" x="1073" y="511" width="90" height="89" frameX="0" frameY="-1" frameWidth="90" frameHeight="90"/>

@@ -245,7 +245,7 @@ public class ManagerAchievement {
             for (var i:int = 0; i < userAchievement.length; i++) {
                 for (var k:int = 0; k < dataAchievement.length; k++) {
                     for (var j:int = 0; j < dataAchievement[k].countToGift.length; j++) {
-                        if (userAchievement[i].id >= dataAchievement[k].id && userAchievement[i].resourceCount >= int(dataAchievement[k].countToGift[j]) && !userAchievement[i].tookGift[j] && Boolean(userAchievement[i].showPanel) == false) {
+                        if (userAchievement[i].id == dataAchievement[k].id && userAchievement[i].resourceCount >= int(dataAchievement[k].countToGift[j]) && Boolean(userAchievement[i].tookGift[j]) == false && Boolean(userAchievement[i].showPanel) == false) {
                             b = true;
                             break;
                         }

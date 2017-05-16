@@ -46,12 +46,14 @@ public class StartPreloader {
         _quad = new Quad(3, 3, 0x33a2f4);
         _quad.x = 327;
         _quad.y = 569;
+        _quad.visible = false;
         _source.addChild(_quad);
         _txt = new CTextField(75,50,'0');
         _txt.setFormat(CTextField.BOLD24, 24, 0x0659b6);
         _source.addChild(_txt);
         _txt.x = 453;
         _txt.y = 502;
+        _txt.visible = false;
 //        createBitmap();
 //        addIms();
         addBG();
@@ -78,7 +80,8 @@ public class StartPreloader {
         (g.pBitmaps[_jpgUrl] as PBitmap).deleteIt();
         delete g.pBitmaps[_jpgUrl];
         g.load.removeByUrl(_jpgUrl);
-
+        _txt.visible = true;
+        _quad.visible = true;
         onResize();
         if (_callbackInit != null) {
             _callbackInit.apply();

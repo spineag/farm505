@@ -81,8 +81,8 @@ public class WOStarterPack extends WindowMain{
 //        txt.x = -190;
         txt.x = -txt.textBounds.width/2 + 20;
         txt.y = -250;
-        _source.addChild(txt);
-        _arrCTex.push(txt);
+//        _source.addChild(txt);
+//        _arrCTex.push(txt);
 
         txt = new CTextField(77, 40, String(_data.soft_count));
         txt.setFormat(CTextField.BOLD24, 28, Color.WHITE, ManagerFilters.BLUE_COLOR);

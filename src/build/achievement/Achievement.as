@@ -50,6 +50,7 @@ public class Achievement extends WorldObject {
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
         if (g.managerAchievement.checkAchievement()) onTimer();
+        else onTimer(false);
     }
 
     private function onClick():void {

@@ -64,6 +64,7 @@ public class AchievementPanel {
             }
             var arr:Array = g.townArea.getCityObjectsByType(BuildType.ACHIEVEMENT);
             if (g.managerAchievement.checkAchievement()) arr[0].onTimer();
+            else arr[0].onTimer(false);
         };
         if (!g.craftPanel.isShow) f1();
         else Utils.createDelay(4,f1);

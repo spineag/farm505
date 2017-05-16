@@ -18,6 +18,7 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
 
 import tutorial.TutorialAction;
@@ -63,7 +64,7 @@ public class WildHint {
         _btn = new CButton();
         _isShowed = false;
         _isOnHover = false;
-        bg = new HintBackground(120, 104, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
+        bg = new HintBackground(120, 125, HintBackground.SMALL_TRIANGLE, HintBackground.BOTTOM_CENTER);
         _source.addChild(bg);
         _source.addChild(_btn);
         _bgItem = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_blue_d'));
@@ -71,9 +72,10 @@ public class WildHint {
         _circle = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cursor_number_circle'));
         _txtCount = new CTextField(30,30,"");
         _txtCount.setFormat(CTextField.BOLD18, 16, Color.WHITE);
-        _txtName = new CTextField(100,50,"");
+        _txtName = new CTextField(120,50,"");
         _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtName.x = -50;
+//        _txtName.alignH = Align.LEFT;
+        _txtName.x = -60;
         _txtName.y = -150;
         _circle.x = int(_bgItem.width/2) - 20;
         _circle.y = -int(_bgItem.height) - 50;
