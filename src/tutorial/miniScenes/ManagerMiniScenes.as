@@ -436,6 +436,8 @@ public class ManagerMiniScenes {
     private function letGo_2():void {
         deleteArrowAndDust();
         isMiniScene = false;
+        _curMiniScenePropertie = null;
+        _miniSceneCallback = null;
     }
 
 //    g.directServer.getUserNeighborMarket(null);    ?????
@@ -510,8 +512,16 @@ public class ManagerMiniScenes {
         g.user.miniScenes[5] = 1;
         isMiniScene = false;
         saveUserMiniScenesData();
-       deleteArrowAndDust();
+        deleteArrowAndDust();
         isMiniScene = false;
+        _miniSceneCallback = null;
+        g.bottomPanel.addArrow('home');
+    }
+
+    public function finishLetGoToNeighbor():void {
+        deleteArrowAndDust();
+        isMiniScene = false;
+        _curMiniScenePropertie = null;
         _miniSceneCallback = null;
     }
 }

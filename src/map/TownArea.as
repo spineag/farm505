@@ -1574,7 +1574,9 @@ public class TownArea extends Sprite {
             g.managerOrderCats.removeAwayCats();
             clearAwayCity();
         } else {
-            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.managerMiniScenes.checkMiniSceneCallback();
+            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) {
+                g.managerMiniScenes.checkMiniSceneCallback();
+            }
             g.managerLohmatic.onGoAway();
             g.cont.craftAwayCont.visible = true;
             g.cont.craftCont.visible = false;

@@ -25,6 +25,7 @@ import starling.display.Sprite;
 import starling.text.TextField;
 
 import tutorial.TutorialAction;
+import tutorial.miniScenes.ManagerMiniScenes;
 
 import user.NeighborBot;
 
@@ -413,6 +414,7 @@ public class FriendPanel {
     private function onLeftClick():void {
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) return;
+        if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.managerMiniScenes.finishLetGoToNeighbor();
         var newCount:int = 5;
         if (_shift - newCount < 0) newCount = _shift;
         _shift -= newCount;

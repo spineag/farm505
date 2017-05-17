@@ -117,6 +117,7 @@ public class FriendItem {
     }
 
     private function visitPerson():void {
+        g.bottomPanel.deleteArrow();
         if (g.managerMiniScenes.isMiniScene && (g.managerMiniScenes.isReason(ManagerMiniScenes.BUY_ORDER) || g.managerMiniScenes.isReason(ManagerMiniScenes.OPEN_ORDER))) return;
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.visitedUser && g.visitedUser == _person) return;

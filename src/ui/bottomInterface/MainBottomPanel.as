@@ -225,11 +225,10 @@ public class MainBottomPanel {
             case 'shop':
                 if (g.managerTutorial.isTutorial) {
                     if (g.managerTutorial.currentAction == TutorialAction.BUY_ANIMAL || g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA
-                        || TutorialAction.NEW_RIDGE) {
+                        || g.managerTutorial.currentAction == TutorialAction.NEW_RIDGE) {
                     } else return;
                 } else if (g.managerCutScenes.isCutScene) {
                     if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR)) {
-
                     } else return;
                 }
                 if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
@@ -318,6 +317,7 @@ public class MainBottomPanel {
                 }
                 break;
             case 'tools':
+                if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) g.managerMiniScenes.finishLetGoToNeighbor();
                 g.managerHelpers.onUserAction();
                 if (g.managerCutScenes.isCutScene)  {
                     if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR)) {
@@ -384,6 +384,7 @@ public class MainBottomPanel {
                         g.managerTutorial.checkTutorialCallback();
                     } else return;
                 }
+                deleteArrow();   
                 if (g.isAway) g.townArea.backHome();
                 g.catPanel.visibleCatPanel(true);
                 if (g.partyPanel) g.partyPanel.visiblePartyPanel(true);
