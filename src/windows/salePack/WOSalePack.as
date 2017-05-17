@@ -116,7 +116,7 @@ public class WOSalePack extends WindowMain{
         _txtOldCost.x = -110;
 //        _source.addChild(_txtOldCost);
 
-        _txtNewCost = new CTextField(200,60,'за ' + String(g.managerSalePack.dataSale.newCost) + st);
+        _txtNewCost = new CTextField(200,60,String(g.managerLanguage.allTexts[329]) + ' ' + String(g.managerSalePack.dataSale.newCost) + st);
         _txtNewCost.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtNewCost.y = 110;
         _txtNewCost.x = -110;
@@ -199,7 +199,7 @@ public class WOSalePack extends WindowMain{
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_SUCCESS, orderWindowSuccessHandler);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
-        Cc.info('Seccuss for buy pack');
+        Cc.info('Success for buy pack');
         onBuy();
     }
 

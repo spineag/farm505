@@ -7525,8 +7525,8 @@ public class DirectServer {
         for (k = 0; k < obj.objectType.length; k++) obj.objectType[k] = int(obj.objectType[k]);
         if (d.message.object_count) obj.objectCount = String(d.message.object_count).split('&');
         for (k = 0; k < obj.objectCount.length; k++) obj.objectCount[k] = int(obj.objectCount[k]);
-        obj.oldCost = int(d.message.old_cost);
-        obj.newCost = int(d.message.new_cost);
+        obj.oldCost = Number(d.message.old_cost);
+        obj.newCost = Number(d.message.new_cost);
         obj.timeToStart = int(d.message.time_to_start);
         obj.timeToEnd = int(d.message.time_to_end);
         if (!g.user.salePack && (obj.timeToEnd - int(new Date().getTime() / 1000)) > 0 && (obj.timeToStart - int(new Date().getTime() / 1000)) <= 0) g.userTimer.saleToEnd(obj.timeToEnd - int(new Date().getTime() / 1000));

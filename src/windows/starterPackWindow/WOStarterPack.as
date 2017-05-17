@@ -174,7 +174,7 @@ public class WOStarterPack extends WindowMain{
         _source.addChild(txt);
         _arrCTex.push(txt);
 
-        txt = new CTextField(160, 40, String(g.managerLanguage.allTexts[329]) + ' ' +String(_data.new_cost) + st);
+        txt = new CTextField(160, 40, String(g.managerLanguage.allTexts[329]) + ' ' + String(_data.new_cost) + st);
         txt.setFormat(CTextField.BOLD30, 26, ManagerFilters.BLUE_COLOR);
         txt.x = -100;
         txt.y = 80;
