@@ -122,7 +122,7 @@ public class WOBuyPlantItem {
                     im.x = _icon.width - im.width/2 + 3;
                     im.y = _icon.y -14;
                     source.addChild(im);
-                    g.user.fabricItemNotification.splice(i);
+//                    g.user.fabricItemNotification.splice(i);
                 }
             }
         }
@@ -202,6 +202,14 @@ public class WOBuyPlantItem {
         g.fabricHint.hideIt();
         if (_clickCallback != null) {
             _clickCallback.apply(null, [_dataPlant]);
+        }
+        if (g.user.fabricItemNotification.length > 0) {
+            var arr:Array = g.user.fabricItemNotification;
+            for (var i:int = 0; i < arr.length; i++){
+                if (arr[i].id == _dataPlant.id) {
+                    g.user.fabricItemNotification.splice(i);
+                }
+            }
         }
     }
 
