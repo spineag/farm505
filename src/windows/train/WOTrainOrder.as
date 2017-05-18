@@ -51,15 +51,15 @@ public class WOTrainOrder extends WindowMain{
         _btn.addButtonTexture(172, 50, CButton.GREEN, true);
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("rubins_small"));
         im.y = 10;
-        im.x = 35;
+        im.x = 125;
         _btn.addDisplayObject(im);
         _txtNow = new CTextField(100,50,String(g.managerLanguage.allTexts[302]));
         _txtNow.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _txtNow.x = 60;
+        _txtNow.x = 5;
         _btn.addChild(_txtNow);
         _txtCost = new CTextField(50,50,"30");
         _txtCost.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-        _txtCost.x = -5;
+        _txtCost.x = 85;
         _btn.addChild(_txtCost);
         _btn.y = 110;
         _btn.clickCallback = onClickBtn;

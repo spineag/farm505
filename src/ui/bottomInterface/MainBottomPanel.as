@@ -279,6 +279,8 @@ public class MainBottomPanel {
                     else if (_typeHelp == HelperReason.REASON_BUY_FARM) shopTab = WOShop.VILLAGE;
                     else if (_typeHelp == HelperReason.REASON_BUY_HERO) shopTab = WOShop.VILLAGE;
                     else if (_typeHelp == HelperReason.REASON_BUY_RIDGE) shopTab = WOShop.VILLAGE;
+                    else if (_typeHelp == HelperReason.REASON_BUY_DECOR) shopTab = WOShop.DECOR;
+                    else if (_typeHelp == HelperReason.REASON_BUY_TREE) shopTab = WOShop.PLANT;
                 }
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
                 if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
@@ -287,12 +289,12 @@ public class MainBottomPanel {
                 if (_questBoolean) {
                     _questBoolean = false;
                     (g.windowsManager.currentWindow as WOShop).deleteArrow();
-                    if (_typeHelp == HelperReason.REASON_BUY_FABRICA ) {
+                    if (_typeHelp == HelperReason.REASON_BUY_FABRICA || _typeHelp == HelperReason.REASON_BUY_DECOR || _typeHelp == HelperReason.REASON_BUY_TREE) {
                         (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
                         (g.windowsManager.currentWindow as WOShop).addArrow(_questBuilId);
                     } else if (_typeHelp == HelperReason.REASON_BUY_HERO) {
                         (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0);
-                    } else if (_typeHelp == HelperReason.REASON_BUY_ANIMAL ) {
+                    } else if (_typeHelp == HelperReason.REASON_BUY_ANIMAL) {
                         (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
                         (g.windowsManager.currentWindow as WOShop).addArrow(_questBuilId);
                     }

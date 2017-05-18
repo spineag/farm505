@@ -453,10 +453,18 @@ public class ShopList {
     }
     
     public function addArrow(_id:int):void {
-        for (var i:int=0; i<_currentShopArr.length; i++) {
+        for (var i:int = 0; i < _currentShopArr.length; i++) {
             if (_currentShopArr[i].id == _id) {
-                _arrItems[i].addArrow();
-                break;
+                if (_arrItems[i]) _arrItems[i].addArrow();
+                else {
+                    for (var j:int = 0; j < _arrItems.length; j++) {
+                        if (_arrItems[j].id == _id) {
+                            _arrItems[j].addArrow();
+                            return;
+                        }
+                    }
+                    break;
+                }
             }
         }
     }

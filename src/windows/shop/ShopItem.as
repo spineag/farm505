@@ -1128,6 +1128,10 @@ public class ShopItem {
         TweenMax.to(_imCont, .3, {scaleX: 1, scaleY:1, ease:Quad.easeIn});
     }
 
+    public function get id():int {
+        return _data.id;
+    }
+
     public function deleteIt():void {
         if (_imCont) {
             TweenMax.killTweensOf(_imCont);

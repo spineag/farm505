@@ -299,6 +299,17 @@ public class WOLevelUp extends WindowMain {
         hideIt();
     }
 
+    override public function hideIt():void {
+        super.hideIt();
+        if (g.user.level == 8 && !g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
+//        if (g.user.level >= 17) g.couponePanel.openPanel(true);
+//        _txtLevel.text = String(g.user.level);
+//        createList();
+//        onWoShowCallback = onShow;
+////        super.showIt();
+//        _source.y -= 40;
+    }
+
     private function onLeftClick():void {
         _shift -= 5;
         if (_shift < 0) _shift = 0;
@@ -352,7 +363,30 @@ public class WOLevelUp extends WindowMain {
         for (i=0; i<arR.length; i++) {
             if (arR[i].buildType == BuildType.INSTRUMENT) continue;
             if (g.user.level == arR[i].blockByLevel) {
-                arr.push(arR[i]);
+                objDataLevel = {};
+                objDataLevel.id = arR[i].id;
+                objDataLevel.blockByLevel = arR[i].blockByLevel;
+                objDataLevel.priceHard = arR[i].priceHard;
+                objDataLevel.name = arR[i].name;
+                objDataLevel.image = arR[i].image;
+                objDataLevel.url = arR[i].url;
+                objDataLevel.imageShop = arR[i].imageShop;
+                objDataLevel.currency = arR[i].currency;
+                objDataLevel.costDefault = arR[i].costDefault;
+                objDataLevel.costMax = arR[i].costMax;
+                objDataLevel.orderPrice = arR[i].orderPrice;
+                objDataLevel.orderXP = arR[i].orderXP;
+                objDataLevel.visitorPrice = arR[i].visitorPrice;
+                objDataLevel.buildType = arR[i].buildType;
+                objDataLevel.placeBuild = arR[i].placeBuild;
+                objDataLevel.orderType = arR[i].orderType;
+                objDataLevel.opys = arR[i].opys;
+                objDataLevel.priceSkipHard = arR[i].priceSkipHard;
+                objDataLevel.buildTime = arR[i].buildTime;
+                objDataLevel.craftXP = arR[i].craftXP;
+                objDataLevel.priority = 10;
+                arr.push(objDataLevel);
+//                arr.push(arR[i]);
             }
         }
         arR = g.allData.building;
@@ -361,18 +395,102 @@ public class WOLevelUp extends WindowMain {
                 if (arR[i].buildType == BuildType.TREE || arR[i].buildType == BuildType.FARM || arR[i].buildType == BuildType.FABRICA) {
                     for (k = 0; k < arR[i].blockByLevel.length; k++) {
                         if (g.user.level == arR[i].blockByLevel[k]) {
-                            arr.push(arR[i]);
+                            objDataLevel = {};
+                            objDataLevel.blockByLevel = arR[i].blockByLevel;
+                            objDataLevel.buildTime = arR[i].buildTime;
+                            objDataLevel.buildType = arR[i].buildType;
+                            objDataLevel.catNeed = arR[i].catNeed;
+                            objDataLevel.color =  arR[i].color;
+                            objDataLevel.cost = arR[i].cost;
+                            objDataLevel.currency = arR[i].currency;
+                            objDataLevel.deltaCost = arR[i].deltaCost;
+                            objDataLevel.filterType = arR[i].filterType;
+                            objDataLevel.group = arR[i].group;
+                            objDataLevel.height = arR[i].height;
+                            objDataLevel.id = arR[i].id;
+                            objDataLevel.image = arR[i].image;
+                            objDataLevel.innerX = arR[i].innerX;
+                            objDataLevel.innerY = arR[i].innerY;
+                            objDataLevel.maxAnimalsCount = arR[i].maxAnimalsCount;
+                            objDataLevel.name = arR[i].name;
+                            objDataLevel.priceSkipHard = arR[i].priceSkipHard;
+                            objDataLevel.startCountCell = arR[i].startCountCell;
+                            objDataLevel.url = arR[i].url;
+                            objDataLevel.visibleAction = arR[i].visibleAction;
+                            objDataLevel.visibleTester = arR[i].visibleTester;
+                            objDataLevel.width = arR[i].width;
+                            objDataLevel.xpForBuild = arR[i].xpForBuild;
+                            objDataLevel.countUnblock = arR[i].countUnblock;
+                            objDataLevel.craftIdResource = arR[i].craftIdResource;
+                            objDataLevel.countCraftResource = arR[i].countCraftResource;
+                            objDataLevel.removeByResourceId = arR[i].removeByResourceId;
+                            objDataLevel.startCountResources = arR[i].startCountResources;
+                            objDataLevel.deltaCountResources = arR[i].deltaCountResources;
+                            objDataLevel.startCountInstrumets = arR[i].startCountInstrumets;
+                            objDataLevel.deltaCountAfterUpgrade = arR[i].deltaCountAfterUpgrade;
+                            objDataLevel.upInstrumentId1 = arR[i].upInstrumentId1;
+                            objDataLevel.upInstrumentId2 = arR[i].upInstrumentId2;
+                            objDataLevel.upInstrumentId3 = arR[i].upInstrumentId3;
+                            objDataLevel.imageActive = arR[i].imageActive;
+                            objDataLevel.idResource = arR[i].idResource;
+                            objDataLevel.idResourceRaw = arR[i].idResourceRaw;
+                            objDataLevel.variaty = arR[i].variaty;
+                            objDataLevel.priority = 15;
+                            arr.push(objDataLevel);
                             if (arR[i].buildType == BuildType.TREE) g.user.plantNotification++;
                             if (arR[i].buildType == BuildType.FARM) g.user.villageNotification++;
                             if (arR[i].buildType == BuildType.FABRICA) g.user.fabricaNotification++;
                         }
                     }
                 } else if (g.user.level == arR[i].blockByLevel && arR[i].visibleAction) {
+
+                    objDataLevel = {};
+                    objDataLevel.blockByLevel = arR[i].blockByLevel;
+                    objDataLevel.buildTime = arR[i].buildTime;
+                    objDataLevel.buildType = arR[i].buildType;
+                    objDataLevel.catNeed = arR[i].catNeed;
+                    objDataLevel.color =  arR[i].color;
+                    objDataLevel.cost = arR[i].cost;
+                    objDataLevel.currency = arR[i].currency;
+                    objDataLevel.deltaCost = arR[i].deltaCost;
+                    objDataLevel.filterType = arR[i].filterType;
+                    objDataLevel.group = arR[i].group;
+                    objDataLevel.height = arR[i].height;
+                    objDataLevel.id = arR[i].id;
+                    objDataLevel.image = arR[i].image;
+                    objDataLevel.innerX = arR[i].innerX;
+                    objDataLevel.innerY = arR[i].innerY;
+                    objDataLevel.maxAnimalsCount = arR[i].maxAnimalsCount;
+                    objDataLevel.name = arR[i].name;
+                    objDataLevel.priceSkipHard = arR[i].priceSkipHard;
+                    objDataLevel.startCountCell = arR[i].startCountCell;
+                    objDataLevel.url = arR[i].url;
+                    objDataLevel.visibleAction = arR[i].visibleAction;
+                    objDataLevel.visibleTester = arR[i].visibleTester;
+                    objDataLevel.width = arR[i].width;
+                    objDataLevel.xpForBuild = arR[i].xpForBuild;
+                    objDataLevel.countUnblock = arR[i].countUnblock;
+                    objDataLevel.craftIdResource = arR[i].craftIdResource;
+                    objDataLevel.countCraftResource = arR[i].countCraftResource;
+                    objDataLevel.removeByResourceId = arR[i].removeByResourceId;
+                    objDataLevel.startCountResources = arR[i].startCountResources;
+                    objDataLevel.deltaCountResources = arR[i].deltaCountResources;
+                    objDataLevel.startCountInstrumets = arR[i].startCountInstrumets;
+                    objDataLevel.deltaCountAfterUpgrade = arR[i].deltaCountAfterUpgrade;
+                    objDataLevel.upInstrumentId1 = arR[i].upInstrumentId1;
+                    objDataLevel.upInstrumentId2 = arR[i].upInstrumentId2;
+                    objDataLevel.upInstrumentId3 = arR[i].upInstrumentId3;
+                    objDataLevel.imageActive = arR[i].imageActive;
+                    objDataLevel.idResource = arR[i].idResource;
+                    objDataLevel.idResourceRaw = arR[i].idResourceRaw;
+                    objDataLevel.variaty = arR[i].variaty;
                     if (arR[i].buildType != BuildType.CAVE && arR[i].buildType != BuildType.TRAIN && arR[i].buildType != BuildType.PAPER && arR[i].buildType != BuildType.DAILY_BONUS
                             && arR[i].buildType != BuildType.ORDER && arR[i].buildType != BuildType.MARKET) {
                         g.user.decorNotification++;
-                    }
-                    arr.push(arR[i]);
+                        objDataLevel.priority = 25;
+                    } else objDataLevel.priority = 15;
+                    arr.push(objDataLevel);
+//                    arr.push(arR[i]);
                 }
             }
         }
@@ -380,12 +498,14 @@ public class WOLevelUp extends WindowMain {
             objDataLevel = {};
             objDataLevel.hard = true;
             objDataLevel.countHard = g.dataLevel.objectLevels[g.user.level].countHard;
+            objDataLevel.priority = 0;
             arr.push(objDataLevel);
         }
         if (g.dataLevel.objectLevels[g.user.level].countSoft > 0) {
             objDataLevel = {};
             objDataLevel.coins = true;
             objDataLevel.countSoft = g.dataLevel.objectLevels[g.user.level].countSoft;
+            objDataLevel.priority = 1;
             arr.push(objDataLevel);
         }
         if (g.dataLevel.objectLevels[g.user.level].decorId[0] > 0) {
@@ -394,6 +514,7 @@ public class WOLevelUp extends WindowMain {
                 objDataLevel.decorData = true;
                 objDataLevel.id = g.dataLevel.objectLevels[g.user.level].decorId[i];
                 objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countDecor[i];
+                objDataLevel.priority = 30;
                 arr.push(objDataLevel);
             }
         }
@@ -403,6 +524,7 @@ public class WOLevelUp extends WindowMain {
                 objDataLevel.resourceData = true;
                 objDataLevel.id = g.dataLevel.objectLevels[g.user.level].resourceId[i];
                 objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countResource[i];
+                objDataLevel.priority = 3;
                 arr.push(objDataLevel);
             }
         }
@@ -411,6 +533,7 @@ public class WOLevelUp extends WindowMain {
             objDataLevel.catCount = true;
             objDataLevel.id = -1;
             objDataLevel.count = g.dataLevel.objectLevels[g.user.level].catCount;
+            objDataLevel.priority = 4;
             arr.push(objDataLevel);
             g.user.villageNotification++;
         }
@@ -419,10 +542,12 @@ public class WOLevelUp extends WindowMain {
             objDataLevel.ridgeCount = true;
 //            objDataLevel.id = -2;
             objDataLevel.count = g.dataLevel.objectLevels[g.user.level].ridgeCount;
+            objDataLevel.priority = 5;
             arr.push(objDataLevel);
             g.user.villageNotification++;
         }
         var animal:StructureDataAnimal;
+        arr.sortOn("priority", Array.NUMERIC);
         for (i = 0; i < arr.length; i++) {
             if (arr[i].buildType == BuildType.FARM) {
                 animal = g.allData.getAnimalByFarmId(arr[i]);
@@ -436,6 +561,7 @@ public class WOLevelUp extends WindowMain {
             im.source.x = int(i) * (90);
             _arrCells.push(im);
             _contImage.addChild(im.source);
+//            objDataLevel.priority = 15;
         }
         if (_arrCells.length == 1) {
             _contImage.x = 200;

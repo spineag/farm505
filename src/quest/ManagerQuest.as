@@ -237,7 +237,17 @@ public class ManagerQuest {
                 break;
             case BUILD_BUILDING:
                 g.windowsManager.closeAllWindows();
-                g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_FABRICA);
+                    if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.FABRICA) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_FABRICA);
+                    else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_ANIMATION
+                            || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_TAIL || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_FENCE_GATE
+                            || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_FENCE_ARKA || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_FULL_FENСE
+                            || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_POST_FENCE) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_DECOR);
+                    else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.FARM) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_FARM);
+                    else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.ANIMAL) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_ANIMAL);
+                    else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.CAT) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_HERO);
+                    else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.RIDGE) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_RIDGE);
+                    else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.TREE) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_TREE);
+                    else g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_FABRICA);
 //                (g.windowsManager.currentWindow as WOShop).openOnResource(_activeTask.resourceId);
 //                (g.windowsManager.currentWindow as WOShop).addArrow(_activeTask.resourceId);
                 break;
