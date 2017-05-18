@@ -17,6 +17,9 @@ public class HelperReason {
     public static const REASON_BUY_ANIMAL:int = 10;
     public static const REASON_FEED_ANIMAL:int = 11;
     public static const REASON_WILD_DELETE:int = 12;
+    public static const REASON_BUY_DECOR:int = 13;
+    public static const REASON_BUY_TREE:int = 14;
+
     private var g:Vars = Vars.getInstance();
     private static var _arr:Array;
 

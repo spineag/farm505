@@ -2,6 +2,8 @@
  * Created by user on 7/22/15.
  */
 package windows.orderWindow {
+import com.greensock.TweenMax;
+import com.greensock.easing.Back;
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
@@ -28,6 +30,8 @@ import quest.ManagerQuest;
 
 import resourceItem.DropItem;
 import resourceItem.DropPartyResource;
+
+import starling.animation.Tween;
 
 import starling.display.DisplayObject;
 import starling.display.Image;
@@ -89,6 +93,9 @@ public class WOOrder extends WindowMain{
     private var _txtBtnSkip2:CTextField;
     private var _txtNagrada:CTextField;
     private var _txtBtnBuy:CTextField;
+    private var _srcBaloon:Sprite;
+    private var _imBaloon:Image;
+    private var _txtBaloon:CTextField;
 
     public function WOOrder() {
         super();
@@ -115,6 +122,8 @@ public class WOOrder extends WindowMain{
         createTopCats();
         _waitForAnswer = false;
         _rightBlock.visible = false;
+        _srcBaloon = new Sprite();
+        _source.addChild(_srcBaloon);
         _birka = new Birka(String(g.managerLanguage.allTexts[362]), _source, 764, 570);
     }
 
@@ -428,6 +437,13 @@ public class WOOrder extends WindowMain{
         if (_activeOrderItem) _activeOrderItem.activateIt(false);
         if (recheck > -1 && _activeOrderItem != item) return;
         clearResourceItems();
+        if (_imBaloon) {
+            _srcBaloon.removeChild(_imBaloon);
+            _srcBaloon.removeChild(_txtBaloon);
+            _imBaloon = null;
+            _txtBaloon.deleteIt();
+            _txtBaloon = null;
+        }
         _clickItem = true;
         _activeOrderItem = item;
         fillResourceItems(_activeOrderItem.getOrder());
@@ -710,6 +726,13 @@ public class WOOrder extends WindowMain{
             _source.removeChild(_arrResourceItems[i].source);
             _arrResourceItems[i].deleteIt();
         }
+        if (_imBaloon) {
+            _srcBaloon.removeChild(_imBaloon);
+            _srcBaloon.removeChild(_txtBaloon);
+            _imBaloon = null;
+            _txtBaloon.deleteIt();
+            _txtBaloon = null;
+        }
         if (_rightBlockTimerBG) {
             _rightBlockTimer.removeChild(_rightBlockTimerBG);
             _rightBlockTimerBG.filter = null;
@@ -954,6 +977,17 @@ public class WOOrder extends WindowMain{
             b.display = sp;
         } else {
             (b.displayList[0] as DisplayObject).visible = false;
+        }
+        if (g.user.isTester) {
+            _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
+            _srcBaloon.addChild(_imBaloon);
+            _txtBaloon = new CTextField(400, 157, "Gjdsdf");
+            _txtBaloon.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _srcBaloon.addChild(_txtBaloon);
+            _srcBaloon.scaleX = _srcBaloon.scaleY = 0;
+            _srcBaloon.x = (_armatureCustomer.display as StarlingArmatureDisplay).x + 30;
+            _srcBaloon.y = (_armatureCustomer.display as StarlingArmatureDisplay).y - 60;
+            new TweenMax(_srcBaloon, 1, {scaleX: .5, scaleY: .5, y: _srcBaloon + 83, ease: Back.easeOut});
         }
     }
 

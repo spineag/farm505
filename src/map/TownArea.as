@@ -864,17 +864,18 @@ public class TownArea extends Sprite {
             }
         }
         if (isNewAtMap) {
-//            g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
             if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor ||
                     worldObject is DecorFence || worldObject is DecorAnimation || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorFenceGate || worldObject is DecorFenceArka)
                 g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
             if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence 
                     || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorAnimation || worldObject is DecorFenceGate)
                 worldObject.addXP();
+                g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
             if (worldObject is Tree)
                 g.directServer.addUserBuilding(worldObject, onAddNewTree);
             if (worldObject is Ridge)
                 g.managerPlantRidge.onAddNewRidge(worldObject as Ridge);
+                g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
             if (worldObject is Farm)
                 g.managerAnimal.onAddNewFarm(worldObject as Farm);
             if (worldObject is Fabrica && g.managerMiniScenes.isMiniScene)
@@ -1138,6 +1139,7 @@ public class TownArea extends Sprite {
         g.selectedBuild = null;
         if ((build as WorldObject).dataBuild.buildType == BuildType.FARM) {
             g.user.buyShopTab = WOShop.VILLAGE;
+           if (!g.managerTutorial.isTutorial) (build as WorldObject).showArrow(3);
         }
         if ((build as WorldObject).dataBuild.buildType == BuildType.ANIMAL || (build as WorldObject).dataBuild.buildType == BuildType.FARM || (build as WorldObject).dataBuild.buildType == BuildType.FABRICA) {
             g.bottomPanel.cancelBoolean(false);
@@ -1303,6 +1305,7 @@ public class TownArea extends Sprite {
                 g.buyHint.hideIt();
                 return;
             }
+
             g.buyHint.showIt((arr.length* tail.dataBuild.deltaCost) + int(tail.dataBuild.cost));
             build = createNewBuild(tail.dataBuild);
             g.selectedBuild = build;
@@ -1322,14 +1325,17 @@ public class TownArea extends Sprite {
         if ((build as WorldObject).dataBuild.currency.length > 1) {
             for (var i:int = 0; i < (build as WorldObject).dataBuild.currency.length; i++) {
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency[i], -(build as WorldObject).dataBuild.cost[i]);
+                g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:(build as WorldObject).dataBuild.id});
             }
             cost = (build as WorldObject).dataBuild.cost[0];
         } else if ((build as WorldObject).dataBuild.currency != DataMoney.SOFT_CURRENCY) {
             cost = (build as WorldObject).dataBuild.cost;
             g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
+            g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:(build as WorldObject).dataBuild.id});
         } else {
             cost = (arr.length) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
             g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
+            g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:(build as WorldObject).dataBuild.id});
         }
 
         pasteTailBuild(build as DecorTail, _x, _y);
