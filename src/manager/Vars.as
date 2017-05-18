@@ -415,7 +415,7 @@ public class Vars {
     }
 
     private function initVariables2():void {
-        if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID || ( socialNetworkID == SocialNetworkSwitch.SN_FB_ID && (user as User).isTester) ||
+        if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID || socialNetworkID == SocialNetworkSwitch.SN_FB_ID  ||
                ( socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true;
 
         timerHint = new TimerHint();
