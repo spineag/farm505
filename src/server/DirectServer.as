@@ -8160,6 +8160,165 @@ public class DirectServer {
         }
     }
 
+    public function getRatingParty(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_RATING_PARTY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getRatingParty', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+//        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteGetRatingParty);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteGetRatingParty(e:Event):void { completeGetRatingParty(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getRatingParty error:' + error.errorID);
+        }
+    }
+
+    private function completeGetRatingParty(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getRatingParty: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getRatingParty: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getRatingParty OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getRatingParty: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function getNeighborFriends(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_NEIGHBOR_FRIENDS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getNeighborFriends', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+//        variables.hash = MD5.hash(String(g.user.userId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteGetNeighborFriends);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteGetNeighborFriends(e:Event):void { completeGetNeighborFriends(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getNeighborFriends error:' + error.errorID);
+        }
+    }
+
+    private function completeGetNeighborFriends(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getNeighborFriends: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getNeighborFriends: wrong JSON:' + String(response));
+            return;
+        }
+        var arr:Array = [];
+        if (d.message) {
+            if (d.message.friend_1) arr.push(d.message.friend_1);
+            if (d.message.friend_2) arr.push(d.message.friend_2);
+            if (d.message.friend_3) arr.push(d.message.friend_3);
+            if (d.message.friend_4) arr.push(d.message.friend_4);
+            if (d.message.friend_5) arr.push(d.message.friend_5);
+        }
+        if (d.id == 0) {
+            Cc.ch('server', 'getNeighborFriends OK', 5);
+            if (callback != null) {
+                callback.apply(null, [arr]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getNeighborFriends: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function updateNeighborFriends(friend1:int = 0, friend2:int = 0, friend3:int = 0, friend4:int = 0, friend5:int = 0,callback:Function = null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_NEIGHBOR_FRIENDS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getNeighborFriends', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        if (g.friendPanel.arrNeighborFriends[0]) variables.friend1 = friend1;
+            else variables.friend1 = friend1;
+        if (g.friendPanel.arrNeighborFriends[1]) variables.friend2 = friend2;
+            else variables.friend2 = friend2;
+        if (g.friendPanel.arrNeighborFriends[2]) variables.friend3 = friend3;
+            else variables.friend3 = friend3;
+        if (g.friendPanel.arrNeighborFriends[3]) variables.friend4 = friend4;
+            else variables.friend4 = friend4;
+        if (g.friendPanel.arrNeighborFriends[4]) variables.friend5 = friend5;
+            else variables.friend5 = friend5;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteUpdateNeighborFriends);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteUpdateNeighborFriends(e:Event):void { completeUpdateNeighborFriends(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getNeighborFriends error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateNeighborFriends(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getNeighborFriends: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getNeighborFriends: wrong JSON:' + String(response));
+            return;
+        }
+        if (d.id == 0) {
+            Cc.ch('server', 'getNeighborFriends OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getNeighborFriends: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError on Auth User:: ' + e.text);
     }

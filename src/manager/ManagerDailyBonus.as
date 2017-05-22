@@ -90,7 +90,7 @@ public class ManagerDailyBonus {
         arr = [];
         arR = g.allData.building;
         for (i = 0; i < arR.length; i++) {
-            if (arR[i].buildType == BuildType.DECOR && arR[i].blockByLevel && arR[i].blockByLevel[0] <= g.user.level) {
+            if (arR[i].buildType == BuildType.DECOR && arR[i].blockByLevel && arR[i].blockByLevel[0] <= g.user.level && arR[i].dailyBonus) {
                 arr.push(arR[i].id);
             }
         }

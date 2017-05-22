@@ -66,6 +66,7 @@ public class MainBottomPanel {
     public var _questBoolean:Boolean;
     public var _questBuilId:int = 0;
     private var _typeHelp:int = 0;
+    private var _btnPlusMinus:CButton;
 
     private var g:Vars = Vars.getInstance();
 
@@ -199,7 +200,7 @@ public class MainBottomPanel {
         _txtHome.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.ORANGE_COLOR);
         _txtHome.x = 105;
         _homeBtn.addChild(_txtHome);
-        _homeBtn.x = 0 + _homeBtn.width/2;
+        _homeBtn.x = _homeBtn.width/2;
         _homeBtn.y = 2 + _homeBtn.height/2;
         _source.addChild(_homeBtn);
         _homeBtn.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[479])) };
@@ -270,9 +271,6 @@ public class MainBottomPanel {
                         _tutorialCallback.apply(null, [true]);
                     }
                 }
-//                _questBoolean = true;
-//                _questBuilId = resourceId;
-//                _typeHelp = typeId;
                 if (_questBoolean) {
                     if (_typeHelp == HelperReason.REASON_BUY_ANIMAL) shopTab = WOShop.ANIMAL;
                     else if (_typeHelp == HelperReason.REASON_BUY_FABRICA) shopTab = WOShop.FABRICA;
@@ -484,6 +482,48 @@ public class MainBottomPanel {
         txt.x = 55;
         txt.y = 49;
         _friendBoard.addChild(txt);
+        if (_person != g.user.neighbor && g.user.isTester) {
+            if (g.friendPanel.arrNeighborFriends.length != 5) {
+                _btnPlusMinus = new CButton();
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+                MCScaler.scale(im, 27, 27);
+                _btnPlusMinus.addDisplayObject(im);
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('cross'));
+                MCScaler.scale(im, 16, 16);
+                im.x = 6;
+                im.y = 10;
+                _btnPlusMinus.addDisplayObject(im);
+                _btnPlusMinus.clickCallback = onClickAddNeighbor;
+                _source.addChild(_btnPlusMinus);
+                _btnPlusMinus.y = 50;
+            } else if (g.friendPanel.arrNeighborFriends.length == 5) {
+                for (var i:int = 0; i < g.friendPanel.arrNeighborFriends.length; i++) {
+                    if (g.friendPanel.arrNeighborFriends.userId == _person.userId) {
+                        _btnPlusMinus = new CButton();
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
+                        MCScaler.scale(im, 27, 27);
+                        _btnPlusMinus.addDisplayObject(im);
+                        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('minus'));
+                        MCScaler.scale(im, 16, 16);
+                        im.x = 6;
+                        im.y = 10;
+                        _btnPlusMinus.addDisplayObject(im);
+                        _btnPlusMinus.clickCallback = onClickDeleteNeighbor;
+                        _source.addChild(_btnPlusMinus);
+                        _btnPlusMinus.y = 50;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private function onClickAddNeighbor ():void {
+        g.friendPanel.addNeighbotFriend(_person.userSocialId);
+    }
+
+    private function onClickDeleteNeighbor ():void {
+        g.friendPanel.deleteNeighbotFriend(_person.userSocialId);
     }
 
     public function addHelpIcon():void {

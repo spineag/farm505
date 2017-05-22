@@ -43,6 +43,7 @@ import windows.WOComponents.HorizontalPlawka;
 public class FriendPanel {
     private const TYPE_NORMAL:int = 1;
     private const TYPE_NEED_HELP:int = 2;
+    private const TYPE_NEIGHBOR:int = 3;
 
     private var _source:Sprite;
     private var _mask:Sprite;
@@ -57,8 +58,10 @@ public class FriendPanel {
     private var _addFriendsBtn:CButton;
     private var _tab1:CSprite;
     private var _tab2:CSprite;
+    private var _tab3:CSprite;
     private var _activeTabType:int;
     private var _helpIcon:Image;
+    private var _arrNeighborFriends:Array;
 
     private var g:Vars = Vars.getInstance();
     public function FriendPanel() {
@@ -80,9 +83,11 @@ public class FriendPanel {
         g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
         _count = 0;
         _arrFriends = [];
+        _arrNeighborFriends = [];
         _addFriend = new Sprite();
         _source.addChild(_addFriend);
         noFriends();
+        g.directServer.getNeighborFriends(getNeighborFriends);
     }
 
     private function createTabs():void {
@@ -97,6 +102,7 @@ public class FriendPanel {
         txt.x = 30;
         txt.y = -23;
         _tab1.addChild(txt);
+        _tab1.endClickCallback = onTab1Click;
         _source.addChild(_tab1);
 
         _tab2 = new CSprite();
@@ -116,31 +122,67 @@ public class FriendPanel {
         _helpIcon.y = -25;
         _tab2.addChild(_helpIcon);
         _source.addChildAt(_tab2, 0);
-        _tab2.endClickCallback = onTabClick;
+        _tab2.endClickCallback = onTab2Click;
         _helpIcon.visible = false;
+
+        _tab3 = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
+        im.x = 20;
+        im.y = -23;
+        _tab3.addChild(im);
+        txt = new CTextField(106, 27, String(g.managerLanguage.allTexts[1030]));
+        txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
+        txt.x = 30;
+        txt.y = -23;
+        _tab3.addChild(txt);
+        _tab3.x = 240;
+        _source.addChildAt(_tab3, 0);
+        _tab3.endClickCallback = onTab3Click;
     }
 
-    private function onTabClick():void {
+    private function onTab1Click():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
-        if (_activeTabType == TYPE_NORMAL) {
-            _shift = 0;
-            animList();
-            _source.setChildIndex(_tab1, 0);
-            _source.setChildIndex(_tab2, 2);
-            _activeTabType = TYPE_NEED_HELP;
-            _tab2.endClickCallback = null;
-            _tab1.endClickCallback = onTabClick;
-        } else if (_activeTabType == TYPE_NEED_HELP) {
+        if (_activeTabType == TYPE_NORMAL) return;
+        else {
             _shift = 0;
             animList();
             _source.setChildIndex(_tab2, 0);
             _source.setChildIndex(_tab1, 2);
+            _source.setChildIndex(_tab3, 0);
             _activeTabType = TYPE_NORMAL;
-            _tab2.endClickCallback = onTabClick;
-            _tab1.endClickCallback = null;
+            fillFriends();
+            checkArrows();
         }
-        fillFriends();
-        checkArrows();
+    }
+
+    private function onTab2Click():void {
+        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (_activeTabType == TYPE_NEED_HELP) return;
+        else {
+            _shift = 0;
+            animList();
+            _source.setChildIndex(_tab1, 0);
+            _source.setChildIndex(_tab2, 2);
+            _source.setChildIndex(_tab3, 0);
+            _activeTabType = TYPE_NEED_HELP;
+            fillFriends();
+            checkArrows();
+        }
+    }
+
+    private function onTab3Click():void {
+        if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
+        if (_activeTabType == TYPE_NEIGHBOR) return;
+        else {
+            _shift = 0;
+            animList();
+            _source.setChildIndex(_tab1, 0);
+            _source.setChildIndex(_tab2, 0);
+            _source.setChildIndex(_tab3, 2);
+            _activeTabType = TYPE_NEIGHBOR;
+            fillFriends();
+            checkArrows();
+        }
     }
 
     private function createAddFriendBtn():void {
@@ -234,6 +276,16 @@ public class FriendPanel {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onGettingInfo);
         fillFriends();
         g.managerAchievement.achievementCountFriend(_arrFriends.length);
+    }
+
+    private function getNeighborFriends(arr:Array):void {
+        for (var i:int = 0; i < arr.length; i++) {
+            if (arr[i] == 0) {
+                arr.splice(i,1);
+                i--;
+            }
+        }
+       _arrNeighborFriends = arr;
     }
 
     public function updateFriendsPanel():void {
@@ -354,6 +406,20 @@ public class FriendPanel {
             _addFriend.addChild(bt);
             bt.clickCallback = inviteFriends;
         }
+    }
+
+    public function addNeighbotFriend(social:String):void {
+        _arrNeighborFriends.push(social);
+        g.directServer.updateNeighborFriends();
+    }
+
+    public function deleteNeighbotFriend(social:String):void {
+        for (var i:int = 0; i <_arrNeighborFriends.length; i++) {
+            if (_arrNeighborFriends[i] && _arrNeighborFriends[i] == social) {
+                _arrNeighborFriends.splice(i,1);
+            }
+        }
+        g.directServer.updateNeighborFriends();
     }
 
     private function checkHelpIcon():void {
@@ -480,12 +546,18 @@ public class FriendPanel {
 
     private function createLevel():void {
         var arr:Array = [];
-        for (var i:int=0; i<_arrFriends.length; i++) {
-            arr.push(_arrFriends[i].userSocialId);
+        var i:int;
+        if (_activeTabType == TYPE_NEIGHBOR && _arrNeighborFriends.length > 0) {
+            for (i=0; i<_arrNeighborFriends.length; i++) {
+                arr.push(_arrNeighborFriends[i]);
+            }
+        } else {
+            for (i = 0; i < _arrFriends.length; i++) {
+                arr.push(_arrFriends[i].userSocialId);
+            }
         }
-
         if (arr.length > 0) g.directServer.getAllFriendsInfo(arr, sortFriend);
-        else noFriends();
+        else if (_activeTabType != TYPE_NEIGHBOR) noFriends();
     }
 
     public function checkLevel():void {
@@ -496,6 +568,9 @@ public class FriendPanel {
                 }
             }
         }
+    }
+    public function get arrNeighborFriends():Array {
+        return _arrNeighborFriends;
     }
 
     public function getNeighborItemProperties():Object {

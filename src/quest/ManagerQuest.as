@@ -118,7 +118,8 @@ public class ManagerQuest {
             var q:QuestStructure;
             var i:int;
             for (i=0; i<d.quests.length; i++) {
-                if (d.quests[i].only_testers == '1' && !g.user.isTester) continue;
+                if (int(d.quests[i].quest_data.only_testers) == 1 && !g.user.isTester) continue;
+//                trace(d.quests[i].quest_data.only_testers);
                 q = getUserQuestById(int(d.quests[i].id));
                 if (q) {
                     Cc.info('QuestStructure addQuest:: already has quest with id: ' + d.quests[i].id);

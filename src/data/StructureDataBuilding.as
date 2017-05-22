@@ -52,6 +52,7 @@ public class StructureDataBuilding {
     private var _idResourceRaw:Array;
     private var _variaty:Array;
     private var g:Vars = Vars.getInstance();
+    private var _dailyBonus:Boolean;
 
     public function StructureDataBuilding(ob:Object) {
         var obj:Object = {};
@@ -208,6 +209,7 @@ public class StructureDataBuilding {
             }
         }
         if (ob.visibleAction || g.user.isTester) _visibleAction = true;
+        if (ob.daily_bonus) _dailyBonus = Boolean(int(ob.daily_bonus));
         else _visibleAction = false;
     }
 
@@ -250,5 +252,6 @@ public class StructureDataBuilding {
     public function get idResource():Array {return _idResource;}
     public function get idResourceRaw():Array {return _idResourceRaw;}
     public function get variaty():Array {return _variaty;}
+    public function get dailyBonus():Boolean {return _dailyBonus;}
 }
 }

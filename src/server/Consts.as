@@ -145,5 +145,8 @@ public class Consts {
     public static var INQ_GET_DATA_ACHIEVEMENT:String = 'getDataAchievement.php';
     public static var INQ_GET_USER_ACHIEVEMENT:String = 'getUserAchievement.php';
     public static var INQ_UPDATE_USER_ACHIEVEMENT:String = 'updateAchievement.php';
+    public static var INQ_GET_RATING_PARTY:String = 'getRatingParty.php';
+    public static var INQ_GET_NEIGHBOR_FRIENDS:String = 'getNeighborFriends.php';
+    public static var INQ_UPDATE_NEIGHBOR_FRIENDS:String = 'updateNeighborFriends.php';
 }
 }

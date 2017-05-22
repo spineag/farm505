@@ -93,9 +93,27 @@ public class CatPanel {
     }
 
     private function onClick():void {
-//        check();
+//        g.directServer.getRatingParty(null);
 //        if (g.user.isMegaTester) g.windowsManager.openWindow(WindowsManager.WO_ACHIEVEMENT,null);
 //        g.directServer.getDataAchievement(null);
+//        if ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
+//            if (g.user.userSocialId == '252433337505') {
+//                g.user.level++;
+//                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+//            }
+//        } else {
+//            if (g.user.userSocialId == '1402089059863470' || g.user.userSocialId == '14663166' || g.user.userSocialId == '201166703' || g.user.userSocialId == '168207096' || g.user.userSocialId == '202427318' || g.user.userSocialId == '191561520') {
+//                g.user.level++;
+//                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+//            }
+//        }
+//        g.directServer.addUserXP(1,null);
+//        var _dataBuild:Object = g.dataBuilding.objectBuilding[9];
+//        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
+//        g.windowsManager.openWindow(WindowsManager.POST_OPEN_CAVE,null);
+    }
+
+    private function checkParty():void {
 //        g.directServer.getUserParty(null);
 //        var ob:Object = {};
 //        ob.timeToStart = 1;
@@ -136,21 +154,6 @@ public class CatPanel {
 //        g.managerParty.atlasLoad();
 //        g.managerParty.eventOn = true;
 
-        if ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
-            if (g.user.userSocialId == '252433337505') {
-                g.user.level++;
-                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-            }
-        } else {
-            if (g.user.userSocialId == '1402089059863470' || g.user.userSocialId == '14663166' || g.user.userSocialId == '201166703' || g.user.userSocialId == '168207096' || g.user.userSocialId == '202427318' || g.user.userSocialId == '191561520') {
-                g.user.level++;
-                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
-            }
-        }
-//        g.directServer.addUserXP(1,null);
-//        var _dataBuild:Object = g.dataBuilding.objectBuilding[9];
-//        g.windowsManager.openWindow(WindowsManager.POST_OPEN_FABRIC,null,_dataBuild);
-//        g.windowsManager.openWindow(WindowsManager.POST_OPEN_CAVE,null);
     }
 }
 }

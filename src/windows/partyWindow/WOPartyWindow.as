@@ -50,6 +50,7 @@ public class WOPartyWindow extends WindowMain{
     private var _txtCountLoad:CTextField;
     private var _countLoad:int;
     private var _imName:Image;
+    private var _btnParty:CButton;
 
     public function WOPartyWindow() {
         _windowType = WindowsManager.WO_PARTY;
@@ -243,6 +244,14 @@ public class WOPartyWindow extends WindowMain{
                     }
                 }
             }
+            _btnParty = new CButton();
+            _btnParty.addButtonTexture(100, 35, CButton.YELLOW, true);
+            _txtBtn = new CTextField(100, 35, String(g.managerLanguage.allTexts[1029]));
+            _txtBtn.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
+            _btnParty.addChild(_txtBtn);
+            _btnParty.clickCallback = onClickShow;
+            _btnParty.y = 250;
+            _source.addChild(_btnParty);
             createExitButton(onClickExit);
             _callbackClickBG = onClickExit;
         }
@@ -430,6 +439,16 @@ public class WOPartyWindow extends WindowMain{
             }
             createExitButton(onClickExit);
             _callbackClickBG = onClickExit;
+
+            _btnParty = new CButton();
+            _btnParty.addButtonTexture(100, 35, CButton.YELLOW, true);
+            _txtBtn = new CTextField(100, 35, String(g.managerLanguage.allTexts[1029]));
+            _txtBtn.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
+            _btnParty.addChild(_txtBtn);
+            _btnParty.clickCallback = onClickShow;
+            _btnParty.y = 250;
+            _source.addChild(_btnParty);
+
             showItParams(null,null);
         }
     }
@@ -450,6 +469,35 @@ public class WOPartyWindow extends WindowMain{
         g.windowsManager.cashWindow = this;
         g.windowsManager.openWindow(WindowsManager.WO_PARTY_HELP,null);
         onClickExit();
+    }
+
+    private function onClickShow():void {
+        hideIt();
+        var arr:Array = g.townArea.getCityObjectsByType(g.managerParty.typeBuilding);
+        var b:Boolean = false;
+        var i:int;
+        if (BuildType.FABRICA == g.managerParty.typeBuilding) {
+            for (i = 0; i < arr.length; i++) {
+                for (var j:int = 0; j < arr[i].arrRecipes.length; j++) {
+                    if (arr[i].arrRecipes[j].idResource == g.managerParty.idResource) {
+                        arr[0] = arr[i];
+                        b = true;
+                        break;
+                    }
+                }
+                if (b) break;
+            }
+        } else if (BuildType.TREE == g.managerParty.typeBuilding) {
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].dataBuild.craftIdResource == g.managerParty.idResource) {
+                    arr[0] = arr[i];
+                    break;
+                }
+            }
+        }
+        if(!arr[0]) return;
+        g.cont.moveCenterToPos(arr[0].posX, arr[0].posY);
+        arr[0].showArrow(3);
     }
 
     private function onClickMinus():void {
