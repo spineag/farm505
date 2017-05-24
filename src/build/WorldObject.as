@@ -379,7 +379,7 @@ public class WorldObject {
                 g.loadAnimation.load('animations_json/x1/building/', 'buildingBuild', addFoundationBuilding1);
             }
         } else {
-            Cc.error('_craftSprite == null  :(')
+            Cc.error('_buildingBuildSprite == null  :(')
         }
     }
 
@@ -391,7 +391,7 @@ public class WorldObject {
         }
         _buildingBuildSprite.addChild(_buildingBuild.source);
         _rect = _buildingBuildSprite.getBounds(_buildingBuildSprite);
-        var isVisible:Boolean = _buildingBuildSprite.visible;
+//        var isVisible:Boolean = _buildingBuildSprite.visible;
 //        _buildingBuildSprite.visible = true;
         _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild', ManagerHitArea.TYPE_LOADED);
 //        _buildingBuildSprite.visible = isVisible;
@@ -399,7 +399,6 @@ public class WorldObject {
     }
 
     protected function clearBuildingBuildSprite():void {
-        g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:_dataBuild.id});
         if (_buildingBuildSprite) {
             while (_buildingBuildSprite.numChildren) _buildingBuildSprite.removeChildAt(0);
             if (_buildingBuild) {
@@ -407,6 +406,7 @@ public class WorldObject {
                 _buildingBuild = null;
             }
         }
+        g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:_dataBuild.id});
     }
 
     protected function renderBuildProgress():void {

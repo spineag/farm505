@@ -80,6 +80,7 @@ public class Train extends WorldObject{
         if (!g.isAway) {
             _train_db_id = ob.id;
             if (int(ob.state)) _stateBuild = int(ob.state);
+            if (_stateBuild == STATE_ACTIVE) _stateBuild = STATE_READY;
             if (_stateBuild == STATE_WAIT_BACK) {
                 if (int(ob.time_work) > TIME_WAIT) {
                     _stateBuild = STATE_READY;
@@ -98,11 +99,6 @@ public class Train extends WorldObject{
                     _counter = TIME_READY - int(ob.time_work);
                 }
                 g.directServer.getTrainPack(g.user.userSocialId, fillList);
-            } else if (_stateBuild == STATE_WAIT_ACTIVATE) {
-            } else if (_stateBuild == STATE_BUILD) {
-            } else if (_stateBuild == STATE_UNACTIVE) {
-            } else {
-                Cc.error('Train:: wrong state');
             }
         }
         createAnimatedBuild(onCreateBuild);
@@ -177,7 +173,7 @@ public class Train extends WorldObject{
                 if (_arriveAnim) _arriveAnim.visible = true;
             }
         }
-        if (g.isAway) createAnimatedBuild(onCreateBuild)
+        if (g.isAway) createAnimatedBuild(onCreateBuild);
     }
 
     private function onCreateBuild():void {
@@ -191,9 +187,7 @@ public class Train extends WorldObject{
                 createBrokenTrain();
             } else if (_stateBuild == STATE_READY) {
                 onArrivedKorzina();
-            } else {
-                makeIdleAnimation();
-            }
+            } else makeIdleAnimation();
         } else {
             if (_stateBuild == STATE_UNACTIVE) {
                 createBrokenTrain();
@@ -208,7 +202,9 @@ public class Train extends WorldObject{
                 startRenderTrainWork();
             } else if (_stateBuild == STATE_BUILD || _stateBuild == STATE_WAIT_ACTIVATE) {
                 _arriveAnim.visible = false;
-            }
+            } else if (_stateBuild == STATE_ACTIVE) {
+                makeIdleAnimation();
+            } else makeIdleAnimation();
         }
         _source.hoverCallback = onHover;
         _source.endClickCallback = onClick;
@@ -335,8 +331,6 @@ public class Train extends WorldObject{
                     };
                     g.directServer.getTrainPack(g.user.userSocialId, f2,this);
                  }
-            } else {
-                Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
             }
         } else if (_stateBuild == STATE_UNACTIVE) {
             if (_source.wasGameContMoved) {
@@ -361,7 +355,6 @@ public class Train extends WorldObject{
                 onOut();
                 return;
             }
-            g.directServer.openBuildedBuilding(this, onOpenTrain);
             if (_dataBuild.xpForBuild) {
                 var start:Point = new Point(int(_source.x), int(_source.y));
                 start = _source.parent.localToGlobal(start);
@@ -369,10 +362,11 @@ public class Train extends WorldObject{
             }
             _stateBuild = STATE_READY;
             _counter = TIME_READY;
+            clearBuildingBuildSprite();
+            g.directServer.openBuildedBuilding(this, onOpenTrain);
             g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
             startRenderTrainWork();
             onOut();
-            clearBuildingBuildSprite();
             onJustOpenedTrain();
             showBoom();
             g.soundManager.playSound(SoundConst.OPEN_BUILD);
@@ -526,7 +520,7 @@ public class Train extends WorldObject{
                 arriveTrain();
                 g.windowsManager.hideWindow(WindowsManager.WO_TRAIN_ORDER);
             } else {
-                Cc.error('renderTrainWork:: wrong _stateBuild');
+                Cc.error('renderTrainWork:: wrong _stateBuild: ' + _stateBuild);
             }
         }
     }
