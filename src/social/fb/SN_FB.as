@@ -103,7 +103,7 @@ public class SN_FB extends SocialNetwork  {
     }
 
     private function getTempUsersInfoByIdCallback(e:Object):void {
-        Cc.ch('social', 'OK: getTempUsersInfoByIdCallback:');
+        Cc.ch('social', 'FB: getTempUsersInfoByIdCallback:');
         if (e) Cc.obj('social', e);
         var ar:Array = [];
         var ob:Object;
