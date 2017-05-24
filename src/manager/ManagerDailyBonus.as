@@ -94,10 +94,14 @@ public class ManagerDailyBonus {
                 arr.push(arR[i].id);
             }
         }
-        obj.id = arr[int(Math.random()*arr.length)];
-        obj.count = 1;
-        obj.type = DECOR;
-        _arrItems.push(obj);
+        if (arr.length > 0) {
+            obj.id = arr[int(Math.random() * arr.length)];
+            obj.count = 1;
+            obj.type = DECOR;
+            _arrItems.push(obj);
+        } else {
+
+        }
 
         obj = {};
         arr = [1, 5, 6];

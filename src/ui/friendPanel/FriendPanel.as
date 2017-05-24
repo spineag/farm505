@@ -87,7 +87,7 @@ public class FriendPanel {
         _addFriend = new Sprite();
         _source.addChild(_addFriend);
         noFriends();
-        g.directServer.getNeighborFriends(getNeighborFriends);
+        if (g.user.isTester) g.directServer.getNeighborFriends(getNeighborFriends);
     }
 
     private function createTabs():void {
@@ -124,22 +124,22 @@ public class FriendPanel {
         _source.addChildAt(_tab2, 0);
         _tab2.endClickCallback = onTab2Click;
         _helpIcon.visible = false;
-
-        _tab3 = new CSprite();
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
-        im.x = 20;
-        im.y = -23;
-        _tab3.addChild(im);
-        txt = new CTextField(106, 27, String(g.managerLanguage.allTexts[1030]));
-        txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
-        txt.x = 30;
-        txt.y = -23;
-        _tab3.addChild(txt);
-        _tab3.x = 240;
-        _source.addChildAt(_tab3, 0);
-        _tab3.endClickCallback = onTab3Click;
+        if (g.user.isTester) {
+            _tab3 = new CSprite();
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
+            im.x = 20;
+            im.y = -23;
+            _tab3.addChild(im);
+            txt = new CTextField(106, 27, String(g.managerLanguage.allTexts[1030]));
+            txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
+            txt.x = 30;
+            txt.y = -23;
+            _tab3.addChild(txt);
+            _tab3.x = 240;
+            _source.addChildAt(_tab3, 0);
+            _tab3.endClickCallback = onTab3Click;
+        }
     }
-
     private function onTab1Click():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_activeTabType == TYPE_NORMAL) return;
@@ -148,7 +148,7 @@ public class FriendPanel {
             animList();
             _source.setChildIndex(_tab2, 0);
             _source.setChildIndex(_tab1, 2);
-            _source.setChildIndex(_tab3, 0);
+            if (_tab3) _source.setChildIndex(_tab3, 0);
             _activeTabType = TYPE_NORMAL;
             fillFriends();
             checkArrows();
@@ -163,7 +163,7 @@ public class FriendPanel {
             animList();
             _source.setChildIndex(_tab1, 0);
             _source.setChildIndex(_tab2, 2);
-            _source.setChildIndex(_tab3, 0);
+            if (_tab3) _source.setChildIndex(_tab3, 0);
             _activeTabType = TYPE_NEED_HELP;
             fillFriends();
             checkArrows();
@@ -178,7 +178,7 @@ public class FriendPanel {
             animList();
             _source.setChildIndex(_tab1, 0);
             _source.setChildIndex(_tab2, 0);
-            _source.setChildIndex(_tab3, 2);
+            if (_tab3) _source.setChildIndex(_tab3, 2);
             _activeTabType = TYPE_NEIGHBOR;
             fillFriends();
             checkArrows();
@@ -408,18 +408,45 @@ public class FriendPanel {
         }
     }
 
-    public function addNeighbotFriend(social:String):void {
-        _arrNeighborFriends.push(social);
+    public function addNeighborFriend(person:Someone):void {
+        _arrNeighborFriends.push(person);
         g.directServer.updateNeighborFriends();
+        clearItems();
+        _activeTabType = TYPE_NEIGHBOR;
+        _arrNeighborFriends.sortOn("level",  Array.NUMERIC);
+        _arrNeighborFriends.reverse();
+        var item:FriendItem;
+        for (var i:int = 0; i < _arrNeighborFriends.length; i++) {
+            item = new FriendItem(_arrNeighborFriends[i],i);
+            _arrItems.push(item);
+            item.source.x = i*66;
+            item.source.y = -1;
+            _cont.addChild(item.source);
+        }
     }
 
-    public function deleteNeighbotFriend(social:String):void {
-        for (var i:int = 0; i <_arrNeighborFriends.length; i++) {
-            if (_arrNeighborFriends[i] && _arrNeighborFriends[i] == social) {
+    public function deleteNeighborFriend(person:Someone):void {
+        var i:int;
+        for (i= 0; i <_arrNeighborFriends.length; i++) {
+            if (_arrNeighborFriends[i] && _arrNeighborFriends[i].userSocialId == person.userSocialId) {
                 _arrNeighborFriends.splice(i,1);
             }
         }
         g.directServer.updateNeighborFriends();
+        if (_arrNeighborFriends.length > 0) {
+            clearItems();
+            _activeTabType = TYPE_NEIGHBOR;
+            _arrNeighborFriends.sortOn("level", Array.NUMERIC);
+            _arrNeighborFriends.reverse();
+            var item:FriendItem;
+            for (i = 0; i < _arrNeighborFriends.length; i++) {
+                item = new FriendItem(_arrNeighborFriends[i], i);
+                _arrItems.push(item);
+                item.source.x = i * 66;
+                item.source.y = -1;
+                _cont.addChild(item.source);
+            }
+        }
     }
 
     private function checkHelpIcon():void {
@@ -438,6 +465,19 @@ public class FriendPanel {
         var item:FriendItem;
         _arrItems = [];
         _shift = 0;
+        var i:int;
+        if (_activeTabType == TYPE_NEIGHBOR) {
+            _arrNeighborFriends.sortOn("level",  Array.NUMERIC);
+            _arrNeighborFriends.reverse();
+            for (i= 0; i < _arrNeighborFriends.length; i++) {
+                item = new FriendItem(_arrNeighborFriends[i],i);
+                _arrItems.push(item);
+                item.source.x = i*66;
+                item.source.y = -1;
+                _cont.addChild(item.source);
+            }
+            return;
+        }
         _arrFriends.sortOn("level",  Array.NUMERIC);
         _arrFriends.reverse();
         if (_activeTabType == TYPE_NORMAL) {
@@ -454,7 +494,7 @@ public class FriendPanel {
         }
         var l:int = _arrFriends.length;
         if (l>5) l = 5;
-        for (var i:int = 0; i < l; i++) {
+        for (i= 0; i < l; i++) {
             item = new FriendItem(_arrFriends[i],i);
             _arrItems.push(item);
             item.source.x = i*66;
@@ -465,7 +505,7 @@ public class FriendPanel {
 
     private function clearItems():void {
         if (!_arrItems) return;
-        for (var i:int=0; i<_arrItems.length; i++) {
+        for (var i:int = 0; i < _arrItems.length; i++) {
             _cont.removeChild(_arrItems[i].source);
             (_arrItems[i] as FriendItem).deleteIt();
         }
@@ -548,9 +588,8 @@ public class FriendPanel {
         var arr:Array = [];
         var i:int;
         if (_activeTabType == TYPE_NEIGHBOR && _arrNeighborFriends.length > 0) {
-            for (i=0; i<_arrNeighborFriends.length; i++) {
-                arr.push(_arrNeighborFriends[i]);
-            }
+            sortFriend();
+            return;
         } else {
             for (i = 0; i < _arrFriends.length; i++) {
                 arr.push(_arrFriends[i].userSocialId);
@@ -571,6 +610,10 @@ public class FriendPanel {
     }
     public function get arrNeighborFriends():Array {
         return _arrNeighborFriends;
+    }
+
+    public function get arrFriends():Array {
+        return _arrFriends;
     }
 
     public function getNeighborItemProperties():Object {

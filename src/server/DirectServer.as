@@ -8241,12 +8241,32 @@ public class DirectServer {
             return;
         }
         var arr:Array = [];
+        var p:Someone;
         if (d.message) {
-            if (d.message.friend_1) arr.push(d.message.friend_1);
-            if (d.message.friend_2) arr.push(d.message.friend_2);
-            if (d.message.friend_3) arr.push(d.message.friend_3);
-            if (d.message.friend_4) arr.push(d.message.friend_4);
-            if (d.message.friend_5) arr.push(d.message.friend_5);
+            for (var i:int = 0; i < d.message.length; i++) {
+                p = new Someone;
+                p.userId = int(d.message[i].user_id);
+                p.userSocialId = String(d.message[i].social_id);
+                p.name = String(d.message[i].name);
+                p.lastName = String(d.message[i].last_name);
+                p.level = int(d.message[i].level);
+                p.globalXP = int(d.message[i].xp);
+                arr.push(p);
+            }
+//            if (d.message.friend_1) {
+//                p = new Someone;
+//                p.userId =
+//                p.userSocialId
+//                p.name
+//                p.lastName
+//                p.level
+//                p.globalXP
+//                arr.push(d.message.friend_1);
+//            }
+//            if (d.message.friend_2) arr.push(d.message.friend_2);
+//            if (d.message.friend_3) arr.push(d.message.friend_3);
+//            if (d.message.friend_4) arr.push(d.message.friend_4);
+//            if (d.message.friend_5) arr.push(d.message.friend_5);
         }
         if (d.id == 0) {
             Cc.ch('server', 'getNeighborFriends OK', 5);
@@ -8268,18 +8288,18 @@ public class DirectServer {
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_NEIGHBOR_FRIENDS);
         var variables:URLVariables = new URLVariables();
 
-        Cc.ch('server', 'getNeighborFriends', 1);
+        Cc.ch('server', 'updateNeighborFriends', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        if (g.friendPanel.arrNeighborFriends[0]) variables.friend1 = friend1;
+        if (g.friendPanel.arrNeighborFriends[0]) variables.friend1 = g.friendPanel.arrNeighborFriends[0].userId;
             else variables.friend1 = friend1;
-        if (g.friendPanel.arrNeighborFriends[1]) variables.friend2 = friend2;
+        if (g.friendPanel.arrNeighborFriends[1]) variables.friend2 = g.friendPanel.arrNeighborFriends[1].userId;
             else variables.friend2 = friend2;
-        if (g.friendPanel.arrNeighborFriends[2]) variables.friend3 = friend3;
+        if (g.friendPanel.arrNeighborFriends[2]) variables.friend3 = g.friendPanel.arrNeighborFriends[2].userId;
             else variables.friend3 = friend3;
-        if (g.friendPanel.arrNeighborFriends[3]) variables.friend4 = friend4;
+        if (g.friendPanel.arrNeighborFriends[3]) variables.friend4 = g.friendPanel.arrNeighborFriends[3].userId;
             else variables.friend4 = friend4;
-        if (g.friendPanel.arrNeighborFriends[4]) variables.friend5 = friend5;
+        if (g.friendPanel.arrNeighborFriends[4]) variables.friend5 = g.friendPanel.arrNeighborFriends[4].userId;
             else variables.friend5 = friend5;
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -8290,7 +8310,7 @@ public class DirectServer {
         try {
             loader.load(request);
         } catch (error:Error) {
-            Cc.error('getNeighborFriends error:' + error.errorID);
+            Cc.error('updateNeighborFriends error:' + error.errorID);
         }
     }
 
@@ -8300,12 +8320,12 @@ public class DirectServer {
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
-            Cc.error('getNeighborFriends: wrong JSON:' + String(response));
+            Cc.error('updateNeighborFriends: wrong JSON:' + String(response));
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getNeighborFriends: wrong JSON:' + String(response));
             return;
         }
         if (d.id == 0) {
-            Cc.ch('server', 'getNeighborFriends OK', 5);
+            Cc.ch('server', 'updateNeighborFriends OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -8314,7 +8334,7 @@ public class DirectServer {
         } else if (d.id == 6) {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
-            Cc.error('getNeighborFriends: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            Cc.error('updateNeighborFriends: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }

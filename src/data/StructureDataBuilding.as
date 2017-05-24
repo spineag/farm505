@@ -209,8 +209,8 @@ public class StructureDataBuilding {
             }
         }
         if (ob.visibleAction || g.user.isTester) _visibleAction = true;
-        if (ob.daily_bonus) _dailyBonus = Boolean(int(ob.daily_bonus));
         else _visibleAction = false;
+        if (ob.daily_bonus) _dailyBonus = Boolean(int(ob.daily_bonus));
     }
 
     public function get blockByLevel():Array{ return _blockByLevel;}

@@ -206,6 +206,10 @@
             <filename>event_picnic_window.png</filename>
             <filename>zefir_100.png</filename>
             <filename>zefir_timer.png</filename>
+            <filename>tabs_3.png</filename>
+            <filename>tabs_bonus_on.png</filename>
+            <filename>tabs_event_on.png</filename>
+            <filename>tabs_top_on.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
