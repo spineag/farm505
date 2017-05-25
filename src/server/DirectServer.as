@@ -7094,6 +7094,8 @@ public class DirectServer {
         obj.typeParty = int(d.message.type_party);
         obj.name = String(g.managerLanguage.allTexts[int(d.message.text_id_name)]);
         obj.description = String(g.managerLanguage.allTexts[int(d.message.text_id_description)]);
+        obj.idDecorBest = int(d.message.id_decor_best);
+
         if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
         for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
 
@@ -7114,6 +7116,7 @@ public class DirectServer {
                     g.managerParty.atlasLoad();
                 };
                 getUserParty(f);
+                getRatingParty(null);
             }
         } else if (obj.timeToStart - int(new Date().getTime() / 1000) > 0) {
             g.userTimer.partyToStart(obj.timeToStart - int(new Date().getTime() / 1000));
@@ -7122,6 +7125,7 @@ public class DirectServer {
         } else {
             g.managerParty.dataParty = obj;
             getUserParty();
+            getRatingParty(null);
         }
         if (d.id == 0) {
             Cc.ch('server', 'getDataParty OK', 5);
@@ -8192,7 +8196,20 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getRatingParty: wrong JSON:' + String(response));
             return;
         }
-
+        var ob:Object;
+        for (var i:int = 0; i < d.message.length; i++) {
+            if (d.message[i] is Number) g.managerParty.playerPosition = int(d.message[i]);
+            else {
+                if (d.message[i].user_id == g.user.userId) g.managerParty.playerPosition = i + 1;
+                ob = {};
+                ob.userId = int(d.message[i].user_id);
+                ob.socialId = String(d.message[i].social_id);
+                ob.countResource = int(d.message[i].count_resource);
+                ob.photo = int(d.message[i].photo_url);
+                ob.name = String(d.message[i].name + ' ' + d.message[i].last_name);
+                g.managerParty.arrBestPlayers.push(ob);
+            }
+        }
         if (d.id == 0) {
             Cc.ch('server', 'getRatingParty OK', 5);
             if (callback != null) {
