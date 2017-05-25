@@ -415,9 +415,9 @@ public class Vars {
     }
 
     private function initVariables2():void {
-        if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID || ( socialNetworkID == SocialNetworkSwitch.SN_FB_ID && (user as User).isTester) ||
-               ( socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true;
-//        useQuests = true;
+//        if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID || ( socialNetworkID == SocialNetworkSwitch.SN_FB_ID && (user as User).isTester) ||
+//               ( socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true; // для ТЕСТЕРІВ ОНЛІ ДЛЯ ТЕСТЕРІВ АХТУНГ АХТУНГ АХТУНГ АХТУНГ АХТУНГ АХТНУГ АХТУНГ АХТУНГ
+        useQuests = true;
         timerHint = new TimerHint();
         wildHint = new WildHint();
         hint = new Hint();
@@ -536,7 +536,7 @@ public class Vars {
                    }
                }
             var f1:Function = function ():void {
-                if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && !managerParty.userParty.showWindow && managerParty.dataParty.typeParty == 3 || managerParty.dataParty.typeParty == 4) managerParty.endPartyWindow();
+                if (managerParty.userParty && !windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && !managerParty.userParty.showWindow && managerParty.dataParty.typeParty == 3 || managerParty.dataParty.typeParty == 4) managerParty.endPartyWindow();
             };
                Utils.createDelay(5,f1);
             }
