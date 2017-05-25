@@ -536,7 +536,8 @@ public class Vars {
                    }
                }
             var f1:Function = function ():void {
-                if (managerParty.userParty && !windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && !managerParty.userParty.showWindow && managerParty.dataParty.typeParty == 3 || managerParty.dataParty.typeParty == 4) managerParty.endPartyWindow();
+                if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && managerParty.userParty && !managerParty.userParty.showWindow
+                        && (managerParty.dataParty.typeParty == 3 || managerParty.dataParty.typeParty == 4)) managerParty.endPartyWindow();
             };
                Utils.createDelay(5,f1);
             }

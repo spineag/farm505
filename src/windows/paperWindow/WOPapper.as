@@ -307,7 +307,7 @@ public class WOPapper extends WindowMain {
         Cc.ch('social', 'WOPapper: ar.length: ' + ar.length);
         for (var i:int=0; i<ar.length; i++) {
             p = g.user.getSomeoneBySocialId(ar[i].userSocialId);
-            if (!p.photo) userIds.push(ar[i].userSocialId);
+            if (!p.photo && userIds.indexOf(ar[i].userSocialId) == -1) userIds.push(ar[i].userSocialId);
         }
         Cc.ch('social', 'WOPapper: userIds.length: ' + userIds.length);
         if (userIds.length) {
