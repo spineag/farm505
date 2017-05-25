@@ -896,62 +896,129 @@ public class WOOrder extends WindowMain{
         }
         if (okuli) okuli.visible = false;
         if (sharf) sharf.visible = false;
+        if (g.user.isTester) {
+            _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
+            _srcBaloon.addChild(_imBaloon);
+            _txtBaloon = new CTextField(400, 157, '');
+            _txtBaloon.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _srcBaloon.addChild(_txtBaloon);
+            _srcBaloon.scaleX = _srcBaloon.scaleY = 0;
+            _srcBaloon.x = (_armatureCustomer.display as StarlingArmatureDisplay).x + 30;
+            _srcBaloon.y = (_armatureCustomer.display as StarlingArmatureDisplay).y - 60;
+            new TweenMax(_srcBaloon, 1, {scaleX: .5, scaleY: .5, y: _srcBaloon + 83, ease: Back.easeOut});
+        }
         switch (_arrOrders[pos-1].catOb.type) {
             case DataCat.AKRIL:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = true;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1049]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1049]);
+                }
                 break;
             case DataCat.ASHUR:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1053]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1054]);
+                }
                 break;
             case DataCat.BULAVKA:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1031]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1032]);
+                }
                 break;
             case DataCat.BUSINKA:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = true;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1041]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1042]);
+                }
                 break;
             case DataCat.IGOLOCHKA:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1037]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1038]);
+                }
                 break;
             case DataCat.IRIS:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1045]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1046]);
+                }
                 break;
             case DataCat.KRUCHOK:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = true;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1047]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1048]);
+                }
                 break;
             case DataCat.LENTOCHKA:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1043]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1044]);
+                }
                 break;
             case DataCat.NAPERSTOK:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1055]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1056]);
+                }
                 break;
             case DataCat.PETELKA:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1035]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1036]);
+                }
                 break;
             case DataCat.PRYAGA:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1033]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1034]);
+                }
                 break;
             case DataCat.SINTETIKA:
                 if (okuli) okuli.visible = true;
                 if (sharf) sharf.visible = false;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1039]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1040]);
+                }
                 break;
             case DataCat.STESHOK:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = false;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1057]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1058]);
+                }
                 break;
             case DataCat.YZELOK:
                 if (okuli) okuli.visible = false;
                 if (sharf) sharf.visible = true;
+                if (_txtBaloon) {
+                    if (Math.random() < .5) _txtBaloon.text = String(g.managerLanguage.allTexts[1051]);
+                    else _txtBaloon.text = String(g.managerLanguage.allTexts[1052]);
+                }
                 break;
         }
         b = _armatureCustomer.getSlot('sharf');
@@ -977,17 +1044,6 @@ public class WOOrder extends WindowMain{
             b.display = sp;
         } else {
             (b.displayList[0] as DisplayObject).visible = false;
-        }
-        if (g.user.isTester) {
-            _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
-            _srcBaloon.addChild(_imBaloon);
-            _txtBaloon = new CTextField(400, 157, "Gjdsdf");
-            _txtBaloon.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
-            _srcBaloon.addChild(_txtBaloon);
-            _srcBaloon.scaleX = _srcBaloon.scaleY = 0;
-            _srcBaloon.x = (_armatureCustomer.display as StarlingArmatureDisplay).x + 30;
-            _srcBaloon.y = (_armatureCustomer.display as StarlingArmatureDisplay).y - 60;
-            new TweenMax(_srcBaloon, 1, {scaleX: .5, scaleY: .5, y: _srcBaloon + 83, ease: Back.easeOut});
         }
     }
 

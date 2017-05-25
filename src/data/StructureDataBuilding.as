@@ -208,7 +208,7 @@ public class StructureDataBuilding {
                 g.allData.addToDecorGroup(this);
             }
         }
-        if (ob.visibleAction || g.user.isTester) _visibleAction = true;
+        if (ob.visibleAction) _visibleAction = Boolean(int(ob.visibleAction));
         else _visibleAction = false;
         if (ob.daily_bonus) _dailyBonus = Boolean(int(ob.daily_bonus));
     }

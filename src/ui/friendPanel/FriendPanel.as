@@ -446,6 +446,9 @@ public class FriendPanel {
                 item.source.y = -1;
                 _cont.addChild(item.source);
             }
+        } else {
+            clearItems();
+            _activeTabType = TYPE_NEIGHBOR;
         }
     }
 

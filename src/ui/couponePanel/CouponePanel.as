@@ -108,7 +108,7 @@ public class CouponePanel {
 
         _contCoupone.visible = false;
         _contCoupone.x = -100;
-        if(g.user.level < 17) _source.visible = false;
+        if(g.user.level < 11) _source.visible = false;
         else _source.visible = true;
     }
 

@@ -276,7 +276,7 @@ public class WOLevelUp extends WindowMain {
         _armature.animation.gotoAndPlayByFrame('idle');
 
 
-        if (g.user.level >= 17) g.couponePanel.openPanel(true);
+        if (g.user.level >= 11) g.couponePanel.openPanel(true);
         _txtLevel.text = String(g.user.level);
         createList();
 //        super.showIt();

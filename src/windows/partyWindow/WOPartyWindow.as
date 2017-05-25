@@ -55,8 +55,15 @@ public class WOPartyWindow extends WindowMain {
     private var _btnParty:CButton;
     private var _activityType:int;
     private var _btnEvent:CButton;
+    private var _imEvent:Image;
     private var _btnRating:CButton;
+    private var _imRating:Image;
     private var _btnLast:CButton;
+    private var _imLast:Image;
+    private var _sprEvent:Sprite;
+    private var _sprRating:Sprite;
+    private var _sprLast:Sprite;
+
 
     public function WOPartyWindow() {
         _windowType = WindowsManager.WO_PARTY;
@@ -66,9 +73,15 @@ public class WOPartyWindow extends WindowMain {
         _isHover = false;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        _sprItem = new Sprite();
         _activityType = TYPE_EVENT;
-        fuckingButton();
+//        fuckingButton();
+        _sprEvent = new Sprite();
+        _sprRating = new Sprite();
+        _sprLast = new Sprite();
+        _source.addChild(_sprEvent);
+        _source.addChild(_sprRating);
+        _source.addChild(_sprLast);
+        _sprItem = new Sprite();
         if (g.allData.atlas['partyAtlas']) eventWO(false);
         else g.gameDispatcher.addEnterFrame(eventWO);
 
@@ -181,20 +194,20 @@ public class WOPartyWindow extends WindowMain {
         _imTime = new Image(g.allData.atlas['partyAtlas'].getTexture('valik_timer'));
         _imTime.x = 275;
         _imTime.y = -205;
-        _source.addChild(_imTime);
+        _sprEvent.addChild(_imTime);
         _sprItem.x = -195;
         _sprItem.y = -125;
 
         _txtTimeLost = new CTextField(120,60,String(g.managerLanguage.allTexts[357]));
         _txtTimeLost.setFormat(CTextField.BOLD18, 16, 0xff7575);
-        _source.addChild(_txtTimeLost);
+        _sprEvent.addChild(_txtTimeLost);
         _txtTimeLost.x = 287;
         _txtTimeLost.y = -183;
         _txtTime = new CTextField(120,60,'');
         _txtTime.setFormat(CTextField.BOLD18, 24, 0xd30102);
         _txtTime.x = 286;
         _txtTime.y = -150;
-        _source.addChild(_txtTime);
+        _sprEvent.addChild(_txtTime);
         g.gameDispatcher.addToTimer(startTimer);
         super.showIt();
     }
@@ -202,7 +215,7 @@ public class WOPartyWindow extends WindowMain {
     private function startTimer():void {
         if (g.userTimer.partyToEndTimer > 0) {
             if (_txtTime)_txtTime.text = TimeUtils.convertSecondsForHint(g.userTimer.partyToEndTimer);
-            if (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2 && _txtTime.x == 0) _txtTime.x = -(160 + _txtTime.textBounds.width/2);
+            if (_txtTime && g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2 && _txtTime.x == 0) _txtTime.x = -(160 + _txtTime.textBounds.width/2);
         } else {
             onClickExit();
             g.gameDispatcher.removeFromTimer(startTimer);
@@ -212,39 +225,58 @@ public class WOPartyWindow extends WindowMain {
     private function fuckingButton():void {
         var im:Image;
         _btnEvent = new CButton();
-        im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_3'));
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bt_1'));
         _btnEvent.addDisplayObject(im);
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_event_on'));
         im.x = 10;
         im.y = 5;
         _btnEvent.addDisplayObject(im);
         _source.addChild(_btnEvent);
-        _btnEvent.x = 290;
+        _btnEvent.x = 310;
         _btnEvent.y = -40;
+        _imEvent = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bt_1'));
+        _source.addChild(_imEvent);
+        _imEvent.x = 310;
+        _imEvent.y = -40;
+        _imEvent.visible = false;
+        _btnEvent.touchable = false;
 
         _btnRating = new CButton();
-        im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_3'));
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bt_1'));
         _btnRating.addDisplayObject(im);
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_top_on'));
         im.x = 10;
         im.y = 5;
         _btnRating.addDisplayObject(im);
         _source.addChild(_btnRating);
-        _btnRating.x = 290;
+        _btnRating.x = 310;
         _btnRating.y = 35;
-        _btnRating.setEnabled = false;
+        _imRating = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bt_2'));
+        _source.addChild(_imRating);
+        _imRating.x = 310;
+        _imRating.y = 35;
+
         _btnLast = new CButton();
-        im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_3'));
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bt_1'));
         _btnLast.addDisplayObject(im);
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bonus_on'));
         im.x = 10;
         im.y = 5;
         _btnLast.addDisplayObject(im);
         _source.addChild(_btnLast);
-        _btnLast.x = 290;
+        _btnLast.x = 310;
         _btnLast.y = 110;
         _btnLast.setEnabled = false;
-
+        _imLast = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bt_2'));
+        _source.addChild(_imLast);
+        _imLast.x = 310;
+        _imLast.y = 110;
+        if (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2) {
+            _btnRating.setEnabled = false;
+            _imRating.visible = true;
+            _btnLast.setEnabled = false;
+            _imLast.visible = true;
+        }
     }
 
     private function eventWO(open:Boolean = true):void {
@@ -255,32 +287,32 @@ public class WOPartyWindow extends WindowMain {
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('new_event_window_l'));
                 im.x = -10 - im.width;
                 im.y = -im.height / 2 + 30;
-                _source.addChild(im);
+                _sprEvent.addChild(im);
                 if (g.managerParty.typeBuilding == BuildType.ORDER) im = new Image(g.allData.atlas['partyAtlas'].getTexture('new_event_window_r_2'));
                 else if (g.managerParty.typeBuilding == BuildType.TRAIN) im = new Image(g.allData.atlas['partyAtlas'].getTexture('new_event_window_r'));
                 im.y = -im.height / 2 + 30;
-                _source.addChild(im);
+                _sprEvent.addChild(im);
                 _txtName = new CTextField(_woWidth, 70, String(g.managerParty.name));
                 _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
                 _txtName.alignH = Align.LEFT;
                 _txtName.x = -_txtName.textBounds.width / 2;
                 _txtName.y = -215;
-                _source.addChild(_txtName);
+                _sprEvent.addChild(_txtName);
                 _txtTime = new CTextField(120, 60, '    ');
                 _txtTime.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
                 _txtTime.alignH = Align.LEFT;
                 _txtTime.y = 130;
-                _source.addChild(_txtTime);
+                _sprEvent.addChild(_txtTime);
                 g.gameDispatcher.addToTimer(startTimer);
                 _txtTimeLost = new CTextField(250, 100, String(g.managerLanguage.allTexts[357]));
                 _txtTimeLost.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
-                _source.addChild(_txtTimeLost);
+                _sprEvent.addChild(_txtTimeLost);
                 _txtTimeLost.alignH = Align.LEFT;
                 _txtTimeLost.x = -(160 + _txtTimeLost.textBounds.width / 2);
                 _txtTimeLost.y = 85;
                 _txtBabl = new CTextField(260, 200, String(g.managerParty.description));
                 _txtBabl.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
-                _source.addChild(_txtBabl);
+                _sprEvent.addChild(_txtBabl);
                 _txtBabl.x = -295;
                 _txtBabl.y = -160;
                 if (g.managerParty.typeParty == 1) im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins_medium'));
@@ -288,36 +320,36 @@ public class WOPartyWindow extends WindowMain {
                 MCScaler.scale(im, im.height, im.width);
                 im.x = 154;
                 im.y = -133;
-                _source.addChild(im);
+                _sprEvent.addChild(im);
 
                 _txtCoefficient = new CTextField(172, 200, 'X' + g.managerParty.coefficient);
                 _txtCoefficient.setFormat(CTextField.BOLD30, 30, 0xffde00, ManagerFilters.BROWN_COLOR);
-                _source.addChild(_txtCoefficient);
+                _sprEvent.addChild(_txtCoefficient);
                 _txtCoefficient.x = 38;
                 _txtCoefficient.y = -214;
 
-                _btn = new CButton();
-                _btn.addButtonTexture(172, 45, CButton.GREEN, true);
-                _txtBtn = new CTextField(172, 45, String(g.managerLanguage.allTexts[328]));
-                _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-                _btn.addChild(_txtBtn);
-                _btn.clickCallback = onClick;
-                _btn.y = 220;
-                _source.addChild(_btn);
+//                _btn = new CButton();
+//                _btn.addButtonTexture(172, 45, CButton.GREEN, true);
+//                _txtBtn = new CTextField(172, 45, String(g.managerLanguage.allTexts[328]));
+//                _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+//                _btn.addChild(_txtBtn);
+//                _btn.clickCallback = onClick;
+//                _btn.y = 220;
+//                _sprEvent.addChild(_btn);
 
             } else {
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_picnic_window'));
                 im.x = -im.width / 2 - 4;
                 im.y = -im.height / 2 - 12;
-                _source.addChild(im);
+                _sprEvent.addChild(im);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_baloon'));
                 im.x = -im.width / 2 - 295;
                 im.y = -im.height / 2 - 115;
-                _source.addChild(im);
+                _sprEvent.addChild(im);
                 _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('event_picnic_text'));
                 _imName.x = -_imName.width / 2 + 5;
                 _imName.y = -205;
-                _source.addChild(_imName);
+                _sprEvent.addChild(_imName);
                 if (g.managerParty.typeParty == 3) {
                     _btn = new CButton();
                     _btn.addButtonTexture(172, 45, CButton.GREEN, true);
@@ -326,36 +358,36 @@ public class WOPartyWindow extends WindowMain {
                     _btn.addChild(_txtBtn);
                     _btn.clickCallback = onClick;
                     _btn.y = 220;
-                    _source.addChild(_btn);
+                    _sprEvent.addChild(_btn);
                 }
                 _txtBabl = new CTextField(220, 200, String(g.managerParty.description));
                 _txtBabl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-                _source.addChild(_txtBabl);
+                _sprEvent.addChild(_txtBabl);
                 _txtBabl.x = -413;
                 _txtBabl.y = -235;
-                _source.addChild(_sprItem);
+                _sprEvent.addChild(_sprItem);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
                 im.x = -158;
                 im.y = 31;
 
-                _source.addChild(im);
+                _sprEvent.addChild(im);
                 if (g.managerParty.typeParty == 3) {
                     im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_w'));
                     im.x = -215;
                     im.y = 17;
-                    _source.addChild(im);
+                    _sprEvent.addChild(im);
 
                     im = new Image(g.allData.atlas['partyAtlas'].getTexture('zefir_100'));
                     MCScaler.scale(im, 45, 45);
                     im.x = -199;
                     im.y = 33;
-                    _source.addChild(im);
+                    _sprEvent.addChild(im);
                 } else {
                     if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
                         im = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
                         im.x = -59;
                         im.y = 75;
-                        _source.addChild(im);
+                        _sprEvent.addChild(im);
                         _countLoad = g.userInventory.getCountResourceById(g.managerParty.idResource);
                         _btnMinus = new CButton();
                         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));
@@ -368,7 +400,7 @@ public class WOPartyWindow extends WindowMain {
                         _btnMinus.addDisplayObject(im);
                         _btnMinus.x = -79;
                         _btnMinus.y = 125;
-                        _source.addChild(_btnMinus);
+                        _sprEvent.addChild(_btnMinus);
                         if (_countLoad <= 1) _btnMinus.setEnabled = false;
                         _btnMinus.clickCallback = onClickMinus;
                         _btnPlus = new CButton();
@@ -382,7 +414,7 @@ public class WOPartyWindow extends WindowMain {
                         _btnPlus.addDisplayObject(im);
                         _btnPlus.x = 50;
                         _btnPlus.y = 125;
-                        _source.addChild(_btnPlus);
+                        _sprEvent.addChild(_btnPlus);
                         if (_countLoad <= 0) _btnPlus.setEnabled = false;
                         _btnPlus.clickCallback = onClickPlus;
 
@@ -393,7 +425,7 @@ public class WOPartyWindow extends WindowMain {
                         _btnLoad.addChild(_txtBtn);
                         _btnLoad.clickCallback = onClickLoad;
                         _btnLoad.y = 198;
-                        _source.addChild(_btnLoad);
+                        _sprEvent.addChild(_btnLoad);
                         if (_countLoad <= 0) _btnLoad.setEnabled = false;
                         if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
                             im = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
@@ -403,7 +435,7 @@ public class WOPartyWindow extends WindowMain {
                         MCScaler.scale(im, 80, 80);
                         im.y = 90;
                         im.x = -im.width / 2;
-                        _source.addChild(im);
+                        _sprEvent.addChild(im);
                         if (_countLoad > 0) {
                             _countLoad = _countLoad / 2;
                             if (_countLoad <= 0) {
@@ -415,7 +447,7 @@ public class WOPartyWindow extends WindowMain {
                         _txtCountLoad = new CTextField(220, 200, String(_countLoad));
                         _txtCountLoad.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
                         _txtCountLoad.alignH = Align.RIGHT;
-                        _source.addChild(_txtCountLoad);
+                        _sprEvent.addChild(_txtCountLoad);
                         _txtCountLoad.x = -190;
                         _txtCountLoad.y = 60;
                     }
@@ -428,7 +460,7 @@ public class WOPartyWindow extends WindowMain {
             _btnParty.addChild(_txtBtn);
             _btnParty.clickCallback = onClickShow;
             _btnParty.y = 250;
-            _source.addChild(_btnParty);
+            _sprEvent.addChild(_btnParty);
             createExitButton(onClickExit);
             _callbackClickBG = onClickExit;
         }
@@ -436,7 +468,21 @@ public class WOPartyWindow extends WindowMain {
     }
 
     private function ratingWO():void {
+        var im:Image;
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('best_players_3'));
+        im.x = -im.width / 2 - 4;
+        im.y = -im.height / 2 - 12;
+        _sprRating.addChild(im);
 
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('best_players_3'));
+        im.x = -im.width / 2 + 5;
+        im.y = -205;
+        _sprRating.addChild(im);
+
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('best_players_3'));
+        im.x = -im.width / 2 + 5;
+        im.y = -205;
+        _sprRating.addChild(im);
     }
 
     private function lastWO():void {
@@ -453,27 +499,27 @@ public class WOPartyWindow extends WindowMain {
             _txtBtn = null;
         }
         if (_txtBabl) {
-            if (_source) _source.removeChild(_txtBabl);
+            if (_sprEvent) _sprEvent.removeChild(_txtBabl);
             _txtBabl.deleteIt();
             _txtBabl = null;
         }
         if (_txtTime) {
-            if (_source) _source.removeChild(_txtTime);
+            if (_sprEvent) _sprEvent.removeChild(_txtTime);
             _txtTime.deleteIt();
             _txtTime = null;
         }
         if (_txtTimeLost) {
-            if (_source) _source.removeChild(_txtTimeLost);
+            if (_sprEvent) _sprEvent.removeChild(_txtTimeLost);
             _txtTimeLost.deleteIt();
             _txtTimeLost = null;
         }
         if (_txtName) {
-            if (_source) _source.removeChild(_txtName);
+            if (_sprEvent) _sprEvent.removeChild(_txtName);
             _txtName.deleteIt();
             _txtName = null;
         }
         if (_btn) {
-            if (_source) _source.removeChild(_btn);
+            if (_sprEvent) _sprEvent.removeChild(_btn);
             _btn.deleteIt();
             _btn = null;
         }

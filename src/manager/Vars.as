@@ -410,9 +410,9 @@ public class Vars {
     }
 
     private function initVariables2():void {
-        if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID || ( socialNetworkID == SocialNetworkSwitch.SN_FB_ID && (user as User).isTester) ||
-               ( socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true;
-//        useQuests = true;
+//        if (socialNetworkID == SocialNetworkSwitch.SN_OK_ID || ( socialNetworkID == SocialNetworkSwitch.SN_FB_ID && (user as User).isTester) ||
+//               ( socialNetworkID == SocialNetworkSwitch.SN_VK_ID && (user as User).isTester)) useQuests = true; // для ТЕСТЕРІВ ОНЛІ ДЛЯ ТЕСТЕРІВ АХТУНГ АХТУНГ АХТУНГ АХТУНГ АХТУНГ АХТНУГ АХТУНГ АХТУНГ
+        useQuests = true;
         timerHint = new TimerHint();
         wildHint = new WildHint();
         hint = new Hint();
