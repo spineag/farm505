@@ -100,9 +100,10 @@ public class SN_FB extends SocialNetwork  {
     override public function getTempUsersInfoById(arr:Array):void {
         super.getTempUsersInfoById(arr);
         ExternalInterface.call("getTempUsersInfoById", arr);
+//        g.directServer.FBgetUsersProfiles(arr, getTempUsersInfoByIdCallbackFromServer);
     }
 
-    private function getTempUsersInfoByIdCallback(e:Object):void {
+    private function getTempUsersInfoByIdCallback(e:Object):void { // from fb
         Cc.ch('social', 'FB: getTempUsersInfoByIdCallback:');
         if (e) Cc.obj('social', e);
         var ar:Array = [];
@@ -113,6 +114,24 @@ public class SN_FB extends SocialNetwork  {
             ob.first_name = e[key].first_name;
             ob.last_name = e[key].last_name;
             ob.photo_100 = e[key].picture.data.url;
+            ar.push(ob);
+        }
+        g.user.addTempUsersInfo(ar);
+        super.getTempUsersInfoByIdSucces();
+    }
+
+    private function getTempUsersInfoByIdCallbackFromServer(e:Object):void {
+        Cc.ch('social', 'FB: getTempUsersInfoByIdCallbackFromServer:');
+        if (e) Cc.obj('social', e);
+        var ar:Array = [];
+        var ob:Object;
+        for (var key:String in e) {
+            ob = {};
+            ob.dbId = e[key].id;
+            ob.uid = e[key].social_id;
+            ob.first_name = e[key].name;
+            ob.last_name = e[key].last_name;
+            ob.photo_100 = e[key].photo_url;
             ar.push(ob);
         }
         g.user.addTempUsersInfo(ar);
@@ -156,9 +175,11 @@ public class SN_FB extends SocialNetwork  {
         super.getFriendsByIDs(arr);
         if (getTimer() - _timerRender < 1000) {
             g.gameDispatcher.addToTimerWithParams(getFriendsByIDsWithDelay, 1000, 1, arr);
+//            g.gameDispatcher.addToTimerWithParams(getFriendsByIDsWithDelayFromServer, 1000, 1, arr);
         } else {
             _timerRender = getTimer();
             getFriendsByIDsWithDelay(arr);
+//            getFriendsByIDsWithDelayFromServer(arr);
         }
     }
 
@@ -167,7 +188,7 @@ public class SN_FB extends SocialNetwork  {
     }
 
     private function getFriendsByIdsHandler(e:Object):void {
-        Cc.ch('social', 'OK: getFriendsByIdsHandler:');
+        Cc.ch('social', 'FB: getFriendsByIdsHandler:');
         Cc.obj('social', e);
         var ob:Object;
         for (var key:String in e) {
@@ -176,6 +197,30 @@ public class SN_FB extends SocialNetwork  {
             ob.first_name = e[key].first_name;
             ob.last_name = e[key].last_name;
             ob.photo_100 = e[key].picture.data.url;
+            g.user.addFriendInfo(ob);
+        }
+        if (_friendsApp.length) {
+            getFriendsByIDs(_friendsApp);
+        } else {
+            super.getFriendsByIDsSuccess(e);
+        }
+    }
+
+    private function getFriendsByIDsWithDelayFromServer(ids:Array):void {
+        g.directServer.FBgetUsersProfiles(ids, getFriendsByIdsHandlerFromServer);
+    }
+
+    private function getFriendsByIdsHandlerFromServer(e:Object):void {
+        Cc.ch('social', 'FB: getFriendsByIdsHandlerFromServer:');
+        Cc.obj('social', e);
+        var ob:Object;
+        for (var key:String in e) {
+            ob = {};
+            ob.dbId = e[key].id;
+            ob.uid = e[key].social_id;
+            ob.first_name = e[key].name;
+            ob.last_name = e[key].last_name;
+            ob.photo_100 = e[key].photo_url;
             g.user.addFriendInfo(ob);
         }
         if (_friendsApp.length) {

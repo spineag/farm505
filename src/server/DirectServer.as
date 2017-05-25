@@ -8342,6 +8342,57 @@ public class DirectServer {
         }
     }
 
+    public function FBgetUsersProfiles(usersIds:Array,callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_FB_USERS_PROFILE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'FBgetUsersProfiles', 1);
+        variables = addDefault(variables);
+        variables.ids = usersIds.join(',');
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteFBgetUsersProfiles);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteFBgetUsersProfiles(e:Event):void { completeFBgetUsersProfiles(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('FBgetUsersProfiles error:' + error.errorID);
+        }
+    }
+
+    private function completeFBgetUsersProfiles(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('FBgetUsersProfiles: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'FBgetUsersProfiles: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'FBgetUsersProfiles OK', 5);
+            if (callback != null) {
+                callback.apply(d.message);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('FBgetUsersProfiles: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+    
+    
+    
+    
+
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError on Auth User:: ' + e.text);
     }
