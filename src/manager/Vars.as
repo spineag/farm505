@@ -240,10 +240,10 @@ public class Vars {
 
     private function loadMap():void {
         startPreloader.setProgress(76);
-        background = new BackgroundArea(onAuthUser);
+        background = new BackgroundArea(onLoadMap);
     }
 
-    private function onAuthUser():void {
+    private function onLoadMap():void {
         startPreloader.setProgress(77);
         directServer.getDataOutGameTiles(onGetOutGameTiles);
     }
@@ -270,12 +270,7 @@ public class Vars {
             event = new OwnEvent();
             dataOrderCats = new DataCat();
             userInventory = new UserInventory();
-//        } catch (e:Error) {
-//            errorManager.onGetError(ErrorConst.ON_INIT1, true, true);
-//            Cc.stackch('error', 'initVariables1::', 10);
-//        }
-//
-//        try {
+
             managerTutorial = new ManagerTutorialNew();
             managerCutScenes = new ManagerCutScenes();
             managerWallPost = new ManagerWallPost();
@@ -295,7 +290,7 @@ public class Vars {
             catPanel = new CatPanel();
             townAreaTouchManager = new TownAreaTouchManager();
             achievementPanel = new AchievementPanel();
-            onUserInfo();
+            initInterface2();
 
         } catch (e:Error) {
             errorManager.onGetError(ErrorConst.ON_INIT2, true, true);
@@ -303,7 +298,7 @@ public class Vars {
         }
     }
 
-    private function onUserInfo():void {
+    private function initInterface2():void {
         soundManager.load();
         managerCats.addAllHeroCats();
         managerSalePack = new ManagerSalePack();

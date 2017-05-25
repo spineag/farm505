@@ -38,6 +38,8 @@ import quest.QuestTaskStructure;
 
 import quest.QuestTaskStructure;
 
+import social.SocialNetwork;
+
 import social.SocialNetworkSwitch;
 import user.Someone;
 import utils.Utils;
@@ -785,6 +787,7 @@ public class DirectServer {
         variables.sex = g.user.sex;
         variables.bornDate = g.user.bornDate;
         variables.defaultLanguage = g.socialNetwork.checkLocaleForLanguage();
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) variables.photo = g.user.photo;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
