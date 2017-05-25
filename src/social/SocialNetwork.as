@@ -13,7 +13,6 @@ import manager.Vars;
 import quest.ManagerQuest;
 
 public class SocialNetwork extends EventDispatcher {
-    protected var URL_AVATAR_BLANK:String = null;
     protected const COUNT_PER_ONCE:int = 200;
 
     protected var _flashVars:Object;
@@ -55,6 +54,12 @@ public class SocialNetwork extends EventDispatcher {
     public function get friendIDs():Array { return _friendsIDs || []; }
     public function setUserLevel():void {}
     public function checkUserLanguageForIFrame():void { Cc.ch('social', 'checkUserLanguageForIFrame') };
+    
+    public static function getDefaultAvatar():String {
+        var path:String = g.dataPath.getMainPath() + 'images/icons/avatar_default_';
+        var st:String = path + String( int(Math.random()*3) + 1 ) + '.png';
+        return st;
+    }
 
     public function init():void {
         Cc.ch("social", "SocialNetwork:: channel API initialization finished successfully", 14);
@@ -98,7 +103,7 @@ public class SocialNetwork extends EventDispatcher {
         ob.name = data.first_name;
         ob.lastName = data.last_name;
         ob.online = data.online;
-        ob.photo = data.photo_100;
+        ob.photo = data.photo_100 || SocialNetwork.getDefaultAvatar();
         ob.userSocialId = data.user_id;
         g.user.arrNoAppFriend.push(ob);
     }

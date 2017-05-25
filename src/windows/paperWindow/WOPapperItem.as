@@ -12,6 +12,8 @@ import manager.ManagerFilters;
 import manager.Vars;
 import preloader.miniPreloader.FlashAnimatedPreloader;
 import resourceItem.DropItem;
+
+import social.SocialNetwork;
 import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
 import starling.display.Image;
@@ -144,6 +146,7 @@ public class WOPapperItem {
         Cc.info('WOPapperItem update avatar');
         if (!_p.photo) _p = g.user.getSomeoneBySocialId(_p.userSocialId);
         _txtUserName.text = _p.name + ' ' + _p.lastName;
+        if (_p.photo =='' || _p.photo == 'unknown') _p.photo =  SocialNetwork.getDefaultAvatar();
         g.load.loadImage(_p.photo, onLoadPhoto);
     }
 
