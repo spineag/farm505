@@ -119,7 +119,7 @@ public class SN_Vkontakte extends SocialNetwork {
         _paramsUser = {};
         _paramsUser.firstName = e[0].first_name;
         _paramsUser.lastName = e[0].last_name;
-        _paramsUser.photo = String(e[0].photo_100).indexOf(".gif") > 0 ? URL_AVATAR_BLANK : e[0].photo_100;
+        _paramsUser.photo = String(e[0].photo_100).indexOf(".gif") > 0 ?  SocialNetwork.getDefaultAvatar() : e[0].photo_100;
         _paramsUser.sex = e[0].sex;
         _paramsUser.bdate = e[0].bdate;
         _paramsUser.city = e[0].city;
@@ -229,7 +229,7 @@ public class SN_Vkontakte extends SocialNetwork {
 
         for (var i:int = 0; i < e.length; i++) {
             buffer = e[i];
-            buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ? URL_AVATAR_BLANK : buffer.photo_100;
+            buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ?  SocialNetwork.getDefaultAvatar() : buffer.photo_100;
             bufferIds.push(buffer);
             setFriendInfo(buffer.uid, buffer.first_name, buffer.last_name, buffer.photo_100);
         }
@@ -251,7 +251,7 @@ public class SN_Vkontakte extends SocialNetwork {
         var buffer:Object;
         for (var i:int=0; i < arr.length; i++) {
             buffer = arr[i];
-            buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ? URL_AVATAR_BLANK : buffer.photo_100;
+            buffer.photo_100 = String(buffer.photo_100).indexOf(".gif") > 0 ?  SocialNetwork.getDefaultAvatar() : buffer.photo_100;
             ar.push(buffer);
         }
         g.user.addTempUsersInfo(ar);

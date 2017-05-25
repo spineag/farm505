@@ -10,6 +10,8 @@ import manager.Vars;
 import mouse.ToolsModifier;
 import preloader.miniPreloader.FlashAnimatedPreloader;
 
+import social.SocialNetwork;
+
 import social.SocialNetworkEvent;
 
 import starling.display.Image;
@@ -179,6 +181,7 @@ public class FriendItem {
 //        _person.lastName = ar[0].last_name;
 //        _person.photo = ar[0].photo_100;
         setName(_person.name);
+        if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
         g.load.loadImage(_person.photo, onLoadPhoto);
     }
 

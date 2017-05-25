@@ -16,10 +16,8 @@ public class SN_OK extends SocialNetwork {
 
     public function SN_OK(flashVars:Object) {
         flashVars["channelGUID"] ||= "6697c149-8270-48fb-b3e5-8cea9f04e307";
-
         _friendsRest = [];
-        URL_AVATAR_BLANK = g.dataPath.getGraphicsPath() + "/social/iconNeighbor.png";
-
+        
         if (ExternalInterface.available) {
 //            ExternalInterface.addCallback('onConnect', onConnect);
             ExternalInterface.addCallback('getProfileHandler', getProfileHandler);
@@ -73,7 +71,7 @@ public class SN_OK extends SocialNetwork {
             _paramsUser = {};
             _paramsUser.firstName = String(e.first_name);
             _paramsUser.lastName = String(e.last_name);
-            _paramsUser.photo = String(e.pic_5) || URL_AVATAR_BLANK;
+            _paramsUser.photo = String(e.pic_5) || SocialNetwork.getDefaultAvatar();
             _paramsUser.sex = String(e.gender);
             _paramsUser.bdate = String(e.birthday);
 
@@ -140,7 +138,7 @@ public class SN_OK extends SocialNetwork {
             ob.uid = e[key].uid;
             ob.first_name = e[key].first_name;
             ob.last_name = e[key].last_name;
-            ob.photo_100 = e[key].pic_5;
+            ob.photo_100 = e[key].pic_5 || SocialNetwork.getDefaultAvatar();
             ar.push(ob);
         }
         g.user.addTempUsersInfo(ar);
@@ -203,7 +201,7 @@ public class SN_OK extends SocialNetwork {
             ob.uid = e[key].uid;
             ob.first_name = e[key].first_name;
             ob.last_name = e[key].last_name;
-            ob.photo_100 = e[key].pic_5;
+            ob.photo_100 = e[key].pic_5 || SocialNetwork.getDefaultAvatar();
             g.user.addFriendInfo(ob);
         }
         if (_friendsApp.length) {

@@ -29,7 +29,6 @@ public class SN_FB extends SocialNetwork  {
 
     public function SN_FB(flashVars:Object) {
         _friendsRest = [];
-        URL_AVATAR_BLANK = g.dataPath.getGraphicsPath() + "/social/iconNeighbor.png";
 
         if (ExternalInterface.available) {
             ExternalInterface.addCallback('getProfileHandler', getProfileHandler);
@@ -67,7 +66,7 @@ public class SN_FB extends SocialNetwork  {
             _paramsUser = {};
             _paramsUser.firstName = String(e.first_name);
             _paramsUser.lastName = String(e.last_name);
-            _paramsUser.photo = String(e.picture) || URL_AVATAR_BLANK;
+            _paramsUser.photo = String(e.picture) || SocialNetwork.getDefaultAvatar();
             _paramsUser.sex = String(e.gender);
             _paramsUser.bdate = String(e.birthday);
             _userLocale = String(e.locale);
@@ -99,10 +98,16 @@ public class SN_FB extends SocialNetwork  {
 
     override public function getTempUsersInfoById(arr:Array):void {
         super.getTempUsersInfoById(arr);
-        ExternalInterface.call("getTempUsersInfoById", arr);
+        if (arr && arr.length) {
+            //        ExternalInterface.call("getTempUsersInfoById", arr);
+            g.directServer.FBgetUsersProfiles(arr, getTempUsersInfoByIdCallbackFromServer);
+        } else {
+            Cc.error("FB getTempUsersInfoById:: empty array or not exist");
+            super.getTempUsersInfoByIdSucces();
+        }
     }
 
-    private function getTempUsersInfoByIdCallback(e:Object):void {
+    private function getTempUsersInfoByIdCallback(e:Object):void { // from fb
         Cc.ch('social', 'FB: getTempUsersInfoByIdCallback:');
         if (e) Cc.obj('social', e);
         var ar:Array = [];
@@ -112,7 +117,26 @@ public class SN_FB extends SocialNetwork  {
             ob.uid = e[key].id;
             ob.first_name = e[key].first_name;
             ob.last_name = e[key].last_name;
-            ob.photo_100 = e[key].picture.data.url;
+            ob.photo_100 = e[key].picture.data.url || SocialNetwork.getDefaultAvatar();
+            ar.push(ob);
+        }
+        g.user.addTempUsersInfo(ar);
+        super.getTempUsersInfoByIdSucces();
+    }
+
+    private function getTempUsersInfoByIdCallbackFromServer(e:Object):void {
+        Cc.ch('social', 'getTempUsersInfoByIdCallbackFromServer:');
+        if (e) Cc.obj('social', e);
+        var ar:Array = [];
+        var ob:Object;
+        for (var i:int = 0; i < e.length; i++) {
+            ob = {};
+            ob.dbId = e[i].id;
+            ob.uid = e[i].social_id;
+            ob.first_name = e[i].name;
+            ob.last_name = e[i].last_name;
+            ob.photo_100 = e[i].photo_url;
+            if (ob.photo_100 == '' || ob.photo == 'unknown') ob.photo = SocialNetwork.getDefaultAvatar();
             ar.push(ob);
         }
         g.user.addTempUsersInfo(ar);
@@ -140,10 +164,14 @@ public class SN_FB extends SocialNetwork  {
             g.user.arrFriends.push(f);
         }
         super.getAppUsersSuccess(_friendsApp);
-        if (_friendsApp.length) this.getFriendsByIDs(_friendsApp); 
+        if (_friendsApp.length) getFriendsByIDs(_friendsApp); 
     }
 
     override protected function getFriendsByIDs(friends:Array):void {
+        if (!friends || !friends.length) {
+            Cc.error("FB getFriendsByIDs:: empty array or not exist");
+            super.getTempUsersInfoByIdSucces();
+        }
         var arr:Array;
         _friendsApp = friends;
         if (_friendsApp.length > COUNT_PER_ONCE) {
@@ -167,7 +195,7 @@ public class SN_FB extends SocialNetwork  {
     }
 
     private function getFriendsByIdsHandler(e:Object):void {
-        Cc.ch('social', 'OK: getFriendsByIdsHandler:');
+        Cc.ch('social', 'FB: getFriendsByIdsHandler:');
         Cc.obj('social', e);
         var ob:Object;
         for (var key:String in e) {
@@ -175,7 +203,7 @@ public class SN_FB extends SocialNetwork  {
             ob.uid = e[key].id;
             ob.first_name = e[key].first_name;
             ob.last_name = e[key].last_name;
-            ob.photo_100 = e[key].picture.data.url;
+            ob.photo_100 = e[key].picture.data.url || SocialNetwork.getDefaultAvatar();
             g.user.addFriendInfo(ob);
         }
         if (_friendsApp.length) {

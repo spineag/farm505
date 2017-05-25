@@ -8,6 +8,8 @@ import data.BuildType;
 import data.StructureMarketItem;
 import manager.Vars;
 
+import social.SocialNetwork;
+
 public class User extends Someone {
     public var ambarMaxCount:int;
     public var skladMaxCount:int;
@@ -215,7 +217,7 @@ public class User extends Someone {
             if (p is TempUser || p is Friend) {
                 p.name = ar[i].first_name;
                 p.lastName = ar[i].last_name;
-                p.photo = ar[i].photo_100;
+                p.photo = ar[i].photo_100  || SocialNetwork.getDefaultAvatar();
             }
         }
     }
