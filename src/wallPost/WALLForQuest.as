@@ -16,7 +16,7 @@ public class WALLForQuest {
             stUrl = g.dataPath.getGraphicsPath() + 'wall/quest_posting.jpg';
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[469]), null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            stUrl = g.dataPath.getGraphicsPath() + 'wall/quest_posting.jpg';
+            stUrl = g.dataPath.getGraphicsPath() + 'wall/quest_posting_eng.jpg';
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), String(g.managerLanguage.allTexts[469]), null, stUrl);
         } else {
             stUrl = g.dataPath.getGraphicsPath() + 'wall/quest_posting.jpg';
