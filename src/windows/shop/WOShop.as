@@ -86,7 +86,7 @@ public class WOShop extends WindowMain {
         
         _decorFilter = new DecorShopFilter(this);
         createMoneyBlock();
-        if (g.user.level < 17) _contCoupone.visible = false;
+        if (g.user.level < 11) _contCoupone.visible = false;
             else _contCoupone.visible = true;
         _birka = new Birka(String(g.managerLanguage.allTexts[352]), _source, _woWidth, _woHeight);
     }

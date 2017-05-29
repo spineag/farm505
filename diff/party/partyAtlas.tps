@@ -215,6 +215,7 @@
             <filename>tabs_congratulations.png</filename>
             <filename>best_players_1.png</filename>
             <filename>best_players_2.png</filename>
+            <filename>end_event_title.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

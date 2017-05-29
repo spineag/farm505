@@ -49,6 +49,9 @@ import quest.ManagerQuest;
 
 import resourceItem.ResourceItem;
 import resourceItem.UseMoneyMessage;
+
+import social.SocialNetworkSwitch;
+
 import starling.display.Sprite;
 import tutorial.TutorialAction;
 import tutorial.managerCutScenes.ManagerCutScenes;
@@ -636,7 +639,7 @@ public class TownArea extends Sprite {
                 build = new ChestYellow(_data);
                 break;
             case BuildType.ACHIEVEMENT:
-                if (g.user.isMegaTester) build = new Achievement(_data);
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) build = new Achievement(_data);
                 break;
         }
 
@@ -1793,7 +1796,7 @@ public class TownArea extends Sprite {
                 build = new ChestYellow(_data);
                 break;
             case BuildType.ACHIEVEMENT:
-                if (g.user.isMegaTester) build = new Achievement(_data);
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) build = new Achievement(_data);
                 else return;
                 break;
         }

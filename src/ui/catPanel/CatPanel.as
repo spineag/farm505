@@ -20,6 +20,7 @@ import temp.DropResourceVariaty;
 import utils.CSprite;
 import utils.CTextField;
 import windows.WOComponents.HorizontalPlawka;
+import windows.WOComponents.WindowBackground;
 import windows.WindowsManager;
 
 public class CatPanel {
@@ -123,6 +124,7 @@ public class CatPanel {
         ob.idResource = 15;
         ob.typeBuilding = BuildType.ORDER;
         ob.coefficient = 5;
+        ob.idDecorBest = 262;
         ob.typeParty = 4;
         ob.name = 'Блинный путь';
         ob.description = 'Накорми пришельцев и получи награду';

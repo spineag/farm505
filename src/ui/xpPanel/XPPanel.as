@@ -16,6 +16,8 @@ import media.SoundConst;
 
 import mouse.ToolsModifier;
 
+import social.SocialNetworkSwitch;
+
 import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Image;
@@ -115,9 +117,9 @@ public class XPPanel {
             g.userInventory.addNewElementsAfterGettingNewLevel();
             g.managerCats.calculateMaxCountCats();
 
-            if (g.user.level == 5) {
+            if (g.user.level == 5 && g.socialNetworkID != SocialNetworkSwitch.SN_FB_ID) {
                 g.managerBuyerNyashuk = new ManagerBuyerNyashuk(true);
-            }
+            } else if (g.user.level == 7 && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) g.managerBuyerNyashuk = new ManagerBuyerNyashuk(true);
             if (g.user.level > 3 && g.user.isOpenOrder) g.managerOrder.checkOrders();
             if (g.user.level == 4 || g.user.level == 5) g.managerMiniScenes.checkDeleteMiniScene();
             if (g.user.level == g.allData.getBuildingById(45).blockByLevel[0])

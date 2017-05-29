@@ -580,7 +580,6 @@ public class Train extends WorldObject{
     }
 
     private function showBubleHelp():void {
-        if (g.user.isTester) {
         var im:Image;
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
         _sprHelp.addChild(im);
@@ -589,7 +588,6 @@ public class Train extends WorldObject{
         im.x = 21;
         im.y = 20;
         _sprHelp.endClickCallback = onClick;
-        }
     }
 }
 }

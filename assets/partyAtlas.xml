@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:b42fba28f352e47a726d5659f3be0055:87140c1a1bba470dba29fb353b94d42c:ac880a930f9f4f68bee3173fda432350$ -->
-<TextureAtlas imagePath="partyAtlas.png" width="1547" height="1017">
-    <SubTexture name="best_players_1" x="934" y="865" width="273" height="57" frameX="-3" frameY="-11" frameWidth="280" frameHeight="75"/>
-    <SubTexture name="best_players_2" x="664" y="865" width="268" height="65" frameX="-5" frameY="-3" frameWidth="280" frameHeight="75"/>
+<!-- $TexturePacker:SmartUpdate:bc9292c39f8eca177789cf59955019fc:1abdf08f46ec215f0ec7662566c951fc:ac880a930f9f4f68bee3173fda432350$ -->
+<TextureAtlas imagePath="partyAtlas.png" width="1547" height="1021">
+    <SubTexture name="best_players_1" x="974" y="865" width="273" height="57" frameX="-3" frameY="-11" frameWidth="280" frameHeight="75"/>
+    <SubTexture name="best_players_2" x="664" y="923" width="268" height="65" frameX="-5" frameY="-3" frameWidth="280" frameHeight="75"/>
     <SubTexture name="best_players_3" x="683" y="1" width="640" height="453" frameX="0" frameY="0" frameWidth="640" frameHeight="458"/>
+    <SubTexture name="end_event_title" x="664" y="865" width="308" height="56"/>
     <SubTexture name="event_picnic_text" x="683" y="456" width="367" height="68" frameX="-5" frameY="0" frameWidth="376" frameHeight="72"/>
     <SubTexture name="event_picnic_window" x="1" y="1" width="680" height="470" frameX="-9" frameY="-1" frameWidth="689" frameHeight="472"/>
     <SubTexture name="event_window_baloon" x="1250" y="795" width="269" height="219" frameX="-2" frameY="-9" frameWidth="281" frameHeight="237"/>
@@ -18,7 +19,7 @@
     <SubTexture name="progress" x="1" y="962" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
     <SubTexture name="tabs_bonus_on" x="1446" y="286" width="99" height="79" frameX="-8" frameY="0" frameWidth="115" frameHeight="79"/>
     <SubTexture name="tabs_bt_1" x="934" y="924" width="124" height="92" frameX="0" frameY="0" frameWidth="126" frameHeight="92"/>
-    <SubTexture name="tabs_bt_2" x="1209" y="865" width="39" height="92"/>
+    <SubTexture name="tabs_bt_2" x="1177" y="924" width="39" height="92"/>
     <SubTexture name="tabs_congratulations" x="1" y="473" width="661" height="487"/>
     <SubTexture name="tabs_event_on" x="1446" y="367" width="88" height="74" frameX="-14" frameY="-3" frameWidth="115" frameHeight="79"/>
     <SubTexture name="tabs_top_on" x="1060" y="924" width="115" height="79"/>

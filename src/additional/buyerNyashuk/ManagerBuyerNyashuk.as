@@ -70,7 +70,7 @@ public class ManagerBuyerNyashuk {
             }
         } else newBot(true);
         if (!afterNewLvl) {
-            if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) return;
+//            if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) return;
             var b:BuyerNyashuk;
             for (i = 0; i < _arr.length; i++) {
                 b = new BuyerNyashuk(_arr[i].buyerId, _arr[i]);
@@ -353,7 +353,7 @@ public class ManagerBuyerNyashuk {
 
     // ------ new Nyashuk arrived --------
     public function getNewNyaForOrder(onArriveCallback:Function = null, ob:Object = null, id:int = 1):BuyerNyashuk{
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) return null;
+//        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) return null;
         var nya:BuyerNyashuk = new BuyerNyashuk(id,ob);
         nya.noClick();
         nya.arriveCallback = onArriveCallback;

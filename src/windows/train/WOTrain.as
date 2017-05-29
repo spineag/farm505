@@ -347,7 +347,6 @@ public class WOTrain extends WindowMain {
         _imageItem.x = 65 - _imageItem.width/2;
         _imageItem.y = 115 - _imageItem.height/2;
         _rightBlock.addChild(_imageItem);
-        if (g.user.isTester) {
             if (g.isAway) {
                 if (_arrItems[k].needHelp && int(_arrItems[k].idWhoHelp) <= 0) {
                     if (!_btnHelp) {
@@ -395,7 +394,6 @@ public class WOTrain extends WindowMain {
                     _btnHelp = null;
                 }
             }
-        }
     }
 
     private function giftHelpClick(lastResource:Boolean = false):void {
