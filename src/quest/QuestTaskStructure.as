@@ -39,6 +39,7 @@ public class QuestTaskStructure {
             if (arr && arr.length > 0) _isDone = true;
         } else if (_taskData.type_action == ManagerQuest.BUY_ANIMAL) {
             var b:StructureDataBuilding = g.allData.getBuildingById(g.allData.getFarmIdForAnimal(_taskData.id_resource));
+            if (!b) return;
             var maxCountAtCurrentLevel:int = 0;
             arr = g.townArea.getCityObjectsById(b.id);
             for (var i:int = 0; b.blockByLevel.length; i++) {

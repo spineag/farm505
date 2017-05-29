@@ -113,8 +113,8 @@ public class QuestMainIconUI {
     }
 
     public function checkContPosition():void {
-        if (g.user.level > 16) {
-            _sp.y = 245;
+        if (g.user.level > 10) {
+            _sp.y = 210;
         } else {
             _sp.y = 150;
         }

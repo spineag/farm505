@@ -659,6 +659,7 @@ public class MainBottomPanel {
     }
 
     public function addArrow(btnName:String, t:Number = 0, resourceId:int = 0, typeId:int = 0):void {
+        deleteArrow();
         switch (btnName) {
             case 'shop':
                 _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
