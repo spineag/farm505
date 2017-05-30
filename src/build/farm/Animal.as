@@ -131,6 +131,7 @@ public class Animal {
     }
 
     private function createAnimal():void {
+        if (!_data) return;
         animation = new AnimalAnimation();
         animation.animalArmature(g.allData.factory[_data.url].buildArmature(_data.image), _data.id);
         source.addChild(animation.source);

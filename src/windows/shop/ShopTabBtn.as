@@ -126,12 +126,8 @@ public class ShopTabBtn {
                 if (g.user.villageNotification > 0) {
                     g.user.allNotification = g.user.allNotification - g.user.villageNotification;
                     g.user.villageNotification = 0;
-                    _imNotification = null;
-                    _txtNotification = null;
-                    _source.removeChild(_imNotification);
-                    _source.removeChild(_txtNotification);
-                    if (_shopSource.contains(_source)) _shopSource.removeChild(_source);
-                    if (!_shopSprite.contains(_source)) _shopSprite.addChild(_source);
+                    _imNotification.visible = false;
+                    _txtNotification.visible = false;
                 }
                 break;
             case WOShop.ANIMAL:

@@ -123,8 +123,8 @@ public class Fabrica extends WorldObject {
     private function onCreateBuild():void {
         WorldClock.clock.add(_armature);
         stopAnimation();
-        _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
-        _source.registerHitArea(_hitArea);
+        if (_source) _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
+        if (_source) _source.registerHitArea(_hitArea);
         if (!g.isAway) onHeroAnimation();
     }
 

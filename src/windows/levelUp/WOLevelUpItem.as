@@ -134,7 +134,7 @@ public class WOLevelUpItem {
                 _txtCount.text = '+3';
                 _image = new Image(g.allData.atlas['resourceAtlas'].getTexture(ob.imageShop + '_icon'));
             } else if (ob.buildType == BuildType.DECOR_FULL_FENСE || ob.buildType == BuildType.DECOR_POST_FENCE
-                    || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.DECOR) {
+                    || ob.buildType == BuildType.DECOR_TAIL || ob.buildType == BuildType.DECOR || ob.buildType == BuildType.DECOR_FENCE_ARKA) {
                 _txtNew.text = String(g.managerLanguage.allTexts[424]);
                 if (ob.image) {
                     var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon');

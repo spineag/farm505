@@ -285,8 +285,11 @@ public class MarketItem {
         _costTxt.y = 99;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2 - 5;
-        if (_isUser) {
-            visiblePapperTimer();
+        if (_inPapper) {
+            if (_papperBtn) {
+                _papperBtn.visible = true;
+            }
+            if (_imCheck) _imCheck.visible = true;
         }
     }
 
@@ -295,18 +298,18 @@ public class MarketItem {
         isFill = 1;
         g.directServer.addUserMarketItem(id, level, count, inPapper, cost, number, onAddToServer);
         g.userInventory.addResource(id, -count);
+        _inPapper = inPapper;
         fillIt(g.allData.getResourceById(id),count, cost);
+//        if(inPapper) {
+//            if (_papperBtn) {
+//                _papperBtn.visible = true;
+//            }
+//            if (_imCheck) _imCheck.visible = true;
+////            _wo.startPapperTimer();
+            g.directServer.updateMarketPapper(number, true, null);
+//            _inPapper = true;
+//        } else if (_wo.booleanPaper) g.managerCutScenes.checkCutSceneForAddToPapper(this);
         _txtAdditem.visible = false;
-        if(inPapper) {
-            if (_papperBtn) {
-                _papperBtn.visible = true;
-            }
-            if (_imCheck) _imCheck.visible = true;
-//            _wo.startPapperTimer();
-//            g.directServer.updateMarketPapper(number, true, null);
-            _inPapper = true;
-        } else if (_wo.booleanPaper) g.managerCutScenes.checkCutSceneForAddToPapper(this);
-
     }
 
     private function onAddToServer(ob:Object):void {
@@ -363,27 +366,27 @@ public class MarketItem {
         g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
     }
 
-    public function visiblePapperTimer():void {
-        if (isFill == 0 || isFill == 2) return;
-        if (_inPapper) {
-            if ((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper) * (-1) <= 10800) {
-                if (_papperBtn) {
-                    _papperBtn.visible = true;
-                    _papperBtn.alpha = .8;
-                }
-                if (_imCheck) _imCheck.visible = true;
-            } else {
-                if (_papperBtn) {
-                    _papperBtn.visible = false;
-                    _papperBtn.alpha = 1;
-                }
-                _imCheck.visible = false;
-                g.directServer.updateMarketPapper(number, false, null);
-            }
-        } else {
-            if (_papperBtn) _papperBtn.visible = _wo.booleanPaper;
-        }
-    }
+//    public function visiblePapperTimer():void {
+//        if (isFill == 0 || isFill == 2) return;
+//        if (_inPapper) {
+//            if ((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper) * (-1) <= 10800) {
+//                if (_papperBtn) {
+//                    _papperBtn.visible = true;
+//                    _papperBtn.alpha = .8;
+//                }
+//                if (_imCheck) _imCheck.visible = true;
+//            } else {
+//                if (_papperBtn) {
+//                    _papperBtn.visible = false;
+//                    _papperBtn.alpha = 1;
+//                }
+//                _imCheck.visible = false;
+//                g.directServer.updateMarketPapper(number, false, null);
+//            }
+//        } else {
+//            if (_papperBtn) _papperBtn.visible = _wo.booleanPaper;
+//        }
+//    }
 
     private function onDelete():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
@@ -734,9 +737,9 @@ public class MarketItem {
         }
         if (_plawkaCoins) _plawkaCoins.visible = true;
         if (_costTxt) _costTxt.text = String(cost);
-        if (_isUser) {
-            visiblePapperTimer();
-        }
+//        if (_isUser) {
+//            visiblePapperTimer();
+//        }
 //        _costTxt.text = String(_dataFromServer.cost); ?? double
         if (_dataFromServer.buyerSocialId == '1') {
             _personBuyer = g.user.neighbor;

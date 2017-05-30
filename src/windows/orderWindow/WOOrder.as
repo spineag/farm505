@@ -283,7 +283,7 @@ public class WOOrder extends WindowMain{
         im.y = 15;
         _btnSkipDelete.addDisplayObject(im);
         _txtBtnSkip = new CTextField(80, 50, String(g.managerLanguage.allTexts[367]));
-        _txtBtnSkip.setFormat(CTextField.BOLD18, 16, Color.WHITE);
+        _txtBtnSkip.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
         _btnSkipDelete.addChild(_txtBtnSkip);
         _txtBtnSkip2 = new CTextField(20, 50, '');
         _txtBtnSkip2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
@@ -897,15 +897,17 @@ public class WOOrder extends WindowMain{
         if (okuli) okuli.visible = false;
         if (sharf) sharf.visible = false;
         if (g.user.isTester) {
-            _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_3'));
+            _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_4'));
             _srcBaloon.addChild(_imBaloon);
-            _txtBaloon = new CTextField(400, 157, '');
-            _txtBaloon.setFormat(CTextField.BOLD30, 30, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _txtBaloon = new CTextField(200, 200, '');
+            _txtBaloon.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _txtBaloon.x = 40;
+            _txtBaloon.y = -40;
             _srcBaloon.addChild(_txtBaloon);
             _srcBaloon.scaleX = _srcBaloon.scaleY = 0;
             _srcBaloon.x = (_armatureCustomer.display as StarlingArmatureDisplay).x + 30;
             _srcBaloon.y = (_armatureCustomer.display as StarlingArmatureDisplay).y - 60;
-            new TweenMax(_srcBaloon, 1, {scaleX: .5, scaleY: .5, y: _srcBaloon + 83, ease: Back.easeOut});
+            new TweenMax(_srcBaloon, 1, {scaleX: 1, scaleY: 1, y: _srcBaloon + 83, ease: Back.easeOut});
         }
         switch (_arrOrders[pos-1].catOb.type) {
             case DataCat.AKRIL:
