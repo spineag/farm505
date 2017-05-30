@@ -54,7 +54,7 @@ public class MarketHint {
         objCave = [];
         var arR:Array = g.allData.building;
         for (var i:int = 0; i < arR.length; i++) {
-            if (arR.buildType == BuildType.TREE)
+            if (arR[i].buildType == BuildType.TREE)
                 objTrees.push(arR[i]);
             else if (arR[i].buildType == BuildType.CAVE)
                 objCave = arR[i].idResource;

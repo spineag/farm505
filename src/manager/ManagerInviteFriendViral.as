@@ -22,8 +22,8 @@ public class ManagerInviteFriendViral {
         if (g.user.level >= _levelData) checkIt();
     }
 
-    public function getCountFriends():int { _countFriendsData; }
-    public function getCountRubies():int { _countRubiesData; }
+    public function getCountFriends():int { return _countFriendsData; }
+    public function getCountRubies():int { return _countRubiesData; }
     public function onUpdateLevel():void { if (g.user.level == _levelData) checkIt(); }
 
     private function checkIt():void {

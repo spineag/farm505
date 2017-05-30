@@ -479,7 +479,7 @@ public class Vars {
         updateAmbarIndicator();
         gameDispatcher.addNextFrameFunction(afterLoadAll_2);
 
-        if (socialNetworkID = SocialNetworkSwitch.SN_FB_ID) {
+        if (socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
 //            directServer.getDataInviteViral(onViralInvite);
         }
     }

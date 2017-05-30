@@ -1091,6 +1091,11 @@ public class ManagerOrder {
                     }
                 }
             }
+            if (order.xp == 0) order.xp = order.resourceCounts[0] * 2;
+            if (order.xp == 0) {
+                order.resourceCounts[0] = 4;
+                order.xp = 0;
+            }
             order.startTime = int(new Date().getTime() / 1000);
             if (place == -1) {
                 order.placeNumber = getFreePlace();
