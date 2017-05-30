@@ -10,6 +10,7 @@ import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
+import starling.utils.Align;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
@@ -87,9 +88,10 @@ public class WOTrainOrder extends WindowMain{
         im.x = -55;
         im.y = -80;
         _source.addChild(im);
-        _txtTime = new CTextField(80,50,"");
+        _txtTime = new CTextField(120,50,"");
         _txtTime.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
-        _txtTime.x = -20;
+        _txtTime.alignH = Align.LEFT;
+        _txtTime.x = -15;
         _txtTime.y = -85;
         _source.addChild(_txtTime);
     }

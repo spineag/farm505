@@ -130,7 +130,7 @@ public class WOMarketChoose extends WindowMain {
         else _type = SKLAD;
         checkTypes();
         fillItems();
-        checkPapper();
+//        checkPapper();
         super.showIt();
     }
 
@@ -440,9 +440,10 @@ public class WOMarketChoose extends WindowMain {
         _countResourceBlock.onChangeCallback = onChangeResourceCount;
         _countMoneyBlock.maxValue = count * g.allData.getResourceById(_curResourceId).costMax;
         _countMoneyBlock.minValue =  count * g.allData.getResourceById(_curResourceId).costDefault;
-        _countMoneyBlock.count =  count * g.allData.getResourceById(_curResourceId).costDefault;
+        var def:int = ((count * g.allData.getResourceById(_curResourceId).costMax) - (count * g.allData.getResourceById(_curResourceId).costDefault)) /2 + count * g.allData.getResourceById(_curResourceId).costDefault;
+        _countMoneyBlock.count =  def;
 //        _countMoneyBlock._btnMinus.filter =  ManagerFilters.BUTTON_DISABLE_FILTER;
-        _countMoneyBlock._btnMinus.setEnabled = false;
+//        _countMoneyBlock._btnMinus.setEnabled = false;
         if (countRes == 1) {
 //            _countResourceBlock._btnPlus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
 //            _countResourceBlock._btnMinus.filter = ManagerFilters.BUTTON_DISABLE_FILTER;

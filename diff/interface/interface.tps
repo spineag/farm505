@@ -348,6 +348,7 @@
             <filename>best_price_eng.png</filename>
             <filename>top_eng.png</filename>
             <filename>buttons_new</filename>
+            <filename>baloon_4.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

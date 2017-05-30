@@ -118,13 +118,13 @@ public class WOBuyerNyashuk extends WindowMain{
         }
         var dataResource:Object = {};
         var txt:CTextField =  new CTextField(172,45,String(g.managerLanguage.allTexts[451]));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -165;
         txt.y = -120;
         _source.addChild(txt);
         _arrCTex.push(txt);
         txt =  new CTextField(250,45,String(g.managerLanguage.allTexts[452]));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = -200;
         txt.y = -95;
         _source.addChild(txt);
@@ -147,12 +147,12 @@ public class WOBuyerNyashuk extends WindowMain{
 
         txt = new CTextField(40,40,"/" + _data.resourceCount);
         txt.x = - 135;
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.alignH = Align.LEFT;
         _source.addChild(txt);
         _arrCTex.push(txt);
         txt = new CTextField(40,40,String(g.userInventory.getCountResourceById(_data.resourceId)));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         if (g.userInventory.getCountResourceById(_data.resourceId) >= _data.resourceCount) txt.changeTextColor = ManagerFilters.LIGHT_GREEN_COLOR;
         else txt.changeTextColor = ManagerFilters.ORANGE_COLOR;
         txt.x = - 179;
@@ -175,13 +175,13 @@ public class WOBuyerNyashuk extends WindowMain{
         _source.addChild(im);
 
         txt = new CTextField(40,40,_data.cost);
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.y = -55;
         txt.x = 10;
         _source.addChild(txt);
         _arrCTex.push(txt);
         txt = new CTextField(40,40,_data.xp);
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.x = 10;
         txt.y = -10;
         _source.addChild(txt);
