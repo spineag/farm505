@@ -5,11 +5,10 @@ package windows.inviteFriendsViralInfo {
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
 
+import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
-
 import starling.display.Image;
 import starling.utils.Color;
-
 import utils.CButton;
 import utils.CTextField;
 import windows.WOComponents.WindowBackground;
@@ -100,11 +99,55 @@ public class WOInviteFriendsViralInfo extends WindowMain {
     }
 
     private function letInvite():void {
-
+        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onViralInvite);
+        g.socialNetwork.showViralInviteWindow();
+    }
+    
+    private function onViralInvite(ar:Array):void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onViralInvite);
+        if (_callback != null) {
+            _callback.apply(null, [ar]);
+            _callback = null;
+        }
+        hideIt();
     }
 
     private function onClickExit():void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onViralInvite);
+        if (_callback != null) {
+            _callback.apply(null, []);
+            _callback = null;
+        }
+        hideIt();
+    }
 
+    override protected function deleteIt():void {
+        if (_txt) {
+            _source.removeChild(_txt);
+            _txt.deleteIt();
+            _txt = null;
+        }
+        if (_txt2) {
+            _source.removeChild(_txt2);
+            _txt2.deleteIt();
+            _txt2 = null;
+        }
+        if (_txtCount) {
+            _source.removeChild(_txtCount);
+            _txtCount.deleteIt();
+            _txtCount = null;
+        }
+        if (_btn) {
+            _source.removeChild(_btn);
+            _btn.deleteIt();
+            _btn = null;
+        }
+        if (_woBG) {
+            _source.removeChild(_woBG);
+            _woBG.deleteIt();
+            _woBG = null;
+        }
+        super.deleteIt();
     }
 }
 }

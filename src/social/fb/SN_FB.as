@@ -44,6 +44,7 @@ public class SN_FB extends SocialNetwork  {
             ExternalInterface.addCallback('changeLanguage', changeLanguage);
             ExternalInterface.addCallback('successPayment', orderSuccessHandler);
             ExternalInterface.addCallback('failPayment', orderFailHandler);
+            ExternalInterface.addCallback('onViralInvite', onViralInviteHandler);
         }
         super(flashVars);
     }
@@ -215,6 +216,14 @@ public class SN_FB extends SocialNetwork  {
 
     override public function showInviteWindow():void {
         ExternalInterface.call("showInviteWindowAll", g.user.language);
+    }
+
+    override public function showViralInviteWindow():void {
+        ExternalInterface.call("showInviteWindowViral");
+    }
+    
+    private function onViralInviteHandler(ar:Array):void {
+        super.onViralInvite(ar);
     }
 
     override public function reloadGame():void {

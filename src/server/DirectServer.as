@@ -8449,9 +8449,54 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
-    
-    
-    
+
+    public function updateUserViralInvite(t:int,callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_VIRAL_INVITE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserViralInvite', 1);
+        variables = addDefault(variables);
+        variables.nextTime = t;
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteUpdateUserViralInvite);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteUpdateUserViralInvite(e:Event):void { completeUpdateUserViralInvite(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserViralInvite error:' + error.errorID);
+        }
+    }
+
+    private function completeUpdateUserViralInvite(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('UpdateUserViralInvite: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'UpdateUserViralInvite: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'UpdateUserViralInvite OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('UpdateUserViralInvite: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
     
 
     private function onIOError(e:IOErrorEvent):void {

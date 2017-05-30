@@ -17,6 +17,7 @@ public class SocialNetworkEvent extends Event {
     public static const ORDER_WINDOW_SUCCESS:String = "OrderWindowSuccess";
     public static const ORDER_WINDOW_CANCEL:String = "OrderWindowCancel";
     public static const ORDER_WINDOW_FAIL:String = "OrderWindowFail";
+    public static const ON_VIRAL_INVITE:String = "OnViralInvite";
 
     public static const REQUEST_WINDOW_COMPLETE:String = "RequestWindowComplete";
     public static const GET_POST_INFO:String = "getPostInfo";

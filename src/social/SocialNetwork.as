@@ -205,6 +205,16 @@ public class SocialNetwork extends EventDispatcher {
         clearScreen();
     }
 
+    public function showViralInviteWindow():void {
+        Cc.ch('social', "SocialNetwork:: called request to show window of invite friend for viral");
+        clearScreen();
+    }
+
+    public function onViralInvite(ar:Array):void {
+        Cc.ch('social', 'onViralInviteHandler array: ' + ar.toString());
+        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.ON_VIRAL_INVITE, false, false, ar));
+    }
+
     public function showOrderWindow(e:Object):void {
         Cc.ch("social", "SocialNetwork:: show order window. item id: " + e.id, 18);
         clearScreen();
