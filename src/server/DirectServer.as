@@ -431,6 +431,48 @@ public class DirectServer {
         }
     }
 
+    public function getDataInviteViral(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_VIRAL_INVITE);
+
+        Cc.ch('server', 'start getDataInviteViral', 1);
+        var variables:URLVariables = new URLVariables();
+        variables = addDefault(variables);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompletegetDataInviteViral);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompletegetDataInviteViral(e:Event):void { completegetDataInviteViral(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getDataInviteViral error:' + error.errorID);
+        }
+    }
+
+    private function completegetDataInviteViral(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getDataInviteViral: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataInviteViral: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getDataInviteViral OK', 5);
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+        } else {
+            Cc.error('getDataInviteViral: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
     public function getDataBuyMoney(callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_DATA_BUY_MONEY);
@@ -902,6 +944,7 @@ public class DirectServer {
             g.user.countDailyGift  = int(ob.count_daily_gift);
             g.user.language = int(ob.language);
             g.user.day = int (ob.day);
+            if (ob.next_time_invite) g.user.nextTimeInvite = int(ob.next_time_invite);
             if (!g.isDebug) {
                 if (ob.music == '1') g.soundManager.enabledMusic(true);
                 else g.soundManager.enabledMusic(false);

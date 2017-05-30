@@ -60,6 +60,7 @@ public class User extends Someone {
     public var salePack:Boolean;
     public var day:int;
     public var language:int;
+    public var nextTimeInvite:int = -1;
 
     private var g:Vars = Vars.getInstance();
 

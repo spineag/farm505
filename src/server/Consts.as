@@ -12,6 +12,7 @@ public class Consts {
     public static var INQ_DATA_RECIPE:String = 'getDataRecipe.php';
     public static var INQ_DATA_RESOURCE:String = 'getDataResource.php';
     public static var INQ_DATA_CATS:String = 'getDataCats.php';
+    public static var INQ_DATA_VIRAL_INVITE:String = 'getDataViralInvite.php';
     public static var INQ_DATA_BUY_MONEY:String = 'getDataBuyMoney.php';
     public static var INQ_START:String = 'start.php';
     public static var INQ_USER_INFO:String = 'getUserInfo.php';
