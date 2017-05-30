@@ -112,7 +112,6 @@ public class WOTrainItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'woTrain');
             return;
         }
-        if (g.user.isTester) {
             if (int(_info.helpId) != 0) {
                 if (int(_info.helpId) == 1) {
                     _personBuyer = g.user.neighbor;
@@ -193,7 +192,6 @@ public class WOTrainItem {
 
                 return;
             }
-        }
         var curCount:int = g.userInventory.getCountResourceById(_info.id);
         if (curCount >= _info.count) {
             _txtRed.changeTextColor = ManagerFilters.LIGHT_GREEN_COLOR;
@@ -229,12 +227,10 @@ public class WOTrainItem {
             _txtWhite.visible = false;
             _txtRed.visible = false;
         }
-        if (g.user.isTester) {
             if (_info.needHelp && !_needHelp && int(_info.helpId) == 0) {
                 _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
                 source.addChild(_needHelp);
             }
-        }
     }
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {

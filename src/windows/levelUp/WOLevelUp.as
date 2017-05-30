@@ -301,7 +301,7 @@ public class WOLevelUp extends WindowMain {
 
     override public function hideIt():void {
         super.hideIt();
-        if (g.user.level == 8 && !g.windowsManager.currentWindow) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
+        if (g.user.level == 8) g.windowsManager.openWindow(WindowsManager.WO_DAILY_BONUS,null);
 //        if (g.user.level >= 17) g.couponePanel.openPanel(true);
 //        _txtLevel.text = String(g.user.level);
 //        createList();

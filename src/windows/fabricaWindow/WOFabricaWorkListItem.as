@@ -20,6 +20,10 @@ import manager.ManagerLanguage;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
 import manager.Vars;
+
+import social.SocialNetwork;
+import social.SocialNetworkSwitch;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.text.TextField;
@@ -87,9 +91,8 @@ public class WOFabricaWorkListItem {
             _txt.x = 5;
             _txt.y = 5;
             _source.addChild(_txt);
-            if (g.user.isTester) _source.endClickCallback = onClick;
+            if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) _source.endClickCallback = onClick;
         }
-
         if (_type == BIG_CELL) {
             _timerBlock = new Sprite();
             var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('production_window_clock'));

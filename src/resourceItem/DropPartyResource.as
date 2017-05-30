@@ -55,14 +55,14 @@ public class DropPartyResource {
         _source.y = _y;
         g.cont.animationsResourceCont.addChild(_source);
         endPoint = g.partyPanel.getPoint();
-        if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
-            if (g.managerParty.userParty.countResource + 1 <= g.managerParty.countToGift[4]) {
+//        if (g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
+//            if (g.managerParty.userParty.countResource + 1 <= g.managerParty.countToGift[4]) {
                 g.managerParty.userParty.countResource = g.managerParty.userParty.countResource + 1;
                 var st:String = g.managerParty.userParty.tookGift[0] + '&' + g.managerParty.userParty.tookGift[1] + '&' + g.managerParty.userParty.tookGift[2] + '&'
                         + g.managerParty.userParty.tookGift[3] + '&' + g.managerParty.userParty.tookGift[4];
                 g.directServer.updateUserParty(st, g.managerParty.userParty.countResource, 0, null);
-            }
-        }
+//            }
+//        }
         var f1:Function = function():void {
             g.cont.animationsResourceCont.removeChild(_source);
             g.partyPanel.animationBuy();

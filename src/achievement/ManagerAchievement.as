@@ -4,6 +4,8 @@
 package achievement {
 import manager.Vars;
 
+import social.SocialNetworkSwitch;
+
 public class ManagerAchievement {
 
     public static const TAKE_PRODUCTS:int = 1; // +Собрать продукты
@@ -30,7 +32,7 @@ public class ManagerAchievement {
                         userAchievement[i].resourceCount = count;
                         break;
                     }
-                    if (g.user.isMegaTester) {
+                    if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                         for (var k:int = 0; k < dataAchievement.length; k++) {
                             if (dataAchievement[k].id == 22) {
                                 for (var j:int = 0; j < dataAchievement[k].countToGift.length; j++) {
@@ -82,7 +84,7 @@ public class ManagerAchievement {
                             userAchievement[i].resourceCount = count;
                             break;
                         }
-                        if (g.user.isMegaTester) {
+                        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                             for (var k:int = 0; k < dataAchievement.length; k++) {
                                 if (dataAchievement[k].id == 23) {
                                     for (var j:int = 0; j < dataAchievement[k].countToGift.length; j++) {
@@ -136,7 +138,7 @@ public class ManagerAchievement {
                             userAchievement[k].resourceCount += 1;
                             var st:String = String(userAchievement[k].tookGift[0]) + '&' + String(userAchievement[k].tookGift[1]) + '&' + String(userAchievement[k].tookGift[2]);
                             g.directServer.updateUserAchievement(userAchievement[k].id, userAchievement[k].resourceCount, st, userAchievement[k].showPanel, null);
-                            if (g.user.isMegaTester) {
+                            if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                                 for (var j:int = 0; j < dataAchievement[i].countToGift.length; j++) {
                                     if (userAchievement[k].resourceCount >= dataAchievement[i].countToGift[j] && !userAchievement[k].tookGift[j]) {
                                         g.achievementPanel.showIt(dataAchievement[i]);
@@ -197,7 +199,7 @@ public class ManagerAchievement {
                     userAchievement[i].resourceCount += count;
                     var st:String = String(userAchievement[i].tookGift[0]) + '&' + String(userAchievement[i].tookGift[1]) + '&' + String(userAchievement[i].tookGift[2]);
                     g.directServer.updateUserAchievement(userAchievement[i].id, userAchievement[i].resourceCount, st, userAchievement[i].showPanel, null);
-                    if (g.user.isMegaTester) {
+                    if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                         for (var k:int = 0; k < dataAchievement.length; k++) {
                             if (dataAchievement[k].id == achievementId) {
                                 for (var j:int = 0; j < dataAchievement[k].countToGift.length; j++) {

@@ -8251,8 +8251,9 @@ public class DirectServer {
                 ob.userId = int(d.message[i].user_id);
                 ob.socialId = String(d.message[i].social_id);
                 ob.countResource = int(d.message[i].count_resource);
-                ob.photo = int(d.message[i].photo_url);
+                ob.photo = d.message[i].photo_url;
                 ob.name = String(d.message[i].name + ' ' + d.message[i].last_name);
+                ob.level = int(d.message[i].level);
                 g.managerParty.arrBestPlayers.push(ob);
             }
         }
