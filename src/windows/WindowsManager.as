@@ -21,6 +21,7 @@ import windows.chestYellowWindow.WOChestYellow;
 import windows.dailyBonusWindow.WODailyBonus;
 import windows.dailyGiftWindow.WODailyGift;
 import windows.fabricaWindow.WOFabricDeleteItem;
+import windows.inviteFriendsViralInfo.WOInviteFriendsViralInfo;
 import windows.partyWindow.WOPartyHelp;
 import windows.partyWindow.WOPartyWindow;
 import windows.fabricaWindow.WOFabrica;
@@ -94,6 +95,7 @@ public class WindowsManager {
     public static const WO_TRAIN_SEND:String = 'train_send';
     public static const WO_CHEST:String = 'chest';
     public static const WO_INVITE_FRIENDS:String = 'invite_friends';
+    public static const WO_INVITE_FRIENDS_VIRAL_INFO:String = 'invite_friends_viral_info';
     public static const POST_OPEN_LAND:String = 'post_open_land';
     public static const POST_OPEN_CAVE:String = 'post_open_cave';
     public static const POST_OPEN_TRAIN:String = 'post_open_train';
@@ -236,6 +238,9 @@ public class WindowsManager {
                 break;
             case WO_INVITE_FRIENDS:
                 wo = new WOInviteFriends();
+                break; 
+            case WO_INVITE_FRIENDS_VIRAL_INFO:
+                wo = new WOInviteFriendsViralInfo();
                 break;
             case POST_OPEN_LAND:
                 wo = new PostOpenLand();

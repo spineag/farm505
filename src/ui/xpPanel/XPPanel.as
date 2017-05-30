@@ -9,6 +9,7 @@ import flash.filters.GlowFilter;
 import flash.geom.Point;
 
 import manager.ManagerFilters;
+import manager.ManagerInviteFriendViral;
 
 import manager.Vars;
 
@@ -135,6 +136,7 @@ public class XPPanel {
                 if (g.managerTips) g.managerTips.calculateAvailableTips();
             }
             if (!g.isDebug) g.socialNetwork.setUserLevel();
+            if (g.managerInviteFriend) g.managerInviteFriend.onUpdateLevel();
         } else 
             checkXP();
     }

@@ -131,7 +131,7 @@ public class Vars {
     public var managerCutScenes:ManagerCutScenes;
     public var managerMiniScenes:ManagerMiniScenes;
     public var managerWallPost:ManagerWallPost;
-    public var managerInviteFriend:ManagerInviteFriend;
+    public var managerInviteFriend:ManagerInviteFriendViral;
     public var managerTimerSkip:ManagerTimerSkip;
     public var managerParty:ManagerPartyNew;
     public var managerSalePack:ManagerSalePack;
@@ -274,7 +274,6 @@ public class Vars {
             managerTutorial = new ManagerTutorialNew();
             managerCutScenes = new ManagerCutScenes();
             managerWallPost = new ManagerWallPost();
-            managerInviteFriend = new ManagerInviteFriend();
             managerTimerSkip = new ManagerTimerSkip();
             managerMouseHero = new ManagerMouse();
             managerMiniScenes = new ManagerMiniScenes();
@@ -479,6 +478,14 @@ public class Vars {
         gameDispatcher.addEnterFrame(onEnterFrameGlobal);
         updateAmbarIndicator();
         gameDispatcher.addNextFrameFunction(afterLoadAll_2);
+
+        if (socialNetworkID = SocialNetworkSwitch.SN_FB_ID) {
+//            directServer.getDataInviteViral(onViralInvite);
+        }
+    }
+
+    private function onViralInvite(data:Object):void {
+        managerInviteFriend = new ManagerInviteFriendViral(data);
     }
 
     private function afterLoadAll_2():void {

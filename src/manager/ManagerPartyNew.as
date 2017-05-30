@@ -28,6 +28,8 @@ public class ManagerPartyNew {
     public var dataParty:Object;
     public var userParty:Object;
     public var eventOn:Boolean;
+    public var playerPosition:int;
+    public var arrBestPlayers:Array = [];
 
     public function ManagerPartyNew() {
         eventOn = false;
