@@ -33,13 +33,11 @@ public class ManagerInviteFriendViral {
     public function onUpdateLevel():void { if (g.user.level == _levelData) checkIt(); }
 
     private function checkIt():void {
-//        if (g.user.isTester && (g.user.nextTimeInvite == 0 || g.user.nextTimeInvite < int(new Date().getTime()/1000))) startTimer();
-        startTimer();
+        if (g.user.isTester && (g.user.nextTimeInvite == 0 || g.user.nextTimeInvite < int(new Date().getTime()/1000))) startTimer();
     }
     
     private function startTimer():void {
-//        _timer = 30 + int(Math.random()* 60);
-        _timer = 5;
+        _timer = 30 + int(Math.random()* 60);
         g.gameDispatcher.addToTimer(onTimer);
     }
 
