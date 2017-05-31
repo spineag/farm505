@@ -310,6 +310,7 @@ public class MarketItem {
 //            _inPapper = true;
 //        } else if (_wo.booleanPaper) g.managerCutScenes.checkCutSceneForAddToPapper(this);
         _txtAdditem.visible = false;
+        g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
     }
 
     private function onAddToServer(ob:Object):void {
@@ -363,7 +364,7 @@ public class MarketItem {
         _dataFromServer.timeInPapper = int(new Date().getTime() / 1000);
 //        _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
-        g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
+//        g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
     }
 
 //    public function visiblePapperTimer():void {
