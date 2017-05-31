@@ -415,6 +415,7 @@ public class WOTrain extends WindowMain {
             g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
             g.managerAchievement.addAll(19,1);
             _arrItems[_activeItemIndex].fullItHelp();
+            updateItems();
         } else {
             if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) >= _arrItems[_activeItemIndex].countFree) {
                 if (g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree) == _arrItems[_activeItemIndex].countFree && g.allData.getResourceById(_arrItems[_activeItemIndex].idFree).buildType == BuildType.PLANT
@@ -441,6 +442,7 @@ public class WOTrain extends WindowMain {
                 g.managerAchievement.addAll(19,1);
                 g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
                 _arrItems[_activeItemIndex].fullItHelp();
+                updateItems();
             }  else if (_arrItems[_activeItemIndex].countFree > g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)) {
                 g.windowsManager.cashWindow = this;
                 super.hideIt();

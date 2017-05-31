@@ -16,7 +16,7 @@ public class StructureMarketItem {
     public var shardName:String='-1';
     public var buyerId:int=0;
     public var buyerSocialId:String = '';
-    public var inPapper:Boolean = true;
+    public var inPapper:Boolean = false;
     public var timeSold:String = '';
     public var timeStart:String = '';
     public var numberCell:int=0;
@@ -34,7 +34,7 @@ public class StructureMarketItem {
         if (ob.shard_name) shardName = ob.shard_name;
         if (ob.buyer_id) buyerId = int(ob.buyer_id);
         if (ob.buyer_social_id) buyerSocialId = ob.buyer_social_id;
-        if (ob.in_papper) inPapper = Boolean(ob.in_papper);
+        if (ob.in_papper) inPapper = Boolean(int(ob.in_papper));
         if (ob.time_sold) timeSold = ob.time_sold;
         if (ob.time_start) timeStart = ob.time_start;
         if (ob.number_cell) numberCell = int(ob.number_cell);

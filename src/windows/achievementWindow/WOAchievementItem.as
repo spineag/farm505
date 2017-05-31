@@ -270,7 +270,10 @@ public class WOAchievementItem {
             source.addChildAt(_quad,0);
             _txtRubi.text = String(g.managerAchievement.dataAchievement[_number].countHard[i]);
             _txtStar.text = String(g.managerAchievement.dataAchievement[_number].countXp[i]);
+            var myPattern:RegExp = /count/;
+            var str:String = g.managerAchievement.dataAchievement[_number].description;
 
+            _description.text = str.replace(myPattern, String(g.managerAchievement.dataAchievement[_number].countToGift[i]));
             _imPlashkaDown.dispose();
             _imPlashkaDown = null;
             _imPlashkaDown = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka_dwn'));

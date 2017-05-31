@@ -263,6 +263,7 @@ public class HeroCat extends BasicCat{
             if (r <= .08) {
                  showFront(true);
                 killAllAnimations();
+                heroEyes.stopAnimations();
                 _animation.playIt('sleep', true, jumpCat);
                 b = true;
             }
@@ -462,6 +463,7 @@ public class HeroCat extends BasicCat{
         var f1:Function = function ():void {
             if (!hello) showFront(true);
             if (!hello) killAllAnimations();
+            heroEyes.startAnimations();
             _animation.playIt('jump_funny',true,f2);
         };
         if (hello) f1();

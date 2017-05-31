@@ -147,12 +147,12 @@ public class WOBuyerNyashuk extends WindowMain{
 
         txt = new CTextField(40,40,"/" + _data.resourceCount);
         txt.x = - 135;
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.alignH = Align.LEFT;
         _source.addChild(txt);
         _arrCTex.push(txt);
         txt = new CTextField(40,40,String(g.userInventory.getCountResourceById(_data.resourceId)));
-        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         if (g.userInventory.getCountResourceById(_data.resourceId) >= _data.resourceCount) txt.changeTextColor = ManagerFilters.LIGHT_GREEN_COLOR;
         else txt.changeTextColor = ManagerFilters.ORANGE_COLOR;
         txt.x = - 179;

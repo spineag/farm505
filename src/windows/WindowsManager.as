@@ -22,6 +22,7 @@ import windows.dailyBonusWindow.WODailyBonus;
 import windows.dailyGiftWindow.WODailyGift;
 import windows.fabricaWindow.WOFabricDeleteItem;
 import windows.inviteFriendsViralInfo.WOInviteFriendsViralInfo;
+import windows.missYou.WOMissYou;
 import windows.partyWindow.WOPartyHelp;
 import windows.partyWindow.WOPartyWindow;
 import windows.fabricaWindow.WOFabrica;
@@ -117,6 +118,7 @@ public class WindowsManager {
     public static const WO_FABRIC_DELETE_ITEM:String = 'fabric_delete_item';
     public static const WO_SALE_PACK:String = 'sale_pack';
     public static const WO_ACHIEVEMENT:String = 'achievement';
+    public static const WO_MISS_YOU:String = 'miss_you';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -307,6 +309,9 @@ public class WindowsManager {
                 break;
             case WO_ACHIEVEMENT:
                 wo = new WOAchievement();
+                break;
+            case WO_MISS_YOU:
+                wo = new WOMissYou();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

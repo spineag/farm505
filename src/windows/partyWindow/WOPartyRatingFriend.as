@@ -45,12 +45,6 @@ public class WOPartyRatingFriend {
     public function WOPartyRatingFriend(ob:Object, number:int, user:Boolean = false) {
         _person = ob;
         source = new Sprite();
-//        var quad:Quad = new Quad(280,55,Color.AQUA);
-//        source.addChild(quad);
-//
-//        quad = new Quad(5,5,Color.BLACK);
-//        quad.x = 30;
-//        source.addChild(quad);
         if (user) g.load.loadImage(g.user.photo, onLoadPhoto);
         else if (_person.photo) {
             g.load.loadImage(_person.photo, onLoadPhoto);

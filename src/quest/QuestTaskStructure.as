@@ -87,35 +87,35 @@ public class QuestTaskStructure {
         switch (int(_taskData.type_resource)) {
             case BuildType.PLANT:
                 ob = g.allData.getResourceById(int(_taskData.id_resource));
-                im = new Image(g.allData.atlas['resourceAtlas'].getTexture(ob.imageShop + '_icon'));
+                if (ob) im = new Image(g.allData.atlas['resourceAtlas'].getTexture(ob.imageShop + '_icon'));
                 break;
             case BuildType.RESOURCE:
                 ob = g.allData.getResourceById(int(_taskData.id_resource));
-                im = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
+                if (ob) im = new Image(g.allData.atlas[ob.url].getTexture(ob.imageShop));
                 break;
             case BuildType.FABRICA:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
-                im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 break;
             case BuildType.FARM:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
-                im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.image + '_icon'));
                 break;
             case BuildType.WILD:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
-                im = new Image(g.allData.atlas['wildAtlas'].getTexture(ob.image));
+                if (ob) im = new Image(g.allData.atlas['wildAtlas'].getTexture(ob.image));
                 if (!im) im = new Image(g.allData.atlas['wildAtlas'].getTexture('swamp'));
                 break;
             case BuildType.ANIMAL:
                 ob = g.allData.getAnimalById(int(_taskData.id_resource));
-                im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 break;
             case BuildType.RIDGE:
                 im = new Image(g.allData.atlas['iconAtlas'].getTexture('ridge_icon'));
                 break;
             case BuildType.DECOR:
                 ob = g.allData.getBuildingById(int(_taskData.id_resource));
-                im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
+                if (ob) im = new Image(g.allData.atlas['iconAtlas'].getTexture(ob.url + '_icon'));
                 break;
             case 0:
                 if (int(_taskData.type_action == ManagerQuest.SET_IN_PAPER || int(_taskData.type_action) == ManagerQuest.BUY_PAPER)) {

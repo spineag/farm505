@@ -419,10 +419,12 @@ public class WOLevelUp extends WindowMain {
                             if (arrTempColor[j] == arR[i].group) {
                                 b = false;
                                 break;
-                            } else if (arR[i].group > 0) arrTempColor.push(arR[i].group);
+                            }
                         }
-                        if (arrTempColor.length == 0 && arR[i].group > 0) arrTempColor.push(arR[i].group);
-                        if (b) g.user.decorNotification++;
+                        if ((arrTempColor.length == 0 && arR[i].group > 0) || (b && arR[i].group > 0)) arrTempColor.push(arR[i].group);
+                        if (b) {
+                            g.user.decorNotification++;
+                        }
                         objDataLevel.priority = 25;
                     } else objDataLevel.priority = 15;
                     if (b) arr.push(objDataLevel);

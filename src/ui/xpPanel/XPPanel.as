@@ -128,8 +128,8 @@ public class XPPanel {
             if (g.user.level == 8) {
                 if (g.managerHelpers) g.managerHelpers.disableIt();
             } else if (g.user.level == 10) {
-                g.managerTips.deleteTips();
-                g.managerTips = null;
+                if (g.managerTips) g.managerTips.deleteTips();
+                if (g.managerTips) g.managerTips = null;
                 g.managerQuest.checkQuestContPosition();
             } else if (g.user.level == 17) {
                 g.managerQuest.checkQuestContPosition();

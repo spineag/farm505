@@ -41,5 +41,6 @@ public class BuildType {
     public static const DECOR_FENCE_ARKA:int = 32;
     public static const CHEST_YELLOW:int = 33;
     public static const ACHIEVEMENT:int = 34;
+    public static const MISSING:int = 35;
 }
 }

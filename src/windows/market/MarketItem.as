@@ -285,11 +285,8 @@ public class MarketItem {
         _costTxt.y = 99;
         _costTxt.pivotX = _costTxt.width/2;
         _costTxt.x = _bg.width/2 - 5;
-        if (_inPapper) {
-            if (_papperBtn) {
-                _papperBtn.visible = true;
-            }
-            if (_imCheck) _imCheck.visible = true;
+        if (_isUser) {
+            visiblePapperTimer();
         }
     }
 
@@ -298,23 +295,22 @@ public class MarketItem {
         isFill = 1;
         g.directServer.addUserMarketItem(id, level, count, inPapper, cost, number, onAddToServer);
         g.userInventory.addResource(id, -count);
-        _inPapper = inPapper;
-        fillIt(g.allData.getResourceById(id),count, cost);
-//        if(inPapper) {
-//            if (_papperBtn) {
-//                _papperBtn.visible = true;
-//            }
-//            if (_imCheck) _imCheck.visible = true;
-////            _wo.startPapperTimer();
-            g.directServer.updateMarketPapper(number, true, null);
-//            _inPapper = true;
-//        } else if (_wo.booleanPaper) g.managerCutScenes.checkCutSceneForAddToPapper(this);
-        _txtAdditem.visible = false;
     }
 
     private function onAddToServer(ob:Object):void {
         _dataFromServer = new StructureMarketItem(ob);
         g.user.marketItems.push(_dataFromServer);
+        fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
+        if(_dataFromServer.inPapper) {
+            if (_papperBtn) {
+                _papperBtn.visible = true;
+            }
+            if (_imCheck) _imCheck.visible = true;
+            g.directServer.updateMarketPapper(number, true, null);
+            _inPapper = true;
+        }
+        _txtAdditem.visible = false;
+
     }
 
     public function clearImageCont():void {
@@ -366,27 +362,27 @@ public class MarketItem {
         g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
     }
 
-//    public function visiblePapperTimer():void {
-//        if (isFill == 0 || isFill == 2) return;
-//        if (_inPapper) {
-//            if ((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper) * (-1) <= 10800) {
-//                if (_papperBtn) {
-//                    _papperBtn.visible = true;
-//                    _papperBtn.alpha = .8;
-//                }
-//                if (_imCheck) _imCheck.visible = true;
-//            } else {
-//                if (_papperBtn) {
-//                    _papperBtn.visible = false;
-//                    _papperBtn.alpha = 1;
-//                }
-//                _imCheck.visible = false;
-//                g.directServer.updateMarketPapper(number, false, null);
-//            }
-//        } else {
-//            if (_papperBtn) _papperBtn.visible = _wo.booleanPaper;
-//        }
-//    }
+    public function visiblePapperTimer():void {
+        if (isFill == 0 || isFill == 2) return;
+        if (_inPapper) {
+            if ((int(new Date().getTime() / 1000) - _dataFromServer.timeInPapper) * (-1) <= 10800) {
+                if (_papperBtn) {
+                    _papperBtn.visible = true;
+                    _papperBtn.alpha = .8;
+                }
+                if (_imCheck) _imCheck.visible = true;
+            } else {
+                if (_papperBtn) {
+                    _papperBtn.visible = false;
+                    _papperBtn.alpha = 1;
+                }
+                _imCheck.visible = false;
+                g.directServer.updateMarketPapper(number, false, null);
+            }
+        } else {
+            if (_papperBtn) _papperBtn.visible = _wo.booleanPaper;
+        }
+    }
 
     private function onDelete():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;

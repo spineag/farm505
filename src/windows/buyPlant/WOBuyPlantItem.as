@@ -170,6 +170,14 @@ public class WOBuyPlantItem {
                 source.isTouchable = false;
                 source.visible = false;
             }
+            if (_dataPlant.blockByLevel == g.user.level + 1) {
+                _maxAlpha = .5;
+            } else if (_dataPlant.blockByLevel <= g.user.level) {
+                _maxAlpha = 1;
+            } else {
+                _maxAlpha = 0;
+                Cc.error("Warning woBuyPlantItem filldata:: _dataPlant.blockByLevel > g.user.level + 1");
+            }
             TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:_maxAlpha, y: _defaultY, delay:d});
         } else {
             source.isTouchable = false;

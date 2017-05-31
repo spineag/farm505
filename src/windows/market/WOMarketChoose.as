@@ -130,7 +130,7 @@ public class WOMarketChoose extends WindowMain {
         else _type = SKLAD;
         checkTypes();
         fillItems();
-//        checkPapper();
+        checkPapper();
         super.showIt();
     }
 

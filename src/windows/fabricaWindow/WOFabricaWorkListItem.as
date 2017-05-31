@@ -156,6 +156,7 @@ public class WOFabricaWorkListItem {
     private function makeSkipSmall():void {
         if (g.user.hardCurrency >= 1) {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -1);
+
             if (_skipSmallCallback != null) {
                 _skipSmallCallback.apply(null, [_number]);
                 _skipSmallCallback = null;
@@ -376,6 +377,7 @@ public function destroyTimer():void {
         if (g.user.hardCurrency >= _priceSkip) {
             if (_skipCallback != null) {
                 g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_priceSkip);
+                g.managerAchievement.addAll(25,1);
                 destroyTimer();
                 _btnSkip.visible = false;
                 _skipCallback.apply();

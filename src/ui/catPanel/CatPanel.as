@@ -94,6 +94,7 @@ public class CatPanel {
     }
 
     private function onClick():void {
+//        g.windowsManager.openWindow(WindowsManager.WO_MISS_YOU,null, g.user);
 //        checkParty();
 //        g.directServer.getRatingParty(null);
 //        if (g.user.isMegaTester) g.windowsManager.openWindow(WindowsManager.WO_ACHIEVEMENT,null);

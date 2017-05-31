@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:6db716ef01fb43964a7162b83f1e6ccf:192c0edffd7ac498a78256034c50635c:011286a0def9f9a49903ad3b4fa8f252$ -->
+<TextureAtlas imagePath="missAtlas.png" width="347" height="201">
+    <SubTexture name="miss_you_window_1" x="157" y="1" width="189" height="60" frameX="-1" frameY="-1" frameWidth="195" frameHeight="62"/>
+    <SubTexture name="miss_you_window_2" x="1" y="1" width="154" height="199" frameX="0" frameY="-2" frameWidth="158" frameHeight="203"/>
+    <SubTexture name="miss_you_window_3" x="157" y="63" width="129" height="59" frameX="-1" frameY="-1" frameWidth="134" frameHeight="63"/>
+</TextureAtlas>
