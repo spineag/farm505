@@ -2,15 +2,20 @@
  * Created by andy on 5/26/17.
  */
 package windows.inviteFriendsViralInfo {
+import com.junkbyte.console.Cc;
+
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
 
 import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
 import starling.display.Image;
+import starling.display.Sprite;
 import starling.utils.Color;
 import utils.CButton;
 import utils.CTextField;
+import utils.TimeUtils;
+
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;
@@ -27,6 +32,9 @@ public class WOInviteFriendsViralInfo extends WindowMain {
     private var _countFriends:int;
     private var _countRubies:int;
     private var _imRub:Image;
+    private var _contTimerEnd:Sprite;
+    private var _txtTimerEnd:CTextField;
+    private var _timerEnd:int;
 
     public function WOInviteFriendsViralInfo() {
         super();
@@ -78,7 +86,7 @@ public class WOInviteFriendsViralInfo extends WindowMain {
         _txt2.y = 130;
         _source.addChild(_txt2);
 
-        _txtCount = new CTextField(90,70,'+' + String(_countFriends*_countRubies));
+        _txtCount = new CTextField(90,70,String('+') + String(_countFriends*_countRubies));
         _txtCount.setFormat(CTextField.BOLD72, 45, Color.WHITE, ManagerFilters.RED_COLOR);
         _txtCount.x = 88;
         _txtCount.y = -85;
@@ -87,35 +95,66 @@ public class WOInviteFriendsViralInfo extends WindowMain {
         _imRub = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         _imRub.alignPivot();
         if (g.user.language == ManagerLanguage.RUSSIAN) _imRub.x = -12;
-            else _imRub.x = -72;
+            else _imRub.x = -73;
         _imRub.y = 145;
         _source.addChild(_imRub);
 
+        _contTimerEnd = new Sprite();
+        var im:Image = new Image(g.allData.atlas['inviteAtlas'].getTexture('valik_timer'));
+        im.alignPivot();
+        _contTimerEnd.addChild(im);
+        txt = new CTextField(120, 60, String(g.managerLanguage.allTexts[357]));
+        txt.setFormat(CTextField.BOLD18, 16, 0xff7575);
+        txt.x = -60;
+        txt.y = -50;
+        _contTimerEnd.addChild(txt);
+        _txtTimerEnd = new  CTextField(120, 60, '');
+        _txtTimerEnd.setFormat(CTextField.BOLD24, 24, 0xd30102);
+        _txtTimerEnd.x = -60;
+        _txtTimerEnd.y = -20;
+        _contTimerEnd.addChild(_txtTimerEnd);
+        _contTimerEnd.x = -280;
+        _contTimerEnd.y = -185;
+        _source.addChild(_contTimerEnd);
     }
 
     override public function showItParams(callback:Function, params:Array):void {
         _callback = callback;
         super.showIt();
+        _timerEnd = 5 * 60;
+        g.gameDispatcher.addToTimer(onEndTimer);
+    }
+
+    private function onEndTimer():void {
+        _timerEnd--;
+        _txtTimerEnd.text = TimeUtils.convertSecondsForHint(_timerEnd);
+        if (_timerEnd <= 0) {
+            onClickExit();
+        }
     }
 
     private function letInvite():void {
-        g.socialNetwork.addEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onViralInvite);
+        g.gameDispatcher.removeFromTimer(onEndTimer);
+        _contTimerEnd.visible = false;
+        g.socialNetwork.addEventListener(SocialNetworkEvent.ON_VIRAL_INVITE, onViralInvite);
         g.socialNetwork.showViralInviteWindow();
     }
     
-    private function onViralInvite(ar:Array):void {
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onViralInvite);
+    private function onViralInvite(e:SocialNetworkEvent):void {
+        Cc.info('onViralInvite: ' + e.params.ar.toString());
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ON_VIRAL_INVITE, onViralInvite);
         if (_callback != null) {
-            _callback.apply(null, [ar]);
+            _callback.apply(null, [e.params.ar]);
             _callback = null;
         }
         hideIt();
     }
 
     private function onClickExit():void {
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_FRIENDS_BY_IDS, onViralInvite);
+        g.gameDispatcher.removeFromTimer(onEndTimer);
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ON_VIRAL_INVITE, onViralInvite);
         if (_callback != null) {
-            _callback.apply(null, []);
+            _callback.apply(null, [[]]);
             _callback = null;
         }
         hideIt();

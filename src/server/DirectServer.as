@@ -8504,13 +8504,15 @@ public class DirectServer {
     }
 
     private function wrongDataFromServer(st:String):void {
-        new PreloadInfoTab('Ошибка данных.');
+        new PreloadInfoTab('Wrong data');
         Cc.error('wrong data from server:: ' + st);
     }
 
     private function internetNotWork(ev:Event):void {
         if (g.windowsManager) g.windowsManager.openWindow(WindowsManager.WO_SERVER_NO_WORK, null);
-        else new PreloadInfoTab('Ошибка соединения.');
+        else {
+            new PreloadInfoTab('Connection failed');
+        }
         Cc.error('no inet');
     }
 }

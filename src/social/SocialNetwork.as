@@ -212,7 +212,7 @@ public class SocialNetwork extends EventDispatcher {
 
     public function onViralInvite(ar:Array):void {
         Cc.ch('social', 'onViralInviteHandler array: ' + ar.toString());
-        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.ON_VIRAL_INVITE, false, false, ar));
+        dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.ON_VIRAL_INVITE, false, false, {ar: ar}));
     }
 
     public function showOrderWindow(e:Object):void {
