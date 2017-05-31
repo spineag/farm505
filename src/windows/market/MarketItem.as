@@ -359,7 +359,7 @@ public class MarketItem {
         _dataFromServer.timeInPapper = int(new Date().getTime() / 1000);
 //        _wo.startPapperTimer();
         g.directServer.updateMarketPapper(number,true,null);
-        g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
+//        g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
     }
 
     public function visiblePapperTimer():void {

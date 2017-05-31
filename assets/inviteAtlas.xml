@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:8c72307307bd4f5f7c2810a7ccbb45d9:59f4fdbbb5f6bf3077dc21bb03c3a3cd:c513e1908e17bf8093ee675fa221aba2$ -->
+<!-- $TexturePacker:SmartUpdate:10fbf054b9c028ee32d0aa3d28611d6b:6eb95806b0f3b13493382271ead4119e:c513e1908e17bf8093ee675fa221aba2$ -->
 <TextureAtlas imagePath="inviteAtlas.png">
     <SubTexture name="ava_rubin" x="1" y="1" width="622" height="379" frameX="-3" frameY="0" frameWidth="636" frameHeight="379"/>
     <SubTexture name="invite_friends_eng" x="377" y="382" width="292" height="64" frameX="-8" frameY="-8" frameWidth="308" frameHeight="81"/>
     <SubTexture name="invite_friends_mosk" x="1" y="382" width="374" height="72" frameX="-13" frameY="-7" frameWidth="395" frameHeight="86"/>
+    <SubTexture name="valik_timer" x="625" y="1" width="122" height="127" frameX="-10" frameY="-10" frameWidth="145" frameHeight="145"/>
 </TextureAtlas>

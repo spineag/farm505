@@ -480,7 +480,7 @@ public class Vars {
         gameDispatcher.addNextFrameFunction(afterLoadAll_2);
 
         if (socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-//            directServer.getDataInviteViral(onViralInvite);
+            directServer.getDataInviteViral(onViralInvite);
         }
     }
 

@@ -226,7 +226,7 @@ public class WOBuyPlantItem {
         if (_isOnHover) return;
         g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
         source.filter = ManagerFilters.YELLOW_STROKE;
-        if (g.managerTutorial.isTutorial) return;
+//        if (g.managerTutorial.isTutorial) return;
         _isOnHover = true;
         g.resourceHint.hideIt();
         g.resourceHint.showIt(_dataPlant.id, source.x, 48, source, true);

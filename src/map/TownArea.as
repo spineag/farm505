@@ -1810,7 +1810,7 @@ public class TownArea extends Sprite {
 
         if (!build) {
             Cc.error('TownArea away:: BUILD is null for buildType: ' + _data.buildType);
-            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea away');
+//            g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea away');
             return;
         }
         (build as WorldObject).dbBuildingId = dbId;

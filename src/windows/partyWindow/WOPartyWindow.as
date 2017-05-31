@@ -223,7 +223,7 @@ public class WOPartyWindow extends WindowMain {
             _txtTimeLost.x = 287;
             _txtTimeLost.y = -183;
             _txtTime = new CTextField(120, 60, '');
-            _txtTime.setFormat(CTextField.BOLD18, 24, 0xd30102);
+            _txtTime.setFormat(CTextField.BOLD24, 24, 0xd30102);
             _txtTime.x = 286;
             _txtTime.y = -150;
             _sprEvent.addChild(_txtTime);

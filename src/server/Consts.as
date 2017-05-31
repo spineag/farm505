@@ -150,5 +150,6 @@ public class Consts {
     public static var INQ_GET_NEIGHBOR_FRIENDS:String = 'getNeighborFriends.php';
     public static var INQ_UPDATE_NEIGHBOR_FRIENDS:String = 'updateNeighborFriends.php';
     public static var INQ_GET_FB_USERS_PROFILE:String = 'onFBgetProfiles.php';
+    public static var INQ_UPDATE_USER_VIRAL_INVITE:String = 'updateUserViralInvite.php';
 }
 }

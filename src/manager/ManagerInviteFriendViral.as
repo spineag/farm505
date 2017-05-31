@@ -2,6 +2,12 @@
  * Created by user on 5/26/16.
  */
 package manager {
+import data.DataMoney;
+import flash.geom.Point;
+import resourceItem.DropItem;
+
+import starling.textures.TextureAtlas;
+
 import windows.WindowsManager;
 
 public class ManagerInviteFriendViral {
@@ -31,8 +37,7 @@ public class ManagerInviteFriendViral {
     }
     
     private function startTimer():void {
-//        _timer = 30 + int(Math.random()* 60);
-        _timer = 7;
+        _timer = 30 + int(Math.random()* 60);
         g.gameDispatcher.addToTimer(onTimer);
     }
 
@@ -48,8 +53,23 @@ public class ManagerInviteFriendViral {
         g.windowsManager.openWindow(WindowsManager.WO_INVITE_FRIENDS_VIRAL_INFO, onCloseWO);
     }
 
-    private function onCloseWO(isInvite:Boolean = false):void {
-        
+    private function onCloseWO(ar:Array):void {
+        var countInvited:int = ar.length;
+        if (countInvited > _countFriendsData) countInvited = _countFriendsData;
+        var nextTime:int = int( new Date().getTime()/1000 );
+        if (countInvited > 0) {
+            nextTime += _timeCompleteData;
+            var obj:Object = {};
+            obj.count = _countRubiesData * countInvited;
+            var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+            obj.id = DataMoney.HARD_CURRENCY;
+            new DropItem(p.x + 30, p.y + 30, obj);
+        } else {
+            nextTime += _timeCancelData;
+        }
+        g.directServer.updateUserViralInvite(nextTime, null);
+        (g.allData.atlas['inviteAtlas'] as TextureAtlas).dispose();
+        delete  g.allData.atlas['inviteAtlas'];
     }
 
 

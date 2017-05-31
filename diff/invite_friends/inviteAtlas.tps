@@ -191,6 +191,7 @@
             <filename>invite_friends_eng.png</filename>
             <filename>invite_friends_mosk.png</filename>
             <filename>ava_rubin.png</filename>
+            <filename>valik_timer.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

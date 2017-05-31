@@ -74,10 +74,8 @@ public class Decor extends WorldObject{
     }
 
     private function onClick():void {
-        g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TEST, {id:2}); // temp
         if (g.isActiveMapEditor) return;
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE) {
-
             if (g.isActiveMapEditor) {
                 if (_curLockedLand) {
                     _curLockedLand.activateOnMapEditor(null, this);
