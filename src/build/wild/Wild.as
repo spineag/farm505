@@ -37,7 +37,6 @@ public class Wild extends WorldObject{
             return;
         }
         createBuildWild();
-
         _source.releaseContDrag = true;
         _isOnHover = false;
         _delete = false;
@@ -46,9 +45,7 @@ public class Wild extends WorldObject{
     private function createBuildWild():void {
         var im:Image;
         if (_build) {
-            if (_source.contains(_build)) {
-                _source.removeChild(_build);
-            }
+            if (_source.contains(_build)) _source.removeChild(_build);
             while (_build.numChildren) _build.removeChildAt(0);
         }
         im = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image));
@@ -72,17 +69,11 @@ public class Wild extends WorldObject{
         }
     }
 
-    public function setLockedLand(l:LockedLand):void {
-        _curLockedLand = l;
-    }
-    
+    public function setLockedLand(l:LockedLand):void { _curLockedLand = l; }
+    public function removeLockedLand():void { _curLockedLand = null; }
     public function get isAtLockedLand():Boolean {
         if (_curLockedLand) return true;
             else return false;
-    }
-
-    public function removeLockedLand():void {
-        _curLockedLand = null;
     }
 
     override public function onHover():void {
@@ -170,7 +161,10 @@ public class Wild extends WorldObject{
 
     private function onClick():void {
         if (g.managerCutScenes.isCutScene) return;
-        if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction != TutorialAction.REMOVE_WILD) return;
+        if (g.managerTutorial.isTutorial) {
+            if (g.managerTutorial.currentAction != TutorialAction.REMOVE_WILD) return;
+            if (!g.managerTutorial.isTutorialBuilding(this)) return;
+        }
         if (_delete) return;
         if (g.selectedBuild) {
             if (g.selectedBuild == this && g.isActiveMapEditor) {
