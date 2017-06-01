@@ -189,7 +189,7 @@ public class WOItemFabrica {
         _isOnHover = true;
         g.soundManager.playSound(SoundConst.ON_BUTTON_HOVER);
         source.filter = ManagerFilters.YELLOW_STROKE;
-        if (g.managerTutorial.isTutorial) return;
+//        if (g.managerTutorial.isTutorial) return;
         var point:Point = new Point(0, 0);
         var pointGlobal:Point = source.localToGlobal(point);
         if (_dataRecipe.blockByLevel > g.user.level) g.resourceHint.showIt(_dataRecipe.id,source.x,source.y,source,false,true);
