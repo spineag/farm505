@@ -132,6 +132,7 @@ public class ConsoleWrapper {
         else g.user.isTester = true;
         g.directServer.updateUserTester(null);
         Cc.info("Your isTester = " + g.user.isTester);
+        g.testerPanel.updateText();
     }
 
     private function showXY():void {

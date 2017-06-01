@@ -65,9 +65,11 @@ public class OptionPanel {
         _contFullScreen.y = 115;
         _source.addChild(_contFullScreen);
         _contFullScreen.hoverCallback = function ():void {
+            if (g.managerTutorial.isTutorial) return;
             g.hint.showIt(String(g.managerLanguage.allTexts[488]));
         };
         _contFullScreen.outCallback = function ():void {
+            if (g.managerTutorial.isTutorial) return;
             g.hint.hideIt();
         };
         _contFullScreen.startClickCallback = function ():void {
@@ -91,12 +93,14 @@ public class OptionPanel {
         _contScalePlus.y = 160;
         _source.addChild(_contScalePlus);
         _contScalePlus.hoverCallback = function ():void {
+            if (g.managerTutorial.isTutorial) return;
             _contScalePlus.removeChild(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_in"));
             _contScalePlus.addChild(im);
             g.hint.showIt(String(g.managerLanguage.allTexts[489]));
         };
         _contScalePlus.outCallback = function ():void {
+            if (g.managerTutorial.isTutorial) return;
             _contScalePlus.removeChild(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_in_off"));
             _contScalePlus.addChild(im);
@@ -113,12 +117,14 @@ public class OptionPanel {
         _contScaleMinus.y = 205;
         _source.addChild(_contScaleMinus);
         _contScaleMinus.hoverCallback = function ():void {
+            if (g.managerTutorial.isTutorial) return;
             _contScaleMinus.removeChild(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_out"));
             _contScaleMinus.addChild(im);
             g.hint.showIt(String(g.managerLanguage.allTexts[490]));
         };
         _contScaleMinus.outCallback = function ():void {
+            if (g.managerTutorial.isTutorial) return;
             _contScaleMinus.removeChild(im);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("op_bt_z_out_off"));
             _contScaleMinus.addChild(im);

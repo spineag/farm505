@@ -59,7 +59,7 @@ public class CutSceneProperties {
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
-        obj.level = 17;
+        obj.level = 11;
         obj.id_action = ManagerCutScenes.ID_ACTION_TRAIN_AVAILABLE;
         obj.text = String(g.managerLanguage.allTexts[522]);
         _prop.push(obj);

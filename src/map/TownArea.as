@@ -325,15 +325,15 @@ public class TownArea extends Sprite {
                 if (_townMatrix[i][j].build && _townMatrix[i][j].build is LockedLand && source is Wild) {
                     continue;
                 }
-                    _freePlace.fillCell(j, i);
-                    _townMatrix[i][j].isTutorialBuilding = false;
-                    _townMatrix[i][j].build = source;
-                    _townMatrix[i][j].isFull = true;
-                    if (sizeX > 1 && sizeY > 1) {
-                        if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
-                            _townMatrix[i][j].isWall = true;
-                    }
-                    if (source is LockedLand)  _townMatrix[i][j].isLockedLand = true;
+                _freePlace.fillCell(j, i);
+                _townMatrix[i][j].isTutorialBuilding = false;
+                _townMatrix[i][j].build = source;
+                _townMatrix[i][j].isFull = true;
+                if (sizeX > 1 && sizeY > 1) {
+                    if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
+                        _townMatrix[i][j].isWall = true;
+                }
+                if (source is LockedLand)  _townMatrix[i][j].isLockedLand = true;
             }
         }
 
@@ -607,7 +607,6 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.CAT_HOUSE:
                 if (g.user.isMegaTester) build = new Cafe(_data);
-//                else return;
                 break;
             case BuildType.DAILY_BONUS:
                 build = new DailyBonus(_data);

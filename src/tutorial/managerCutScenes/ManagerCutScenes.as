@@ -93,14 +93,10 @@ public class ManagerCutScenes {
         }
         for (l=0; l<countActions; l++) {
             if (g.user.cutScenes[l] == 0) { // if == 1 - its mean, that cutScene was showed
-                if (_properties[l].reason == REASON_NEW_LEVEL) {
-                    if (_properties[l].level == g.user.level) {
-                        _curCutScenePropertie = _properties[l];
-                        checkTypeFunctions();
-                        return;
-                    } else {
-                        continue;
-                    }
+                if (_properties[l].level == g.user.level) {
+                    _curCutScenePropertie = _properties[l];
+                    checkTypeFunctions();
+                    return;
                 }
             }
         }
@@ -292,8 +288,11 @@ public class ManagerCutScenes {
     }
 
     private function releaseDecor():void {
-        decor_4();
-        return;
+        if (g.user.isTester || g.user.isMegaTester) {
+        } else {
+            decor_4();
+            return;
+        }
 
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseDecor);
@@ -352,11 +351,14 @@ public class ManagerCutScenes {
     }
 
     private function releaseToInventoryDecor():void {
-        _cutSceneCallback = null;
-        g.user.cutScenes[3] = 1;
-        saveUserCutScenesData();
-        Utils.createDelay(.7, toInventory_4);
-        return;
+        if (g.user.isTester || g.user.isMegaTester) {
+        } else {
+            _cutSceneCallback = null;
+            g.user.cutScenes[3] = 1;
+            saveUserCutScenesData();
+            Utils.createDelay(.7, toInventory_4);
+            return;
+        }
 
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseToInventoryDecor);
@@ -418,8 +420,11 @@ public class ManagerCutScenes {
     }
 
     private function releaseFromInventoryDecor():void {
-        fromInventory_5();
-        return;
+        if (g.user.isTester || g.user.isMegaTester) {
+        } else {
+            fromInventory_5();
+            return;
+        }
 
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseFromInventoryDecor);
@@ -492,10 +497,13 @@ public class ManagerCutScenes {
     }
 
     private function releaseAvailableTrain():void {
-        g.user.cutScenes[5] = 1;
-        saveUserCutScenesData();
-        isCutScene = false;
-        return;
+        if (g.user.isTester || g.user.isMegaTester) {
+        } else {
+            g.user.cutScenes[5] = 1;
+            saveUserCutScenesData();
+            isCutScene = false;
+            return;
+        }
 
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseAvailableTrain);
@@ -537,10 +545,13 @@ public class ManagerCutScenes {
     }
 
     private function releaseOpenTrain():void {
-        g.user.cutScenes[6] = 1;
-        saveUserCutScenesData();
-        isCutScene = false;
-        return;
+        if (g.user.isTester || g.user.isMegaTester) {
+        } else {
+            g.user.cutScenes[6] = 1;
+            saveUserCutScenesData();
+            isCutScene = false;
+            return;
+        }
 
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseOpenTrain);
@@ -649,7 +660,7 @@ public class ManagerCutScenes {
         g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
 
         if (!_cutScene) _cutScene = new CutScene();
-        _cutScene.showIt(_curCutScenePropertie.text6, 'Далее', openTrain_7);
+        _cutScene.showIt(_curCutScenePropertie.text6, String(g.managerLanguage.allTexts[541]), openTrain_7);
         var ob:Object = g.couponePanel.getContPropertie();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, g.cont.popupCont);
         _arrow.scaleIt(.5);
