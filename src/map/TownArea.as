@@ -318,22 +318,22 @@ public class TownArea extends Sprite {
 
     public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
         if (source is TutorialPlace) return;
-        if (source is Cafe || Achievement || source is Missing) return;
+        if (source is Cafe || source is Achievement || source is Missing) return;
         var j:int;
         for (var i:int = posY; i < (posY + sizeY); i++) {
             for (j = posX; j < (posX + sizeX); j++) {
                 if (_townMatrix[i][j].build && _townMatrix[i][j].build is LockedLand && source is Wild) {
                     continue;
                 }
-                    _freePlace.fillCell(j, i);
-                    _townMatrix[i][j].isTutorialBuilding = false;
-                    _townMatrix[i][j].build = source;
-                    _townMatrix[i][j].isFull = true;
-                    if (sizeX > 1 && sizeY > 1) {
-                        if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
-                            _townMatrix[i][j].isWall = true;
-                    }
-                    if (source is LockedLand)  _townMatrix[i][j].isLockedLand = true;
+                _freePlace.fillCell(j, i);
+                _townMatrix[i][j].isTutorialBuilding = false;
+                _townMatrix[i][j].build = source;
+                _townMatrix[i][j].isFull = true;
+                if (sizeX > 1 && sizeY > 1) {
+                    if (i != posY && i != posY + sizeY && j != posX && j != posX + sizeX)
+                        _townMatrix[i][j].isWall = true;
+                }
+                if (source is LockedLand)  _townMatrix[i][j].isLockedLand = true;
             }
         }
 
@@ -607,7 +607,6 @@ public class TownArea extends Sprite {
                 break;
             case BuildType.CAT_HOUSE:
                 if (g.user.isMegaTester) build = new Cafe(_data);
-//                else return;
                 break;
             case BuildType.DAILY_BONUS:
                 build = new DailyBonus(_data);
