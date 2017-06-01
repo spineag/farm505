@@ -557,6 +557,7 @@ public class Train extends WorldObject{
     private function backTrain():void {
         _counter = 0;
         list.length = 0;
+        _stateBuild == STATE_WAIT_BACK;
         g.directServer.getTrainPack(g.user.userSocialId, fillList);
         render();
     }
