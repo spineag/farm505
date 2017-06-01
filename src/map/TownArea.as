@@ -318,7 +318,7 @@ public class TownArea extends Sprite {
 
     public function fillMatrix(posX:int, posY:int, sizeX:int, sizeY:int, source:*):void {
         if (source is TutorialPlace) return;
-        if (source is Cafe || Achievement || source is Missing) return;
+        if (source is Cafe || source is Achievement || source is Missing) return;
         var j:int;
         for (var i:int = posY; i < (posY + sizeY); i++) {
             for (j = posX; j < (posX + sizeX); j++) {
@@ -643,7 +643,7 @@ public class TownArea extends Sprite {
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) build = new Achievement(_data);
                 break;
             case BuildType.MISSING:
-                if (g.user.isMegaTester) build = new Missing(_data);
+                if (g.user.isMegaTester)build = new Missing(_data);
                 break;
         }
 
@@ -2029,7 +2029,6 @@ public class TownArea extends Sprite {
                     for (var i:int = 0; i < _cityAwayObjects.length; i++) {
                         if (_cityAwayObjects[i].source && _cont.contains(_cityAwayObjects[i].source)) _cont.setChildIndex(_cityAwayObjects[i].source, i);
                         else {
-                            trace('asd');
                             Cc.error('TownArea zAwaySort error: ');
                         }
 
