@@ -46,7 +46,6 @@ import server.DirectServer;
 import server.ManagerPendingRequest;
 import server.Server;
 import social.SocialNetwork;
-import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
 import starling.core.Starling;
 import starling.display.Stage;
@@ -72,7 +71,7 @@ import ui.optionPanel.OptionPanel;
 import ui.sale.SalePanel;
 import ui.softHardCurrencyPanel.SoftHardCurrency;
 import ui.stock.StockPanel;
-import ui.testerPanel.TesterPanel;
+import ui.testerPanel.TesterPanelTop;
 import ui.toolsPanel.ToolsPanel;
 import ui.xpPanel.XPPanel;
 import user.Someone;
@@ -175,7 +174,7 @@ public class Vars {
     public var partyPanel:PartyPanel;
     public var salePanel:SalePanel;
     public var achievementPanel:AchievementPanel;
-    public var testerPanel:TesterPanel;
+    public var testerPanel:TesterPanelTop;
 
     public var windowsManager:WindowsManager;
     public var managerHitArea:ManagerHitArea;
@@ -432,7 +431,7 @@ public class Vars {
         optionPanel = new OptionPanel();
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
-        testerPanel =new TesterPanel();
+        testerPanel =new TesterPanelTop();
 
         if ((user as User).level >= 5 && userTimer.saleTimerToEnd <= 0 && softHardCurrency.actionON) {
             stock = new StockPanel();
