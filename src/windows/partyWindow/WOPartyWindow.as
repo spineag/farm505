@@ -191,7 +191,6 @@ public class WOPartyWindow extends WindowMain {
             _imEvent.visible = true;
             _imRating.visible = true;
             _imLast.visible = false;
-
             _sprEvent.visible = false;
             _sprRating.visible = false;
             _sprLast.visible = true;
@@ -314,7 +313,7 @@ public class WOPartyWindow extends WindowMain {
         _source.addChild(_btnLast);
         _btnLast.x = 310;
         _btnLast.y = 110;
-//        _btnLast.setEnabled = false;
+        _btnLast.setEnabled = false;
         _imLast = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bt_2'));
         _source.addChild(_imLast);
         _imLast.x = 310;
@@ -408,21 +407,21 @@ public class WOPartyWindow extends WindowMain {
                 im.x = -im.width / 2 - 295;
                 im.y = -im.height / 2 - 115;
                 _sprEvent.addChild(im);
-                if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('event_picnic_text'));
-                else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('event_picnic_text'));
+                if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('picnic_days'));
+                else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('den_piknika'));
                 _imName.x = -_imName.width / 2 + 5;
                 _imName.y = -205;
                 _sprEvent.addChild(_imName);
-                if (g.managerParty.typeParty == 3) {
-                    _btn = new CButton();
-                    _btn.addButtonTexture(172, 45, CButton.GREEN, true);
-                    _txtBtn = new CTextField(172, 45, String(g.managerLanguage.allTexts[328]));
-                    _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
-                    _btn.addChild(_txtBtn);
-                    _btn.clickCallback = onClick;
-                    _btn.y = 220;
-                    _sprEvent.addChild(_btn);
-                }
+//                if (g.managerParty.typeParty == 3) {
+//                    _btn = new CButton();
+//                    _btn.addButtonTexture(172, 45, CButton.GREEN, true);
+//                    _txtBtn = new CTextField(172, 45, String(g.managerLanguage.allTexts[328]));
+//                    _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
+//                    _btn.addChild(_txtBtn);
+//                    _btn.clickCallback = onClick;
+//                    _btn.y = 220;
+//                    _sprEvent.addChild(_btn);
+//                }
                 _txtBabl = new CTextField(220, 200, String(g.managerParty.description));
                 _txtBabl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
                 _sprEvent.addChild(_txtBabl);
@@ -517,12 +516,12 @@ public class WOPartyWindow extends WindowMain {
                 }
             }
             _btnParty = new CButton();
-            _btnParty.addButtonTexture(100, 35, CButton.YELLOW, true);
-            _txtBtn = new CTextField(100, 35, String(g.managerLanguage.allTexts[1029]));
-            _txtBtn.setFormat(CTextField.BOLD18, 14, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
+            _btnParty.addButtonTexture(172, 45, CButton.YELLOW, true);
+            _txtBtn = new CTextField(172, 45, String(g.managerLanguage.allTexts[1029]));
+            _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_YELLOW_COLOR);
             _btnParty.addChild(_txtBtn);
             _btnParty.clickCallback = onClickShow;
-            _btnParty.y = 250;
+            _btnParty.y = 220;
             _sprEvent.addChild(_btnParty);
             createExitButton(onClickExit);
             _callbackClickBG = onClickExit;

@@ -202,7 +202,6 @@
             <filename>new_event_window_r.png</filename>
             <filename>event_window_baloon.png</filename>
             <filename>new_event_window_r_2.png</filename>
-            <filename>event_picnic_text.png</filename>
             <filename>event_picnic_window.png</filename>
             <filename>zefir_100.png</filename>
             <filename>zefir_timer.png</filename>
@@ -216,6 +215,8 @@
             <filename>best_players_1.png</filename>
             <filename>best_players_2.png</filename>
             <filename>end_event_title.png</filename>
+            <filename>den_piknika.png</filename>
+            <filename>picnic_days.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

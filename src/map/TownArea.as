@@ -642,7 +642,7 @@ public class TownArea extends Sprite {
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) build = new Achievement(_data);
                 break;
             case BuildType.MISSING:
-                if (g.user.isMegaTester)build = new Missing(_data);
+                if (g.user.isTester) build = new Missing(_data);
                 break;
         }
 

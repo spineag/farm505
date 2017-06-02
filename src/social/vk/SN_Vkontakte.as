@@ -276,6 +276,7 @@ public class SN_Vkontakte extends SocialNetwork {
             f.userSocialId = _friendsApp[i];
             g.user.arrFriends.push(f);
         }
+        if (g.user.isTester) g.user.checkMiss();
         super.getAppUsersSuccess(e);
         this.getFriendsByIDs(_friendsApp);
     }

@@ -16,6 +16,7 @@ public class Someone {
     public var userDataCity:UserDataCity;
     public var needHelpCount:int;
     public var isOpenOrder:Boolean = true;
+    public var lastVisitDate:int;
 
     public function Someone() {
         needHelpCount = 0;

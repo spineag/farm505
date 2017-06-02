@@ -151,5 +151,9 @@ public class Consts {
     public static var INQ_UPDATE_NEIGHBOR_FRIENDS:String = 'updateNeighborFriends.php';
     public static var INQ_GET_FB_USERS_PROFILE:String = 'onFBgetProfiles.php';
     public static var INQ_UPDATE_USER_VIRAL_INVITE:String = 'updateUserViralInvite.php';
+    public static var INQ_GET_USER_MISS:String = 'getUserMiss.php';
+    public static var INQ_UPDATE_USER_MISS:String = 'updateUserMiss.php';
+    public static var INQ_NOTIFICATION_FB_MISS:String = 'notification_fb_miss.php';
+    public static var INQ_NOTIFICATION_VK_MISS:String = 'notification_vk_miss.php';
 }
 }

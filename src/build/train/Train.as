@@ -509,6 +509,7 @@ public class Train extends WorldObject{
                     g.directServer.updateUserTrainState(_stateBuild, _train_db_id, null);
                     _counter = TIME_WAIT;
                     leaveTrain();
+                    showBubleHelp();
                     g.directServer.updateUserTrainState(_stateBuild, _train_db_id, onNewStateWait);
                     g.windowsManager.hideWindow(WindowsManager.WO_TRAIN);
 
@@ -557,7 +558,7 @@ public class Train extends WorldObject{
     private function backTrain():void {
         _counter = 0;
         list.length = 0;
-        _stateBuild == STATE_WAIT_BACK;
+        _stateBuild = STATE_WAIT_BACK;
         g.directServer.getTrainPack(g.user.userSocialId, fillList);
         render();
     }
@@ -581,14 +582,22 @@ public class Train extends WorldObject{
     }
 
     private function showBubleHelp():void {
-        var im:Image;
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
-        _sprHelp.addChild(im);
-        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
-        _sprHelp.addChild(im);
-        im.x = 21;
-        im.y = 20;
-        _sprHelp.endClickCallback = onClick;
+        if (STATE_READY == _stateBuild) {
+            var im:Image;
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
+            _sprHelp.addChild(im);
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+            _sprHelp.addChild(im);
+            im.x = 21;
+            im.y = 20;
+            _sprHelp.endClickCallback = onClick;
+        } else {
+            if (_sprHelp) {
+                while (_sprHelp.numChildren) {
+                    _sprHelp.removeChildAt(0);
+                }
+            }
+        }
     }
 }
 }

@@ -386,6 +386,12 @@ public class WOTrain extends WindowMain {
                     _btnHelp.addChild(_txtHelp);
                     _txtHelp.x = 10;
                     _btnHelp.clickCallback = wantHelpClick;
+                } else {
+                    if (_arrItems[k].isResourceLoaded && _btnHelp) {
+                        _rightBlock.removeChild(_btnHelp);
+                        _btnHelp.deleteIt();
+                        _btnHelp = null;
+                    }
                 }
             } else {
                 if (_btnHelp) {
@@ -439,8 +445,8 @@ public class WOTrain extends WindowMain {
                 if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) obj.count = _arrItems[_activeItemIndex].countCoins * g.managerParty.coefficient;
                 else obj.count = _arrItems[_activeItemIndex].countCoins;
                 new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
-                g.managerAchievement.addAll(19,1);
                 g.userInventory.addResource(_arrItems[_activeItemIndex].idFree, - _arrItems[_activeItemIndex].countFree);
+                g.managerAchievement.addAll(19,1);
                 _arrItems[_activeItemIndex].fullItHelp();
                 updateItems();
             }  else if (_arrItems[_activeItemIndex].countFree > g.userInventory.getCountResourceById(_arrItems[_activeItemIndex].idFree)) {

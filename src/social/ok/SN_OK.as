@@ -161,6 +161,7 @@ public class SN_OK extends SocialNetwork {
             f.userSocialId = _friendsApp[i];
             g.user.arrFriends.push(f);
         }
+        if (g.user.isTester) g.user.checkMiss();
         super.getAppUsersSuccess(_friendsApp);
         if (_friendsApp.length) this.getFriendsByIDs(_friendsApp);
     }

@@ -2,6 +2,7 @@
  * Created by andy on 6/10/15.
  */
 package user {
+import build.missing.Missing;
 import build.tree.Tree;
 import com.junkbyte.console.Cc;
 import data.BuildType;
@@ -61,6 +62,7 @@ public class User extends Someone {
     public var day:int;
     public var language:int;
     public var nextTimeInvite:int = -1;
+    public var missDate:int;
 
     private var g:Vars = Vars.getInstance();
 
@@ -75,6 +77,36 @@ public class User extends Someone {
 
     public function set visitAmbar(b:Boolean):void  { lastVisitAmbar = b; }
     public function createNeighbor():void { neighbor = new NeighborBot(); }
+
+    public function checkMiss():void {
+        if (int(new Date().getTime() / 1000) - missDate < 432000) return;
+        g.directServer.getUserMiss(openMiss);
+    }
+
+    private function openMiss(ob:Object):void {
+        var b:Array  = g.townArea.getCityObjectsByType(BuildType.MISSING);
+        for (var i:int = 0; i < arrFriends.length; i++) {
+            if (int(new Date().getTime() / 1000) -  arrFriends[i].lastVisitDate >= 604800 && !ob) {
+                b[0].visibleBuild(true, arrFriends[i]);
+                break;
+            }
+        }
+        if (ob.length > 0) {
+            var bool:Boolean = false;
+            for (i= 0; i < arrFriends.length; i++) {
+                if (int(new Date().getTime() / 1000) -  arrFriends[i].lastVisitDate >= 604800) {
+                    for (var j:int = 0; j < ob.length; j++) {
+                        if (arrFriends[i].userId == int(ob[j].user_id_miss)) {
+                            bool = true;
+                            break;
+                        }
+                    }
+                    if (!bool)b[0].visibleBuild(true, arrFriends[i]);
+                    break;
+                }
+            }
+        }
+    }
 
     public function checkUserLevel():void {
 //        var tempLevel:int;
@@ -230,6 +262,7 @@ public class User extends Someone {
             someOne.level = int(d[i].level);
             someOne.needHelpCount = int(d[i].need_help);
             someOne.userId = int(d[i].id);
+            someOne.lastVisitDate = int(d[i].last_visit_date);
         }
     }
 

@@ -943,6 +943,7 @@ public class DirectServer {
             g.user.dayDailyGift  = int(ob.day_daily_gift);
             g.user.countDailyGift  = int(ob.count_daily_gift);
             g.user.language = int(ob.language);
+            g.user.missDate = int(ob.miss_date);
             g.user.day = int (ob.day);
             if (ob.next_time_invite) g.user.nextTimeInvite = int(ob.next_time_invite);
             if (!g.isDebug) {
@@ -3101,7 +3102,7 @@ public class DirectServer {
         variables.count = count;
         variables.cost = cost;
         variables.numberCell = numberCell;
-        variables.inPapper = inPapper;
+        variables.inPapper = int(inPapper);
         variables.timeInPapper = 0;
         variables.hash = MD5.hash(String(g.user.userId)+String(id)+String(count)+String(cost)+String(numberCell)+SECRET);
         request.data = variables;
@@ -5544,7 +5545,7 @@ public class DirectServer {
         variables = addDefault(variables);
         variables.userId = g.user.userId;
         variables.numberCell = numberCell;
-        variables.inPapper = inPapper ? 1 : 0;
+        variables.inPapper = int(inPapper);
         variables.hash = MD5.hash(String(g.user.userId)+String(numberCell)+SECRET);
         request.data = variables;
         request.method = URLRequestMethod.POST;
@@ -7718,7 +7719,9 @@ public class DirectServer {
 
         Cc.ch('server', 'updateUserTrainPackGetHelp', 1);
         variables = addDefault(variables);
-        variables.userId = g.visitedUser.userId;
+        if (g.visitedUser.userId == 0)variables.userId = 92462;
+        else variables.userId = g.visitedUser.userId;
+
         variables.id = train_item_db_id;
         variables.helpId = helpId;
 //        variables.hash = MD5.hash(String(g.visitedUser.userId)+String(helpId)+String(train_item_db_id)+SECRET);
@@ -8347,7 +8350,7 @@ public class DirectServer {
         }
     }
 
-    public function updateNeighborFriends(friend1:int = 0, friend2:int = 0, friend3:int = 0, friend4:int = 0, friend5:int = 0,callback:Function = null):void {
+    public function updateNeighborFriends(callback:Function = null):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_NEIGHBOR_FRIENDS);
         var variables:URLVariables = new URLVariables();
@@ -8355,16 +8358,16 @@ public class DirectServer {
         Cc.ch('server', 'updateNeighborFriends', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        if (g.friendPanel.arrNeighborFriends[0]) variables.friend1 = g.friendPanel.arrNeighborFriends[0].userId;
-            else variables.friend1 = friend1;
-        if (g.friendPanel.arrNeighborFriends[1]) variables.friend2 = g.friendPanel.arrNeighborFriends[1].userId;
-            else variables.friend2 = friend2;
-        if (g.friendPanel.arrNeighborFriends[2]) variables.friend3 = g.friendPanel.arrNeighborFriends[2].userId;
-            else variables.friend3 = friend3;
-        if (g.friendPanel.arrNeighborFriends[3]) variables.friend4 = g.friendPanel.arrNeighborFriends[3].userId;
-            else variables.friend4 = friend4;
-        if (g.friendPanel.arrNeighborFriends[4]) variables.friend5 = g.friendPanel.arrNeighborFriends[4].userId;
-            else variables.friend5 = friend5;
+        if (g.friendPanel.arrNeighborFriends[0].userId) variables.friend1 = g.friendPanel.arrNeighborFriends[0].userId;
+            else variables.friend1 = 43;
+        if (g.friendPanel.arrNeighborFriends[1].userId) variables.friend2 = g.friendPanel.arrNeighborFriends[1].userId;
+            else variables.friend2 = 43;
+        if (g.friendPanel.arrNeighborFriends[2].userId) variables.friend3 = g.friendPanel.arrNeighborFriends[2].userId;
+            else variables.friend3 = 43;
+        if (g.friendPanel.arrNeighborFriends[3].userId) variables.friend4 = g.friendPanel.arrNeighborFriends[3].userId;
+            else variables.friend4 = 43;
+        if (g.friendPanel.arrNeighborFriends[4].userId) variables.friend5 = g.friendPanel.arrNeighborFriends[4].userId;
+            else variables.friend5 = 43;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -8497,7 +8500,198 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
-    
+
+    public function getUserMiss(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_MISS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'updateUserViralInvite', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteGetUserMiss);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteGetUserMiss(e:Event):void { completeGetUserMiss(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('updateUserViralInvite error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserMiss(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('UpdateUserViralInvite: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'UpdateUserViralInvite: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'UpdateUserViralInvite OK', 5);
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('UpdateUserViralInvite: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function updateUserMiss(userMissId:int = 0, count_send:int = 0, send:Boolean = false, callback:Function = null):void {
+    var loader:URLLoader = new URLLoader();
+    var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_MISS);
+    var variables:URLVariables = new URLVariables();
+
+    Cc.ch('server', 'updateUserViralInvite', 1);
+    variables = addDefault(variables);
+    variables.userId = g.user.userId;
+    variables.userMissId = userMissId;
+    variables.countSend = count_send;
+    variables.send = int(send);
+    variables.hash = MD5.hash(String(g.user.userId) + String(variables.userMissId) + String(variables.countSend) + String(variables.send) + SECRET);
+    request.data = variables;
+    request.method = URLRequestMethod.POST;
+    iconMouse.startConnect();
+    loader.addEventListener(Event.COMPLETE, onСompleteUpdateUserMiss);
+    loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+    function onСompleteUpdateUserMiss(e:Event):void { completeUpdateUserMiss(e.target.data, callback); }
+    try {
+        loader.load(request);
+    } catch (error:Error) {
+        Cc.error('updateUserViralInvite error:' + error.errorID);
+    }
+}
+
+    private function completeUpdateUserMiss(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('UpdateUserViralInvite: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'UpdateUserViralInvite: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'UpdateUserViralInvite OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('UpdateUserViralInvite: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function notificationVkMiss(userSocialId:String = '', callback:Function = null):void {
+    var loader:URLLoader = new URLLoader();
+    var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_NOTIFICATION_VK_MISS);
+    var variables:URLVariables = new URLVariables();
+
+    Cc.ch('server', 'updateUserViralInvite', 1);
+    variables = addDefault(variables);
+    variables.userSocialId = userSocialId;
+    request.data = variables;
+    request.method = URLRequestMethod.POST;
+    iconMouse.startConnect();
+    loader.addEventListener(Event.COMPLETE, onСompleteNotificationVkMiss);
+    loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+    function onСompleteNotificationVkMiss(e:Event):void { completeNotificationVkMiss(e.target.data, callback); }
+    try {
+        loader.load(request);
+    } catch (error:Error) {
+        Cc.error('updateUserViralInvite error:' + error.errorID);
+    }
+}
+
+    private function completeNotificationVkMiss(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('UpdateUserViralInvite: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'UpdateUserViralInvite: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'UpdateUserViralInvite OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('UpdateUserViralInvite: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function notificationFbMiss(userSocialId:String = '', callback:Function = null):void {
+    var loader:URLLoader = new URLLoader();
+    var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_NOTIFICATION_FB_MISS);
+    var variables:URLVariables = new URLVariables();
+
+    Cc.ch('server', 'updateUserViralInvite', 1);
+    variables = addDefault(variables);
+    variables.userSocialId = userSocialId;
+    request.data = variables;
+    request.method = URLRequestMethod.POST;
+    iconMouse.startConnect();
+    loader.addEventListener(Event.COMPLETE, onСompleteNotificationFbMiss);
+    loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+    function onСompleteNotificationFbMiss(e:Event):void { completeNotificationFbMiss(e.target.data, callback); }
+    try {
+        loader.load(request);
+    } catch (error:Error) {
+        Cc.error('updateUserViralInvite error:' + error.errorID);
+    }
+}
+
+    private function completeNotificationFbMiss(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('UpdateUserViralInvite: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'UpdateUserViralInvite: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'UpdateUserViralInvite OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('UpdateUserViralInvite: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
 
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError on Auth User:: ' + e.text);

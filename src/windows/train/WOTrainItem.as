@@ -273,7 +273,7 @@ public class WOTrainItem {
             _ava.x = 7;
             _ava.y = 7;
             _imageCont.addChild(_ava);
-            _galo4ka.visible = true;
+            _galo4ka.visible = false;
         } else {
             Cc.error('MarketItem photoFromTexture:: no texture(')
         }

@@ -361,6 +361,7 @@
             <filename>camping_tent_yellow_icon.png</filename>
             <filename>tree_swing_icon.png</filename>
             <filename>picnic_table_icon.png</filename>
+            <filename>hammock_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

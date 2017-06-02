@@ -343,12 +343,12 @@ public class MarketItem {
     }
 
     private function onPaper():void {
-        if (g.managerCutScenes.isCutScene) {
-            if (g.managerCutScenes.curCutSceneProperties.reason == ManagerCutScenes.REASON_ADD_TO_PAPPER) {
-                g.managerCutScenes.checkCutSceneCallback();
-            } else return;
-        }
-        if (_inPapper || !_wo.booleanPaper) return;
+//        if (g.managerCutScenes.isCutScene) {
+//            if (g.managerCutScenes.curCutSceneProperties.reason == ManagerCutScenes.REASON_ADD_TO_PAPPER) {
+//                g.managerCutScenes.checkCutSceneCallback();
+//            } else return;
+//        }
+        if (_inPapper) return;
         _inPapper = true;
         _dataFromServer.inPapper = true;
         _papperBtn.visible = true;
@@ -380,7 +380,8 @@ public class MarketItem {
                 g.directServer.updateMarketPapper(number, false, null);
             }
         } else {
-            if (_papperBtn) _papperBtn.visible = _wo.booleanPaper;
+            _papperBtn.visible = true;
+//            if (_papperBtn) _papperBtn.visible = _wo.booleanPaper;
         }
     }
 

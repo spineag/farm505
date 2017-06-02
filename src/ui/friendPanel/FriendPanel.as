@@ -140,15 +140,17 @@ public class FriendPanel {
             _tab3.endClickCallback = onTab3Click;
         }
     }
+
     private function onTab1Click():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
         if (_activeTabType == TYPE_NORMAL) return;
         else {
             _shift = 0;
             animList();
-            _source.setChildIndex(_tab2, 0);
-            _source.setChildIndex(_tab1, 2);
             if (_tab3) _source.setChildIndex(_tab3, 0);
+
+            _source.setChildIndex(_tab2, 0);
+            _source.setChildIndex(_tab1, 3);
             _activeTabType = TYPE_NORMAL;
             fillFriends();
             checkArrows();
@@ -161,9 +163,9 @@ public class FriendPanel {
         else {
             _shift = 0;
             animList();
-            _source.setChildIndex(_tab1, 0);
-            _source.setChildIndex(_tab2, 2);
             if (_tab3) _source.setChildIndex(_tab3, 0);
+            _source.setChildIndex(_tab1, 0);
+            _source.setChildIndex(_tab2, 3);
             _activeTabType = TYPE_NEED_HELP;
             fillFriends();
             checkArrows();
@@ -178,7 +180,7 @@ public class FriendPanel {
             animList();
             _source.setChildIndex(_tab1, 0);
             _source.setChildIndex(_tab2, 0);
-            if (_tab3) _source.setChildIndex(_tab3, 2);
+            if (_tab3) _source.setChildIndex(_tab3, 3);
             _activeTabType = TYPE_NEIGHBOR;
             fillFriends();
             checkArrows();
