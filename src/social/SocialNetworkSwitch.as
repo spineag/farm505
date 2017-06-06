@@ -7,13 +7,11 @@ import social.vk.SN_Vkontakte;
 import manager.Vars;
 
 public class SocialNetworkSwitch {
-    public static var SN_VK_DEV:int = 1;
     public static var SN_VK_ID:int = 2;
     public static var SN_OK_ID:int = 3;
     public static var SN_FB_ID:int = 4;
 
     protected static var _viewerID:String = "";
-    private static var SECRET_KEY_VK_DEV:String = '';
     private static var SECRET_KEY_VK:String = '';
     private static var SECRET_KEY:String = '';
 
@@ -21,20 +19,6 @@ public class SocialNetworkSwitch {
 
     public static function init(channelID:int, flashVars:Object, isDebug:Boolean = true):void {
         switch (channelID) {
-            case SN_VK_DEV:
-                SECRET_KEY = SECRET_KEY_VK_DEV;
-                if (isDebug) {
-                    flashVars["api_id"] = "";
-                    flashVars["viewer_id"] = "";
-                    flashVars["sid"] = "";
-                    flashVars["secret"] = "";
-                }
-
-                flashVars["access_key"] = MD5.hash(flashVars["api_id"] + flashVars["viewer_id"] + SECRET_KEY);
-                g.socialNetwork = new SN_Vkontakte(flashVars, g.dataPath.getMainPath());
-                g.user.userSocialId =  flashVars["viewer_id"];
-                break;
-
             case SN_VK_ID:
                 SECRET_KEY = SECRET_KEY_VK;
                 if (isDebug) {
@@ -60,8 +44,8 @@ public class SocialNetworkSwitch {
 //                     Ссылка на приложение: http://www.odnoklassniki.ru/game/1248696832
 
                 if (isDebug) {
-                    flashVars["uid"] = "575729796770";
-//                    flashVars["uid"] = "581762674478";
+                    flashVars["uid"] = "555480938615";
+//                    flashVars["uid"] = "560054813327";
                     g.socialNetwork = new SN_Blank(flashVars, "ok", "https://505.ninja/", "https://505.ninja/");
                 } else {
                     flashVars["uid"] = flashVars["logged_user_id"];
@@ -71,7 +55,7 @@ public class SocialNetworkSwitch {
                 break;
             case SN_FB_ID:
                 if (isDebug) {
-                    flashVars["uid"] = "500430446703918";
+                    flashVars["uid"] = "1302214063192215";
                     g.socialNetwork = new SN_Blank(flashVars, "fb", "https://505.ninja/", "https://505.ninja/");
                 } else {
                     g.socialNetwork = new SN_FB(flashVars);
