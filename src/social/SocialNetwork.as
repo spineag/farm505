@@ -233,6 +233,7 @@ public class SocialNetwork extends EventDispatcher {
     protected function wallCancel():void {
         Cc.ch('social', "SocialNetwork:: wall post was canceled");
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.WALL_CANCEL, false, false));
+        g.managerWallPost.cancelWallPost();
     }
 
     protected function inviteBoxComplete():void {

@@ -310,7 +310,7 @@ public class MarketItem {
             _inPapper = true;
         }
         _txtAdditem.visible = false;
-
+        g.managerQuest.onActionForTaskType(ManagerQuest.SET_IN_PAPER);
     }
 
     public function clearImageCont():void {
