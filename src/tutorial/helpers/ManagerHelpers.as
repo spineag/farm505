@@ -401,16 +401,17 @@ public class ManagerHelpers {
         _helper.showIt(onEnd, _curReason);
     }
 
-    private function onEnd():void {
-        _helper.deleteHelper();
-        _helper = null;
+    public function onEnd():void {
+        if (_helper) {
+            _helper.deleteHelper();
+            _helper = null;
+        }
         _curReason = null;
         _isActiveHelper = false;
         if (!_isStoped) checkIt();
     }
 
     public function onOpenShop():void {
-
         if (_helper) _helper.deleteHelper();
         _helper = null;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_SHOP) {

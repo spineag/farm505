@@ -32,7 +32,7 @@ public class FriendItem {
     private var _person:Someone;
     public var source:CSprite;
     private var _ava:Image;
-    private var _txt:CTextField;
+    private var _txtName:CTextField;
     public var txtLvl:CTextField;
     private var _preloader:FlashAnimatedPreloader;
     private var _timer:int;
@@ -94,15 +94,15 @@ public class FriendItem {
         source.addChild(txtLvl);
         if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
         if (_person is NeighborBot) txtLvl.text = '10';
-        _txt = new CTextField(64, 30, "");
-        _txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
-        _txt.y = -5;
+        _txtName = new CTextField(64, 30, "");
+        _txtName.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
+        _txtName.y = -5;
         if (_person.name) {
             setName(_person.name);
         } else {
             setName('loading');
         }
-        source.addChild(_txt);
+        source.addChild(_txtName);
         source.endClickCallback = visitPerson;
 
         if (_person && _person.needHelpCount > 0) {
@@ -186,7 +186,7 @@ public class FriendItem {
     }
 
     private function setName(st:String):void {
-        _txt.text = st;
+        _txtName.text = st;
     }
 
     private function photoFromTexture(tex:Texture):void {
@@ -245,7 +245,7 @@ public class FriendItem {
     public function deleteIt():void {
         _person = null;
         _ava = null;
-        _txt = null;
+        _txtName = null;
         txtLvl = null;
         if (_preloader) _preloader = null;
         source.deleteIt();

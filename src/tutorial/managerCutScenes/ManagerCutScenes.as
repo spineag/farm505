@@ -75,6 +75,10 @@ public class ManagerCutScenes {
         _OK = String(g.managerLanguage.allTexts[532]);
     }
 
+    private function onStartMiniScenes():void {
+        if (g.managerHelpers.isActiveHelper) g.managerHelpers.onEnd();
+    }
+
     private function saveUserCutScenesData():void {
         if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
         g.directServer.updateUserCutScenesData();
@@ -206,6 +210,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseMarket():void {
+        onStartMiniScenes();
         _cutSceneBuildings = g.townArea.getCityObjectsByType(BuildType.MARKET);
         if (_cutSceneBuildings.length) {
             if (g.managerTips) g.managerTips.setUnvisible(true);
@@ -253,6 +258,7 @@ public class ManagerCutScenes {
     }
 
     private function releasePapper():void {
+        onStartMiniScenes();
         if (g.managerTips) g.managerTips.setUnvisible(true);
         _cutSceneStep = 1;
         isCutScene = true;
@@ -288,6 +294,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseDecor():void {
+        onStartMiniScenes();
         if (g.user.isTester || g.user.isMegaTester) {
         } else {
             decor_4();
@@ -351,6 +358,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseToInventoryDecor():void {
+        onStartMiniScenes();
         if (g.user.isTester || g.user.isMegaTester) {
         } else {
             _cutSceneCallback = null;
@@ -420,6 +428,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseFromInventoryDecor():void {
+        onStartMiniScenes();
         if (g.user.isTester || g.user.isMegaTester) {
         } else {
             fromInventory_5();
@@ -497,6 +506,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseAvailableTrain():void {
+        onStartMiniScenes();
         if (g.user.isTester || g.user.isMegaTester) {
         } else {
             g.user.cutScenes[5] = 1;
@@ -545,6 +555,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseOpenTrain():void {
+        onStartMiniScenes();
         if (g.user.isTester || g.user.isMegaTester) {
         } else {
             g.user.cutScenes[6] = 1;
@@ -681,6 +692,7 @@ public class ManagerCutScenes {
 
 
     private function releaseWOPlant():void {
+        onStartMiniScenes();
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_BUY_PLANT) {
             isCutScene = true;
             var ob:Object = (g.windowsManager.currentWindow as WOBuyPlant).getBoundsProperties('secondTab');
@@ -706,6 +718,7 @@ public class ManagerCutScenes {
     }
 
     private function releaseAddToPapper(it:MarketItem):void {
+        onStartMiniScenes();
         _cutSceneStep = 1;
         if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_MARKET) {
             _temp = it;
