@@ -150,7 +150,7 @@ public class FriendPanel {
             if (_tab3) _source.setChildIndex(_tab3, 0);
 
             _source.setChildIndex(_tab2, 0);
-            _source.setChildIndex(_tab1, 3);
+            _source.setChildIndex(_tab1, 2);
             _activeTabType = TYPE_NORMAL;
             fillFriends();
             checkArrows();
@@ -165,7 +165,7 @@ public class FriendPanel {
             animList();
             if (_tab3) _source.setChildIndex(_tab3, 0);
             _source.setChildIndex(_tab1, 0);
-            _source.setChildIndex(_tab2, 3);
+            _source.setChildIndex(_tab2, 2);
             _activeTabType = TYPE_NEED_HELP;
             fillFriends();
             checkArrows();
@@ -180,7 +180,7 @@ public class FriendPanel {
             animList();
             _source.setChildIndex(_tab1, 0);
             _source.setChildIndex(_tab2, 0);
-            if (_tab3) _source.setChildIndex(_tab3, 3);
+            if (_tab3) _source.setChildIndex(_tab3, 2);
             _activeTabType = TYPE_NEIGHBOR;
             fillFriends();
             checkArrows();
@@ -415,6 +415,9 @@ public class FriendPanel {
         g.directServer.updateNeighborFriends();
         clearItems();
         _activeTabType = TYPE_NEIGHBOR;
+        _source.setChildIndex(_tab1, 0);
+        _source.setChildIndex(_tab2, 0);
+        if (_tab3) _source.setChildIndex(_tab3, 3);
         _arrNeighborFriends.sortOn("level",  Array.NUMERIC);
         _arrNeighborFriends.reverse();
         var item:FriendItem;
@@ -438,6 +441,9 @@ public class FriendPanel {
         if (_arrNeighborFriends.length > 0) {
             clearItems();
             _activeTabType = TYPE_NEIGHBOR;
+            _source.setChildIndex(_tab1, 0);
+            _source.setChildIndex(_tab2, 0);
+            if (_tab3) _source.setChildIndex(_tab3, 3);
             _arrNeighborFriends.sortOn("level", Array.NUMERIC);
             _arrNeighborFriends.reverse();
             var item:FriendItem;

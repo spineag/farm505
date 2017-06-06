@@ -389,9 +389,10 @@ public class Fabrica extends WorldObject {
         return _heroCat;
     }
 
-    public function onRecipeFromServer(resItem:ResourceItem, dataRecipe:Object, timeInWork:int, delayTime:int):void {
+    public function onRecipeFromServer(resItem:ResourceItem, dataRecipe:Object, timeInWork:int, delayTime:int, staticDelayTime:int):void {
         resItem.leftTime -= timeInWork;
         resItem.delayTime = delayTime;
+        resItem.staticDelayTime = staticDelayTime;
         resItem.currentRecipeID = dataRecipe.id;
         _arrList.push(resItem);
     }
@@ -436,7 +437,7 @@ public class Fabrica extends WorldObject {
                 delay += _arrList[i].buildTime;
             }
         } else g.managerCats.goCatToPoint(_heroCat, new Point(posX, posY), onHeroAnimation);
-
+        _arrList[_arrList.length -1].staticDelayTime = delay;
         var f1:Function = function(t:String):void {
             resItem.idFromServer = t;
         };
@@ -639,7 +640,7 @@ public class Fabrica extends WorldObject {
 
     public function skipSmallRecipe(number:int):void { // for making recipe
         if (_arrList[number]) {
-            g.directServer.deleteRecipeOnFabrica(_arrList[number].idFromServer, _arrList[number].leftTime, _dbBuildingId, null);
+            g.directServer.deleteRecipeOnFabrica(_arrList[number].idFromServer, _arrList[number].staticDelayTime, _dbBuildingId, null);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[number].resourceID});
             _arrList.splice(number, 1);
 //            craftResource(_arrList.shift());

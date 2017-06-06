@@ -309,10 +309,15 @@ public class WOTrainItem {
         else return '';
     }
 
-    public function onClickHelpMePls():void {
-        if (_info.needHelp && !_needHelp) {
+    public function onClickHelpMePls(b:Boolean = false):void {
+        if (b) {
             _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
             source.addChild(_needHelp);
+        } else {
+            if (_needHelp) {
+                source.removeChild(_needHelp);
+                _needHelp = null;
+            }
         }
     }
 

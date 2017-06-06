@@ -23,6 +23,7 @@ public class ResourceItem {
     public var craftXP:int;
     public var leftTime:int;
     public var delayTime:int;
+    public var staticDelayTime:int;
     public var currentRecipeID:int;
     public var placeBuild:int;
     public var idFromServer:String; // в табличке user_recipe_fabrica
@@ -47,6 +48,7 @@ public class ResourceItem {
         leftTime = _buildTime;
         currentRecipeID= 0;
         delayTime = 0;
+        staticDelayTime = 0;
     }
 
     public function get resourceID():int { return _id}

@@ -217,6 +217,7 @@
             <filename>end_event_title.png</filename>
             <filename>den_piknika.png</filename>
             <filename>picnic_days.png</filename>
+            <filename>congratulations.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

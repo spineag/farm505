@@ -7154,8 +7154,9 @@ public class DirectServer {
 
         if (d.message.count_to_gift) obj.countToGift = String(d.message.count_to_gift).split('&');
         for (k = 0; k < obj.countToGift.length; k++) obj.countToGift[k] = int(obj.countToGift[k]);
-        if (obj.timeToStart - int(new Date().getTime() / 1000) < 0 && obj.timeToEnd - int(new Date().getTime() / 1000) > 0) {
-            g.userTimer.partyToEnd(obj.timeToEnd - int(new Date().getTime() / 1000));
+        if ((obj.timeToStart - int(new Date().getTime() / 1000) < 0 && obj.timeToEnd - int(new Date().getTime() / 1000) > 0) || (Boolean(int(d.message.tester)) && g.user.isTester)) {
+            if (Boolean(int(d.message.tester))&& g.user.isTester) g.userTimer.partyToEnd(300);
+            else g.userTimer.partyToEnd(obj.timeToEnd - int(new Date().getTime() / 1000));
             g.managerParty.dataParty = obj;
             g.managerParty.eventOn = true;
             if (obj.levelToStart <= g.user.level) {
@@ -7719,7 +7720,7 @@ public class DirectServer {
 
         Cc.ch('server', 'updateUserTrainPackGetHelp', 1);
         variables = addDefault(variables);
-        if (g.visitedUser.userId == 0)variables.userId = 92462;
+        if (!g.visitedUser) variables.userId = g.user.userId;
         else variables.userId = g.visitedUser.userId;
 
         variables.id = train_item_db_id;

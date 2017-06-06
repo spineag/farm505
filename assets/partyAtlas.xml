@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:1728487fdaa8574c95154548dad34238:0461d0fb1e9b614791861e8b00df2719:ac880a930f9f4f68bee3173fda432350$ -->
-<TextureAtlas imagePath="partyAtlas.png" width="1594" height="1013">
-    <SubTexture name="best_players_1" x="1306" y="1" width="273" height="57" frameX="-3" frameY="-11" frameWidth="280" frameHeight="75"/>
-    <SubTexture name="best_players_2" x="1306" y="281" width="268" height="65" frameX="-5" frameY="-3" frameWidth="280" frameHeight="75"/>
+<!-- $TexturePacker:SmartUpdate:c67891b7b072c2fe52df3eb873edef36:54743657e4f4b4cee77fd7f61244761b:ac880a930f9f4f68bee3173fda432350$ -->
+<TextureAtlas imagePath="partyAtlas.png" width="1598" height="1014">
+    <SubTexture name="best_players_1" x="1264" y="737" width="273" height="57" frameX="-3" frameY="-11" frameWidth="280" frameHeight="75"/>
+    <SubTexture name="best_players_2" x="683" y="607" width="268" height="65" frameX="-5" frameY="-3" frameWidth="280" frameHeight="75"/>
     <SubTexture name="best_players_3" x="664" y="1" width="640" height="453" frameX="0" frameY="0" frameWidth="640" frameHeight="458"/>
-    <SubTexture name="den_piknika" x="983" y="456" width="308" height="69"/>
-    <SubTexture name="end_event_title" x="983" y="527" width="308" height="56"/>
+    <SubTexture name="congratulations" x="683" y="900" width="338" height="69" frameX="-4" frameY="-3" frameWidth="348" frameHeight="78"/>
+    <SubTexture name="den_piknika" x="954" y="795" width="308" height="69"/>
+    <SubTexture name="end_event_title" x="1247" y="679" width="308" height="56"/>
     <SubTexture name="event_picnic_window" x="1" y="490" width="680" height="470" frameX="-9" frameY="-1" frameWidth="689" frameHeight="472"/>
-    <SubTexture name="event_window_baloon" x="1306" y="60" width="269" height="219" frameX="-2" frameY="-9" frameWidth="281" frameHeight="237"/>
-    <SubTexture name="event_window_w" x="683" y="456" width="80" height="81"/>
+    <SubTexture name="event_window_baloon" x="683" y="679" width="269" height="219" frameX="-2" frameY="-9" frameWidth="281" frameHeight="237"/>
+    <SubTexture name="event_window_w" x="1495" y="796" width="80" height="81"/>
     <SubTexture name="hint_button" x="459" y="962" width="47" height="47"/>
-    <SubTexture name="new_event_window_l" x="683" y="661" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
-    <SubTexture name="new_event_window_r" x="976" y="661" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
-    <SubTexture name="new_event_window_r_2" x="1269" y="661" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
-    <SubTexture name="picnic_days" x="1306" y="348" width="247" height="66"/>
-    <SubTexture name="place_1" x="785" y="537" width="119" height="119"/>
-    <SubTexture name="place_2" x="1432" y="510" width="119" height="149"/>
+    <SubTexture name="new_event_window_l" x="1306" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
+    <SubTexture name="new_event_window_r" x="1306" y="340" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
+    <SubTexture name="new_event_window_r_2" x="954" y="456" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
+    <SubTexture name="picnic_days" x="1023" y="866" width="247" height="66"/>
+    <SubTexture name="place_1" x="1272" y="796" width="119" height="119"/>
+    <SubTexture name="place_2" x="683" y="456" width="119" height="149"/>
     <SubTexture name="progress" x="1" y="962" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
-    <SubTexture name="tabs_bonus_on" x="882" y="456" width="99" height="79" frameX="-8" frameY="0" frameWidth="115" frameHeight="79"/>
-    <SubTexture name="tabs_bt_1" x="1432" y="416" width="124" height="92" frameX="0" frameY="0" frameWidth="126" frameHeight="92"/>
-    <SubTexture name="tabs_bt_2" x="1553" y="510" width="39" height="92"/>
+    <SubTexture name="tabs_bonus_on" x="1140" y="934" width="99" height="79" frameX="-8" frameY="0" frameWidth="115" frameHeight="79"/>
+    <SubTexture name="tabs_bt_1" x="1331" y="917" width="124" height="92" frameX="0" frameY="0" frameWidth="126" frameHeight="92"/>
+    <SubTexture name="tabs_bt_2" x="1247" y="456" width="39" height="92"/>
     <SubTexture name="tabs_congratulations" x="1" y="1" width="661" height="487"/>
-    <SubTexture name="tabs_event_on" x="906" y="585" width="88" height="74" frameX="-14" frameY="-3" frameWidth="115" frameHeight="79"/>
-    <SubTexture name="tabs_top_on" x="765" y="456" width="115" height="79"/>
-    <SubTexture name="valik_timer" x="1306" y="416" width="124" height="129" frameX="-9" frameY="-9" frameWidth="145" frameHeight="145"/>
-    <SubTexture name="zefir_100" x="1293" y="547" width="80" height="98" frameX="-9" frameY="-2" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="zefir_timer" x="683" y="547" width="100" height="100"/>
+    <SubTexture name="tabs_event_on" x="1241" y="934" width="88" height="74" frameX="-14" frameY="-3" frameWidth="115" frameHeight="79"/>
+    <SubTexture name="tabs_top_on" x="1023" y="934" width="115" height="79"/>
+    <SubTexture name="valik_timer" x="804" y="456" width="124" height="129" frameX="-9" frameY="-9" frameWidth="145" frameHeight="145"/>
+    <SubTexture name="zefir_100" x="1457" y="898" width="80" height="98" frameX="-9" frameY="-2" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="zefir_timer" x="1393" y="796" width="100" height="100"/>
 </TextureAtlas>
