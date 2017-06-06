@@ -92,7 +92,7 @@ public class WOPartyWindowClose extends WindowMain{
     override public function hideIt():void {
         var obj:Object;
         obj = {};
-        g.directServer.updateUserParty('1&1&1&1&1',0,1,null);
+//        g.directServer.updateUserParty('1&1&1&1&1',0,1,null);
         for (var i:int = 0; i < g.managerParty.userParty.tookGift.length; i++) {
             if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countResource >= g.managerParty.countToGift[i] ) {
                 if (g.managerParty.typeGift[i] == BuildType.DECOR_ANIMATION) {

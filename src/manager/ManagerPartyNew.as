@@ -76,7 +76,6 @@ public class ManagerPartyNew {
     public function endParty():void {
         var obj:Object;
         obj = {};
-        g.directServer.updateUserParty('1&1&1&1&1',0,1,null);
         for (var i:int = 0; i < g.managerParty.userParty.tookGift.length; i++) {
             if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countResource >= g.managerParty.countToGift[i] ) {
                 if (g.managerParty.typeGift[i] == BuildType.DECOR_ANIMATION) {
@@ -116,10 +115,10 @@ public class ManagerPartyNew {
 
     public function endPartyWindow():void {
         if (!g.allData.atlas['partyAtlas']) atlasLoad();
-        else {
+        else if (g.userTimer.partyToEndTimer <= 0 && !eventOn && dataParty.typeParty == 3 || dataParty.typeParty == 4) {
             if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
-            if (g.managerParty.userParty.countResource > 0) g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
-            else g.directServer.updateUserParty('1&1&1&1&1',0,1,null);
+            if (g.managerParty.userParty.countResource >= dataParty.countToGift[0]) g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
+            g.directServer.updateUserParty('1&1&1&1&1',0,1,null);
             endParty();
         }
     }
@@ -140,9 +139,9 @@ public class ManagerPartyNew {
         if (g.userTimer.partyToEndTimer > 0) g.partyPanel = new PartyPanel();
         if (!g.windowsManager.currentWindow && g.userTimer.partyToEndTimer > 0) {
             g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
-        } else {
+        } else if (g.userTimer.partyToEndTimer <= 0 && !eventOn && dataParty.typeParty == 3 || dataParty.typeParty == 4) {
             if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
-            if (g.managerParty.userParty.countResource > 0) g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
+            if (g.managerParty.userParty.countResource >= dataParty.countToGift[0]) g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
             else g.directServer.updateUserParty('1&1&1&1&1',0,1,null);
             endParty();
         }

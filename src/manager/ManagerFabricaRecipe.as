@@ -48,11 +48,11 @@ public class ManagerFabricaRecipe {
         resItem.fillIt(g.allData.getResourceById(r.idResource));
         resItem.idFromServer = ob.id;
         if (int(ob.delay) > int(ob.time_work)) {
-            curFabrica.onRecipeFromServer(resItem, g.allData.getRecipeById(int(ob.recipe_id)), 0, int(ob.delay) - int(ob.time_work));
+            curFabrica.onRecipeFromServer(resItem, g.allData.getRecipeById(int(ob.recipe_id)), 0, int(ob.delay) - int(ob.time_work), int(ob.delay));
         } else if (int(ob.delay) + resItem.buildTime <= int(ob.time_work)) {
             curFabrica.craftResource(resItem);
         } else {
-            curFabrica.onRecipeFromServer(resItem, g.allData.getRecipeById(int(ob.recipe_id)), int(ob.time_work) - int(ob.delay), 0);
+            curFabrica.onRecipeFromServer(resItem, g.allData.getRecipeById(int(ob.recipe_id)), int(ob.time_work) - int(ob.delay), 0, int(ob.delay));
         }
     }
 

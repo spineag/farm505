@@ -467,7 +467,7 @@ public class WOTrain extends WindowMain {
             _btnHelp = null;
         }
         _build.needHelp(true, _activeItemIndex);
-        _arrItems[_activeItemIndex].onClickHelpMePls();
+        _arrItems[_activeItemIndex].onClickHelpMePls(true);
         g.directServer.updateUserTrainPackNeedHelp(_arrItems[_activeItemIndex].trainDbId, null);
     }
 
@@ -483,6 +483,17 @@ public class WOTrain extends WindowMain {
         if (_arrItems[_activeItemIndex].canFull) {
             _arrItems[_activeItemIndex].fullIt();
         }
+        _arrItems[_activeItemIndex].onClickHelpMePls(false);
+        g.directServer.updateTrainPackGetHelp(_arrItems[_activeItemIndex].trainDbId,'0', null);
+        _build.needHelp(false, _activeItemIndex);
+        var b:Boolean = true;
+        for (var i:int = 0; i < _arrItems.length; i ++) {
+            if (_arrItems[i].needHelp) {
+                b = false;
+                break;
+            }
+        }
+        if (b) _build.showBubleHelp(false);
         updateItems();
         _btnLoad.visible = false;
         checkBtn();

@@ -581,21 +581,30 @@ public class Train extends WorldObject{
         g.windowsManager.openWindow(WindowsManager.POST_OPEN_TRAIN);
     }
 
-    private function showBubleHelp():void {
-        if (STATE_READY == _stateBuild) {
-            var im:Image;
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
-            _sprHelp.addChild(im);
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
-            _sprHelp.addChild(im);
-            im.x = 21;
-            im.y = 20;
-            _sprHelp.endClickCallback = onClick;
+    public function showBubleHelp(b:Boolean = true):void {
+        if (b) {
+            if (STATE_READY == _stateBuild) {
+                var im:Image;
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('hint_arrow'));
+                _sprHelp.addChild(im);
+                im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+                _sprHelp.addChild(im);
+                im.x = 21;
+                im.y = 20;
+                _sprHelp.endClickCallback = onClick;
+            } else {
+                if (_sprHelp) {
+                    while (_sprHelp.numChildren) {
+                        _sprHelp.removeChildAt(0);
+                    }
+                }
+            }
         } else {
             if (_sprHelp) {
                 while (_sprHelp.numChildren) {
                     _sprHelp.removeChildAt(0);
                 }
+                _sprHelp = null;
             }
         }
     }

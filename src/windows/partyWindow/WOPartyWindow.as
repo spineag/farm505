@@ -552,11 +552,16 @@ public class WOPartyWindow extends WindowMain {
             item = new WOPartyRatingFriend(g.managerParty.arrBestPlayers[i], i+1, !b);
             _scrollSprite.addNewCell(item.source)
         }
-        if (b) {
-            item = new WOPartyRatingFriend(null, g.managerParty.playerPosition, b);
-            item.source.y = 150;
-            item.source.x = -10;
-            _sprRating.addChild(item.source)
+        if (g.managerParty.arrBestPlayers.length < 20) {
+            item = new WOPartyRatingFriend(null, i+1, true);
+            _scrollSprite.addNewCell(item.source)
+        } else {
+            if (b) {
+                item = new WOPartyRatingFriend(null, g.managerParty.playerPosition, b);
+                item.source.y = 150;
+                item.source.x = -10;
+                _sprRating.addChild(item.source)
+            }
         }
         _sprRating.addChild(_scrollSprite.source);
         _scrollSprite.source.y = -150;
@@ -571,7 +576,7 @@ public class WOPartyWindow extends WindowMain {
         txt = new CTextField(250, 100, String(g.allData.getBuildingById(g.managerParty.idDecorBest).name));
         txt.setFormat(CTextField.BOLD24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.alignH = Align.LEFT;
-        txt.x = -250;
+        txt.x = -165 - txt.textBounds.width/2;
         _sprRating.addChild(txt);
 
         txt = new CTextField(230, 100, String(g.managerLanguage.allTexts[1059]));
@@ -590,7 +595,7 @@ public class WOPartyWindow extends WindowMain {
         _sprLast.addChild(im);
 
         if (g.user.language == ManagerLanguage.RUSSIAN) im = new Image(g.allData.atlas['partyAtlas'].getTexture('end_event_title'));
-        else im = new Image(g.allData.atlas['partyAtlas'].getTexture('end_event_title'));
+        else im = new Image(g.allData.atlas['partyAtlas'].getTexture('congratulations'));
         im.x = -im.width / 2 + 5;
         im.y = -205;
         _sprLast.addChild(im);

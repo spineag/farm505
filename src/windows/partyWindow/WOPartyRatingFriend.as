@@ -43,6 +43,7 @@ public class WOPartyRatingFriend {
     private var g:Vars = Vars.getInstance();
 
     public function WOPartyRatingFriend(ob:Object, number:int, user:Boolean = false) {
+//        return;
         _person = ob;
         source = new Sprite();
         if (user) g.load.loadImage(g.user.photo, onLoadPhoto);
