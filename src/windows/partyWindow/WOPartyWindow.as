@@ -2,6 +2,8 @@
  * Created by user on 1/30/17.
  */
 package windows.partyWindow {
+import com.junkbyte.console.Cc;
+
 import data.BuildType;
 
 import flash.geom.Point;
@@ -9,6 +11,8 @@ import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
 import manager.ManagerPartyNew;
+
+import social.SocialNetworkEvent;
 
 import starling.display.Image;
 import starling.display.Quad;
@@ -19,6 +23,8 @@ import starling.utils.Align;
 import starling.utils.Color;
 
 import ui.xpPanel.XPStar;
+
+import user.Someone;
 
 import utils.CButton;
 import utils.CTextField;
@@ -64,6 +70,7 @@ public class WOPartyWindow extends WindowMain {
     private var _sprRating:Sprite;
     private var _sprLast:Sprite;
     private var _scrollSprite:DefaultVerticalScrollSprite;
+    private var _arrItemRating:Array;
 
     public function WOPartyWindow() {
         _windowType = WindowsManager.WO_PARTY;
@@ -547,11 +554,13 @@ public class WOPartyWindow extends WindowMain {
         _scrollSprite.createScoll(290, 0, 300, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
         var item:WOPartyRatingFriend;
         var b:Boolean = true;
+        _arrItemRating = [];
         for (var i:int = 0; i < g.managerParty.arrBestPlayers.length; i++) {
             if (b && g.user.userId != g.managerParty.arrBestPlayers[i].userId) b = true;
             else b = false;
             item = new WOPartyRatingFriend(g.managerParty.arrBestPlayers[i], i+1, !b);
-            _scrollSprite.addNewCell(item.source)
+            _scrollSprite.addNewCell(item.source);
+            _arrItemRating.push(item);
         }
         if (g.managerParty.arrBestPlayers.length < 20) {
             item = new WOPartyRatingFriend(null, i+1, true);
@@ -564,6 +573,7 @@ public class WOPartyWindow extends WindowMain {
                 _sprRating.addChild(item.source)
             }
         }
+        checkSocialInfoForArray();
         _sprRating.addChild(_scrollSprite.source);
         _scrollSprite.source.y = -150;
         _scrollSprite.source.x = -10;
@@ -697,6 +707,30 @@ public class WOPartyWindow extends WindowMain {
         im.y = 59;
         source.addChild(txt);
         return source;
+    }
+
+    private function checkSocialInfoForArray():void {
+        var userIds:Array = [];
+        var p:Someone;
+
+        Cc.ch('social', 'WOParty: ar.length: ' +  g.managerParty.arrBestPlayers.length);
+        for (var i:int=0; i<  g.managerParty.arrBestPlayers.length; i++) {
+            p = g.user.getSomeoneBySocialId( g.managerParty.arrBestPlayers[i].userSocialId);
+            if (!p.photo && userIds.indexOf( g.managerParty.arrBestPlayers[i].userSocialId) == -1) userIds.push( g.managerParty.arrBestPlayers[i].userSocialId);
+        }
+        Cc.ch('social', 'WOParty: userIds.length: ' + userIds.length);
+        if (userIds.length) {
+            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
+            g.socialNetwork.getTempUsersInfoById(userIds);
+        }
+    }
+
+    private function onGettingInfo(e:SocialNetworkEvent):void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
+        Cc.info('WOPartyWindow:: for update avatar');
+        for (var i:int = 0; i < _arrItemRating.length; i++) {
+            _arrItemRating[i].updateAvatar();
+        }
     }
 
     override protected function deleteIt():void {

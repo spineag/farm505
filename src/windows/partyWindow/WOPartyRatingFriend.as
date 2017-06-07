@@ -41,25 +41,27 @@ public class WOPartyRatingFriend {
     private var _txtNamePerson:CTextField;
     private var _imResource:Image;
     private var _personS:Someone;
+    private var _data:Object;
 
     private var g:Vars = Vars.getInstance();
 
     public function WOPartyRatingFriend(ob:Object, number:int, user:Boolean = false) {
         _personS = new Someone();
-        if(ob) {
+        if (ob) {
             _personS.userId = ob.userId;
             _personS.userSocialId = ob.userSocialId;
             _personS.photo = ob.photo;
             _personS.name = ob.name;
             _personS.userId = ob.level;
+            _data = ob;
         }
         source = new Sprite();
         if (user) g.load.loadImage(g.user.photo, onLoadPhoto);
-         else if (_personS.userSocialId){
-            Cc.ch('social', 'WOPartyRatingFriend no photo for uid: ' + _personS.userSocialId);
-            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-            g.socialNetwork.getTempUsersInfoById([_personS.userSocialId]);
-        }
+//         else if (_personS.userSocialId){
+//            Cc.ch('social', 'WOPartyRatingFriend no photo for uid: ' + _personS.userSocialId);
+//            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+//            g.socialNetwork.getTempUsersInfoById([_personS.userSocialId]);
+//        }
 
         if (g.managerParty.typeParty == 3) _imResource = new Image(g.allData.atlas['partyAtlas'].getTexture('zefir_100'));
         else {
@@ -99,6 +101,13 @@ public class WOPartyRatingFriend {
         source.addChild(_txtNamePerson);
     }
 
+    public function updateAvatar():void {
+        Cc.info('WOPartyRatingFriend update avatar');
+        if (!_personS.photo) _personS = g.user.getSomeoneBySocialId(_personS.userSocialId);
+        if (_personS.photo =='' || _personS.photo == 'unknown') _personS.photo =  SocialNetwork.getDefaultAvatar();
+        g.load.loadImage(_personS.photo, onLoadPhoto);
+    }
+
     private function onLoadPhoto(bitmap:Bitmap):void {
         if (!_personS) {
             Cc.error('WOPartyRatingFriend onLoadPhoto:: no _person');
@@ -124,7 +133,7 @@ public class WOPartyRatingFriend {
         im.y = 35;
         source.addChild(im);
         var txt:CTextField;
-        if (_personS.level > 0) txt = new CTextField(80, 100, String(_personS.level));
+        if (_data && _data.level > 0) txt = new CTextField(80, 100, String(_data.level));
         else txt = new CTextField(80, 100, String(g.user.level));
         txt.setFormat(CTextField.BOLD18, 12, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.alignH = Align.LEFT;
