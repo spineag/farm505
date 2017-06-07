@@ -86,7 +86,7 @@ public class WOPartyWindow extends WindowMain {
         _sprItem = new Sprite();
         if (g.allData.atlas['partyAtlas']) eventWO(false);
         else g.gameDispatcher.addEnterFrame(eventWO);
-//        ratingWO();
+        ratingWO();
         lastWO();
     }
 
@@ -187,7 +187,7 @@ public class WOPartyWindow extends WindowMain {
             return;
         }
         _activityType = params[0];
-        _btnRating.setEnabled = false;
+//        _btnRating.setEnabled = false;
         if (_activityType == ManagerPartyNew.TYPE_LAST) {
             _imEvent.visible = true;
             _imRating.visible = true;
@@ -554,7 +554,7 @@ public class WOPartyWindow extends WindowMain {
             _scrollSprite.addNewCell(item.source)
         }
         if (g.managerParty.arrBestPlayers.length < 20) {
-            item = new WOPartyRatingFriend(null, i, true);
+            item = new WOPartyRatingFriend(null, i+1, true);
             _scrollSprite.addNewCell(item.source)
         } else {
             if (b) {

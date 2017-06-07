@@ -119,8 +119,8 @@ public class ManagerPartyNew {
             if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
             if (g.managerParty.userParty.countResource >= dataParty.countToGift[0]) {
                 g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
-                g.directServer.updateUserParty('1&1&1&1&1', 0, 1, null);
                 endParty();
+                g.directServer.updateUserParty('1&1&1&1&1', 0, 1, null);
             }
         }
     }
@@ -145,8 +145,8 @@ public class ManagerPartyNew {
             if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
             if (g.managerParty.userParty.countResource >= dataParty.countToGift[0]) {
                 g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
-                g.directServer.updateUserParty('1&1&1&1&1', 0, 1, null);
                 endParty();
+                g.directServer.updateUserParty('1&1&1&1&1', 0, 1, null);
             }
         }
 
