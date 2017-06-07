@@ -38,21 +38,21 @@ public class CutSceneProperties {
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
-        obj.level = 8;
+        obj.level = 6;
         obj.id_action = ManagerCutScenes.ID_ACTION_BUY_DECOR;
         obj.text = String(g.managerLanguage.allTexts[519]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
-        obj.level = 8;
+        obj.level = 6;
         obj.id_action = ManagerCutScenes.ID_ACTION_TO_INVENTORY_DECOR;
         obj.text = String(g.managerLanguage.allTexts[520]);
         _prop.push(obj);
 
         obj = {};
         obj.reason = ManagerCutScenes.REASON_NEW_LEVEL;
-        obj.level = 8;
+        obj.level = 6;
         obj.id_action = ManagerCutScenes.ID_ACTION_FROM_INVENTORY_DECOR;
         obj.text = String(g.managerLanguage.allTexts[521]);
         _prop.push(obj);
