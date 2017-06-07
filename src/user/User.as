@@ -86,22 +86,22 @@ public class User extends Someone {
     private function openMiss(ob:Object):void {
         var b:Array  = g.townArea.getCityObjectsByType(BuildType.MISSING);
         for (var i:int = 0; i < arrFriends.length; i++) {
-            if (int(new Date().getTime() / 1000) -  arrFriends[i].lastVisitDate >= 604800 && !ob) {
+            if ((int(new Date().getTime() / 1000) -  arrFriends[i].lastVisitDate) >= 604800 && ob.length <= 0) {
                 b[0].visibleBuild(true, arrFriends[i]);
                 break;
             }
         }
-        if (ob.length > 0) {
+        if (ob && ob.length > 0) {
             var bool:Boolean = false;
             for (i= 0; i < arrFriends.length; i++) {
-                if (int(new Date().getTime() / 1000) -  arrFriends[i].lastVisitDate >= 604800) {
+                if ((int(new Date().getTime() / 1000) -  arrFriends[i].lastVisitDate) >= 604800) {
                     for (var j:int = 0; j < ob.length; j++) {
-                        if (arrFriends[i].userId == int(ob[j].user_id_miss)) {
+                        if (arrFriends[i].userSocialId == String(ob[j].user_id_miss)) {
                             bool = true;
                             break;
                         }
                     }
-                    if (!bool)b[0].visibleBuild(true, arrFriends[i]);
+                    if (!bool) b[0].visibleBuild(true, arrFriends[i]);
                     break;
                 }
             }

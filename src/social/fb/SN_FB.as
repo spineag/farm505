@@ -164,7 +164,6 @@ public class SN_FB extends SocialNetwork  {
             f.userSocialId = _friendsApp[i];
             g.user.arrFriends.push(f);
         }
-        if (g.user.isTester) g.user.checkMiss();
         super.getAppUsersSuccess(_friendsApp);
         if (_friendsApp.length) getFriendsByIDs(_friendsApp); 
     }
@@ -213,6 +212,7 @@ public class SN_FB extends SocialNetwork  {
         } else {
             super.getFriendsByIDsSuccess(e);
         }
+        if (g.user.isTester) g.user.checkMiss();
     }
 
     override public function showInviteWindow():void {

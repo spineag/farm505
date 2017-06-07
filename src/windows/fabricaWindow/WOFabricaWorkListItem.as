@@ -91,7 +91,7 @@ public class WOFabricaWorkListItem {
             _txt.x = 5;
             _txt.y = 5;
             _source.addChild(_txt);
-            if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) _source.endClickCallback = onClick;
+            _source.endClickCallback = onClick;
         }
         if (_type == BIG_CELL) {
             _timerBlock = new Sprite();

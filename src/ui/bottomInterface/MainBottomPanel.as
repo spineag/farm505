@@ -493,7 +493,7 @@ public class MainBottomPanel {
             }
             if (g.friendPanel.arrNeighborFriends.length != 5 && !b) {
                 for (i= 0; i < g.friendPanel.arrFriends.length; i++) {
-                    if (_person.userSocialId == g.friendPanel.arrFriends[i].userSocialId) return;
+                    if (_person.userSocialId == g.user.arrFriends[i].userSocialId) return;
                 }
                 _btnPlusMinus = new CButton();
                 im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('plus_button'));

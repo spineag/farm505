@@ -8359,16 +8359,16 @@ public class DirectServer {
         Cc.ch('server', 'updateNeighborFriends', 1);
         variables = addDefault(variables);
         variables.userId = g.user.userId;
-        if (g.friendPanel.arrNeighborFriends[0].userId) variables.friend1 = g.friendPanel.arrNeighborFriends[0].userId;
-            else variables.friend1 = 43;
-        if (g.friendPanel.arrNeighborFriends[1].userId) variables.friend2 = g.friendPanel.arrNeighborFriends[1].userId;
-            else variables.friend2 = 43;
-        if (g.friendPanel.arrNeighborFriends[2].userId) variables.friend3 = g.friendPanel.arrNeighborFriends[2].userId;
-            else variables.friend3 = 43;
-        if (g.friendPanel.arrNeighborFriends[3].userId) variables.friend4 = g.friendPanel.arrNeighborFriends[3].userId;
-            else variables.friend4 = 43;
-        if (g.friendPanel.arrNeighborFriends[4].userId) variables.friend5 = g.friendPanel.arrNeighborFriends[4].userId;
-            else variables.friend5 = 43;
+        if (g.friendPanel.arrNeighborFriends[0] && g.friendPanel.arrNeighborFriends[0].userId) variables.friend1 = g.friendPanel.arrNeighborFriends[0].userId;
+            else variables.friend1 = 0;
+        if (g.friendPanel.arrNeighborFriends[1] && g.friendPanel.arrNeighborFriends[1].userId) variables.friend2 = g.friendPanel.arrNeighborFriends[1].userId;
+            else variables.friend2 = 0;
+        if (g.friendPanel.arrNeighborFriends[2] && g.friendPanel.arrNeighborFriends[2].userId) variables.friend3 = g.friendPanel.arrNeighborFriends[2].userId;
+            else variables.friend3 = 0;
+        if (g.friendPanel.arrNeighborFriends[3] && g.friendPanel.arrNeighborFriends[3].userId) variables.friend4 = g.friendPanel.arrNeighborFriends[3].userId;
+            else variables.friend4 = 0;
+        if (g.friendPanel.arrNeighborFriends[4] && g.friendPanel.arrNeighborFriends[4].userId) variables.friend5 = g.friendPanel.arrNeighborFriends[4].userId;
+            else variables.friend5 = 0;
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
@@ -8549,18 +8549,17 @@ public class DirectServer {
         }
     }
 
-    public function updateUserMiss(userMissId:int = 0, count_send:int = 0, send:Boolean = false, callback:Function = null):void {
+    public function updateUserMiss(userMissId:String = '', count_send:int = 0, send:Boolean = false, callback:Function = null):void {
     var loader:URLLoader = new URLLoader();
     var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_MISS);
     var variables:URLVariables = new URLVariables();
 
-    Cc.ch('server', 'updateUserViralInvite', 1);
+    Cc.ch('server', 'updateUserMiss', 1);
     variables = addDefault(variables);
     variables.userId = g.user.userId;
     variables.userMissId = userMissId;
     variables.countSend = count_send;
     variables.send = int(send);
-    variables.hash = MD5.hash(String(g.user.userId) + String(variables.userMissId) + String(variables.countSend) + String(variables.send) + SECRET);
     request.data = variables;
     request.method = URLRequestMethod.POST;
     iconMouse.startConnect();
@@ -8570,7 +8569,7 @@ public class DirectServer {
     try {
         loader.load(request);
     } catch (error:Error) {
-        Cc.error('updateUserViralInvite error:' + error.errorID);
+        Cc.error('updateUserMiss error:' + error.errorID);
     }
 }
 
@@ -8580,13 +8579,13 @@ public class DirectServer {
         try {
             d = JSON.parse(response);
         } catch (e:Error) {
-            Cc.error('UpdateUserViralInvite: wrong JSON:' + String(response));
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'UpdateUserViralInvite: wrong JSON:' + String(response));
+            Cc.error('updateUserMiss: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'updateUserMiss: wrong JSON:' + String(response));
             return;
         }
 
         if (d.id == 0) {
-            Cc.ch('server', 'UpdateUserViralInvite OK', 5);
+            Cc.ch('server', 'updateUserMiss OK', 5);
             if (callback != null) {
                 callback.apply();
             }
@@ -8595,7 +8594,7 @@ public class DirectServer {
         } else if (d.id == 6) {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
-            Cc.error('UpdateUserViralInvite: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            Cc.error('updateUserMiss: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
         }
     }
@@ -8605,7 +8604,7 @@ public class DirectServer {
     var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_NOTIFICATION_VK_MISS);
     var variables:URLVariables = new URLVariables();
 
-    Cc.ch('server', 'updateUserViralInvite', 1);
+    Cc.ch('server', 'notificationVkMiss', 1);
     variables = addDefault(variables);
     variables.userSocialId = userSocialId;
     request.data = variables;
@@ -8617,33 +8616,14 @@ public class DirectServer {
     try {
         loader.load(request);
     } catch (error:Error) {
-        Cc.error('updateUserViralInvite error:' + error.errorID);
+        Cc.error('notificationVkMiss error:' + error.errorID);
     }
 }
 
     private function completeNotificationVkMiss(response:String, callback:Function = null):void {
         iconMouse.endConnect();
-        var d:Object;
-        try {
-            d = JSON.parse(response);
-        } catch (e:Error) {
-            Cc.error('UpdateUserViralInvite: wrong JSON:' + String(response));
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'UpdateUserViralInvite: wrong JSON:' + String(response));
-            return;
-        }
-
-        if (d.id == 0) {
-            Cc.ch('server', 'UpdateUserViralInvite OK', 5);
-            if (callback != null) {
-                callback.apply();
-            }
-        } else if (d.id == 13) {
-            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
-        } else if (d.id == 6) {
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
-        } else {
-            Cc.error('UpdateUserViralInvite: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        if (callback != null) {
+            callback.apply();
         }
     }
 
@@ -8652,7 +8632,7 @@ public class DirectServer {
     var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_NOTIFICATION_FB_MISS);
     var variables:URLVariables = new URLVariables();
 
-    Cc.ch('server', 'updateUserViralInvite', 1);
+    Cc.ch('server', 'notificationFbMiss', 1);
     variables = addDefault(variables);
     variables.userSocialId = userSocialId;
     request.data = variables;
@@ -8664,33 +8644,14 @@ public class DirectServer {
     try {
         loader.load(request);
     } catch (error:Error) {
-        Cc.error('updateUserViralInvite error:' + error.errorID);
+        Cc.error('notificationFbMiss error:' + error.errorID);
     }
 }
 
     private function completeNotificationFbMiss(response:String, callback:Function = null):void {
         iconMouse.endConnect();
-        var d:Object;
-        try {
-            d = JSON.parse(response);
-        } catch (e:Error) {
-            Cc.error('UpdateUserViralInvite: wrong JSON:' + String(response));
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'UpdateUserViralInvite: wrong JSON:' + String(response));
-            return;
-        }
-
-        if (d.id == 0) {
-            Cc.ch('server', 'UpdateUserViralInvite OK', 5);
-            if (callback != null) {
-                callback.apply();
-            }
-        } else if (d.id == 13) {
-            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
-        } else if (d.id == 6) {
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
-        } else {
-            Cc.error('UpdateUserViralInvite: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
-            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        if (callback != null) {
+            callback.apply();
         }
     }
 

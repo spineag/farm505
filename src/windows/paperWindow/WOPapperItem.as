@@ -279,6 +279,7 @@ public class WOPapperItem {
         _wo.hideIt();
         _p.idVisitItemFromPaper = _data.resourceId;
         _p.level = _data.level;
+        _p.userId = _data.userId;
         g.windowsManager.openWindow(WindowsManager.WO_MARKET, null, _p);
 
     }

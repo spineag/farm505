@@ -362,6 +362,10 @@
             <filename>tree_swing_icon.png</filename>
             <filename>picnic_table_icon.png</filename>
             <filename>hammock_icon.png</filename>
+            <filename>alpine_garden_big_icon.png</filename>
+            <filename>alpine_garden_medium_icon.png</filename>
+            <filename>mushroom_house_1_icon.png</filename>
+            <filename>mushroom_house_2_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -290,6 +290,11 @@
             <filename>easter_tree.png</filename>
             <filename>camping_tent_green.png</filename>
             <filename>camping_tent_yellow.png</filename>
+            <filename>alpine_garden_big.png</filename>
+            <filename>alpine_garden_medium.png</filename>
+            <filename>mushroom_house_1.png</filename>
+            <filename>mushroom_house_2.png</filename>
+            <filename>tree_house.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -142,7 +142,7 @@ public class Missing extends WorldObject {
     }
 
     public function visibleBuild(b:Boolean = false, person:Someone = null):void {
-//        _source.visible = b;
+        _source.visible = b;
         _person = person;
     }
 }

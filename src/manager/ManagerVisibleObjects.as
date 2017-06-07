@@ -3,6 +3,7 @@
  */
 package manager {
 import build.WorldObject;
+import build.missing.Missing;
 import build.train.Train;
 import build.wild.Wild;
 
@@ -36,6 +37,7 @@ public class ManagerVisibleObjects {
         if (needShowAll) {
             for (i = 0; i < ar.length; i++) {
                 if (ar[i] is WorldObject) {
+                    if (ar[i] is Missing) continue;
                     (ar[i] as WorldObject).showForOptimisation(needShowAll);
                 } else if (ar[i] is OrderCat) {
                     (ar[i] as OrderCat).showForOptimisation(needShowAll);
@@ -45,14 +47,17 @@ public class ManagerVisibleObjects {
             for (i = 0; i < ar.length; i++) {
                 if (ar[i] is WorldObject) {
                     if (isWorldObjectOnScreen(ar[i] as WorldObject)) {
+                        if (ar[i] is Missing) continue;
                         (ar[i] as WorldObject).showForOptimisation(true);
                     } else {
+                        if (ar[i] is Missing) continue;
                         (ar[i] as WorldObject).showForOptimisation(false);
                     }
                 } else if (ar[i] is OrderCat) {
                     if (g.user.level < 4 || isWorldObjectOnScreen(ar[i] as OrderCat)) {
                         (ar[i] as OrderCat).showForOptimisation(true);
                     } else {
+                        if (ar[i] is Missing) continue;
                         (ar[i] as OrderCat).showForOptimisation(false);
                     }
                 }

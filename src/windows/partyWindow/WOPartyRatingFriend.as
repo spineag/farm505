@@ -50,6 +50,7 @@ public class WOPartyRatingFriend {
         else if (_person.photo) {
             g.load.loadImage(_person.photo, onLoadPhoto);
         } else {
+            Cc.ch('social', 'WOPartyRatingFriend no photo for uid: ' + _person.userSocialId);
             g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
             g.socialNetwork.getTempUsersInfoById([_person.userSocialId]);
         }
@@ -90,23 +91,23 @@ public class WOPartyRatingFriend {
         _txtNamePerson.x = 120;
         _txtNamePerson.y = -27;
         source.addChild(_txtNamePerson);
-        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-        MCScaler.scale(_ava, 50, 50);
-        _ava.x = 55;
-        _ava.y = 10;
-        source.addChild(_ava);
-        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
-        MCScaler.scale(im, im.height-5, im.width-5);
-        im.x = 89;
-        im.y = 35;
-        source.addChild(im);
-        if (_person) txt = new CTextField(80, 100, String(_person.level));
-        else txt = new CTextField(80, 100, String(g.user.level));
-        txt.setFormat(CTextField.BOLD18, 12, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        txt.alignH = Align.LEFT;
-        txt.x = 105 - txt.textBounds.width/2;
-        txt.y = -3;
-        source.addChild(txt);
+//        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+//        MCScaler.scale(_ava, 50, 50);
+//        _ava.x = 55;
+//        _ava.y = 10;
+//        source.addChild(_ava);
+//        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
+//        MCScaler.scale(im, im.height-5, im.width-5);
+//        im.x = 89;
+//        im.y = 35;
+//        source.addChild(im);
+//        if (_person) txt = new CTextField(80, 100, String(_person.level));
+//        else txt = new CTextField(80, 100, String(g.user.level));
+//        txt.setFormat(CTextField.BOLD18, 12, Color.WHITE, ManagerFilters.BROWN_COLOR);
+//        txt.alignH = Align.LEFT;
+//        txt.x = 105 - txt.textBounds.width/2;
+//        txt.y = -3;
+//        source.addChild(txt);
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
