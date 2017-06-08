@@ -642,7 +642,11 @@ public class Fabrica extends WorldObject {
         if (_arrList[number]) {
             g.directServer.deleteRecipeOnFabrica(_arrList[number].idFromServer, _arrList[number].staticDelayTime, _dbBuildingId, null);
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_FABRICA_ID, info: _arrList[number].resourceID});
+            for (var i:int = 0; i < _arrList.length; i++) {
+                if (_arrList[i].staticDelayTime > _arrList[number].staticDelayTime )  _arrList[i].staticDelayTime = _arrList[i].staticDelayTime - _arrList[number].staticDelayTime ;
+            }
             _arrList.splice(number, 1);
+
 //            craftResource(_arrList.shift());
         } else {
             Cc.error('Fabrica skipSmallRecipe:: _arrList[0] == null');

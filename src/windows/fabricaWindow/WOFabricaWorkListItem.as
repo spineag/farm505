@@ -159,7 +159,7 @@ public class WOFabricaWorkListItem {
 
             if (_skipSmallCallback != null) {
                 _skipSmallCallback.apply(null, [_number]);
-                _skipSmallCallback = null;
+//                _skipSmallCallback = null;
             }
         } else {
             g.windowsManager.closeAllWindows();
@@ -420,7 +420,7 @@ public function destroyTimer():void {
             _icon = null;
         }
         _resource = null;
-        _skipCallback = null;
+//        _skipCallback = null;
         if (_type == SMALL_CELL) {
             _source.visible = false;
             if (_proposeBtn) {
