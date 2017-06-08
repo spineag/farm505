@@ -14,6 +14,9 @@ import flash.geom.Point;
 import flash.utils.Timer;
 import manager.Vars;
 import mouse.ToolsModifier;
+
+import social.SocialNetworkSwitch;
+
 import starling.core.Starling;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -295,7 +298,7 @@ public class ManagerCutScenes {
 
     private function releaseDecor():void {
         onStartMiniScenes();
-        if (g.user.isTester || g.user.isMegaTester) {
+        if (g.user.isTester || g.user.isMegaTester || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
         } else {
             decor_4();
             return;
@@ -359,7 +362,7 @@ public class ManagerCutScenes {
 
     private function releaseToInventoryDecor():void {
         onStartMiniScenes();
-        if (g.user.isTester || g.user.isMegaTester) {
+        if (g.user.isTester || g.user.isMegaTester || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
         } else {
             _cutSceneCallback = null;
             g.user.cutScenes[3] = 1;
@@ -429,7 +432,7 @@ public class ManagerCutScenes {
 
     private function releaseFromInventoryDecor():void {
         onStartMiniScenes();
-        if (g.user.isTester || g.user.isMegaTester) {
+        if (g.user.isTester || g.user.isMegaTester || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
         } else {
             fromInventory_5();
             return;
