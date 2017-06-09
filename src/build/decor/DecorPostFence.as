@@ -155,7 +155,7 @@ public class DecorPostFence extends WorldObject{ // zabor zi stovp4ukiv
     override public function onHover():void {
         if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY)
             _source.filter = ManagerFilters.BUILD_STROKE;
-            super.onHover();
+        super.onHover();
     }
 
     override public function onOut():void {

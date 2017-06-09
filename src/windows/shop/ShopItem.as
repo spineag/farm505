@@ -397,7 +397,8 @@ public class ShopItem {
                 && g.userInventory.decorInventory[_data.id]) {
             _state = STATE_FROM_INVENTORY;
             _countCost = 0;
-            _nameTxt.text = String(_data.name);
+            if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+            else _nameTxt.text = String(_data.name);
            createButtons('yellow');
         } else {
             _state = STATE_BUY;
@@ -424,7 +425,8 @@ public class ShopItem {
                 _txtAvailable.visible = true;
                 _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[0])));
                 _im.filter = ManagerFilters.getButtonDisableFilter();
-                _nameTxt.text = _data.name;
+                if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                else _nameTxt.text = String(_data.name);
             } else {
                 arr = g.townArea.getCityObjectsById(_data.id);
                 for (i = 0; _data.blockByLevel.length; i++) {
@@ -436,18 +438,21 @@ public class ShopItem {
                 if (arr.length == _data.blockByLevel.length) {
                     createShopLimitSprite();
                     _im.filter = ManagerFilters.getButtonDisableFilter();
-                    _nameTxt.text = _data.name;
+                    if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                    else _nameTxt.text = String(_data.name);
                     _countTxt.visible = true;
                     _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                 } else if (arr.length >= maxCountAtCurrentLevel) {
-                    _nameTxt.text = _data.name;
+                    if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                    else _nameTxt.text = String(_data.name);
                     _txtAvailable.visible = true;
                     _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[maxCountAtCurrentLevel])));
                     _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(_data.blockByLevel.length);
                     _im.filter = ManagerFilters.getButtonDisableFilter();
                 } else {
-                    _nameTxt.text = _data.name;
+                    if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                    else _nameTxt.text = String(_data.name);
                     _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
                     if (g.user.allNotification > 0 && g.user.fabricaNotification > 0 && g.user.level == _data.blockByLevel[maxCountAtCurrentLevel-1]) {
@@ -465,7 +470,8 @@ public class ShopItem {
                 _txtAvailable.visible = true;
                 _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[0])));
                 _im.filter = ManagerFilters.getButtonDisableFilter();
-                _nameTxt.text = _data.name;
+                if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                else _nameTxt.text = String(_data.name);
             } else {
                 arr = g.townArea.getCityObjectsById(_data.id);
                 for (i = 0; _data.blockByLevel.length; i++) {
@@ -478,16 +484,19 @@ public class ShopItem {
                         _txtAvailable.visible = true;
                         _txtAvailable.text = String(str.replace(myPattern, String(_data.blockByLevel[arr.length])));
                         _im.filter = ManagerFilters.getButtonDisableFilter();
-                        _nameTxt.text = _data.name;
+                        if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                        else _nameTxt.text = String(_data.name);
                     } else {
                         createShopLimitSprite();
                         _im.filter = ManagerFilters.getButtonDisableFilter();
-                        _nameTxt.text = _data.name;
+                        if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                        else _nameTxt.text = String(_data.name);
                         _countTxt.visible = true;
                         _countTxt.text = String(maxCountAtCurrentLevel) + '/' + String(maxCountAtCurrentLevel);
                     }
                 } else {
-                    _nameTxt.text = _data.name;
+                    if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                    else _nameTxt.text = String(_data.name);
                     _countTxt.visible = true;
                     _countTxt.text = String(arr.length) + '/' + String(maxCountAtCurrentLevel);
                     createButtons('blue');
@@ -524,11 +533,13 @@ public class ShopItem {
                     if (_data.buildType == BuildType.DECOR_ANIMATION) {
                         _hand.filter = ManagerFilters.getButtonDisableFilter();
                     }
-                    _nameTxt.text = _data.name;
+                    if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                    else _nameTxt.text = String(_data.name);
                 } else {
                     if (_state == STATE_FROM_INVENTORY) {
                         _countCost = 0;
-                        _nameTxt.text = _data.name;
+                        if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                        else _nameTxt.text = String(_data.name);
                         _countBoxTxt.visible = true;
                         _countBoxTxt.text = String(g.managerLanguage.allTexts[344]) + ' ' + String(g.userInventory.decorInventory[_data.id].count);
                         if (decorMax >= arr.length) _countCost = (decorMax * _data.deltaCost) + int(_data.cost);
@@ -554,7 +565,8 @@ public class ShopItem {
                         } else {
                             createCouponeButtons();
                         }
-                        _nameTxt.text = _data.name;
+                        if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                        else _nameTxt.text = String(_data.name);
                     }
                 }
             }
@@ -566,7 +578,8 @@ public class ShopItem {
                     _txtAvailable.visible = true;
                     _txtAvailable.text = String(str.replace(myPattern, String(dataFarm.blockByLevel[0])));
                     _im.filter = ManagerFilters.getButtonDisableFilter();
-                    _nameTxt.text = _data.name;
+                    if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                    else _nameTxt.text = String(_data.name);
                 } else {
                     arr = g.townArea.getCityObjectsById(dataFarm.id);
                     maxCount = arr.length * dataFarm.maxAnimalsCount;
@@ -584,7 +597,8 @@ public class ShopItem {
                         if (g.user.level >= dataFarm.blockByLevel[arr.length-1]) {
                             createShopLimitSprite();
                             _im.filter = ManagerFilters.getButtonDisableFilter();
-                            _nameTxt.text = _data.name;
+                            if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                            else _nameTxt.text = String(_data.name);
                             _countTxt.visible = true;
                             _countTxt.text = String(maxCount) + '/' + String(maxCount);
                             _countCost = 0;
@@ -592,11 +606,13 @@ public class ShopItem {
                             _txtAvailable.visible = true;
                             _txtAvailable.text = String(g.managerLanguage.allTexts[345]) + ' ' + String(dataFarm.name);
                             _im.filter = ManagerFilters.getButtonDisableFilter();
-                            _nameTxt.text = _data.name;
+                            if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                            else _nameTxt.text = String(_data.name);
                         }
                     } else {
                         createButtons('blue');
-                        _nameTxt.text = _data.name;
+                        if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                        else _nameTxt.text = String(_data.name);
                         _countTxt.visible = true;
                         _countTxt.text = String(curCount) + '/' + String(maxCount);
                         if (curCount == 0) _txtBtnBuyBlue.text = _data.costNew[0];
@@ -630,11 +646,13 @@ public class ShopItem {
                 if (curCount >= maxCount) {
                     createShopLimitSprite();
                     _im.filter = ManagerFilters.getButtonDisableFilter();
-                    _nameTxt.text = _data.name;
+                    if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                    else _nameTxt.text = String(_data.name);
                     _countTxt.visible = true;
                     _countTxt.text = String(maxCount) + '/' + String(maxCount);
                 } else {
-                    _nameTxt.text = _data.name;
+                    if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                    else _nameTxt.text = String(_data.name);
                     _countTxt.visible = true;
                     _countTxt.text = String(curCount) + '/' + String(maxCount);
                     createButtons('blue');
@@ -660,11 +678,13 @@ public class ShopItem {
                 if (curCount >= maxCount) {
                     createShopLimitSprite();
                     _im.filter = ManagerFilters.getButtonDisableFilter();
-                    _nameTxt.text = _data.name;
+                    if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                    else _nameTxt.text = String(_data.name);
                     _countTxt.visible = true;
                     _countTxt.text = String(maxCount) + '/' + String(maxCount);
                 } else {
-                    _nameTxt.text = _data.name;
+                    if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                    else _nameTxt.text = String(_data.name);
                     _countTxt.visible = true;
                     _countTxt.text = String(curCount) + '/' + String(maxCount);
                     createButtons('blue');
@@ -684,11 +704,13 @@ public class ShopItem {
             if (curCount >= maxCount) {
                 createShopLimitSprite();
                 _im.filter = ManagerFilters.getButtonDisableFilter();
-                _nameTxt.text = _data.name;
+                if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                else _nameTxt.text = String(_data.name);
                 _countTxt.visible = true;
                 _countTxt.text = String(maxCount) + '/' + String(maxCount);
             } else {
-                _nameTxt.text = _data.name;
+                if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                else _nameTxt.text = String(_data.name);
                 _countTxt.visible = true;
                 _countTxt.text = String(curCount) + '/' + String(maxCount);
                 var b:Boolean;
@@ -732,7 +754,10 @@ public class ShopItem {
             createButtons('pink');
             _countCost = 0;
         }
-        if (_nameTxt.text == '') _nameTxt.text = _data.name;
+        if (_nameTxt.text == '') {
+            if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+            else _nameTxt.text = String(_data.name);
+        }
     }
 
     private function onClick():void {
@@ -1102,11 +1127,13 @@ public class ShopItem {
                 createShopLimitSprite();
                 _im.filter = ManagerFilters.BUTTON_DISABLE_FILTER;
                 _btnBuyBlue.visible = false;
-                _nameTxt.text = _data.name;
+                if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                else _nameTxt.text = String(_data.name);
                 _countTxt.text = String(maxCount) + '/' + String(maxCount);
 //                _txtBtnBuyBlue.text = String(g.dataCats[g.managerCats.curCountCats].cost);
             } else {
-                _nameTxt.text = _data.name;
+                if (g.user.isTester) _nameTxt.text = String(_data.id) +':'+ String(_data.name);
+                else _nameTxt.text = String(_data.name);
                 _countTxt.text = String(curCount) + '/' + String(maxCount);
                 _txtBtnBuyBlue.text = String(g.dataCats[curCount].cost);
             }
