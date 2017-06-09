@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.1</string>
+        <string>3.7.1</string>
         <key>fileName</key>
-        <string>/Users/user/IdeaProjects/farm505/diff/decor/decorAtlas.tps</string>
+        <string>/Users/andy/Documents/505farm/farm505/diff/decor/decorAtlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -43,8 +43,6 @@
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
-        <key>atfCompressData</key>
-        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
@@ -175,16 +173,14 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
+            <key>innerPadding</key>
+            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
-            <key>trimMargin</key>
-            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
-            <key>tracerTolerance</key>
-            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -194,40 +190,47 @@
         <array>
             <filename>8_march_statue.png</filename>
             <filename>alive_fence</filename>
-            <filename>arch_brick</filename>
-            <filename>arch_stone_blue</filename>
-            <filename>archNEW</filename>
-            <filename>blue_fence</filename>
-            <filename>cactus_round</filename>
-            <filename>fence</filename>
-            <filename>fence_heart</filename>
-            <filename>heart_fence</filename>
-            <filename>leaf_green</filename>
-            <filename>pink_fence</filename>
-            <filename>polka_dot</filename>
-            <filename>sunflower</filename>
-            <filename>unique</filename>
-            <filename>white_fence</filename>
+            <filename>alpine_garden_big.png</filename>
+            <filename>alpine_garden_medium.png</filename>
             <filename>alpine_garden.png</filename>
             <filename>amanita_1_red.png</filename>
             <filename>amanita_2_red.png</filename>
             <filename>arbor.png</filename>
+            <filename>arch_brick</filename>
+            <filename>arch_stone_blue</filename>
+            <filename>archNEW</filename>
             <filename>balabas_blue.png</filename>
             <filename>barrel.png</filename>
             <filename>beach_chair_red.png</filename>
             <filename>bird_house.png</filename>
+            <filename>blue_fence</filename>
             <filename>bridge.png</filename>
+            <filename>cactus_round</filename>
+            <filename>camping_tent_green.png</filename>
+            <filename>camping_tent_yellow.png</filename>
             <filename>cat_bouquet.png</filename>
+            <filename>cat_cosmonaut_1.png</filename>
+            <filename>cat_cosmonaut_2.png</filename>
             <filename>cat_statue.png</filename>
             <filename>cupidon_statue_blue.png</filename>
             <filename>cupidon_statue_pink.png</filename>
             <filename>cycle_flower.png</filename>
             <filename>dandelion.png</filename>
             <filename>easel_clear.png</filename>
+            <filename>easter_egg_light_blue.png</filename>
+            <filename>easter_egg_pink.png</filename>
+            <filename>easter_egg_purple.png</filename>
+            <filename>easter_egg_red.png</filename>
+            <filename>easter_egg_yellow.png</filename>
+            <filename>easter_gnome.png</filename>
+            <filename>easter_tree.png</filename>
+            <filename>fence</filename>
+            <filename>fence_heart</filename>
             <filename>fir_1.png</filename>
             <filename>fir_2.png</filename>
             <filename>fir_3.png</filename>
             <filename>fir_4.png</filename>
+            <filename>flower_boot.png</filename>
             <filename>fountain_blue.png</filename>
             <filename>fountain_green.png</filename>
             <filename>fountain_pink.png</filename>
@@ -235,14 +238,22 @@
             <filename>garden_gnome_blue_hat.png</filename>
             <filename>garden_gnome_coin.png</filename>
             <filename>garden_gnome_red_hat.png</filename>
+            <filename>gnome_alien.png</filename>
             <filename>gnome_horseshoe.png</filename>
+            <filename>grape_gnome.png</filename>
+            <filename>heart_fence</filename>
             <filename>kiss_bench.png</filename>
+            <filename>leaf_green</filename>
             <filename>love_tree.png</filename>
             <filename>maslenitsa_statue.png</filename>
+            <filename>mushroom_house_1.png</filename>
+            <filename>mushroom_house_2.png</filename>
             <filename>needles_pillow_blue.png</filename>
             <filename>needles_pillow_pink.png</filename>
             <filename>new_year_boot.png</filename>
             <filename>picnic_pink.png</filename>
+            <filename>pink_fence</filename>
+            <filename>polka_dot</filename>
             <filename>pumpkin_1.png</filename>
             <filename>pumpkin_2.png</filename>
             <filename>pumpkin_3.png</filename>
@@ -250,6 +261,7 @@
             <filename>sled.png</filename>
             <filename>snowdrop.png</filename>
             <filename>street_lantern.png</filename>
+            <filename>sunflower</filename>
             <filename>swamp_5х5.png</filename>
             <filename>swamp_decor.png</filename>
             <filename>track_autumn_1.png</filename>
@@ -266,6 +278,7 @@
             <filename>track_white.png</filename>
             <filename>track_yellow.png</filename>
             <filename>trampoline_yellow.png</filename>
+            <filename>tree_house.png</filename>
             <filename>trees_1.png</filename>
             <filename>trees_2.png</filename>
             <filename>trees_3.png</filename>
@@ -274,27 +287,10 @@
             <filename>trees_6.png</filename>
             <filename>trees_7.png</filename>
             <filename>umbrella_green.png</filename>
+            <filename>unique</filename>
             <filename>well_white.png</filename>
             <filename>well_yellow.png</filename>
-            <filename>grape_gnome.png</filename>
-            <filename>cat_cosmonaut_1.png</filename>
-            <filename>cat_cosmonaut_2.png</filename>
-            <filename>flower_boot.png</filename>
-            <filename>gnome_alien.png</filename>
-            <filename>easter_egg_light_blue.png</filename>
-            <filename>easter_egg_pink.png</filename>
-            <filename>easter_egg_purple.png</filename>
-            <filename>easter_egg_red.png</filename>
-            <filename>easter_egg_yellow.png</filename>
-            <filename>easter_gnome.png</filename>
-            <filename>easter_tree.png</filename>
-            <filename>camping_tent_green.png</filename>
-            <filename>camping_tent_yellow.png</filename>
-            <filename>alpine_garden_big.png</filename>
-            <filename>alpine_garden_medium.png</filename>
-            <filename>mushroom_house_1.png</filename>
-            <filename>mushroom_house_2.png</filename>
-            <filename>tree_house.png</filename>
+            <filename>white_fence</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
