@@ -485,14 +485,14 @@ public class MainBottomPanel {
         if (_person != g.user.neighbor && g.user.isTester) {
             var i:int;
             var b:Boolean = false;
-            for (i= 0; i < g.friendPanel.arrNeighborFriends.length; i++) {
-                if (_person.userId == g.friendPanel.arrNeighborFriends[i].userId) {
-                    b = true;
-                    break;
+                for (i = 0; i < g.friendPanel.arrNeighborFriends.length; i++) {
+                    if (_person.userId == g.friendPanel.arrNeighborFriends[i].userId) {
+                        b = true;
+                        break;
+                    }
                 }
-            }
             if (g.friendPanel.arrNeighborFriends.length != 5 && !b) {
-                for (i= 0; i < g.friendPanel.arrFriends.length; i++) {
+                for (i= 0; i < g.user.arrFriends.length; i++) {
                     if (_person.userSocialId == g.user.arrFriends[i].userSocialId) return;
                 }
                 _btnPlusMinus = new CButton();

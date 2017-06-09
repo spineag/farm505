@@ -40,7 +40,7 @@ public class FriendItem {
     private var g:Vars = Vars.getInstance();
     private var _friendBoardHelpInfo:CSprite;
 
-    public function FriendItem(f:Someone,pos:int =0) {
+    public function FriendItem(f:Someone,pos:int =0, needAva:Boolean = true) {
         _person = f;
         _positionInList = pos;
         if (!_person) {
@@ -66,16 +66,18 @@ public class FriendItem {
         source.addChild(_preloader.source);
         _timer = 5;
         g.gameDispatcher.addToTimer(onTimer);
-        if (_person is NeighborBot) {
-            photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
-        } else {
-            if (_person.photo) {
-                Cc.ch('social', 'FriendItem photo: ' + _person.photo);
-                g.load.loadImage(_person.photo, onLoadPhoto);
+        if (needAva) {
+            if (_person is NeighborBot) {
+                photoFromTexture(g.allData.atlas['interfaceAtlas'].getTexture('neighbor'));
             } else {
-                Cc.ch('social', 'FriendItem no photo for uid: ' + _person.userSocialId);
-                g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-                g.socialNetwork.getTempUsersInfoById([_person.userSocialId]);
+                if (_person.photo) {
+                    Cc.ch('social', 'FriendItem photo: ' + _person.photo);
+                    g.load.loadImage(_person.photo, onLoadPhoto);
+                } else {
+                    Cc.ch('social', 'FriendItem no photo for uid: ' + _person.userSocialId);
+                    g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
+                    g.socialNetwork.getTempUsersInfoById([_person.userSocialId]);
+                }
             }
         }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture("star"));
@@ -251,6 +253,13 @@ public class FriendItem {
         source.deleteIt();
         source = null;
         if (_friendBoardHelpInfo) _friendBoardHelpInfo = null;
+    }
+
+    public function updateAvatar():void {
+        Cc.info('FriendItem update avatar');
+        if (!_person.photo) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
+        if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
+        g.load.loadImage(_person.photo, onLoadPhoto);
     }
 
 }

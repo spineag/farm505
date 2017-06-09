@@ -87,6 +87,7 @@ public class Consts {
     public static var INQ_SKIP_TIME_TREE:String = 'skipTimeOnTree.php';
     public static var INQ_SKIP_TIME_ANIMAL:String = 'skipTimeOnAnimal.php';
     public static var INQ_SKIP_TIME_FABRIC_BUILD:String = 'skipTimeOnFabricBuild.php';
+    public static var INQ_SKIP_TIME_TRAIN_BUILD:String = 'skipTimeOnTrainBuild.php';
     public static var INQ_ADD_USER_ORDER:String = 'addUserOrder.php';
     public static var INQ_SKIP_ORDER_TIMER:String = 'skipOrderTimer.php';
     public static var INQ_GET_USER_ORDER:String = 'getUserOrder.php';
