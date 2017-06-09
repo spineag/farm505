@@ -713,12 +713,10 @@ public class WOPartyWindow extends WindowMain {
         var userIds:Array = [];
         var p:Someone;
 
-        Cc.ch('social', 'WOParty: ar.length: ' +  g.managerParty.arrBestPlayers.length);
         for (var i:int=0; i<  g.managerParty.arrBestPlayers.length; i++) {
             p = g.user.getSomeoneBySocialId( g.managerParty.arrBestPlayers[i].userSocialId);
             if (!p.photo && userIds.indexOf( g.managerParty.arrBestPlayers[i].userSocialId) == -1) userIds.push( g.managerParty.arrBestPlayers[i].userSocialId);
         }
-        Cc.ch('social', 'WOParty: userIds.length: ' + userIds.length);
         if (userIds.length) {
             g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
             g.socialNetwork.getTempUsersInfoById(userIds);
@@ -727,7 +725,6 @@ public class WOPartyWindow extends WindowMain {
 
     private function onGettingInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
-        Cc.info('WOPartyWindow:: for update avatar');
         for (var i:int = 0; i < _arrItemRating.length; i++) {
             _arrItemRating[i].updateAvatar();
         }

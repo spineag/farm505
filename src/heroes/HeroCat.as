@@ -260,7 +260,7 @@ public class HeroCat extends BasicCat{
                     }
                 }
             }
-            if (r <= .08) {
+            if (r <= .08 && !g.isAway) {
                  showFront(true);
                 killAllAnimations();
                 heroEyes.stopAnimations();
@@ -273,6 +273,8 @@ public class HeroCat extends BasicCat{
                 g.gameDispatcher.addToTimer(renderForIdleFreeCat);
                 renderForIdleFreeCat();
             }
+//            g.user.isTester
+            g.isDebug
         }
     }
     
@@ -463,7 +465,7 @@ public class HeroCat extends BasicCat{
         var f1:Function = function ():void {
             if (!hello) showFront(true);
             if (!hello) killAllAnimations();
-            heroEyes.startAnimations();
+            if(heroEyes) heroEyes.startAnimations();
             _animation.playIt('jump_funny',true,f2);
         };
         if (hello) f1();

@@ -251,7 +251,7 @@ public class TownArea extends Sprite {
             try {
                 _cityObjects.sortOn("depth", Array.NUMERIC);
                 for (var i:int = 0; i < _cityObjects.length; i++) {
-                    if (_cont.contains(_cityObjects[i].source)) {
+                    if (_cityObjects[i].source && _cont.contains(_cityObjects[i].source)) {
                         _cont.setChildIndex(_cityObjects[i].source, i);
                     }
                 }
@@ -1804,6 +1804,9 @@ public class TownArea extends Sprite {
             case BuildType.ACHIEVEMENT:
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) build = new Achievement(_data);
                 else return;
+                break;
+            case BuildType.MISSING:
+                return;
                 break;
         }
 

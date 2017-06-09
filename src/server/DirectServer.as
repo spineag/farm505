@@ -4842,6 +4842,60 @@ public class DirectServer {
         }
     }
 
+    public function skipTimeOnTrainBuild(leftTime:int, buildId:int, callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SKIP_TIME_TRAIN_BUILD);
+        var variables:URLVariables = new URLVariables();
+        var time:Number = getTimer();
+
+        Cc.ch('server', 'skipTimeOnTrainBuild', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.leftTime = time - leftTime;
+        variables.buildId = buildId;
+        variables.hash = MD5.hash(String(g.user.userId)+String(variables.leftTime)+String(buildId)+SECRET);
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteSkipTimeOnTrainBuild);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteSkipTimeOnTrainBuild(e:Event):void { completeSkipTimeOnTrainBuild(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('skipTimeOnTrainBuild error:' + error.errorID);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null,  error.status);
+        }
+    }
+
+    private function completeSkipTimeOnTrainBuild(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('skipTimeOnTrainBuild: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnTrainBuild: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'skipTimeOnTrainBuild OK', 5);
+            if (callback != null) {
+                callback.apply();
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('skipTimeOnTrainBuild: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'skipTimeOnFabricBuild: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
     public function addUserOrder(order:Object, delay:int, callback:Function):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ADD_USER_ORDER);
@@ -8321,20 +8375,6 @@ public class DirectServer {
                 p.globalXP = int(d.message[i].xp);
                 arr.push(p);
             }
-//            if (d.message.friend_1) {
-//                p = new Someone;
-//                p.userId =
-//                p.userSocialId
-//                p.name
-//                p.lastName
-//                p.level
-//                p.globalXP
-//                arr.push(d.message.friend_1);
-//            }
-//            if (d.message.friend_2) arr.push(d.message.friend_2);
-//            if (d.message.friend_3) arr.push(d.message.friend_3);
-//            if (d.message.friend_4) arr.push(d.message.friend_4);
-//            if (d.message.friend_5) arr.push(d.message.friend_5);
         }
         if (d.id == 0) {
             Cc.ch('server', 'getNeighborFriends OK', 5);

@@ -543,6 +543,7 @@ public class Train extends WorldObject{
 
     private function callbackSkip():void {
         _stateBuild = STATE_WAIT_ACTIVATE;
+        g.directServer.skipTimeOnTrainBuild(_leftBuildTime, _dataBuild.id,null);
         _leftBuildTime = 0;
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.SKIP_TIMER, {id: AnalyticManager.SKIP_TIMER_BUILDING_BUILD_ID, info: _dataBuild.id});
         renderBuildProgress();
