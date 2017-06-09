@@ -173,7 +173,7 @@ public class WOPartyWindow extends WindowMain {
         for (var i:int = 0; i < _arrItem.length; i++) {
             _arrItem[i].reload();
         }
-        if (_countLoad > 0 && g.managerParty.userParty.countResource < g.managerParty.countToGift[4]) {
+        if (_countLoad > 0) {
             _countLoad = _countLoad/2;
             if (_countLoad <= 0) {
                 _countLoad = 1;

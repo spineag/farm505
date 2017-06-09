@@ -115,7 +115,7 @@ public class ManagerPartyNew {
 
     public function endPartyWindow():void {
         if (!g.allData.atlas['partyAtlas']) atlasLoad();
-        else if (g.userTimer.partyToEndTimer <= 0 && !eventOn && dataParty.typeParty == 3 || dataParty.typeParty == 4) {
+        else if ((g.userTimer.partyToEndTimer <= 0 && !eventOn) && (dataParty.typeParty == 3 || dataParty.typeParty == 4)) {
             if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
             if (g.managerParty.userParty.countResource >= dataParty.countToGift[0]) {
                 g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
@@ -141,12 +141,12 @@ public class ManagerPartyNew {
         if (g.userTimer.partyToEndTimer > 0) g.partyPanel = new PartyPanel();
         if (!g.windowsManager.currentWindow && g.userTimer.partyToEndTimer > 0) {
             g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
-        } else if (g.userTimer.partyToEndTimer <= 0 && !eventOn && dataParty.typeParty == 3 || dataParty.typeParty == 4) {
+        } else if ((g.userTimer.partyToEndTimer <= 0 && !eventOn) && (dataParty.typeParty == 3 || dataParty.typeParty == 4)) {
             if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
             if (g.managerParty.userParty.countResource >= dataParty.countToGift[0]) {
                 g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
                 endParty();
-                g.directServer.updateUserParty('1&1&1&1&1', 0, 1, null);
+                g.directServer.updateUserParty('1&1&1&1&1', userParty.countResource, 1, null);
             }
         }
 
