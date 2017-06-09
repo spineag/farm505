@@ -422,12 +422,13 @@ public class FriendPanel {
         _arrNeighborFriends.reverse();
         var item:FriendItem;
         for (var i:int = 0; i < _arrNeighborFriends.length; i++) {
-            item = new FriendItem(_arrNeighborFriends[i],i);
+            item = new FriendItem(_arrNeighborFriends[i],i,false);
             _arrItems.push(item);
             item.source.x = i*66;
             item.source.y = -1;
             _cont.addChild(item.source);
         }
+        checkSocialInfoForArray();
     }
 
     public function deleteNeighborFriend(person:Someone):void {
@@ -448,12 +449,13 @@ public class FriendPanel {
             _arrNeighborFriends.reverse();
             var item:FriendItem;
             for (i = 0; i < _arrNeighborFriends.length; i++) {
-                item = new FriendItem(_arrNeighborFriends[i], i);
+                item = new FriendItem(_arrNeighborFriends[i], i,false);
                 _arrItems.push(item);
                 item.source.x = i * 66;
                 item.source.y = -1;
                 _cont.addChild(item.source);
             }
+            checkSocialInfoForArray();
         } else {
             clearItems();
             _activeTabType = TYPE_NEIGHBOR;
@@ -670,10 +672,10 @@ public class FriendPanel {
     private function checkSocialInfoForArray():void {
         var userIds:Array = [];
         var p:Someone;
-
-        for (var i:int=0; i<  _arrNeighborFriends.length; i++) {
-            p = g.user.getSomeoneBySocialId( _arrNeighborFriends[i].userSocialId);
-            if (!p.photo && userIds.indexOf( _arrNeighborFriends[i].userSocialId) == -1) userIds.push( _arrNeighborFriends[i].userSocialId);
+        for (var i:int = 0; i < _arrNeighborFriends.length; i++) {
+            p = g.user.getSomeoneBySocialId(_arrNeighborFriends[i].userSocialId);
+            if (!p.photo && userIds.indexOf(_arrNeighborFriends[i].userSocialId) == -1) userIds.push(_arrNeighborFriends[i].userSocialId);
+            else if (p.photo) userIds.push(_arrNeighborFriends[i].userSocialId);
         }
         if (userIds.length) {
             g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettInfo);
@@ -682,9 +684,9 @@ public class FriendPanel {
     }
 
     private function onGettInfo(e:SocialNetworkEvent):void {
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettInfo);
+        if (e) g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettInfo);
         for (var i:int = 0; i < _arrItems.length; i++) {
-            _arrItems[i].updateAvatar();
+            _arrItems[i].updateAvatar(_arrItems[i].person.level,_arrItems[i].person.userId);
         }
     }
 }

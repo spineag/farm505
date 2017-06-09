@@ -57,7 +57,7 @@ public class WOPartyRatingFriend {
         }
         source = new Sprite();
         if (user) g.load.loadImage(g.user.photo, onLoadPhoto);
-//         else if (_personS.userSocialId){
+//        else if (user) {
 //            Cc.ch('social', 'WOPartyRatingFriend no photo for uid: ' + _personS.userSocialId);
 //            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
 //            g.socialNetwork.getTempUsersInfoById([_personS.userSocialId]);
