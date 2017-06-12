@@ -13,6 +13,8 @@ import manager.ManagerFilters;
 
 import resourceItem.DropItem;
 
+import social.SocialNetworkEvent;
+
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.events.Event;
@@ -21,6 +23,8 @@ import starling.utils.Align;
 import starling.utils.Color;
 
 import ui.xpPanel.XPStar;
+
+import user.Someone;
 
 import utils.CButton;
 import utils.CTextField;
@@ -264,6 +268,7 @@ public class WOTrain extends WindowMain {
             (_arrItems[10] as WOTrainItem).fillIt(null, 10, CELL_GRAY);
             (_arrItems[11] as WOTrainItem).fillIt(null, 11, CELL_GRAY);
         }
+        checkSocialInfoForArray();
         if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtCostAll.text = String(_build.allCoinsCount * g.managerParty.coefficient);
         else _txtCostAll.text = String(_build.allCoinsCount);
         if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.TRAIN && g.managerParty.levelToStart <= g.user.level) _txtXpAll.text = String(_build.allXPCount * g.managerParty.coefficient);
@@ -715,6 +720,30 @@ public class WOTrain extends WindowMain {
                 break;
         }
         return obj;
+    }
+
+    private function checkSocialInfoForArray():void {
+        var userIds:Array = [];
+        var p:Someone;
+
+        for (var i:int=0; i < _arrItems.length; i++) {
+            if (int(_arrItems[i].idWhoHelp) != 0) {
+                p = g.user.getSomeoneBySocialId(_arrItems[i].idWhoHelp);
+                if (!p.photo && userIds.indexOf(_arrItems[i].idWhoHelp) == -1) userIds.push(_arrItems[i].idWhoHelp);
+                else if (p.photo) userIds.push(_arrItems[i].idWhoHelp);
+            }
+        }
+        if (userIds.length) {
+            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
+            g.socialNetwork.getTempUsersInfoById(userIds);
+        }
+    }
+
+    private function onGettingInfo(e:SocialNetworkEvent):void {
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            if (int(_arrItems[i].idWhoHelp) != 0)  (_arrItems[i] as WOTrainItem).updateAvatar();
+        }
     }
 
 }
