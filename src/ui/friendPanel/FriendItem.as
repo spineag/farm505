@@ -197,6 +197,10 @@ public class FriendItem {
             _preloader.deleteIt();
             _preloader = null;
         }
+        if (_ava) {
+            source.removeChild(_ava);
+            _ava = null;
+        }
         if (!tex) return;
         _ava = new Image(tex);
         MCScaler.scale(_ava, 50, 50);
@@ -255,11 +259,13 @@ public class FriendItem {
         if (_friendBoardHelpInfo) _friendBoardHelpInfo = null;
     }
 
-    public function updateAvatar():void {
-        Cc.info('FriendItem update avatar');
+    public function updateAvatar(level:int, uid:int):void {
+        Cc.ch('social', 'FriendItem updateAvatar: ' );
         if (!_person.photo) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
         if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
         g.load.loadImage(_person.photo, onLoadPhoto);
+        _person.level = level;
+        _person.userId = uid;
     }
 
 }

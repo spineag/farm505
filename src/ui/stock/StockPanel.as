@@ -5,6 +5,8 @@ package ui.stock {
 import dragonBones.Armature;
 import dragonBones.animation.WorldClock;
 import dragonBones.starling.StarlingArmatureDisplay;
+
+import manager.ManagerLanguage;
 import manager.Vars;
 import utils.CSprite;
 import windows.WindowsManager;
@@ -30,7 +32,9 @@ public class StockPanel {
     }
 
     private function loadTipsIcon():void {
-        var st:String = 'animations_json/action_icon';
+        var st:String;
+        if (g.user.language == ManagerLanguage.ENGLISH) st = 'animations_json/action_icon_en';
+        else st = 'animations_json/action_icon';
         g.loadAnimation.load(st, 'action_icon', onLoad);
     }
 
