@@ -445,7 +445,9 @@ public class Train extends WorldObject{
             _sprHelp.y = -305;
             _sprHelp.x = -40;
         }
-        if (g.isAway) _counter = TIME_WAIT - int(ob.time_work);
+        if (g.isAway) {
+            _counter = TIME_WAIT - int(ob.time_work);
+        }
     }
 
     public function needHelp(b:Boolean, n:int):void {

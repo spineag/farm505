@@ -142,8 +142,10 @@ public class WODailyGift extends WindowMain {
 
     override protected function deleteIt():void {
         for (var i:int = 0; i<_arrCTex.length; i++) {
-            _arrCTex[i].deleteIt();
-            _arrCTex[i] = null;
+            if(_arrCTex[i]) {
+                _arrCTex[i].deleteIt();
+                _arrCTex[i] = null;
+            }
         }
         super.deleteIt();
     }

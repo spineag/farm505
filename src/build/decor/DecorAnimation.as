@@ -37,6 +37,8 @@ import starling.display.Quad;
 import starling.events.Event;
 import starling.utils.Color;
 
+import utils.Utils;
+
 import windows.WindowsManager;
 
 public class DecorAnimation extends WorldObject{
@@ -81,10 +83,20 @@ public class DecorAnimation extends WorldObject{
                 _source.outCallback = onOut;
             }
             if (_awayAnimation) {
-                awayAnimation();
+                var delay:int = int(Math.random() * 5) + 2;
+                var f1:Function = function(e:Event=null):void {
+                    delay--;
+                    if(delay <= 0) {
+                        g.gameDispatcher.removeFromTimer(f1);
+                        awayAnimation();
+                    }
+                };
+
+                g.gameDispatcher.addToTimer(f1);
             }
         }
     }
+
 
     override public function onHover():void {
         if (g.selectedBuild) return;
