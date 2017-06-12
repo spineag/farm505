@@ -109,9 +109,7 @@ public class DecorFenceGate extends WorldObject {   // vorota
         }
     }
 
-    public function get isMain():Boolean {
-        return _isMainPart;
-    }
+    public function get isMain():Boolean { return _isMainPart; }
 
     public function addSmallTopLenta():void {
         if (_isMainPart) {
@@ -212,10 +210,12 @@ public class DecorFenceGate extends WorldObject {   // vorota
 
     override public function onHover():void {
         if (g.selectedBuild) return;
-        if (_isHover) return;
-        _isHover = true;
-        if (_part) _part.onHover();
-        _source.filter = ManagerFilters.BUILD_STROKE;
+        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
+            if (_isHover) return;
+            _isHover = true;
+            if (_part) _part.onHover();
+            _source.filter = ManagerFilters.BUILD_STROKE;
+        }
     }
 
     override public function onOut():void {
