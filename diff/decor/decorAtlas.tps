@@ -198,7 +198,6 @@
             <filename>arbor.png</filename>
             <filename>arch_brick</filename>
             <filename>arch_stone_blue</filename>
-            <filename>archNEW</filename>
             <filename>balabas_blue.png</filename>
             <filename>barrel.png</filename>
             <filename>beach_chair_red.png</filename>
@@ -241,7 +240,6 @@
             <filename>gnome_alien.png</filename>
             <filename>gnome_horseshoe.png</filename>
             <filename>grape_gnome.png</filename>
-            <filename>heart_fence</filename>
             <filename>kiss_bench.png</filename>
             <filename>leaf_green</filename>
             <filename>love_tree.png</filename>
@@ -291,6 +289,7 @@
             <filename>well_white.png</filename>
             <filename>well_yellow.png</filename>
             <filename>white_fence</filename>
+            <filename>white_heart_fence</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

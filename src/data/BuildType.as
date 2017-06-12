@@ -37,10 +37,11 @@ public class BuildType {
     public static const CAT:int = 28;
     public static const CAT_HOUSE:int = 29;
     public static const DECOR_ANIMATION:int = 30;
-    public static const DECOR_FENCE_GATE:int = 31; // kalitka
-    public static const DECOR_FENCE_ARKA:int = 32; // arka
+    public static const DECOR_FENCE_GATE:int = 31; // kalitka s POST_FENCE
+    public static const DECOR_FENCE_ARKA:int = 32; // arka s FULL_FENCE
     public static const CHEST_YELLOW:int = 33;
     public static const ACHIEVEMENT:int = 34;
     public static const MISSING:int = 35;
+    public static const DECOR_POST_FENCE_ARKA:int = 36; //  arka s lentami i zaborami POST_FENCE
 }
 }
