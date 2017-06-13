@@ -57,7 +57,9 @@ public class RepositoryItem {
         var texture:Texture = g.allData.atlas['iconAtlas'].getTexture(_data.image + '_icon');
         if (!texture) {
             if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_POST_FENCE
-                    || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.TREE) texture = g.allData.atlas[_data.url].getTexture(_data.image);
+                    || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.TREE || _data.buildType == BuildType.DECOR_FENCE_ARKA
+                    || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA)
+                texture = g.allData.atlas[_data.url].getTexture(_data.image);
             else texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
         }
         var im:Image = new Image(texture);
@@ -74,7 +76,11 @@ public class RepositoryItem {
         source.endClickCallback = onClick;
     }
 
-    public function clearIt():void {
+import build.WorldObject;
+import build.decor.DecorFenceArka;
+import build.decor.DecorFenceGate;
+
+public function clearIt():void {
         source.endClickCallback = null;
         while (source.numChildren) source.removeChildAt(0);
         _txtCount.dispose();
