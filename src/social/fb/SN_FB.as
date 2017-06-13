@@ -214,7 +214,7 @@ public class SN_FB extends SocialNetwork  {
         } else {
             super.getFriendsByIDsSuccess(e);
         }
-        if (g.user.isTester) g.user.checkMiss();
+//        if (g.user.isTester) g.user.checkMiss();
     }
 
     override public function showInviteWindow():void {

@@ -79,7 +79,7 @@ public class User extends Someone {
     public function createNeighbor():void { neighbor = new NeighborBot(); }
 
     public function checkMiss():void {
-        if (int(new Date().getTime() / 1000) - missDate < 432000) return;
+        if ((int(new Date().getTime() / 1000) - missDate) < 432000) return;
         g.directServer.getUserMiss(openMiss);
     }
 
@@ -93,7 +93,7 @@ public class User extends Someone {
         }
         if (ob && ob.length > 0) {
             var bool:Boolean = false;
-            for (i= 0; i < arrFriends.length; i++) {
+            for (i = 0; i < arrFriends.length; i++) {
                 if ((int(new Date().getTime() / 1000) -  arrFriends[i].lastVisitDate) >= 604800) {
                     for (var j:int = 0; j < ob.length; j++) {
                         if (arrFriends[i].userSocialId == String(ob[j].user_id_miss)) {
@@ -264,6 +264,7 @@ public class User extends Someone {
             someOne.userId = int(d[i].id);
             someOne.lastVisitDate = int(d[i].last_visit_date);
         }
+        checkMiss();
     }
 
     public function calculateReasonForHelpAway():void {

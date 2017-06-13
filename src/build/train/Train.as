@@ -446,19 +446,18 @@ public class Train extends WorldObject{
             _sprHelp.x = -40;
         }
         if (g.isAway &&  _stateBuild == STATE_READY) {
-            _counter = STATE_READY - int(ob.time_work);
-//            if (_counter < 0) {
-//                _stateBuild = STATE_WAIT_BACK;
-//                _arriveAnim.visible = true;
-//                if (_stateBuild == STATE_UNACTIVE) {
-//                    createBrokenTrain();
-//                } else if (_stateBuild == STATE_READY) {
-//                    onArrivedKorzina();
-//                } else {
-//                    leaveTrain();
-//                    makeIdleAnimation();
-//                }
-//            }
+            _counter = TIME_READY - int(ob.time_work);
+            if (_counter < 0) {
+                _stateBuild = STATE_WAIT_BACK;
+                _arriveAnim.visible = true;
+                if (_stateBuild == STATE_UNACTIVE) {
+                    createBrokenTrain();
+                } else if (_stateBuild == STATE_READY) {
+                    onArrivedKorzina();
+                } else {
+                    leaveTrain();
+                }
+            }
         }
     }
 

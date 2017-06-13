@@ -73,7 +73,7 @@ public class ManagerBuyerNyashuk {
 //            if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) return;
             var b:BuyerNyashuk;
             for (i = 0; i < _arr.length; i++) {
-                b = new BuyerNyashuk(_arr[i].buyerId, _arr[i]);
+                b = new BuyerNyashuk(_arr[i].buyerId, _arr[i], afterNewLvl);
                 _arrayNya.push(b);
             }
         }
@@ -354,7 +354,7 @@ public class ManagerBuyerNyashuk {
     // ------ new Nyashuk arrived --------
     public function getNewNyaForOrder(onArriveCallback:Function = null, ob:Object = null, id:int = 1):BuyerNyashuk{
 //        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) return null;
-        var nya:BuyerNyashuk = new BuyerNyashuk(id,ob);
+        var nya:BuyerNyashuk = new BuyerNyashuk(id, ob, afterNewLvl);
         nya.noClick();
         nya.arriveCallback = onArriveCallback;
         nya.setPositionInQueue(getFreeQueuePosition());

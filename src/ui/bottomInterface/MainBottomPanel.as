@@ -478,11 +478,11 @@ public class MainBottomPanel {
         _friendBoard.addChild(im);
         txt = new CTextField(50,50,String(_person.level));
         txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        if (_person is NeighborBot) txt.text = '10';
+        if (_person is NeighborBot) txt.text = '60';
         txt.x = 55;
         txt.y = 49;
         _friendBoard.addChild(txt);
-        if (_person != g.user.neighbor && g.user.isTester) {
+        if (_person != g.user.neighbor) {
             var i:int;
             var b:Boolean = false;
                 for (i = 0; i < g.friendPanel.arrNeighborFriends.length; i++) {
@@ -505,6 +505,8 @@ public class MainBottomPanel {
                 im.y = 6;
                 _btnPlusMinus.addDisplayObject(im);
                 _btnPlusMinus.clickCallback = onClickAddNeighbor;
+                _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1076])) };
+                _btnPlusMinus.outCallback = function():void { g.hint.hideIt() };
                 _friendBoard.addChild(_btnPlusMinus);
                 _btnPlusMinus.y = 60;
                 _btnPlusMinus.x = -10;
@@ -521,6 +523,8 @@ public class MainBottomPanel {
                         im.y = 10;
                         _btnPlusMinus.addDisplayObject(im);
                         _btnPlusMinus.clickCallback = onClickDeleteNeighbor;
+                        _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1077])) };
+                        _btnPlusMinus.outCallback = function():void { g.hint.hideIt() };
                         _friendBoard.addChild(_btnPlusMinus);
                         _btnPlusMinus.y = 60;
                         _btnPlusMinus.x = -10;
@@ -548,10 +552,13 @@ public class MainBottomPanel {
         im.y = 10;
         _btnPlusMinus.addDisplayObject(im);
         _btnPlusMinus.clickCallback = onClickDeleteNeighbor;
+        _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1077])) };
+        _btnPlusMinus.outCallback = function():void { g.hint.hideIt() };
         _friendBoard.addChild(_btnPlusMinus);
         _btnPlusMinus.y = 60;
         _btnPlusMinus.x = -10;
     }
+//    g.user.isTester
 
     private function onClickDeleteNeighbor ():void {
         g.friendPanel.deleteNeighborFriend(_person);
@@ -570,6 +577,8 @@ public class MainBottomPanel {
         im.y = 6;
         _btnPlusMinus.addDisplayObject(im);
         _btnPlusMinus.clickCallback = onClickAddNeighbor;
+        _btnPlusMinus.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1076])) };
+        _btnPlusMinus.outCallback = function():void { g.hint.hideIt() };
         _friendBoard.addChild(_btnPlusMinus);
         _btnPlusMinus.y = 60;
         _btnPlusMinus.x = -10;
