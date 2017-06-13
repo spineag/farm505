@@ -146,9 +146,11 @@ public class DecorPostFenceArka extends WorldObject {
         if (_isMainPart) {
             if (_part) _part.removeSmallBottomLenta();
         } else {
-            if (_build.contains(_lenta)) _build.removeChild(_lenta);
-            _lenta.dispose();
-            _lenta = null;
+            if (_lenta) {
+                if (_build.contains(_lenta)) _build.removeChild(_lenta);
+                _lenta.dispose();
+                _lenta = null;
+            }
         }
     }
     

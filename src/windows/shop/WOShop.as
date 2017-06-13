@@ -94,26 +94,21 @@ public class WOShop extends WindowMain {
     private function onClickExit(e:Event=null):void {
         if (g.managerCutScenes.isCutScene) return;
         if (g.managerTutorial.isTutorial) return;
-        if (g.user.allNotification > 0) {
-            switch (curentTab) {
-                case VILLAGE:
-                    _btnTab1.closeNotification();
-                    break;
-                case ANIMAL:
-                    break;
-                case FABRICA:
-                    _btnTab3.closeNotification();
-                    break;
-                case PLANT:
-                    _btnTab4.closeNotification();
-                    break;
-                case DECOR:
-                    _btnTab5.closeNotification();
-                    break;
-            }
-        }
+        checkNotif();
         g.bottomPanel.updateTextNotification();
         hideIt();
+    }
+
+    private function checkNotif():void {
+        if (g.user.allNotification > 0) {
+            switch (curentTab) {
+                case VILLAGE: _btnTab1.closeNotification(); break;
+                case ANIMAL:  break;
+                case FABRICA: _btnTab3.closeNotification(); break;
+                case PLANT: _btnTab4.closeNotification(); break;
+                case DECOR: _btnTab5.closeNotification(); break;
+            }
+        }
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -193,28 +188,9 @@ public class WOShop extends WindowMain {
 
     private function onTab(a:int):void {
         var arr:Array = [];
-        var obj:Object;
-        var st:String;
         var i:int;
         var arR:Array;
-        if (g.user.allNotification > 0) {
-            switch (curentTab) {
-                case VILLAGE:
-                    _btnTab1.closeNotification();
-                    break;
-                case ANIMAL:
-                    break;
-                case FABRICA:
-                    _btnTab3.closeNotification();
-                    break;
-                case PLANT:
-                    _btnTab4.closeNotification();
-                    break;
-                case DECOR:
-                    _btnTab5.closeNotification();
-                    break;
-            }
-        }
+        checkNotif();
         curentTab = a;
         activateTabBtn();
         if (_animal) a = 2;
@@ -256,7 +232,7 @@ public class WOShop extends WindowMain {
                 for (i = 0; i < arR.length; i++) {
                     if (arR[i].buildType == BuildType.DECOR || arR[i].buildType == BuildType.DECOR_ANIMATION || arR[i].buildType == BuildType.DECOR_FULL_FENСE ||
                             arR[i].buildType == BuildType.DECOR_POST_FENCE || arR[i].buildType == BuildType.DECOR_TAIL || arR[i].buildType == BuildType.DECOR_FENCE_GATE ||
-                            arR[i].buildType == BuildType.DECOR_FENCE_ARKA) {
+                            arR[i].buildType == BuildType.DECOR_FENCE_ARKA || arR[i].buildType == BuildType.DECOR_POST_FENCE_ARKA) {
                         if (g.user.shopDecorFilter == DecorShopFilter.FILTER_ALL || g.user.shopDecorFilter == arR[i].filterType) {
                             if (arR[i].buildType == BuildType.DECOR || arR[i].buildType == BuildType.DECOR_ANIMATION || arR[i].buildType == BuildType.DECOR_TAIL) {
                                 if (arR[i].group && !g.allData.isFirstInGroupDecor(arR[i].group, arR[i].id))
@@ -281,24 +257,7 @@ public class WOShop extends WindowMain {
     }
 
     public function onClickItemClose ():void {
-        if (g.user.allNotification > 0) {
-            switch (curentTab) {
-                case VILLAGE:
-                    _btnTab1.closeNotification();
-                    break;
-                case ANIMAL:
-                    break;
-                case FABRICA:
-                    _btnTab3.closeNotification();
-                    break;
-                case PLANT:
-                    _btnTab4.closeNotification();
-                    break;
-                case DECOR:
-                    _btnTab5.closeNotification();
-                    break;
-            }
-        }
+        checkNotif();
         g.bottomPanel.updateTextNotification();
     }
 
@@ -454,49 +413,17 @@ public class WOShop extends WindowMain {
         _txtYellowMoney.text = String(g.user.yellowCouponCount);
     }
 
-    public function get getAnimalClick():Boolean {
-        return _animal;
-    }
-
-    public function set setAnimalClick(a:Boolean):void {
-        _animal = a;
-    }
-
-    public function get getAnimalId():int {
-        return _idArrowAnimal;
-    }
-
-    public function set setAnimalId(a:int):void {
-        _idArrowAnimal = a;
-    }
-
-    public function getShopItemProperties(_id:int, addArrow:Boolean = false):Object {
-        return _shopList.getShopItemProperties(_id, addArrow);
-    }
-
-    public function openOnResource(_id:int):void {
-        _shopList.openOnResource(_id);
-    }
-
-    public function addArrow(_id:int):void {
-        _shopList.addArrow(_id);
-    }
-    
-    public function addArrowAtPos(n:int, t:int=0):void {
-        _shopList.addArrowAtPos(n, t);
-    }
-
-    public function getShopDirectItemProperties(a:int):Object {
-        return _shopList.getShopDirectItemProperties(a);
-    }
-
-    public function deleteArrow():void {
-        _shopList.deleteArrow();
-    }
-
-    public function openCoupone(b:Boolean):void {
-        _contCoupone.visible = b;
-    }
+    public function get getAnimalClick():Boolean { return _animal; }
+    public function set setAnimalClick(a:Boolean):void { _animal = a; }
+    public function get getAnimalId():int { return _idArrowAnimal; }
+    public function set setAnimalId(a:int):void {_idArrowAnimal = a; }
+    public function getShopItemProperties(_id:int, addArrow:Boolean = false):Object { return _shopList.getShopItemProperties(_id, addArrow); }
+    public function openOnResource(_id:int):void { _shopList.openOnResource(_id); }
+    public function addArrow(_id:int):void { _shopList.addArrow(_id); }
+    public function addArrowAtPos(n:int, t:int=0):void { _shopList.addArrowAtPos(n, t); }
+    public function getShopDirectItemProperties(a:int):Object { return _shopList.getShopDirectItemProperties(a); }
+    public function deleteArrow():void { _shopList.deleteArrow(); }
+    public function openCoupone(b:Boolean):void { _contCoupone.visible = b; }
 
     override protected function deleteIt():void {
         if (_txtHardMoney) {
