@@ -298,12 +298,6 @@ public class ManagerCutScenes {
 
     private function releaseDecor():void {
         onStartMiniScenes();
-        if (g.user.isTester || g.user.isMegaTester || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-        } else {
-            decor_4();
-            return;
-        }
-
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseDecor);
             return;
@@ -334,7 +328,7 @@ public class ManagerCutScenes {
 
     private function decor_2():void {
         _cutSceneStep = 3;
-        _cutSceneResourceIDs = [28];
+        _cutSceneResourceIDs = [28, 151, 152];
         (g.windowsManager.currentWindow as WOShop).openOnResource(_cutSceneResourceIDs[0]);
         var ob:Object = (g.windowsManager.currentWindow as WOShop).getShopItemProperties(_cutSceneResourceIDs[0], true);
         _dustRectangle = new DustRectangle(g.cont.popupCont, ob.width, ob.height, ob.x, ob.y);
@@ -362,15 +356,6 @@ public class ManagerCutScenes {
 
     private function releaseToInventoryDecor():void {
         onStartMiniScenes();
-        if (g.user.isTester || g.user.isMegaTester || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-        } else {
-            _cutSceneCallback = null;
-            g.user.cutScenes[3] = 1;
-            saveUserCutScenesData();
-            Utils.createDelay(.7, toInventory_4);
-            return;
-        }
-
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseToInventoryDecor);
             return;
@@ -432,12 +417,6 @@ public class ManagerCutScenes {
 
     private function releaseFromInventoryDecor():void {
         onStartMiniScenes();
-        if (g.user.isTester || g.user.isMegaTester || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-        } else {
-            fromInventory_5();
-            return;
-        }
-
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseFromInventoryDecor);
             return;
@@ -510,14 +489,6 @@ public class ManagerCutScenes {
 
     private function releaseAvailableTrain():void {
         onStartMiniScenes();
-        if (g.user.isTester || g.user.isMegaTester) {
-        } else {
-            g.user.cutScenes[5] = 1;
-            saveUserCutScenesData();
-            isCutScene = false;
-            return;
-        }
-
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseAvailableTrain);
             return;
@@ -559,14 +530,6 @@ public class ManagerCutScenes {
 
     private function releaseOpenTrain():void {
         onStartMiniScenes();
-        if (g.user.isTester || g.user.isMegaTester) {
-        } else {
-            g.user.cutScenes[6] = 1;
-            saveUserCutScenesData();
-            isCutScene = false;
-            return;
-        }
-
         if (!g.allData.factory['tutorialCatBig']) {
             g.loadAnimation.load('animations_json/x1/cat_tutorial_big', 'tutorialCatBig', releaseOpenTrain);
             return;
