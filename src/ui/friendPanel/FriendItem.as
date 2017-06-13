@@ -95,7 +95,7 @@ public class FriendItem {
         txtLvl.y = 47;
         source.addChild(txtLvl);
         if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
-        if (_person is NeighborBot) txtLvl.text = '10';
+        if (_person is NeighborBot) txtLvl.text = '60';
         _txtName = new CTextField(64, 30, "");
         _txtName.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
         _txtName.y = -5;

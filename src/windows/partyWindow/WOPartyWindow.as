@@ -257,6 +257,7 @@ public class WOPartyWindow extends WindowMain {
         }
         var im:Image;
         _btnEvent = new CButton();
+        if (!g.allData.atlas['partyAtlas']) return;
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bt_1'));
         _btnEvent.addDisplayObject(im);
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_event_on'));

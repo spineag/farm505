@@ -36,6 +36,7 @@ import utils.IsoUtils;
 import utils.MCScaler;
 import utils.Point3D;
 import utils.SimpleArrow;
+import utils.Utils;
 
 import windows.WindowsManager;
 
@@ -69,14 +70,16 @@ public class BuyerNyashuk {
     private var _spriteTxt:Sprite;
     private var _isHover:Boolean;
     private var _arrow:SimpleArrow;
+    private var _afterNewLvl:Boolean;
 
-    public function BuyerNyashuk(id:int, ob:Object) {
+    public function BuyerNyashuk(id:int, ob:Object, firstB:Boolean = false) {
         _buyerId = id;
         _data = ob;
         _source = new CSprite();
         _spriteTxt = new Sprite();
         _spriteTxt.touchable = true;
         _isHover = false;
+        _afterNewLvl = firstB;
         var dataResource:StructureDataResource = g.allData.getResourceById(_data.resourceId);
         var im:Image;
         if (dataResource.buildType == BuildType.PLANT)
@@ -117,6 +120,12 @@ public class BuyerNyashuk {
         if (b) {
             b.displayList = null;
             b.display = _spriteTxt;
+        }
+        if (_afterNewLvl && _buyerId == 1) {
+            var f1:Function = function(e:Event=null):void {
+                addArrow(5);
+            };
+           Utils.createDelay(34,f1)
         }
     }
 
@@ -195,7 +204,7 @@ public class BuyerNyashuk {
         removeArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
         _arrow.scaleIt(.7);
-        _arrow.animateAtPosition(25, -70);
+        _arrow.animateAtPosition(25, -95);
         if (t>0) _arrow.activateTimer(t, removeArrow);
 }
 

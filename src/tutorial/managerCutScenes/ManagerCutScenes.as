@@ -2,6 +2,8 @@
  * Created by user on 4/28/16.
  */
 package tutorial.managerCutScenes {
+import additional.buyerNyashuk.ManagerBuyerNyashuk;
+
 import build.WorldObject;
 import build.decor.Decor;
 import build.market.Market;
@@ -294,6 +296,8 @@ public class ManagerCutScenes {
         saveUserCutScenesData();
         if (g.managerTips) g.managerTips.setUnvisible(false);
         isCutScene = false;
+        g.managerBuyerNyashuk = new ManagerBuyerNyashuk(true);
+
     }
 
     private function releaseDecor():void {

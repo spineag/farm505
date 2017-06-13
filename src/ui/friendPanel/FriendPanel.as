@@ -87,7 +87,7 @@ public class FriendPanel {
         _addFriend = new Sprite();
         _source.addChild(_addFriend);
         noFriends();
-        if (g.user.isTester) g.directServer.getNeighborFriends(getNeighborFriends);
+        g.directServer.getNeighborFriends(getNeighborFriends);
     }
 
     private function createTabs():void {
@@ -124,7 +124,7 @@ public class FriendPanel {
         _source.addChildAt(_tab2, 0);
         _tab2.endClickCallback = onTab2Click;
         _helpIcon.visible = false;
-        if (g.user.isTester) {
+//        if (g.user.isTester) {
             _tab3 = new CSprite();
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
             im.x = 20;
@@ -138,7 +138,7 @@ public class FriendPanel {
             _tab3.x = 240;
             _source.addChildAt(_tab3, 0);
             _tab3.endClickCallback = onTab3Click;
-        }
+//        }
     }
 
     private function onTab1Click():void {
@@ -150,7 +150,7 @@ public class FriendPanel {
             if (_tab3) _source.setChildIndex(_tab3, 0);
 
             _source.setChildIndex(_tab2, 0);
-            _source.setChildIndex(_tab1, 2);
+            _source.setChildIndex(_tab1, 3);
             _activeTabType = TYPE_NORMAL;
             fillFriends();
             checkArrows();
@@ -165,7 +165,7 @@ public class FriendPanel {
             animList();
             if (_tab3) _source.setChildIndex(_tab3, 0);
             _source.setChildIndex(_tab1, 0);
-            _source.setChildIndex(_tab2, 2);
+            _source.setChildIndex(_tab2, 3);
             _activeTabType = TYPE_NEED_HELP;
             fillFriends();
             checkArrows();
@@ -180,7 +180,7 @@ public class FriendPanel {
             animList();
             _source.setChildIndex(_tab1, 0);
             _source.setChildIndex(_tab2, 0);
-            if (_tab3) _source.setChildIndex(_tab3, 2);
+            if (_tab3) _source.setChildIndex(_tab3, 3);
             _activeTabType = TYPE_NEIGHBOR;
             fillFriends();
             checkArrows();

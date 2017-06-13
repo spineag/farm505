@@ -550,8 +550,8 @@ public class Vars {
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();
             managerLohmatic = new ManagerLohmatik();
-            if ((user as User).level >= 5 && socialNetworkID != SocialNetworkSwitch.SN_FB_ID) managerBuyerNyashuk = new ManagerBuyerNyashuk();
-            if ((user as User).level >= 7 && socialNetworkID == SocialNetworkSwitch.SN_FB_ID) managerBuyerNyashuk = new ManagerBuyerNyashuk();
+            if ((user as User).level >= 5 && !managerCutScenes.isCutScene) managerBuyerNyashuk = new ManagerBuyerNyashuk();
+//            if ((user as User).level >= 7 && socialNetworkID == SocialNetworkSwitch.SN_FB_ID) managerBuyerNyashuk = new ManagerBuyerNyashuk();
 
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
