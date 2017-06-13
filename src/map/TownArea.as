@@ -2075,7 +2075,7 @@ public class TownArea extends Sprite {
                 (worldObject as DecorPostFenceArka).createSecondPart();
                 if (worldObject.flip) fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeY, worldObject.sizeX, worldObject);
                 else fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-                addFenceLenta(worldObject);
+                addAwayFenceLenta(worldObject);
             }
         } else {
             if (worldObject.useIsometricOnly && !(worldObject is DecorTail)) {
@@ -2301,20 +2301,19 @@ public class TownArea extends Sprite {
         if (_needTownAreaSort) {
             _zSortCounter--;
             if (_zSortCounter <= 0) {
-//                try {
+                try {
                     _cityAwayObjects.sortOn("depth", Array.NUMERIC);
                     for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                        if (_cityAwayObjects[i].source && _cont.contains(_cityAwayObjects[i].source)) _cont.setChildIndex(_cityAwayObjects[i].source, i);
+                        if (_cityAwayObjects[i].source && _cont.contains(_cityAwayObjects[i].source))
+                            _cont.setChildIndex(_cityAwayObjects[i].source, i);
                         else {
-                            Cc.error('TownArea zAwaySort error: ');
+                            Cc.error('TownArea zAwaySort: not in cont');
                         }
 
                     }
-//                } catch (e:Error) {
-//                    g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
-//                    g.errorManager.onGetError(ErrorConst.Z_SORT_AWAY, true);
-//                    Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
-//                }
+                } catch (e:Error) {
+                    Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
+                }
                 _needTownAreaSort = false;
                 if (g.managerTutorial.isTutorial) {
                     _zSortCounter = 3;
