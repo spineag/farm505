@@ -1079,6 +1079,8 @@ public class TownArea extends Sprite {
 //            g.buyHint.hideIt();
                 return;
             }
+        } else if (isNewAtMap &&(worldObject is DecorFenceGate || worldObject is DecorPostFenceArka || worldObject is DecorFenceArka)) {
+            g.buyHint.hideIt();
         } else if (isNewAtMap && worldObject is DecorTail){
             Cc.error('TownArea.PasteBuild -- DecorTail wtf you do this');
         }

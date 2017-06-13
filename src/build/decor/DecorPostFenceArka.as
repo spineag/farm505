@@ -86,8 +86,8 @@ public class DecorPostFenceArka extends WorldObject {
     public function showFullView():void {
         if (_isMainPart && !_shopViewImage) {
             _shopViewImage = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_2'));
-            _shopViewImage.x = _dataBuild.innerX[1] - 85*g.scaleFactor;
-            _shopViewImage.y = _dataBuild.innerY[1] + 41*g.scaleFactor;
+            _shopViewImage.x = _dataBuild.innerX[2];
+            _shopViewImage.y = _dataBuild.innerY[2];
             _build.addChild(_shopViewImage);
         }
     }
@@ -115,7 +115,7 @@ public class DecorPostFenceArka extends WorldObject {
     }
 
     public function addSmallTopLenta():void {
-        if (_isMainPart) {
+        if (_isMainPart && !_lenta) {
             _lenta = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_3'));
             _lenta.x = _dataBuild.innerX[3];
             _lenta.y = _dataBuild.innerY[3];
@@ -135,10 +135,12 @@ public class DecorPostFenceArka extends WorldObject {
         if (_isMainPart) {
             if (_part) _part.addSmallBottomLenta();
         } else {
-            _lenta = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_3'));
-            _lenta.x = _dataBuild.innerX[4];
-            _lenta.y = _dataBuild.innerY[4];
-            _build.addChild(_lenta);
+            if (!_lenta) {
+                _lenta = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_3'));
+                _lenta.x = _dataBuild.innerX[4];
+                _lenta.y = _dataBuild.innerY[4];
+                _build.addChild(_lenta);
+            }
         }
     }
 

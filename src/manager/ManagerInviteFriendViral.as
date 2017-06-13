@@ -33,6 +33,7 @@ public class ManagerInviteFriendViral {
     public function onUpdateLevel():void { if (g.user.level == _levelData) checkIt(); }
 
     private function checkIt():void {
+        if (g.isDebug) return;
         if (g.user.isTester && (g.user.nextTimeInvite == 0 || g.user.nextTimeInvite < int(new Date().getTime()/1000))) startTimer();
     }
     

@@ -251,6 +251,10 @@ public class WOPartyWindow extends WindowMain {
     }
 
     private function fuckingButton():void {
+        if (!g.allData.atlas['partyAtlas']) {
+            Cc.error('WOPartyWindow:: no g.allData.atlas[partyAtlas]');
+            return;
+        }
         var im:Image;
         _btnEvent = new CButton();
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bt_1'));

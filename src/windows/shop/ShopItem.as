@@ -5,6 +5,7 @@ package windows.shop {
 import build.WorldObject;
 import build.decor.DecorFenceArka;
 import build.decor.DecorFenceGate;
+import build.decor.DecorPostFenceArka;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.tree.Tree;
@@ -392,8 +393,9 @@ public class ShopItem {
         } else {
             _countCost = _data.cost;
         }
-        if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL ||
-                _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_POST_FENCE)
+        if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE
+                || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE
+                || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA)
                 && g.userInventory.decorInventory[_data.id]) {
             _state = STATE_FROM_INVENTORY;
             _countCost = 0;
@@ -510,8 +512,9 @@ public class ShopItem {
                     _txtBtnBuyBlue.text = String(_countCost);
                 }
             }
-        } else if (_data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR ||  _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL
-                || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE) {
+        } else if (_data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR ||  _data.buildType == BuildType.DECOR_FULL_FENСE
+                || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_ARKA
+                || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA) {
             var decorMax:int = 0;
             if (_data.blockByLevel) {
                 if ( _data.buildType == BuildType.DECOR_ANIMATION) {
@@ -791,8 +794,9 @@ public class ShopItem {
         }
         if (g.managerMiniScenes.isMiniScene) g.managerMiniScenes.deleteArrowAndDust();
         var ob:Object;
-        if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL
-                || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_FENCE_ARKA) && _state != STATE_FROM_INVENTORY) {
+        if ((_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_ANIMATION || _data.buildType == BuildType.DECOR_FULL_FENСE
+                || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE || _data.buildType == BuildType.DECOR_FENCE_GATE
+                || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA) && _state != STATE_FROM_INVENTORY) {
             if (g.managerTutorial.isTutorial) return;
             if (g.managerCutScenes.isCutScene) {
                 if (g.managerCutScenes.isType(ManagerCutScenes.ID_ACTION_BUY_DECOR) && g.managerCutScenes.isCutSceneResource(_data.id)) {
@@ -871,7 +875,7 @@ public class ShopItem {
             }
         }
         if (_data.buildType == BuildType.DECOR || _data.buildType == BuildType.DECOR_FULL_FENСE || _data.buildType == BuildType.DECOR_TAIL || _data.buildType == BuildType.DECOR_POST_FENCE
-            || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE) {
+            || _data.buildType == BuildType.DECOR_FENCE_ARKA || _data.buildType == BuildType.DECOR_FENCE_GATE || _data.buildType == BuildType.DECOR_POST_FENCE_ARKA) {
             if (_data.currency == DataMoney.SOFT_CURRENCY) {
                 g.buyHint.showIt(_countCost);
             }
@@ -928,6 +932,7 @@ public class ShopItem {
             if (build is Fabrica) (build as Fabrica).showShopView();
             if (build is DecorFenceGate) (build as DecorFenceGate).showFullView();
             if (build is DecorFenceArka) (build as DecorFenceArka).showFullView();
+            if (build is DecorPostFenceArka) (build as DecorPostFenceArka).showFullView();
             if (g.managerTutorial.isTutorial) {
                 if (g.managerTutorial.currentAction == TutorialAction.BUY_FABRICA && g.managerTutorial.isTutorialResource(_data.id)) {
                     g.managerTutorial.checkTutorialCallback();
