@@ -244,7 +244,8 @@ public class ShopList {
                     _arrItems.push(item);
                 }
             }
-            _shift = g.user.decorShiftShop;
+            if (g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level) _shift = 0;
+            else _shift = g.user.decorShiftShop;
             animList(f);
         }
         if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE || arr[0].buildType == BuildType.DECOR_FENCE_ARKA || arr[0].buildType == BuildType.DECOR_FENCE_GATE ||

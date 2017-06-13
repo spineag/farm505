@@ -68,8 +68,14 @@ public class DecorShopFilter {
     private function createItems(click:Boolean = false):void {
         var arr:Array = [FILTER_ALL,FILTER_FENCE, FILTER_TAIL, FILTER_TREES,  FILTER_OTHER, FILTER_SPECIAL, FILTER_HOLIDAY];
         arr.splice(arr.indexOf(g.user.shopDecorFilter), 1);
+        var i:int;
+        if (g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && !click) {
+            for (i=0; i<6; i++) {
+               if (arr[i] == FILTER_HOLIDAY) arr[i] = FILTER_ALL;
+            }
+        }
         var item:DecorShopFilterItem;
-        for (var i:int=0; i<6; i++) {
+        for (i=0; i<6; i++) {
             item = new DecorShopFilterItem(arr[i], i, onItemClick, _itemsSprite);
             _arrItems.push(item);
         }

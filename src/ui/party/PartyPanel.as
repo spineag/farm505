@@ -40,7 +40,7 @@ public class PartyPanel {
         _source.addChild(_txtData);
         _txtData.y = 55;
 
-        g.cont.interfaceCont.addChild(_source);
+        g.cont.interfaceCont.addChildAt(_source,0);
         onResize();
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;

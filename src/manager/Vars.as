@@ -427,7 +427,6 @@ public class Vars {
         softHardCurrency = new SoftHardCurrency();
         bottomPanel = new MainBottomPanel();
         craftPanel = new CraftPanel();
-        optionPanel = new OptionPanel();
         friendPanel = new FriendPanel();
         toolsPanel = new ToolsPanel();
         testerPanel =new TesterPanelTop();
@@ -438,6 +437,7 @@ public class Vars {
         managerQuest = new ManagerQuest();
 //        gameDispatcher.addNextFrameFunction();
         managerParty = new ManagerPartyNew();
+        optionPanel = new OptionPanel();
         directServer.getDataParty(afterLoadAll);
     }
 

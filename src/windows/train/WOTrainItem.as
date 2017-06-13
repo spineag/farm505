@@ -115,77 +115,6 @@ public class WOTrainItem {
             return;
         }
             if (int(_info.helpId) != 0) {
-//                if (int(_info.helpId) == 1) {
-//                    _personBuyer = g.user.neighbor;
-//                } else {
-//                    for (i = 0; i < g.user.arrFriends.length; i++) {
-//                        if (_info.helpId == g.user.arrFriends[i].userSocialId) {
-//                            _personBuyer = g.user.arrFriends[i];
-//                            break;
-//                        }
-//                    }
-//                    if (!_personBuyer) {
-//                        for (i = 0; i < g.user.marketItems.length; i++) {
-//                            if (_info.helpId == g.user.marketItems[i].buyerSocialId) {
-//                                _personBuyerTemp = g.user.marketItems[i];
-//                                break;
-//                            }
-//                        }
-//                    }
-//                }
-//                    if (!_imageCont) {
-//                        Cc.error('WOTrainItem:: !_imageCont');
-//                        return;
-//                    }
-//                    if (!_personBuyer) {
-//                        _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-//                        if (_avaDefault) {
-//                            MCScaler.scale(_avaDefault, 75, 75);
-//                            _avaDefault.x = 7;
-//                            _avaDefault.y = 7;
-//                            _imageCont.addChild(_avaDefault);
-//                        } else {
-//                            Cc.error('WOTrainItem:: no default_avatar_big');
-//                        }
-//                        if (_personBuyerTemp && _personBuyerTemp.buyerSocialId) {
-//                            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-//                            g.socialNetwork.getTempUsersInfoById([_personBuyerTemp.buyerSocialId]);
-//                        } else Cc.error('WOTrainItem:: No _personBuyerTemp || _personBuyerTemp.buyerSocialId 1');
-//                    } else {
-//                        if (_personBuyer.photo) {
-//                            _avaDefault = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-//                            if (_avaDefault) {
-//                                MCScaler.scale(_avaDefault, 75, 75);
-//                                _avaDefault.x = 7;
-//                                _avaDefault.y = 7;
-//                                _imageCont.addChild(_avaDefault);
-//                            } else {
-//                                Cc.error('WOTrainItem:: no default_avatar_big');
-//                            }
-//                            if (_personBuyer && _personBuyer.photo) g.load.loadImage(_personBuyer.photo, onLoadPhoto);
-//                            else Cc.error('WOTrainItem:: No _personBuyer || _personBuyer.buyerSocialId 2');
-//                        } else {
-//                            var tex:Texture = g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big');
-//                            if (tex) {
-//                                _avaDefault = new Image(tex);
-//                                if (_avaDefault) {
-//                                    MCScaler.scale(_avaDefault, 75, 75);
-//                                    _avaDefault.x = 7;
-//                                    _avaDefault.y = 7;
-//                                    _imageCont.addChild(_avaDefault);
-//                                } else {
-//                                    Cc.error('WOTrainItem:: no default_avatar_big');
-//                                }
-//                            } else {
-//                                Cc.error('WOTrainItem:: no default_avatar_big texture');
-//                            }
-//                            if (_personBuyer && _personBuyer.userSocialId) {
-//                                g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-//                                g.socialNetwork.getTempUsersInfoById([_personBuyer.userSocialId]);
-//                            }
-//                            else Cc.error('WOTrainItem:: No _personBuyer || _personBuyer.buyerSocialId 3');
-//                        }
-//                    }
                 return;
             }
         var curCount:int = g.userInventory.getCountResourceById(_info.id);
@@ -229,22 +158,6 @@ public class WOTrainItem {
             }
     }
 
-//    private function onGettingUserInfo(e:SocialNetworkEvent):void {
-//        if (!_personBuyer) {
-//            if (_personBuyerTemp) _personBuyerTemp.photo = g.user.getSomeoneBySocialId(_personBuyerTemp.buyerSocialId).photo;
-//            if ( _personBuyerTemp && _personBuyerTemp.photo) {
-//                g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-//                g.load.loadImage(_personBuyerTemp.photo, onLoadPhoto);
-//            }
-//        }  else {
-//            if (!_personBuyer.name) _personBuyer = g.user.getSomeoneBySocialId(_personBuyer.userSocialId);
-//            if (_personBuyer.photo) {
-//                g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-//                g.load.loadImage(_personBuyer.photo, onLoadPhoto);
-//            }
-//        }
-//    }
-
     private function onLoadPhoto(bitmap:Bitmap):void {
         if (!bitmap) {
             bitmap = g.pBitmaps[_personBuyer.photo].create() as Bitmap;
@@ -258,19 +171,15 @@ public class WOTrainItem {
     }
 
     private function photoFromTexture(tex:Texture):void {
-//        if (source && source.contains(_avaDefault)) source.removeChild(_avaDefault);
-//        _avaDefault.dispose();
-//        _avaDefault = null;
         if (tex) {
             Cc.info('avatar JA JA NATURLIH');
             _ava = new Image(tex);
             MCScaler.scale(_ava, 75, 75);
-//            _ava.pivotX = _ava.width/2;
-//            _ava.pivotY = _ava.height/2;
             _ava.x = 7;
             _ava.y = 7;
             _imageCont.addChild(_ava);
-            _galo4ka.visible = false;
+            if (_galo4ka) _galo4ka.visible = true;
+            if (_needHelp) _needHelp.visible = false;
         } else {
             Cc.error('MarketItem photoFromTexture:: no texture(')
         }
@@ -418,16 +327,6 @@ public class WOTrainItem {
                 _txtRed.visible = true;
                 var curCount:int = g.userInventory.getCountResourceById(_info.id);
                 _txtRed.text = String(g.userInventory.getCountResourceById(_info.id));
-//                if (curCount >= _info.count) {
-//                    _txtWhite.text = String(g.userInventory.getCountResourceById(_info.id) + '/' + String(_info.count));
-//                    _txtWhite.x = 23;
-//                } else {
-//                    _txtRed.text = String(curCount);
-//                    _txtWhite.text = '/' + String(_info.count);
-//
-//                    _txtWhite.x = 23;
-//                    _txtRed.x = 50 -_txtWhite.textBounds.width ;
-//                }
                 if (curCount >= _info.count) {
                     _txtRed.changeTextColor = ManagerFilters.LIGHT_GREEN_COLOR;
                 } else {
@@ -461,7 +360,7 @@ public class WOTrainItem {
     }
 
     public function updateAvatar():void {
-            if (!_personBuyer.photo) _personBuyer = g.user.getSomeoneBySocialId(_info.helpId);
+            if (!_personBuyer || !_personBuyer.photo) _personBuyer = g.user.getSomeoneBySocialId(_info.helpId);
             if (_personBuyer.photo == '' || _personBuyer.photo == 'unknown') _personBuyer.photo = SocialNetwork.getDefaultAvatar();
         Cc.info('updateAvatar JA JA NATURLIH');
         g.load.loadImage(_personBuyer.photo, onLoadPhoto);
