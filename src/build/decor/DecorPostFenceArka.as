@@ -3,33 +3,24 @@
  */
 package build.decor {
 import build.WorldObject;
-
 import com.junkbyte.console.Cc;
-
-import data.BuildType;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
 import data.OwnEvent;
-
 import manager.hitArea.ManagerHitArea;
-
 import mouse.ToolsModifier;
-
 import starling.display.Image;
 import starling.events.Event;
-
 import windows.WindowsManager;
 
-public class DecorFenceGate extends WorldObject {   // vorota
-    private var _part:DecorFenceGate;
+public class DecorPostFenceArka extends WorldObject {
+    private var _part:DecorPostFenceArka;
     private var _isMainPart:Boolean;
     private var _shopViewImage:Image;
     private var _isHover:Boolean;
     private var _lenta:Image;
 
-    public function DecorFenceGate(_data:Object, mainPart:DecorFenceGate = null) {
+    public function DecorPostFenceArka(_data:Object, mainPart:DecorPostFenceArka = null) {
         super(_data);
         _isHover = false;
         var im:Image;
@@ -47,7 +38,7 @@ public class DecorFenceGate extends WorldObject {   // vorota
         }
 
         if (!im) {
-            Cc.error('DecorFenceGate:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
+            Cc.error('DecorPostFenceФклф:: no such image: ' + _dataBuild.image + ' for ' + _dataBuild.id);
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'AreaObject:: no such image');
             return;
         }
@@ -59,25 +50,25 @@ public class DecorFenceGate extends WorldObject {   // vorota
 
     public function createSecondPart():void {
         if (_part) return;
-        _part = new DecorFenceGate(_dataBuild, this);
+        _part = new DecorPostFenceArka(_dataBuild, this);
         var p:Point = new Point();
         if (_dataBuild.isFlip) {
-            p.x = posX + 1;
+            p.x = posX + 2;
             p.y = posY;
-            p = g.matrixGrid.getXYFromIndex(p);
             if (g.isAway) {
                 g.townArea.pasteAwayBuild(_part, p.x, p.y);
             } else {
+                p = g.matrixGrid.getXYFromIndex(p);
                 g.townArea.pasteBuild(_part, p.x, p.y);
             }
             _part.source.scaleX = -_defaultScale;
         } else {
             p.x = posX;
-            p.y = posY + 1;
-            p = g.matrixGrid.getXYFromIndex(p);
+            p.y = posY + 2;
             if (g.isAway) {
                 g.townArea.pasteAwayBuild(_part, p.x, p.y);
             } else {
+                p = g.matrixGrid.getXYFromIndex(p);
                 g.townArea.pasteBuild(_part, p.x, p.y);
             }
         }
@@ -95,8 +86,8 @@ public class DecorFenceGate extends WorldObject {   // vorota
     public function showFullView():void {
         if (_isMainPart && !_shopViewImage) {
             _shopViewImage = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_2'));
-            _shopViewImage.x = _dataBuild.innerX[2];
-            _shopViewImage.y = _dataBuild.innerY[2];
+            _shopViewImage.x = _dataBuild.innerX[1] - 85*g.scaleFactor;
+            _shopViewImage.y = _dataBuild.innerY[1] + 41*g.scaleFactor;
             _build.addChild(_shopViewImage);
         }
     }
@@ -109,11 +100,23 @@ public class DecorFenceGate extends WorldObject {   // vorota
         }
     }
 
-    public function get isMain():Boolean { return _isMainPart; }
+    public function get isMain():Boolean {
+        return _isMainPart;
+    }
+
+    private function onCreateBuild():void {
+        if (!g.isAway) {
+            _source.endClickCallback = onClick;
+            _source.hoverCallback = onHover;
+            _source.outCallback = onOut;
+            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image + '_1', ManagerHitArea.TYPE_FROM_ATLAS); // remake for hitArea !!
+            _source.registerHitArea(_hitArea);
+        }
+    }
 
     public function addSmallTopLenta():void {
         if (_isMainPart) {
-            _lenta = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_5'));
+            _lenta = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_3'));
             _lenta.x = _dataBuild.innerX[3];
             _lenta.y = _dataBuild.innerY[3];
             _build.addChildAt(_lenta, 0);
@@ -132,7 +135,7 @@ public class DecorFenceGate extends WorldObject {   // vorota
         if (_isMainPart) {
             if (_part) _part.addSmallBottomLenta();
         } else {
-            _lenta = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_5'));
+            _lenta = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_3'));
             _lenta.x = _dataBuild.innerX[4];
             _lenta.y = _dataBuild.innerY[4];
             _build.addChild(_lenta);
@@ -148,17 +151,7 @@ public class DecorFenceGate extends WorldObject {   // vorota
             _lenta = null;
         }
     }
-
-    private function onCreateBuild():void {
-        if (!g.isAway) {
-            _source.endClickCallback = onClick;
-            _source.hoverCallback = onHover;
-            _source.outCallback = onOut;
-            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.image + '_1', ManagerHitArea.TYPE_FROM_ATLAS); // remake for hitArea !!
-            _source.registerHitArea(_hitArea);
-        }
-    }
-
+    
     public function onClick():void {
         if (!_isMainPart) {
             if (_part) _part.onClick();
@@ -210,8 +203,8 @@ public class DecorFenceGate extends WorldObject {   // vorota
 
     override public function onHover():void {
         if (g.selectedBuild) return;
-        if (g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP || g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-            if (_isHover) return;
+        if (_isHover) return;
+        if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY || g.toolsModifier.modifierType == ToolsModifier.MOVE || g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             _isHover = true;
             if (_part) _part.onHover();
             _source.filter = ManagerFilters.BUILD_STROKE;
@@ -235,11 +228,11 @@ public class DecorFenceGate extends WorldObject {   // vorota
         removeSmallBottomLenta();
         removeSmallTopLenta();
         if (_flip) g.townArea.unFillMatrixWithFence(posX, posY, _sizeY, _sizeX);
-            else g.townArea.unFillMatrixWithFence(posX, posY, _sizeX, _sizeY);
+        else g.townArea.unFillMatrixWithFence(posX, posY, _sizeX, _sizeY);
         super.releaseFlip();
         createSecondPart();
         if (_flip) g.townArea.fillMatrixWithFence(posX, posY, _sizeY, _sizeX, this);
-            else g.townArea.fillMatrixWithFence(posX, posY, _sizeX, _sizeY, this);
+        else g.townArea.fillMatrixWithFence(posX, posY, _sizeX, _sizeY, this);
         g.townArea.addFenceLenta(this);
     }
 

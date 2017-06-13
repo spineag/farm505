@@ -7,8 +7,10 @@ import build.chestYellow.ChestYellow;
 import build.decor.Decor;
 import build.decor.DecorAnimation;
 import build.decor.DecorFence;
+import build.decor.DecorFenceArka;
 import build.decor.DecorFenceGate;
 import build.decor.DecorPostFence;
+import build.decor.DecorPostFenceArka;
 import build.decor.DecorTail;
 import build.wild.Wild;
 import com.junkbyte.console.Cc;
@@ -480,7 +482,7 @@ public class ToolsModifier {
         g.matrixGrid.setSpriteFromIndex(_spriteForMove, pointPos);
         if (spriteForMoveIndexX != pointPos.x || spriteForMoveIndexY != pointPos.y) {
 
-            if (_activeBuilding is DecorPostFence) {
+            if (_activeBuilding is DecorPostFence || _activeBuilding is DecorFenceArka || _activeBuilding is DecorPostFenceArka) {
                 g.townArea.removeFenceLenta(_activeBuilding);
             }
 
@@ -497,7 +499,7 @@ public class ToolsModifier {
             } else {
                 if (g.isActiveMapEditor && (_activeBuilding is Wild || _activeBuilding is Decor || _activeBuilding is ChestYellow || _activeBuilding is DecorAnimation)) return;
 
-                if (_activeBuilding is DecorPostFence) {
+                if (_activeBuilding is DecorPostFence || _activeBuilding is DecorFenceArka || _activeBuilding is DecorPostFenceArka) {
                     _activeBuilding.posX = pointPos.x;
                     _activeBuilding.posY = pointPos.y;
                     g.townArea.addFenceLenta(_activeBuilding);

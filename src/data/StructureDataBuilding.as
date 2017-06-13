@@ -91,7 +91,7 @@ public class StructureDataBuilding {
         _buildType = int(ob.build_type);
 
         // temp
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+        if (g.user.isTester && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
             if (_id == 75) {
                 _buildType = BuildType.DECOR_FENCE_GATE;
                 obj.innerX = [];
@@ -139,6 +139,59 @@ public class StructureDataBuilding {
                 obj.innerX.push(-40 * g.scaleFactor); obj.innerY.push(2 * g.scaleFactor); // line for second part
                 // main part if is open
                 // second part if is open
+            }
+        }
+
+        if (g.user.isTester && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            if (_id == 74) {
+                _buildType = BuildType.DECOR_POST_FENCE_ARKA;
+                obj.innerX = [];
+                obj.innerY = [];
+                obj.innerX.push(-40 * g.scaleFactor); obj.innerY.push(-158 * g.scaleFactor); // main (top) part of gate
+                obj.innerX.push(-61 * g.scaleFactor); obj.innerY.push(-185 * g.scaleFactor); // second part of gate
+                obj.innerX.push(-147 * g.scaleFactor); obj.innerY.push(-143 * g.scaleFactor); // second part for shop view
+                obj.innerX.push(47 * g.scaleFactor); obj.innerY.push(-47 * g.scaleFactor); // line for main part
+                obj.innerX.push(-81 * g.scaleFactor); obj.innerY.push(17 * g.scaleFactor); // line for second part
+            }
+            if (_id == 205) {
+                _buildType = BuildType.DECOR_POST_FENCE_ARKA;
+                obj.innerX = [];
+                obj.innerY = [];
+                obj.innerX.push(-52 * g.scaleFactor); obj.innerY.push(-174 * g.scaleFactor); // main (top) part of gate
+                obj.innerX.push(-71 * g.scaleFactor); obj.innerY.push(-189 * g.scaleFactor); // second part of gate
+                obj.innerX.push(-156 * g.scaleFactor); obj.innerY.push(-147 * g.scaleFactor); // second part for shop view
+                obj.innerX.push(47 * g.scaleFactor); obj.innerY.push(-47 * g.scaleFactor); // line for main part
+                obj.innerX.push(-83 * g.scaleFactor); obj.innerY.push(17 * g.scaleFactor); // line for second part
+            }
+            if (_id == 73) {
+                _buildType = BuildType.DECOR_POST_FENCE_ARKA;
+                obj.innerX = [];
+                obj.innerY = [];
+                obj.innerX.push(-46 * g.scaleFactor); obj.innerY.push(-116 * g.scaleFactor); // main (top) part of gate
+                obj.innerX.push(-58 * g.scaleFactor); obj.innerY.push(-163 * g.scaleFactor); // second part of gate
+                obj.innerX.push(-142 * g.scaleFactor); obj.innerY.push(-120 * g.scaleFactor); // second part for shop view
+                obj.innerX.push(49 * g.scaleFactor); obj.innerY.push(-34 * g.scaleFactor); // line for main part
+                obj.innerX.push(-76 * g.scaleFactor); obj.innerY.push(28 * g.scaleFactor); // line for second part
+            }
+            if (_id == 72) {
+                _buildType = BuildType.DECOR_POST_FENCE_ARKA;
+                obj.innerX = [];
+                obj.innerY = [];
+                obj.innerX.push(-9 * g.scaleFactor); obj.innerY.push(-167 * g.scaleFactor); // main (top) part of gate
+                obj.innerX.push(-57 * g.scaleFactor); obj.innerY.push(-228 * g.scaleFactor); // second part of gate
+                obj.innerX.push(-140 * g.scaleFactor); obj.innerY.push(-186 * g.scaleFactor); // second part for shop view
+                obj.innerX.push(43 * g.scaleFactor); obj.innerY.push(-36 * g.scaleFactor); // line for main part
+                obj.innerX.push(-83 * g.scaleFactor); obj.innerY.push(26 * g.scaleFactor); // line for second part
+            }
+            if (_id == 71) {
+                _buildType = BuildType.DECOR_POST_FENCE_ARKA;
+                obj.innerX = [];
+                obj.innerY = [];
+                obj.innerX.push(-29 * g.scaleFactor); obj.innerY.push(-150 * g.scaleFactor); // main (top) part of gate
+                obj.innerX.push(-68 * g.scaleFactor); obj.innerY.push(-217 * g.scaleFactor); // second part of gate
+                obj.innerX.push(-154 * g.scaleFactor); obj.innerY.push(-174 * g.scaleFactor); // second part for shop view
+                obj.innerX.push(42 * g.scaleFactor); obj.innerY.push(-34 * g.scaleFactor); // line for main part
+                obj.innerX.push(-85 * g.scaleFactor); obj.innerY.push(29 * g.scaleFactor); // line for second part
             }
         }
 
