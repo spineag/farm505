@@ -366,6 +366,8 @@ public class ManagerCutScenes {
         isCutScene = true;
         _cutSceneResourceIDs = [28, 151, 152];
         _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[0]);
+        if (!_cutSceneBuildings.length) _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[1]);
+        if (!_cutSceneBuildings.length) _cutSceneBuildings = g.townArea.getCityObjectsById(_cutSceneResourceIDs[2]);
         if (!_cutSceneBuildings.length) {
             Cc.error('no decor for CutScene on map');
             endCutScene();
@@ -425,7 +427,8 @@ public class ManagerCutScenes {
         Cc.ch('info', 'try cutScene: releaseFromInventoryDecor');
         g.toolsModifier.modifierType = ToolsModifier.NONE;
         _cutSceneResourceIDs = [28, 151, 152];
-        if (!g.userInventory.getDecorInventory(_cutSceneResourceIDs[0])) {
+        var isDecor:Boolean = g.userInventory.getDecorInventory(_cutSceneResourceIDs[0]) || g.userInventory.getDecorInventory(_cutSceneResourceIDs[1]) || g.userInventory.getDecorInventory(_cutSceneResourceIDs[2]);
+        if (!isDecor) {
             Cc.error('no such decor in inventory for cutScene');
             endCutScene();
             return;

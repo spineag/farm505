@@ -94,8 +94,8 @@ public class DecorFenceArka extends WorldObject {
     public function showFullView():void {
         if (_isMainPart && !_shopViewImage) {
             _shopViewImage = new Image(g.allData.atlas[_dataBuild.url].getTexture(_dataBuild.image + '_12'));
-            _shopViewImage.x = _dataBuild.innerX[1] - 85*g.scaleFactor;
-            _shopViewImage.y = _dataBuild.innerY[1] + 41*g.scaleFactor;
+            _shopViewImage.x = _dataBuild.innerX[2];
+            _shopViewImage.y = _dataBuild.innerY[2];
             _build.addChild(_shopViewImage);
         }
     }
