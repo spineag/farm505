@@ -525,12 +525,12 @@ public class Vars {
             managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
             var todayDailyGift:Date;
             var today:Date;
-                if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - int(new Date().getTime() / 1000)) <= 0 && (user as User).level >= 6) {
+                if (!(user as User).salePack && userTimer.saleTimerToEnd > 0 && (managerSalePack.dataSale.timeToStart - int(new Date().getTime() / 1000)) <= 0 && (user as User).level >= 6 && !managerCutScenes.isCutScene) {
                     windowsManager.openWindow(WindowsManager.WO_SALE_PACK, null, true);
-                } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)) {
+                } else if (((user as User).level >= 6) && ((user as User).starterPack == 0)  && !managerCutScenes.isCutScene) {
                    windowsManager.openWindow(WindowsManager.WO_STARTER_PACK, null);
                } else {
-                   if ((user as User).level >= 5 && (user as User).dayDailyGift == 0) directServer.getDailyGift(null);
+                   if ((user as User).level >= 5 && (user as User).dayDailyGift == 0  && !managerCutScenes.isCutScene) directServer.getDailyGift(null);
                    else {
                        todayDailyGift = new Date((user as User).dayDailyGift * 1000);
                        today = new Date((user as User).day * 1000);
@@ -540,7 +540,7 @@ public class Vars {
                }
             var f1:Function = function ():void {
                 if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && managerParty.userParty && !managerParty.userParty.showWindow
-                        && (managerParty.dataParty.typeParty == 3 || managerParty.dataParty.typeParty == 4)) managerParty.endPartyWindow();
+                        && (managerParty.dataParty.typeParty == 3 || managerParty.dataParty.typeParty == 4)  && !managerCutScenes.isCutScene) managerParty.endPartyWindow();
             };
                Utils.createDelay(5,f1);
             }
