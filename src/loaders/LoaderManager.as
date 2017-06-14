@@ -241,7 +241,8 @@ public class LoaderManager {
                 if (extraData) {
                     arr = [extraData];
                 } else {
-                    arr = [g.pBitmaps[url].create() as Bitmap];
+                    if (g.pBitmaps[url]) arr = [g.pBitmaps[url].create() as Bitmap];
+                    else arr = [null];
                 }
                 if (callbackObject.callback != null) {
                     callbackObject.callback.apply(null, arr.concat(callbackObject.callbackParams));

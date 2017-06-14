@@ -20,6 +20,7 @@ import build.decor.DecorFenceArka;
 import build.decor.DecorFenceGate;
 import build.decor.DecorPostFence;
 import build.decor.DecorPostFenceArka;
+import build.decor.DecorPostFenceArka;
 import build.decor.DecorTail;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
@@ -498,7 +499,7 @@ public class TownArea extends Sprite {
                 _townMatrix[i][j].isFull = true;
                 if (i == posY && j == posX) {
                     _freePlace.fillCell(j + 1, i + 1);
-                    _townMatrix[i][j].buildFence = source;
+                    if (_townMatrix[i] && _townMatrix[i][j]) _townMatrix[i][j].buildFence = source;
                 }
             }
         }
@@ -508,8 +509,8 @@ public class TownArea extends Sprite {
         var j:int;
         for (var i:int = posY; i < (posY + h); i++) {
             for (j = posX; j < (posX + w); j++) {
-                _townMatrix[i][j].buildFence = null;
-                _townMatrix[i][j].isFull = false;
+                if (_townMatrix[i] && _townMatrix[i][j]) _townMatrix[i][j].buildFence = null;
+                if (_townMatrix[i] && _townMatrix[i][j]) _townMatrix[i][j].isFull = false;
                 _freePlace.freeCell(j, i);
             }
         }
@@ -883,25 +884,21 @@ public class TownArea extends Sprite {
             }
         }
         if (isNewAtMap) {
-            if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor ||
-                    worldObject is DecorFence || worldObject is DecorAnimation || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorFenceGate || worldObject is DecorFenceArka)
+            if (worldObject is Fabrica || worldObject is Farm || worldObject is Ridge || worldObject is Decor || worldObject is DecorFence || worldObject is DecorAnimation
+                    || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorFenceGate || worldObject is DecorFenceArka || worldObject is DecorPostFenceArka)
                 g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
-            if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence 
+            if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFenceArka || worldObject is DecorFenceArka
                     || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorAnimation || worldObject is DecorFenceGate)
-                worldObject.addXP();
+                worldObject.addXP(); // ???? its empty function!!!
                 g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
-            if (worldObject is Tree)
-                g.directServer.addUserBuilding(worldObject, onAddNewTree);
+            if (worldObject is Tree) g.directServer.addUserBuilding(worldObject, onAddNewTree);
             if (worldObject is Ridge)
                 g.managerPlantRidge.onAddNewRidge(worldObject as Ridge);
                 g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
-            if (worldObject is Farm)
-                g.managerAnimal.onAddNewFarm(worldObject as Farm);
-            if (worldObject is Fabrica && g.managerMiniScenes.isMiniScene)
-                g.managerMiniScenes.onPasteFabrica((worldObject as Fabrica).dataBuild.id);
+            if (worldObject is Farm)  g.managerAnimal.onAddNewFarm(worldObject as Farm);
+            if (worldObject is Fabrica && g.managerMiniScenes.isMiniScene)  g.managerMiniScenes.onPasteFabrica((worldObject as Fabrica).dataBuild.id);
         } else {
-            if (worldObject is DecorFence)
-                g.directServer.userBuildingFlip(worldObject.dbBuildingId, int(worldObject.flip), null);
+            if (worldObject is DecorFence) g.directServer.userBuildingFlip(worldObject.dbBuildingId, int(worldObject.flip), null);
         }
 
         if (updateAfterMove) {
@@ -1179,7 +1176,7 @@ public class TownArea extends Sprite {
             if (build is DecorTail) {
                 pasteTailBuild(build as DecorTail, _x, _y);
             } else {
-                pasteBuild(build, _x, _y, true, false);
+                pasteBuild(build, _x, _y);
             }
             return;
         } else {
@@ -1188,7 +1185,10 @@ public class TownArea extends Sprite {
                 if (build is DecorTail) {
                     pasteTailBuild(build as DecorTail, _x, _y);
                 } else {
-                    pasteBuild(build, _x, _y, true, false);
+                    if (build is DecorFenceGate) (build as DecorFenceGate).removeFullView();
+                    if (build is DecorFenceArka) (build as DecorFenceArka).removeFullView();
+                    if (build is DecorPostFenceArka) (build as DecorPostFenceArka).removeFullView();
+                    pasteBuild(build, _x, _y);
                 }
                 showSmallBuildAnimations(build, (build as WorldObject).dataBuild.currency, -(build as WorldObject).countShopCost);
                 g.buyHint.hideIt();
@@ -1399,6 +1399,15 @@ public class TownArea extends Sprite {
         if (worldObject is DecorFence || worldObject is DecorPostFence) {
             if (worldObject is DecorPostFence) removeFenceLenta(worldObject);
             unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+        } else if (worldObject is DecorFenceGate) {
+            removeFenceLenta(worldObject);
+            unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+        } else if (worldObject is DecorPostFenceArka) {
+            removeFenceLenta(worldObject);
+            if (worldObject.flip) unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeY, worldObject.sizeX);
+            else unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
+        } else if (worldObject is DecorFenceArka) {
+            
         } else {
             unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
         }
@@ -1809,7 +1818,7 @@ public class TownArea extends Sprite {
                 _townAwayMatrix[i][j].isFull = true;
                 if (i == posY && j == posX)
                     _freePlace.fillAwayCell(j + 1, i + 1);
-                _townAwayMatrix[i][j].buildFence = source;
+                if (_townAwayMatrix[i] && _townAwayMatrix[i][j]) _townAwayMatrix[i][j].buildFence = source;
             }
         }
     }
@@ -1934,6 +1943,9 @@ public class TownArea extends Sprite {
             case BuildType.DECOR_FENCE_ARKA:
                 build = new DecorFenceArka(_data);
                 break;
+            case BuildType.DECOR_POST_FENCE_ARKA:
+                build = new DecorPostFenceArka(_data);
+                break;
             case BuildType.CHEST_YELLOW:
                 build = new ChestYellow(_data);
                 break;
@@ -2053,8 +2065,8 @@ public class TownArea extends Sprite {
         }
         if (!(worldObject is DecorTail)) _cityAwayObjects.push(worldObject);
         if (worldObject is DecorFence || worldObject is DecorPostFence) {
-            fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-            if (worldObject is DecorPostFence) addAwayFenceLenta(worldObject as DecorPostFence);
+            fillAwayMatrixWithFence(worldObject.posX, worldObject.posY, 2, 2, worldObject);
+            if (worldObject is DecorPostFence) addAwayFenceLenta(worldObject);
         } else if (worldObject is DecorFenceGate) {
             if ((worldObject as DecorFenceGate).isMain) {
                 (worldObject as DecorFenceGate).removeFullView();
@@ -2094,10 +2106,10 @@ public class TownArea extends Sprite {
 
         if (w is DecorPostFence) {
             f = w as DecorPostFence;
-            if (_townAwayMatrix[f.posY] && _townAwayMatrix[f.posY][f.posX]) {
-                obj = _townAwayMatrix[f.posY][f.posX];
-                if (obj && obj.buildFence && obj.buildFence != f) return;  // щоб не збивалося, коли наводимо на вже існуючий заборчик
-            }
+//            if (_townAwayMatrix[f.posY] && _townAwayMatrix[f.posY][f.posX]) {  // unused for away
+//                obj = _townAwayMatrix[f.posY][f.posX];
+//                if (obj && obj.buildFence && obj.buildFence != f) return;  // щоб не збивалося, коли наводимо на вже існуючий заборчик
+//            }
             if (_townAwayMatrix[f.posY] && _townAwayMatrix[f.posY][f.posX - 2]) {
                 obj = _townAwayMatrix[f.posY][f.posX - 2];
                 if (obj.inGame && obj.buildFence) {

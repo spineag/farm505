@@ -202,7 +202,7 @@ public class ShopList {
             arr.sortOn("indexQueue", Array.NUMERIC);
         } else if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_ANIMATION || arr[0].buildType == BuildType.DECOR_FULL_FENСE ||
                 arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL || arr[0].buildType == BuildType.DECOR_FENCE_ARKA ||
-                arr[0].buildType == BuildType.DECOR_FENCE_GATE) {
+                arr[0].buildType == BuildType.DECOR_FENCE_GATE || arr[0].buildType == BuildType.DECOR_POST_FENCE_ARKA) {
             for (j = 0; j <arr.length; j++) {
                 if (arr[j].visibleAction) {
                     arr[j].indexQueue = int(arr[j].blockByLevel[0]);
@@ -249,7 +249,7 @@ public class ShopList {
             animList(f);
         }
         if (arr[0].buildType == BuildType.DECOR || arr[0].buildType == BuildType.DECOR_FULL_FENСE || arr[0].buildType == BuildType.DECOR_FENCE_ARKA || arr[0].buildType == BuildType.DECOR_FENCE_GATE ||
-                arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL ||  arr[0].buildType == BuildType.DECOR_ANIMATION) {
+                arr[0].buildType == BuildType.DECOR_POST_FENCE || arr[0].buildType == BuildType.DECOR_TAIL ||  arr[0].buildType == BuildType.DECOR_ANIMATION || arr[0].buildType == BuildType.DECOR_POST_FENCE_ARKA) {
             g.user.decorShop = true;
         }
         _txtPageNumber.text = String(Math.ceil(_shift/4) + 1) + '/' + String(Math.ceil(_currentShopArr.length/4));

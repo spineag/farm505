@@ -242,7 +242,8 @@ public class ManagerQuest {
                     else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_ANIMATION
                             || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_TAIL || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_FENCE_GATE
                             || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_FENCE_ARKA || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_FULL_FENСE
-                            || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_POST_FENCE) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_DECOR);
+                            || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_POST_FENCE || g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.DECOR_POST_FENCE_ARKA) 
+                        g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_DECOR);
                     else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.FARM) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_FARM);
                     else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.ANIMAL) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_ANIMAL);
                     else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.CAT) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_HERO);
