@@ -51,10 +51,11 @@ public class WOAchievementItem {
         _number = number;
         _imPlashka = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka_big'));
         source.addChild(_imPlashka);
+//        _imPlashka.alpha = .5;
         _name = new CTextField(290, 60, String(g.managerAchievement.dataAchievement[_number].name));
         _name.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
         _name.alignH = Align.LEFT;
-        _name.x = 250 - _name.textBounds.width/2;
+        _name.x = 265 - _name.textBounds.width/2;
         _name.y = -5;
         source.addChild(_name);
         _description = new CTextField(290, 60, String(g.managerAchievement.dataAchievement[_number].description));
@@ -64,14 +65,14 @@ public class WOAchievementItem {
         source.addChild(_description);
         _imStar = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
         _imStar.x = 290;
-        _imStar.y = 90;
+        _imStar.y = 95;
         source.addChild(_imStar);
         _imRubi = new Image(g.allData.atlas['interfaceAtlas'].getTexture('rubins_small'));
         _imRubi.x = 190;
-        _imRubi.y = 90;
+        _imRubi.y = 95;
         source.addChild(_imRubi);
         _imKubok = new Image(g.allData.atlas['achievementAtlas'].getTexture('kubok_n_n'));
-        _imKubok.x = 15;
+        _imKubok.x = 25;
         _imKubok.y = 20;
         source.addChild(_imKubok);
         var myPattern:RegExp = /count/;
@@ -86,8 +87,8 @@ public class WOAchievementItem {
                         _txtBtn = new CTextField(174, 30, String(g.managerLanguage.allTexts[923]));
                         _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
                         _btn.addChild(_txtBtn);
-                        _btn.x = 516;
-                        _btn.y = 110;
+                        _btn.x = 527;
+                        _btn.y = 115;
                         source.addChild(_btn);
                         _btn.clickCallback = onClick;
                         _txtRubi = new CTextField(120, 40, String(g.managerAchievement.dataAchievement[_number].countHard[k]));
@@ -122,8 +123,8 @@ public class WOAchievementItem {
                         if (width > 168) width= 168;
                         if (width != 0) {
                             _quad = new Quad(width,35,0xffb900);
-                            _quad.x = 435;
-                            _quad.y = 94;
+                            _quad.x = 445;
+                            _quad.y = 97;
                             source.addChildAt(_quad,0);
                         }
                         break;
@@ -149,20 +150,24 @@ public class WOAchievementItem {
         }
         _txtRubi.alignH = Align.LEFT;
         _txtRubi.x = 232;
-        _txtRubi.y = 87;
+        _txtRubi.y = 92;
         _txtStar.alignH = Align.LEFT;
         _txtStar.x = 331;
-        _txtStar.y = 87;
+        _txtStar.y = 92;
         if (_txtCount) {
             _txtCount.alignH = Align.LEFT;
-            _txtCount.x = 520 - _txtCount.textBounds.width/2;
-            _txtCount.y = 86;
+            _txtCount.x = 535 - _txtCount.textBounds.width/2;
+            _txtCount.y = 89;
         }
         _imPlashkaDown = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka_dwn'));
-        _imPlashkaDown.x = _imPlashka.width - _imPlashkaDown.width -13;
-        _imPlashkaDown.y = _imPlashka.height - _imPlashkaDown.height -7;
+        _imPlashkaDown.x = _imPlashka.width - _imPlashkaDown.width -18;
+        _imPlashkaDown.y = _imPlashka.height - _imPlashkaDown.height -10;
         source.addChildAt(_imPlashkaDown,0);
-        _description.x = 250 - _description.textBounds.width/2;
+        _description.x = 265 - _description.textBounds.width/2;
+        var im:Image = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka_zaglushka'));
+        im.x = _imPlashka.width - (im.width + 12);
+        im.y = _imPlashka.height - (im.height + 8);
+        source.addChild(im);
         starShow();
     }
 
@@ -182,6 +187,12 @@ public class WOAchievementItem {
             if (g.managerAchievement.dataAchievement[_number].countToGift[2] <= g.managerAchievement.userAchievement[_numberUser].resourceCount) {
                 _imStar3 = new Image(g.allData.atlas['achievementAtlas'].getTexture('star'));
                 source.addChild(_imStar3);
+                if (!_btn) {
+                    var im:Image = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka_zaglushka'));
+                    im.x = _imPlashka.width - (im.width + 12);
+                    im.y = _imPlashka.height - (im.height + 8);
+                    source.addChild(im);
+                }
             } else if (!_imStar3){
                 _imStar3 = new Image(g.allData.atlas['achievementAtlas'].getTexture('star_off'));
                 source.addChild(_imStar3);
@@ -194,11 +205,11 @@ public class WOAchievementItem {
             _imStar3 = new Image(g.allData.atlas['achievementAtlas'].getTexture('star_off'));
             source.addChild(_imStar3);
         }
-        _imStar1.x = 425;
+        _imStar1.x = 433;
         _imStar1.y = 10;
-        _imStar2.x = 484;
+        _imStar2.x = 493;
         _imStar2.y = 10;
-        if (_imStar3) _imStar3.x = 542;
+        if (_imStar3) _imStar3.x = 550;
         if (_imStar3) _imStar3.y = 10;
     }
 
@@ -229,6 +240,10 @@ public class WOAchievementItem {
             if (_txtCount)_txtCount.text = ' ';
             _txtRubi.text = ' ';
             _txtStar.text = ' ';
+            var im:Image = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka_zaglushka'));
+            im.x = _imPlashka.width - im.width;
+            im.y = _imPlashka.height - im.height;
+            source.addChild(im);
         } else {
             var width:int;
             var count:int;
@@ -248,7 +263,7 @@ public class WOAchievementItem {
                 _txtBtn = new CTextField(174, 30, String(g.managerLanguage.allTexts[923]));
                 _txtBtn.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
                 _btn.addChild(_txtBtn);
-                _btn.x = 509;
+                _btn.x = 527;
                 _btn.y = 115;
                 source.addChild(_btn);
                 _btn.clickCallback = onClick;
@@ -261,13 +276,15 @@ public class WOAchievementItem {
 
             if (_txtCount) {
                 _txtCount.alignH = Align.LEFT;
-                _txtCount.x = 520 - _txtCount.textBounds.width/2;
-                _txtCount.y = 86;
+                _txtCount.x = 535 - _txtCount.textBounds.width/2;
+                _txtCount.y = 89;
             }
-            _quad = new Quad(width,35,0xffb900);
-            _quad.x = 327;
-            _quad.y = 97;
-            source.addChildAt(_quad,0);
+            if (width > 0) {
+                _quad = new Quad(width, 35, 0xffb900);
+                _quad.x = 445;
+                _quad.y = 97;
+                source.addChildAt(_quad, 0);
+            }
             _txtRubi.text = String(g.managerAchievement.dataAchievement[_number].countHard[i]);
             _txtStar.text = String(g.managerAchievement.dataAchievement[_number].countXp[i]);
             var myPattern:RegExp = /count/;
@@ -277,8 +294,8 @@ public class WOAchievementItem {
             _imPlashkaDown.dispose();
             _imPlashkaDown = null;
             _imPlashkaDown = new Image(g.allData.atlas['achievementAtlas'].getTexture('plashka_dwn'));
-            _imPlashkaDown.x = _imPlashka.width - _imPlashkaDown.width -13;
-            _imPlashkaDown.y = _imPlashka.height - _imPlashkaDown.height -7;
+            _imPlashkaDown.x = _imPlashka.width - _imPlashkaDown.width -18;
+            _imPlashkaDown.y = _imPlashka.height - _imPlashkaDown.height -10;
             source.addChildAt(_imPlashkaDown,0);
         }
         if (!g.managerAchievement.checkAchievement()) {

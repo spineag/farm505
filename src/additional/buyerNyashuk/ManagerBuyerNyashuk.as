@@ -405,6 +405,15 @@ public class ManagerBuyerNyashuk {
         nya.forceStopAnimation();
         nya.idleFrontAnimation();
         nya.walkPosition = BuyerNyashuk.STAY_IN_QUEUE;
+        if (g.isAway) nya.showForOptimisation(false);
+    }
+
+    public function visibleNya(b:Boolean):void {
+        if (_arrayNya && _arrayNya.length > 0) {
+            for (var i:int = 0; i <_arrayNya.length; i++) {
+                _arrayNya[i].showForOptimisation(b);
+            }
+        }
     }
 
 }

@@ -84,7 +84,7 @@ public class WOBuyCurrencyItem {
         _im.y = 9;
         _im.filter = ManagerFilters.SHADOW_TINY;
         source.addChild(_im);
-        if (sale > 0) _txtCount = new CTextField(135, 52, String(count - sale));
+        if (sale > 0 && g.userTimer.stockTimerToEnd > 0) _txtCount = new CTextField(135, 52, String(count - sale));
         else  _txtCount = new CTextField(135, 52, String(count));
         _txtCount.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCount.alignH = Align.LEFT;
@@ -92,7 +92,7 @@ public class WOBuyCurrencyItem {
         _txtCount.y = 4;
         source.addChild(_txtCount);
         var txt:CTextField;
-        if (sale > 0) {
+        if (sale > 0 && g.userTimer.stockTimerToEnd > 0) {
             txt = new CTextField(135, 52, '+ ' + String(sale));
             txt.setFormat(CTextField.BOLD24, 24, Color.WHITE, ManagerFilters.RED_COLOR);
             txt.alignH = Align.LEFT;
@@ -120,7 +120,7 @@ public class WOBuyCurrencyItem {
         source.addChild(_btn);
         _action = new Sprite();
         var im:Image;
-        if (sale > 0) {
+        if (sale > 0 && g.userTimer.stockTimerToEnd > 0) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('sale_icon'));
             _action.addChild(im);
             txt = new CTextField(60, 30, String(g.managerLanguage.allTexts[454]));

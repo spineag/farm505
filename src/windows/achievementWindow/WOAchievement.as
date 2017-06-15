@@ -36,12 +36,6 @@ public class WOAchievement extends WindowMain{
         _source.addChild(_woBG);
         createExitButton(onClickExit);
         _callbackClickBG = onClickExit;
-//        _name = new CTextField(_woWidth, 120, String(g.managerLanguage.allTexts[924]));
-//        _name.setFormat(CTextField.BOLD30, 36, 0xea5802, Color.WHITE);
-//        _name.alignH = Align.LEFT;
-//        _name.x = -_name.textBounds.width/2;
-//        _name.y = -305;
-//        _source.addChild(_name);
         if (g.user.language == ManagerLanguage.ENGLISH) _imName = new Image(g.allData.atlas['achievementAtlas'].getTexture('achievements_1'));
         else _imName = new Image(g.allData.atlas['achievementAtlas'].getTexture('achievements_2'));
         _imName.x = -_imName.width/2;
@@ -51,7 +45,7 @@ public class WOAchievement extends WindowMain{
 
     override public function showItParams(callback:Function, params:Array):void {
         _scrollSprite = new DefaultVerticalScrollSprite(525, 460, 519, 154);
-        _scrollSprite.createScoll(638, 0, 450, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
+        _scrollSprite.createScoll(648, 0, 450, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
         var item:WOAchievementItem;
         if (g.managerAchievement.userAchievement.length > 0) {
             for (var i:int = 0; i < g.managerAchievement.dataAchievement.length; i++) {
@@ -74,7 +68,7 @@ public class WOAchievement extends WindowMain{
             item = new WOAchievementItem(i);
             _scrollSprite.addNewCell(item.source)
         }
-        _scrollSprite.source.x = -325;
+        _scrollSprite.source.x = -335;
         _scrollSprite.source.y = -195;
         _source.addChild(_scrollSprite.source);
         super.showIt();

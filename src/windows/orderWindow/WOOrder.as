@@ -1226,8 +1226,10 @@ public class WOOrder extends WindowMain{
 
         if (st != '') {
             _bubble = new TutorialTextBubble(_source);
-            _bubble.showBubble(st, true, TutorialTextBubble.SMALL);
-            _bubble.setXY(120, -150);
+            _bubble.showBubble(st, true, TutorialTextBubble.SMALL_ORDER);
+//            _srcBaloon.x = (_armatureCustomer.display as StarlingArmatureDisplay).x + 30;
+//            _srcBaloon.y = (_armatureCustomer.display as StarlingArmatureDisplay).y - 60;
+            _bubble.setXY(140, -130);
         }
     }
 

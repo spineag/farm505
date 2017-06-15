@@ -69,7 +69,7 @@ public class DecorShopFilter {
         var arr:Array = [FILTER_ALL,FILTER_FENCE, FILTER_TAIL, FILTER_TREES,  FILTER_OTHER, FILTER_SPECIAL, FILTER_HOLIDAY];
         arr.splice(arr.indexOf(g.user.shopDecorFilter), 1);
         var i:int;
-        if (g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && !click) {
+        if (g.managerParty.filterOn && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && !click) {
             for (i=0; i<6; i++) {
                if (arr[i] == FILTER_HOLIDAY) arr[i] = FILTER_ALL;
             }
@@ -79,7 +79,7 @@ public class DecorShopFilter {
             item = new DecorShopFilterItem(arr[i], i, onItemClick, _itemsSprite);
             _arrItems.push(item);
         }
-        if (g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && !click) g.user.shopDecorFilter = 6;
+        if (g.managerParty.filterOn && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && !click) g.user.shopDecorFilter = 6;
         _activeItem = new DecorShopFilterItem(g.user.shopDecorFilter, 0, onActiveItemClick, _source);
 //        _activeItem = new DecorShopFilterItem(g.user.shopDecorFilter, 0, onActiveItemClick, _source);
         _activeItem.addButton();

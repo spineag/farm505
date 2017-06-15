@@ -2392,6 +2392,7 @@ public class TownArea extends Sprite {
         g.managerCats.onGoAway(false);
         if (g.managerVisibleObjects) g.managerVisibleObjects.checkInStaticPosition();
         g.managerLohmatic.onBackHome();
+        if (g.managerBuyerNyashuk) g.managerBuyerNyashuk.visibleNya(true);
         if (g.managerHelpers) g.managerHelpers.checkIt();
         if (g.user.level == 5 && g.managerCutScenes) g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
     }

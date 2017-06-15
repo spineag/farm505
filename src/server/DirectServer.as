@@ -7149,6 +7149,7 @@ public class DirectServer {
         obj.name = String(g.managerLanguage.allTexts[int(d.message.text_id_name)]);
         obj.description = String(g.managerLanguage.allTexts[int(d.message.text_id_description)]);
         obj.idDecorBest = int(d.message.id_decor_best);
+        obj.filterOn = int(d.message.filter_on);
 
         if (d.message.id_gift) obj.idGift = String(d.message.id_gift).split('&');
         for (k = 0; k < obj.idGift.length; k++) obj.idGift[k] = int(obj.idGift[k]);
@@ -7606,6 +7607,62 @@ public class DirectServer {
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
         } else {
             Cc.error('getDataSalePack: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
+        }
+    }
+
+    public function getDataStockPack(callback:Function):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_DATA_STOCK);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getDataSalePack', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onCompleteGetDataStockPack);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onCompleteGetDataStockPack(e:Event):void { completeGetDataStockPack(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getDataStockPack error:' + error.errorID);
+        }
+    }
+
+    private function completeGetDataStockPack(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getDataStockPack: wrong JSON:' + String(response));
+//            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, e.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getDataStockPack: wrong JSON:' + String(response));
+            return;
+        }
+        var b:Boolean = false;
+        if (((int(d.message.time_start) - int(new Date().getTime() / 1000) < 0) && (int(d.message.time_end) - int(new Date().getTime() / 1000) > 0))) {
+            g.userTimer.stockToEnd(int(d.message.time_end) - int(new Date().getTime() / 1000));
+            b = true;
+        } else if ((int(d.message.time_start) - int(new Date().getTime() / 1000)) > 0) {
+            g.userTimer.stockToStart(int(d.message.time_start) - int(new Date().getTime() / 1000), int(d.message.time_end) - int(new Date().getTime() / 1000));
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getDataStockPack OK', 5);
+            if (callback != null) {
+                callback.apply(null, [b]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getDataStockPack: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
             g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
 //            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getAllFriendsInfo: id: ' + d.id + '  with message: ' + d.message);
         }

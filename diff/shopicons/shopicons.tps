@@ -366,6 +366,8 @@
             <filename>alpine_garden_medium_icon.png</filename>
             <filename>mushroom_house_1_icon.png</filename>
             <filename>mushroom_house_2_icon.png</filename>
+            <filename>swing_icon.png</filename>
+            <filename>pier_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
