@@ -5,6 +5,7 @@ package ui.toolsPanel {
 import build.WorldObject;
 import build.decor.DecorFenceArka;
 import build.decor.DecorFenceGate;
+import build.decor.DecorPostFenceArka;
 
 import com.junkbyte.console.Cc;
 import data.BuildType;
@@ -101,6 +102,7 @@ public function clearIt():void {
         } else {
             if (build is DecorFenceGate) (build as DecorFenceGate).showFullView();
             if (build is DecorFenceArka) (build as DecorFenceArka).showFullView();
+            if (build is DecorPostFenceArka) (build as DecorPostFenceArka).showFullView();
             g.toolsModifier.startMove(build, g.townArea.afterMoveFromInventory, true);
         }
         _box.arrNumber(_countCell);

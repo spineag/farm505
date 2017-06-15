@@ -64,20 +64,20 @@ public class DecorFenceGate extends WorldObject {   // vorota
         if (_dataBuild.isFlip) {
             p.x = posX + 1;
             p.y = posY;
-            p = g.matrixGrid.getXYFromIndex(p);
             if (g.isAway) {
                 g.townArea.pasteAwayBuild(_part, p.x, p.y);
             } else {
+                p = g.matrixGrid.getXYFromIndex(p);
                 g.townArea.pasteBuild(_part, p.x, p.y);
             }
             _part.source.scaleX = -_defaultScale;
         } else {
             p.x = posX;
             p.y = posY + 1;
-            p = g.matrixGrid.getXYFromIndex(p);
             if (g.isAway) {
                 g.townArea.pasteAwayBuild(_part, p.x, p.y);
             } else {
+                p = g.matrixGrid.getXYFromIndex(p);
                 g.townArea.pasteBuild(_part, p.x, p.y);
             }
         }
@@ -178,7 +178,7 @@ public class DecorFenceGate extends WorldObject {   // vorota
                 g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-            g.townArea.deleteBuild(this);
+//            g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
             g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);

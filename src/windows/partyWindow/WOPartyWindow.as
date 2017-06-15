@@ -573,8 +573,10 @@ public class WOPartyWindow extends WindowMain {
         _sprRating.addChild(_scrollSprite.source);
         _scrollSprite.source.y = -150;
         _scrollSprite.source.x = -10;
-        if (g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_FULL_FENСE || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_POST_FENCE || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_FENCE_ARKA
-                || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_FENCE_GATE || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_TAIL)
+        if (g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_FULL_FENСE 
+                || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_POST_FENCE || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_FENCE_ARKA
+                || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_FENCE_GATE || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_TAIL 
+                || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_POST_FENCE_ARKA)
             im = new Image(g.allData.atlas[g.allData.getBuildingById(g.managerParty.idDecorBest).url].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).image));
         else im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).url + '_icon'));
         im.x = -250;

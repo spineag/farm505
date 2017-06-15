@@ -26,11 +26,6 @@ public class SocialNetworkSwitch {
                     flashVars["viewer_id"] = "191561520";
                     flashVars["sid"] = "a6b2d9d7d7644458e3bc6be92e6e0f467d0a0a4d66deeb23c789cb8ad055709449be53466eed12a9bfa23";
                     flashVars["secret"] = "2193ce906d";
-
-//                    flashVars["api_id"] = "5448769";
-//                    flashVars["viewer_id"] = "8726902";
-//                    flashVars["sid"] = "4c5f68095369c92a12f5a7fe1c808a53e8584e6c82dc1b8787139bf11efd7a059e2ed9cdf5968ecf9c774";
-//                    flashVars["secret"] = "e790b2b01a";
                 }
 
                 flashVars["access_key"] = MD5.hash(flashVars["api_id"] + flashVars["viewer_id"] + SECRET_KEY);

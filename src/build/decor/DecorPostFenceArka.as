@@ -173,7 +173,7 @@ public class DecorPostFenceArka extends WorldObject {
                 g.townArea.moveBuild(this);
             }
         } else if (g.toolsModifier.modifierType == ToolsModifier.DELETE) {
-            g.townArea.deleteBuild(this);
+//            g.townArea.deleteBuild(this);
         } else if (g.toolsModifier.modifierType == ToolsModifier.FLIP) {
             releaseFlip();
             g.directServer.userBuildingFlip(_dbBuildingId, int(_flip), null);
