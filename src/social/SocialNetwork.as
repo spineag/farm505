@@ -80,6 +80,7 @@ public class SocialNetwork extends EventDispatcher {
         g.user.photo = _paramsUser.photo || "";
         g.user.sex = _paramsUser.sex || "";
         g.user.bornDate = _paramsUser.bdate;
+        if (_paramsUser.timezone) g.user.timezone = int(_paramsUser.timezone);
 //        g.user.city = _paramsUser.city || "";
 //        g.user.country = _paramsUser.country || "";
         dispatchEvent(new SocialNetworkEvent(SocialNetworkEvent.GET_PROFILES));

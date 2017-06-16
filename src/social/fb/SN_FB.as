@@ -70,8 +70,7 @@ public class SN_FB extends SocialNetwork  {
             _paramsUser.photo = String(e.picture) || SocialNetwork.getDefaultAvatar();
             _paramsUser.sex = String(e.gender);
             _paramsUser.bdate = String(e.birthday);
-//            _paramsUser.timeZone = Number(e.timezone);
-//            Cc.ch('social', 'FB: TIMEZONE TIMEZONE TIMEZONE TIMEZONE TIMEZONETIMEZONETIMEZONETIMEZONE TIMEZONETIMEZONETIMEZONETIMEZONETIMEZONETIMEZONETIMEZONETIMEZONETIMEZONE' + _paramsUser.timeZone );
+            _paramsUser.timezone = Number(e.timezone);
             _userLocale = String(e.locale);
 
             super.getProfileSuccess(_paramsUser);
