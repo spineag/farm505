@@ -657,7 +657,7 @@ public class WOPartyWindow extends WindowMain {
         txt.y = -105;
         _sprLast.addChild(txt);
 
-        if (g.managerParty.typeParty == 4) txt = new CTextField(300, 100, String(g.managerParty.userParty.countResource + ' ' + g.allData.getResourceById(g.managerParty.idResource)));
+        if (g.managerParty.typeParty == 4) txt = new CTextField(300, 100, String(g.managerParty.userParty.countResource + ' ' + g.allData.getResourceById(g.managerParty.idResource).name));
         else txt = new CTextField(300, 100, String(g.managerParty.userParty.countResource + ' ' + g.managerLanguage.allTexts[1065]));
         txt.setFormat(CTextField.BOLD24, 22, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.alignH = Align.LEFT;

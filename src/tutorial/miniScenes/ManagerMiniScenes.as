@@ -302,7 +302,7 @@ public class ManagerMiniScenes {
             _arrow = new SimpleArrow(SimpleArrow.POSITION_LEFT, g.cont.popupCont);
             _arrow.scaleIt(.5);
             _arrow.animateAtPosition(ob.x, ob.y + 25);
-            _arrow.activateTimer(3, buyer_4);
+            _arrow.activateTimer(100, buyer_4);
         } else {
             Cc.error('wo_order is not opened');
         }

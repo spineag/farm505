@@ -200,6 +200,7 @@
             <filename>kubok_n_n.png</filename>
             <filename>achievements_1.png</filename>
             <filename>achievements_2.png</filename>
+            <filename>plashka_zaglushka.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -170,5 +170,6 @@ public class ManagerPartyNew {
     public function get  countToGift():Array {return dataParty.countToGift;}
     public function get  typeGift():Array {return dataParty.typeGift;}
     public function get  idDecorBest():int {return dataParty.idDecorBest;}
+    public function get  filterOn():int {return dataParty.filterOn;}
 }
 }

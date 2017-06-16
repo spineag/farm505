@@ -431,14 +431,21 @@ public class Vars {
         toolsPanel = new ToolsPanel();
         testerPanel =new TesterPanelTop();
 
-        if ((user as User).level >= 5 && userTimer.saleTimerToEnd <= 0 && softHardCurrency.actionON) {
-            stock = new StockPanel();
-        }
+//        if ((user as User).level >= 5 && userTimer.saleTimerToEnd <= 0 && softHardCurrency.actionON) {
+            directServer.getDataStockPack(aferServerStock);
+//            stock = new StockPanel();
+//        }
         managerQuest = new ManagerQuest();
 //        gameDispatcher.addNextFrameFunction();
         managerParty = new ManagerPartyNew();
         optionPanel = new OptionPanel();
         directServer.getDataParty(afterLoadAll);
+    }
+
+    private function aferServerStock(b:Boolean = false):void {
+        if (b) {
+            stock = new StockPanel();
+        }
     }
 
     private function afterLoadAll():void {

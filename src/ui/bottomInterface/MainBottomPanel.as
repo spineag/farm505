@@ -623,7 +623,7 @@ public class MainBottomPanel {
         MCScaler.scale(_ava,71,71);
         _ava.x = 9;
         _ava.y = 8;
-        _friendBoard.addChild(_ava);
+        _friendBoard.addChildAt(_ava,0);
     }
 
     public function getShopButtonProperties():Object {

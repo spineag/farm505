@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:507abae637a8701d27acbe21af76904d:36e166b65de52f83356b8db96719b0cc:4a73aa2c06de268f26946a86d2b2a2dc$ -->
-<TextureAtlas imagePath="achievementAtlas.png" width="893" height="251">
-    <SubTexture name="achievement_notification" x="1" y="142" width="427" height="108" frameX="-5" frameY="-3" frameWidth="435" frameHeight="111"/>
-    <SubTexture name="achievements_1" x="430" y="182" width="297" height="65" frameX="-11" frameY="-8" frameWidth="326" frameHeight="93"/>
-    <SubTexture name="achievements_2" x="619" y="1" width="273" height="63" frameX="-7" frameY="-12" frameWidth="293" frameHeight="88"/>
-    <SubTexture name="kubok_n_n" x="805" y="66" width="80" height="86" frameX="0" frameY="-4" frameWidth="81" frameHeight="94"/>
-    <SubTexture name="plashka_big" x="1" y="1" width="616" height="139"/>
-    <SubTexture name="plashka_dwn" x="619" y="66" width="184" height="48"/>
-    <SubTexture name="star" x="619" y="116" width="64" height="64"/>
-    <SubTexture name="star_off" x="685" y="116" width="64" height="64"/>
+<!-- $TexturePacker:SmartUpdate:90c788793312690d93d0b123ab4420c5:7955c7d2b1434eedcc7eee434c412198:4a73aa2c06de268f26946a86d2b2a2dc$ -->
+<TextureAtlas imagePath="achievementAtlas.png" width="1057" height="218">
+    <SubTexture name="achievement_notification" x="629" y="1" width="427" height="108" frameX="-5" frameY="-3" frameWidth="435" frameHeight="111"/>
+    <SubTexture name="achievements_1" x="1" y="152" width="297" height="65" frameX="-11" frameY="-8" frameWidth="326" frameHeight="93"/>
+    <SubTexture name="achievements_2" x="432" y="152" width="273" height="63" frameX="-7" frameY="-12" frameWidth="293" frameHeight="88"/>
+    <SubTexture name="kubok_n_n" x="707" y="111" width="80" height="86" frameX="0" frameY="-4" frameWidth="81" frameHeight="94"/>
+    <SubTexture name="plashka_big" x="1" y="1" width="626" height="149" frameX="-7" frameY="-4" frameWidth="638" frameHeight="153"/>
+    <SubTexture name="plashka_dwn" x="789" y="166" width="184" height="48"/>
+    <SubTexture name="plashka_zaglushka" x="789" y="111" width="197" height="53"/>
+    <SubTexture name="star" x="300" y="152" width="64" height="64"/>
+    <SubTexture name="star_off" x="366" y="152" width="64" height="64"/>
 </TextureAtlas>

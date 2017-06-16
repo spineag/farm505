@@ -5,6 +5,8 @@ package user {
 import manager.ManagerOrderItem;
 import manager.Vars;
 
+import ui.stock.StockPanel;
+
 import windows.WindowsManager;
 
 public class UserTimer {
@@ -19,6 +21,8 @@ public class UserTimer {
     public var partyToStartTimer:int;
     public var saleTimerToEnd:int;
     public var saleTimerToStart:int;
+    public var stockTimerToEnd:int;
+    public var stockTimerToStart:int;
 
     public function UserTimer() {
         _arrOrderItem = [];
@@ -141,6 +145,35 @@ public class UserTimer {
             saleTimerToStart = 0;
             g.managerSalePack.sartAfterSaleTimer();
             g.gameDispatcher.removeFromTimer(saleTimerToStartF);
+        }
+    }
+
+    public function stockToStart(time:int, timeToEnd:int):void {
+        stockTimerToStart = time;
+        stockTimerToEnd = timeToEnd;
+        g.gameDispatcher.addToTimer(stockTimerToStartF);
+    }
+
+    private function stockTimerToStartF():void {
+        stockTimerToStart--;
+        if (stockTimerToStart <= 0) {
+            stockTimerToStart = 0;
+            g.stock = new StockPanel();
+            stockToEnd(stockTimerToEnd);
+            g.gameDispatcher.removeFromTimer(stockTimerToStartF);
+        }
+    }
+
+    public function stockToEnd(time:int):void {
+        stockTimerToEnd = time;
+        g.gameDispatcher.addToTimer(stockTimerToEndF);
+    }
+
+    private function stockTimerToEndF():void {
+        stockTimerToEnd--;
+        if (stockTimerToEnd <= 0) {
+            stockTimerToEnd = 0;
+            g.gameDispatcher.removeFromTimer(stockTimerToEndF);
         }
     }
 
