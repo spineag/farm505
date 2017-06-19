@@ -466,8 +466,10 @@ public class MainBottomPanel {
     }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_board'));
         _friendBoard.addChild(im);
-        txt = new CTextField(150,40,_person.name);
+        txt = new CTextField(150,40,'');
+        txt.needCheckForASCIIChars = true;
         txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
+        txt.text = _person.name;
         txt.x = 90;
         txt.y = 20;
         _friendBoard.addChild(txt);

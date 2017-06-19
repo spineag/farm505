@@ -129,9 +129,9 @@ public class WOPapperItem {
         source.addChild(_txtResourceName);
 
         _txtUserName = new CTextField(110, 50, "");
+        _txtUserName.needCheckForASCIIChars = true;
         _txtUserName.setFormat(CTextField.BOLD18, 16, ManagerFilters.BLUE_COLOR);
         _txtUserName.alignH = Align.LEFT;
-        _txtUserName.touchable = false;
         _txtUserName.x = 58;
         _txtUserName.y = 8;
         source.addChild(_txtUserName);

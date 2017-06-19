@@ -28,7 +28,7 @@ public class MarketFriendItem {
     private var _person:Someone;
     public var source:CSprite;
     private var _ava:Image;
-    private var _txt:CTextField;
+    private var _txtName:CTextField;
     private var _wo:WOMarket;
     public var visitBtn:CButton;
     private var _shiftFriend:int;
@@ -65,11 +65,12 @@ public class MarketFriendItem {
                 g.socialNetwork.getTempUsersInfoById([_person.userSocialId]);
             }
         }
-        _txt = new CTextField(100, 30, 'loading...');
-        _txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
-        _txt.y = 70;
-        if (_person.name) _txt.text = _person.name;
-        source.addChild(_txt);
+        _txtName = new CTextField(100, 30, 'loading...');
+        _txtName.needCheckForASCIIChars = true;
+        _txtName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
+        _txtName.y = 70;
+        if (_person.name) _txtName.text = _person.name;
+        source.addChild(_txtName);
         source.endClickCallback = chooseThis;
         source.hoverCallback = onHover;
         source.outCallback = onOut;
@@ -118,7 +119,7 @@ public class MarketFriendItem {
 //        _person.name = ar[0].first_name;
 //        _person.lastName = ar[0].last_name;
 //        _person.photo = ar[0].photo_100;
-        _txt.text = _person.name;
+        _txtName.text = _person.name;
         if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
         g.load.loadImage(_person.photo, onLoadPhoto);
     }
@@ -164,10 +165,10 @@ public class MarketFriendItem {
     public function deleteIt():void {
         _wo = null;
         _ava = null;
-        if (_txt) {
-            source.removeChild(_txt);
-            _txt.deleteIt();
-            _txt = null;
+        if (_txtName) {
+            source.removeChild(_txtName);
+            _txtName.deleteIt();
+            _txtName = null;
         }
         if (_txtBtn) {
             visitBtn.removeChild(_txtBtn);

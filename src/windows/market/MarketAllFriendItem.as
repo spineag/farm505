@@ -52,6 +52,7 @@ public class MarketAllFriendItem{
         _ava.y = 1;
         source.addChild(_ava);
         _txtPersonName = new CTextField(72, 30, 'loading...');
+        _txtPersonName.needCheckForASCIIChars = true;
         _txtPersonName.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BROWN_COLOR);
         _txtPersonName.y = 45;
         if (_person.name) _txtPersonName.text = _person.name;

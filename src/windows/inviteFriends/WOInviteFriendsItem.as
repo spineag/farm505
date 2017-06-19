@@ -35,21 +35,20 @@ public class WOInviteFriendsItem {
         _ava.y = 2;
         source.addChild(_ava);
         g.load.loadImage(data.photo, onLoadPhoto);
-        var txt:CTextField = new CTextField(100,100,data.name + ' ' + data.lastName);
+        var txt:CTextField = new CTextField(100,100,'');
+        txt.needCheckForASCIIChars = true;
         txt.setFormat(CTextField.BOLD18, 12, Color.BLACK);
+        txt.text = data.name + ' ' + data.lastName;
         txt.y = 20;
         source.addChild(txt);
         check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
         source.addChild(check);
         check.visible = false;
         source.endClickCallback = onClick;
-
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
-        if (!bitmap) {
-            bitmap = g.pBitmaps[_data.photo].create() as Bitmap;
-        }
+        if (!bitmap) bitmap = g.pBitmaps[_data.photo].create() as Bitmap;
         if (!bitmap) {
             Cc.error('WOInviteFriendsItem:: no photo for userId: ' + _data.userSocialId);
             return;
@@ -65,12 +64,7 @@ public class WOInviteFriendsItem {
         if (source) source.addChildAt(_ava,1);
     }
 
-    private function onClick():void {
-        check.visible = !check.visible;
-    }
-
-    public function get data():Object {
-        return _data;
-    }
+    private function onClick():void { check.visible = !check.visible; }
+    public function get data():Object { return _data; }
 }
 }

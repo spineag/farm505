@@ -90,17 +90,23 @@ public class WOPartyRatingFriend {
         _txtCountResource.y = -5;
 
         var txt:CTextField = new CTextField(250, 100, String(number));
-        if (user || _personS.userId == g.user.userId)txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+        if (user || _personS.userId == g.user.userId) txt.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         else txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         txt.alignH = Align.LEFT;
         txt.y = -15;
         txt.x = 28 - txt.textBounds.width/2;
         source.addChild(txt);
-        if (user) _txtNamePerson = new CTextField(90, 120, String(g.user.name + ' ' + g.user.lastName));
-        else _txtNamePerson = new CTextField(90, 120, String(_personS.name));
-        if (user || _personS.userId == g.user.userId) _txtNamePerson.setFormat(CTextField.BOLD18, 18,Color.WHITE, ManagerFilters.BLUE_COLOR);
-        else _txtNamePerson.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
+
+        _txtNamePerson = new CTextField(90, 120, '');
+        _txtNamePerson.needCheckForASCIIChars = true;
         _txtNamePerson.alignH = Align.LEFT;
+        if (user || _personS.userId == g.user.userId) {
+            _txtNamePerson.setFormat(CTextField.BOLD18, 18,Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _txtNamePerson.text = g.user.name + ' ' + g.user.lastName;
+        } else {
+            _txtNamePerson.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
+            _txtNamePerson.text = _personS.name;
+        }
         _txtNamePerson.x = 120;
         _txtNamePerson.y = -27;
         source.addChild(_txtNamePerson);
