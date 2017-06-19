@@ -896,7 +896,7 @@ public class WOOrder extends WindowMain{
         }
         if (okuli) okuli.visible = false;
         if (sharf) sharf.visible = false;
-        if (g.user.isTester) {
+//        if (g.user.isTester) {
             _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_4'));
             _srcBaloon.addChild(_imBaloon);
             _txtBaloon = new CTextField(200, 200, '');
@@ -908,7 +908,7 @@ public class WOOrder extends WindowMain{
             _srcBaloon.x = (_armatureCustomer.display as StarlingArmatureDisplay).x + 30;
             _srcBaloon.y = (_armatureCustomer.display as StarlingArmatureDisplay).y - 60;
             new TweenMax(_srcBaloon, 1, {scaleX: 1, scaleY: 1, y: _srcBaloon + 83, ease: Back.easeOut});
-        }
+//        }
         switch (_arrOrders[pos-1].catOb.type) {
             case DataCat.AKRIL:
                 if (okuli) okuli.visible = false;

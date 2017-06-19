@@ -212,7 +212,7 @@ public class WOStarterPack extends WindowMain{
                 g.directServer.getDailyGift(null);
             } else {
                 g.managerCats.helloCats();
-                if (g.userTimer.partyToEndTimer > 0 && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level) {
+                if (g.userTimer.partyToEndTimer > 0 && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && g.allData.atlas['partyAtlas']) {
                     g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
                 } else if (g.userTimer.partyToEndTimer <= 0 && g.managerParty.userParty && !g.managerParty.userParty.showWindow &&
                         (g.managerParty.dataParty.typeParty == 3 || g.managerParty.dataParty.typeParty == 4)) g.managerParty.endPartyWindow();
@@ -288,7 +288,7 @@ public class WOStarterPack extends WindowMain{
         } else if (_data.object_type == BuildType.DECOR_ANIMATION || _data.object_type == BuildType.DECOR) {
             if (_data.object_type == BuildType.DECOR_ANIMATION) {
                 obj = {};
-                obj.count = 0;
+                obj.count = 1;
                 p = new Point(0, 0);
                 p = _source.localToGlobal(p);
                 obj.id =  _data.object_id;
@@ -296,7 +296,7 @@ public class WOStarterPack extends WindowMain{
                 new DropItem(p.x + 30, p.y + 30, obj);
             } else if (_data.object_type == BuildType.DECOR) {
                 obj = {};
-                obj.count = 0;
+                obj.count = 1;
                 p = new Point(0, 0);
                 p = _source.localToGlobal(p);
                 obj.id =  _data.object_id;

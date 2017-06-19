@@ -91,10 +91,22 @@ public class WOPartyWindow extends WindowMain {
         _source.addChild(_sprRating);
         _source.addChild(_sprLast);
         _sprItem = new Sprite();
-        if (g.allData.atlas['partyAtlas']) eventWO(false);
-        else g.gameDispatcher.addEnterFrame(eventWO);
-        ratingWO();
-        lastWO();
+        if (g.allData.atlas['partyAtlas']) {
+            eventWO(false);
+            ratingWO();
+            lastWO();
+        }
+        else g.gameDispatcher.addEnterFrame(afterAtlas);
+
+    }
+
+    private function afterAtlas():void {
+        if (g.allData.atlas['partyAtlas']) {
+            g.gameDispatcher.removeEnterFrame(afterAtlas);
+            eventWO(false);
+            ratingWO();
+            lastWO();
+        }
     }
 
     private function onClickShow():void {
@@ -116,6 +128,13 @@ public class WOPartyWindow extends WindowMain {
         } else if (BuildType.TREE == g.managerParty.typeBuilding) {
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].dataBuild.craftIdResource == g.managerParty.idResource) {
+                    arr[0] = arr[i];
+                    break;
+                }
+            }
+        } else if (BuildType.FARM == g.managerParty.typeBuilding) {
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].dataAnimal.idResource == g.managerParty.idResource) {
                     arr[0] = arr[i];
                     break;
                 }
@@ -189,7 +208,11 @@ public class WOPartyWindow extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        if (!g.allData.atlas['partyAtlas']) return;
+        if (!g.allData.atlas['partyAtlas']) {
+            g.windowsManager.hideWindow(WindowsManager.WO_PARTY);
+//            g.windowsManager.closeAllWindows();
+            return;
+        }
         if (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2) {
             super.showIt();
             return;
@@ -355,8 +378,8 @@ public class WOPartyWindow extends WindowMain {
     }
 
     private function eventWO(open:Boolean = true):void {
-        if (g.allData.atlas['partyAtlas']) {
-            g.gameDispatcher.removeEnterFrame(eventWO);
+//        if (g.allData.atlas['partyAtlas']) {
+//            g.gameDispatcher.removeEnterFrame(eventWO);
             var im:Image;
             if (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2) {
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('new_event_window_l'));
@@ -371,12 +394,6 @@ public class WOPartyWindow extends WindowMain {
                 _imName.x = -_imName.width / 2 + 5;
                 _imName.y = -205;
                 _sprEvent.addChild(_imName);
-//                _txtName = new CTextField(_woWidth, 70, String(g.managerParty.name));
-//                _txtName.setFormat(CTextField.BOLD30, 38, Color.RED, Color.WHITE);
-//                _txtName.alignH = Align.LEFT;
-//                _txtName.x = -_txtName.textBounds.width / 2;
-//                _txtName.y = -215;
-//                _sprEvent.addChild(_txtName);
                 _txtTime = new CTextField(120, 60, '    ');
                 _txtTime.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
                 _txtTime.alignH = Align.LEFT;
@@ -407,7 +424,7 @@ public class WOPartyWindow extends WindowMain {
                 _txtCoefficient.x = 38;
                 _txtCoefficient.y = -214;
             } else {
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_n'));
+                im = new Image(g.allData.atlas['partyAtlas'].getTexture('lexys_day_event_back'));
                 im.x = -im.width / 2 - 4;
 //                im.y = -im.height / 2 - 12;
                 im.y = -im.height / 2 - 6;
@@ -416,8 +433,8 @@ public class WOPartyWindow extends WindowMain {
                 im.x = -im.width / 2 - 295;
                 im.y = -im.height / 2 - 115;
                 _sprEvent.addChild(im);
-                if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('grape Mood'));
-                else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('pirog'));
+                if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('lexys_day_eng'));
+                else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('lexys_day_rus'));
                 _imName.x = -_imName.width / 2 + 5;
                 _imName.y = -205;
                 _sprEvent.addChild(_imName);
@@ -524,13 +541,14 @@ public class WOPartyWindow extends WindowMain {
             _sprEvent.addChild(_btnParty);
             createExitButton(onClickExit);
             _callbackClickBG = onClickExit;
-        }
+//        }
         if (open) showItParams(null, null);
     }
 
     private function ratingWO():void {
         var im:Image;
         var txt:CTextField;
+        if (!g.allData.atlas['partyAtlas']) return;
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('best_players_3'));
         im.x = -im.width / 2 - 4;
         im.y = -im.height / 2 + 10;
@@ -587,7 +605,12 @@ public class WOPartyWindow extends WindowMain {
         txt.alignH = Align.LEFT;
         txt.x = -165 - txt.textBounds.width/2;
         _sprRating.addChild(txt);
-
+        if (g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_ANIMATION) {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('animated_decor'));
+            im.x = -120;
+            im.y = -120;
+            _sprRating.addChild(im);
+        }
         txt = new CTextField(230, 100, String(g.managerLanguage.allTexts[1059]));
         txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         txt.x = -285;
@@ -597,6 +620,7 @@ public class WOPartyWindow extends WindowMain {
 
     private function lastWO():void {
         var im:Image;
+        if (!g.allData.atlas['partyAtlas']) return;
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_congratulations'));
         im.x = -im.width / 2 - 4;
         im.y = -im.height / 2 - 8;

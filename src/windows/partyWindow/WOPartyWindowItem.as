@@ -60,12 +60,12 @@ public class WOPartyWindowItem {
         if (number == 5) _txtCountResource.y = 35;
         else _txtCountResource.y = 35;
         var im:Image;
-//        if (number == 5) {
-//            _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_2'));
-//            _bg.y = -30;
-//        }
-//        else _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
-        _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
+        if (number == 5) {
+            _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_2'));
+            _bg.y = -30;
+        }
+        else _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
+//        _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_1'));
         source.addChild(_bg);
         if (id == 1 && type  == 1) {
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('coins'));
@@ -89,6 +89,7 @@ public class WOPartyWindowItem {
         } else if (type == BuildType.DECOR) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).image +'_icon'));
             _sprItem.addChild(im);
+            _txtCountResource.text = String(countResource);
             _sprItem.hoverCallback = function():void { g.hint.showIt(String(g.allData.getBuildingById(id).name)); };
             _sprItem.outCallback = function():void { g.hint.hideIt(); };
 
@@ -98,13 +99,13 @@ public class WOPartyWindowItem {
         MCScaler.scale(im, 80,80);
         source.addChild(_sprItem);
 
-//        if (number == 5) {
-//            im.x = _bg.width/2;
-//            im.y = _bg.height/2 - 30;
-//        } else {
+        if (number == 5) {
+            im.x = _bg.width/2;
+            im.y = _bg.height/2 - 30;
+        } else {
             im.x = _bg.width/2;
             im.y = _bg.height/2;
-//        }
+        }
         _btn.addButtonTexture(80, 20, CButton.GREEN, true);
         _txtBtn = new CTextField(80,20,String(g.managerLanguage.allTexts[358]));
         _txtBtn.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
@@ -297,11 +298,11 @@ public class WOPartyWindowItem {
         g.directServer.updateUserParty(st,g.managerParty.userParty.countResource,0, null);
         var prise:Object = {};
         if (_data.typeResource == BuildType.DECOR_ANIMATION) {
-            prise.count = 1;
+            prise.count = _data.countResource;
             prise.id =  _data.idResource;
             prise.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
         } else if (_data.typeResource == BuildType.DECOR) {
-            prise.count = 1;
+            prise.count = _data.countResource;
             prise.id =  _data.idResource;
             prise.type = DropResourceVariaty.DROP_TYPE_DECOR;
         } else {

@@ -30,12 +30,17 @@ import starling.utils.Color;
 
 import user.Someone;
 
+import utils.CSprite;
+
 import utils.CTextField;
 
 import utils.MCScaler;
 
+import windows.WindowsManager;
+
 public class WOPartyRatingFriend {
     public var source:Sprite;
+    private var _srcAva:CSprite;
     private var _ava:Image;
     private var _txtCountResource:CTextField;
     private var _txtNamePerson:CTextField;
@@ -52,7 +57,7 @@ public class WOPartyRatingFriend {
             _personS.userSocialId = ob.userSocialId;
             _personS.photo = ob.photo;
             _personS.name = ob.name;
-            _personS.userId = ob.level;
+            _personS.level = ob.level;
             _data = ob;
         }
         source = new Sprite();
@@ -81,7 +86,7 @@ public class WOPartyRatingFriend {
         _txtCountResource.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCountResource.alignH = Align.LEFT;
         source.addChild(_txtCountResource);
-        _txtCountResource.x = 242 - _txtCountResource.textBounds.width/2;
+        _txtCountResource.x = 241 - _txtCountResource.textBounds.width/2;
         _txtCountResource.y = -5;
 
         var txt:CTextField = new CTextField(250, 100, String(number));
@@ -106,6 +111,8 @@ public class WOPartyRatingFriend {
         if (!_personS.photo) _personS = g.user.getSomeoneBySocialId(_personS.userSocialId);
         if (_personS.photo =='' || _personS.photo == 'unknown') _personS.photo =  SocialNetwork.getDefaultAvatar();
         g.load.loadImage(_personS.photo, onLoadPhoto);
+        _personS.level = _data.level;
+        _personS.userId = _data.userId;
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
@@ -122,11 +129,22 @@ public class WOPartyRatingFriend {
 
     private function photoFromTexture(tex:Texture):void {
         if (!tex) return;
+        _srcAva = new CSprite();
+        source.addChild(_srcAva);
         _ava = new Image(tex);
         MCScaler.scale(_ava, 50, 50);
         _ava.x = 55;
         _ava.y = 10;
-        source.addChild(_ava);
+        _srcAva.addChild(_ava);
+        if (_data.userSocialId != g.user.userSocialId && g.user.isTester) {
+            _srcAva.endClickCallback = visitPerson;
+            _srcAva.hoverCallback = function ():void {
+                g.hint.showIt(String(g.managerLanguage.allTexts[386]));
+            };
+            _srcAva.outCallback = function ():void {
+                g.hint.hideIt();
+            };
+        }
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('star_small'));
         MCScaler.scale(im, im.height-5, im.width-5);
         im.x = 89;
@@ -140,6 +158,11 @@ public class WOPartyRatingFriend {
         txt.x = 105 - txt.textBounds.width/2;
         txt.y = -3;
         source.addChild(txt);
+    }
+
+    private function visitPerson():void {
+        g.townArea.goAway(_personS);
+        g.windowsManager.hideWindow(WindowsManager.WO_PARTY);
     }
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {

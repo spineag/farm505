@@ -7353,6 +7353,7 @@ public class DirectServer {
         if (d.message.took_gift) obj.tookGift = String(d.message.took_gift).split('&');
         for (k = 0; k < obj.tookGift.length; k++) obj.tookGift[k] = int(obj.tookGift[k]);
         obj.showWindow = Boolean(int(d.message.show_window));
+        obj.idParty = Boolean(int(d.message.id_party));
         g.managerParty.userParty = obj;
         if (d.id == 0) {
             Cc.ch('server', 'getUserEvent OK', 5);

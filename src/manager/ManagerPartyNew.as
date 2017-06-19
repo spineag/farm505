@@ -30,6 +30,7 @@ public class ManagerPartyNew {
     private var g:Vars = Vars.getInstance();
     private var count:int = 0;
     public var dataParty:Object;
+    public var dataPartyDontUse:Object;
     public var userParty:Object;
     public var eventOn:Boolean;
     public var arrBestPlayers:Array;
@@ -46,11 +47,11 @@ public class ManagerPartyNew {
         for (var i:int = 0; i < g.managerParty.userParty.tookGift.length; i++) {
             if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countResource >= g.managerParty.dataParty.countToGift[i] ) {
                 if (g.managerParty.dataParty.typeGift[i] == BuildType.DECOR_ANIMATION) {
-                    obj.count = 1;
+                    obj.count = g.managerParty.dataParty.countGift[i];
                     obj.id =  g.managerParty.dataParty.idGift[i];
                     obj.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
                 } else if (g.managerParty.dataParty.typeGift[i] == BuildType.DECOR) {
-                    obj.count = 1;
+                    obj.count = g.managerParty.dataParty.countGift[i];
                     obj.id =  g.managerParty.dataParty.idGift[i];
                     obj.type = DropResourceVariaty.DROP_TYPE_DECOR;
                 } else {
@@ -79,11 +80,11 @@ public class ManagerPartyNew {
         for (var i:int = 0; i < userParty.tookGift.length; i++) {
             if (!userParty.tookGift[i] && userParty.countResource >= countToGift[i] ) {
                 if (typeGift[i] == BuildType.DECOR_ANIMATION) {
-                    obj.count = 1;
+                    obj.count = countGift[i];
                     obj.id =  idGift[i];
                     obj.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
                 } else if (typeGift[i] == BuildType.DECOR) {
-                    obj.count = 1;
+                    obj.count = countGift[i];
                     obj.id =  g.managerParty.idGift[i];
                     obj.type = DropResourceVariaty.DROP_TYPE_DECOR;
                 } else {

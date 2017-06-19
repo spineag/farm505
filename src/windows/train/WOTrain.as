@@ -316,10 +316,12 @@ public class WOTrain extends WindowMain {
 
     private function onItemClick(k:int):void {
         _activeItemIndex = k;
+        var countWantHelp:int = 0;
         if (_btnLoad) _btnLoad.visible = true;
 //        _btnHelp.visible = true;
         for (var i:int = 0; i<_arrItems.length; i++) {
             (_arrItems[i] as WOTrainItem).activateIt(false);
+            if ((_arrItems[i] as WOTrainItem).needHelp) countWantHelp++;
         }
         (_arrItems[_activeItemIndex] as WOTrainItem).activateIt(true);
         if ((_arrItems[k] as WOTrainItem).isResourceLoaded) {
@@ -386,10 +388,16 @@ public class WOTrain extends WindowMain {
                     _btnHelp.x = 143;
                     _btnHelp.y = 210;
                     _rightBlock.addChild(_btnHelp);
-                    _txtHelp = new CTextField(240, 52, String(g.managerLanguage.allTexts[301]));
-                    _txtHelp.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+                    if (countWantHelp >= 3) {
+                        _txtHelp = new CTextField(240, 52, String(g.managerLanguage.allTexts[301]) + ' (3/3)');
+                        _btnHelp.setEnabled = false;
+                    } else {
+                        _txtHelp = new CTextField(240, 52, String(g.managerLanguage.allTexts[301]) + ' (' + countWantHelp + '/3)');
+                        _btnHelp.setEnabled = true;
+                    }
+                    _txtHelp.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
                     _btnHelp.addChild(_txtHelp);
-                    _txtHelp.x = 10;
+                    _txtHelp.x = 18;
                     _btnHelp.clickCallback = wantHelpClick;
                 } else {
                     if (_arrItems[k].isResourceLoaded && _btnHelp) {

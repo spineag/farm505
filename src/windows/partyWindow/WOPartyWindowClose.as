@@ -96,11 +96,11 @@ public class WOPartyWindowClose extends WindowMain{
         for (var i:int = 0; i < g.managerParty.userParty.tookGift.length; i++) {
             if (!g.managerParty.userParty.tookGift[i] && g.managerParty.userParty.countResource >= g.managerParty.countToGift[i] ) {
                 if (g.managerParty.typeGift[i] == BuildType.DECOR_ANIMATION) {
-                    obj.count = 1;
+                    obj.count = g.managerParty.countGift[i];
                     obj.id =  g.managerParty.idGift[i];
                     obj.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
                 } else if (g.managerParty.typeGift[i] == BuildType.DECOR) {
-                    obj.count = 1;
+                    obj.count = g.managerParty.countGift[i];
                     obj.id =  g.managerParty.idGift[i];
                     obj.type = DropResourceVariaty.DROP_TYPE_DECOR;
                 } else {

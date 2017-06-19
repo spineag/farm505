@@ -51,6 +51,7 @@ public class DropItem {
         }
 
         _source = new Sprite();
+        var i:int = 0;
         if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION) {
             _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(prise.id).url + '_icon'));
             endPoint = g.toolsPanel.pointXY();
@@ -60,7 +61,9 @@ public class DropItem {
             var f:Function = function ():void {
                 g.directServer.buyAndAddToInventory(prise.id, f4);
             };
-            f();
+            for (i = 0; i < prise.count; i++) {
+                f();
+            }
         } else if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR) {
             _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(prise.id).image +'_icon'));
             endPoint = g.toolsPanel.pointXY();
@@ -70,7 +73,9 @@ public class DropItem {
             var f2:Function = function ():void {
                 g.directServer.buyAndAddToInventory(prise.id, f3);
             };
-            f2();
+            for (i = 0; i < prise.count; i++) {
+                f2();
+            }
         } else if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
             _image = new Image(g.allData.atlas[g.allData.getResourceById(prise.id).url].getTexture(g.allData.getResourceById(prise.id).imageShop));
             endPoint = g.craftPanel.pointXY();

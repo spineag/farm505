@@ -71,6 +71,12 @@ public class WOSalePackItem {
             im.y -= 15;
             _txtName.y = 120;
         }
+        if (_objectType == BuildType.DECOR_ANIMATION) {
+            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('animated_decor'));
+            im.x = 135 - im.width/2;
+            im.y = 40 - im.height/2;
+            source.addChild(im);
+        }
     }
 }
 }

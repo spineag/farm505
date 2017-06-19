@@ -214,11 +214,10 @@
             <filename>best_players_2.png</filename>
             <filename>end_event_title.png</filename>
             <filename>congratulations.png</filename>
-            <filename>grape_mood_icon.png</filename>
-            <filename>grape Mood.png</filename>
-            <filename>festival.png</filename>
-            <filename>event_window_n.png</filename>
-            <filename>pirog.png</filename>
+            <filename>lexys_day_event_back.png</filename>
+            <filename>lexy_help_event_icon_2.png</filename>
+            <filename>lexys_day_eng.png</filename>
+            <filename>lexys_day_rus.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
