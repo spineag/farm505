@@ -54,6 +54,7 @@ public class User extends Someone {
     public var sessionKey:String;
     public var fabricItemNotification:Array = [];
     public var bornDate:String;
+    public var timezone:int = 0;
     public var countAwayMouse:int;
     public var dayDailyGift:int;
     public var countDailyGift:int;

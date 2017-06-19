@@ -782,7 +782,10 @@ public class DirectServer {
         variables.sex = g.user.sex;
         variables.bornDate = g.user.bornDate;
         variables.defaultLanguage = g.socialNetwork.checkLocaleForLanguage();
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) variables.photo = g.user.photo;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            variables.timezone =  g.user.timezone;
+            variables.photo = g.user.photo;
+        }
         request.data = variables;
         request.method = URLRequestMethod.POST;
         iconMouse.startConnect();
