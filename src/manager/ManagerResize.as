@@ -51,7 +51,7 @@ public class ManagerResize {
             if (g.achievementPanel) g.achievementPanel.onResize();
             if (g.windowsManager) g.windowsManager.onResize();
             if (g.optionPanel) g.optionPanel.onResize();
-            if (g.stock) g.stock.onResize();
+            if (g.stockPanel) g.stockPanel.onResize();
             if (g.salePanel) g.salePanel.onResize();
             if (g.managerTips) g.managerTips.onResize();
             if (g.managerTutorial && g.managerTutorial.isTutorial) g.managerTutorial.onResize();

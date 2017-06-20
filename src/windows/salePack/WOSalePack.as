@@ -247,7 +247,7 @@ public class WOSalePack extends WindowMain{
     public function startTimer():void {
         if (g.userTimer.saleTimerToEnd > 0) {
             if (_txtTime) {
-                _txtTime.text = TimeUtils.convertSecondsForHint(g.userTimer.saleTimerToEnd);
+                _txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.saleTimerToEnd);
                 _txtTime.x = -350 - _txtTime.textBounds.width/2;
             }
         } else {

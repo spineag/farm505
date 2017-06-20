@@ -265,7 +265,7 @@ public class WOPartyWindow extends WindowMain {
 
     private function startTimer():void {
         if (g.userTimer.partyToEndTimer > 0) {
-            if (_txtTime)_txtTime.text = TimeUtils.convertSecondsForHint(g.userTimer.partyToEndTimer);
+            if (_txtTime)_txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.partyToEndTimer);
             if (_txtTime && g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2 && _txtTime.x == 0) _txtTime.x = -(160 + _txtTime.textBounds.width/2);
         } else {
             onClickExit();

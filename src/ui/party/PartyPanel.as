@@ -1,53 +1,37 @@
-/**
- * Created by user on 1/30/17.
- */
 package ui.party {
-import data.BuildType;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
-import social.SocialNetworkSwitch;
-
 import starling.animation.Tween;
-
 import starling.display.Image;
-
 import utils.CSprite;
 import utils.CTextField;
 import utils.TimeUtils;
-
 import windows.WindowsManager;
 
 public class PartyPanel {
     private var _source:CSprite;
     private var g:Vars = Vars.getInstance();
-    private var _txtData:CTextField;
+    private var _txtTimer:CTextField;
     private var _isHover:Boolean;
 
     public function PartyPanel() {
         _source = new CSprite();
-        var im:Image;
-//        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) im = new Image(g.allData.atlas['partyAtlas'].getTexture('grape_mood_icon'));
-        im = new Image(g.allData.atlas['partyAtlas'].getTexture('zefir_timer'));
+        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('zefir_timer'));
         _source.addChild(im);
 
-        _txtData = new CTextField(100,60,'');
-        _txtData.setFormat(CTextField.BOLD18, 18, 0xd30102);
-        _source.addChild(_txtData);
-        _txtData.y = 55;
+        _txtTimer = new CTextField(100,60,'');
+        _txtTimer.setFormat(CTextField.BOLD18, 18, 0xd30102);
+        _source.addChild(_txtTimer);
+        _txtTimer.y = 55;
 
-        g.cont.interfaceCont.addChildAt(_source,0);
+        g.cont.interfaceCont.addChild(_source);
         onResize();
         _source.hoverCallback = onHover;
         _source.outCallback = onOut;
         _source.endClickCallback = onClick;
         g.gameDispatcher.addToTimer(startTimer);
-        _source.pivotX = _source.width/2;
-        _source.pivotY = _source.height/2;
+        _source.alignPivot();
         _isHover = false;
     }
 
@@ -59,14 +43,14 @@ public class PartyPanel {
 
     private function startTimer():void {
         if (g.userTimer.partyToEndTimer > 0) {
-            if (_txtData)_txtData.text = TimeUtils.convertSecondsForHint(g.userTimer.partyToEndTimer);
+            if (_txtTimer)_txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.partyToEndTimer);
         } else {
             visiblePartyPanel(false);
             if (!g.managerParty.userParty.showWindow) {
-                if (_txtData) {
-                    _source.removeChild(_txtData);
-                    _txtData.deleteIt();
-                    _txtData = null;
+                if (_txtTimer) {
+                    _source.removeChild(_txtTimer);
+                    _txtTimer.deleteIt();
+                    _txtTimer = null;
                 }
 //                g.managerParty.endPartyWindow()
             }
@@ -90,7 +74,10 @@ public class PartyPanel {
     public function visiblePartyPanel(b:Boolean):void {
         if (b && _source && g.managerParty.eventOn) _source.visible = true;
         else if (_source) _source.visible = false;
+        if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
     }
+    
+    public function get isVisible():Boolean { return _source.visible; }
 
     private function onClick():void {
         if (g.userTimer.partyToEndTimer > 0) {

@@ -170,7 +170,7 @@ public class Vars {
     public var friendPanel:FriendPanel;
     public var toolsPanel:ToolsPanel;
     public var catPanel:CatPanel;
-    public var stock:StockPanel;
+    public var stockPanel:StockPanel;
     public var partyPanel:PartyPanel;
     public var salePanel:SalePanel;
     public var achievementPanel:AchievementPanel;
@@ -432,8 +432,8 @@ public class Vars {
         testerPanel =new TesterPanelTop();
 
 //        if ((user as User).level >= 5 && userTimer.saleTimerToEnd <= 0 && softHardCurrency.actionON) {
-            directServer.getDataStockPack(aferServerStock);
-//            stock = new StockPanel();
+            directServer.getDataStockPack(afterServerStock);
+//            stockPanel = new StockPanel();
 //        }
         managerQuest = new ManagerQuest();
 //        gameDispatcher.addNextFrameFunction();
@@ -442,10 +442,8 @@ public class Vars {
         directServer.getDataParty(afterLoadAll);
     }
 
-    private function aferServerStock(b:Boolean = false):void {
-        if (b) {
-            stock = new StockPanel();
-        }
+    private function afterServerStock(b:Boolean = false):void {
+        if (b) stockPanel = new StockPanel();
     }
 
     private function afterLoadAll():void {
@@ -487,14 +485,10 @@ public class Vars {
         updateAmbarIndicator();
         gameDispatcher.addNextFrameFunction(afterLoadAll_2);
 
-        if (socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            directServer.getDataInviteViral(onViralInvite);
-        }
+        if (socialNetworkID == SocialNetworkSwitch.SN_FB_ID)  directServer.getDataInviteViral(onViralInvite);
     }
 
-    private function onViralInvite(data:Object):void {
-        managerInviteFriend = new ManagerInviteFriendViral(data);
-    }
+    private function onViralInvite(data:Object):void {  managerInviteFriend = new ManagerInviteFriendViral(data); }
 
     private function afterLoadAll_2():void {
         townArea.zSort();

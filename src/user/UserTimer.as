@@ -158,7 +158,7 @@ public class UserTimer {
         stockTimerToStart--;
         if (stockTimerToStart <= 0) {
             stockTimerToStart = 0;
-            g.stock = new StockPanel();
+            g.stockPanel = new StockPanel();
             stockToEnd(stockTimerToEnd);
             g.gameDispatcher.removeFromTimer(stockTimerToStartF);
         }

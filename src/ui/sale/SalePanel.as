@@ -84,7 +84,7 @@ public class SalePanel {
 
     private function startTimer():void {
         if (g.userTimer.saleTimerToEnd > 0) {
-            if (_txtData)_txtData.text = TimeUtils.convertSecondsForHint(g.userTimer.saleTimerToEnd);
+            if (_txtData)_txtData.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.saleTimerToEnd);
         } else {
             visiblePartyPanel(false);
             if (_txtData) {
@@ -99,7 +99,10 @@ public class SalePanel {
     public function visiblePartyPanel(b:Boolean):void {
         if (b) _source.visible = true;
         else _source.visible = false;
+        if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
     }
+    
+    public function get isVisible():Boolean { return _source.visible; } 
 
     private function animation():void {
         _timer--;

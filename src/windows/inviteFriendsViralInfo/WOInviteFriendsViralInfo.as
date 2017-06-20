@@ -34,7 +34,6 @@ public class WOInviteFriendsViralInfo extends WindowMain {
     private var _imRub:Image;
     private var _contTimerEnd:Sprite;
     private var _txtTimerEnd:CTextField;
-    private var _timerEnd:int;
 
     public function WOInviteFriendsViralInfo() {
         super();
@@ -121,20 +120,13 @@ public class WOInviteFriendsViralInfo extends WindowMain {
     override public function showItParams(callback:Function, params:Array):void {
         _callback = callback;
         super.showIt();
-        _timerEnd = 5 * 60;
-        g.gameDispatcher.addToTimer(onEndTimer);
+        g.gameDispatcher.addToTimer(onTimer);
     }
 
-    private function onEndTimer():void {
-        _timerEnd--;
-        _txtTimerEnd.text = TimeUtils.convertSecondsForHint(_timerEnd);
-        if (_timerEnd <= 0) {
-            onClickExit();
-        }
-    }
+    private function onTimer():void { _txtTimerEnd.text = TimeUtils.convertSecondsToStringClassic(g.managerInviteFriend.timerEnd); }
 
     private function letInvite():void {
-        g.gameDispatcher.removeFromTimer(onEndTimer);
+        g.gameDispatcher.removeFromTimer(onTimer);
         _contTimerEnd.visible = false;
         g.socialNetwork.addEventListener(SocialNetworkEvent.ON_VIRAL_INVITE, onViralInvite);
         g.socialNetwork.showViralInviteWindow();
@@ -151,7 +143,7 @@ public class WOInviteFriendsViralInfo extends WindowMain {
     }
 
     private function onClickExit():void {
-        g.gameDispatcher.removeFromTimer(onEndTimer);
+        g.gameDispatcher.removeFromTimer(onTimer);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ON_VIRAL_INVITE, onViralInvite);
         if (_callback != null) {
             _callback.apply(null, [[]]);
