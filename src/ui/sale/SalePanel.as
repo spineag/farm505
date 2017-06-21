@@ -70,6 +70,7 @@ public class SalePanel {
             b.display = _spriteTxt;
         }
         g.gameDispatcher.addToTimer(startTimer);
+        if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
     }
 
     public function onResize():void {

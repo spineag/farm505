@@ -39,13 +39,12 @@ public class InvitePanelTimer {
     }
     
     public function updatePosition():void {
-        if (g.partyPanel && g.partyPanel.isVisible || g.stockPanel && g.stockPanel.isVisible || g.salePanel && g.salePanel.isVisible)
-            _source.y = 330;
-        else _source.y = 180;  }
-
-    private function startTimer():void {
-        if (_txtTimer) _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.managerInviteFriend.timerEnd);
+        if (g.partyPanel && g.partyPanel.isVisible || g.stockPanel && g.stockPanel.isVisible || g.salePanel && g.salePanel.isVisible) _source.y = 280;
+        else _source.y = 180;
+        _source.x = g.managerResize.stageWidth - 65;
     }
+
+    private function startTimer():void { if (_txtTimer) _txtTimer.text = TimeUtils.convertSecondsToStringClassic(g.managerInviteFriend.timerEnd); }
 
     private function onHover():void {
         if (_isHover) return;

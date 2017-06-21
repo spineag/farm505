@@ -53,6 +53,7 @@ public class ManagerResize {
             if (g.optionPanel) g.optionPanel.onResize();
             if (g.stockPanel) g.stockPanel.onResize();
             if (g.salePanel) g.salePanel.onResize();
+            if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
             if (g.managerTips) g.managerTips.onResize();
             if (g.managerTutorial && g.managerTutorial.isTutorial) g.managerTutorial.onResize();
             if (g.managerCutScenes && g.managerCutScenes.isCutScene) g.managerCutScenes.onResize();

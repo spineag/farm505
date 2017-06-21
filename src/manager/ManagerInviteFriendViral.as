@@ -41,14 +41,13 @@ public class ManagerInviteFriendViral {
     public function updateTimerPanelPosition():void { if (_invitePanelTimer) _invitePanelTimer.updatePosition(); }
 
     private function checkIt():void {
-        if (g.user.nextTimeInvite == 0 || g.user.nextTimeInvite < int(new Date().getTime()/1000)) {
+//        if (g.user.nextTimeInvite == 0 || g.user.nextTimeInvite < int(new Date().getTime()/1000)) {
             g.load.loadAtlas('inviteAtlas', 'inviteAtlas', startTimer);
-        }
+//        }
     }
     
     private function startTimer():void {
         _timerOpenWO = 30 + int(Math.random()* 60);
-        trace('_timerOpenWO: ' + _timerOpenWO);
         g.gameDispatcher.addToTimer(onTimer);
         if (!_invitePanelTimer) _invitePanelTimer = new InvitePanelTimer();
         updateTimerPanelPosition();
