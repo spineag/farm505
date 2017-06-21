@@ -896,7 +896,7 @@ public class WOOrder extends WindowMain{
         }
         if (okuli) okuli.visible = false;
         if (sharf) sharf.visible = false;
-        if (!g.managerTutorial.isTutorial || !g.managerCutScenes.isCutScene) {
+        if (g.user.level >= 5) {
             _imBaloon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('baloon_4'));
             _srcBaloon.addChild(_imBaloon);
             _txtBaloon = new CTextField(200, 200, '');
