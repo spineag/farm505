@@ -71,7 +71,6 @@ public class StockPanel {
         _spriteTxt = new Sprite();
         _spriteTxt.addChild(_txtData);
 
-
         if (!b) var b:Slot = _armature.getSlot('text');
         if (b) {
             b.displayList = null;
@@ -85,6 +84,7 @@ public class StockPanel {
         }
         g.gameDispatcher.addToTimer(startTimer);
         g.gameDispatcher.addToTimer(animation);
+        if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
     }
 
     public function onResize():void {

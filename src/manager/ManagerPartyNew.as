@@ -147,7 +147,10 @@ public class ManagerPartyNew {
         if (g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')] && g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')]) {
             g.allData.atlas['partyAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')].create() as Bitmap), g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')]);
             (g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')] as PBitmap).deleteIt();
-            if (g.userTimer.partyToEndTimer > 0) g.partyPanel = new PartyPanel();
+            if (g.userTimer.partyToEndTimer > 0) {
+                g.partyPanel = new PartyPanel();
+                if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
+            }
             if (!g.windowsManager.currentWindow && g.userTimer.partyToEndTimer > 0) {
                 g.windowsManager.openWindow(WindowsManager.WO_PARTY, null);
             } else if ((g.userTimer.partyToEndTimer <= 0 && !eventOn) && (dataParty.typeParty == 3 || dataParty.typeParty == 4)) {

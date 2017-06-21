@@ -48,7 +48,6 @@ public class ManagerInviteFriendViral {
     
     private function startTimer():void {
         _timerOpenWO = 30 + int(Math.random()* 60);
-        trace('_timerOpenWO: ' + _timerOpenWO);
         g.gameDispatcher.addToTimer(onTimer);
         if (!_invitePanelTimer) _invitePanelTimer = new InvitePanelTimer();
         updateTimerPanelPosition();
