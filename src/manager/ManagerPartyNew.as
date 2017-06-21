@@ -123,6 +123,13 @@ public class ManagerPartyNew {
                 endParty();
                 g.directServer.updateUserParty('1&1&1&1&1', userParty.countResource, 1, null);
             }
+        } else if (userParty && !userParty.showWindow && g.managerParty.userParty.countResource >= dataParty.countToGift[0] && (dataParty.typeParty == 1 || dataParty.typeParty == 2)) {
+            if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
+            if (g.managerParty.userParty.countResource >= dataParty.countToGift[0]) {
+                g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
+                endParty();
+                g.directServer.updateUserParty('1&1&1&1&1', userParty.countResource, 1, null);
+            }
         }
     }
 

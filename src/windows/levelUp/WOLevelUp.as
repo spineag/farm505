@@ -394,6 +394,7 @@ public class WOLevelUp extends WindowMain {
         arR = g.allData.building;
         var arrTempColor:Array = [];
         var b:Boolean = true;
+        var j:int = 0;
         for (i = 0; i < arR.length; i++) {
             if (arR[i].buildType != BuildType.CHEST) {
                 if (arR[i].buildType == BuildType.TREE || arR[i].buildType == BuildType.FARM || arR[i].buildType == BuildType.FABRICA) {
@@ -415,7 +416,7 @@ public class WOLevelUp extends WindowMain {
                     b = true;
                     if (arR[i].buildType != BuildType.CAVE && arR[i].buildType != BuildType.TRAIN && arR[i].buildType != BuildType.PAPER && arR[i].buildType != BuildType.DAILY_BONUS
                             && arR[i].buildType != BuildType.ORDER && arR[i].buildType != BuildType.MARKET) {
-                        for (var j:int = 0; j < arrTempColor.length; j++) {
+                        for (j = 0; j < arrTempColor.length; j++) {
                             if (arrTempColor[j] == arR[i].group) {
                                 b = false;
                                 break;
@@ -457,13 +458,30 @@ public class WOLevelUp extends WindowMain {
             }
         }
         if (g.dataLevel.objectLevels[g.user.level].resourceId[0] > 0) {
+            b = false;
             for (i = 0; i < g.dataLevel.objectLevels[g.user.level].resourceId.length; i++) {
-                objDataLevel = {};
-                objDataLevel.resourceData = true;
-                objDataLevel.id = g.dataLevel.objectLevels[g.user.level].resourceId[i];
-                objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countResource[i];
-                objDataLevel.priority = 3;
-                arr.push(objDataLevel);
+               for (j = 0; j < arr.length; j++) {
+                   if (arr[j].id && arr[j].id == g.dataLevel.objectLevels[g.user.level].resourceId[i]) {
+                       b = true;
+                       break;
+                   }
+               }
+                if (!b) {
+                    objDataLevel = {};
+                    objDataLevel.resourceData = true;
+                    objDataLevel.id = g.dataLevel.objectLevels[g.user.level].resourceId[i];
+                    objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countResource[i];
+                    objDataLevel.priority = 3;
+                    arr.push(objDataLevel);
+                } else {
+                    arr.splice(j,1);
+                    objDataLevel = {};
+                    objDataLevel.resourceData = true;
+                    objDataLevel.id = g.dataLevel.objectLevels[g.user.level].resourceId[i];
+                    objDataLevel.count = g.dataLevel.objectLevels[g.user.level].countResource[i] + 3;
+                    objDataLevel.priority = 3;
+                    arr.push(objDataLevel);
+                }
             }
         }
         if (g.dataLevel.objectLevels[g.user.level].catCount > 0) {
@@ -471,7 +489,7 @@ public class WOLevelUp extends WindowMain {
             objDataLevel.catCount = true;
             objDataLevel.id = -1;
             objDataLevel.count = g.dataLevel.objectLevels[g.user.level].catCount;
-            objDataLevel.priority = 4;
+            objDataLevel.priority = 2;
             arr.push(objDataLevel);
             g.user.villageNotification++;
         }

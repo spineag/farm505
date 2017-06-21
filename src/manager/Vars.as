@@ -28,6 +28,8 @@ import loaders.DataPath;
 import loaders.LoadAnimationManager;
 import loaders.LoaderManager;
 import loaders.allLoadMb.AllLoadMb;
+
+import manager.ManagerPartyNew;
 import manager.hitArea.ManagerHitArea;
 import manager.ownError.ErrorConst;
 import manager.ownError.OwnErrorManager;
@@ -456,6 +458,12 @@ public class Vars {
                         && (managerParty.dataParty.typeParty == 3 || managerParty.dataParty.typeParty == 4)  && !managerCutScenes.isCutScene) managerParty.endPartyWindow();
                 };
                 Utils.createDelay(5,f1);
+            if (!windowsManager.currentWindow && userTimer.partyToEndTimer <= 0 && managerParty.userParty && !managerParty.userParty.showWindow
+                        && (managerParty.typeParty == 3 || managerParty.typeParty == 4)  && !managerCutScenes.isCutScene) managerParty.endPartyWindow();
+                else if (managerParty.userParty && !managerParty.userParty.showWindow && managerParty.userParty.countResource >= managerParty.countToGift[0] && (managerParty.typeParty == 1 || managerParty.typeParty == 2)) {
+                    managerParty.endPartyWindow();
+                }
+               Utils.createDelay(5,f1);
             }
             if ((user as User).miniScenes[3] == 0) friendPanel.hideIt(true);
             managerMiniScenes.updateMiniScenesLengthOnGameStart();

@@ -214,10 +214,13 @@
             <filename>best_players_2.png</filename>
             <filename>end_event_title.png</filename>
             <filename>congratulations.png</filename>
-            <filename>lexys_day_event_back.png</filename>
-            <filename>lexy_help_event_icon_2.png</filename>
-            <filename>lexys_day_eng.png</filename>
-            <filename>lexys_day_rus.png</filename>
+            <filename>event_window_akril.png</filename>
+            <filename>honey_paints_eng.png</filename>
+            <filename>honey_paints_ru.png</filename>
+            <filename>honey_timer.png</filename>
+            <filename>tabs_top_1.png</filename>
+            <filename>tabs_top_2.png</filename>
+            <filename>star_event_winner_45x45.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
