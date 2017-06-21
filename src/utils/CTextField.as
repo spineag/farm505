@@ -112,36 +112,37 @@ public class CTextField extends DisplayObjectContainer {
         }
     }
 
+    public override function getBounds(targetSpace:DisplayObject, out:Rectangle=null):Rectangle {  if (_txt) return _txt.getBounds(targetSpace, out);  else return new Rectangle(_width, _height); }
     public function set needCheckForASCIIChars(v:Boolean):void { _needCheckForASCIIChars = v; }
     public function updateStrokePower(u:Number):void { _style.setupOutline(u, _colorStroke); }
-    public function set alignH(value:String): void { _format.horizontalAlign = value; _txt.format.horizontalAlign = value; }
-    public function set alignV(value:String): void { _format.verticalAlign = value; _txt.format.verticalAlign = value; }
-    public function set deltaOwnX(v:int):void { _deltaOwnX = v; _txt.x = v; }
-    public function set deltaOwnY(v:int):void { _deltaOwnY = v; _txt.y = v; }
+    public function set alignH(value:String): void { _format.horizontalAlign = value; if (_txt) _txt.format.horizontalAlign = value; }
+    public function set alignV(value:String): void { _format.verticalAlign = value; if (_txt) _txt.format.verticalAlign = value; }
+    public function set deltaOwnX(v:int):void { _deltaOwnX = v; if (_txt) _txt.x = v; }
+    public function set deltaOwnY(v:int):void { _deltaOwnY = v; if (_txt) _txt.y = v; }
     public function get textBounds():Rectangle { return _txt.textBounds; }
-    public override function getBounds(targetSpace:DisplayObject, out:Rectangle=null):Rectangle { return _txt.getBounds(targetSpace, out); }
-    public override function set width(value:Number):void { _width = value; _txt.width = value; }
-    public override function set height(value:Number):void { _height = value; _txt.height = value; }
+    public override function set width(value:Number):void { _width = value; if (_txt) _txt.width = value; }
+    public override function set height(value:Number):void { _height = value; if (_txt) _txt.height = value; }
     public override function get width():Number { return _width; }
     public override function get height():Number { return _height; }
     public function get text():String { return _text; }
     public function get autoScale():Boolean { return _txt.autoScale; }
-    public function set autoScale(value:Boolean):void { _txt.autoScale = value; }
+    public function set autoScale(value:Boolean):void { if (_txt) _txt.autoScale = value; }
     public function get autoSize():String { return _txt.autoSize; }
-    public function set autoSize(value:String):void { _txt.autoSize = value; }
+    public function set autoSize(value:String):void { if (_txt) _txt.autoSize = value; }
     public function get style():MeshStyle { return _txt.style; }
-    public function set style(value:MeshStyle):void { _txt.style = value; }
+    public function set style(value:MeshStyle):void { if (_txt) _txt.style = value; }
     public function get format():TextFormat { return _format; }
-    public function set format(value:TextFormat):void { _format = value; _txt.format = _format; }
-    public override function set touchable(value:Boolean):void { _txt.touchable = value; super.touchable = value; }
-    public function set changeTextColor(color:uint):void { _txt.format.color = color; _format.color = color; }
-    public function set changeSize(v:int):void { _txt.format.size = v; _format.size = v; }
-    public function set leading(v:int):void { _txt.format.leading = v; _format.leading = v; }
-    public function set border(v:Boolean):void { _txt.border = v; }
+    public function set format(value:TextFormat):void { _format = value;if (_txt)  _txt.format = _format; }
+    public override function set touchable(value:Boolean):void { if (_txt) _txt.touchable = value; super.touchable = value; }
+    public function set changeTextColor(color:uint):void { if (_txt) _txt.format.color = color; _format.color = color; }
+    public function set changeSize(v:int):void { if (_txt) _txt.format.size = v; _format.size = v; }
+    public function set leading(v:int):void { if (_txt) _txt.format.leading = v; _format.leading = v; }
+    public function set border(v:Boolean):void { if (_txt) _txt.border = v; }
 
     public function set cacheIt(v:Boolean):void {
         _cacheIt = v;
         if (_colorStroke == 0xabcdef) return;
+        if (!_txt) return;
         if (v) { if (_txt.filter) _txt.filter.cache();
         } else { if (_txt.filter) _txt.filter.clearCache(); }
     }

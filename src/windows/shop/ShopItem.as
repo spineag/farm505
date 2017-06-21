@@ -361,7 +361,7 @@ public class ShopItem {
                 else texture = g.allData.atlas['iconAtlas'].getTexture(_data.url + '_icon');
             }
             if (!texture) {
-                Cc.error('ShopItem:: no such texture: ' + _data.url + '_data.id ' + _data.id);
+                Cc.error('ShopItem:: no such texture: ' + _data.url + ' for _data.id ' + _data.id);
                 g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'shopItem');
                 return;
             }

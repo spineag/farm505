@@ -3,18 +3,12 @@
  */
 package user {
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.DataMoney;
-import data.OwnEvent;
 import data.StructureDataAnimal;
 import data.StructureDataResource;
-
 import manager.Vars;
-
 import media.SoundConst;
-
-import starling.events.Event;
 
 public class UserInventory {
     private var _inventoryResource:Object;
@@ -59,7 +53,7 @@ public class UserInventory {
         } else {
             _decorInventory[id] = {count: 1, ids:[dbId]};
         }
-        g.event.dispatchEvent(new Event(OwnEvent.UPDATE_REPOSITORY));
+        g.updateRepository();
     }
 
     public function removeFromDecorInventory(id:int):int {

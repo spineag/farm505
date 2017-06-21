@@ -3,43 +3,24 @@
  */
 package build.decor {
 import analytic.AnalyticManager;
-
 import build.WorldObject;
 import build.lockedLand.LockedLand;
-
 import com.junkbyte.console.Cc;
-
 import dragonBones.Armature;
 import dragonBones.Slot;
 import dragonBones.starling.StarlingArmatureDisplay;
 import dragonBones.Bone;
-
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
-
 import flash.geom.Point;
-
 import heroes.BasicCat;
-
 import heroes.HeroCat;
-
 import hint.FlyMessage;
-
 import manager.ManagerFilters;
-import data.OwnEvent;
-
 import manager.hitArea.ManagerHitArea;
-
 import mouse.ToolsModifier;
-
 import starling.display.Image;
-import starling.display.Quad;
 import starling.events.Event;
-import starling.utils.Color;
-
-import utils.Utils;
-
-import windows.WindowsManager;
 
 public class DecorAnimation extends WorldObject{
     private var _isHover:Boolean;
@@ -168,7 +149,7 @@ public class DecorAnimation extends WorldObject{
                 g.directServer.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 g.townArea.deleteBuild(this);
-                g.event.dispatchEvent(new Event(OwnEvent.UPDATE_REPOSITORY));
+                g.updateRepository();
             } else {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();

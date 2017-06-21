@@ -99,12 +99,13 @@ public class WOPartyRatingFriend {
 
         _txtNamePerson = new CTextField(90, 120, '');
         _txtNamePerson.needCheckForASCIIChars = true;
-        _txtNamePerson.alignH = Align.LEFT;
         if (user || _personS.userId == g.user.userId) {
             _txtNamePerson.setFormat(CTextField.BOLD18, 18,Color.WHITE, ManagerFilters.BLUE_COLOR);
+            _txtNamePerson.alignH = Align.LEFT;
             _txtNamePerson.text = g.user.name + ' ' + g.user.lastName;
         } else {
             _txtNamePerson.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
+            _txtNamePerson.alignH = Align.LEFT;
             _txtNamePerson.text = _personS.name;
         }
         _txtNamePerson.x = 120;

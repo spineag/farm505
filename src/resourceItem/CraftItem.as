@@ -60,7 +60,6 @@ public class CraftItem {
     private var _tutorialCallback:Function;
     public var animal:Animal;
     private var _sY:int;
-
     private var g:Vars = Vars.getInstance();
 
     public function CraftItem(_x:int, _y:int, resourceItem:ResourceItem, parent:Sprite, _count:int = 1, f:Function = null, useHover:Boolean = false) {
@@ -114,9 +113,6 @@ public class CraftItem {
         g.cont.deleteDragPoint();
     }
 
-    private function onHover():void {
-        _image.filter = ManagerFilters.WHITE_STROKE;
-    }
 
     private function onOut():void {
         if (_source.filter) _source.filter.dispose();
@@ -131,13 +127,10 @@ public class CraftItem {
         _source.touchable = false;
     }
 
-    public function set callback(f:Function):void {
-        _callback = f;
-    }
-
-    public function get source():CSprite {
-        return _source;
-    }
+    private function onHover():void { _image.filter = ManagerFilters.WHITE_STROKE; }
+    public function set callback(f:Function):void { _callback = f; }
+    public function get source():CSprite { return _source;}
+    public function get resourceId():int { return _resourceItem.resourceID; }
 
     public function flyIt(xpFly:Boolean = true, bonusDrop:Boolean = true):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
@@ -235,10 +228,6 @@ public class CraftItem {
         _tutorialCallback = f;
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
         _arrow.animateAtPosition(0, -_image.height/2);
-    }
-
-    public function get resourceId():int {
-        return _resourceItem.resourceID;
     }
 
     public function removeArrow():void {
