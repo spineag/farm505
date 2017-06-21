@@ -41,9 +41,9 @@ public class ManagerInviteFriendViral {
     public function updateTimerPanelPosition():void { if (_invitePanelTimer) _invitePanelTimer.updatePosition(); }
 
     private function checkIt():void {
-//        if (g.user.nextTimeInvite == 0 || g.user.nextTimeInvite < int(new Date().getTime()/1000)) {
+        if (g.user.nextTimeInvite == 0 || g.user.nextTimeInvite < int(new Date().getTime()/1000)) {
             g.load.loadAtlas('inviteAtlas', 'inviteAtlas', startTimer);
-//        }
+        }
     }
     
     private function startTimer():void {
