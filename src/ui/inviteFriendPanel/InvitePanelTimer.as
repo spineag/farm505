@@ -39,7 +39,7 @@ public class InvitePanelTimer {
     }
     
     public function updatePosition():void {
-        if (g.partyPanel && g.partyPanel.isVisible || g.stockPanel && g.stockPanel.isVisible || g.salePanel && g.salePanel.isVisible)
+        if (g.partyPanel && g.partyPanel.isVisible)
             _source.y = 330;
         else _source.y = 180;  }
 

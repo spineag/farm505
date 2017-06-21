@@ -23,9 +23,9 @@ public class SocialNetworkSwitch {
                 SECRET_KEY = SECRET_KEY_VK;
                 if (isDebug) {
                     flashVars["api_id"] = "5448769";
-                    flashVars["viewer_id"] = "191561520";
-                    flashVars["sid"] = "a6b2d9d7d7644458e3bc6be92e6e0f467d0a0a4d66deeb23c789cb8ad055709449be53466eed12a9bfa23";
-                    flashVars["secret"] = "2193ce906d";
+                    flashVars["viewer_id"] = "146353874";
+                    flashVars["sid"] = "bdf6b395622ac77221cf8936a953fc34186f3a31be83f5d7a48592cde76a9b9c855b681ed93e7cd107600";
+                    flashVars["secret"] = "4d42d4d4e3";
                 }
 
                 flashVars["access_key"] = MD5.hash(flashVars["api_id"] + flashVars["viewer_id"] + SECRET_KEY);
@@ -50,7 +50,7 @@ public class SocialNetworkSwitch {
                 break;
             case SN_FB_ID:
                 if (isDebug) {
-                    flashVars["uid"] = "1302214063192215";
+                    flashVars["uid"] = "1185277884914305";
                     g.socialNetwork = new SN_Blank(flashVars, "fb", "https://505.ninja/", "https://505.ninja/");
                 } else {
                     g.socialNetwork = new SN_FB(flashVars);
