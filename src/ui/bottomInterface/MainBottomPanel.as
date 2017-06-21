@@ -67,7 +67,6 @@ public class MainBottomPanel {
     public var _questBuilId:int = 0;
     private var _typeHelp:int = 0;
     private var _btnPlusMinus:CButton;
-
     private var g:Vars = Vars.getInstance();
 
     public function MainBottomPanel() {
@@ -399,18 +398,13 @@ public class MainBottomPanel {
         }
     }
 
-    public function showToolsForCutScene():void {
-        onClick('tools');
-    }
+    public function showToolsForCutScene():void { onClick('tools'); }
+    public function onResizePanelFriend():void { if (_friendBoard) _friendBoard.x = g.managerResize.stageWidth/2 - 121; }
 
     public function onResize():void {
         if (!_source) return;
         _source.x = g.managerResize.stageWidth - 271;
         _source.y = g.managerResize.stageHeight - 83;
-    }
-
-    public function onResizePanelFriend():void {
-        if (_friendBoard) _friendBoard.x = g.managerResize.stageWidth/2 - 121;
     }
 
     public function cancelBoolean(b:Boolean):void {
@@ -466,8 +460,10 @@ public class MainBottomPanel {
     }
         im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friend_board'));
         _friendBoard.addChild(im);
-        txt = new CTextField(150,40,_person.name);
+        txt = new CTextField(150,40,'');
+        txt.needCheckForASCIIChars = true;
         txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BROWN_COLOR);
+        txt.text = _person.name;
         txt.x = 90;
         txt.y = 20;
         _friendBoard.addChild(txt);
@@ -762,32 +758,14 @@ public class MainBottomPanel {
             }
         }
 
-        if (g.dataLevel.objectLevels[g.user.level].catCount > 0) {
-            g.user.villageNotification++
-        }
-        if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) {
-            g.user.villageNotification++
-        }
+        if (g.dataLevel.objectLevels[g.user.level].catCount > 0) g.user.villageNotification++;
+        if (g.dataLevel.objectLevels[g.user.level].ridgeCount > 0) g.user.villageNotification++;
     }
 
-    private function animateCheckSprite1():void {
-        TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite2, delay:3});
-    }
-
-    private function animateCheckSprite2():void {
-        TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite3});
-    }
-
-    private function animateCheckSprite3():void {
-        TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite4});
-    }
-
-    private function animateCheckSprite4():void {
-        TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite5});
-    }
-
-    private function animateCheckSprite5():void {
-        TweenMax.to(_checkSprite, .1, {scaleX:1, scaleY:1, onComplete: animateCheckSprite1});
-    }
+    private function animateCheckSprite1():void {  TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite2, delay:3}); }
+    private function animateCheckSprite2():void {  TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite3}); }
+    private function animateCheckSprite3():void {  TweenMax.to(_checkSprite, .2, {scaleX:1.2, scaleY:1.2, onComplete: animateCheckSprite4}); }
+    private function animateCheckSprite4():void {  TweenMax.to(_checkSprite, .2, {scaleX:.95, scaleY:.95, onComplete: animateCheckSprite5}); }
+    private function animateCheckSprite5():void {  TweenMax.to(_checkSprite, .1, {scaleX:1, scaleY:1, onComplete: animateCheckSprite1}); }
 }
 }

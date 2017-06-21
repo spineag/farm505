@@ -166,9 +166,11 @@ public class WOMissYou extends WindowMain {
         _ava.y = -65;
         _source.addChild(_ava);
 
-        var txt:CTextField = new CTextField(80, 100, String(_person.name));
+        var txt:CTextField = new CTextField(80, 100, '');
+        txt.needCheckForASCIIChars = true;
         txt.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.alignH = Align.LEFT;
+        txt.text = String(_person.name);
         txt.x = - txt.textBounds.width/2 + 10;
         txt.y = -50;
         _source.addChild(txt);

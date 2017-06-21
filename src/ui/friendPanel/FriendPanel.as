@@ -209,28 +209,26 @@ public class FriendPanel {
     public function onResize():void {
         if (!_source) return;
         _source.x = g.managerResize.stageWidth - 740;
-        if (_source.visible) {
-            _source.y = g.managerResize.stageHeight - 89;
-        } else {
-            _source.y = g.managerResize.stageHeight + 100;
-        }
+        if (_source.visible) _source.y = g.managerResize.stageHeight - 89;
+        else _source.y = g.managerResize.stageHeight + 100;
     }
 
     public function showIt():void {
         _source.visible  = true;
-//        _source.x = Starling.current.nativeStage.stageWidth - 271;
         TweenMax.killTweensOf(_source);
         new TweenMax(_source, .5, {y:g.managerResize.stageHeight - 89, ease:Back.easeOut, delay:.2});
     }
 
-    public function hideIt(direct:Boolean = false):void {
-        if (!direct) {
+    public function hideIt(quick:Boolean = false, time:Number = .5):void {
+        if (!quick) {
             TweenMax.killTweensOf(_source);
-            new TweenMax(_source, .5, {y: g.managerResize.stageHeight + 100, ease: Back.easeOut, onComplete: function ():void { _source.visible = false } });
+            new TweenMax(_source, time, {y: g.managerResize.stageHeight + 100, ease: Back.easeOut, onComplete: function ():void { _source.visible = false } });
         } else {
             _source.y = g.managerResize.stageHeight + 100;
         }
     }
+    
+    public function get isShowed():Boolean { return _source.visible; }
 
     private function createArrows():void {
         if (!_leftArrow) {

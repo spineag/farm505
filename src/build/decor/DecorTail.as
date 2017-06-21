@@ -5,16 +5,8 @@ package build.decor {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 import manager.ManagerFilters;
-import data.OwnEvent;
-
 import manager.hitArea.ManagerHitArea;
-
 import mouse.ToolsModifier;
-
-import starling.display.Image;
-import starling.events.Event;
-
-import windows.WindowsManager;
 
 public class DecorTail extends WorldObject{
     public function DecorTail(_data:Object) {
@@ -61,7 +53,7 @@ public class DecorTail extends WorldObject{
                 g.directServer.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 g.townArea.deleteTailBuild(this);
-                g.event.dispatchEvent(new Event(OwnEvent.UPDATE_REPOSITORY));
+                g.updateRepository();
             } else {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();

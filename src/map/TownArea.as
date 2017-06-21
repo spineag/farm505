@@ -496,10 +496,12 @@ public class TownArea extends Sprite {
         var j:int;
         for (var i:int = posY; i < (posY + h); i++) {
             for (j = posX; j < (posX + w); j++) {
-                _townMatrix[i][j].isFull = true;
-                if (i == posY && j == posX) {
-                    _freePlace.fillCell(j + 1, i + 1);
-                    if (_townMatrix[i] && _townMatrix[i][j]) _townMatrix[i][j].buildFence = source;
+                if (_townMatrix[i] && _townMatrix[i][j]) {
+                    _townMatrix[i][j].isFull = true;
+                    if (i == posY && j == posX) {
+                        _freePlace.fillCell(j + 1, i + 1);
+                        _townMatrix[i][j].buildFence = source;
+                    }
                 }
             }
         }
@@ -1815,10 +1817,13 @@ public class TownArea extends Sprite {
         var j:int;
         for (var i:int = posY; i < (posY + h); i++) {
             for (j = posX; j < (posX + w); j++) {
-                _townAwayMatrix[i][j].isFull = true;
-                if (i == posY && j == posX)
-                    _freePlace.fillAwayCell(j + 1, i + 1);
-                if (_townAwayMatrix[i] && _townAwayMatrix[i][j]) _townAwayMatrix[i][j].buildFence = source;
+                if (_townAwayMatrix[i] && _townAwayMatrix[i][j]) {
+                    _townAwayMatrix[i][j].isFull = true;
+                    if (i == posY && j == posX) {
+                        _freePlace.fillAwayCell(j + 1, i + 1);
+                        _townAwayMatrix[i][j].buildFence = source;
+                    }
+                }
             }
         }
     }

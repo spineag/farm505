@@ -6,10 +6,7 @@ import com.greensock.TweenMax;
 import com.greensock.easing.Back;
 import com.greensock.easing.Linear;
 import flash.geom.Point;
-import flash.geom.Rectangle;
-import data.OwnEvent;
 import manager.Vars;
-import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -34,7 +31,8 @@ public class RepositoryBox {
     public function RepositoryBox() {
         _arrItems = [];
         source = new Sprite();
-        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'), g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
+        var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'),
+                g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_c'),
                 g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_r'), 256);
         source.addChild(pl);
         _contRect = new Sprite();
@@ -67,48 +65,52 @@ public class RepositoryBox {
         _rightBtn.y = 40;
         source.addChild(_rightBtn);
         _rightBtn.clickCallback = onRight;
-
     }
 
-    public function showIt():void {
+    public function showIt(time:Number = .5, delay:Number=0):void {
         update = false;
-        g.event.addEventListener(OwnEvent.UPDATE_REPOSITORY, updateItems);
         _shift = 0;
         showItems();
         source.visible = true;
         TweenMax.killTweensOf(source);
-        new TweenMax(source, .5, {y:g.managerResize.stageHeight - 83, ease:Back.easeOut});
+        new TweenMax(source, time, {y:g.managerResize.stageHeight - 83, ease:Back.easeOut, delay:delay});
     }
 
     public function hideIt(needQuick:Boolean = false):void {
-        g.event.removeEventListener(OwnEvent.UPDATE_REPOSITORY, updateItems);
         TweenMax.killTweensOf(source);
         new TweenMax(source, .5, {y:g.managerResize.stageHeight + 10, ease:Back.easeOut, onComplete: function():void {source.visible = false; deleteItems()}});
     }
-
+    
     private function showItems():void {
         var item:RepositoryItem;
         count = 0;
         var ob:Object = g.userInventory.decorInventory;
         for (var id:String in ob) {
             item = new RepositoryItem();
-            item.fillIt(Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(int(id))), ob[id].count, (ob[id].ids as Array).slice(), this,count);
-            item.source.x = count * 64;
+            item.fillIt(Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(int(id))), ob[id].count, (ob[id].ids as Array).slice(), this);
             _cont.addChild(item.source);
             _arrItems.push(item);
-            count++;
         }
-
+        _arrItems.sortOn('decorCount', Array.DESCENDING);
+        count = _arrItems.length;
+        for (var i:int=0; i<count; i++) {
+            item = _arrItems[i];
+            item.position = i;
+            item.source.x = i * 64;
+        }
         checkBtns();
     }
 
     public function updateItems():void { // not optimal
-        deleteItems();
-        showItems();
-        if ((_shift + 1)*3 > count) {
-            _cont.x = 0;
-            _shift = 0;
-            checkBtns();
+        if (isShowed) {
+            trace('update repository');
+            deleteItems();
+            showItems();
+            if ((_shift + 1) * 3 > count) {
+                _cont.x = 0;
+                _shift = 0;
+                checkBtns();
+            }
         }
     }
 
@@ -140,28 +142,14 @@ public class RepositoryBox {
     }
 
     private function checkBtns():void {
-        if (_shift == 0) {
-            _leftBtn.setEnabled = false;
-        } else {
-            _leftBtn.setEnabled = true;
-        }
-        if (count > 3) {
-            _rightBtn.setEnabled = true;
-        } else {
-            _rightBtn.setEnabled = false;
-        }
-        if (_shift + 3 == count) {
-            _rightBtn.setEnabled = false;
-        }
+        if (_shift == 0) _leftBtn.setEnabled = false;  else _leftBtn.setEnabled = true; 
+        if (count > 3)   _rightBtn.setEnabled = true;  else _rightBtn.setEnabled = false;
+        if (_shift + 3 == count) _rightBtn.setEnabled = false;
     }
 
-     public function arrNumber(num:int):void {
-        _number = num;
-     }
-
-    public function  updateThis():void {
-        _arrItems[_number].updateCount();
-    }
+    public function arrNumber(num:int):void { _number = num; }
+    public function updateThis():void { _arrItems[_number].updateCount(); }
+    public function get isShowed():Boolean { return source && source.visible }
 
     public function getRepositoryBoxPropertiesFirstItem():Object {
         var obj:Object = {};

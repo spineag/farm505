@@ -5,28 +5,16 @@ package windows.train {
 import build.train.TrainCell;
 import com.junkbyte.console.Cc;
 import data.BuildType;
-
 import flash.display.Bitmap;
-
 import manager.ManagerFilters;
 import manager.Vars;
-
 import social.SocialNetwork;
-
-import social.SocialNetworkEvent;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.Align;
 import starling.utils.Color;
-import starling.utils.Padding;
-
-import user.NeighborBot;
-
 import user.Someone;
-
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
@@ -152,10 +140,10 @@ public class WOTrainItem {
             _txtWhite.visible = false;
             _txtRed.visible = false;
         }
-            if (_info.needHelp && !_needHelp && int(_info.helpId) == 0) {
-                _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
-                source.addChild(_needHelp);
-            }
+        if (_info.needHelp && !_needHelp && int(_info.helpId) == 0) {
+            _needHelp = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+            source.addChild(_needHelp);
+        }
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
@@ -185,35 +173,12 @@ public class WOTrainItem {
         }
     }
 
-    public function set clickCallback(f:Function):void {
-        _f = f;
-    }
-
-    public function get idFree():int {
-        if (_info) return _info.id;
-        else return 0;
-    }
-
-    public function get countFree():int {
-        if (_info) return _info.count;
-        else return 0;
-
-    }
-
-    public function get needHelp():Boolean {
-        if (_info) return _info.needHelp;
-        else return false;
-    }
-
-    public function get idWhoHelp():String {
-        if (_info) return _info.helpId;
-        else return ' ';
-    }
-
-    public function get trainDbId():String {
-        if (_info) return _info.item_db_id;
-        else return '';
-    }
+    public function set clickCallback(f:Function):void { _f = f; }
+    public function get idFree():int { if (_info) return _info.id;   else return 0; }
+    public function get countFree():int {  if (_info) return _info.count;   else return 0; }
+    public function get needHelp():Boolean { if (_info) return _info.needHelp;  else return false; }
+    public function get idWhoHelp():String { if (_info) return _info.helpId;   else return ' '; }
+    public function get trainDbId():String { if (_info) return _info.item_db_id;   else return ''; }
 
     public function onClickHelpMePls(b:Boolean = false):void {
         if (b) {

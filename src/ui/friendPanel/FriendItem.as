@@ -97,6 +97,7 @@ public class FriendItem {
         if (txtLvl.text == null || int(txtLvl.text) == 0) txtLvl.text = '1';
         if (_person is NeighborBot) txtLvl.text = '60';
         _txtName = new CTextField(64, 30, "");
+        _txtName.needCheckForASCIIChars = true;
         _txtName.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
         _txtName.y = -5;
         if (_person.name) {
@@ -145,10 +146,6 @@ public class FriendItem {
         g.windowsManager.hideWindow(WindowsManager.WO_MARKET);
     }
 
-    public function get person():Someone {
-        return _person;
-    }
-
     private function onLoadPhoto(bitmap:Bitmap):void {
         if (!_person) {
             Cc.error('FriendItem onLoadPhoto:: no _person');
@@ -179,17 +176,14 @@ public class FriendItem {
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
         if (!_person.name) _person = g.user.getSomeoneBySocialId(_person.userSocialId);
-//        _person.name = ar[0].first_name;
-//        _person.lastName = ar[0].last_name;
-//        _person.photo = ar[0].photo_100;
         setName(_person.name);
         if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
         g.load.loadImage(_person.photo, onLoadPhoto);
     }
 
-    private function setName(st:String):void {
-        _txtName.text = st;
-    }
+    private function setName(st:String):void { _txtName.text = st; }
+    public function get position():int { return _positionInList; }
+    public function get person():Someone { return _person; }
 
     private function photoFromTexture(tex:Texture):void {
         if (_preloader) {
@@ -208,10 +202,6 @@ public class FriendItem {
         _ava.y = 18;
         if (source) source.addChildAt(_ava,1);
 //        source.addChildAt(_ava,1);
-    }
-
-    public function get position():int {
-        return _positionInList;
     }
 
     private function onTimer():void {

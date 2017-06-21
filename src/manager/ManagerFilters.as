@@ -32,108 +32,26 @@ public class ManagerFilters {
 
     public function ManagerFilters() {}
 
-    public static function get SHADOW():DropShadowFilter {
-        return new DropShadowFilter(2, .8, 0, 1, 1.0, 0.5);
-    }
-
-    public static function get SHADOW_LIGHT():DropShadowFilter {
-        return new DropShadowFilter(2, .8, 0, .7, .5, 0.5);
-    }
-
-    public static function get SHADOW_TINY():DropShadowFilter {
-        return new DropShadowFilter(1, 0.8, 0, .5, .5, 0.5);
-    }
-
-    public static function get SHADOW_TOP():DropShadowFilter {
-        return new DropShadowFilter(1, -.8, 0, 1, 1.0, 0.5);
-    }
-
-    public static function get RED_STROKE():GlowFilter {
-        return new GlowFilter(Color.RED, 3);
-    }
-
-    public static function get YELLOW_STROKE():GlowFilter {
-        return new GlowFilter(Color.YELLOW, 3);
-    }
-
-    public static function get WHITE_STROKE():GlowFilter {
-        return new GlowFilter(Color.WHITE, 3);
-    }
-
-    public static function get BUILD_STROKE():GlowFilter {
-        return new GlowFilter(LIGHT_YELLOW_COLOR, 3);
-    }
-
-    public static function getButtonClickFilter():ColorMatrixFilter {
-        var f:ColorMatrixFilter = new ColorMatrixFilter();
-        f.adjustBrightness(-.07);
-        return f;
-    }
-
-    public static function getButtonDisableFilter():ColorMatrixFilter {
-        var f:ColorMatrixFilter = new ColorMatrixFilter();
-        f.adjustSaturation(-.95);
-        return f;
-    }
-
-    public static function getButtonHoverFilter():ColorMatrixFilter {
-        var f:ColorMatrixFilter = new ColorMatrixFilter();
-        f.adjustBrightness(.04);
-        return f;
-    }
-
-    public static function getHardButtonHoverFilter():ColorMatrixFilter {
-        var f:ColorMatrixFilter = new ColorMatrixFilter();
-        f.adjustBrightness(.2);
-        return f;
-    }
-
-    public static function get BUTTON_CLICK_FILTER():ColorMatrixFilter {
-        var f:ColorMatrixFilter = new ColorMatrixFilter();
-        f.adjustBrightness(-.07);
-        return f;
-    }
-
-    public static function get BUTTON_DISABLE_FILTER():ColorMatrixFilter {
-        var f:ColorMatrixFilter = new ColorMatrixFilter();
-        f.adjustSaturation(-.95);
-        return f;
-    }
-
-    public static function get BUTTON_HOVER_FILTER():ColorMatrixFilter {
-        var f:ColorMatrixFilter = new ColorMatrixFilter();
-        f.adjustBrightness(.04);
-        return f;
-    }
-
-    public static function get RED_TINT_FILTER():ColorMatrixFilter {
-        var f:ColorMatrixFilter = new ColorMatrixFilter();
-        f.tint(Color.RED, 1);
-        return f;
-    }
-
-    public static function get WHITE_LOW_TINT_FILTER():ColorMatrixFilter {
-        var f:ColorMatrixFilter = new ColorMatrixFilter();
-        f.tint(Color.WHITE, .7);
-        return f;
-    }
-
-    public static function get RED_LIGHT_TINT_FILTER():ColorMatrixFilter {
-        var f:ColorMatrixFilter = new ColorMatrixFilter();
-        f.tint(Color.RED, .4);
-        return f;
-    }
-
-    public static function get BUILDING_HOVER_FILTER():ColorMatrixFilter {
-        var f:ColorMatrixFilter = new ColorMatrixFilter();
-        f.adjustBrightness(.1);
-        return f;
-    }
-
-    public static function get HARD_BLUR():starling.filters.BlurFilter  {
-        var f:starling.filters.BlurFilter = new starling.filters.BlurFilter(7, 7);
-        return f;
-    }
+    public static function get SHADOW():DropShadowFilter { return new DropShadowFilter(2, .8, 0, 1, 1.0, 0.5);  }
+    public static function get SHADOW_LIGHT():DropShadowFilter { return new DropShadowFilter(2, .8, 0, .7, .5, 0.5); }
+    public static function get SHADOW_TINY():DropShadowFilter { return new DropShadowFilter(1, 0.8, 0, .5, .5, 0.5); }
+    public static function get SHADOW_TOP():DropShadowFilter { return new DropShadowFilter(1, -.8, 0, 1, 1.0, 0.5); }
+    public static function get RED_STROKE():GlowFilter { return new GlowFilter(Color.RED, 3); }
+    public static function get YELLOW_STROKE():GlowFilter { return new GlowFilter(Color.YELLOW, 3); }
+    public static function get WHITE_STROKE():GlowFilter { return new GlowFilter(Color.WHITE, 3); }
+    public static function get BUILD_STROKE():GlowFilter { return new GlowFilter(LIGHT_YELLOW_COLOR, 3); }
+    public static function getButtonClickFilter():ColorMatrixFilter { var f:ColorMatrixFilter = new ColorMatrixFilter(); f.adjustBrightness(-.07); return f; }
+    public static function getButtonDisableFilter():ColorMatrixFilter { var f:ColorMatrixFilter = new ColorMatrixFilter(); f.adjustSaturation(-.95); return f; }
+    public static function getButtonHoverFilter():ColorMatrixFilter { var f:ColorMatrixFilter = new ColorMatrixFilter(); f.adjustBrightness(.04); return f; }
+    public static function getHardButtonHoverFilter():ColorMatrixFilter { var f:ColorMatrixFilter = new ColorMatrixFilter(); f.adjustBrightness(.2); return f; }
+    public static function get BUTTON_CLICK_FILTER():ColorMatrixFilter { var f:ColorMatrixFilter = new ColorMatrixFilter(); f.adjustBrightness(-.07); return f; }
+    public static function get BUTTON_DISABLE_FILTER():ColorMatrixFilter { var f:ColorMatrixFilter = new ColorMatrixFilter(); f.adjustSaturation(-.95); return f; }
+    public static function get BUTTON_HOVER_FILTER():ColorMatrixFilter { var f:ColorMatrixFilter = new ColorMatrixFilter(); f.adjustBrightness(.04); return f; }
+    public static function get RED_TINT_FILTER():ColorMatrixFilter { var f:ColorMatrixFilter = new ColorMatrixFilter(); f.tint(Color.RED, 1); return f; }
+    public static function get WHITE_LOW_TINT_FILTER():ColorMatrixFilter { var f:ColorMatrixFilter = new ColorMatrixFilter(); f.tint(Color.WHITE, .7); return f; }
+    public static function get RED_LIGHT_TINT_FILTER():ColorMatrixFilter { var f:ColorMatrixFilter = new ColorMatrixFilter(); f.tint(Color.RED, .4); return f;}
+    public static function get BUILDING_HOVER_FILTER():ColorMatrixFilter { var f:ColorMatrixFilter = new ColorMatrixFilter(); f.adjustBrightness(.1); return f; }
+    public static function get HARD_BLUR():starling.filters.BlurFilter  { var f:starling.filters.BlurFilter = new starling.filters.BlurFilter(7, 7); return f; }
     
 }
 }

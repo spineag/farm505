@@ -3,23 +3,12 @@
  */
 package build.decor {
 import build.WorldObject;
-
 import com.junkbyte.console.Cc;
-
-import data.BuildType;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-import data.OwnEvent;
-
 import manager.hitArea.ManagerHitArea;
-
 import mouse.ToolsModifier;
-
 import starling.display.Image;
-import starling.events.Event;
-
 import windows.WindowsManager;
 
 public class DecorFenceGate extends WorldObject {   // vorota
@@ -188,7 +177,7 @@ public class DecorFenceGate extends WorldObject {   // vorota
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 deleteSecondPart();
                 g.townArea.deleteBuild(this);
-                g.event.dispatchEvent(new Event(OwnEvent.UPDATE_REPOSITORY));
+                g.updateRepository();
             } else {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();

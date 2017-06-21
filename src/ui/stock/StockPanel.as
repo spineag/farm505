@@ -130,6 +130,9 @@ public class StockPanel {
     public function visiblePartyPanel(b:Boolean):void {
         if (b) _source.visible = true;
         else _source.visible = false;
+        if (g.managerInviteFriend) g.managerInviteFriend.updateTimerPanelPosition();
     }
+
+    public function get isVisible():Boolean { return _source.visible; }
 }
 }

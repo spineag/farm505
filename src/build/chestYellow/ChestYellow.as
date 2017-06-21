@@ -2,28 +2,15 @@
  * Created by user on 12/26/16.
  */
 package build.chestYellow {
-import analytic.AnalyticManager;
-
 import build.WorldObject;
 import build.lockedLand.LockedLand;
-
 import com.junkbyte.console.Cc;
-
-import data.OwnEvent;
-
-import dragonBones.Bone;
-
 import dragonBones.animation.WorldClock;
 import dragonBones.events.EventObject;
-
 import manager.ManagerFilters;
-
 import manager.hitArea.ManagerHitArea;
-
 import mouse.ToolsModifier;
-
 import starling.events.Event;
-
 import windows.WindowsManager;
 
 public class ChestYellow extends WorldObject{
@@ -49,18 +36,11 @@ public class ChestYellow extends WorldObject{
         _click = false;
     }
 
-    public function setLockedLand(l:LockedLand):void {
-        _curLockedLand = l;
-    }
-
-    public function get isAtLockedLand():Boolean {
-        if (_curLockedLand) return true;
-        else return false;
-    }
-
-    public function removeLockedLand():void {
-        _curLockedLand = null;
-    }
+    public function setLockedLand(l:LockedLand):void { _curLockedLand = l; }
+    public function get isAtLockedLand():Boolean {  if (_curLockedLand) return true;   else return false; }
+    public function removeLockedLand():void { _curLockedLand = null; }
+    private function onLoad():void { g.directServer.getChestYellow(dataBuild.chestId,openCallback); }
+    private function openCallback(ob:Object):void { g.windowsManager.openWindow(WindowsManager.WO_CHEST_YELLOW, deleteThisBuild,ob); }
 
     private function onClick():void {
         if (g.isActiveMapEditor) return;
@@ -107,14 +87,6 @@ public class ChestYellow extends WorldObject{
         }
     }
 
-    private function onLoad():void {
-        g.directServer.getChestYellow(dataBuild.chestId,openCallback);
-    }
-
-    private function openCallback(ob:Object):void {
-        g.windowsManager.openWindow(WindowsManager.WO_CHEST_YELLOW, deleteThisBuild,ob);
-    }
-
     private function deleteThisBuild():void {
         g.townArea.deleteBuild(this);
         g.directServer.deleteUserWild(_dbBuildingId, null);
@@ -143,7 +115,6 @@ public class ChestYellow extends WorldObject{
             _source.filter = null;
         }
     }
-
 
     override public function clearIt():void {
         WorldClock.clock.remove(_armature);

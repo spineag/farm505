@@ -144,31 +144,26 @@ public class ManagerPartyNew {
     }
 
     private function createAtlases():void {
-        g.allData.atlas['partyAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')].create() as Bitmap), g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')]);
-        (g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')] as PBitmap).deleteIt();
-        if (g.userTimer.partyToEndTimer > 0) g.partyPanel = new PartyPanel();
-        if (userParty && !userParty.showWindow && g.managerParty.userParty.countResource >= dataParty.countToGift[0] && (dataParty.typeParty == 1 || dataParty.typeParty == 2)) {
-            if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
-            if (g.managerParty.userParty.countResource >= dataParty.countToGift[0]) {
-                g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
-                endParty();
-                g.directServer.updateUserParty('1&1&1&1&1', userParty.countResource, 1, null);
+        if (g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')] && g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')]) {
+            g.allData.atlas['partyAtlas'] = new TextureAtlas(Texture.fromBitmap(g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')].create() as Bitmap), g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')]);
+            (g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')] as PBitmap).deleteIt();
+            if (g.userTimer.partyToEndTimer > 0) g.partyPanel = new PartyPanel();
+            if (!g.windowsManager.currentWindow && g.userTimer.partyToEndTimer > 0) {
+                g.windowsManager.openWindow(WindowsManager.WO_PARTY, null);
+            } else if ((g.userTimer.partyToEndTimer <= 0 && !eventOn) && (dataParty.typeParty == 3 || dataParty.typeParty == 4)) {
+                if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
+                if (g.managerParty.userParty.countResource >= dataParty.countToGift[0]) {
+                    g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
+                    endParty();
+                    g.directServer.updateUserParty('1&1&1&1&1', userParty.countResource, 1, null);
+                }
             }
-        } else if (!g.windowsManager.currentWindow && g.userTimer.partyToEndTimer > 0) {
-            g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
-        } else if ((g.userTimer.partyToEndTimer <= 0 && !eventOn) && (dataParty.typeParty == 3 || dataParty.typeParty == 4)) {
-            if (g.windowsManager.currentWindow) g.windowsManager.closeAllWindows();
-            if (g.managerParty.userParty.countResource >= dataParty.countToGift[0]) {
-                g.windowsManager.openWindow(WindowsManager.WO_PARTY, null, TYPE_LAST);
-                endParty();
-                g.directServer.updateUserParty('1&1&1&1&1', userParty.countResource, 1, null);
-            }
-        }
 
-        delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')];
-        delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')];
-        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas'));
-        g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas'));
+            delete  g.pBitmaps[g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas')];
+            delete  g.pXMLs[g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas')];
+            g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'partyAtlas.png' + g.getVersion('partyAtlas'));
+            g.load.removeByUrl(g.dataPath.getGraphicsPath() + 'partyAtlas.xml' + g.getVersion('partyAtlas'));
+        }
     }
 
     public function get  timeToStart():int {return dataParty.timeToStart;}

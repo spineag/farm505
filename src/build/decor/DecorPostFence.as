@@ -5,16 +5,11 @@ package build.decor {
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 import manager.ManagerFilters;
-import data.OwnEvent;
 import manager.Vars;
 import manager.hitArea.ManagerHitArea;
-
 import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.events.Event;
-
-import windows.WindowsManager;
 
 public class DecorPostFence extends WorldObject{ // zabor zi stovp4ukiv
     private var _rightLenta:Sprite;
@@ -135,7 +130,7 @@ public class DecorPostFence extends WorldObject{ // zabor zi stovp4ukiv
                 g.directServer.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 g.townArea.deleteBuild(this);
-                g.event.dispatchEvent(new Event(OwnEvent.UPDATE_REPOSITORY));
+                g.updateRepository();
             } else {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();
