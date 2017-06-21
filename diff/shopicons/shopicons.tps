@@ -368,6 +368,10 @@
             <filename>mushroom_house_2_icon.png</filename>
             <filename>swing_icon.png</filename>
             <filename>pier_icon.png</filename>
+            <filename>flowerbed_square_3x3_icon.png</filename>
+            <filename>flowerbed_square_red_icon.png</filename>
+            <filename>flowerbed_square_blue_icon.png</filename>
+            <filename>star_event_winner_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

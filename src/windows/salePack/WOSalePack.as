@@ -14,6 +14,7 @@ import flash.geom.Point;
 
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
+import manager.ManagerPartyNew;
 
 import resourceItem.DropItem;
 
@@ -275,11 +276,13 @@ public class WOSalePack extends WindowMain{
                     g.directServer.getDailyGift(null);
                 } else {
                     g.managerCats.helloCats();
-                    if ( g.managerParty.eventOn && g.user.level >= g.managerParty.levelToStart && g.allData.atlas['partyAtlas']) {
+                    if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >= g. managerParty.countToGift[0] && (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2)) {
+                        g.managerParty.endPartyWindow();
+                    } else if ( g.managerParty.eventOn && g.user.level >= g.managerParty.levelToStart && g.allData.atlas['partyAtlas']) {
                         g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
                     }
                     else if (g.managerParty.userParty && g.userTimer.partyToEndTimer <= 0 && !g.managerParty.userParty.showWindow
-                            && (g.managerParty.dataParty.typeParty == 3 || g.managerParty.dataParty.typeParty == 4)) g.managerParty.endPartyWindow();
+                            && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4)) g.managerParty.endPartyWindow();
                 }
             }
         }

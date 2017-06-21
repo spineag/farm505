@@ -8315,6 +8315,9 @@ public class DirectServer {
             return;
         }
         var ob:Object;
+        if (g.managerParty.arrBestPlayers && g.managerParty.arrBestPlayers.length > 0) {
+            g.managerParty.arrBestPlayers = [];
+        }
         for (var i:int = 0; i < d.message.length; i++) {
             if (d.message[i] is Number) g.managerParty.playerPosition = int(d.message[i]);
             else {

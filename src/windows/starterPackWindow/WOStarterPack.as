@@ -212,10 +212,13 @@ public class WOStarterPack extends WindowMain{
                 g.directServer.getDailyGift(null);
             } else {
                 g.managerCats.helloCats();
-                if (g.userTimer.partyToEndTimer > 0 && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && g.allData.atlas['partyAtlas']) {
+                if (g.managerParty.userParty && !g.managerParty.userParty.showWindow && g.managerParty.userParty.countResource >=g. managerParty.dataParty.countToGift[0] && (g.managerParty.dataParty.typeParty == 1 || g.managerParty.dataParty.typeParty == 2))
+                    g.managerParty.endPartyWindow();
+                else if (g.userTimer.partyToEndTimer > 0 && g.managerParty.eventOn && g.managerParty.levelToStart <= g.user.level && g.allData.atlas['partyAtlas']) {
                     g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
                 } else if (g.userTimer.partyToEndTimer <= 0 && g.managerParty.userParty && !g.managerParty.userParty.showWindow &&
                         (g.managerParty.dataParty.typeParty == 3 || g.managerParty.dataParty.typeParty == 4)) g.managerParty.endPartyWindow();
+
             }
         }
      super.hideIt();

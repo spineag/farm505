@@ -27,6 +27,7 @@ import ui.xpPanel.XPStar;
 import user.Someone;
 
 import utils.CButton;
+import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
@@ -93,8 +94,10 @@ public class WOPartyWindow extends WindowMain {
         _sprItem = new Sprite();
         if (g.allData.atlas['partyAtlas']) {
             eventWO(false);
-            ratingWO();
-            lastWO();
+            if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4) {
+                ratingWO();
+                lastWO();
+            }
         }
         else g.gameDispatcher.addEnterFrame(afterAtlas);
 
@@ -104,8 +107,10 @@ public class WOPartyWindow extends WindowMain {
         if (g.allData.atlas['partyAtlas']) {
             g.gameDispatcher.removeEnterFrame(afterAtlas);
             eventWO(false);
-            ratingWO();
-            lastWO();
+            if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4) {
+                ratingWO();
+                lastWO();
+            }
         }
     }
 
@@ -129,6 +134,7 @@ public class WOPartyWindow extends WindowMain {
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].dataBuild.craftIdResource == g.managerParty.idResource) {
                     arr[0] = arr[i];
+                    b = true;
                     break;
                 }
             }
@@ -136,10 +142,12 @@ public class WOPartyWindow extends WindowMain {
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].dataAnimal.idResource == g.managerParty.idResource) {
                     arr[0] = arr[i];
+                    b = true;
                     break;
                 }
             }
         }
+        if (!b) return;
         if(!arr[0]) return;
         g.cont.moveCenterToPos(arr[0].posX, arr[0].posY);
         if (BuildType.FABRICA == g.managerParty.typeBuilding) arr[0].showArrow(3,g.managerParty.idResource);
@@ -266,7 +274,7 @@ public class WOPartyWindow extends WindowMain {
     private function startTimer():void {
         if (g.userTimer.partyToEndTimer > 0) {
             if (_txtTime)_txtTime.text = TimeUtils.convertSecondsForHint(g.userTimer.partyToEndTimer);
-            if (_txtTime && g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2 && _txtTime.x == 0) _txtTime.x = -(160 + _txtTime.textBounds.width/2);
+            if (_txtTime && (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2) && _txtTime.x == 0) _txtTime.x = -(160 + _txtTime.textBounds.width/2);
         } else {
             onClickExit();
             g.gameDispatcher.removeFromTimer(startTimer);
@@ -325,7 +333,7 @@ public class WOPartyWindow extends WindowMain {
         _source.addChild(_imRating);
         _imRating.x = 310;
         _imRating.y = 35;
-        _btnRating.clickCallback = function():void {
+        var f1:Function = function ():void {
             _activityType = ManagerPartyNew.TYPE_RATING;
             _imEvent.visible = true;
             _imRating.visible = false;
@@ -338,6 +346,9 @@ public class WOPartyWindow extends WindowMain {
             _btnEvent.touchable = true;
             _btnRating.touchable = false;
             _btnLast.touchable = true;
+        };
+        _btnRating.clickCallback = function():void {
+            g.directServer.getRatingParty(f1);
         };
 
         _btnLast = new CButton();
@@ -390,7 +401,9 @@ public class WOPartyWindow extends WindowMain {
                 else if (g.managerParty.typeBuilding == BuildType.TRAIN) im = new Image(g.allData.atlas['partyAtlas'].getTexture('new_event_window_r'));
                 im.y = -im.height / 2 + 30;
                 _sprEvent.addChild(im);
-                _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('festival'));
+                if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('market_bonus'));
+                else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('market_bonus_rus'));
+//                _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('market_bonus_rus'));
                 _imName.x = -_imName.width / 2 + 5;
                 _imName.y = -205;
                 _sprEvent.addChild(_imName);
@@ -424,7 +437,7 @@ public class WOPartyWindow extends WindowMain {
                 _txtCoefficient.x = 38;
                 _txtCoefficient.y = -214;
             } else {
-                im = new Image(g.allData.atlas['partyAtlas'].getTexture('lexys_day_event_back'));
+                im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_akril'));
                 im.x = -im.width / 2 - 4;
 //                im.y = -im.height / 2 - 12;
                 im.y = -im.height / 2 - 6;
@@ -433,8 +446,8 @@ public class WOPartyWindow extends WindowMain {
                 im.x = -im.width / 2 - 295;
                 im.y = -im.height / 2 - 115;
                 _sprEvent.addChild(im);
-                if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('lexys_day_eng'));
-                else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('lexys_day_rus'));
+                if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('honey_paints_eng'));
+                else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('honey_paints_ru'));
                 _imName.x = -_imName.width / 2 + 5;
                 _imName.y = -205;
                 _sprEvent.addChild(_imName);
@@ -442,7 +455,7 @@ public class WOPartyWindow extends WindowMain {
                 _txtBabl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
                 _sprEvent.addChild(_txtBabl);
                 _txtBabl.x = -413;
-                _txtBabl.y = -235;
+                _txtBabl.y = -220;
                 _sprEvent.addChild(_sprItem);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
                 im.x = -158;
@@ -549,6 +562,11 @@ public class WOPartyWindow extends WindowMain {
         var im:Image;
         var txt:CTextField;
         if (!g.allData.atlas['partyAtlas']) return;
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_top_2'));
+        im.x = -45;
+        im.y = 115;
+//        _sprRating.addChild(im);
+
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('best_players_3'));
         im.x = -im.width / 2 - 4;
         im.y = -im.height / 2 + 10;
@@ -560,11 +578,13 @@ public class WOPartyWindow extends WindowMain {
         im.y = -225;
         _sprRating.addChild(im);
         _scrollSprite = new DefaultVerticalScrollSprite(280, 300, 280, 60);
-        _scrollSprite.createScoll(290, 0, 300, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
+        _scrollSprite.createScoll(290, 40, 240, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
         var item:WOPartyRatingFriend;
         var b:Boolean = true;
         var needHelp:Boolean = false;
         _arrItemRating = [];
+        var sp:Sprite = new Sprite();
+        _scrollSprite.addNewCell(sp);
         for (var i:int = 0; i < g.managerParty.arrBestPlayers.length; i++) {
             if (b && g.user.userId != g.managerParty.arrBestPlayers[i].userId) b = true;
             else {
@@ -573,6 +593,7 @@ public class WOPartyWindow extends WindowMain {
             }
             item = new WOPartyRatingFriend(g.managerParty.arrBestPlayers[i], i+1, !b);
             _scrollSprite.addNewCell(item.source);
+//            _scrollSprite.y = 10;
             _arrItemRating.push(item);
             b = true;
         }
@@ -606,16 +627,33 @@ public class WOPartyWindow extends WindowMain {
         txt.x = -165 - txt.textBounds.width/2;
         _sprRating.addChild(txt);
         if (g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_ANIMATION) {
+            var cSpr:CSprite  = new CSprite();
+            _sprRating.addChild(cSpr);
             im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('animated_decor'));
-            im.x = -120;
-            im.y = -120;
-            _sprRating.addChild(im);
+            cSpr.addChild(im);
+
+            cSpr.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[339])); };
+            cSpr.outCallback = function():void { g.hint.hideIt(); };
+            cSpr.x = -120;
+            cSpr.y = -120;
         }
         txt = new CTextField(230, 100, String(g.managerLanguage.allTexts[1059]));
         txt.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
         txt.x = -285;
         txt.y = 70;
         _sprRating.addChild(txt);
+
+        var cSp:CSprite  = new CSprite();
+        _sprRating.addChild(cSp);
+        im = new Image(g.allData.atlas['partyAtlas'].getTexture('hint_button'));
+        cSp.addChild(im);
+
+        cSp.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1083])); };
+        cSp.outCallback = function():void { g.hint.hideIt(); };
+        cSp.x = -305;
+        cSp.y = 165;
+
+
     }
 
     private function lastWO():void {
