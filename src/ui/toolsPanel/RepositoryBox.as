@@ -71,6 +71,7 @@ public class RepositoryBox {
         update = false;
         _shift = 0;
         showItems();
+        checkBtns();
         source.visible = true;
         TweenMax.killTweensOf(source);
         new TweenMax(source, time, {y:g.managerResize.stageHeight - 83, ease:Back.easeOut, delay:delay});
@@ -91,26 +92,13 @@ public class RepositoryBox {
             _cont.addChild(item.source);
             _arrItems.push(item);
         }
-        _arrItems.sortOn('decorCount', Array.DESCENDING);
+        _arrItems.sortOn('decorCount', Array.NUMERIC);
+        _arrItems.reverse();
         count = _arrItems.length;
         for (var i:int=0; i<count; i++) {
             item = _arrItems[i];
             item.position = i;
             item.source.x = i * 64;
-        }
-        checkBtns();
-    }
-
-    public function updateItems():void { // not optimal
-        if (isShowed) {
-            trace('update repository');
-            deleteItems();
-            showItems();
-            if ((_shift + 1) * 3 > count) {
-                _cont.x = 0;
-                _shift = 0;
-                checkBtns();
-            }
         }
     }
 
@@ -122,11 +110,66 @@ public class RepositoryBox {
         _arrItems.length = 0;
     }
 
+    public function updateItems():void { // not optimal
+        if (isShowed) {
+            deleteItems();
+            showItems();
+            if (g.lastActiveDecorID) {
+                moveToItemWithID(g.lastActiveDecorID);
+                g.lastActiveDecorID = 0;
+            } else {
+                _shift = 0;
+                _cont.x = 0;
+                checkBtns();
+            }
+        } else g.lastActiveDecorID = 0;
+    }
+
+    public function moveToItemWithID(id:int, time:Number=0):Object {
+        var item:RepositoryItem;
+        for (var i:int=0; i<_arrItems.length; i++) {
+            if ((_arrItems[i] as RepositoryItem).decorId == id) {
+                item = _arrItems[i];
+                break;
+            }
+        }
+        if (!item) {
+            item = new RepositoryItem();
+            item.position = count;
+            item.source.x = count * 64;
+            _cont.addChild(item.source);
+            count++;
+            _arrItems.push(item);
+        }
+        var pItemGlobalCenter:Point = new Point();
+        if (item.position < _shift) {  // зауваження: тут точно маємо більше 3 ітемів
+            _shift = item.position; // ітем буде зліва в box показаний
+            if (time == 0) _cont.x = -_shift*64;  else new TweenMax(_cont, time, {x:-_shift*64, ease:Linear.easeNone});
+            pItemGlobalCenter.x = 30 + 35;
+            checkBtns();
+        } else if (item.position <= _shift + 2) {
+            // вже показується шуканий ітем
+            pItemGlobalCenter.x = 30 + 35 + (item.position-_shift)*64;
+        } else { // > _shift + 3
+            _shift = item.position - 2; // ітем буде справа показаний
+            if (time == 0) _cont.x = -_shift*64;  else new TweenMax(_cont, time, {x:-_shift*64, ease:Linear.easeNone});
+            pItemGlobalCenter.x = 2*64 +30 + 35;
+            checkBtns();
+        }
+        pItemGlobalCenter.y = 0;
+        pItemGlobalCenter = source.localToGlobal(pItemGlobalCenter);
+        pItemGlobalCenter.y = g.managerResize.stageHeight - 45;
+        var obj:Object = {};
+        obj.item = item;
+        obj.point = pItemGlobalCenter;
+        return obj;
+    }
+
     private function onLeft():void {
         if (_shift > 0) {
-            _shift -= 1;
+            _shift--;
             if (_shift<0) _shift = 0;
-            new TweenMax(_cont, .5, {x:-_shift*64, ease:Linear.easeNone ,onComplete: function():void {}});
+            new TweenMax(_cont, .5, {x:-_shift*64, ease:Linear.easeNone});
         }
         checkBtns();
     }
@@ -134,9 +177,9 @@ public class RepositoryBox {
     private function onRight():void {
         var l:int = _arrItems.length;
         if (_shift +1 < l - 2) {
-            _shift += 1;
+            _shift++;
             if (_shift > l - 1 ) _shift = l-1;
-            new TweenMax(_cont, .5, {x:-_shift*64, ease:Linear.easeNone ,onComplete: function():void {}});
+            new TweenMax(_cont, .5, {x:-_shift*64, ease:Linear.easeNone});
         }
         checkBtns();
     }

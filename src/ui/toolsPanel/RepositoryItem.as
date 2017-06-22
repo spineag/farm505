@@ -37,6 +37,8 @@ public class RepositoryItem {
     private var g:Vars = Vars.getInstance();
 
     public function RepositoryItem() {
+        _countDecor = 0;
+        _position = 0;
         source = new CSprite();
         source.nameIt = 'repositoryItem';
         var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('decor_cell'));
@@ -47,6 +49,7 @@ public class RepositoryItem {
     public function set position(countCell:int):void { _position = countCell; }
     public function get position():int { return _position; }
     public function get decorCount():int { return _countDecor; }
+    public function get decorId():int { if (_data) return _data.id; else return 0; }
 
     public function fillIt(data:Object, count:int, arrIds:Array, box:RepositoryBox):void {
         if (!data) {
@@ -82,12 +85,13 @@ public class RepositoryItem {
     }
 
     public function clearIt():void {
-        source.endClickCallback = null;
-        while (source.numChildren) source.removeChildAt(0);
-        _txtCount.dispose();
-        _txtCount = null;
+        if (_txtCount) {
+            source.removeChild(_txtCount);
+            _txtCount.deleteIt();
+            _txtCount = null;
+        }
         _data = null;
-        _arrDbIds.length = 0;
+        source.deleteIt();
     }
 
     private function onClick():void {

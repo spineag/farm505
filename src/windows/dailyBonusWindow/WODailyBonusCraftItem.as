@@ -8,6 +8,7 @@ import com.greensock.easing.Back;
 import com.greensock.easing.Linear;
 
 import data.BuildType;
+import data.StructureDataBuilding;
 
 import flash.display.StageDisplayState;
 
@@ -17,6 +18,7 @@ import manager.ManagerFilters;
 import manager.Vars;
 
 import resourceItem.CraftItem;
+import resourceItem.DropDecor;
 
 import starling.core.Starling;
 
@@ -65,8 +67,7 @@ public class WODailyBonusCraftItem {
                 break;
         }
         MCScaler.scale(im, 100, 100);
-        im.x = -im.width/2;
-        im.y = -im.height/2;
+        im.alignPivot();
         _source = new Sprite();
         _source.addChild(im);
         txt = new CTextField(80, 60, '+'+String(obj.count));
@@ -99,7 +100,7 @@ public class WODailyBonusCraftItem {
     }
 
     private function removeParticle():void {
-        if (_particle) {
+        if (_source && _particle) {
             if (_source.contains(_particle)) _source.removeChild(_particle);
             TweenMax.killTweensOf(_particle);
             _particle.dispose();
@@ -151,17 +152,10 @@ public class WODailyBonusCraftItem {
     }
 
     private function flyItDecor():void {
-        var f1:Function = function (dbId:int):void {
-            g.userInventory.addToDecorInventory(_data.id, dbId);
-            deleteIt();
-        };
-        var f:Function = function ():void {
-            g.directServer.buyAndAddToInventory(_data.id, f1);
-        };
-        var v:Number;
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = .5;
-        else v = .2;
-        new TweenMax(_source, v, {scaleX:.3, scaleY:.3, ease:Back.easeIn, onComplete:f});
+        var p:Point = new Point(0, 0);
+        p = _source.localToGlobal(p);
+        new DropDecor(p.x, p.y, g.allData.getBuildingById(_data.id), 100, 100, _data.count);
+        deleteIt();
     }
 
     private function flyItMoney(isSoft:Boolean):void {
@@ -226,6 +220,7 @@ public class WODailyBonusCraftItem {
     }
 
     private function deleteIt():void {
+        removeParticle();
         TweenMax.killTweensOf(_source);
         if (txt) {
             _source.removeChild(txt);

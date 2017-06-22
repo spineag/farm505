@@ -100,7 +100,6 @@ public class WOPartyWindow extends WindowMain {
             }
         }
         else g.gameDispatcher.addEnterFrame(afterAtlas);
-
     }
 
     private function afterAtlas():void {

@@ -138,7 +138,6 @@ public class DecorFenceArka extends WorldObject {
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 deleteSecondPart();
                 g.townArea.deleteBuild(this);
-                g.updateRepository();
             } else {
                 if (g.selectedBuild == this) {
                     g.toolsModifier.onTouchEnded();

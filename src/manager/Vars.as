@@ -179,6 +179,7 @@ public class Vars {
     public var windowsManager:WindowsManager;
     public var managerHitArea:ManagerHitArea;
     public var selectedBuild:WorldObject;
+    public var lastActiveDecorID:int = 0;
 
     public var server:Server;
     public var directServer:DirectServer;
