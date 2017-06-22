@@ -134,7 +134,7 @@ public class XPPanel {
             } else if (g.user.level == 17) {
                 g.managerQuest.checkQuestContPosition();
             }
-            if (g.user.level >=5 && g.user.level < 10) {
+            if (g.user.level >= 5 && g.user.level < 10) {
                 if (g.managerTips) g.managerTips.calculateAvailableTips();
             }
             if (!g.isDebug) g.socialNetwork.setUserLevel();
