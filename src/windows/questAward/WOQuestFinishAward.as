@@ -36,18 +36,11 @@ public class WOQuestFinishAward extends WindowMain {
         _windowType = WindowsManager.WO_QUEST_AWARD;
         _woWidth = 650;
         _woHeight = 300;
-//        _woBG = new WindowBackground(_woWidth, _woHeight);
-//        _source.addChild(_woBG);
         var im:Image = new Image(g.allData.atlas['questAtlas'].getTexture('end_quest'));
         im.x = -210;
         im.y = -195;
         im.touchable = false;
         _source.addChild(im);
-//        var txt:CTextField = new CTextField(400, 100, g.managerLanguage.allTexts[627]);
-//        txt.setFormat(CTextField.BOLD30, 30, ManagerFilters.ORANGE_COLOR, Color.WHITE);
-//        txt.x = -200;
-//        txt.y = -190;
-//        _source.addChild(txt);
         var txt:CTextField = new CTextField(200, 100, g.managerLanguage.allTexts[626]);
         txt.setFormat(CTextField.MEDIUM24, 20, Color.WHITE, ManagerFilters.BLUE_COLOR);
         txt.alignH = Align.LEFT;
@@ -133,9 +126,7 @@ public class WOQuestFinishAward extends WindowMain {
         }
     }
 
-    private function onClick():void {
-        onClickExit();
-    }
+    private function onClick():void { onClickExit(); }
 
     private function onClickExit():void {
         for (var i:int=0; i<_items.length; i++) {
@@ -149,9 +140,7 @@ public class WOQuestFinishAward extends WindowMain {
         Utils.createDelay(.5, super.hideIt);
     }
 
-    override protected function deleteIt():void {
-        super.deleteIt();
-    }
+    override protected function deleteIt():void { super.deleteIt(); }
 }
 }
 
@@ -165,6 +154,9 @@ import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
 import quest.QuestAwardStructure;
+
+import resourceItem.DropDecor;
+
 import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
@@ -174,6 +166,7 @@ import ui.xpPanel.XPStar;
 
 import utils.CTextField;
 import utils.MCScaler;
+import utils.Utils;
 
 internal class Item extends Sprite {
     private var g:Vars = Vars.getInstance();
@@ -221,6 +214,7 @@ internal class Item extends Sprite {
 
     private function deleteIt():void {
         if (_txt) {
+            removeChild(_txt);
             _txt.deleteIt();
             _txt = null;
         }
@@ -241,18 +235,10 @@ internal class Item extends Sprite {
     }
 
     private function flyItDecor(i:int):void {
-        var f1:Function = function (dbId:int):void {
-            g.userInventory.addToDecorInventory(_aw.idResource, dbId);
-            deleteIt();
-        };
-        var f:Function = function ():void {
-            g.cont.animationsResourceCont.removeChild(_source);
-            g.directServer.buyAndAddToInventory(_aw.idResource, f1);
-        };
-        removeChild(im);
-        _source.addChild(im);
-        g.cont.animationsResourceCont.addChild(_source);
-        new TweenMax(_source, .5, {scaleX:.2, scaleY:.2, ease:Back.easeIn, onComplete:f, delay:i * .2});
+        var p:Point = new Point(0, 0);
+        p = _source.localToGlobal(p);
+        new DropDecor(p.x, p.y, g.allData.getBuildingById(_aw.idResource), 70, 70, _aw.countResource, i*.2);
+        deleteIt();
     }
 
     private function flyItXP():void {

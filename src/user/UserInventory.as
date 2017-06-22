@@ -21,15 +21,8 @@ public class UserInventory {
         _decorInventory = new Object();
     }
 
-    public function get decorInventory():Object {
-        return _decorInventory;
-    }
-
-    public function getDecorInventory(id:int):Boolean {
-        if (_decorInventory[id]) {
-            return true;
-        } return false;
-    }
+    public function get decorInventory():Object { return _decorInventory; }
+    public function getDecorInventory(id:int):Boolean { if (_decorInventory[id]) return true;  else return false; }
 
     public function getResourceforTypetoOrder(type:int):Array {
         var arr:Array = [];
@@ -46,22 +39,29 @@ public class UserInventory {
         else return null;
     }
 
-    public function addToDecorInventory(id:int, dbId:int):void {
+    public function addToDecorInventory(id:int, dbId:int, updateInventory:Boolean = true):void {
         if (_decorInventory[id]) {
             _decorInventory[id].count++;
             _decorInventory[id].ids.push(dbId);
         } else {
             _decorInventory[id] = {count: 1, ids:[dbId]};
         }
-        g.updateRepository();
+        if (updateInventory) {
+            g.lastActiveDecorID = id;
+            g.updateRepository();
+        }
     }
 
-    public function removeFromDecorInventory(id:int):int {
+    public function removeFromDecorInventory(id:int, updateInventory:Boolean = true):int {
         var dbId:int = 0;
         if (_decorInventory[id]) {
             _decorInventory[id].count--;
             dbId = _decorInventory[id].ids.shift();
             if (_decorInventory[id].count <= 0) delete _decorInventory[id];
+        }
+        if (updateInventory) {
+            g.lastActiveDecorID = id;
+            g.updateRepository();
         }
         return dbId;
     }

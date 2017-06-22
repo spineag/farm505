@@ -9,11 +9,15 @@ import data.BuildType;
 import data.DataMoney;
 
 import flash.display.StageDisplayState;
+import flash.geom.Point;
 
 import manager.ManagerFilters;
 import manager.Vars;
 
+import resourceItem.DropDecor;
+
 import resourceItem.DropItem;
+import resourceItem.DropPartyResource;
 
 import starling.core.Starling;
 import starling.display.Image;
@@ -94,8 +98,7 @@ public class WOPartyWindowItem {
             _sprItem.outCallback = function():void { g.hint.hideIt(); };
 
         }
-        im.pivotX = im.width/2;
-        im.pivotY = im.height/2;
+        im.alignPivot();
         MCScaler.scale(im, 80,80);
         source.addChild(_sprItem);
 
@@ -125,8 +128,6 @@ public class WOPartyWindowItem {
         } else _btn.setEnabled = false;
 
         source.addChild(_btn);
-
-
         source.addChild(_txtCountResource);
 
         _txtCountToGift = new CTextField(119,100,String(countToGift));
@@ -138,17 +139,11 @@ public class WOPartyWindowItem {
         _txtCountUser.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PURPLE_COLOR);
         _txtCountUser.y = 130;
         if (_txtCountUser) {
-            if (number == 1) {
-                _txtCountUser.x = 22;
-            } else if (number == 2) {
-                _txtCountUser.x = 15;
-            } else if (number == 3) {
-                _txtCountUser.x = 10;
-            } else if (number == 4) {
-//                _txtCountUser.x = 1;
-            }else if (number == 5) {
-                _txtCountUser.x = -6;
-            }
+            if (number == 1)          _txtCountUser.x = 22;
+            else if (number == 2)   _txtCountUser.x = 15;
+            else if (number == 3)   _txtCountUser.x = 10;
+            else if (number == 4)  ; //_txtCountUser.x = 1;
+            else if (number == 5)   _txtCountUser.x = -6; 
         }
         var _quad:Quad;
         var width:int;
@@ -160,8 +155,7 @@ public class WOPartyWindowItem {
             _quad = new Quad(75, 30, 0xff3da5);
             _quad.y = 165;
             source.addChild(_quad);
-        }
-        else if (number != 1 && g.managerParty.userParty.countResource > g.managerParty.countToGift[number - 2]) {
+        } else if (number != 1 && g.managerParty.userParty.countResource > g.managerParty.countToGift[number - 2]) {
 //            width = 1;
             if (width > 0) {
                 _quad = new Quad(width, 30, 0xff3da5);
@@ -170,7 +164,6 @@ public class WOPartyWindowItem {
                 source.addChild(_quad);
             }
             source.addChild(_txtCountUser);
-
         } else if (number == 1 && g.managerParty.userParty.countResource > 0) {
             if (width > 0) {
                 _quad = new Quad(width, 30, 0xff3da5);
@@ -180,12 +173,8 @@ public class WOPartyWindowItem {
             }
             source.addChild(_txtCountUser);
         }
-        if (number == 1 && g.managerParty.userParty.countResource == 0) {
-            source.addChild(_txtCountUser);
-        }
-        if (number == 5 && g.managerParty.userParty.countResource > countToGift) {
-            source.addChild(_txtCountUser);
-        }
+        if (number == 1 && g.managerParty.userParty.countResource == 0) source.addChild(_txtCountUser);
+        if (number == 5 && g.managerParty.userParty.countResource > countToGift) source.addChild(_txtCountUser);
         if (_quad) {
             if (number == 1) {
                 _quad.x = 50;
@@ -321,7 +310,9 @@ public class WOPartyWindowItem {
             }
             prise.count = _data.countResource;
         }
-        new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
+        if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR || prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION)
+            new DropDecor(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, g.allData.getBuildingById(prise.id), 100, 100, prise.count);
+        else new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
     }
 
     public function deleteIt():void {
