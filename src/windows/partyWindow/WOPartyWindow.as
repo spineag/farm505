@@ -99,8 +99,8 @@ public class WOPartyWindow extends WindowMain {
                 ratingWO();
                 lastWO();
             }
-        }
-        else g.gameDispatcher.addEnterFrame(afterAtlas);
+        } else g.gameDispatcher.addEnterFrame(afterAtlas);
+
     }
 
     private function afterAtlas():void {
@@ -263,7 +263,7 @@ public class WOPartyWindow extends WindowMain {
             _txtTimeLost.x = 287;
             _txtTimeLost.y = -183;
             _txtTime = new CTextField(120, 60, '');
-            _txtTime.setFormat(CTextField.BOLD18, 18, 0xd30102);
+            _txtTime.setFormat(CTextField.BOLD18, 16, 0xd30102);
             _txtTime.x = 286;
             _txtTime.y = -150;
             _sprEvent.addChild(_txtTime);
@@ -334,7 +334,12 @@ public class WOPartyWindow extends WindowMain {
         _source.addChild(_imRating);
         _imRating.x = 310;
         _imRating.y = 35;
-        var f1:Function = function ():void {
+//        var f1:Function = function ():void {
+
+//        };
+        _btnRating.clickCallback = function():void {
+//            g.directServer.getRatingParty(f1);
+
             _activityType = ManagerPartyNew.TYPE_RATING;
             _imEvent.visible = true;
             _imRating.visible = false;
@@ -347,9 +352,6 @@ public class WOPartyWindow extends WindowMain {
             _btnEvent.touchable = true;
             _btnRating.touchable = false;
             _btnLast.touchable = true;
-        };
-        _btnRating.clickCallback = function():void {
-            g.directServer.getRatingParty(f1);
         };
 
         _btnLast = new CButton();
@@ -775,8 +777,8 @@ public class WOPartyWindow extends WindowMain {
 
         for (var i:int=0; i < g.managerParty.arrBestPlayers.length; i++) {
             p = g.user.getSomeoneBySocialId(g.managerParty.arrBestPlayers[i].userSocialId);
-            if (!p.photo && userIds.indexOf(g.managerParty.arrBestPlayers[i].userSocialId) == -1) userIds.push(g.managerParty.arrBestPlayers[i].userSocialId);
-            else if (p.photo) userIds.push(g.managerParty.arrBestPlayers[i].userSocialId);
+            if (!p.photo && userIds.indexOf(g.managerParty.arrBestPlayers[i].userSocialId) == -1 && g.managerParty.arrBestPlayers[i].userSocialId != g.user.userSocialId) userIds.push(g.managerParty.arrBestPlayers[i].userSocialId);
+            else if (p.photo && g.managerParty.arrBestPlayers[i].userSocialId != g.user.userSocialId) userIds.push(g.managerParty.arrBestPlayers[i].userSocialId);
         }
         if (userIds.length) {
             g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);

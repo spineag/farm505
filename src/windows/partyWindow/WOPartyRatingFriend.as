@@ -81,7 +81,14 @@ public class WOPartyRatingFriend {
             cSp.y =-43;
             cSp.x = 125;
         }
-        if (user) g.load.loadImage(g.user.photo, onLoadPhoto);
+        if (user || ob.userSocialId == g.user.userSocialId) {
+//            g.load.loadImage(g.user.photo, onLoadPhoto);
+            _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+            MCScaler.scale(_ava, 50, 50);
+            _ava.x = 55;
+            _ava.y = 10;
+            source.addChild(_ava);
+        }
 //        else if (user) {
 //            Cc.ch('social', 'WOPartyRatingFriend no photo for uid: ' + _personS.userSocialId);
 //            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
@@ -133,6 +140,11 @@ public class WOPartyRatingFriend {
         _txtNamePerson.x = 120;
         _txtNamePerson.y = -27;
         source.addChild(_txtNamePerson);
+//        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+//        MCScaler.scale(_ava, 50, 50);
+//        _ava.x = 55;
+//        _ava.y = 10;
+//        source.addChild(_ava);
     }
 
     public function updateAvatar():void {
