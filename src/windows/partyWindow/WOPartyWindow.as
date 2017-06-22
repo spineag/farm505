@@ -82,7 +82,7 @@ public class WOPartyWindow extends WindowMain {
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
         _activityType = ManagerPartyNew.TYPE_EVENT;
-        fuckingButton();
+
         _sprEvent = new Sprite();
         _sprRating = new Sprite();
         _sprRating.visible = false;
@@ -93,6 +93,7 @@ public class WOPartyWindow extends WindowMain {
         _source.addChild(_sprLast);
         _sprItem = new Sprite();
         if (g.allData.atlas['partyAtlas']) {
+            fuckingButton();
             eventWO(false);
             if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4) {
                 ratingWO();
@@ -105,6 +106,7 @@ public class WOPartyWindow extends WindowMain {
     private function afterAtlas():void {
         if (g.allData.atlas['partyAtlas']) {
             g.gameDispatcher.removeEnterFrame(afterAtlas);
+            fuckingButton();
             eventWO(false);
             if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4) {
                 ratingWO();
@@ -215,16 +217,16 @@ public class WOPartyWindow extends WindowMain {
     }
 
     override public function showItParams(callback:Function, params:Array):void {
-        if (!g.allData.atlas['partyAtlas']) {
-            g.windowsManager.hideWindow(WindowsManager.WO_PARTY);
-//            g.windowsManager.closeAllWindows();
-            return;
-        }
+//        if (!g.allData.atlas['partyAtlas']) {
+//            g.windowsManager.hideWindow(WindowsManager.WO_PARTY);
+////            g.windowsManager.closeAllWindows();
+//            return;
+//        }
         if (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2) {
             super.showIt();
             return;
         }
-        _activityType = params[0];
+        if (params[0]) _activityType = params[0];
 //        _btnRating.setEnabled = false;
         if (_activityType == ManagerPartyNew.TYPE_LAST) {
             _imEvent.visible = true;
@@ -261,7 +263,7 @@ public class WOPartyWindow extends WindowMain {
             _txtTimeLost.x = 287;
             _txtTimeLost.y = -183;
             _txtTime = new CTextField(120, 60, '');
-            _txtTime.setFormat(CTextField.BOLD24, 24, 0xd30102);
+            _txtTime.setFormat(CTextField.BOLD18, 18, 0xd30102);
             _txtTime.x = 286;
             _txtTime.y = -150;
             _sprEvent.addChild(_txtTime);
@@ -451,10 +453,10 @@ public class WOPartyWindow extends WindowMain {
                 _imName.y = -205;
                 _sprEvent.addChild(_imName);
                 _txtBabl = new CTextField(220, 200, String(g.managerParty.description));
-                _txtBabl.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
+                _txtBabl.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
                 _sprEvent.addChild(_txtBabl);
                 _txtBabl.x = -413;
-                _txtBabl.y = -220;
+                _txtBabl.y = -225;
                 _sprEvent.addChild(_sprItem);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
                 im.x = -158;
