@@ -69,7 +69,7 @@ public class ManagerQuest {
     public function hideQuestsIcons(v:Boolean):void { if (_questUI) _questUI.hideIt(v); }
 
     public function addUI():void {
-        if (g.user.level >= 5 && g.useQuests) {
+        if (g.user.level >= 4 && g.useQuests) {
             _questUI = new QuestMainIconUI();
             g.directServer.getUserQuests(onGetUserQuests);
         }
@@ -96,7 +96,7 @@ public class ManagerQuest {
     }
 
     public function getNewQuests():void {
-        if (g.user.level < 5) return;
+        if (g.user.level < 4) return;
         if (g.useQuests) g.directServer.getUserNewQuests(onGetNewQuests);
     }
 
