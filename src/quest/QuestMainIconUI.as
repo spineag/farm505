@@ -122,6 +122,7 @@ public class QuestMainIconUI {
 
     public function hideIt(v:Boolean):void {
         _sp.visible = !v;
+
     }
 
     private function checkArrows():void {
