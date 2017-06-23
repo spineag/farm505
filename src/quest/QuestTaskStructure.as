@@ -2,6 +2,8 @@
  * Created by user on 12/30/16.
  */
 package quest {
+import build.ridge.Ridge;
+
 import data.BuildType;
 import data.StructureDataBuilding;
 
@@ -34,13 +36,31 @@ public class QuestTaskStructure {
 
 
     private function checkDone():void {
+        var maxCountAtCurrentLevel:int = 0;
         if (_taskData.type_action == ManagerQuest.BUILD_BUILDING) {
             var arr:Array = g.townArea.getCityObjectsById(_taskData.id_resource);
+            if (arr[0] && arr[0] is Ridge) {
+
+                for (i = 0; arr[0].dataBuild.blockByLevel.length; i++) {
+                    if (arr[0].dataBuild.blockByLevel[i] <= g.user.level) {
+                        maxCountAtCurrentLevel++;
+                    } else break;
+                }
+                maxCountAtCurrentLevel = maxCountAtCurrentLevel * arr[0].dataBuild.countUnblock;
+                if (arr.length >= maxCountAtCurrentLevel) {
+                    _isDone = true;
+                    return;
+                } else {
+
+                    _isDone = false;
+                    return;
+                }
+            }
             if (arr && arr.length > 0) _isDone = true;
         } else if (_taskData.type_action == ManagerQuest.BUY_ANIMAL) {
             var b:StructureDataBuilding = g.allData.getBuildingById(g.allData.getFarmIdForAnimal(_taskData.id_resource));
             if (!b) return;
-            var maxCountAtCurrentLevel:int = 0;
+            maxCountAtCurrentLevel = 0;
             arr = g.townArea.getCityObjectsById(b.id);
             for (var i:int = 0; b.blockByLevel.length; i++) {
                 if (b.blockByLevel[i] <= g.user.level) {

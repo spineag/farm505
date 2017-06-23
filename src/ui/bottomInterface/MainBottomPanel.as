@@ -271,13 +271,31 @@ public class MainBottomPanel {
                     }
                 }
                 if (_questBoolean) {
-                    if (_typeHelp == HelperReason.REASON_BUY_ANIMAL) shopTab = WOShop.ANIMAL;
-                    else if (_typeHelp == HelperReason.REASON_BUY_FABRICA) shopTab = WOShop.FABRICA;
-                    else if (_typeHelp == HelperReason.REASON_BUY_FARM) shopTab = WOShop.VILLAGE;
-                    else if (_typeHelp == HelperReason.REASON_BUY_HERO) shopTab = WOShop.VILLAGE;
-                    else if (_typeHelp == HelperReason.REASON_BUY_RIDGE) shopTab = WOShop.VILLAGE;
+                    if (_typeHelp == HelperReason.REASON_BUY_ANIMAL) {
+                        shopTab = WOShop.ANIMAL;
+                        g.user.decorShop = false;
+                    }
+                    else if (_typeHelp == HelperReason.REASON_BUY_FABRICA) {
+                        shopTab = WOShop.FABRICA;
+                        g.user.decorShop = false;
+                    }
+                    else if (_typeHelp == HelperReason.REASON_BUY_FARM) {
+                        shopTab = WOShop.VILLAGE;
+                        g.user.decorShop = false;
+                    }
+                    else if (_typeHelp == HelperReason.REASON_BUY_HERO) {
+                        shopTab = WOShop.VILLAGE;
+                        g.user.decorShop = false;
+                    }
+                    else if (_typeHelp == HelperReason.REASON_BUY_RIDGE) {
+                        shopTab = WOShop.VILLAGE;
+                        g.user.decorShop = false;
+                    }
                     else if (_typeHelp == HelperReason.REASON_BUY_DECOR) shopTab = WOShop.DECOR;
-                    else if (_typeHelp == HelperReason.REASON_BUY_TREE) shopTab = WOShop.PLANT;
+                    else if (_typeHelp == HelperReason.REASON_BUY_TREE) {
+                        shopTab = WOShop.PLANT;
+                        g.user.decorShop = false;
+                    }
                 }
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
                 if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
