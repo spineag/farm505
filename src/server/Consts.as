@@ -157,5 +157,6 @@ public class Consts {
     public static var INQ_UPDATE_USER_MISS:String = 'updateUserMiss.php';
     public static var INQ_NOTIFICATION_FB_MISS:String = 'notification_fb_miss.php';
     public static var INQ_NOTIFICATION_VK_MISS:String = 'notification_vk_miss.php';
+    public static var INQ_SHOW_ANNOUNCEMENT:String = 'onShowAnnouncement.php';
 }
 }

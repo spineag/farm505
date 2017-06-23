@@ -151,5 +151,11 @@ public class QuestMainIconUI {
             checkArrows();
         }
     }
+    
+    public function showArrowsForAllVisibleIconQuests(t:int):void {
+        for (var i:int=0; i<_items.length; i++) {
+            (_items[i] as QuestItemIcon).addArrow(t);
+        }
+    }
 }
 }

@@ -97,7 +97,7 @@ public class WindowMain {
     }
 
     protected function deleteIt():void {
-        if (_btnExit) {
+        if (_btnExit && _source) {
             _source.removeChild(_btnExit);
             _btnExit.deleteIt();
             _btnExit = null;

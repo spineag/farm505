@@ -15,6 +15,8 @@ import social.SocialNetworkSwitch;
 import starling.core.Starling;
 
 import ui.xpPanel.XPStar;
+
+import wallPost.WALLAnnouncement;
 import wallPost.WALLDoneOrder;
 import wallPost.WALLDoneTrain;
 import wallPost.WALLForQuest;
@@ -33,6 +35,7 @@ public class ManagerWallPost {
     public static const DONE_TRAIN:String = 'done_train';
     public static const DONE_ORDER:String = 'done_order';
     public static const POST_FOR_QUEST:String = 'quest_post';
+    public static const POST_ANNOUNCEMENT:String = 'announcement_post';
 
     private var _count:int;
     private var _type:int;
@@ -67,6 +70,7 @@ public class ManagerWallPost {
             case DONE_TRAIN: _isPost = true; new WALLDoneTrain(callback,params); break;
             case DONE_ORDER: _isPost = true; new WALLDoneOrder(callback,params); break;
             case POST_FOR_QUEST: _isPost = true; new WALLForQuest(callback, params); break;
+            case POST_ANNOUNCEMENT: _isPost = true; new WALLAnnouncement(callback, params); break;
             default: Cc.error('WindowsManager:: unknown window type: ' + type); break;
         }
         checkPostQueue();

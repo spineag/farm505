@@ -35,6 +35,7 @@ import utils.MCScaler;
 
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
+import windows.WindowsManager;
 
 public class WOMissYou extends WindowMain {
     private var _woBG:WindowBackground;
@@ -47,6 +48,7 @@ public class WOMissYou extends WindowMain {
 
     public function WOMissYou() {
         super ();
+        _windowType = WindowsManager.WO_MISS_YOU;
         _woWidth = 520;
         _woHeight = 400;
         _woBG = new WindowBackground(_woWidth, _woHeight);

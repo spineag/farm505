@@ -105,7 +105,7 @@ public class ManagerQuest {
         checkForEmptyQuests();
         if (_questUI) _questUI.updateIcons();
     }
-
+    
     private function getUserQuestById(id:int):QuestStructure {
         for (var i:int=0; i<_userQuests.length; i++) {
             if ((_userQuests[i] as QuestStructure).questId == id) return _userQuests[i];
@@ -510,6 +510,10 @@ public class ManagerQuest {
             checkInGroup();
             _timer = 3;
         }
+    }
+    
+    public function showArrowsForAllVisibleIconQuests(t:int):void {
+        if (_questUI) _questUI.showArrowsForAllVisibleIconQuests(t);
     }
     
 }

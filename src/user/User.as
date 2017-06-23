@@ -64,6 +64,7 @@ public class User extends Someone {
     public var language:int;
     public var nextTimeInvite:int = -1;
     public var missDate:int;
+    public var announcement:Boolean; // have see or not
 
     private var g:Vars = Vars.getInstance();
 
@@ -74,6 +75,7 @@ public class User extends Someone {
         arrNoAppFriend = [];
         lastVisitAmbar = true;
         countAwayMouse = 0;
+        announcement = false;
     }
 
     public function set visitAmbar(b:Boolean):void  { lastVisitAmbar = b; }

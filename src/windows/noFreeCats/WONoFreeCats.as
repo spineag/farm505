@@ -65,9 +65,7 @@ public class WONoFreeCats extends WindowMain {
         SOUND_OPEN = SoundConst.WO_AHTUNG;
     }
 
-    override public function showItParams(callback:Function, params:Array):void {
-        super.showIt();
-    }
+    override public function showItParams(callback:Function, params:Array):void { super.showIt(); }
 
     private function onClick():void {
         super.hideIt();
@@ -82,7 +80,6 @@ public class WONoFreeCats extends WindowMain {
             (g.windowsManager.currentWindow as WOShop).addArrowAtPos(0, 3);
         }
     }
-
 
     private function createDelay(delay:Number, f:Function):void {
         var func:Function = function():void {

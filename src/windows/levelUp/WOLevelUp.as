@@ -2,6 +2,8 @@
  * Created by user on 7/8/15.
  */
 package windows.levelUp {
+import announcement.ManagerAnnouncement;
+
 import data.BuildType;
 import data.DataMoney;
 import data.StructureDataAnimal;
@@ -563,7 +565,10 @@ public class WOLevelUp extends WindowMain {
         g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
         if (g.user.level == 3 || g.user.level == 4) g.managerMiniScenes.checkAvailableMiniScenesOnNewLevel();
 
-        if (g.user.level == 4) g.managerQuest.addUI();
+        if (g.user.level == 4) {
+            g.managerQuest.addUI();
+            g.managerAnnouncement = new ManagerAnnouncement();
+        }
         if (_txtNewLvl) {
             _source.removeChild(_txtNewLvl);
             _txtNewLvl.deleteIt();

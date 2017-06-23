@@ -8,6 +8,9 @@ import additional.buyerNyashuk.ManagerBuyerNyashuk;
 import additional.lohmatik.ManagerLohmatik;
 import additional.mouse.ManagerMouse;
 import analytic.AnalyticManager;
+
+import announcement.ManagerAnnouncement;
+
 import build.TownAreaTouchManager;
 import build.farm.FarmGrid;
 import data.AllData;
@@ -208,6 +211,7 @@ public class Vars {
     public var managerVisibleObjects:ManagerVisibleObjects;
     public var managerResize:ManagerResize;
     public var managerAchievement:ManagerAchievement;
+    public var managerAnnouncement:ManagerAnnouncement;
 
     public var useQuests:Boolean = false;
 
@@ -477,6 +481,8 @@ public class Vars {
 
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
+        
+        if ((user as User).level >= 4) managerAnnouncement = new ManagerAnnouncement();
     }
 
     private function onEnterFrameGlobal():void {

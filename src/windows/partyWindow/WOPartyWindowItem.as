@@ -139,10 +139,10 @@ public class WOPartyWindowItem {
         _txtCountUser.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.PURPLE_COLOR);
         _txtCountUser.y = 130;
         if (_txtCountUser) {
-            if (number == 1)          _txtCountUser.x = 22;
+            if (number == 1)        _txtCountUser.x = 22;
             else if (number == 2)   _txtCountUser.x = 15;
             else if (number == 3)   _txtCountUser.x = 10;
-            else if (number == 4)  ; //_txtCountUser.x = 1;
+            else if (number == 4)   _txtCountUser.x = 0;
             else if (number == 5)   _txtCountUser.x = -6; 
         }
         var _quad:Quad;

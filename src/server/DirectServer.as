@@ -901,6 +901,7 @@ public class DirectServer {
             g.user.language = int(ob.language);
             g.user.missDate = int(ob.miss_date);
             g.user.day = int (ob.day);
+            if (ob.announcement) g.user.announcement = Boolean(ob.announcement == '1');
             if (ob.next_time_invite) g.user.nextTimeInvite = int(ob.next_time_invite);
             if (!g.isDebug) {
                 if (ob.music == '1') g.soundManager.enabledMusic(true);
@@ -8706,6 +8707,34 @@ public class DirectServer {
 }
 
     private function completeNotificationFbMiss(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        if (callback != null) {
+            callback.apply();
+        }
+    }
+
+    public function onShowAnnouncement(callback:Function = null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SHOW_ANNOUNCEMENT);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'onShowAnnouncement', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteOnShowAnnouncement);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteOnShowAnnouncement(e:Event):void { completeOnShowAnnouncement(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('onShowAnnouncement error:' + error.errorID);
+        }
+    }
+
+    private function completeOnShowAnnouncement(response:String, callback:Function = null):void {
         iconMouse.endConnect();
         if (callback != null) {
             callback.apply();

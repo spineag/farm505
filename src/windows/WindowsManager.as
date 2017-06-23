@@ -8,6 +8,7 @@ import manager.Vars;
 import windows.achievementWindow.WOAchievement;
 import windows.ambar.WOAmbars;
 import windows.ambarFilled.WOAmbarFilled;
+import windows.announcement.WOAnnouncement;
 import windows.anotherGameError.WOAnotherGame;
 import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
@@ -119,6 +120,7 @@ public class WindowsManager {
     public static const WO_SALE_PACK:String = 'sale_pack';
     public static const WO_ACHIEVEMENT:String = 'achievement';
     public static const WO_MISS_YOU:String = 'miss_you';
+    public static const WO_ANNOUNCEMENT:String = 'announcement';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -312,6 +314,9 @@ public class WindowsManager {
                 break;
             case WO_MISS_YOU:
                 wo = new WOMissYou();
+                break;
+            case WO_ANNOUNCEMENT:
+                wo = new WOAnnouncement();
                 break;
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);

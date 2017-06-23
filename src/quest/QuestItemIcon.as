@@ -103,11 +103,11 @@ public class QuestItemIcon {
         _source.y = a*90 + 40;
     }
     
-    public function addArrow():void {
+    public function addArrow(t:int=3):void {
         hideArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_RIGHT, _source);
         _arrow.animateAtPosition(40, 5);
-        _arrow.activateTimer(3, hideArrow);
+        _arrow.activateTimer(t, hideArrow);
     }
 
     public function hideArrow():void {
