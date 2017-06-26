@@ -112,6 +112,13 @@ public class ManagerPartyNew {
             else obj.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
             new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
         }
+
+        if (playerPosition == 1) {
+            obj.count = 1;
+            obj.id = 273;
+            obj.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
+            new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
+        }
     }
 
     public function endPartyWindow():void {

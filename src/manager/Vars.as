@@ -482,7 +482,7 @@ public class Vars {
             analyticManager = new AnalyticManager();
             analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_ON_LOAD_GAME, {id: 1});
         
-        if ((user as User).level >= 4) managerAnnouncement = new ManagerAnnouncement();
+        if ((user as User).level >= 4 && (user as User).isMegaTester) managerAnnouncement = new ManagerAnnouncement();
     }
 
     private function onEnterFrameGlobal():void {

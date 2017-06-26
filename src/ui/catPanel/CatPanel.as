@@ -95,19 +95,21 @@ public class CatPanel {
 
     private function onClick():void {
 //        g.windowsManager.openWindow(WindowsManager.WO_MISS_YOU,null, g.user);
-//        checkParty();
+
 //        g.directServer.getRatingParty(null);
 //        if (g.user.isMegaTester) g.windowsManager.openWindow(WindowsManager.WO_ACHIEVEMENT,null);
 //        g.directServer.getDataAchievement(null);
         if ((g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID)) {
             if (g.user.userSocialId == '252433337505') {
-                g.user.level++;
-                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+                checkParty();
+//                g.user.level++;
+//                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
             }
         } else {
-            if (g.user.userSocialId == '1402089059863470' || g.user.userSocialId == '14663166' || g.user.userSocialId == '201166703' || g.user.userSocialId == '168207096' || g.user.userSocialId == '202427318' || g.user.userSocialId == '191561520') {
-                g.user.level++;
-                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
+            if (g.user.userSocialId == '146353874' ||  g.user.userSocialId == '1185277884914305' || g.user.userSocialId == '1402089059863470' || g.user.userSocialId == '14663166' || g.user.userSocialId == '201166703' || g.user.userSocialId == '168207096' || g.user.userSocialId == '202427318' || g.user.userSocialId == '191561520') {
+                checkParty();
+//                g.user.level++;
+//                g.windowsManager.openWindow(WindowsManager.WO_LEVEL_UP, null);
             }
         }
 //        g.directServer.addUserXP(1,null);
@@ -122,13 +124,13 @@ public class CatPanel {
         ob.timeToStart = 1;
         ob.timeToEnd = 1489556993;
         ob.levelToStart = 5;
-        ob.idResource = 15;
+        ob.idResource = 12;
         ob.typeBuilding = BuildType.ORDER;
         ob.coefficient = 5;
-        ob.idDecorBest = 262;
+        ob.idDecorBest = 270;
         ob.typeParty = 4;
-        ob.name = 'Блинный путь';
-        ob.description = 'Накорми пришельцев и получи награду';
+//        ob.name = 'Блинный путь';
+//        ob.description = 'Накорми пришельцев и получи награду';
         ob.idGift = [];
         ob.idGift[0] = 2;
         ob.idGift[1] = 1;
