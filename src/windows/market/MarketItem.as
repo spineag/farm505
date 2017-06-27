@@ -493,6 +493,8 @@ public class MarketItem {
                 }
                 g.managerAchievement.addAll(2,_countMoney);
                 if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.MARKET && g.allData.atlas['partyAtlas']&&g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+                else if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+
                 animCoin();
                 isFill = 0;
                 unFillIt();

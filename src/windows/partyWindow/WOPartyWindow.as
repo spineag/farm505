@@ -95,7 +95,7 @@ public class WOPartyWindow extends WindowMain {
         if (g.allData.atlas['partyAtlas']) {
             fuckingButton();
             eventWO(false);
-            if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4) {
+            if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4 || g.managerParty.typeParty == 5) {
                 ratingWO();
                 lastWO();
             }
@@ -108,7 +108,7 @@ public class WOPartyWindow extends WindowMain {
             g.gameDispatcher.removeEnterFrame(afterAtlas);
             fuckingButton();
             eventWO(false);
-            if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4) {
+            if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4 || g.managerParty.typeParty == 5) {
                 ratingWO();
                 lastWO();
             }
@@ -117,42 +117,62 @@ public class WOPartyWindow extends WindowMain {
 
     private function onClickShow():void {
         hideIt();
-        var arr:Array = g.townArea.getCityObjectsByType(g.managerParty.typeBuilding);
-        var b:Boolean = false;
+        var arr:Array;
         var i:int;
-        if (BuildType.FABRICA == g.managerParty.typeBuilding) {
+        if (g.managerParty.typeParty == 5) {
+            arr = g.townArea.getCityObjectsByType(BuildType.ORDER);
+            var arrT:Array;
+            arrT = g.townArea.getCityObjectsByType(BuildType.RIDGE);
+            if (arrT.length > 0) {
+                for (i = 0; i < arrT.length; i++) {
+                    if (arrT[i].stateRidge > 1) arr.push(arrT[i]);
+                }
+            }
+            arrT = [];
+            arrT = g.townArea.getCityObjectsByType(BuildType.MARKET);
+            arr.push(arrT[0]);
+            g.cont.moveCenterToPos(arr[0].posX, arr[0].posY);
             for (i = 0; i < arr.length; i++) {
-                for (var j:int = 0; j < arr[i].arrRecipes.length; j++) {
-                    if (arr[i].arrRecipes[j].idResource == g.managerParty.idResource) {
+                arr[i].showArrow(3, g.managerParty.idResource);
+            }
+        } else {
+            arr = g.townArea.getCityObjectsByType(g.managerParty.typeBuilding);
+            var b:Boolean = false;
+            if (BuildType.FABRICA == g.managerParty.typeBuilding) {
+                for (i = 0; i < arr.length; i++) {
+                    for (var j:int = 0; j < arr[i].arrRecipes.length; j++) {
+                        if (arr[i].arrRecipes[j].idResource == g.managerParty.idResource) {
+                            arr[0] = arr[i];
+                            b = true;
+                            break;
+                        }
+                    }
+                    if (b) break;
+                }
+            } else if (BuildType.TREE == g.managerParty.typeBuilding) {
+                for (i = 0; i < arr.length; i++) {
+                    if (arr[i].dataBuild.craftIdResource == g.managerParty.idResource) {
                         arr[0] = arr[i];
                         b = true;
                         break;
                     }
                 }
-                if (b) break;
-            }
-        } else if (BuildType.TREE == g.managerParty.typeBuilding) {
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i].dataBuild.craftIdResource == g.managerParty.idResource) {
-                    arr[0] = arr[i];
-                    b = true;
-                    break;
+            } else if (BuildType.FARM == g.managerParty.typeBuilding) {
+                for (i = 0; i < arr.length; i++) {
+                    if (arr[i].dataAnimal.idResource == g.managerParty.idResource) {
+                        arr[0] = arr[i];
+                        b = true;
+                        break;
+                    }
                 }
             }
-        } else if (BuildType.FARM == g.managerParty.typeBuilding) {
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i].dataAnimal.idResource == g.managerParty.idResource) {
-                    arr[0] = arr[i];
-                    b = true;
-                    break;
-                }
-            }
+            if (g.managerParty.idResource == 0) b = true;
+            if (!b) return;
+            if (!arr[0]) return;
+            g.cont.moveCenterToPos(arr[0].posX, arr[0].posY);
+            if (BuildType.FABRICA == g.managerParty.typeBuilding) arr[0].showArrow(3, g.managerParty.idResource);
+            else arr[0].showArrow(3);
         }
-        if (!b) return;
-        if(!arr[0]) return;
-        g.cont.moveCenterToPos(arr[0].posX, arr[0].posY);
-        if (BuildType.FABRICA == g.managerParty.typeBuilding) arr[0].showArrow(3,g.managerParty.idResource);
-        else arr[0].showArrow(3);
     }
 
     private function onClickMinus():void {
@@ -275,7 +295,7 @@ public class WOPartyWindow extends WindowMain {
     private function startTimer():void {
         if (g.userTimer.partyToEndTimer > 0) {
             if (_txtTime)_txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.partyToEndTimer);
-            if (_txtTime && g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2 && _txtTime.x == 0) _txtTime.x = -(160 + _txtTime.textBounds.width/2);
+            if (_txtTime && (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2) && _txtTime.x == 0) _txtTime.x = -(160 + _txtTime.textBounds.width/2);
         } else {
             onClickExit();
             g.gameDispatcher.removeFromTimer(startTimer);
@@ -465,7 +485,7 @@ public class WOPartyWindow extends WindowMain {
                 im.y = 31;
 
                 _sprEvent.addChild(im);
-                if (g.managerParty.typeParty == 3) {
+                if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) {
                     im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_w'));
                     im.x = -215;
                     im.y = 17;
