@@ -88,8 +88,7 @@ public class QuestMainIconUI {
         if (arNew.length) {
             var pos:int = _items.length;
             for (i=0; i<pos; i++) {
-                if ((_items[j] as QuestItemIcon).questId < 4) (_items[i] as QuestItemIcon).priority = 100000 + i;
-                else (_items[i] as QuestItemIcon).priority = 100 + i;
+                (_items[i] as QuestItemIcon).priority = i;
             }
             var it:QuestItemIcon;
             for (i=0; i<arNew.length; i++) {

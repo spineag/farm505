@@ -27,6 +27,8 @@ public class SimpleArrow {
     private var _timer:Timer;
     private var _onTimerCallback:Function;
     private var _global:Boolean;
+    private var _startX:int;
+    private var _startY:int;
     private var g:Vars = Vars.getInstance();
 
     public function SimpleArrow(posType:int, parent:Sprite) {
@@ -49,17 +51,24 @@ public class SimpleArrow {
     public function changeY(_y:int):void { _source.y = _y; }
     public function set visible(v:Boolean):void { _source.visible = v; }
 
-    public function animateAtPosition(_x:int, _y:int, global:Boolean=false):void {
+    public function animateAtPosition(_x:int, _y:int, global:Boolean=false, delay:Number = 0):void {
         _global = global;
+        _startX = _x;
+        _startY = _y;
+        if (delay > 0) Utils.createDelay(delay, animateAtPostion2);
+        else animateAtPostion2();
+    }
+
+    private function animateAtPostion2():void {
         if (_global) {
-            var p:Point = new Point(_x, _y);
+            var p:Point = new Point(_startX, _startY);
             p = _parent.localToGlobal(p);
             _source.x = p.x;
             _source.y = p.y;
             g.cont.popupCont.addChild(_source);
         } else {
-            _source.x = _x;
-            _source.y = _y;
+            _source.x = _startX;
+            _source.y = _startY;
             _parent.addChild(_source);
         }
         _source.visible = true;

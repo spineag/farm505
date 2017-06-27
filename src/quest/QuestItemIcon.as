@@ -16,7 +16,7 @@ public class QuestItemIcon {
     private var g:Vars = Vars.getInstance();
     private var _source:CSprite;
     private var _quest:QuestStructure;
-    public var priority:int;
+    private var _priority:int;
     private var _position:int;
     private var _onHover:Boolean;
     private var _arrow:SimpleArrow;
@@ -48,6 +48,13 @@ public class QuestItemIcon {
         _source.outCallback = onOut;
         _source.endClickCallback = onClick;
     }
+    
+    public function set priority(n:int):void {
+        if (_quest.id < 4) _priority = n + 100000;
+        else _priority = n;
+    }
+    
+    public function get priority():int { return _priority; }
 
     private function onHover():void {
         if (_onHover) return;

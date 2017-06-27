@@ -2,6 +2,8 @@
  * Created by user on 12/30/16.
  */
 package quest {
+import build.fabrica.Fabrica;
+import build.farm.Farm;
 import build.ridge.Ridge;
 
 import com.junkbyte.console.Cc;
@@ -59,7 +61,7 @@ public class QuestTaskStructure {
                     return;
                 }
             }
-            if (arr && arr.length > 0) _isDone = true;
+            if (arr && arr.length && (arr[0] is Fabrica || arr[0] is Farm)) _isDone = true;
         } else if (_taskData.type_action == ManagerQuest.BUY_ANIMAL) {
             var b:StructureDataBuilding = g.allData.getBuildingById(g.allData.getFarmIdForAnimal(_taskData.id_resource));
             if (!b) return;

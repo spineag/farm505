@@ -199,13 +199,13 @@ public class Farm extends WorldObject{
         }
     }
 
-    private function setDataAnimal():void {
-        _dataAnimal = g.allData.getAnimalByFarmId(_dataBuild.id);
-    }
-
-    public function get dataAnimal():Object {
-        return _dataAnimal;
-    }
+    private function setDataAnimal():void { _dataAnimal = g.allData.getAnimalByFarmId(_dataBuild.id); }
+    public function get dataAnimal():Object { return _dataAnimal; }
+    public function get isFull():Boolean { return _arrAnimals.length >= _dataBuild.maxAnimalsCount; }
+    public function get arrAnimals():Array { return _arrAnimals; }
+    public function get isAnyCrafted():Boolean { return _arrCrafted.length > 0; }
+    private function checkBeforeMove():void { g.managerAnimal.onFarmStartMove(_dbBuildingId); }
+    public function checkAfterMove():void { g.managerAnimal.onFarmFinishMove(this); }
 
     public function addAnimal(isFromServer:Boolean = false, ob:Object = null):void {
 //        try {
@@ -299,10 +299,6 @@ public class Farm extends WorldObject{
 //        }
     }
 
-    public function get isFull():Boolean {
-        return _arrAnimals.length >= _dataBuild.maxAnimalsCount;
-    }
-
     override public function addXP():void {
         if (_dataBuild.xpForBuild) {
             var start:Point = new Point(int(_source.x), int(_source.y));
@@ -311,10 +307,6 @@ public class Farm extends WorldObject{
         }
     }
 
-    public function get arrAnimals():Array {
-        return _arrAnimals;
-    }
-    
     public function get arrHungryAnimals():Array {
         var ar:Array = [];
         for (var i:int = 0; i<_arrAnimals.length; i++) {
@@ -456,18 +448,6 @@ public class Farm extends WorldObject{
         if (_arrCrafted.length) {
             (_arrCrafted[0] as CraftItem).addArrow(f);
         }
-    }
-
-    public function get isAnyCrafted():Boolean {
-        return _arrCrafted.length > 0;
-    }
-
-    private function checkBeforeMove():void {
-        g.managerAnimal.onFarmStartMove(_dbBuildingId);
-    }
-
-    public function checkAfterMove():void {
-        g.managerAnimal.onFarmFinishMove(this);
     }
 
     public function releaseMouseEventForAnimalFromTouchManager(eventType:String):void {
