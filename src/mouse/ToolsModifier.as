@@ -339,11 +339,7 @@ public class ToolsModifier {
              _spriteForMove.removeChildAt(0);
         }
         if (_moveGrid) _moveGrid.clearIt();
-        if (_txtCount) {
-            if (_mouseIcon.contains(_txtCount)) _mouseIcon.removeChild(_txtCount);
-//            _txtCount.deleteIt();
-//            _txtCount = null;
-        }
+        if (_txtCount) { if (_mouseIcon.contains(_txtCount)) _mouseIcon.removeChild(_txtCount); }
         _moveGrid = null;
         _spriteForMove.removeChild(_activeBuilding.source);
         _spriteForMove = null;
@@ -351,9 +347,7 @@ public class ToolsModifier {
             if (_startMoveX == -1 && _startMoveY == -1) {
                 _activeBuilding.clearIt();
                 _activeBuilding = null;
-            } else {
-                g.townArea.pasteTailBuild((_activeBuilding as DecorTail), _startMoveX, _startMoveY, false, false);
-            }
+            } else {  g.townArea.pasteTailBuild((_activeBuilding as DecorTail), _startMoveX, _startMoveY, false, false); }
             g.cont.contentCont.touchable = true;
         }
         if (_activeBuilding) {
@@ -361,9 +355,7 @@ public class ToolsModifier {
             if (_startMoveX == -1 && _startMoveY == -1) {
                 _activeBuilding.clearIt();
                 _activeBuilding = null;
-            } else {
-                g.townArea.pasteBuild(_activeBuilding, _startMoveX, _startMoveY, false, false);
-            }
+            } else { g.townArea.pasteBuild(_activeBuilding, _startMoveX, _startMoveY, false, false); }
         }
         g.selectedBuild = null;
     }

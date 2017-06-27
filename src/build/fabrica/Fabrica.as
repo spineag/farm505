@@ -277,7 +277,6 @@ public class Fabrica extends WorldObject {
                     if (g.userInventory.currentCountInSklad + _arrCrafted[0].count > g.user.skladMaxCount) {
                         g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                     } else {
-                        g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
                         g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
                         (_arrCrafted[0] as CraftItem).flyIt();
 
@@ -333,6 +332,7 @@ public class Fabrica extends WorldObject {
                 g.managerTutorial.checkTutorialCallback();
             }
             g.soundManager.playSound(SoundConst.OPEN_BUILD);
+            g.managerQuest.onActionForTaskType(ManagerQuest.OPEN_BUILD, {id:_dataBuild.id});
         }
     }
 
@@ -446,7 +446,7 @@ public class Fabrica extends WorldObject {
             g.userInventory.addResource(int(dataRecipe.ingridientsId[i]), -int(dataRecipe.ingridientsCount[i]));
         }
         g.directServer.addFabricaRecipe(dataRecipe.id, _dbBuildingId, delay, f1);
-//        g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:dataRecipe.idResource});
+        g.managerQuest.onActionForTaskType(ManagerQuest.RAW_PRODUCT, {id:dataRecipe.idResource});
         // animation of uploading resources to fabrica
         var p:Point = new Point(source.x, source.y);
         p = source.parent.localToGlobal(p);

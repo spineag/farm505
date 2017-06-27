@@ -67,7 +67,6 @@ public class DecorTail extends WorldObject{
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
-
     }
 
     override public function onOut():void {

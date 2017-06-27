@@ -244,7 +244,7 @@ public class Vars {
     private function loadMap():void {           startPreloader.setProgress(76); background = new BackgroundArea(onLoadMap); }
     private function onLoadMap():void {         startPreloader.setProgress(77); directServer.getDataOutGameTiles(onGetOutGameTiles); }
     private function onGetOutGameTiles():void { startPreloader.setProgress(78); directServer.getDataLevel(onDataLevel); }
-    public function onDataLevel():void {        startPreloader.setProgress(79); directServer.getUserInfo(loadManagerLanguqage); }
+    private function onDataLevel():void {       startPreloader.setProgress(79); directServer.getUserInfo(loadManagerLanguqage); }
     private function loadManagerLanguqage():void { managerLanguage = new ManagerLanguage(initInterface); }
 
     public function initInterface():void {
@@ -289,9 +289,9 @@ public class Vars {
         if (managerTutorial.isTutorial) {
             loadAnimation.load('animations_json/x1/cat_tutorial', 'tutorialCat', onLoadCatTutorial); // no need for loading this
         } else {
-            if ((user as User).level == 3) {
+//            if ((user as User).level == 3) {
                 onLoadCatTutorial();
-            } else directServer.getDataResource(onDataResource);
+//            } else directServer.getDataResource(onDataResource);
         }
     }
     

@@ -3,13 +3,17 @@
  */
 package quest {
 import build.WorldObject;
+import build.fabrica.Fabrica;
 import build.farm.Animal;
 import build.farm.Farm;
 import build.lockedLand.LockedLand;
 import build.ridge.Ridge;
+import build.tree.Tree;
+
 import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
+import data.StructureDataBuilding;
 
 import dragonBones.animation.WorldClock;
 
@@ -51,6 +55,8 @@ public class ManagerQuest {
     public static const KILL_MOUSE:int = 18;       // +zlovutu muwei
     public static const BUY_PAPER:int = 19;        // +kyputu v gazeti
     public static const SET_IN_PAPER:int = 20;     // +vustavutu v gazety
+    public static const OPEN_BUILD:int = 21;     // vidkrutu pobydovanyi bydivliy   -> fabrica
+    public static const CRAFT_TREE:int = 22;     // zibratu z derev
 
 
     private var g:Vars = Vars.getInstance();
@@ -67,10 +73,14 @@ public class ManagerQuest {
 
     public function get userQuests():Array { return _userQuests; }
     public function hideQuestsIcons(v:Boolean):void { if (_questUI) _questUI.hideIt(v); }
+    public function showArrowsForAllVisibleIconQuests(t:int):void { if (_questUI) _questUI.showArrowsForAllVisibleIconQuests(t); }
+    public function checkQuestContPosition():void { if (_questUI) _questUI.checkContPosition(); }
+    private function onGetUserQuestAward():void { g.directServer.getUserNewQuests(onGetNewQuests); }
 
     public function addUI():void {
         if (g.user.level >= 4 && g.useQuests) {
             _questUI = new QuestMainIconUI();
+            if (g.managerCutScenes.isCutScene) hideQuestsIcons(true);
             g.directServer.getUserQuests(onGetUserQuests);
         }
     }
@@ -168,7 +178,6 @@ public class ManagerQuest {
         g.windowsManager.openWindow(WindowsManager.WO_QUEST, null, d);
     }
 
-    public function checkQuestContPosition():void { if (_questUI) _questUI.checkContPosition(); }
     public function onHideWO():void {
         _currentOpenedQuestInWO = null;
         g.gameDispatcher.removeFromTimer(checkWithTimer);
@@ -393,20 +402,42 @@ public class ManagerQuest {
                 g.cont.moveCenterToPos(28, -5);
                 g.managerBuyerNyashuk.addArrows(3);
                 break;
+            case OPEN_BUILD:
+                if (g.allData.getBuildingById(_activeTask.resourceId).buildType != BuildType.FABRICA) { Cc.error('ManagerQuest:: OPEN_BUILD is only for Fabrica');  return; }
+                arrT = g.townArea.getCityObjectsById(_activeTask.resourceId);
+                if (arrT[0] && ((arrT[0] as Fabrica).stateBuild == WorldObject.STATE_BUILD || (arrT[0] as Fabrica).stateBuild == WorldObject.STATE_WAIT_ACTIVATE)) {
+                    (arrT[0] as Fabrica).showArrow(3);
+                    g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
+                } else {
+                    new FlyMessage(p,String(g.managerLanguage.allTexts[600]));
+                }
+                break;
+            case CRAFT_TREE:
+                var treeData:StructureDataBuilding = g.allData.getTreeByCraftResourceId(_activeTask.resourceId);
+                arrT = g.townArea.getCityObjectsById(treeData.id);
+                if (arrT.length) {
+                    for (i = 0; i < arrT.length; i++) {
+                        (arrT[i] as Tree).showArrow(3);
+                    }
+                    g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
+                } else {
+                    new FlyMessage(p,String(g.managerLanguage.allTexts[600]));
+                }
+                break;
+                        
         }
-
     }
 
-    private function checkQuestAfterFinishTask(questId:int):void {
-        var q:QuestStructure = getUserQuestById(questId);
+    public function checkQuestForDone(q:QuestStructure):Boolean {
         q.checkQuestForDone();
         if (q.isDone) {
             g.directServer.completeUserQuest(q.id, q.idDB, null);
             g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.windowsManager.closeAllWindows();
             g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, q);
-            if (_questUI) _questUI.updateIcons();
+             if (_questUI) _questUI.updateIcons();
         }
+        return q.isDone;
     }
 
     private function onGetAward(q:QuestStructure):void {
@@ -419,14 +450,8 @@ public class ManagerQuest {
         g.directServer.getUserQuestAward(q.id, q.idDB, onGetUserQuestAward);
     }
 
-    private function onGetUserQuestAward():void {
-        g.directServer.getUserNewQuests(onGetNewQuests);
-    }
-
-//    g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
     public function onActionForTaskType(type:int, adds:Object=null):void {
         if (!g.useQuests) return;
-
         var tArr:Array;
         var tasks:Array;
         var i:int;
@@ -452,7 +477,7 @@ public class ManagerQuest {
                 _activeTask = null;
             }
         } else if (type == RAW_PLANT || type == CRAFT_PLANT || type == BUILD_BUILDING || type == CRAFT_PRODUCT || type == RAW_PRODUCT
-                || type == BUY_ANIMAL || type == FEED_ANIMAL || type == REMOVE_WILD) {
+                || type == BUY_ANIMAL || type == FEED_ANIMAL || type == REMOVE_WILD || type == OPEN_BUILD || type == CRAFT_TREE) {
             tArr = getTasksByTypeFromCurrentQuests(type);
             tasks = [];
             for (i=0; i<tArr.length; i++) {
@@ -481,7 +506,7 @@ public class ManagerQuest {
     private function onUpdateQuestTask(task:QuestTaskStructure):void {
         if (task.isDone && !task.isSavedOnServerAfterFinish) {
             task.onSaveOnServerAfterFinish();
-            checkQuestAfterFinishTask(task.questId);
+            checkQuestForDone( getUserQuestById( task.questId));
         }
     }
     
@@ -496,11 +521,8 @@ public class ManagerQuest {
     }
 
     public function checkInGroup():void {
-        if (_activeTask) {
-            g.socialNetwork.checkIsInSocialGroup(_activeTask.adds);
-        } else {
-            g.gameDispatcher.removeFromTimer(checkWithTimer);
-        }
+        if (_activeTask) g.socialNetwork.checkIsInSocialGroup(_activeTask.adds);
+        else g.gameDispatcher.removeFromTimer(checkWithTimer);
     }
 
     private var _timer:int;
@@ -510,10 +532,6 @@ public class ManagerQuest {
             checkInGroup();
             _timer = 3;
         }
-    }
-    
-    public function showArrowsForAllVisibleIconQuests(t:int):void {
-        if (_questUI) _questUI.showArrowsForAllVisibleIconQuests(t);
     }
     
 }

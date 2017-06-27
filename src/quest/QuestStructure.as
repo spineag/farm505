@@ -34,6 +34,10 @@ public class QuestStructure {
     }
 
     public function get questId():int { return _questId; }
+    public function get awards():Array { return _awards; }
+    public function get tasks():Array { return _tasks; }
+    public function get isDone():Boolean { return _isDone; }
+    public function set isDone(v:Boolean):void { _isDone = v; }
 
     public function addTask(d:Object):void {
         var t:QuestTaskStructure = getTasksById(d.task_id);
@@ -121,24 +125,13 @@ public class QuestStructure {
             return null;
         }
     }
-    public function get awards():Array {
-        return _awards;
-    }
-    public function get tasks():Array {
-        return _tasks;
-    }
+    
     public function get questName():String {
         if (_questData.text_id_name) return g.managerLanguage.allTexts[int(_questData.text_id_name)];
         else {
             Cc.error('_questData.text_id_name = null');
             return null;
         }
-    }
-    public function get isDone():Boolean {
-        return _isDone;
-    }
-    public function set isDone(v:Boolean):void {
-        _isDone = v;
     }
 
     public function getUrlFromTask():String {

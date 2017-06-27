@@ -95,7 +95,7 @@ public class LoaderManager {
             }
         }
 
-        if (additionalQueue[url] && additionalQueue[url].length) {
+        if (additionalQueue[url] && additionalQueue[url].length && g.pBitmaps[url]) {
             for (var i:int = 0; i < additionalQueue[url].length; i++) {
                 if (additionalQueue[url][i].callback != null) {
                     additionalQueue[url][i].callback.apply(null, [g.pBitmaps[url].create() as Bitmap].concat(additionalQueue[url][i].callbackParams))

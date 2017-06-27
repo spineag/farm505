@@ -103,63 +103,28 @@ public class TownArea extends Sprite {
         _cont = g.cont.contentCont;
         _contTail = g.cont.tailCont;
         _freePlace = new TownAreaFreePlace(g.matrixGrid.matrixSize);
-
         setDefaultMatrix();
     }
 
-    public function get townMatrix():Array {
-        return _townMatrix;
-    }
-
-    public function get townTailMatrix():Array {
-        return _townTailMatrix;
-    }
-
-    public function get cityObjects():Array {
-        return _cityObjects;
-    }
-
-    public function get cityTailObjects():Array {
-        return _cityTailObjects;
-    }
-
-    public function get townAwayMatrix():Array {
-        return _townAwayMatrix;
-    }
-
-    public function get cityAwayObjects():Array {
-        return _cityAwayObjects;
-    }
-
-    public function get diagonalsObject():Object {
-        return _objBuildingsDiagonals;
-    }
-
-    public function get awayDiagonalsObject():Object {
-        return _objAwayBuildingsDiagonals;
-    }
-    
-    public function get freePlaceAway():Array {
-        if (_freePlace) {
-            return _freePlace.arrAway;
-        } else return [];
-    }
-
-    public function addNonWorldObjectToCityObjects(c:*):void {
-        if (_cityObjects.indexOf(c) == -1) _cityObjects.push(c);
-    }
-
-    public function removeNonWorldObjectToCityObjects(c:*):void {
-        if (_cityObjects.indexOf(c) != -1) _cityObjects.removeAt(_cityObjects.indexOf(c));
-    }
+    public function get townMatrix():Array { return _townMatrix; }
+    public function get townTailMatrix():Array { return _townTailMatrix; }
+    public function get cityObjects():Array { return _cityObjects; }
+    public function get cityTailObjects():Array { return _cityTailObjects; }
+    public function get townAwayMatrix():Array { return _townAwayMatrix; }
+    public function get cityAwayObjects():Array { return _cityAwayObjects; }
+    public function get diagonalsObject():Object { return _objBuildingsDiagonals; }
+    public function get awayDiagonalsObject():Object { return _objAwayBuildingsDiagonals; }
+    public function get freePlaceAway():Array { if (_freePlace) return _freePlace.arrAway; else return []; }
+    public function addNonWorldObjectToCityObjects(c:*):void { if (_cityObjects.indexOf(c) == -1) _cityObjects.push(c); }
+    public function removeNonWorldObjectToCityObjects(c:*):void { if (_cityObjects.indexOf(c) != -1) _cityObjects.removeAt(_cityObjects.indexOf(c)); }
 
     public function getCityObjectsByType(buildType:int):Array {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects[i] is MouseHero || _cityObjects[i] is BuyerNyashuk) continue;
-                if (_cityObjects[i].dataBuild.buildType == buildType)
-                    ar.push(_cityObjects[i]);
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects[i] is MouseHero 
+                        || _cityObjects[i] is BuyerNyashuk) continue;
+                if (_cityObjects[i].dataBuild.buildType == buildType) ar.push(_cityObjects[i]);
             }
         } catch (e:Error) {
             Cc.error('TownArea getCityObjectsByType:: error id: ' + e.errorID + ' - ' + e.message + '    for type: ' + buildType);
@@ -172,9 +137,9 @@ public class TownArea extends Sprite {
         var ar:Array = [];
         try {
             for (var i:int = 0; i < _cityObjects.length; i++) {
-                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects[i] is MouseHero || _cityObjects[i] is BuyerNyashuk) continue;
-                if (_cityObjects[i].dataBuild.id == id)
-                    ar.push(_cityObjects[i]);
+                if (_cityObjects[i] is BasicCat || _cityObjects[i] is OrderCat || _cityObjects[i] is AddNewHero || _cityObjects[i] is Lohmatik || _cityObjects[i] is MouseHero 
+                        || _cityObjects[i] is BuyerNyashuk) continue;
+                if (_cityObjects[i].dataBuild.id == id)  ar.push(_cityObjects[i]);
             }
         } catch (e:Error) {
             Cc.error('TownArea getCityObjectsById:: error _cityObjects: ' + _cityObjects.length );
@@ -187,16 +152,13 @@ public class TownArea extends Sprite {
         var arr:Array = [];
         var id:String;
         var obj:Object = g.userInventory.decorInventory;
-        for (id in obj) {
-            if (g.allData.getBuildingById(int(id)).group == group) max += obj[id].count;
-        }
+        for (id in obj) { if (g.allData.getBuildingById(int(id)).group == group) max += obj[id].count; }
         for (var i:int = 0; i < _cityObjects.length; i++) {
             if (_cityObjects[i] is Decor || _cityObjects[i] is DecorAnimation) {
                 if (_cityObjects[i].dataBuild.group == group) {
                     arr =  getCityObjectsById(_cityObjects[i].dataBuild.id);
                     max += arr.length;
                 }
-
             }
         }
         return max;
@@ -239,12 +201,11 @@ public class TownArea extends Sprite {
 
     public function addTownAreaSortCheking():void {
         _zSortCounter = SORT_COUNTER_MAX;
-        g.gameDispatcher.addEnterFrame(zSortMain); }
-    public function removeTownAreaSortCheking():void { g.gameDispatcher.removeEnterFrame(zSortMain); }
-
-    public function zSort():void {
-        _needTownAreaSort = true;
+        g.gameDispatcher.addEnterFrame(zSortMain); 
     }
+    
+    public function removeTownAreaSortCheking():void { g.gameDispatcher.removeEnterFrame(zSortMain); }
+    public function zSort():void { _needTownAreaSort = true; }
 
     private function zSortMain():void{
         if (_needTownAreaSort) {
@@ -386,18 +347,10 @@ public class TownArea extends Sprite {
                         return true;
                     }
                 }
-                if (!obj.inGame) {
-                    return false;
-                }
-                if (obj.isFull) {
-                    return false;
-                }
-                if (obj.isBlocked) {
-                    return false;
-                }
-                if (obj.buildFence) {
-                    return false;
-                }
+                if (!obj.inGame) return false;
+                if (obj.isFull)  return false;
+                if (obj.isBlocked) return false;
+                if (obj.buildFence) return false;
             }
         }
         return true;
@@ -890,15 +843,12 @@ public class TownArea extends Sprite {
                     || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorFenceGate || worldObject is DecorFenceArka || worldObject is DecorPostFenceArka)
                 g.directServer.addUserBuilding(worldObject, onAddNewBuilding);
             if (worldObject is Farm || worldObject is Tree || worldObject is Decor || worldObject is DecorFence || worldObject is DecorPostFenceArka || worldObject is DecorFenceArka
-                    || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorAnimation || worldObject is DecorFenceGate)
-                worldObject.addXP(); // ???? its empty function!!!
-                g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
+                    || worldObject is DecorPostFence || worldObject is DecorTail || worldObject is DecorAnimation || worldObject is DecorFenceGate)  worldObject.addXP(); // ???? its empty function!!!
             if (worldObject is Tree) g.directServer.addUserBuilding(worldObject, onAddNewTree);
-            if (worldObject is Ridge)
-                g.managerPlantRidge.onAddNewRidge(worldObject as Ridge);
-                g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
+            if (worldObject is Ridge) g.managerPlantRidge.onAddNewRidge(worldObject as Ridge);
             if (worldObject is Farm)  g.managerAnimal.onAddNewFarm(worldObject as Farm);
             if (worldObject is Fabrica && g.managerMiniScenes.isMiniScene)  g.managerMiniScenes.onPasteFabrica((worldObject as Fabrica).dataBuild.id);
+            if (g.managerQuest) g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:worldObject.dataBuild.id});
         } else {
             if (worldObject is DecorFence) g.directServer.userBuildingFlip(worldObject.dbBuildingId, int(worldObject.flip), null);
         }
@@ -1236,13 +1186,7 @@ public class TownArea extends Sprite {
         }
     }
 
-    public function getRandomFreeCell():Point {
-        if (g.isAway) {
-            return _freePlace.getAwayFreeCell();
-        } else {
-            return _freePlace.getFreeCell();
-        }
-    }
+    public function getRandomFreeCell():Point { if (g.isAway)  return _freePlace.getAwayFreeCell();  else  return _freePlace.getFreeCell(); }
 
     public function pasteTailBuild(tail:DecorTail, _x:Number, _y:Number, isNewAtMap:Boolean = true, updateAfterMove:Boolean = false, inventory:Boolean = false):void {
         if (!tail) {
@@ -1263,6 +1207,7 @@ public class TownArea extends Sprite {
             if (isNewAtMap) {
                 g.directServer.addUserBuilding(tail as WorldObject, onAddNewBuilding);
                 tail.addXP();
+                if (g.managerQuest) g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:tail.dataBuild.id});
             }
             if (updateAfterMove) {
                 g.directServer.updateUserBuildPosition(tail.dbBuildingId, tail.posX, tail.posY, null);
@@ -1349,17 +1294,14 @@ public class TownArea extends Sprite {
         if ((build as WorldObject).dataBuild.currency.length > 1) {
             for (var i:int = 0; i < (build as WorldObject).dataBuild.currency.length; i++) {
                 g.userInventory.addMoney((build as WorldObject).dataBuild.currency[i], -(build as WorldObject).dataBuild.cost[i]);
-                g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:(build as WorldObject).dataBuild.id});
             }
             cost = (build as WorldObject).dataBuild.cost[0];
         } else if ((build as WorldObject).dataBuild.currency != DataMoney.SOFT_CURRENCY) {
             cost = (build as WorldObject).dataBuild.cost;
             g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
-            g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:(build as WorldObject).dataBuild.id});
         } else {
             cost = (arr.length) * (build as WorldObject).dataBuild.deltaCost + int((build as WorldObject).dataBuild.cost);
             g.userInventory.addMoney((build as WorldObject).dataBuild.currency, -cost);
-            g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:(build as WorldObject).dataBuild.id});
         }
 
         pasteTailBuild(build as DecorTail, _x, _y);
@@ -1385,9 +1327,7 @@ public class TownArea extends Sprite {
         if (wObject is DecorFence && wObject.flip) g.directServer.userBuildingFlip(wObject.dbBuildingId, 1, null);
     }
 
-    private function onAddNewTree(value:Boolean, wObject:WorldObject):void {
-        g.directServer.addUserTree(wObject, null);
-    }
+    private function onAddNewTree(value:Boolean, wObject:WorldObject):void { g.directServer.addUserTree(wObject, null); }
 
     public function deleteBuild(worldObject:WorldObject):void{
         if (!worldObject) {
@@ -1632,9 +1572,7 @@ public class TownArea extends Sprite {
         }
     }
 
-    private function isDecorInGroup(d1:Object, d2:Object):Boolean {
-        return d1 && d2 && (d1.id == d2.id || d1.group == d2.group && d1.group && d1.group != 0);
-    }
+    private function isDecorInGroup(d1:Object, d2:Object):Boolean {  return d1 && d2 && (d1.id == d2.id || d1.group == d2.group && d1.group && d1.group != 0); }
 
     public function removeFenceLenta(d:WorldObject):void {
         // проверяем, есть ли по соседству еще столбы забора, если да - то забираем между ними ленту
@@ -1736,9 +1674,8 @@ public class TownArea extends Sprite {
             g.managerOrderCats.removeAwayCats();
             clearAwayCity();
         } else {
-            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR)) {
-                g.managerMiniScenes.checkMiniSceneCallback();
-            }
+            if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
+            if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR))  g.managerMiniScenes.checkMiniSceneCallback();
             g.managerLohmatic.onGoAway();
             g.cont.craftAwayCont.visible = true;
             g.cont.craftCont.visible = false;
@@ -2309,10 +2246,7 @@ public class TownArea extends Sprite {
         g.gameDispatcher.addEnterFrame(zSortAwayMain);
     }
     public function removeAwayTownAreaSortCheking():void { g.gameDispatcher.removeEnterFrame(zSortAwayMain); }
-
-    public function zAwaySort():void {
-        _needTownAreaSort = true;
-    }
+    public function zAwaySort():void { _needTownAreaSort = true; }
 
     public function zSortAwayMain():void {
         if (_needTownAreaSort) {
@@ -2411,6 +2345,7 @@ public class TownArea extends Sprite {
         g.managerLohmatic.onBackHome();
         if (g.managerBuyerNyashuk) g.managerBuyerNyashuk.visibleNya(true);
         if (g.managerHelpers) g.managerHelpers.checkIt();
+        if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
         if (g.user.level == 5 && g.managerCutScenes) g.managerCutScenes.checkCutScene(ManagerCutScenes.REASON_NEW_LEVEL);
     }
 

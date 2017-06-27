@@ -49,13 +49,13 @@ public class QuestMainIconUI {
         im.rotation = -Math.PI/2;
         _bottomArrow.addDisplayObject(im);
         _bottomArrow.x = 40;
-        _bottomArrow.y = 315;
+        _bottomArrow.y = 320;
         _sp.addChild(_bottomArrow);
         _bottomArrow.clickCallback = onClickBottom;
         _bottomArrow.visible = false;
 
         _mask = new Sprite();
-        _mask.mask = new Quad(300, 260);
+        _mask.mask = new Quad(300, 270);
         _mask.y = _topArrow.height + 7;
         _sp.addChild(_mask);
         _cont = new Sprite();
@@ -88,7 +88,8 @@ public class QuestMainIconUI {
         if (arNew.length) {
             var pos:int = _items.length;
             for (i=0; i<pos; i++) {
-                (_items[i] as QuestItemIcon).priority = 100 + i;
+                if ((_items[j] as QuestItemIcon).questId < 4) (_items[i] as QuestItemIcon).priority = 100000 + i;
+                else (_items[i] as QuestItemIcon).priority = 100 + i;
             }
             var it:QuestItemIcon;
             for (i=0; i<arNew.length; i++) {
@@ -120,10 +121,7 @@ public class QuestMainIconUI {
         }
     }
 
-    public function hideIt(v:Boolean):void {
-        _sp.visible = !v;
-
-    }
+    public function hideIt(v:Boolean):void { if (_sp) _sp.visible = !v; }
 
     private function checkArrows():void {
         if (_items.length < 4) {
