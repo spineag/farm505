@@ -49,10 +49,6 @@ public class QuestItemIcon {
         _source.endClickCallback = onClick;
     }
 
-    private function onClick():void {
-        g.managerQuest.showWOForQuest(_quest);
-    }
-
     private function onHover():void {
         if (_onHover) return;
         _onHover = true;
@@ -88,11 +84,12 @@ public class QuestItemIcon {
             MCScaler.scale(im, 40, 40);
             im.alignPivot();
             im.x = 27;
-            im.y = 27;
+            im.y = 25;
             _source.addChild(im);
         }
     }
 
+    private function onClick():void { g.managerQuest.showWOForQuest(_quest); }
     public function get questId():int { return _quest.id; }
     public function get source():CSprite { return _source; }
     private function onLoadIcon(bitmap:Bitmap):void { addIm(new Image(Texture.fromBitmap(bitmap))); }

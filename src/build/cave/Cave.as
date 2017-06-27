@@ -16,6 +16,9 @@ import manager.hitArea.ManagerHitArea;
 
 import media.SoundConst;
 import mouse.ToolsModifier;
+
+import quest.ManagerQuest;
+
 import resourceItem.CraftItem;
 import resourceItem.ResourceItem;
 import starling.display.Sprite;
@@ -295,6 +298,7 @@ public class Cave extends WorldObject{
                             g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                             return;
                         }
+                        g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[_arrCrafted.length-1] as CraftItem).resourceId});
                         g.directServer.craftUserCave(String(_arrCrafted[_arrCrafted.length-1].resourceId),null);
                         _arrCrafted.pop().flyIt();
 

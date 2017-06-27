@@ -9,6 +9,7 @@ import dragonBones.animation.WorldClock;
 import dragonBones.starling.StarlingArmatureDisplay;
 
 import flash.events.TimerEvent;
+import flash.geom.Point;
 import flash.utils.Timer;
 
 import manager.Vars;
@@ -25,6 +26,7 @@ public class SimpleArrow {
     private var _armature:Armature;
     private var _timer:Timer;
     private var _onTimerCallback:Function;
+    private var _global:Boolean;
     private var g:Vars = Vars.getInstance();
 
     public function SimpleArrow(posType:int, parent:Sprite) {
@@ -43,26 +45,27 @@ public class SimpleArrow {
         }
     }
 
-    public function scaleIt(n:Number):void {
-        _source.scaleX = _source.scaleY = n;
-    }
+    public function scaleIt(n:Number):void { _source.scaleX = _source.scaleY = n; }
+    public function changeY(_y:int):void { _source.y = _y; }
+    public function set visible(v:Boolean):void { _source.visible = v; }
 
-    public function animateAtPosition(_x:int, _y:int):void {
-        _source.x = _x;
-        _source.y = _y;
+    public function animateAtPosition(_x:int, _y:int, global:Boolean=false):void {
+        _global = global;
+        if (_global) {
+            var p:Point = new Point(_x, _y);
+            p = _parent.localToGlobal(p);
+            _source.x = p.x;
+            _source.y = p.y;
+            g.cont.popupCont.addChild(_source);
+        } else {
+            _source.x = _x;
+            _source.y = _y;
+            _parent.addChild(_source);
+        }
         _source.visible = true;
-        _parent.addChild(_source);
         _source.alpha = 0;
         TweenMax.to(_source, .5, {alpha:1});
         animateIt();
-    }
-
-    public function changeY(_y:int):void {
-        _source.y = _y;
-    }
-
-    public function set visible(v:Boolean):void {
-        _source.visible = v;
     }
 
     private function animateIt():void {
@@ -102,7 +105,11 @@ public class SimpleArrow {
         }
         if (_source) {
             TweenMax.killTweensOf(_source);
-            if (_parent && _parent.contains(_source)) _parent.removeChild(_source);
+            if (_global) {
+                if (g.cont.popupCont.contains(_source)) g.cont.popupCont.removeChild(_source);
+            } else {
+                if (_parent && _parent.contains(_source)) _parent.removeChild(_source);
+            }
             _source.dispose();
             _source = null;
         }

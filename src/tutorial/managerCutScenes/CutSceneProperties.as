@@ -15,9 +15,7 @@ public class CutSceneProperties {
         fillProperties();
     }
 
-    public function get properties():Array {
-        return _prop;
-    }
+    public function get properties():Array { return _prop; }
 
     private function fillProperties():void {
         var obj:Object = {};

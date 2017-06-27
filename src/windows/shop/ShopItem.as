@@ -1261,11 +1261,9 @@ public class ShopItem {
         deleteArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_BOTTOM, source);
         _arrow.scaleIt(.5);
-        if (_btnBuyBlue)_arrow.animateAtPosition(_btnBuyBlue.x, _btnBuyBlue.y);
-        else if (_btnBuyGreen)_arrow.animateAtPosition(_btnBuyGreen.x, _btnBuyGreen.y);
-        if (t>0) {
-            _arrow.activateTimer(t, deleteArrow);
-        }
+        if (_btnBuyBlue) _arrow.animateAtPosition(_btnBuyBlue.x, _btnBuyBlue.y, true);
+        else if (_btnBuyGreen) _arrow.animateAtPosition(_btnBuyGreen.x, _btnBuyGreen.y, true);
+        if (t>0) _arrow.activateTimer(t, deleteArrow);
     }
     
     public function deleteArrow():void {

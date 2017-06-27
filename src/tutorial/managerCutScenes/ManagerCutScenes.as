@@ -80,10 +80,6 @@ public class ManagerCutScenes {
         _OK = String(g.managerLanguage.allTexts[532]);
     }
 
-    private function onStartMiniScenes():void {
-        if (g.managerHelpers.isActiveHelper) g.managerHelpers.onEnd();
-    }
-
     private function saveUserCutScenesData():void {
         if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
         g.directServer.updateUserCutScenesData();
@@ -146,9 +142,9 @@ public class ManagerCutScenes {
         }
     }
 
-    public function isType(id:int):Boolean {
-        return id == _curCutScenePropertie.id_action;
-    }
+    public function get closeMarket():Boolean { return _closeMarket; }
+    public function isType(id:int):Boolean { return id == _curCutScenePropertie.id_action; }
+    private function onStartMiniScenes():void { if (g.managerHelpers.isActiveHelper) g.managerHelpers.onEnd();  }
     
     public function checkCutSceneForAddToPapper(it:MarketItem):void {
         if (!_properties || !_properties[8] || _properties[8].level > g.user.level || g.user.cutScenes[8]) return;
@@ -188,18 +184,17 @@ public class ManagerCutScenes {
                     releaseToInventoryDecor();
                     break;
                 case ID_ACTION_FROM_INVENTORY_DECOR:
+                    if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     isCutScene = true;
                     g.windowsManager.closeAllWindows();
                     releaseFromInventoryDecor();
                     break;
                 case ID_ACTION_TRAIN_AVAILABLE:
-//                    if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     isCutScene = true;
                     g.windowsManager.closeAllWindows();
                     releaseAvailableTrain();
                     break;
                 case ID_ACTION_OPEN_TRAIN:
-//                    if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     isCutScene = true;
                     g.windowsManager.closeAllWindows();
                     releaseOpenTrain();
@@ -209,9 +204,6 @@ public class ManagerCutScenes {
             Cc.error('error during cutScene for _curCutScenePropertie.id_action=' + _curCutScenePropertie.id_action);
             endCutScene();
         }
-    }
-    public function get closeMarket():Boolean {
-        return _closeMarket;
     }
 
     private function releaseMarket():void {
@@ -297,7 +289,7 @@ public class ManagerCutScenes {
         if (g.managerTips) g.managerTips.setUnvisible(false);
         isCutScene = false;
         g.managerBuyerNyashuk = new ManagerBuyerNyashuk(true);
-
+        if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
     }
 
     private function releaseDecor():void {
@@ -492,6 +484,7 @@ public class ManagerCutScenes {
         g.user.cutScenes[4] = 1;
         saveUserCutScenesData();
         isCutScene = false;
+        if (g.managerQuest) g.managerQuest.hideQuestsIcons(false);
     }
 
     private function releaseAvailableTrain():void {

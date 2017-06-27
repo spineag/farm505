@@ -16,6 +16,8 @@ import hint.MouseHint;
 import manager.ManagerFilters;
 import manager.hitArea.ManagerHitArea;
 
+import quest.ManagerQuest;
+
 import resourceItem.CraftItem;
 import com.junkbyte.console.Cc;
 import resourceItem.ResourceItem;
@@ -321,6 +323,7 @@ public class Tree extends WorldObject {
         var b:Bone;
         var item:CraftItem = new CraftItem(0, 0, _resourceItem, _source, 1);
         item.flyIt();
+        g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_TREE, {id:_resourceItem.resourceID});
         if (_dataBuild.id == 25) { //Яблоня
             g.managerAchievement.addAll(14,1);
         } else if (_dataBuild.id == 26) { // Вишня
@@ -344,9 +347,7 @@ public class Tree extends WorldObject {
            b.visible = false;
         }
         _countCrafted--;
-        if (_countCrafted == 0) {
-            onCraftItemClick();
-        }
+        if (_countCrafted == 0) onCraftItemClick();
         else g.managerTree.updateTreeCraftCount(tree_db_id,_countCrafted);
 
     }
@@ -574,18 +575,9 @@ public class Tree extends WorldObject {
                 onOut();
                 return;
             }
-            if (g.timerHint.isShow) {
-                g.timerHint.managerHide(callbackClose);
-                return;
-            }
-            else if (g.wildHint.isShow){
-                g.wildHint.managerHide(callbackClose);
-                return;
-            }
-            else if (g.treeHint.isShow) {
-                g.treeHint.managerHide(callbackClose);
-                return;
-            }
+            if (g.timerHint.isShow) { g.timerHint.managerHide(callbackClose); return;  }
+            else if (g.wildHint.isShow){ g.wildHint.managerHide(callbackClose); return; }
+            else if (g.treeHint.isShow) { g.treeHint.managerHide(callbackClose); return; }
 
             if (_state == GROWED1 || _state == GROWED2 || _state == GROWED3 || _state == GROWED_FIXED) {
                 if (_countCrafted) {
@@ -599,11 +591,6 @@ public class Tree extends WorldObject {
             } else if (_state == GROW1 || _state == GROW2 || _state == GROW3 || _state == GROW_FLOWER1 ||
                     _state == GROW_FLOWER2 || _state == GROW_FLOWER3 || _state == GROW_FIXED || _state == GROW_FIXED_FLOWER ||
                     _state == DEAD || _state == FULL_DEAD || _state == ASK_FIX) {
-//                var time:int = _timeToEndState;
-//                if (_timeToEndState == 0) {
-//                    time += int(_resourceItem.buildTime);
-//                    _timeToEndState = int(_resourceItem.buildTime / 2);
-//                } else time += int(_resourceItem.buildTime /2 + .5);
                 if (_timerHint <= 0 && _state == GROW1 || _state == GROW2 || _state == GROW3) {
                     startGrow();
                 }

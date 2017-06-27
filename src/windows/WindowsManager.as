@@ -5,6 +5,8 @@ package windows {
 import com.junkbyte.console.Cc;
 import manager.Vars;
 
+import mouse.ToolsModifier;
+
 import windows.achievementWindow.WOAchievement;
 import windows.ambar.WOAmbars;
 import windows.ambarFilled.WOAmbarFilled;
@@ -133,6 +135,13 @@ public class WindowsManager {
     public function get currentWindow():WindowMain { return _currentWindow;}
 
     public function openWindow(type:String, callback:Function=null, ...params):void {
+        if (g.toolsModifier.modifierType != ToolsModifier.NONE) {
+            g.bottomPanel.cancelBoolean(false);
+            g.toolsModifier.modifierType = ToolsModifier.NONE;
+            g.toolsModifier.cancelMove();
+            g.buyHint.hideIt();
+        }
+        
         if (_currentWindow) {
             if (type == WO_GAME_ERROR || type == WO_RELOAD_GAME || type == WO_SERVER_ERROR || type == WO_ANOTHER_GAME_ERROR || type == WO_SERVER_CRACK) {
                 closeAllWindows();

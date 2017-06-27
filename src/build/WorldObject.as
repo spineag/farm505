@@ -406,7 +406,6 @@ public class WorldObject {
                 _buildingBuild = null;
             }
         }
-        g.managerQuest.onActionForTaskType(ManagerQuest.BUILD_BUILDING, {id:_dataBuild.id});
     }
 
     protected function renderBuildProgress():void {

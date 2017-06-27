@@ -2,15 +2,11 @@
  * Created by user on 9/12/16.
  */
 package windows.quest {
-import com.junkbyte.console.Cc;
-
-import manager.Vars;
 import starling.display.Sprite;
 
 public class WOQuestItem {
     private var _source:Sprite;
     private var _parent:Sprite;
-    private var g:Vars = Vars.getInstance();
     private var _arItems:Array;
 
     public function WOQuestItem(p:Sprite, ar:Array) {
