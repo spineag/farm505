@@ -274,7 +274,7 @@ public class WOSalePack extends WindowMain{
                         g.windowsManager.openWindow(WindowsManager.WO_PARTY,null);
                     }
                     else if (g.managerParty.userParty && g.userTimer.partyToEndTimer <= 0 && !g.managerParty.userParty.showWindow
-                            && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4)) g.managerParty.endPartyWindow();
+                            && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 4 || g.managerParty.typeParty == 5)) g.managerParty.endPartyWindow();
                 }
             }
         }

@@ -7,6 +7,8 @@ import analytic.AnalyticManager;
 import build.WorldObject;
 import com.junkbyte.console.Cc;
 
+import data.BuildType;
+
 import data.StructureDataResource;
 
 import dragonBones.Slot;
@@ -23,6 +25,7 @@ import mouse.ToolsModifier;
 import quest.ManagerQuest;
 
 import resourceItem.CraftItem;
+import resourceItem.DropPartyResource;
 import resourceItem.RawItem;
 import resourceItem.ResourceItem;
 
@@ -175,6 +178,8 @@ public class Ridge extends WorldObject{
             };
             var item:CraftItem = new CraftItem(0, 0, _resourceItem, _plantSprite, 2, f1);
             item.flyIt();
+            if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level && Math.random() <= .1) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+
             onOut();
             g.managerAchievement.addResource(_resourceItem.resourceID);
         }

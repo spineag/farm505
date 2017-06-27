@@ -346,7 +346,9 @@ public class WOOrder extends WindowMain{
         if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) prise.count = _activeOrderItem.getOrder().coins * g.managerParty.coefficient;
         else prise.count = _activeOrderItem.getOrder().coins;
         new DropItem(p.x, p.y, prise);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 3 && g.managerParty.typeBuilding == BuildType.ORDER && g.allData.atlas['partyAtlas'] &&g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+        if (g.managerParty.eventOn && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) && g.managerParty.typeBuilding == BuildType.ORDER && g.allData.atlas['partyAtlas'] &&g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+        else if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+
         if (_activeOrderItem.getOrder().addCoupone) {
             p.x = _btnSell.x + _btnSell.width * 4 / 5;
             p.y = _btnSell.y + _btnSell.height / 2;

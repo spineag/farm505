@@ -95,7 +95,7 @@ public class WOPartyRatingFriend {
 //            g.socialNetwork.getTempUsersInfoById([_personS.userSocialId]);
 //        }
 
-        if (g.managerParty.typeParty == 3) _imResource = new Image(g.allData.atlas['partyAtlas'].getTexture('zefir_100'));
+        if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) _imResource = new Image(g.allData.atlas['partyAtlas'].getTexture('zefir_100'));
         else {
             if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
                 _imResource = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));
