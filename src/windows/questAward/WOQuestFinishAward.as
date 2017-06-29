@@ -24,7 +24,6 @@ import windows.WindowMain;
 import windows.WindowsManager;
 
 public class WOQuestFinishAward extends WindowMain {
-    private var _woBG:WindowBackground;
     private var _btn:CButton;
     private var _quest:QuestStructure;
     private var _items:Array;
@@ -113,8 +112,9 @@ public class WOQuestFinishAward extends WindowMain {
         Cc.info("woQuest showItParams 7");
     }
 
-
+    private function onClick():void { onClickExit(); }
     private function onLoadIcon(bitmap:Bitmap):void { addIm(new Image(Texture.fromBitmap(bitmap))); }
+
     private function addIm(im:Image):void {
         _questIcon = im;
         if (_questIcon) {
@@ -125,8 +125,6 @@ public class WOQuestFinishAward extends WindowMain {
             _source.addChild(_questIcon);
         }
     }
-
-    private function onClick():void { onClickExit(); }
 
     private function onClickExit():void {
         for (var i:int=0; i<_items.length; i++) {

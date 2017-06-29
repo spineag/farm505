@@ -8,7 +8,7 @@ import utils.Utils;
 import windows.WindowsManager;
 
 public class ManagerAnnouncement {
-    private var USE_IT:Boolean = false;
+    private var USE_IT:Boolean = true;
     private var g:Vars = Vars.getInstance();
     
     public function ManagerAnnouncement() {

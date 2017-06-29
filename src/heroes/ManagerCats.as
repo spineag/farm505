@@ -197,6 +197,7 @@ public class ManagerCats {
     }
 
     public function onBuyCatFromShop():void {
+        g.managerQuest.onActionForTaskType(ManagerQuest.BUY_CAT);
         jumpCatsFunny();
         g.user.countCats++;
         g.directServer.buyHeroCat(null);
@@ -371,7 +372,6 @@ public class ManagerCats {
     private function onEndAdd(cat:HeroCat):void {
         cat.stopAnimation();
         cat.makeFreeCatIdle();
-        g.managerQuest.onActionForTaskType(ManagerQuest.BUY_CAT);
     }
 
     public function jumpCatsFunny(f:Function = null):void {

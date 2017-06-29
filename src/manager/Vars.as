@@ -213,7 +213,7 @@ public class Vars {
     public var managerAchievement:ManagerAchievement;
     public var managerAnnouncement:ManagerAnnouncement;
 
-    public var useQuests:Boolean = false;
+    public var useQuests:Boolean = true;
 
     public static function getInstance():Vars {
         if (!_instance) _instance = new Vars(new SingletonEnforcer());

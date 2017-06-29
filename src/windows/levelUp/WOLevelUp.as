@@ -568,6 +568,8 @@ public class WOLevelUp extends WindowMain {
         if (g.user.level == 4) {
             g.managerQuest.addUI();
             g.managerAnnouncement = new ManagerAnnouncement();
+        } else if (g.user.level > 4) {
+            g.managerQuest.getNewQuests();
         }
         if (_txtNewLvl) {
             _source.removeChild(_txtNewLvl);

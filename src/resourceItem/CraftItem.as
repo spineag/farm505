@@ -3,48 +3,24 @@
  */
 package resourceItem {
 import build.farm.Animal;
-
 import com.greensock.TweenMax;
 import com.greensock.easing.Linear;
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
-import flash.display.StageDisplayState;
 import flash.geom.Point;
-
-import hint.FlyMessage;
-
 import manager.ManagerFilters;
-
 import manager.Vars;
-
 import mouse.ToolsModifier;
-
 import particle.CraftItemParticle;
-
-import quest.ManagerQuest;
-
-import social.SocialNetworkSwitch;
-
-import starling.core.Starling;
-
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.filters.BlurFilter;
-import starling.text.TextField;
 import starling.utils.Color;
-
 import utils.CTextField;
-
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
-
 import ui.xpPanel.XPStar;
-
 import utils.CSprite;
 import utils.MCScaler;
-
 import windows.WindowsManager;
 
 public class CraftItem {

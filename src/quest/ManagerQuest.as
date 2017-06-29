@@ -423,6 +423,7 @@ public class ManagerQuest {
                 } else new FlyMessage(p,String(g.managerLanguage.allTexts[600]));
                 break;
             case OPEN_BUILD:
+                g.windowsManager.closeAllWindows();
                 if (g.allData.getBuildingById(_activeTask.resourceId).buildType != BuildType.FABRICA) { Cc.error('ManagerQuest:: OPEN_BUILD is only for Fabrica');  return; }
                 arrT = g.townArea.getCityObjectsById(_activeTask.resourceId);
                 if (arrT[0] && ((arrT[0] as Fabrica).stateBuild == WorldObject.STATE_BUILD || (arrT[0] as Fabrica).stateBuild == WorldObject.STATE_WAIT_ACTIVATE)) {
