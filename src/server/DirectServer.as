@@ -8741,6 +8741,94 @@ public class DirectServer {
         }
     }
 
+    public function FBfake_getProfile(userSocialId:String = '', callback:Function = null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_FB_FAKE_GET_PROFILE);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'FBfake_getProfile', 1);
+        variables = addDefault(variables);
+        variables.userSocialId = userSocialId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteFBfake_getProfile);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteFBfake_getProfile(e:Event):void { completeFBfake_getProfile(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('FBfake_getProfile error:' + error.errorID);
+        }
+    }
+
+    private function completeFBfake_getProfile(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('FBfake_getProfile: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'FBfake_getProfile: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'FBfake_getProfile OK', 5);
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('FBfake_getProfile: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function FBfake_getAppUsers(callback:Function = null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_FB_FAKE_APP_USERS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'FBfake_getAppUsers', 1);
+        variables = addDefault(variables);
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteFBfake_getAppUsers);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteFBfake_getAppUsers(e:Event):void { completeFBfake_getAppUsers(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('FBfake_getAppUsers error:' + error.errorID);
+        }
+    }
+
+    private function completeFBfake_getAppUsers(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('FBfake_getAppUsers: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'FBfake_getAppUsers: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'FBfake_getAppUsers OK', 5);
+            if (callback != null) {
+                callback.apply(null, [d.message]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else {
+            Cc.error('FBfake_getAppUsers: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
     private function onIOError(e:IOErrorEvent):void {
         Cc.error('IOError on Auth User:: ' + e.text);
     }

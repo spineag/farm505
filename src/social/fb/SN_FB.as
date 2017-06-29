@@ -138,7 +138,7 @@ public class SN_FB extends SocialNetwork  {
             ob.first_name = e[i].name;
             ob.last_name = e[i].last_name;
             ob.photo_100 = e[i].photo_url;
-            if (ob.photo_100 == '' || ob.photo == 'unknown') ob.photo = SocialNetwork.getDefaultAvatar();
+            if (ob.photo_100 == '' || ob.photo_100 == 'unknown') ob.photo = SocialNetwork.getDefaultAvatar();
             ar.push(ob);
         }
         g.user.addTempUsersInfo(ar);

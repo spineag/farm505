@@ -158,5 +158,7 @@ public class Consts {
     public static var INQ_NOTIFICATION_FB_MISS:String = 'notification_fb_miss.php';
     public static var INQ_NOTIFICATION_VK_MISS:String = 'notification_vk_miss.php';
     public static var INQ_SHOW_ANNOUNCEMENT:String = 'onShowAnnouncement.php';
+    public static var INQ_FB_FAKE_GET_PROFILE:String = 'fake_social_network/FB_getProfile.php';
+    public static var INQ_FB_FAKE_APP_USERS:String = 'fake_social_network/FB_getAppUsers.php';
 }
 }

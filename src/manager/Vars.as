@@ -237,7 +237,6 @@ public class Vars {
         managerChest = new ManagerChest();
         managerMouseHero = new ManagerMouse();
         gameDispatcher = new FarmDispatcher(mainStage);
-
         loadMap();
     }
 
