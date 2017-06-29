@@ -2,6 +2,7 @@
  * Created by user on 12/30/16.
  */
 package quest {
+import build.WorldObject;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.ridge.Ridge;
@@ -10,6 +11,8 @@ import com.junkbyte.console.Cc;
 
 import data.BuildType;
 import data.StructureDataBuilding;
+
+import dragonBones.animation.WorldClock;
 
 import manager.Vars;
 import starling.display.Image;
@@ -44,8 +47,9 @@ public class QuestTaskStructure {
     private function checkDone():void {
         if (!_taskData) return;
         var maxCountAtCurrentLevel:int = 0;
+        var arr:Array;
         if (_taskData.type_action == ManagerQuest.BUILD_BUILDING) {
-            var arr:Array = g.townArea.getCityObjectsById(_taskData.id_resource);
+            arr = g.townArea.getCityObjectsById(_taskData.id_resource);
             if (arr[0] && arr[0] is Ridge) {
                 for (i = 0; arr[0].dataBuild.blockByLevel.length; i++) {
                     if (arr[0].dataBuild.blockByLevel[i] <= g.user.level) {
@@ -61,7 +65,15 @@ public class QuestTaskStructure {
                     return;
                 }
             }
-            if (arr && arr.length && (arr[0] is Fabrica || arr[0] is Farm)) _isDone = true;
+            if (arr[0] && (arr[0] is Fabrica || arr[0] is Farm)) _isDone = true;
+        } else if (_taskData.type_action == ManagerQuest.OPEN_BUILD) {
+            arr = g.townArea.getCityObjectsById(_taskData.id_resource);
+            if (arr[0] && arr[0] is Fabrica) {
+                _isDone = Boolean((arr[0] as Fabrica).stateBuild == WorldObject.STATE_ACTIVE);
+            }
+        } else if (_taskData.type_action == ManagerQuest.REMOVE_WILD) {
+            arr = g.townArea.getCityObjectsById(_taskData.id_resource);
+            if (!arr.length) _isDone = true;
         } else if (_taskData.type_action == ManagerQuest.BUY_ANIMAL) {
             var b:StructureDataBuilding = g.allData.getBuildingById(g.allData.getFarmIdForAnimal(_taskData.id_resource));
             if (!b) return;

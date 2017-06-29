@@ -146,7 +146,7 @@ public class Fabrica extends WorldObject {
         if (_rect.width) {
             _hitArea = g.managerHitArea.getHitArea(_source, 'buildingBuild');
             _source.registerHitArea(_hitArea);
-            if (!g.isAway) _source.endClickCallback = null;
+            if (g.isAway) _source.endClickCallback = null;
             if (!g.isAway) _source.endClickCallback = onClick;
             _source.hoverCallback = onHover;
             _source.outCallback = onOut;
@@ -220,10 +220,8 @@ public class Fabrica extends WorldObject {
         if (g.managerHelpers && g.managerHelpers.isActiveHelper && g.managerHelpers.activeReason.reason == HelperReason.REASON_RAW_FABRICA && g.managerHelpers.activeReason.build == this) {
             g.managerHelpers.onOpenFabricaWithDelay();
         }
-        var needShowArrow:Boolean;
-        _arrow ? needShowArrow = true : needShowArrow = false;
         hideArrow();
-        g.windowsManager.openWindow(WindowsManager.WO_FABRICA, callbackOnChooseRecipe, _arrRecipes.slice(), _arrList.slice(), this, needShowArrow, idResourceArrow);
+        g.windowsManager.openWindow(WindowsManager.WO_FABRICA, callbackOnChooseRecipe, _arrRecipes.slice(), _arrList.slice(), this);
     }
 
     private function onClick():void {
@@ -279,7 +277,6 @@ public class Fabrica extends WorldObject {
                     } else {
                         g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
                         (_arrCrafted[0] as CraftItem).flyIt();
-
                     }
                 } else {
                     if (!_arrRecipes.length) updateRecipes();
@@ -551,7 +548,7 @@ public class Fabrica extends WorldObject {
     private function useCraftedResource(item:ResourceItem, crItem:CraftItem):void {
         g.managerAchievement.addResource((_arrCrafted[0] as CraftItem).resourceId);
         if ((_arrCrafted[0] as CraftItem).resourceId == 126|| (_arrCrafted[0] as CraftItem).resourceId == 127|| (_arrCrafted[0] as CraftItem).resourceId == 128 || (_arrCrafted[0] as CraftItem).resourceId == 129) g.managerAchievement.addAll(18,1);
-
+        g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
         _arrCrafted.splice(_arrCrafted.indexOf(crItem), 1);
         g.managerFabricaRecipe.onCraft(item);
     }

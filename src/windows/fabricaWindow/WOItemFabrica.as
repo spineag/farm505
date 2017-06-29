@@ -13,6 +13,8 @@ import manager.Vars;
 
 import media.SoundConst;
 
+import quest.ManagerQuest;
+
 import starling.display.Image;
 import utils.SimpleArrow;
 import tutorial.TutorialAction;
@@ -73,6 +75,8 @@ public class WOItemFabrica {
         if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.RAW_RECIPE && g.managerTutorial.isTutorialResource(_dataRecipe.id)) {
             addArrow();
         }
+        if (g.managerQuest && g.managerQuest.activeTask && (g.managerQuest.activeTask.typeAction == ManagerQuest.RAW_PRODUCT || g.managerQuest.activeTask.typeAction == ManagerQuest.CRAFT_PRODUCT )
+                && g.managerQuest.activeTask.resourceId == _dataRecipe.idResource) addArrow(3);
     }
 
     public function get dataRecipe ():Object {
@@ -204,13 +208,6 @@ public class WOItemFabrica {
         _isOnHover = false;
     }
 
-    private function addArrow():void {
-        removeArrow();
-        _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
-        _arrow.animateAtPosition(source.width/2, 0);
-        _arrow.scaleIt(.5);
-    }
-
     private function removeArrow():void {
         if (_arrow) {
             _arrow.deleteIt();
@@ -222,15 +219,19 @@ public class WOItemFabrica {
         if (!_dataRecipe) return;
         removeArrow();
         if (_dataRecipe.blockByLevel > g.user.level) return;
-        for (var l:int=0; l<_dataRecipe.ingridientsId.length; l++) {
+        for (var l:int = 0; l < _dataRecipe.ingridientsId.length; l++) {
             if (g.userInventory.getCountResourceById(int(_dataRecipe.ingridientsId[l])) < int(_dataRecipe.ingridientsCount[l])) {
                 break;
             }
         }
+        addArrow(3);
+    }
+
+    private function addArrow(t:Number=0):void {
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
         _arrow.animateAtPosition(source.width/2, 0);
         _arrow.scaleIt(.5);
-        _arrow.activateTimer(3, removeArrow);
+        if (t>0) _arrow.activateTimer(t, removeArrow);
     }
 
     public function deleteIt():void {

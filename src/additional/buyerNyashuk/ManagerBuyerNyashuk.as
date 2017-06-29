@@ -54,7 +54,7 @@ public class ManagerBuyerNyashuk {
                     ob.resourceCount = int(ar[i].resource_count);
                     ob.cost = int(ar[i].cost);
                     ob.xp = int(ar[i].xp);
-                    ob.type = int(ar[i].type_resource);
+                    ob.typeBuild = int(ar[i].type_resource);
                     ob.timeToNext = int(ar[i].time_to_new);
                     ob.isBuyed = false;
                     ob.isBotBuy = true;
@@ -105,7 +105,7 @@ public class ManagerBuyerNyashuk {
         var leftSeconds:int;
         var r:int = 0;
         for (var i:int=0; i<_arrayNya.length; i++) {
-            leftSeconds = arr[i].startTime - int(new Date().getTime()/1000);
+            leftSeconds = _arr[i].startTime - int(new Date().getTime()/1000);
             if (leftSeconds <= 0) {
                 if (_arrayNya[i].id == 1) _arrayNya[i].setTailPositions(30, -5);
                 else _arrayNya[i].setTailPositions(28, -5);
@@ -126,7 +126,7 @@ public class ManagerBuyerNyashuk {
         else if (_arr[0].buyerId == 1) ob.buyer_id = 2;
             else ob.buyer_id = 1;
         newBot(false,ob);
-        getNewNyaForOrder(null,_arr[arr.length-1],_arr[_arr.length-1].buyerId);
+        getNewNyaForOrder(null,_arr[_arr.length-1],_arr[_arr.length-1].buyerId);
     }
 
     private function newBot(firstBot:Boolean = false, objectNew:Object = null):void {
@@ -157,7 +157,7 @@ public class ManagerBuyerNyashuk {
             ob.resourceCount = 1;
             ob.cost = arrMin[ra].visitorPrice * ob.resourceCount;
             ob.xp = 5;
-            ob.type = arrMin[ra].buildType;
+            ob.typeBuild = int(arrMin[ra].buildType);
             ob.timeToNext = 0;
             ob.isBuyed = false;
             ob.isBotBuy = true;
@@ -171,7 +171,7 @@ public class ManagerBuyerNyashuk {
             ob.resourceCount = int(Math.random()*arrMax[ra].count) + 1;
             ob.cost = g.allData.getResourceById(arrMax[ra].id).visitorPrice * ob.resourceCount;
             ob.xp = 5;
-            ob.type = g.allData.getResourceById(arrMax[ra].id).buildType;
+            ob.typeBuild = g.allData.getResourceById(arrMax[ra].id).buildType;
             ob.timeToNext = 0;
             ob.isBuyed = false;
             ob.isBotBuy = true;
@@ -216,13 +216,13 @@ public class ManagerBuyerNyashuk {
                     ob.resourceId = r.id;
                     ob.resourceCount = 5;
                     ob.cost = ob.resourceCount * r.visitorPrice;
-                    ob.type = r.buildType;
+                    ob.typeBuild = r.buildType;
                 } else { 
                     ra = int(Math.random() * arrMax.length);
                     ob.resourceId = arrMax[ra].id;
                     ob.resourceCount = int(Math.random() * arrMax[ra].count) + 1;
                     ob.cost = g.allData.getResourceById(arrMax[ra].id).visitorPrice * ob.resourceCount;
-                    ob.type = g.allData.getResourceById(arrMax[ra].id).buildType;
+                    ob.typeBuild = g.allData.getResourceById(arrMax[ra].id).buildType;
                 }
                 ob.timeToNext = 0;
                 ob.isBuyed = false;
@@ -230,11 +230,11 @@ public class ManagerBuyerNyashuk {
                 ob.visible = true;
             }
             _arr.push(ob);
-            g.directServer.updateUserPapperBuy(ob.buyerId,ob.resourceId,ob.resourceCount,ob.xp,ob.cost,1,ob.type);
+            g.directServer.updateUserPapperBuy(ob.buyerId, ob.resourceId, ob.resourceCount, ob.xp, ob.cost,1, ob.typeBuild);
         }
     }
 
-    public function get arr():Array { return _arr; }
+    public function isAnyNiash():Boolean { return Boolean(_arrayNya.length > 0); }
     public function addArrows(t:Number = 0):void {
         for (var i:int=0; i<_arrayNya.length; i++) {
             (_arrayNya[i] as BuyerNyashuk).addArrow(t);

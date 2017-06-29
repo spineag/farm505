@@ -3,32 +3,20 @@
  */
 package windows.buyerNyashuk {
 import additional.buyerNyashuk.BuyerNyashuk;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import data.DataMoney;
-
-import flash.geom.Point;
-
 import manager.ManagerFilters;
-
 import quest.ManagerQuest;
-
 import resourceItem.DropItem;
-
 import starling.display.Image;
 import starling.events.Event;
 import starling.utils.Align;
 import starling.utils.Color;
-
 import ui.xpPanel.XPStar;
-
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
-
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
 import windows.WindowsManager;

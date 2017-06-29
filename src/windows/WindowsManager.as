@@ -141,7 +141,7 @@ public class WindowsManager {
             g.toolsModifier.cancelMove();
             g.buyHint.hideIt();
         }
-        
+
         if (_currentWindow) {
             if (type == WO_GAME_ERROR || type == WO_RELOAD_GAME || type == WO_SERVER_ERROR || type == WO_ANOTHER_GAME_ERROR || type == WO_SERVER_CRACK) {
                 closeAllWindows();
@@ -345,6 +345,7 @@ public class WindowsManager {
     }
 
     public function onHideWindow(hiddenWindow:WindowMain):void {
+        if (hiddenWindow.windowType != WO_QUEST && g.managerQuest) g.managerQuest.clearActiveTask();
         if (g.managerHelpers) g.managerHelpers.checkIt();
         _currentWindow = null;
         if (_nextWindow) {

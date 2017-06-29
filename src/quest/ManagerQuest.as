@@ -76,6 +76,8 @@ public class ManagerQuest {
     public function showArrowsForAllVisibleIconQuests(t:int):void { if (_questUI) _questUI.showArrowsForAllVisibleIconQuests(t); }
     public function checkQuestContPosition():void { if (_questUI) _questUI.checkContPosition(); }
     private function onGetUserQuestAward():void { g.directServer.getUserNewQuests(onGetNewQuests); }
+    public function get activeTask():QuestTaskStructure { return _activeTask; }
+    public function clearActiveTask():void { _activeTask = null; }
 
     public function addUI():void {
         if (g.user.level >= 4 && g.useQuests) {
@@ -196,17 +198,23 @@ public class ManagerQuest {
                     onActionForTaskType(ADD_LEFT_MENU);
                     return;
                 }
-                if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-                    g.socialNetwork.checkLeftMenu();
-                }
+                if (g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) g.socialNetwork.checkLeftMenu();
                 break;
             case ADD_TO_GROUP:
-                Link.openURL(g.socialNetwork.urlForAnySocialGroup + t.adds);
-                _timer = 3;
-                g.gameDispatcher.addToTimer(checkWithTimer);
+                if (g.isDebug) {
+                    onActionForTaskType(ADD_TO_GROUP);
+                    return;
+                } else {
+                    Link.openURL(g.socialNetwork.urlForAnySocialGroup + t.adds);
+                    _timer = 3;
+                    g.gameDispatcher.addToTimer(checkWithTimer);
+                }
                 break;
             case POST:
-                g.managerWallPost.postWallpost(ManagerWallPost.POST_FOR_QUEST, null, 0, DataMoney.SOFT_CURRENCY);
+                if (g.isDebug) {
+                    onActionForTaskType(POST);
+                    return;
+                } else g.managerWallPost.postWallpost(ManagerWallPost.POST_FOR_QUEST, null, 0, DataMoney.SOFT_CURRENCY);
                 break;
             case CRAFT_PLANT:
                 g.windowsManager.closeAllWindows();
@@ -215,6 +223,18 @@ public class ManagerQuest {
                 for (i=0; i<arrT.length; i++) {
                     if ((arrT[i] as Ridge).isFreeRidge) continue;
                     if (t.resourceId == 0 || (arrT[i] as Ridge).plant.dataPlant.id == t.resourceId) {
+                        arr.push(arrT[i]);
+                    }
+                }
+                if (arr.length) {
+                    for (i = 0; i < arr.length; i++) {
+                        (arr[i] as Ridge).showArrow(3);
+                    }
+                    g.cont.moveCenterToPos((arr[0] as Ridge).posX, (arr[0] as Ridge).posY);
+                    return;
+                }
+                for (i=0; i<arrT.length; i++) {
+                    if ((arrT[i] as Ridge).isFreeRidge) {
                         arr.push(arrT[i]);
                     }
                 }
@@ -259,15 +279,13 @@ public class ManagerQuest {
                     else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.RIDGE) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_RIDGE);
                     else if (g.allData.getBuildingById(_activeTask.resourceId).buildType == BuildType.TREE) g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_TREE);
                     else g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_FABRICA);
-//                (g.windowsManager.currentWindow as WOShop).openOnResource(_activeTask.resourceId);
-//                (g.windowsManager.currentWindow as WOShop).addArrow(_activeTask.resourceId);
                 break;
             case RAW_PRODUCT:
                 g.windowsManager.closeAllWindows();
                 i = g.allData.getFabricaIdForResourceIdFromRecipe(t.resourceId);
                 arrT = g.townArea.getCityObjectsById(i);
                 if (arrT.length) {
-                    (arrT[0] as WorldObject).showArrow(3,t.resourceId);
+                    (arrT[0] as WorldObject).showArrow(3);
                     g.cont.moveCenterToPos((arrT[0] as WorldObject).posX - 1, (arrT[0] as WorldObject).posY - 1);
                 } else {
                     new FlyMessage(p,String(g.managerLanguage.allTexts[598]));
@@ -399,8 +417,10 @@ public class ManagerQuest {
                 break;
             case NIASH_BUYER:
                 g.windowsManager.closeAllWindows();
-                g.cont.moveCenterToPos(28, -5);
-                g.managerBuyerNyashuk.addArrows(3);
+                if (g.managerBuyerNyashuk.isAnyNiash()) {
+                    g.cont.moveCenterToPos(28, -5);
+                    g.managerBuyerNyashuk.addArrows(3);
+                } else new FlyMessage(p,String(g.managerLanguage.allTexts[600]));
                 break;
             case OPEN_BUILD:
                 if (g.allData.getBuildingById(_activeTask.resourceId).buildType != BuildType.FABRICA) { Cc.error('ManagerQuest:: OPEN_BUILD is only for Fabrica');  return; }
@@ -409,7 +429,8 @@ public class ManagerQuest {
                     (arrT[0] as Fabrica).showArrow(3);
                     g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
                 } else {
-                    new FlyMessage(p,String(g.managerLanguage.allTexts[600]));
+                    g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_FABRICA); 
+//                    new FlyMessage(p,String(g.managerLanguage.allTexts[600]));
                 }
                 break;
             case CRAFT_TREE:
@@ -432,10 +453,9 @@ public class ManagerQuest {
         q.checkQuestForDone();
         if (q.isDone) {
             g.directServer.completeUserQuest(q.id, q.idDB, null);
-            g.toolsModifier.modifierType = ToolsModifier.NONE;
             g.windowsManager.closeAllWindows();
             g.windowsManager.openWindow(WindowsManager.WO_QUEST_AWARD, onGetAward, q);
-             if (_questUI) _questUI.updateIcons();
+            if (_questUI) _questUI.updateIcons();
         }
         return q.isDone;
     }

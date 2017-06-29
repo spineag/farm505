@@ -12,6 +12,8 @@ import manager.Vars;
 
 import media.SoundConst;
 
+import quest.ManagerQuest;
+
 import starling.display.Image;
 import starling.text.TextField;
 import starling.utils.Align;
@@ -95,6 +97,8 @@ public class WOBuyPlantItem {
         if (g.managerTutorial && g.managerTutorial.currentAction == TutorialAction.PLANT_RIDGE && g.managerTutorial.isTutorialResource(_dataPlant.id)) {
             addArrow();
         }
+        if (g.managerQuest && g.managerQuest.activeTask && (g.managerQuest.activeTask.typeAction == ManagerQuest.RAW_PLANT || g.managerQuest.activeTask.typeAction == ManagerQuest.CRAFT_PLANT)
+            && g.managerQuest.activeTask.resourceId == _dataPlant.id) addArrow(3);
     }
 
     private function fillIcon(s:String):void {
@@ -238,11 +242,12 @@ public class WOBuyPlantItem {
         g.resourceHint.hideIt();
     }
 
-    private function addArrow():void {
+    private function addArrow(t:Number=0):void {
         removeArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, source);
         _arrow.animateAtPosition(source.width/2, 0);
         _arrow.scaleIt(.5);
+        if (t > 0) _arrow.activateTimer(t, removeArrow);
     }
 
     private function removeArrow():void {

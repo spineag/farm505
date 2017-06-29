@@ -60,9 +60,6 @@ public class WOFabrica extends WindowMain {
         _birka.updateText(_fabrica.dataBuild.name);
         _birka.source.x = 270 - _birka.bg.height;
         showAnimateFabricaItems();
-        if (params[3]) {
-            addArrowForPossibleRawItems(params[4]);
-        }
         super.showIt();
     }
 
@@ -170,8 +167,6 @@ public class WOFabrica extends WindowMain {
                     obj = {};
                     obj.data = dataRecipe;
                     obj.count = int(dataRecipe.ingridientsCount[i]) - count;
-//                    obj.fabrica = _fabrica;
-//                    obj.callback = _callbackOnClick;
                     g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, onBuyResource, 'menu', obj);
                     return;
                 }
@@ -206,7 +201,6 @@ public class WOFabrica extends WindowMain {
         } else {
             _list.butNewCellFromWO();
         }
-//        showIt();
     }
 
     private function createTopBG():void {

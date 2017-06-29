@@ -59,7 +59,6 @@ public class WorldObject {
     protected var _armature:Armature;
     private var _buildingBuild:BuildingBuild;
     public var countShopCost:int;
-    public var idResourceArrow:int = 0;
 
     protected static var g:Vars = Vars.getInstance();
 
@@ -178,10 +177,9 @@ public class WorldObject {
         makeFlipBuilding();
     }
 
-    public function showArrow(t:Number = 0, id:int = 0):void {
+    public function showArrow(t:Number = 0):void {
         hideArrow();
         _arrow = new SimpleArrow(SimpleArrow.POSITION_TOP, _source);
-        idResourceArrow = id;
         if (_rect) {
             var xX:int = 0;
             if (_sizeX != _sizeY) xX = _rect.x + _rect.width/2;

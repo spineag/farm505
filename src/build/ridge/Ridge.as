@@ -441,7 +441,7 @@ public class Ridge extends WorldObject{
             g.managerPlantRidge.onRidgeFinishMove(_dataPlant.id, this);
     }
 
-    override public function showArrow(t:Number=0, id:int =0):void {
+    override public function showArrow(t:Number=0):void {
         super.showArrow(t);
         if (_arrow) _arrow.scaleIt(.7);
     }
