@@ -38,21 +38,23 @@ public class StartPreloader {
     private var g:Vars = Vars.getInstance();
 
     public function StartPreloader(f:Function) {
+        var arBGs:Array;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) arBGs = ['list_of_tips_decor_eng', 'list_of_tips_farm_stand_eng', 'list_of_tips_inventory_eng'];
+            else arBGs = ['list_of_tips_decor_rus', 'list_of_tips_farm_stand_rus', 'list_of_tips_inventory_rus'];
+        _jpgUrl = g.dataPath.getGraphicsPath() + 'preloader/' + arBGs[int(Math.random()*arBGs.length)] + '.jpg';
         _callbackInit = f;
         _source = new Sprite();
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) _jpgUrl = g.dataPath.getGraphicsPath() + 'preloader/eng_splash_screen_main.jpg';
-            else _jpgUrl = g.dataPath.getGraphicsPath() + 'preloader/preloader_bg_1.jpg';
         g.load.loadImage(_jpgUrl, onLoad);
         _quad = new Quad(3, 3, 0x33a2f4);
-        _quad.x = 327;
-        _quad.y = 569;
+        _quad.x = 410;
+        _quad.y = 609;
         _quad.visible = false;
         _source.addChild(_quad);
         _txt = new CTextField(75,50,'0');
         _txt.setFormat(CTextField.BOLD24, 24, 0x0659b6);
         _source.addChild(_txt);
-        _txt.x = 453;
-        _txt.y = 502;
+        _txt.x = 530;
+        _txt.y = 536;
         _txt.visible = false;
 //        createBitmap();
 //        addIms();
