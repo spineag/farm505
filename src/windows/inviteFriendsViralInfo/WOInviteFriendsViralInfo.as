@@ -143,8 +143,6 @@ public class WOInviteFriendsViralInfo extends WindowMain {
     }
 
     private function onClickExit():void {
-        g.gameDispatcher.removeFromTimer(onTimer);
-        g.socialNetwork.removeEventListener(SocialNetworkEvent.ON_VIRAL_INVITE, onViralInvite);
         if (_callback != null) {
             _callback.apply(null, [[]]);
             _callback = null;
@@ -153,6 +151,8 @@ public class WOInviteFriendsViralInfo extends WindowMain {
     }
 
     override protected function deleteIt():void {
+        g.gameDispatcher.removeFromTimer(onTimer);
+        g.socialNetwork.removeEventListener(SocialNetworkEvent.ON_VIRAL_INVITE, onViralInvite);
         if (_txt) {
             _source.removeChild(_txt);
             _txt.deleteIt();

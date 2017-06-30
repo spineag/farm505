@@ -83,6 +83,9 @@ public class ManagerInviteFriendViral {
     }
 
     private function onFinishIt():void {
+        if (g.windowsManager.currentWindow && g.windowsManager.currentWindow.windowType == WindowsManager.WO_INVITE_FRIENDS_VIRAL_INFO) {
+            g.windowsManager.currentWindow.hideIt();
+        }
         if (_invitePanelTimer) {
             _invitePanelTimer.deleteIt();
             _invitePanelTimer = null;

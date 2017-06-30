@@ -431,7 +431,6 @@ public class ManagerQuest {
                     g.cont.moveCenterToPos((arrT[0] as WorldObject).posX, (arrT[0] as WorldObject).posY);
                 } else {
                     g.bottomPanel.addArrow('shop', 3, _activeTask.resourceId, HelperReason.REASON_BUY_FABRICA); 
-//                    new FlyMessage(p,String(g.managerLanguage.allTexts[600]));
                 }
                 break;
             case CRAFT_TREE:

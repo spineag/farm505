@@ -90,7 +90,7 @@ public class User extends Someone {
         var b:Array  = g.townArea.getCityObjectsByType(BuildType.MISSING);
         for (var i:int = 0; i < arrFriends.length; i++) {
             if ((int(new Date().getTime() / 1000) -  arrFriends[i].lastVisitDate) >= 604800 && ob.length <= 0) {
-                b[0].visibleBuild(true, arrFriends[i]);
+                if (b.length) b[0].visibleBuild(true, arrFriends[i]);
                 break;
             }
         }

@@ -180,7 +180,6 @@ public class Farm extends WorldObject{
                     onOut();
                     g.windowsManager.openWindow(WindowsManager.WO_AMBAR_FILLED, null, false);
                 } else {
-                    g.managerQuest.onActionForTaskType(ManagerQuest.CRAFT_PRODUCT, {id:(_arrCrafted[0] as CraftItem).resourceId});
                     (_arrCrafted[0] as CraftItem).flyIt();
                     checkForCraft();
                 }

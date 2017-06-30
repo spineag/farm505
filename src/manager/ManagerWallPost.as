@@ -80,6 +80,7 @@ public class ManagerWallPost {
         if (_typePost == POST_FOR_QUEST) {
             g.managerQuest.onActionForTaskType(ManagerQuest.POST);
         } else {
+            if (_type == 0 || _count == 0) return;
             if (_type == 9) new XPStar(g.managerResize.stageWidth / 2, g.managerResize.stageHeight / 2, _count);
             else {
                 var obj:Object;

@@ -30,7 +30,7 @@ public class WALLAnnouncement {
             stUrl = g.dataPath.getGraphicsPath() + 'announcement/share_quests_info_ok.png';
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), st, null, stUrl);
         } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            stUrl = g.dataPath.getGraphicsPath() + 'announcement/share_quests_info_fb.png';
+            stUrl = g.dataPath.getGraphicsPath() + 'announcement/share_quests_info_fb_2.png';
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), st, null, stUrl);
         } else {
             stUrl = g.dataPath.getGraphicsPath() + 'announcement/share_quests_info_vk.png';

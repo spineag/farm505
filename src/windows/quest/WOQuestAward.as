@@ -58,7 +58,7 @@ public class WOQuestAward {
         switch (c) {
             case 1: _arItems[0].x = 80; break;
             case 2: _arItems[0].x = 45; _arItems[1].x = 126; break;
-            case 3: _arItems[0].x = 25; _arItems[1].x = 85; _arItems[2].x = 145; break;
+            case 3: _arItems[0].x = 32; _arItems[1].x = 87; _arItems[2].x = 141; break;
         }
     }
 
@@ -139,7 +139,7 @@ internal class Item extends Sprite {
             case 3: _txt = new CTextField(45, 30, String(aw.countResource));
                 _txt.setFormat(CTextField.MEDIUM18, 18, ManagerFilters.BLUE_COLOR);
                 _txt.alignH = Align.LEFT;
-                _txt.y = -13;
+                _txt.y = -16;
                 if (im) MCScaler.scale(im, 22, 22);
                 break;
         }

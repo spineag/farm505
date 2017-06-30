@@ -312,6 +312,14 @@ public class MainBottomPanel {
                     } else if (_typeHelp == HelperReason.REASON_BUY_ANIMAL) {
                         (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
                         (g.windowsManager.currentWindow as WOShop).addArrow(_questBuilId);
+                    } else if (_typeHelp == HelperReason.REASON_BUY_FARM) {
+                        (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).addArrow(_questBuilId);
+                    } else if (_typeHelp == HelperReason.REASON_BUY_RIDGE) {
+                        (g.windowsManager.currentWindow as WOShop).addArrowAtPos(1);
+                    } else if (_typeHelp == HelperReason.REASON_BUY_TREE) {
+                        (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
+                        (g.windowsManager.currentWindow as WOShop).addArrow(_questBuilId);
                     }
                 }
                 if (g.buyHint.showThis) g.buyHint.hideIt();

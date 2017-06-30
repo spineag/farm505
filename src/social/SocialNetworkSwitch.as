@@ -1,6 +1,7 @@
 package social {
 import com.adobe.crypto.MD5;
 import social.blank.SN_Blank;
+import social.blank_FB.SN_Blank_FB;
 import social.fb.SN_FB;
 import social.ok.SN_OK;
 import social.vk.SN_Vkontakte;
@@ -11,7 +12,6 @@ public class SocialNetworkSwitch {
     public static var SN_OK_ID:int = 3;
     public static var SN_FB_ID:int = 4;
 
-    protected static var _viewerID:String = "";
     private static var SECRET_KEY_VK:String = '';
     private static var SECRET_KEY:String = '';
 
@@ -40,8 +40,7 @@ public class SocialNetworkSwitch {
 
                 if (isDebug) {
                     flashVars["uid"] = "555480938615";
-//                    flashVars["uid"] = "560054813327";
-                    g.socialNetwork = new SN_Blank(flashVars, "ok", "https://505.ninja/", "https://505.ninja/");
+                    g.socialNetwork = new SN_Blank(flashVars);
                 } else {
                     flashVars["uid"] = flashVars["logged_user_id"];
                     g.socialNetwork = new SN_OK(flashVars);
@@ -50,8 +49,8 @@ public class SocialNetworkSwitch {
                 break;
             case SN_FB_ID:
                 if (isDebug) {
-                    flashVars["uid"] = "1185277884914305";
-                    g.socialNetwork = new SN_Blank(flashVars, "fb", "https://505.ninja/", "https://505.ninja/");
+                    flashVars["uid"] = " 1302214063192215";
+                    g.socialNetwork = new SN_Blank_FB(flashVars);
                 } else {
                     g.socialNetwork = new SN_FB(flashVars);
                 }
@@ -59,10 +58,6 @@ public class SocialNetworkSwitch {
             default:
                 break;
         }
-        
-//        if (isDebug && _viewerID) {
-//            v.config.setViewer(_viewerID);
-//        }
     }
 }
 }

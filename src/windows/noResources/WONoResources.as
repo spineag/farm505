@@ -14,6 +14,8 @@ import manager.ManagerFilters;
 
 import media.SoundConst;
 
+import quest.ManagerQuest;
+
 import resourceItem.DropItem;
 
 import ui.xpPanel.XPStar;
@@ -319,6 +321,7 @@ public class WONoResources extends WindowMain {
         if (_paramData.dataNyashuk.buyerId == 1) g.userTimer.buyerNyashukBlue(1200);
         else  g.userTimer.buyerNyashukRed(1200);
         g.managerBuyerNyashuk.onReleaseOrder(_nyashuk,false);
+        g.managerQuest.onActionForTaskType(ManagerQuest.NIASH_BUYER);
         super.hideIt();
     }
 

@@ -154,6 +154,7 @@ import manager.Vars;
 import quest.QuestAwardStructure;
 
 import resourceItem.DropDecor;
+import resourceItem.DropItem;
 
 import starling.core.Starling;
 import starling.display.Image;
