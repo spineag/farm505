@@ -6,14 +6,9 @@ import build.WorldObject;
 import build.fabrica.Fabrica;
 import build.farm.Farm;
 import build.ridge.Ridge;
-
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
 import data.StructureDataBuilding;
-
-import dragonBones.animation.WorldClock;
-
 import manager.Vars;
 import starling.display.Image;
 
@@ -96,7 +91,7 @@ public class QuestTaskStructure {
             if (count >= maxCountAtCurrentLevel) _isDone = true;
                 else if (maxCountAtCurrentLevel - count < countNeed) _countDone = countNeed - (maxCountAtCurrentLevel - count);
         } else if (_taskData.type_action == ManagerQuest.BUY_CAT) {
-            if (g.managerCats.curCountCats == g.managerCats.maxCountCats) _isDone = true;
+            if (g.managerCats.curCountCats >= g.managerCats.maxCountCats) _isDone = true;
                 else if (g.managerCats.maxCountCats - g.managerCats.curCountCats < countNeed) _countDone = countNeed - (g.managerCats.maxCountCats - g.managerCats.curCountCats);
         }
     }
