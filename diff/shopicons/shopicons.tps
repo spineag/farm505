@@ -372,6 +372,13 @@
             <filename>flowerbed_square_red_icon.png</filename>
             <filename>flowerbed_square_blue_icon.png</filename>
             <filename>star_event_winner_icon.png</filename>
+            <filename>flag_usa_icon.png</filename>
+            <filename>statue_usa_icon.png</filename>
+            <filename>flowerbed_usa_icon.png</filename>
+            <filename>tail_usa_1_icon.png</filename>
+            <filename>tail_usa_2_icon.png</filename>
+            <filename>statue_cow_icon.png</filename>
+            <filename>fireworks_event_icon.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

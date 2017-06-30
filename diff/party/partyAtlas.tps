@@ -202,7 +202,6 @@
             <filename>new_event_window_r.png</filename>
             <filename>event_window_baloon.png</filename>
             <filename>new_event_window_r_2.png</filename>
-            <filename>zefir_timer.png</filename>
             <filename>tabs_bonus_on.png</filename>
             <filename>tabs_event_on.png</filename>
             <filename>tabs_top_on.png</filename>
@@ -217,8 +216,14 @@
             <filename>tabs_top_1.png</filename>
             <filename>tabs_top_2.png</filename>
             <filename>star_event_winner_45x45.png</filename>
-            <filename>market_bonus_rus.png</filename>
-            <filename>market_bonus.png</filename>
+            <filename>event_independence_day.png</filename>
+            <filename>event_window_independence_day.png</filename>
+            <filename>event_window_standard.png</filename>
+            <filename>independence_day_en.png</filename>
+            <filename>independence_day_ru.png</filename>
+            <filename>milk.png</filename>
+            <filename>milk_text.png</filename>
+            <filename>usa_badge.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

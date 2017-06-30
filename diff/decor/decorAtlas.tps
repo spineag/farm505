@@ -298,6 +298,12 @@
             <filename>flowerbed_square_blue.png</filename>
             <filename>flowerbed_square_red.png</filename>
             <filename>star_event_winner.png</filename>
+            <filename>flag_usa.png</filename>
+            <filename>flowerbed_usa.png</filename>
+            <filename>statue_cow.png</filename>
+            <filename>statue_usa.png</filename>
+            <filename>tail_usa_1.png</filename>
+            <filename>tail_usa_2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

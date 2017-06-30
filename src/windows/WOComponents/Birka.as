@@ -128,9 +128,9 @@ public class Birka extends Sprite{
             _txt.deleteIt();
             _txt = null;
         }
-        _source.dispose();
-        _source = null;
-        _bg = null;
+        if (_source) _source.dispose();
+        if (_source) _source = null;
+        if (_bg) _bg = null;
         g = null;
     }
 }

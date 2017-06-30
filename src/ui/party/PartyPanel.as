@@ -2,6 +2,9 @@ package ui.party {
 import flash.geom.Point;
 import manager.ManagerFilters;
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import starling.animation.Tween;
 import starling.display.Image;
 import utils.CSprite;
@@ -17,9 +20,13 @@ public class PartyPanel {
 
     public function PartyPanel() {
         _source = new CSprite();
-        var im:Image = new Image(g.allData.atlas['partyAtlas'].getTexture('zefir_timer'));
+        var im:Image;
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('milk'));
+        } else {
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_independence_day'));
+        }
         _source.addChild(im);
-
         _txtTimer = new CTextField(100,60,'');
         _txtTimer.setFormat(CTextField.BOLD18, 18, 0xd30102);
         _source.addChild(_txtTimer);
