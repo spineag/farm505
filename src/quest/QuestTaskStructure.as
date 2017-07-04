@@ -99,6 +99,7 @@ public class QuestTaskStructure {
     public function upgradeCount():void {
         _countDone++;
         if (_countDone >= countNeed) _isDone = true;
+        if (_isDone) g.managerQuest.showAnimateOnTaskUpgrade(this);
     }
 
     public function get icon():String { return _taskData.icon_task; } // if =='0' -> get from resource

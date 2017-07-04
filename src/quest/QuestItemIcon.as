@@ -2,12 +2,13 @@
  * Created by andy on 2/20/17.
  */
 package quest {
+import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
-
 import flash.display.Bitmap;
 import manager.Vars;
 import starling.display.Image;
 import starling.textures.Texture;
+import utils.AnimationsStock;
 import utils.CSprite;
 import utils.MCScaler;
 import utils.SimpleArrow;
@@ -20,6 +21,8 @@ public class QuestItemIcon {
     private var _position:int;
     private var _onHover:Boolean;
     private var _arrow:SimpleArrow;
+    private var _im:Image;
+    private var _imSmall:Image;
 
     public function QuestItemIcon(q:QuestStructure) {
         if (!q) {
@@ -72,6 +75,7 @@ public class QuestItemIcon {
             MCScaler.scale(im, 85, 85);
             im.alignPivot();
             _source.addChild(im);
+            _im = im;
         }
         var t:QuestTaskStructure = _quest.tasks[0];
         if (t.typeAction == ManagerQuest.ADD_LEFT_MENU || t.typeAction == ManagerQuest.POST || t.typeAction == ManagerQuest.ADD_TO_GROUP) {
@@ -93,6 +97,7 @@ public class QuestItemIcon {
             im.x = 27;
             im.y = 25;
             _source.addChild(im);
+            _imSmall = im;
         }
     }
 
@@ -120,5 +125,17 @@ public class QuestItemIcon {
             _arrow = null;
         }
     }
+
+    public function animateOnTaskUpdate():void {
+        if (_im) AnimationsStock.joggleItBaby(_im);
+        if (_imSmall) AnimationsStock.jumpSimple(_imSmall);
+    }
+    
+    public function deleteIt():void {
+        if (_im) TweenMax.killTweensOf(_im);
+        if (_imSmall) TweenMax.killTweensOf(_imSmall);
+        _source.deleteIt();
+    }
+
 }
 }

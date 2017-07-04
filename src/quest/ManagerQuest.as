@@ -78,6 +78,7 @@ public class ManagerQuest {
     private function onGetUserQuestAward():void { g.directServer.getUserNewQuests(onGetNewQuests); }
     public function get activeTask():QuestTaskStructure { return _activeTask; }
     public function clearActiveTask():void { _activeTask = null; }
+    public function showAnimateOnTaskUpgrade(t:QuestTaskStructure):void { if (_questUI) _questUI.showAnimateOnTaskUpgrade(t); }
 
     public function addUI():void {
         if (g.user.level >= 4 && g.useQuests) {
