@@ -23,9 +23,9 @@ public class ManagerAnnouncement {
         if (isPost) g.managerWallPost.postWallpost(ManagerWallPost.POST_ANNOUNCEMENT,null, 0, 0);
         g.user.announcement = true;
         g.directServer.onShowAnnouncement();
-        if (g.managerCutScenes.isCutScene) return;
-        if (g.managerMiniScenes.isMiniScene) return;
-        if (g.managerQuest) g.managerQuest.showArrowsForAllVisibleIconQuests(3);
+//        if (g.managerCutScenes.isCutScene) return;
+//        if (g.managerMiniScenes.isMiniScene) return;
+//        if (g.managerQuest) g.managerQuest.showArrowsForAllVisibleIconQuests(3);
     }
 }
 }
