@@ -4,15 +4,17 @@
 package announcement {
 import manager.ManagerWallPost;
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import utils.Utils;
 import windows.WindowsManager;
 
 public class ManagerAnnouncement {
-    private var USE_IT:Boolean = true;
     private var g:Vars = Vars.getInstance();
     
     public function ManagerAnnouncement() {
-        if (USE_IT && !g.user.announcement) Utils.createDelay(10, openWO);
+        if (!g.user.announcement && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) Utils.createDelay(10, openWO);
     }
 
     private function openWO():void { g.windowsManager.openWindow(WindowsManager.WO_ANNOUNCEMENT, onClose); }

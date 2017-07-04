@@ -31,7 +31,7 @@ public class WOAnnouncement extends WindowMain {
         _woHeight = 534;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        _url = g.dataPath.getGraphicsPath() + 'announcement/quest_info_window.png';
+        _url = g.dataPath.getGraphicsPath() + 'announcement/usa_post.png';
     }
 
     override public function showItParams(callback:Function, params:Array):void {

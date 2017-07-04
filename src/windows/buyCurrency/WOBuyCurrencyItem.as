@@ -46,8 +46,10 @@ public class WOBuyCurrencyItem {
     private var _packId:int;
     private var g:Vars = Vars.getInstance();
     private var _arrCTex:Array;
+    private var _isActiveClick:Boolean;
 
     public function WOBuyCurrencyItem(currency:int, count:int, bonus:Array, cost:Number, packId:int, sale:int) {
+        _isActiveClick = false;
         _currency = currency;
         _packId = packId;
         _countGameMoney = count;
@@ -189,6 +191,8 @@ public class WOBuyCurrencyItem {
     }
 
     private function onClick():void {
+        if (_isActiveClick) return;
+        _isActiveClick = true;
         if (g.isDebug) {
             onBuy();
             g.socialNetwork.showOrderWindow({id: _packId});
@@ -215,6 +219,7 @@ public class WOBuyCurrencyItem {
         } else {
             g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.BUY_SOFT_FOR_REAL, {id: _packId});
         }
+        _isActiveClick = false;
         onBuy();
     }
 
@@ -223,6 +228,7 @@ public class WOBuyCurrencyItem {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_CANCEL, orderWindowFailHandler);
         g.socialNetwork.removeEventListener(SocialNetworkEvent.ORDER_WINDOW_FAIL, orderWindowFailHandler);
         Cc.info('Fail for buy pack');
+        _isActiveClick = false;
     }
 
     private function onBuy():void {
