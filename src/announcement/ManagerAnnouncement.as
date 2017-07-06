@@ -14,7 +14,7 @@ public class ManagerAnnouncement {
     private var g:Vars = Vars.getInstance();
     
     public function ManagerAnnouncement() {
-        if (!g.user.announcement && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) Utils.createDelay(10, openWO);
+//        if (!g.user.announcement && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) Utils.createDelay(10, openWO);
     }
 
     private function openWO():void { g.windowsManager.openWindow(WindowsManager.WO_ANNOUNCEMENT, onClose); }
