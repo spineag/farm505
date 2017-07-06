@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:5e6d6e55743fa748c8faccf8c004ac21:9e562cf0ed16e8675dcf3cf27ab44904:ac880a930f9f4f68bee3173fda432350$ -->
-<TextureAtlas imagePath="partyAtlas.png" width="2039" height="995">
-    <SubTexture name="best_players_1" x="1522" y="714" width="273" height="57" frameX="-3" frameY="-11" frameWidth="280" frameHeight="75"/>
-    <SubTexture name="best_players_2" x="1094" y="929" width="268" height="65" frameX="-5" frameY="-3" frameWidth="280" frameHeight="75"/>
+<!-- $TexturePacker:SmartUpdate:f198ebd532abb63428f5c175798c9cd7:f764ebfbda0b7a7129c4392ed85555d3:ac880a930f9f4f68bee3173fda432350$ -->
+<TextureAtlas imagePath="partyAtlas.png" width="1720" height="996">
+    <SubTexture name="best_players_1" x="1229" y="799" width="273" height="57" frameX="-3" frameY="-11" frameWidth="280" frameHeight="75"/>
+    <SubTexture name="best_players_2" x="1062" y="916" width="268" height="65" frameX="-5" frameY="-3" frameWidth="280" frameHeight="75"/>
     <SubTexture name="best_players_3" x="1" y="490" width="640" height="453" frameX="0" frameY="0" frameWidth="640" frameHeight="458"/>
-    <SubTexture name="congratulations" x="1094" y="858" width="338" height="69" frameX="-4" frameY="-3" frameWidth="348" frameHeight="78"/>
-    <SubTexture name="end_event_title" x="643" y="930" width="308" height="56"/>
-    <SubTexture name="event_independence_day" x="1555" y="891" width="100" height="100"/>
-    <SubTexture name="event_window_baloon" x="1522" y="493" width="269" height="219" frameX="-2" frameY="-9" frameWidth="281" frameHeight="237"/>
-    <SubTexture name="event_window_independence_day" x="664" y="1" width="667" height="438" frameX="-2" frameY="0" frameWidth="669" frameHeight="438"/>
-    <SubTexture name="event_window_standard" x="1333" y="1" width="663" height="438" frameX="-2" frameY="0" frameWidth="669" frameHeight="438"/>
-    <SubTexture name="event_window_w" x="1873" y="875" width="80" height="81"/>
-    <SubTexture name="hint_button" x="1142" y="441" width="47" height="47"/>
-    <SubTexture name="independence_day_en" x="1229" y="780" width="382" height="76" frameX="-14" frameY="-16" frameWidth="411" frameHeight="109"/>
-    <SubTexture name="independence_day_ru" x="643" y="853" width="449" height="75" frameX="-16" frameY="-16" frameWidth="477" frameHeight="109"/>
-    <SubTexture name="milk" x="1759" y="891" width="100" height="98" frameX="0" frameY="-2" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="congratulations" x="643" y="926" width="338" height="69" frameX="-4" frameY="-3" frameWidth="348" frameHeight="78"/>
+    <SubTexture name="corn_event_icon" x="1504" y="781" width="100" height="88" frameX="0" frameY="-12" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="cornbread_rus" x="1229" y="561" width="372" height="70"/>
+    <SubTexture name="end_event_title" x="1062" y="858" width="308" height="56"/>
+    <SubTexture name="event_window_baloon" x="1329" y="340" width="269" height="219" frameX="-2" frameY="-9" frameWidth="281" frameHeight="237"/>
+    <SubTexture name="event_window_standard" x="664" y="1" width="663" height="438" frameX="-2" frameY="0" frameWidth="669" frameHeight="438"/>
+    <SubTexture name="event_window_w" x="1622" y="77" width="80" height="81"/>
+    <SubTexture name="hint_button" x="459" y="945" width="47" height="47"/>
+    <SubTexture name="milk" x="1489" y="681" width="100" height="98" frameX="0" frameY="-2" frameWidth="100" frameHeight="100"/>
     <SubTexture name="milk_text" x="664" y="441" width="476" height="71" frameX="-10" frameY="0" frameWidth="496" frameHeight="82"/>
-    <SubTexture name="new_event_window_l" x="643" y="514" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
-    <SubTexture name="new_event_window_r" x="936" y="514" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
-    <SubTexture name="new_event_window_r_2" x="1229" y="441" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
-    <SubTexture name="place_1" x="1434" y="858" width="119" height="119"/>
-    <SubTexture name="place_2" x="1793" y="493" width="119" height="149"/>
-    <SubTexture name="progress" x="1522" y="441" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
-    <SubTexture name="star_event_winner_45x45" x="360" y="945" width="45" height="45"/>
-    <SubTexture name="tabs_bonus_on" x="1914" y="718" width="99" height="79" frameX="-8" frameY="0" frameWidth="115" frameHeight="79"/>
-    <SubTexture name="tabs_bt_1" x="1914" y="624" width="124" height="92" frameX="0" frameY="0" frameWidth="126" frameHeight="92"/>
-    <SubTexture name="tabs_bt_2" x="1998" y="1" width="39" height="92"/>
+    <SubTexture name="new_event_window_l" x="1329" y="1" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
+    <SubTexture name="new_event_window_r" x="643" y="514" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
+    <SubTexture name="new_event_window_r_2" x="936" y="514" width="291" height="337" frameX="-3" frameY="-2" frameWidth="296" frameHeight="342"/>
+    <SubTexture name="place_1" x="1449" y="871" width="119" height="119"/>
+    <SubTexture name="place_2" x="1600" y="340" width="119" height="149"/>
+    <SubTexture name="progress" x="1" y="945" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
+    <SubTexture name="seven_milk_desserts" x="643" y="853" width="417" height="71" frameX="-9" frameY="-10" frameWidth="435" frameHeight="92"/>
+    <SubTexture name="star_event_winner_45x45" x="1142" y="441" width="45" height="45"/>
+    <SubTexture name="tabs_bonus_on" x="1603" y="491" width="99" height="79" frameX="-8" frameY="0" frameWidth="115" frameHeight="79"/>
+    <SubTexture name="tabs_bt_1" x="1570" y="871" width="124" height="92" frameX="0" frameY="0" frameWidth="126" frameHeight="92"/>
+    <SubTexture name="tabs_bt_2" x="1622" y="160" width="39" height="92"/>
     <SubTexture name="tabs_congratulations" x="1" y="1" width="661" height="487"/>
-    <SubTexture name="tabs_event_on" x="1873" y="799" width="88" height="74" frameX="-14" frameY="-3" frameWidth="115" frameHeight="79"/>
-    <SubTexture name="tabs_top_1" x="1613" y="773" width="258" height="116" frameX="-3" frameY="-5" frameWidth="268" frameHeight="126"/>
-    <SubTexture name="tabs_top_2" x="1" y="945" width="357" height="46" frameX="0" frameY="-11" frameWidth="357" frameHeight="57"/>
-    <SubTexture name="tabs_top_on" x="1797" y="644" width="115" height="79"/>
-    <SubTexture name="usa_badge" x="1657" y="891" width="100" height="100"/>
-    <SubTexture name="valik_timer" x="1914" y="493" width="124" height="129" frameX="-9" frameY="-9" frameWidth="145" frameHeight="145"/>
+    <SubTexture name="tabs_event_on" x="1622" y="1" width="88" height="74" frameX="-14" frameY="-3" frameWidth="115" frameHeight="79"/>
+    <SubTexture name="tabs_top_1" x="1229" y="681" width="258" height="116" frameX="-3" frameY="-5" frameWidth="268" frameHeight="126"/>
+    <SubTexture name="tabs_top_2" x="1229" y="633" width="357" height="46" frameX="0" frameY="-11" frameWidth="357" frameHeight="57"/>
+    <SubTexture name="tabs_top_on" x="1332" y="916" width="115" height="79"/>
+    <SubTexture name="valik_timer" x="1591" y="633" width="124" height="129" frameX="-9" frameY="-9" frameWidth="145" frameHeight="145"/>
 </TextureAtlas>

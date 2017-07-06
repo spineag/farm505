@@ -82,10 +82,10 @@ public class WOSalePack extends WindowMain{
         _imPercent.y = -253;
         _source.addChild(_imPercent);
         _txtTime = new CTextField(120,60,'');
-        _txtTime.setFormat(CTextField.BOLD24, 20, 0x4b7200);
+        _txtTime.setFormat(CTextField.BOLD18, 16, 0x4b7200);
         _txtTime.alignH = Align.LEFT;
 
-        _txtTime.y = -137;
+        _txtTime.y = -135;
         _source.addChild(_txtTime);
         if (g.user.language == ManagerLanguage.ENGLISH) _imName = new Image(g.allData.atlas['saleAtlas'].getTexture('sale_window_title_eng'));
         else _imName = new Image(g.allData.atlas['saleAtlas'].getTexture('sale_window_title_rus'));
@@ -241,7 +241,7 @@ public class WOSalePack extends WindowMain{
         if (g.userTimer.saleTimerToEnd > 0) {
             if (_txtTime) {
                 _txtTime.text = TimeUtils.convertSecondsToStringClassic(g.userTimer.saleTimerToEnd);
-                _txtTime.x = -350 - _txtTime.textBounds.width/2;
+                _txtTime.x = -348 - _txtTime.textBounds.width/2;
             }
         } else {
             onClickExit();

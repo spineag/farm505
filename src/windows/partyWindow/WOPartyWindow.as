@@ -171,7 +171,7 @@ public class WOPartyWindow extends WindowMain {
             if (!b) return;
             if (!arr[0]) return;
             g.cont.moveCenterToPos(arr[0].posX, arr[0].posY);
-            if (BuildType.FABRICA == g.managerParty.typeBuilding) arr[0].showArrow(3, g.managerParty.idResource);
+            if (BuildType.FABRICA == g.managerParty.typeBuilding) arr[0].showArrow();
             else arr[0].showArrow(3);
         }
     }
@@ -461,11 +461,11 @@ public class WOPartyWindow extends WindowMain {
                 _txtCoefficient.x = 38;
                 _txtCoefficient.y = -214;
             } else {
-                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+//                if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                     im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_standard'));
-                } else {
-                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_independence_day'));
-                }
+//                } else {
+//                    im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_window_independence_day'));
+//                }
                 im.x = -im.width / 2 - 4;
 //                im.y = -im.height / 2 - 12;
                 im.y = -im.height / 2 - 6;
@@ -475,21 +475,21 @@ public class WOPartyWindow extends WindowMain {
                 im.y = -im.height / 2 - 115;
                 _sprEvent.addChild(im);
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-                    _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('milk_text'));
-                    _imName.x = -_imName.width / 2 + 49;
-                    _imName.y = -215;
+                    _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('cornbread_rus'));
+                    _imName.x = -_imName.width / 2 + 41;
+                    _imName.y = -211;
                 } else {
-                    if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('independence_day_en'));
-                    else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('independence_day_ru'));
+                    if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('seven_milk_desserts'));
+                    else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('milk_text'));
                     _imName.x = -_imName.width / 2 + 45;
-                    _imName.y = -230;
+                    _imName.y = -218;
                 }
 
                 _sprEvent.addChild(_imName);
                 _txtBabl = new CTextField(220, 200, String(g.managerParty.description));
                 _txtBabl.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
                 _sprEvent.addChild(_txtBabl);
-                _txtBabl.x = -413;
+                _txtBabl.x = -410;
                 _txtBabl.y = -225;
                 _sprEvent.addChild(_sprItem);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
@@ -654,11 +654,11 @@ public class WOPartyWindow extends WindowMain {
             im = new Image(g.allData.atlas[g.allData.getBuildingById(g.managerParty.idDecorBest).url].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).image));
         else im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).url + '_icon'));
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            im.x = -230;
+            im.x = -240;
         } else {
-            im.x = -200;
+            im.x = -240;
         }
-        im.x = -210;
+//        im.x = -210;
         im.y = -120;
         _sprRating.addChild(im);
         txt = new CTextField(250, 100, String(g.allData.getBuildingById(g.managerParty.idDecorBest).name));

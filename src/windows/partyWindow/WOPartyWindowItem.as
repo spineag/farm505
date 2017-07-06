@@ -90,7 +90,7 @@ public class WOPartyWindowItem {
             _sprItem.addChild(im);
             _sprItem.hoverCallback = function():void { g.hint.showIt(String(g.allData.getBuildingById(id).name)); };
             _sprItem.outCallback = function():void { g.hint.hideIt(); };
-        } else if (type == BuildType.DECOR) {
+        } else if (type == BuildType.DECOR || type == BuildType.DECOR_TAIL) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).image +'_icon'));
             _sprItem.addChild(im);
             _txtCountResource.text = String(countResource);

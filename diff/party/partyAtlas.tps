@@ -216,14 +216,12 @@
             <filename>tabs_top_1.png</filename>
             <filename>tabs_top_2.png</filename>
             <filename>star_event_winner_45x45.png</filename>
-            <filename>event_independence_day.png</filename>
-            <filename>event_window_independence_day.png</filename>
             <filename>event_window_standard.png</filename>
-            <filename>independence_day_en.png</filename>
-            <filename>independence_day_ru.png</filename>
             <filename>milk.png</filename>
             <filename>milk_text.png</filename>
-            <filename>usa_badge.png</filename>
+            <filename>corn_event_icon.png</filename>
+            <filename>cornbread_rus.png</filename>
+            <filename>seven_milk_desserts.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

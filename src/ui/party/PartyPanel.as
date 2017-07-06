@@ -22,9 +22,9 @@ public class PartyPanel {
         _source = new CSprite();
         var im:Image;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('milk'));
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('corn_event_icon'));
         } else {
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('event_independence_day'));
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('milk'));
         }
         _source.addChild(im);
         _txtTimer = new CTextField(100,60,'');
