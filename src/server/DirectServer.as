@@ -3067,7 +3067,7 @@ public class DirectServer {
         request.method = URLRequestMethod.POST;
         loader.addEventListener(Event.COMPLETE, onCompleteAddUserMarketItem);
         loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
-        function onCompleteAddUserMarketItem(e:Event):void { completeAddUserMarketItem(e.target.data, callback); }
+        function onCompleteAddUserMarketItem(e:Event):void { completeAddUserMarketItem(e.target.data, id, count, callback); }
         try {
             loader.load(request);
         } catch (error:Error) {
@@ -3076,7 +3076,7 @@ public class DirectServer {
         }
     }
 
-    private function completeAddUserMarketItem(response:String, callback:Function = null):void {
+    private function completeAddUserMarketItem(response:String, id:int, count:int, callback:Function = null):void {
         iconMouse.endConnect();
         var d:Object;
         try {
@@ -3091,7 +3091,7 @@ public class DirectServer {
         if (d.id == 0) {
             Cc.ch('server', 'addUserMarketItem OK', 5);
             if (callback != null) {
-                callback.apply(null, [d.message]);
+                callback.apply(null, [d.message, id, count]);
             }
         } else if (d.id == 13) {
             Cc.ch('server', 'addUserMarketItem anotherGame', 5);

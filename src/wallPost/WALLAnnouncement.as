@@ -25,16 +25,18 @@ public class WALLAnnouncement {
     private var st:String;
 
     public function WALLAnnouncement(callback:Function, params:Array) {
-        st = String(g.managerLanguage.allTexts[1089]) + ' - ' + String(g.managerLanguage.allTexts[1090] + ' - ' + String(g.managerLanguage.allTexts[1091]));
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
-            stUrl = g.dataPath.getGraphicsPath() + 'announcement/share_quests_info_ok.png';
+        st='';
+//        st = String(g.managerLanguage.allTexts[1089]) + ' - ' + String(g.managerLanguage.allTexts[1090] + ' - ' + String(g.managerLanguage.allTexts[1091]));
+//        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID) {
+//            stUrl = g.dataPath.getGraphicsPath() + 'announcement/share_quests_info_ok.png';
+//            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), st, null, stUrl);
+//        } else
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
+            stUrl = g.dataPath.getGraphicsPath() + 'announcement/wall_fb_usa_post.png';
             g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), st, null, stUrl);
-        } else if (g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) {
-            stUrl = g.dataPath.getGraphicsPath() + 'announcement/share_quests_info_fb_2.png';
-            g.socialNetwork.wallPostBitmap(String(g.user.userSocialId), st, null, stUrl);
-        } else {
-            stUrl = g.dataPath.getGraphicsPath() + 'announcement/share_quests_info_vk.png';
-            g.load.loadImage(stUrl,onLoad);
+//        } else {
+//            stUrl = g.dataPath.getGraphicsPath() + 'announcement/share_quests_info_vk.png';
+//            g.load.loadImage(stUrl,onLoad);
         }
     }
 

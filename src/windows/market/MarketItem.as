@@ -294,13 +294,13 @@ public class MarketItem {
         if (isFill == 1) return;
         isFill = 1;
         g.directServer.addUserMarketItem(id, level, count, inPapper, cost, number, onAddToServer);
-        g.userInventory.addResource(id, -count);
     }
 
-    private function onAddToServer(ob:Object):void {
+    private function onAddToServer(ob:Object, id:int, count:int):void {
         _dataFromServer = new StructureMarketItem(ob);
         g.user.marketItems.push(_dataFromServer);
         fillIt(g.allData.getResourceById(_dataFromServer.resourceId), _dataFromServer.resourceCount, _dataFromServer.cost);
+        g.userInventory.addResource(id, -count);
         if(_dataFromServer.inPapper) {
             if (_papperBtn) {
                 _papperBtn.visible = true;

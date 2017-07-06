@@ -163,7 +163,7 @@ public class ManagerCutScenes {
                 case ID_ACTION_SHOW_MARKET:
                     if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
                     isCutScene = true;
-                     g.windowsManager.closeAllWindows();
+                    g.windowsManager.closeAllWindows();
                     releaseMarket();
                     break;
                 case ID_ACTION_SHOW_PAPPER:
@@ -225,6 +225,7 @@ public class ManagerCutScenes {
     }
 
     private function market_1():void {
+        g.windowsManager.closeAllWindows();
         removeBlack();
         _cutScene.hideIt(deleteCutScene);
         _cutSceneStep = 2;
@@ -510,6 +511,7 @@ public class ManagerCutScenes {
     }
 
     private function availableTrain_1():void {
+        g.windowsManager.closeAllWindows();
         _cutSceneStep = 2;
         g.optionPanel.makeScaling(1);
         if (!_cutScene) _cutScene = new CutScene();

@@ -38,6 +38,8 @@ import com.junkbyte.console.Cc;
 import data.BuildType;
 import data.DataMoney;
 import flash.geom.Point;
+import flash.utils.getQualifiedClassName;
+
 import heroes.AddNewHero;
 import heroes.BasicCat;
 import heroes.OrderCat;
@@ -214,8 +216,12 @@ public class TownArea extends Sprite {
             try {
                 _cityObjects.sortOn("depth", Array.NUMERIC);
                 for (var i:int = 0; i < _cityObjects.length; i++) {
-                    if (_cityObjects[i].source && _cont.contains(_cityObjects[i].source)) {
-                        _cont.setChildIndex(_cityObjects[i].source, i);
+                    if (_cityObjects[i]) {
+                        if (_cityObjects[i].source && _cont.contains(_cityObjects[i].source)) {
+                            _cont.setChildIndex(_cityObjects[i].source, i);
+                        }
+                    } else {
+                        Cc.error('zSort: empty _cityObjects[i]');
                     }
                 }
             } catch (e:Error) {
@@ -384,6 +390,7 @@ public class TownArea extends Sprite {
             for (var j:int = posX; j < (posX + sizeX); j++) {
                 _freePlace.freeCell(j, i);
                 _townMatrix[i][j].build = null;
+                _townMatrix[i][j].buildFence = null;
                 _townMatrix[i][j].isFull = false;
                 _townMatrix[i][j].isWall = false;
                 _townMatrix[i][j].isTutorialBuilding = false;
@@ -1667,6 +1674,7 @@ public class TownArea extends Sprite {
         g.visitedUser = person;
         _freePlace.deleteAway();
         _freePlace.fillAway();
+        Cc.info('goAway to: ' + person.userSocialId);
         if (g.isAway) {
             g.managerMouseHero.removeMouse();
             while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
@@ -2255,12 +2263,14 @@ public class TownArea extends Sprite {
                 try {
                     _cityAwayObjects.sortOn("depth", Array.NUMERIC);
                     for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                        if (_cityAwayObjects[i].source && _cont.contains(_cityAwayObjects[i].source))
-                            _cont.setChildIndex(_cityAwayObjects[i].source, i);
-                        else {
-                            Cc.error('TownArea zAwaySort: not in cont');
+                        if (_cityAwayObjects[i]) {
+                            if (_cityAwayObjects[i].source && _cont.contains(_cityAwayObjects[i].source))
+                                _cont.setChildIndex(_cityAwayObjects[i].source, i);
+                            else {
+                                if (_cityAwayObjects[i].source) Cc.error('TownArea zAwaySort: not in cont');
+                                else Cc.error('TownArea zAwaySort:: no _source for smth: ' + flash.utils.getQualifiedClassName(_cityAwayObjects[i]));
+                            }
                         }
-
                     }
                 } catch (e:Error) {
                     Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
@@ -2308,6 +2318,7 @@ public class TownArea extends Sprite {
     }
 
     public function backHome():void {
+        Cc.info('go home');
         g.managerMouseHero.removeMouse();
         g.hideAllHints();
         while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
@@ -2322,7 +2333,11 @@ public class TownArea extends Sprite {
         g.visitedUser = null;
         g.bottomPanel.doorBoolean(false);
         for (var i:int = 0; i < _cityObjects.length; i++) {
-            _cont.addChild(_cityObjects[i].source);
+            if (_cityObjects[i].source) _cont.addChild(_cityObjects[i].source);
+            else {
+                Cc.error('backHome:: no _source or deleted for smth from class: ' + flash.utils.getQualifiedClassName(_cityObjects[i]));
+                continue;
+            }
             if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(true);
             if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(true);
             if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(true);

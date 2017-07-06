@@ -122,6 +122,7 @@ public class Train extends WorldObject{
 
     private function makeIdleAnimation(e:Event=null):void {
         _bolAnimation = false;
+        if (!_armature) return;
         if (_armature.hasEventListener(EventObject.COMPLETE)) _armature.removeEventListener(EventObject.COMPLETE, makeIdleAnimation);
         if (_armature.hasEventListener(EventObject.LOOP_COMPLETE)) _armature.removeEventListener(EventObject.LOOP_COMPLETE, makeIdleAnimation);
         _armature.addEventListener(EventObject.COMPLETE, makeIdleAnimation);

@@ -67,7 +67,8 @@ public class QuestMainIconUI {
 
     private function deleteIcons():void {
         for (var i:int=0; i<_items.length; i++) {
-            if (_cont.contains(_items[i].source)) _cont.removeChild(_items[i].source)
+            if (_cont.contains(_items[i].source)) _cont.removeChild(_items[i].source);
+            (_items[i] as QuestItemIcon).deleteIt();
         }
         _items.length = 0;
     }
@@ -150,9 +151,18 @@ public class QuestMainIconUI {
         }
     }
     
-    public function showArrowsForAllVisibleIconQuests(t:int):void {
+    public function showArrowsForAllVisibleIconQuests(t:int):void {  // need use only visible in mask! so need optimise!
         for (var i:int=0; i<_items.length; i++) {
             (_items[i] as QuestItemIcon).addArrow(t);
+        }
+    }
+
+    public function showAnimateOnTaskUpgrade(t:QuestTaskStructure):void { // need use only visible in mask! so need optimise! 
+        for (var i:int=0; i<_items.length; i++) {
+            if ((_items[i] as QuestItemIcon).questId == t.questId) {
+                (_items[i] as QuestItemIcon).animateOnTaskUpdate();
+                break;
+            }
         }
     }
 }

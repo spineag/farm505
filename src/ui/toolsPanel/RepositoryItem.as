@@ -115,8 +115,8 @@ public class RepositoryItem {
 
     public function updateCount():void {
         _countDecor --;
-        if (_countDecor <= 0) _box.updateItems();
-        else _txtCount.text = String(_countDecor);
+        if (_countDecor <= 0) { if (_box) _box.updateItems(); }
+        else { if (_txtCount) _txtCount.text = String(_countDecor); }
     }
 
 }

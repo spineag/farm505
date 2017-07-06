@@ -102,6 +102,7 @@ public class WorldObject {
     protected function buildingBuildDoneOver():void { if (_buildingBuild) _buildingBuild.overItDone(); }
     protected function buildingBuildFoundationOver():void { if (_buildingBuild)  _buildingBuild.overItFoundation(); }
     public function showForOptimisation(needShow:Boolean):void { if (_source) _source.visible = needShow; }
+    public function set tutorialCallback(f:Function):void { _tutorialCallback = f; }
 
     public function updateDepth():void {
         var point3d:Point3D = IsoUtils.screenToIso(new Point(_source.x, _source.y));
@@ -124,17 +125,13 @@ public class WorldObject {
     public function releaseFlip():void {
         if (_sizeX == _sizeY) {
             _flip = !_flip;
-            makeFlipBuilding();
             _dataBuild.isFlip = _flip;
+            makeFlipBuilding();
             return;
         }
         if (_dataBuild.buildType == BuildType.DECOR_TAIL) {
-            if (_flip) {
-                g.townArea.unFillTailMatrix(posX, posY, _sizeY, _sizeX);
-            } else {
-                g.townArea.unFillTailMatrix(posX, posY, _sizeX, _sizeY);
-            }
-
+            if (_flip) g.townArea.unFillTailMatrix(posX, posY, _sizeY, _sizeX);
+            else g.townArea.unFillTailMatrix(posX, posY, _sizeX, _sizeY);
             if (_flip) {
                 if (g.toolsModifier.checkFreeTailGrids(posX, posY, _sizeX, _sizeY)) {
                     _flip = false;
@@ -150,27 +147,23 @@ public class WorldObject {
                     g.townArea.fillTailMatrix(posX, posY, _sizeX, _sizeY, this);
                 }
             }
-
-        }
-        if (_flip) {
-            g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
         } else {
-            g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
-        }
-
-        if (_flip) {
-            if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeX, _sizeY)) {
-                _flip = false;
-                g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+            if (_flip) g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
+            else  g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
+            if (_flip) {
+                if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeX, _sizeY)) {
+                    _flip = false;
+                    g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+                } else {
+                    g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
+                }
             } else {
-                g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
-            }
-        } else {
-            if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeY, _sizeX)) {
-                _flip = true;
-                g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
-            } else {
-                g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+                if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeY, _sizeX)) {
+                    _flip = true;
+                    g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
+                } else {
+                    g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+                }
             }
         }
         _dataBuild.isFlip = _flip;
@@ -195,10 +188,6 @@ public class WorldObject {
             _arrow.deleteIt();
             _arrow = null;
         }
-    }
-
-    public function set tutorialCallback(f:Function):void {
-        _tutorialCallback = f;
     }
 
     public function clearIt():void {

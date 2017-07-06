@@ -78,6 +78,7 @@ public class ManagerQuest {
     private function onGetUserQuestAward():void { g.directServer.getUserNewQuests(onGetNewQuests); }
     public function get activeTask():QuestTaskStructure { return _activeTask; }
     public function clearActiveTask():void { _activeTask = null; }
+    public function showAnimateOnTaskUpgrade(t:QuestTaskStructure):void { if (_questUI) _questUI.showAnimateOnTaskUpgrade(t); }
 
     public function addUI():void {
         if (g.user.level >= 4 && g.useQuests) {
@@ -507,8 +508,10 @@ public class ManagerQuest {
             }
             if (tasks.length) {
                 for (i=0; i<tasks.length; i++) {
-                    (tasks[i] as QuestTaskStructure).upgradeCount();
-                    g.directServer.updateUserQuestTask(tasks[i], onUpdateQuestTask);
+                    if (!(tArr[i] as QuestTaskStructure).isDone) {
+                        (tasks[i] as QuestTaskStructure).upgradeCount();
+                        g.directServer.updateUserQuestTask(tasks[i], onUpdateQuestTask);
+                    }
                 }
             }
         } else if (type == KILL_LOHMATIC || type == KILL_MOUSE || type == INVITE_FRIENDS || type == BUY_CAT || type == RELEASE_ORDER
@@ -516,8 +519,10 @@ public class ManagerQuest {
             tArr = getTasksByTypeFromCurrentQuests(type);
             if (tArr.length) {
                 for (i=0; i<tArr.length; i++) {
-                    (tArr[i] as QuestTaskStructure).upgradeCount();
-                    g.directServer.updateUserQuestTask(tArr[i], onUpdateQuestTask);
+                    if (!(tArr[i] as QuestTaskStructure).isDone) {
+                        (tArr[i] as QuestTaskStructure).upgradeCount();
+                        g.directServer.updateUserQuestTask(tArr[i], onUpdateQuestTask);
+                    }
                 }
             }
         }

@@ -7,6 +7,9 @@ import com.greensock.easing.Back;
 import com.greensock.easing.Linear;
 import flash.geom.Point;
 import manager.Vars;
+
+import mouse.ToolsModifier;
+
 import starling.display.Image;
 import starling.display.Quad;
 import starling.display.Sprite;
@@ -27,8 +30,10 @@ public class RepositoryBox {
     private var _number:int;
     public var update:Boolean;
     private var g:Vars = Vars.getInstance();
+    private var _isAnimate:Boolean;
 
     public function RepositoryBox() {
+        _isAnimate = false;
         _arrItems = [];
         source = new Sprite();
         var pl:HorizontalPlawka = new HorizontalPlawka(g.allData.atlas['interfaceAtlas'].getTexture('main_panel_back_l'),
@@ -68,18 +73,25 @@ public class RepositoryBox {
     }
 
     public function showIt(time:Number = .5, delay:Number=0):void {
+        if (_isAnimate) return;
         update = false;
         _shift = 0;
+        deleteItems();
         showItems();
         checkBtns();
         source.visible = true;
         TweenMax.killTweensOf(source);
-        new TweenMax(source, time, {y:g.managerResize.stageHeight - 83, ease:Back.easeOut, delay:delay});
+        _isAnimate = true;
+        g.toolsModifier.modifierType = ToolsModifier.INVENTORY;
+        new TweenMax(source, time, {y:g.managerResize.stageHeight - 83, ease:Back.easeOut, delay:delay, onComplete: function():void {_isAnimate = false; }});
     }
 
     public function hideIt(needQuick:Boolean = false):void {
+        if (_isAnimate) return;
+        _isAnimate = true;
         TweenMax.killTweensOf(source);
-        new TweenMax(source, .5, {y:g.managerResize.stageHeight + 10, ease:Back.easeOut, onComplete: function():void {source.visible = false; deleteItems()}});
+        if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) g.toolsModifier.modifierType = ToolsModifier.NONE;
+        new TweenMax(source, .5, {y:g.managerResize.stageHeight + 10, ease:Back.easeOut, onComplete: function():void {source.visible = false; deleteItems(); _isAnimate = false; }});
     }
     
     private function showItems():void {
@@ -166,6 +178,7 @@ public class RepositoryBox {
     }
 
     private function onLeft():void {
+        if (_isAnimate) return;
         if (_shift > 0) {
             _shift--;
             if (_shift<0) _shift = 0;
@@ -175,6 +188,7 @@ public class RepositoryBox {
     }
 
     private function onRight():void {
+        if (_isAnimate) return;
         var l:int = _arrItems.length;
         if (_shift +1 < l - 2) {
             _shift++;

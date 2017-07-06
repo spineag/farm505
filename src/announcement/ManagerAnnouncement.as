@@ -4,15 +4,17 @@
 package announcement {
 import manager.ManagerWallPost;
 import manager.Vars;
+
+import social.SocialNetworkSwitch;
+
 import utils.Utils;
 import windows.WindowsManager;
 
 public class ManagerAnnouncement {
-    private var USE_IT:Boolean = true;
     private var g:Vars = Vars.getInstance();
     
     public function ManagerAnnouncement() {
-        if (USE_IT && !g.user.announcement) Utils.createDelay(10, openWO);
+        if (!g.user.announcement && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) Utils.createDelay(10, openWO);
     }
 
     private function openWO():void { g.windowsManager.openWindow(WindowsManager.WO_ANNOUNCEMENT, onClose); }
@@ -21,9 +23,9 @@ public class ManagerAnnouncement {
         if (isPost) g.managerWallPost.postWallpost(ManagerWallPost.POST_ANNOUNCEMENT,null, 0, 0);
         g.user.announcement = true;
         g.directServer.onShowAnnouncement();
-        if (g.managerCutScenes.isCutScene) return;
-        if (g.managerMiniScenes.isMiniScene) return;
-        if (g.managerQuest) g.managerQuest.showArrowsForAllVisibleIconQuests(3);
+//        if (g.managerCutScenes.isCutScene) return;
+//        if (g.managerMiniScenes.isMiniScene) return;
+//        if (g.managerQuest) g.managerQuest.showArrowsForAllVisibleIconQuests(3);
     }
 }
 }

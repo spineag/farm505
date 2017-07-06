@@ -826,7 +826,7 @@ public class WOPartyWindow extends WindowMain {
     private function onGettingInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
         for (var i:int = 0; i < _arrItemRating.length; i++) {
-            _arrItemRating[i].updateAvatar();
+            (_arrItemRating[i] as WOPartyRatingFriend).updateAvatar();
         }
     }
 

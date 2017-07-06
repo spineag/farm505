@@ -20,9 +20,9 @@ public class WOAnnouncement extends WindowMain {
     private var _url:String;
     private var _callback:Function;
     private var _btn:CButton;
-    private var _txt1:CTextField;
-    private var _txt2:CTextField;
-    private var _txt3:CTextField;
+//    private var _txt1:CTextField;
+//    private var _txt2:CTextField;
+//    private var _txt3:CTextField;
     private var _woBG:WindowBackground;
 
     public function WOAnnouncement() {
@@ -31,7 +31,7 @@ public class WOAnnouncement extends WindowMain {
         _woHeight = 534;
         _woBG = new WindowBackground(_woWidth, _woHeight);
         _source.addChild(_woBG);
-        _url = g.dataPath.getGraphicsPath() + 'announcement/quest_info_window.png';
+        _url = g.dataPath.getGraphicsPath() + 'announcement/usa_post.png';
     }
 
     override public function showItParams(callback:Function, params:Array):void {
@@ -61,21 +61,21 @@ public class WOAnnouncement extends WindowMain {
         _btn.addChild(txt);
         _source.addChild(_btn);
 
-        _txt1 = new CTextField(150, 72, String(g.managerLanguage.allTexts[1089]));
-        _txt1.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
-        _txt1.x = -_woWidth/2 + 139;
-        _txt1.y = -_woHeight/2 + 256;
-        _source.addChild(_txt1);
-        _txt2 = new CTextField(150, 72, String(g.managerLanguage.allTexts[1090]));
-        _txt2.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
-        _txt2.x = -_woWidth/2 + 292;
-        _txt2.y = -_woHeight/2 + 256;
-        _source.addChild(_txt2);
-        _txt3 = new CTextField(150, 72, String(g.managerLanguage.allTexts[1091]));
-        _txt3.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
-        _txt3.x = -_woWidth/2 + 446;
-        _txt3.y = -_woHeight/2 + 256;
-        _source.addChild(_txt3);
+//        _txt1 = new CTextField(150, 72, String(g.managerLanguage.allTexts[1089]));
+//        _txt1.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
+//        _txt1.x = -_woWidth/2 + 139;
+//        _txt1.y = -_woHeight/2 + 256;
+//        _source.addChild(_txt1);
+//        _txt2 = new CTextField(150, 72, String(g.managerLanguage.allTexts[1090]));
+//        _txt2.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
+//        _txt2.x = -_woWidth/2 + 292;
+//        _txt2.y = -_woHeight/2 + 256;
+//        _source.addChild(_txt2);
+//        _txt3 = new CTextField(150, 72, String(g.managerLanguage.allTexts[1091]));
+//        _txt3.setFormat(CTextField.BOLD24, 24, ManagerFilters.BLUE_COLOR);
+//        _txt3.x = -_woWidth/2 + 446;
+//        _txt3.y = -_woHeight/2 + 256;
+//        _source.addChild(_txt3);
 
         super.showIt();
     }
@@ -100,14 +100,14 @@ public class WOAnnouncement extends WindowMain {
         g.load.removeByUrl(_url);
 
         _source.removeChild(_woBG);
-        _source.removeChild(_txt1);
-        _source.removeChild(_txt2);
-        _source.removeChild(_txt3);
+//        _source.removeChild(_txt1);
+//        _source.removeChild(_txt2);
+//        _source.removeChild(_txt3);
         _source.removeChild(_btn);
         _woBG.deleteIt();
-        _txt1.deleteIt();
-        _txt2.deleteIt();
-        _txt3.deleteIt();
+//        _txt1.deleteIt();
+//        _txt2.deleteIt();
+//        _txt3.deleteIt();
         _btn.deleteIt();
         super.deleteIt();
     }
