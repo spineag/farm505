@@ -143,6 +143,8 @@ public class WindowsManager {
         }
 
         if (_currentWindow) {
+            if (_currentWindow.windowType == WO_GAME_ERROR || _currentWindow.windowType == WO_RELOAD_GAME || _currentWindow.windowType == WO_SERVER_ERROR
+                    || _currentWindow.windowType == WO_ANOTHER_GAME_ERROR || _currentWindow.windowType == WO_SERVER_CRACK) return;
             if (type == WO_GAME_ERROR || type == WO_RELOAD_GAME || type == WO_SERVER_ERROR || type == WO_ANOTHER_GAME_ERROR || type == WO_SERVER_CRACK) {
                 closeAllWindows();
             } else {
@@ -420,6 +422,7 @@ public class WindowsManager {
     public function closeAllWindows():void {
         uncasheWindow();
         uncasheSecondWindow();
+        _nextWindow = null;
         if (_currentWindow) _currentWindow.hideItQuick();
     }
 

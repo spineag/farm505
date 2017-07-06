@@ -283,7 +283,7 @@ public class WOOrder extends WindowMain{
         im.y = 15;
         _btnSkipDelete.addDisplayObject(im);
         _txtBtnSkip = new CTextField(80, 50, String(g.managerLanguage.allTexts[367]));
-        _txtBtnSkip.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.GREEN_COLOR);
+        _txtBtnSkip.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);
         _btnSkipDelete.addChild(_txtBtnSkip);
         _txtBtnSkip2 = new CTextField(20, 50, '');
         _txtBtnSkip2.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.HARD_GREEN_COLOR);

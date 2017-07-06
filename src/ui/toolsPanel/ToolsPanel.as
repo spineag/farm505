@@ -126,13 +126,8 @@ public class ToolsPanel {
                     g.toolsModifier.cancelMove();
                 }
                 if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
-                    if (g.toolsModifier.modifierType == ToolsModifier.INVENTORY) {
-                        g.toolsModifier.modifierType = ToolsModifier.NONE;
-                        hideRepository();
-                    } else {
-                        g.toolsModifier.modifierType = ToolsModifier.INVENTORY;
-                        repositoryBox.showIt();
-                    }
+                    if (repositoryBox.isShowed) hideRepository();
+                    else repositoryBox.showIt();
                 }
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 if (_cutSceneCallback != null) {
@@ -148,7 +143,7 @@ public class ToolsPanel {
                 if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
                     g.toolsModifier.modifierType == ToolsModifier.MOVE
                       ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.MOVE;
-                    hideRepository();
+                    if (repositoryBox.isShowed) hideRepository();
                 }
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;
@@ -158,10 +153,10 @@ public class ToolsPanel {
                     g.toolsModifier.modifierType = ToolsModifier.NONE;
                     g.toolsModifier.cancelMove();
                 }
-                if(g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
+                if (g.toolsModifier.modifierType != ToolsModifier.GRID_DEACTIVATED){
                     g.toolsModifier.modifierType == ToolsModifier.FLIP
                       ? g.toolsModifier.modifierType = ToolsModifier.NONE : g.toolsModifier.modifierType = ToolsModifier.FLIP;
-                    hideRepository();
+                    if (repositoryBox.isShowed) hideRepository();
                 }
                 if (g.buyHint.showThis) g.buyHint.hideIt();
                 break;

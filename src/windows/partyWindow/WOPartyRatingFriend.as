@@ -51,7 +51,6 @@ public class WOPartyRatingFriend {
     private var g:Vars = Vars.getInstance();
 
     public function WOPartyRatingFriend(ob:Object, number:int, user:Boolean = false) {
-
         _personS = new Someone();
         if (ob) {
             _personS.userId = ob.userId;
@@ -68,32 +67,24 @@ public class WOPartyRatingFriend {
             source.addChild(im);
             im.y =-55;
             im.x = 9;
-
             var cSp:CSprite  = new CSprite();
             source.addChild(cSp);
             im = new Image(g.allData.atlas['partyAtlas'].getTexture('star_event_winner_45x45'));
             MCScaler.scale(im,45,45);
             cSp.addChild(im);
-
-
             cSp.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[1085])); };
             cSp.outCallback = function():void { g.hint.hideIt(); };
             cSp.y =-43;
             cSp.x = 125;
         }
-        if (user || ob.userSocialId == g.user.userSocialId) {
-//            g.load.loadImage(g.user.photo, onLoadPhoto);
-            _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-            MCScaler.scale(_ava, 50, 50);
-            _ava.x = 55;
-            _ava.y = 10;
-            source.addChild(_ava);
+        if ((user || ob.userSocialId == g.user.userSocialId) && g.pBitmaps[_personS.photo]) {
+//            _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
+//            MCScaler.scale(_ava, 50, 50);
+//            _ava.x = 55;
+//            _ava.y = 10;
+//            source.addChild(_ava);
+            onLoadPhoto(g.pBitmaps[_personS.photo].create() as Bitmap);
         }
-//        else if (user) {
-//            Cc.ch('social', 'WOPartyRatingFriend no photo for uid: ' + _personS.userSocialId);
-//            g.socialNetwork.addEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
-//            g.socialNetwork.getTempUsersInfoById([_personS.userSocialId]);
-//        }
 
         if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) _imResource = new Image(g.allData.atlas['partyAtlas'].getTexture('usa_badge'));
         else {
@@ -125,26 +116,18 @@ public class WOPartyRatingFriend {
         txt.y = -15;
         txt.x = 28 - txt.textBounds.width/2;
         source.addChild(txt);
-        if (user) _txtNamePerson = new CTextField(90, 120, String(g.user.name + ' ' + g.user.lastName));
-        else _txtNamePerson = new CTextField(90, 120, String(_personS.name));
-
+        _txtNamePerson = new CTextField(90, 120, '');
+        _txtNamePerson.needCheckForASCIIChars = true;
         if (user || _personS.userId == g.user.userId && number != 1) _txtNamePerson.setFormat(CTextField.BOLD18, 18, Color.WHITE, ManagerFilters.BLUE_COLOR);
         else if (user || _personS.userId == g.user.userId && number == 1) _txtNamePerson.setFormat(CTextField.BOLD18, 18, 0xfdffd3, 0xc78d00);
         else if (number == 1) _txtNamePerson.setFormat(CTextField.BOLD18, 18, 0xfdffd3, 0xc78d00);
         else _txtNamePerson.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
-
-//        if (user || _personS.userId == g.user.userId) _txtNamePerson.setFormat(CTextField.BOLD18, 18,Color.WHITE, ManagerFilters.BLUE_COLOR);
-//        else _txtNamePerson.setFormat(CTextField.BOLD18, 18, ManagerFilters.BLUE_COLOR);
-
         _txtNamePerson.alignH = Align.LEFT;
+        if (user) _txtNamePerson.text = g.user.name + ' ' + g.user.lastName;
+        else _txtNamePerson.text = _personS.name;
         _txtNamePerson.x = 120;
         _txtNamePerson.y = -27;
         source.addChild(_txtNamePerson);
-//        _ava = new Image(g.allData.atlas['interfaceAtlas'].getTexture('default_avatar_big'));
-//        MCScaler.scale(_ava, 50, 50);
-//        _ava.x = 55;
-//        _ava.y = 10;
-//        source.addChild(_ava);
     }
 
     public function updateAvatar():void {
@@ -162,9 +145,7 @@ public class WOPartyRatingFriend {
             return;
         }
         Cc.ch('social', 'WOPartyRatingFriend on load photo: ' + _personS.photo);
-        if (!bitmap) {
-            bitmap = g.pBitmaps[_personS.photo].create() as Bitmap;
-        }
+        if (!bitmap) bitmap = g.pBitmaps[_personS.photo].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
 
@@ -177,7 +158,7 @@ public class WOPartyRatingFriend {
         _ava.x = 55;
         _ava.y = 10;
         _srcAva.addChild(_ava);
-        if (_data.userSocialId != g.user.userSocialId && g.user.isTester) {
+        if (_data.userSocialId != g.user.userSocialId) {
             _srcAva.endClickCallback = visitPerson;
             _srcAva.hoverCallback = function ():void {
                 g.hint.showIt(String(g.managerLanguage.allTexts[386]));

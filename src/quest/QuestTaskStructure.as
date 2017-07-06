@@ -20,7 +20,7 @@ public class QuestTaskStructure {
     private var _isDone:Boolean;
     private var _taskUserDbId:String;
     private var _countDone:int;
-    private var _isSavedOnServerAfterFinish:Boolean;
+    private var _isSavedOnServerAfterFinish:Boolean;  // use it for make impossible situation _taskDone>countNeed and sent to server every time
 
     public function QuestTaskStructure() {}
 
@@ -97,9 +97,12 @@ public class QuestTaskStructure {
     }
 
     public function upgradeCount():void {
+        if (_isDone) return;
         _countDone++;
-        if (_countDone >= countNeed) _isDone = true;
-        if (_isDone) g.managerQuest.showAnimateOnTaskUpgrade(this);
+        if (_countDone >= countNeed) {
+            _isDone = true;
+            g.managerQuest.showAnimateOnTaskUpgrade(this);
+        }
     }
 
     public function get icon():String { return _taskData.icon_task; } // if =='0' -> get from resource

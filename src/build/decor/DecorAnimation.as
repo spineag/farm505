@@ -22,6 +22,8 @@ import mouse.ToolsModifier;
 import starling.display.Image;
 import starling.events.Event;
 
+import utils.Utils;
+
 public class DecorAnimation extends WorldObject{
     private var _isHover:Boolean;
     private var _heroCat:HeroCat;
@@ -47,16 +49,12 @@ public class DecorAnimation extends WorldObject{
         if (_armature) {
             WorldClock.clock.add(_armature);
             _armature.animation.gotoAndPlayByFrame('idle');
-//        if (g.managerHitArea.hasLoadedHitAreaByName(_dataBuild.url)) {
-//            _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
-//        } else {
             if (_dataBuild.color) {
                 var name:String = (_dataBuild.url as String).replace(new RegExp("_" + String(_dataBuild.color), ""), '');
                 _hitArea = g.managerHitArea.getHitArea(_source, name, ManagerHitArea.TYPE_LOADED);
             } else {
                 _hitArea = g.managerHitArea.getHitArea(_source, _dataBuild.url, ManagerHitArea.TYPE_LOADED);
             }
-//        }
             _source.registerHitArea(_hitArea);
             if (!g.isAway) {
                 _source.hoverCallback = onHover;
@@ -65,19 +63,15 @@ public class DecorAnimation extends WorldObject{
             }
             if (_awayAnimation) {
                 var delay:int = int(Math.random() * 5) + 2;
-                var f1:Function = function(e:Event=null):void {
-                    delay--;
-                    if(delay <= 0) {
-                        g.gameDispatcher.removeFromTimer(f1);
-                        awayAnimation();
-                    }
+                var f1:Function = function (e:Event = null):void {
+                    if (!_dataBuild) return;
+                    releaseHeroCatWoman(_armature);
+                    awayAnimation();
                 };
-
-                g.gameDispatcher.addToTimer(f1);
+                Utils.createDelay(delay, f1);
             }
         }
     }
-
 
     override public function onHover():void {
         if (g.selectedBuild) return;
@@ -99,17 +93,9 @@ public class DecorAnimation extends WorldObject{
             _source.filter = ManagerFilters.BUILD_STROKE;
     }
 
-    public function get catNeed():Boolean {
-        return _dataBuild.catNeed;
-    }
-
-    public function get decorWork():Boolean {
-        return _decorWork;
-    }
-
-    public function get catRun():Boolean {
-        return _catRun;
-    }
+    public function get catNeed():Boolean { return _dataBuild.catNeed; }
+    public function get decorWork():Boolean { return _decorWork; }
+    public function get catRun():Boolean { return _catRun; }
 
     private function onClick():void {
         g.analyticManager.sendActivity(AnalyticManager.EVENT, AnalyticManager.ACTION_TEST, {id:2}); // temp
@@ -195,7 +181,6 @@ public class DecorAnimation extends WorldObject{
                         if (heroCat) {
                             _decorWork = true;
                             heroCat.isFreeDecor = false;
-//                            heroCat.isFree = false;
                             armature = new Armature();
                             armature = g.allData.factory[_dataBuild.url].buildArmature('cat' + String(count - i));
                             WorldClock.clock.add(armature);
@@ -230,7 +215,6 @@ public class DecorAnimation extends WorldObject{
         } else {
             Cc.error('TestBuild:: unknown g.toolsModifier.modifierType')
         }
-
     }
 
     override public function onOut():void {
@@ -249,10 +233,7 @@ public class DecorAnimation extends WorldObject{
                 startAnimation();
                 _heroCat.visible = false;
             }
-        } else {
-
-            startAnimation();
-        }
+        } else startAnimation();
     }
 
     private function onHeroAnimationArray(armature:Armature,heroCat:HeroCat):void {
@@ -415,13 +396,12 @@ public class DecorAnimation extends WorldObject{
 
     private function stopAnimation():void {
         if (!_dataBuild) return;
-//        _decorWork = false;
         if (_heroCat) _heroCat = null;
         if (_armature) {
             _armature.animation.gotoAndPlayByFrame('idle');
+            _armature.removeEventListener(EventObject.COMPLETE, chooseAnimation);
+            _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
         }
-        if (_armature) _armature.removeEventListener(EventObject.COMPLETE, chooseAnimation);
-        if (_armature) _armature.removeEventListener(EventObject.LOOP_COMPLETE, chooseAnimation);
     }
 
     private function chooseAnimation(e:Event=null):void {
@@ -545,6 +525,8 @@ public class DecorAnimation extends WorldObject{
     }
 
     private function releaseHeroCatWoman(armature:Armature = null, heroCar:HeroCat = null):void {
+        if (!armature) return;
+        if (!_dataBuild) return;
         if (heroCar) {
             if (heroCar.typeMan == BasicCat.MAN) {
                 if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 255 || _dataBuild.id == 256 || _dataBuild.id == 257)
@@ -570,12 +552,12 @@ public class DecorAnimation extends WorldObject{
                 if (g.isAway) {
                     if (Math.random() < .5) {
                         if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 255 || _dataBuild.id == 256 || _dataBuild.id == 257)
-                            releaseManBackTexture();
-                        else releaseManFrontTexture();
+                            releaseManBackTexture(armature);
+                        else releaseManFrontTexture(armature);
                     } else {
                         if (_dataBuild.id == 1 || _dataBuild.id == 2 || _dataBuild.id == 7 || _dataBuild.id == 255 || _dataBuild.id == 256 || _dataBuild.id == 257)
-                            releaseWomanBackTexture();
-                        else releaseWomanFrontTexture();
+                            releaseWomanBackTexture(armature);
+                        else releaseWomanFrontTexture(armature);
                     }
                 }
             }
@@ -595,11 +577,11 @@ public class DecorAnimation extends WorldObject{
             changeTexture("handRight2", "hand_r",armature);
         }
         var viyi:Bone;
-        if (armature)  viyi = armature.getBone('viyi');
+        if (armature) viyi = armature.getBone('viyi');
         else viyi = _armature.getBone('viyi');
-            if (viyi) {
-                viyi.visible = false;
-            }
+        if (viyi) {
+            viyi.visible = false;
+        }
     }
 
     private function releaseManBackTexture(armature:Armature = null):void {

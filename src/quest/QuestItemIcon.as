@@ -23,6 +23,7 @@ public class QuestItemIcon {
     private var _arrow:SimpleArrow;
     private var _im:Image;
     private var _imSmall:Image;
+    private var _isAnimate:Boolean;
 
     public function QuestItemIcon(q:QuestStructure) {
         if (!q) {
@@ -33,6 +34,7 @@ public class QuestItemIcon {
             Cc.error('QuestItemIcon:: no tasks for quest with id: ' + q.questId);
             return;
         }
+        _isAnimate = false;
         _onHover = false;
         _source = new CSprite();
         _quest = q;
@@ -127,7 +129,9 @@ public class QuestItemIcon {
     }
 
     public function animateOnTaskUpdate():void {
-        if (_im) AnimationsStock.joggleItBaby(_im);
+        if (_isAnimate) return;
+        _isAnimate = true;
+        if (_im) AnimationsStock.joggleItBaby(_im, 3, function():void { _isAnimate=false; });
         if (_imSmall) AnimationsStock.jumpSimple(_imSmall);
     }
     
