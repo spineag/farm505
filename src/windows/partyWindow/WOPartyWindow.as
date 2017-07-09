@@ -45,7 +45,6 @@ public class WOPartyWindow extends WindowMain {
     private var _woBG:WindowBackground;
     private var _btn:CButton;
     private var _txtBtn:CTextField;
-    private var _txtName:CTextField;
     private var _txtCoefficient:CTextField;
     private var _arrItem:Array;
     private var _sprItem:Sprite;
@@ -326,20 +325,6 @@ public class WOPartyWindow extends WindowMain {
         _imEvent.y = -40;
         _imEvent.visible = false;
         _btnEvent.touchable = false;
-        _btnEvent.clickCallback = function():void {
-            _activityType = ManagerPartyNew.TYPE_EVENT;
-            _imEvent.visible = false;
-            _imRating.visible = true;
-            _imLast.visible = true;
-
-            _sprEvent.visible = true;
-            _sprRating.visible = false;
-            _sprLast.visible = false;
-
-            _btnEvent.touchable = false;
-            _btnRating.touchable = true;
-            _btnLast.touchable = true;
-        };
 
         _btnRating = new CButton();
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bt_1'));
@@ -355,25 +340,6 @@ public class WOPartyWindow extends WindowMain {
         _source.addChild(_imRating);
         _imRating.x = 310;
         _imRating.y = 35;
-//        var f1:Function = function ():void {
-
-//        };
-        _btnRating.clickCallback = function():void {
-//            g.directServer.getRatingParty(f1);
-
-            _activityType = ManagerPartyNew.TYPE_RATING;
-            _imEvent.visible = true;
-            _imRating.visible = false;
-            _imLast.visible = true;
-
-            _sprEvent.visible = false;
-            _sprRating.visible = true;
-            _sprLast.visible = false;
-
-            _btnEvent.touchable = true;
-            _btnRating.touchable = false;
-            _btnLast.touchable = true;
-        };
 
         _btnLast = new CButton();
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_bt_1'));
@@ -390,6 +356,23 @@ public class WOPartyWindow extends WindowMain {
         _source.addChild(_imLast);
         _imLast.x = 310;
         _imLast.y = 110;
+
+        _btnRating.clickCallback = function():void {
+//            g.directServer.getRatingParty(f1);
+
+            _activityType = ManagerPartyNew.TYPE_RATING;
+            _imEvent.visible = true;
+            _imRating.visible = false;
+            _imLast.visible = true;
+
+            _sprEvent.visible = false;
+            _sprRating.visible = true;
+            _sprLast.visible = false;
+
+            _btnEvent.touchable = true;
+            _btnRating.touchable = false;
+            _btnLast.touchable = true;
+        };
         _btnLast.clickCallback = function():void {
             _activityType = ManagerPartyNew.TYPE_LAST;
             _imEvent.visible = true;
@@ -403,6 +386,20 @@ public class WOPartyWindow extends WindowMain {
             _btnEvent.touchable = true;
             _btnRating.touchable = true;
             _btnLast.touchable = false;
+        };
+        _btnEvent.clickCallback = function():void {
+            _activityType = ManagerPartyNew.TYPE_EVENT;
+            _imEvent.visible = false;
+            _imRating.visible = true;
+            _imLast.visible = true;
+
+            _sprEvent.visible = true;
+            _sprRating.visible = false;
+            _sprLast.visible = false;
+
+            _btnEvent.touchable = false;
+            _btnRating.touchable = true;
+            _btnLast.touchable = true;
         };
         if (g.managerParty.typeParty == 1 || g.managerParty.typeParty == 2) {
             _btnRating.setEnabled = false;
@@ -597,9 +594,9 @@ public class WOPartyWindow extends WindowMain {
         var im:Image;
         var txt:CTextField;
         if (!g.allData.atlas['partyAtlas']) return;
-        im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_top_2'));
-        im.x = -45;
-        im.y = 115;
+//        im = new Image(g.allData.atlas['partyAtlas'].getTexture('tabs_top_2'));
+//        im.x = -45;
+//        im.y = 115;
 //        _sprRating.addChild(im);
 
         im = new Image(g.allData.atlas['partyAtlas'].getTexture('best_players_3'));
@@ -614,7 +611,8 @@ public class WOPartyWindow extends WindowMain {
         _sprRating.addChild(im);
         _scrollSprite = new DefaultVerticalScrollSprite(280, 300, 280, 60);
         _scrollSprite.createScoll(290, 40, 240, g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_line'), g.allData.atlas['interfaceAtlas'].getTexture('storage_window_scr_c'));
-        var item:WOPartyRatingFriend;
+        
+        var item:WOPartyRatingFriendItem;
         var b:Boolean = true;
         var needHelp:Boolean = false;
         _arrItemRating = [];
@@ -626,7 +624,7 @@ public class WOPartyWindow extends WindowMain {
                 b = false;
                 needHelp = true;
             }
-            item = new WOPartyRatingFriend(g.managerParty.arrBestPlayers[i], i+1, !b);
+            item = new WOPartyRatingFriendItem(g.managerParty.arrBestPlayers[i], i+1, !b);
             _scrollSprite.addNewCell(item.source);
 //            _scrollSprite.y = 10;
             _arrItemRating.push(item);
@@ -634,11 +632,11 @@ public class WOPartyWindow extends WindowMain {
         }
         checkSocialInfoForArray();
         if (g.managerParty.arrBestPlayers.length < 20 && !needHelp) {
-            item = new WOPartyRatingFriend(null, i+1, true);
+            item = new WOPartyRatingFriendItem(null, i+1, true);
             _scrollSprite.addNewCell(item.source)
         } else {
             if (!needHelp) {
-                item = new WOPartyRatingFriend(null, g.managerParty.playerPosition, true);
+                item = new WOPartyRatingFriendItem(null, g.managerParty.playerPosition, true);
                 item.source.y = 150;
                 item.source.x = -10;
                 _sprRating.addChild(item.source)
@@ -653,12 +651,7 @@ public class WOPartyWindow extends WindowMain {
                 || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_POST_FENCE_ARKA)
             im = new Image(g.allData.atlas[g.allData.getBuildingById(g.managerParty.idDecorBest).url].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).image));
         else im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).url + '_icon'));
-        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            im.x = -240;
-        } else {
-            im.x = -240;
-        }
-//        im.x = -210;
+        im.x = -240;
         im.y = -120;
         _sprRating.addChild(im);
         txt = new CTextField(250, 100, String(g.allData.getBuildingById(g.managerParty.idDecorBest).name));
@@ -692,8 +685,6 @@ public class WOPartyWindow extends WindowMain {
         cSp.outCallback = function():void { g.hint.hideIt(); };
         cSp.x = -305;
         cSp.y = 165;
-
-
     }
 
     private function lastWO():void {
@@ -826,7 +817,7 @@ public class WOPartyWindow extends WindowMain {
     private function onGettingInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingInfo);
         for (var i:int = 0; i < _arrItemRating.length; i++) {
-            (_arrItemRating[i] as WOPartyRatingFriend).updateAvatar();
+            (_arrItemRating[i] as WOPartyRatingFriendItem).updateAvatar();
         }
     }
 
@@ -853,11 +844,6 @@ public class WOPartyWindow extends WindowMain {
             if (_sprEvent) _sprEvent.removeChild(_txtTimeLost);
             _txtTimeLost.deleteIt();
             _txtTimeLost = null;
-        }
-        if (_txtName) {
-            if (_sprEvent) _sprEvent.removeChild(_txtName);
-            _txtName.deleteIt();
-            _txtName = null;
         }
         if (_btn) {
             if (_sprEvent) _sprEvent.removeChild(_btn);

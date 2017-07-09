@@ -146,6 +146,7 @@ public class DecorAnimation extends WorldObject{
                 if (g.managerCutScenes && g.managerCutScenes.isCutSceneBuilding(this)) {
                     g.managerCutScenes.checkCutSceneCallback();
                 }
+                forceStopDecorAnimation();
                 g.directServer.addToInventory(_dbBuildingId, null);
                 g.userInventory.addToDecorInventory(_dataBuild.id, _dbBuildingId);
                 g.townArea.deleteBuild(this);

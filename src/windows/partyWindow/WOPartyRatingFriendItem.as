@@ -38,7 +38,7 @@ import utils.MCScaler;
 
 import windows.WindowsManager;
 
-public class WOPartyRatingFriend {
+public class WOPartyRatingFriendItem {
     public var source:Sprite;
     private var _srcAva:CSprite;
     private var _ava:Image;
@@ -50,7 +50,7 @@ public class WOPartyRatingFriend {
 
     private var g:Vars = Vars.getInstance();
 
-    public function WOPartyRatingFriend(ob:Object, number:int, user:Boolean = false) {
+    public function WOPartyRatingFriendItem(ob:Object, number:int, user:Boolean = false) {
         _personS = new Someone();
         if (ob) {
             _personS.userId = ob.userId;
@@ -59,6 +59,16 @@ public class WOPartyRatingFriend {
             _personS.name = ob.name;
             _personS.level = ob.level;
             _data = ob;
+        } else if (user) {
+            _personS.userId = g.user.userId;
+            _personS.userSocialId = g.user.userSocialId;
+            _personS.photo = g.user.photo;
+            _personS.name = g.user.name;
+            _personS.level = g.user.level;
+            _data = {};
+            _data.level = _personS.level;
+            _data.userId = _personS.userId;
+            _data.userSocialId = _personS.userSocialId;
         }
         source = new Sprite();
         source.y = 35;
@@ -131,7 +141,7 @@ public class WOPartyRatingFriend {
     }
 
     public function updateAvatar():void {
-        Cc.info('WOPartyRatingFriend update avatar');
+        Cc.info('WOPartyRatingFriendItem update avatar');
         if (!_personS.photo) _personS = g.user.getSomeoneBySocialId(_personS.userSocialId);
         if (_personS.photo =='' || _personS.photo == 'unknown') _personS.photo =  SocialNetwork.getDefaultAvatar();
         g.load.loadImage(_personS.photo, onLoadPhoto);
@@ -141,10 +151,10 @@ public class WOPartyRatingFriend {
 
     private function onLoadPhoto(bitmap:Bitmap):void {
         if (!_personS) {
-            Cc.error('WOPartyRatingFriend onLoadPhoto:: no _person');
+            Cc.error('WOPartyRatingFriendItem onLoadPhoto:: no _person');
             return;
         }
-        Cc.ch('social', 'WOPartyRatingFriend on load photo: ' + _personS.photo);
+        Cc.ch('social', 'WOPartyRatingFriendItem on load photo: ' + _personS.photo);
         if (!bitmap) bitmap = g.pBitmaps[_personS.photo].create() as Bitmap;
         photoFromTexture(Texture.fromBitmap(bitmap));
     }
