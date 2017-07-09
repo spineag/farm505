@@ -136,25 +136,19 @@ public class HeroCat extends BasicCat{
 
         if (_isFree) makeFreeCatIdle();
         else {
-            if (!_isFreeDecor) {
-                _decorAnimation.forceStopDecorAnimation();
-            } else stopFreeCatIdle();
-             stopFreeCatIdle();
+            if (!_isFreeDecor) _decorAnimation.forceStopDecorAnimation();
+            stopFreeCatIdle();
         }
     }
 
     public function set isFreeDecor(value:Boolean):void {
         _isFreeDecor = value;
-//        g.catPanel.checkCat();
         if (_isFree) makeFreeCatIdle();
             else stopFreeCatIdle();
     }
 
     public function set decorAnimation(decorAnimation:DecorAnimation):void {
         _decorAnimation = decorAnimation;
-    //       g.catPanel.checkCat();
-//        if (_isFree) makeFreeCatIdle();
-//            else stopFreeCatIdle();
     }
 
     override public function walkAnimation():void {
@@ -251,8 +245,8 @@ public class HeroCat extends BasicCat{
                     var arr:Array = g.townArea.getCityObjectsByType((BuildType.DECOR_ANIMATION));
                     if (arr.length > 0) {
                         for (var i:int = 0; i < arr.length; i++) {
-                            if (!arr[i].catNeed && !arr[i].decorWork && !arr[i].catRun) {
-                                arr[i].forceStartDecorAnimation(this);
+                            if ((arr[i] as DecorAnimation).catNeed && !(arr[i] as DecorAnimation).decorWork && !(arr[i] as DecorAnimation).catRun && ((arr[i] as DecorAnimation).needCatsCount() <= 1)) {
+                                (arr[i] as DecorAnimation).forceStartDecorAnimation(this);
                                 b = true;
                                 break;
                             }
@@ -273,8 +267,6 @@ public class HeroCat extends BasicCat{
                 g.gameDispatcher.addToTimer(renderForIdleFreeCat);
                 renderForIdleFreeCat();
             }
-//            g.user.isTester
-            g.isDebug
         }
     }
     

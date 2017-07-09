@@ -279,7 +279,7 @@ public class StructureDataBuilding {
         if (ob.up_instrument_id_3) _upInstrumentId3 = int(ob.up_instrument_id_3);
         if (ob.max_count) _maxAnimalsCount = int(ob.max_count);
         if (ob.image_active) _imageActive = ob.image_active;
-        if (ob.cat_need) _catNeed = Boolean(int(ob.cat_need));
+        if (ob.cat_need) _catNeed = Boolean(ob.cat_need == '0');  // '0' - is need, '1' - not need
         if (ob.resource_id) {
             _idResource = [];
             obj.idResource = String(ob.resource_id).split('&');

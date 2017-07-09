@@ -2370,11 +2370,11 @@ public class TownArea extends Sprite {
         if (arr.length == 0) return;
         if (arr.length <= 4) {
             for (i = 0; i < arr.length; i++) {
-                arr[i].awayAnimation();
+                (arr[i] as DecorAnimation).awayAnimation();
             }
         } else {
             for (i = 0; i < arr.length; i++) {
-                arr[i].awayAnimation();
+                (arr[i] as DecorAnimation).awayAnimation();
             }
         }
 
