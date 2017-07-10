@@ -1,4 +1,6 @@
 package build {
+import build.decor.DecorFence;
+
 import com.greensock.TweenMax;
 import com.junkbyte.console.Cc;
 import data.BuildType;
@@ -148,21 +150,34 @@ public class WorldObject {
                 }
             }
         } else {
-            if (_flip) g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
-            else  g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
+            if (_dataBuild.buildType == BuildType.DECOR_FENCE_ARKA || _dataBuild.buildType == BuildType.DECOR_FENCE_GATE || _dataBuild.buildType == BuildType.DECOR_FULL_FENСE || _dataBuild.buildType == BuildType.DECOR_POST_FENCE) {
+                if (_flip) g.townArea.unFillMatrixWithFence(posX, posY, _sizeY, _sizeX);
+                else  g.townArea.unFillMatrixWithFence(posX, posY, _sizeX, _sizeY);
+            } else {
+                if (_flip) g.townArea.unFillMatrix(posX, posY, _sizeY, _sizeX);
+                else  g.townArea.unFillMatrix(posX, posY, _sizeX, _sizeY);
+            }
             if (_flip) {
                 if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeX, _sizeY)) {
                     _flip = false;
-                    g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+                    if (_dataBuild.buildType == BuildType.DECOR_FENCE_ARKA || _dataBuild.buildType == BuildType.DECOR_FENCE_GATE || _dataBuild.buildType == BuildType.DECOR_FULL_FENСE || _dataBuild.buildType == BuildType.DECOR_POST_FENCE)
+                        g.townArea.fillMatrixWithFence(posX, posY, _sizeX, _sizeY, this);
+                    else g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
                 } else {
-                    g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
+                    if (_dataBuild.buildType == BuildType.DECOR_FENCE_ARKA || _dataBuild.buildType == BuildType.DECOR_FENCE_GATE || _dataBuild.buildType == BuildType.DECOR_FULL_FENСE || _dataBuild.buildType == BuildType.DECOR_POST_FENCE)
+                        g.townArea.fillMatrixWithFence(posX, posY, _sizeY, _sizeX, this);
+                    else g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
                 }
             } else {
                 if (g.toolsModifier.checkFreeGrids(posX, posY, _sizeY, _sizeX)) {
                     _flip = true;
-                    g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
+                    if (_dataBuild.buildType == BuildType.DECOR_FENCE_ARKA || _dataBuild.buildType == BuildType.DECOR_FENCE_GATE || _dataBuild.buildType == BuildType.DECOR_FULL_FENСE || _dataBuild.buildType == BuildType.DECOR_POST_FENCE)
+                        g.townArea.fillMatrixWithFence(posX, posY, _sizeY, _sizeX, this);
+                    else g.townArea.fillMatrix(posX, posY, _sizeY, _sizeX, this);
                 } else {
-                    g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
+                    if (_dataBuild.buildType == BuildType.DECOR_FENCE_ARKA || _dataBuild.buildType == BuildType.DECOR_FENCE_GATE || _dataBuild.buildType == BuildType.DECOR_FULL_FENСE || _dataBuild.buildType == BuildType.DECOR_POST_FENCE)
+                        g.townArea.fillMatrixWithFence(posX, posY, _sizeX, _sizeY, this);
+                    else g.townArea.fillMatrix(posX, posY, _sizeX, _sizeY, this);
                 }
             }
         }

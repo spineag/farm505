@@ -17,7 +17,10 @@ public class ManagerAnnouncement {
 //        if (!g.user.announcement && g.socialNetworkID == SocialNetworkSwitch.SN_FB_ID) Utils.createDelay(10, openWO);
     }
 
-    private function openWO():void { g.windowsManager.openWindow(WindowsManager.WO_ANNOUNCEMENT, onClose); }
+    private function openWO():void { 
+        if (g.managerCutScenes && g.managerCutScenes.isCutScene) return;
+        g.windowsManager.openWindow(WindowsManager.WO_ANNOUNCEMENT, onClose); 
+    }
 
     private function onClose(isPost:Boolean):void {
         if (isPost) g.managerWallPost.postWallpost(ManagerWallPost.POST_ANNOUNCEMENT,null, 0, 0);

@@ -624,9 +624,7 @@ public class TownArea extends Sprite {
             (build as WorldObject).makeFlipBuilding();
             return build;
         }
-        if (_data.isFlip) {
-            (build as WorldObject).makeFlipBuilding();
-        }
+        if (_data.isFlip) (build as WorldObject).makeFlipBuilding();
 
         return build;
     }
@@ -671,11 +669,8 @@ public class TownArea extends Sprite {
                         fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
-                if (isNewAtMap)
-                    g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-                if (updateAfterMove) {
-                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
-                }
+                if (isNewAtMap) g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 return;
             }
         }
@@ -689,11 +684,8 @@ public class TownArea extends Sprite {
             if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
                 (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, null, null, worldObject as DecorAnimation, _x, _y);
                 (worldObject as DecorAnimation).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
-                if (isNewAtMap && g.isActiveMapEditor)
-                    g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-                if (updateAfterMove && g.isActiveMapEditor) {
-                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
-                }
+                if (isNewAtMap && g.isActiveMapEditor) g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 return;
             } else if (g.isActiveMapEditor) {
                 _cont.addChild(worldObject.source);
@@ -705,11 +697,8 @@ public class TownArea extends Sprite {
                         fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
-                if (isNewAtMap && g.isActiveMapEditor)
-                    g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-                if (updateAfterMove && g.isActiveMapEditor) {
-                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
-                }
+                if (isNewAtMap && g.isActiveMapEditor) g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 return;
             }
         }
@@ -723,11 +712,8 @@ public class TownArea extends Sprite {
             if (_townMatrix[worldObject.posY][worldObject.posX].build && _townMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
                 (_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, null, worldObject as ChestYellow,null, _x, _y);
                 (worldObject as ChestYellow).setLockedLand(_townMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
-                if (isNewAtMap && g.isActiveMapEditor)
-                    g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-                if (updateAfterMove && g.isActiveMapEditor) {
-                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
-                }
+                if (isNewAtMap && g.isActiveMapEditor) g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 return;
             } else  {
                 _cont.addChild(worldObject.source);
@@ -739,11 +725,8 @@ public class TownArea extends Sprite {
                         fillTailMatrix(j, i, 0, 0, worldObject);
                     }
                 }
-                if (isNewAtMap && g.isActiveMapEditor)
-                    g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
-                if (updateAfterMove && g.isActiveMapEditor) {
-                    g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
-                }
+                if (isNewAtMap && g.isActiveMapEditor) g.directServer.ME_addWild(worldObject.posX, worldObject.posY, worldObject, null);
+                if (updateAfterMove && g.isActiveMapEditor) g.directServer.ME_moveWild(worldObject.posX, worldObject.posY, worldObject.dbBuildingId, null);
                 return;
             }
         }
@@ -822,21 +805,17 @@ public class TownArea extends Sprite {
             if ((worldObject as DecorFenceArka).isMain) {
                 (worldObject as DecorFenceArka).removeFullView();
                 (worldObject as DecorFenceArka).createSecondPart();
-                if (worldObject.flip) fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeY, worldObject.sizeX, worldObject);
-                    else fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+                fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             } else isNewAtMap = false;
         } else if (worldObject is DecorPostFenceArka) {
             if ((worldObject as DecorPostFenceArka).isMain) {
                 (worldObject as DecorPostFenceArka).removeFullView();
                 (worldObject as DecorPostFenceArka).createSecondPart();
-                if (worldObject.flip) fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeY, worldObject.sizeX, worldObject);
-                    else fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
+                fillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
                 addFenceLenta(worldObject);
             } else isNewAtMap = false;
         } else {
-            if (worldObject.useIsometricOnly) {
-                fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
-            }
+            if (worldObject.useIsometricOnly) fillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY, worldObject);
             if (worldObject is Order || worldObject is LockedLand) {
                 for (i = worldObject.posY; i < (worldObject.posY + worldObject.sizeY); i++) {
                     for (j = worldObject.posX; j < (worldObject.posX + worldObject.sizeX); j++) {
