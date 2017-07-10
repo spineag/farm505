@@ -158,7 +158,7 @@ public class CTextField extends DisplayObjectContainer {
         var count:int=0;
         for (var i:int=0; i<ar.length; i++) {
             if (!ASCIIchars.isCharInBitmapFont(ar[i])) {
-                trace('no symbol: ' + ar[i]);
+//                trace('no symbol: ' + ar[i]);
                 count++;
             }
         }

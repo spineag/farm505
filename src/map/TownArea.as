@@ -1655,45 +1655,45 @@ public class TownArea extends Sprite {
         _freePlace.fillAway();
         Cc.info('goAway to: ' + person.userSocialId);
         if (g.isAway) {
-            g.managerMouseHero.removeMouse();
-            while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
-            removeAwayTownAreaSortCheking();
-            g.managerOrderCats.removeAwayCats();
-            clearAwayCity();
+//            g.managerMouseHero.removeMouse();
+//            while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
+//            removeAwayTownAreaSortCheking();
+//            g.managerOrderCats.removeAwayCats();
+//            clearAwayCity();
         } else {
             if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
             if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR))  g.managerMiniScenes.checkMiniSceneCallback();
-            g.managerLohmatic.onGoAway();
+            if (g.managerTips) g.managerTips.setUnvisible(true);
             g.cont.craftAwayCont.visible = true;
             g.cont.craftCont.visible = false;
-            if (g.managerTips) g.managerTips.setUnvisible(true);
-            removeTownAreaSortCheking();
-            for (var i:int = 0; i < _cityObjects.length; i++) {
-                _cont.removeChild(_cityObjects[i].source);
-                if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(false);
-                if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
-                if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
-            }
-            for (i = 0; i < _cityTailObjects.length; i++) {
-                _contTail.removeChild(_cityTailObjects[i].source);
-            }
-            g.managerCats.onGoAway(true);
-            g.managerOrderCats.onGoAwayToUser(true);
+//            g.managerLohmatic.onGoAway();
+//            removeTownAreaSortCheking();
+//            for (var i:int = 0; i < _cityObjects.length; i++) {
+//                _cont.removeChild(_cityObjects[i].source);
+//                if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(false);
+//                if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
+//                if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
+//            }
+//            for (i = 0; i < _cityTailObjects.length; i++) {
+//                _contTail.removeChild(_cityTailObjects[i].source);
+//            }
+//            g.managerCats.onGoAway(true);
+//            g.managerOrderCats.onGoAwayToUser(true);
+        }
+        if (person.userDataCity.objects) {
+            setAwayCity(person, !g.isAway);
+        } else {
+            g.directServer.getAllCityData(person, setAwayCity, !g.isAway);
         }
         g.isAway = true;
         g.bottomPanel.doorBoolean(true,person);
-        _townAwayMatrix = [];
-        setDefaultAwayMatrix();
-        if (person.userDataCity.objects) {
-            setAwayCity(person);
-        } else {
-            g.directServer.getAllCityData(person, setAwayCity);
-        }
-        addAwayTownAreaSortCheking();
-        var p:Point = new Point();
-        p.x = 24;
-        p.y = 26;
-        g.cont.moveCenterToPos(p.x, p.y, true, 2);
+//        _townAwayMatrix = [];
+//        setDefaultAwayMatrix();
+//        addAwayTownAreaSortCheking();
+//        var p:Point = new Point();
+//        p.x = 24;
+//        p.y = 26;
+//        g.cont.moveCenterToPos(p.x, p.y, true, 2);
     }
 
     private function setDefaultAwayMatrix():void {
@@ -1752,8 +1752,40 @@ public class TownArea extends Sprite {
         }
     }
 
-    private function setAwayCity(p:Someone):void {
+    private function setAwayCity(p:Someone, isGoFromUser:Boolean):void {
         var i:int;
+
+        if (isGoFromUser) {
+            g.managerLohmatic.onGoAway();
+            removeTownAreaSortCheking();
+            for (i = 0; i < _cityObjects.length; i++) {
+                _cont.removeChild(_cityObjects[i].source);
+                if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(false);
+                if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
+                if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
+            }
+            for (i = 0; i < _cityTailObjects.length; i++) {
+                _contTail.removeChild(_cityTailObjects[i].source);
+            }
+            g.managerCats.onGoAway(true);
+            g.managerOrderCats.onGoAwayToUser(true);
+        } else {
+            g.managerMouseHero.removeMouse();
+            while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
+            removeAwayTownAreaSortCheking();
+            g.managerOrderCats.removeAwayCats();
+            clearAwayCity();
+        }
+
+        _townAwayMatrix = [];
+        setDefaultAwayMatrix();
+        addAwayTownAreaSortCheking();
+        var point:Point = new Point();
+        point.x = 24;
+        point.y = 26;
+        g.cont.moveCenterToPos(point.x, point.y, true, 2);
+
+
         for (i=0; i<p.userDataCity.objects.length; i++) {
             createAwayNewBuild(Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(p.userDataCity.objects[i].buildId)), p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, int(p.userDataCity.objects[i].dbId), p.userDataCity.objects[i].isFlip);
         }

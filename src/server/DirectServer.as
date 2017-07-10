@@ -3734,7 +3734,7 @@ public class DirectServer {
         }
     }
 
-    public function getAllCityData(p:Someone, callback:Function):void {
+    public function getAllCityData(p:Someone, callback:Function, isFromUser:Boolean):void {
         var loader:URLLoader = new URLLoader();
         var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_ALL_CITY_DATA);
         var variables:URLVariables = new URLVariables();
@@ -3749,7 +3749,7 @@ public class DirectServer {
         iconMouse.startConnect();
         loader.addEventListener(Event.COMPLETE, onCompleteGetAllCityData);
         loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
-        function onCompleteGetAllCityData(e:Event):void { completeGetAllCityData(e.target.data, p, callback); }
+        function onCompleteGetAllCityData(e:Event):void { completeGetAllCityData(e.target.data, p, callback, isFromUser); }
         try {
             loader.load(request);
         } catch (error:Error) {
@@ -3758,7 +3758,7 @@ public class DirectServer {
         }
     }
 
-    private function completeGetAllCityData(response:String, p:Someone, callback:Function = null):void {
+    private function completeGetAllCityData(response:String, p:Someone, callback:Function, isFromUser:Boolean):void {
         iconMouse.endConnect();
         var d:Object;
         var ob:Object;
@@ -3848,7 +3848,7 @@ public class DirectServer {
                 p.userDataCity.objects.push(ob);
             }
             if (callback != null) {
-                callback.apply(null, [p]);
+                callback.apply(null, [p, isFromUser]);
             }
         } else if (d.id == 13) {
             g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);

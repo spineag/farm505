@@ -508,7 +508,7 @@ public class ManagerQuest {
             }
             if (tasks.length) {
                 for (i=0; i<tasks.length; i++) {
-                    if (!(tArr[i] as QuestTaskStructure).isDone) {
+                    if (!(tasks[i] as QuestTaskStructure).isDone) {
                         (tasks[i] as QuestTaskStructure).upgradeCount();
                         g.directServer.updateUserQuestTask(tasks[i], onUpdateQuestTask);
                     }

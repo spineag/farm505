@@ -185,7 +185,7 @@ public class WOOrderItem {
             _clockImage.visible = false;
             _delImage.visible = false;
         }
-        if (rech)source.scaleX = source.scaleY = 0;
+        if (rech) source.scaleX = source.scaleY = 0;
     }
 
     private function onClick():void {

@@ -309,7 +309,6 @@ public class WOOrder extends WindowMain{
                 if (!_arrResourceItems[i].isChecked()) {
                     g.windowsManager.cashWindow = this;
                     super.hideIt();
-//                    g.woNoResources.showItOrder(_activeOrderItem.getOrder(), sellOrder);
                     g.windowsManager.openWindow(WindowsManager.WO_NO_RESOURCES, sellOrder, 'order', _activeOrderItem.getOrder());
                     return;
                 }
@@ -397,10 +396,11 @@ public class WOOrder extends WindowMain{
         for (k = 0; k < _arrOrders.length; k++) {
             if (_arrOrders[k]) {
                 for (i = 0; i < _arrOrders[k].resourceIds.length; i++) {
-                        if (g.userInventory.getCountResourceById(_arrOrders[k].resourceIds[i]) < _arrOrders[k].resourceCounts[i]) {
-                        _arrItems[k].updateCheck(false);
+                    if (g.userInventory.getCountResourceById(_arrOrders[k].resourceIds[i]) < _arrOrders[k].resourceCounts[i]) {
+                        (_arrItems[k] as WOOrderItem).updateCheck(false);
                         break;
                     }
+                    (_arrItems[k] as WOOrderItem).updateCheck(true);
                 }
             }
         }

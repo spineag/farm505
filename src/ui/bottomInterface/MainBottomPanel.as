@@ -41,6 +41,7 @@ import windows.WOComponents.HorizontalPlawka;
 import windows.WindowsManager;
 import windows.ambar.WOAmbars;
 import windows.serverError.WOServerError;
+import windows.shop.DecorShopFilter;
 import windows.shop.WOShop;
 
 public class MainBottomPanel {
@@ -297,6 +298,7 @@ public class MainBottomPanel {
                         g.user.decorShop = false;
                     }
                 }
+                if (_questBoolean && _typeHelp == HelperReason.REASON_BUY_DECOR) g.user.shopDecorFilter = DecorShopFilter.FILTER_ALL;
                 g.windowsManager.openWindow(WindowsManager.WO_SHOP, null, shopTab);
                 if (g.managerHelpers && g.managerHelpers.isActiveHelper) {
                     g.managerHelpers.onOpenShop();
@@ -304,7 +306,7 @@ public class MainBottomPanel {
                 if (_questBoolean) {
                     _questBoolean = false;
                     (g.windowsManager.currentWindow as WOShop).deleteArrow();
-                    if (_typeHelp == HelperReason.REASON_BUY_FABRICA || _typeHelp == HelperReason.REASON_BUY_DECOR || _typeHelp == HelperReason.REASON_BUY_TREE) {
+                    if (_typeHelp == HelperReason.REASON_BUY_FABRICA || _typeHelp == HelperReason.REASON_BUY_DECOR) {
                         (g.windowsManager.currentWindow as WOShop).openOnResource(_questBuilId);
                         (g.windowsManager.currentWindow as WOShop).addArrow(_questBuilId);
                     } else if (_typeHelp == HelperReason.REASON_BUY_HERO) {
