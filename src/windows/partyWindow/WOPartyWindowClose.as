@@ -10,6 +10,8 @@ import flash.geom.Point;
 
 import manager.ManagerFilters;
 
+import resourceItem.DropDecor;
+
 import resourceItem.DropItem;
 
 import starling.display.Image;
@@ -99,26 +101,26 @@ public class WOPartyWindowClose extends WindowMain{
                     obj.count = g.managerParty.countGift[i];
                     obj.id =  g.managerParty.idGift[i];
                     obj.type = DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION;
+                    new DropDecor(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, g.allData.getBuildingById(obj.id), 100, 100, obj.count);
                 } else if (g.managerParty.typeGift[i] == BuildType.DECOR) {
                     obj.count = g.managerParty.countGift[i];
                     obj.id =  g.managerParty.idGift[i];
                     obj.type = DropResourceVariaty.DROP_TYPE_DECOR;
+                    new DropDecor(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2 , g.allData.getBuildingById(obj.id), 100, 100, obj.count);
                 } else {
                     if (g.managerParty.idGift[i] == 1 && g.managerParty.typeGift[i] == 1) {
                         obj.id = DataMoney.SOFT_CURRENCY;
                         obj.type = DropResourceVariaty.DROP_TYPE_MONEY;
-                    }
-                    else if (g.managerParty.idGift[i] == 2 && g.managerParty.typeGift[i] == 2) {
+                    } else if (g.managerParty.idGift[i] == 2 && g.managerParty.typeGift[i] == 2) {
                         obj.id = DataMoney.HARD_CURRENCY;
                         obj.type = DropResourceVariaty.DROP_TYPE_MONEY;
-                    }
-                    else {
+                    } else {
                         obj.id = g.managerParty.idGift[i];
                         obj.type = DropResourceVariaty.DROP_TYPE_RESOURSE;
                     }
                     obj.count = g.managerParty.countGift[i];
+                    new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
                 }
-                new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, obj);
             }
         }
 //        g.managerParty.endParty();

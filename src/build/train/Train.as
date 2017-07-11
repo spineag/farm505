@@ -543,15 +543,17 @@ public class Train extends WorldObject{
     override public function clearIt():void {
         onOut();
         if (_arriveAnim) _arriveAnim.deleteIt();
-        _source.touchable = false;
-        WorldClock.clock.remove(_armature);
+        if (_source) _source.touchable = false;
         g.timerHint.hideIt();
         g.gameDispatcher.removeFromTimer(render);
         g.gameDispatcher.removeFromTimer(renderBuildTrainProgress);
         _dataPack = null;
         if (list) list.length = 0;
-        _armature.dispose();
-        _armature = null;
+        if (_armature) {
+            WorldClock.clock.remove(_armature);
+            _armature.dispose();
+            _armature = null;
+        }
         super.clearIt();
     }
 

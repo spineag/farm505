@@ -210,6 +210,7 @@ public class TownArea extends Sprite {
     public function zSort():void { _needTownAreaSort = true; }
 
     private function zSortMain():void{
+        var isError:Boolean = false;
         if (_needTownAreaSort) {
             _zSortCounter--;
             if (_zSortCounter > 0) return;
@@ -225,12 +226,13 @@ public class TownArea extends Sprite {
                     }
                 }
             } catch (e:Error) {
-                g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'townArea');
-                g.errorManager.onGetError(ErrorConst.Z_SORT, true);
+                isError = true;
                 Cc.error('TownArea zSort error: ' + e.errorID + ' - ' + e.message);
             }
             _needTownAreaSort = false;
-            if (g.managerTutorial.isTutorial) {
+            if (isError) {
+                _zSortCounter = 1;
+            } else if (g.managerTutorial.isTutorial) {
                 _zSortCounter = 3;
             } else {
                 _zSortCounter = SORT_COUNTER_MAX;
@@ -1655,30 +1657,30 @@ public class TownArea extends Sprite {
         _freePlace.fillAway();
         Cc.info('goAway to: ' + person.userSocialId);
         if (g.isAway) {
-//            g.managerMouseHero.removeMouse();
-//            while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
-//            removeAwayTownAreaSortCheking();
-//            g.managerOrderCats.removeAwayCats();
-//            clearAwayCity();
+            g.managerMouseHero.removeMouse();
+            while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
+            removeAwayTownAreaSortCheking();
+            g.managerOrderCats.removeAwayCats();
+            clearAwayCity();
         } else {
             if (g.managerQuest) g.managerQuest.hideQuestsIcons(true);
             if (g.managerMiniScenes.isMiniScene && g.managerMiniScenes.isReason(ManagerMiniScenes.GO_NEIGHBOR))  g.managerMiniScenes.checkMiniSceneCallback();
             if (g.managerTips) g.managerTips.setUnvisible(true);
             g.cont.craftAwayCont.visible = true;
             g.cont.craftCont.visible = false;
-//            g.managerLohmatic.onGoAway();
-//            removeTownAreaSortCheking();
-//            for (var i:int = 0; i < _cityObjects.length; i++) {
-//                _cont.removeChild(_cityObjects[i].source);
-//                if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(false);
-//                if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
-//                if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
-//            }
-//            for (i = 0; i < _cityTailObjects.length; i++) {
-//                _contTail.removeChild(_cityTailObjects[i].source);
-//            }
-//            g.managerCats.onGoAway(true);
-//            g.managerOrderCats.onGoAwayToUser(true);
+            g.managerLohmatic.onGoAway();
+            removeTownAreaSortCheking();
+            for (var i:int = 0; i < _cityObjects.length; i++) {
+                _cont.removeChild(_cityObjects[i].source);
+                if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(false);
+                if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
+                if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
+            }
+            for (i = 0; i < _cityTailObjects.length; i++) {
+                _contTail.removeChild(_cityTailObjects[i].source);
+            }
+            g.managerCats.onGoAway(true);
+            g.managerOrderCats.onGoAwayToUser(true);
         }
         if (person.userDataCity.objects) {
             setAwayCity(person, !g.isAway);
@@ -1687,13 +1689,13 @@ public class TownArea extends Sprite {
         }
         g.isAway = true;
         g.bottomPanel.doorBoolean(true,person);
-//        _townAwayMatrix = [];
-//        setDefaultAwayMatrix();
-//        addAwayTownAreaSortCheking();
-//        var p:Point = new Point();
-//        p.x = 24;
-//        p.y = 26;
-//        g.cont.moveCenterToPos(p.x, p.y, true, 2);
+        _townAwayMatrix = [];
+        setDefaultAwayMatrix();
+        addAwayTownAreaSortCheking();
+        var p:Point = new Point();
+        p.x = 24;
+        p.y = 26;
+        g.cont.moveCenterToPos(p.x, p.y, true, 2);
     }
 
     private function setDefaultAwayMatrix():void {
@@ -1755,27 +1757,27 @@ public class TownArea extends Sprite {
     private function setAwayCity(p:Someone, isGoFromUser:Boolean):void {
         var i:int;
 
-        if (isGoFromUser) {
-            g.managerLohmatic.onGoAway();
-            removeTownAreaSortCheking();
-            for (i = 0; i < _cityObjects.length; i++) {
-                _cont.removeChild(_cityObjects[i].source);
-                if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(false);
-                if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
-                if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
-            }
-            for (i = 0; i < _cityTailObjects.length; i++) {
-                _contTail.removeChild(_cityTailObjects[i].source);
-            }
-            g.managerCats.onGoAway(true);
-            g.managerOrderCats.onGoAwayToUser(true);
-        } else {
-            g.managerMouseHero.removeMouse();
-            while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
-            removeAwayTownAreaSortCheking();
-            g.managerOrderCats.removeAwayCats();
-            clearAwayCity();
-        }
+//        if (isGoFromUser) {
+//            g.managerLohmatic.onGoAway();
+//            removeTownAreaSortCheking();
+//            for (i = 0; i < _cityObjects.length; i++) {
+//                _cont.removeChild(_cityObjects[i].source);
+//                if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(false);
+//                if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
+//                if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
+//            }
+//            for (i = 0; i < _cityTailObjects.length; i++) {
+//                _contTail.removeChild(_cityTailObjects[i].source);
+//            }
+//            g.managerCats.onGoAway(true);
+//            g.managerOrderCats.onGoAwayToUser(true);
+//        } else {
+//            g.managerMouseHero.removeMouse();
+//            while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
+//            removeAwayTownAreaSortCheking();
+//            g.managerOrderCats.removeAwayCats();
+//            clearAwayCity();
+//        }
 
         _townAwayMatrix = [];
         setDefaultAwayMatrix();
@@ -2268,6 +2270,7 @@ public class TownArea extends Sprite {
     public function zAwaySort():void { _needTownAreaSort = true; }
 
     public function zSortAwayMain():void {
+        var isError:Boolean = false;
         if (_needTownAreaSort) {
             _zSortCounter--;
             if (_zSortCounter <= 0) {
@@ -2284,14 +2287,12 @@ public class TownArea extends Sprite {
                         }
                     }
                 } catch (e:Error) {
+                    isError = true;
                     Cc.error('TownArea zAwaySort error: ' + e.errorID + ' - ' + e.message);
                 }
                 _needTownAreaSort = false;
-                if (g.managerTutorial.isTutorial) {
-                    _zSortCounter = 3;
-                } else {
-                    _zSortCounter = SORT_COUNTER_MAX;
-                }
+                if (isError) _zSortCounter = 1;
+                else _zSortCounter = SORT_COUNTER_MAX;
             }
         }
     }

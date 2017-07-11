@@ -461,7 +461,7 @@ public class Fabrica extends WorldObject {
 
     private function onHeroAnimation():void {
         if (_fabricWork) return;
-        if (_arrList.length && _heroCat) {
+        if (_arrList && _arrList.length && _heroCat) {
             startAnimation();
             _fabricWork = true;
             _heroCat.visible = false;
