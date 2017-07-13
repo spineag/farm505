@@ -47,25 +47,19 @@ public class CSprite extends Sprite {
         this.addEventListener(TouchEvent.TOUCH, onTouch);
     }
 
-    public function set nameIt(s:String):void {
-        _itsName = s;
-    }
-
-    public function set releaseContDrag(value:Boolean):void {
-        _useContDrag = value;
-    }
-
-    public function get isContDrag():Boolean {
-        return _useContDrag;
-    }
-
-    public function get getCurTouch():Touch {
-        return _currentTouch;
-    }
-
-    public function set useCheckForHover(v:Boolean):void {
-        _useCheckForHover = v;
-    }
+    public function set nameIt(s:String):void { _itsName = s; }
+    public function set releaseContDrag(value:Boolean):void { _useContDrag = value; }
+    public function get isContDrag():Boolean { return _useContDrag; }
+    public function get getCurTouch():Touch { return _currentTouch; }
+    public function set useCheckForHover(v:Boolean):void { _useCheckForHover = v; }
+    public function set endClickParams(a:*):void { _params = a; }
+    public function set endClickCallback(f:Function):void { _endClickCallback = f; }
+    public function set startClickCallback(f:Function):void { _startClickCallback = f; }
+    public function set hoverCallback(f:Function):void { _hoverCallback = f; }
+    public function set outCallback(f:Function):void { _outCallback = f; }
+    public function set onMovedCallback(f:Function):void { _onMovedCallback = f; }
+    public function removeMainListener():void { this.removeEventListener(TouchEvent.TOUCH, onTouch); }
+    public function registerHitArea(hArea:OwnHitArea):void { _hitArea = hArea; }
 
     public function onTouch(te:TouchEvent):void {
         _currentTouch = te.getTouch(this);
@@ -164,45 +158,10 @@ public class CSprite extends Sprite {
         }
     }
 
-    public function set endClickParams(a:*):void {
-        _params = a;
-    }
-
-    public function set endClickCallback(f:Function):void {
-        _endClickCallback = f;
-    }
-
-    public function set startClickCallback(f:Function):void {
-        _startClickCallback = f;
-    }
-
-    public function set hoverCallback(f:Function):void {
-        _hoverCallback = f;
-    }
-
-    public function set outCallback(f:Function):void {
-        _outCallback = f;
-    }
-
-    public function set onMovedCallback(f:Function):void {
-        _onMovedCallback = f;
-    }
-
     public function set isTouchable(value:Boolean):void {
         this.touchable = value;
-        if (value) {
-            this.addEventListener(TouchEvent.TOUCH, onTouch);
-        } else {
-            this.removeEventListener(TouchEvent.TOUCH, onTouch);
-        }
-    }
-
-    public function removeMainListener():void {
-        this.removeEventListener(TouchEvent.TOUCH, onTouch);
-    }
-
-    public function registerHitArea(hArea:OwnHitArea):void {
-        _hitArea = hArea;
+        if (value)  this.addEventListener(TouchEvent.TOUCH, onTouch);
+        else this.removeEventListener(TouchEvent.TOUCH, onTouch);
     }
 
     public function deleteIt():void {

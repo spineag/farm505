@@ -61,8 +61,7 @@ public class WOPartyWindowItem {
         _txtCountResource.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
         _txtCountResource.alignH = Align.RIGHT;
         _txtCountResource.x = -19;
-        if (number == 5) _txtCountResource.y = 35;
-        else _txtCountResource.y = 35;
+        _txtCountResource.y = 35;
         var im:Image;
         if (number == 5) {
             _bg  = new Image(g.allData.atlas['partyAtlas'].getTexture('place_2'));
@@ -148,9 +147,8 @@ public class WOPartyWindowItem {
         var _quad:Quad;
         var width:int;
         if (number > 1) {
-            width = ((100 * (g.managerParty.userParty.countResource - g.managerParty.countToGift[number - 2])) / (countToGift - g.managerParty.countToGift[number -2])) * .75;
-
-        } else width = (100 * g.managerParty.userParty.countResource / countToGift) * .75;
+            width = ((g.managerParty.userParty.countResource - g.managerParty.countToGift[number-2]) / (countToGift - g.managerParty.countToGift[number-2])) * 75;
+        } else width = (g.managerParty.userParty.countResource / countToGift) * 75;
         if (g.managerParty.userParty.countResource > countToGift) {
             _quad = new Quad(75, 30, 0xff3da5);
             _quad.y = 165;
@@ -179,7 +177,7 @@ public class WOPartyWindowItem {
             if (number == 1) {
                 _quad.x = 50;
             } else if (number == 2) {
-                _quad.x = 43;
+                _quad.x = 45;
             } else if (number == 3) {
                 _quad.x = 36;
             } else if (number == 4) {

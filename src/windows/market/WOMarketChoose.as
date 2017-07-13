@@ -547,7 +547,6 @@ public class WOMarketChoose extends WindowMain {
         if (_curResourceId > 0) {
             if (!last) {
                 if (g.allData.getResourceById(_curResourceId).buildType == BuildType.PLANT && _countResourceBlock.count == g.userInventory.getCountResourceById(_curResourceId) && !g.userInventory.checkLastResource(_curResourceId)) {
-//                    g.windowsManager.secondCashWindow = _activetedItem.woMarket;
                     g.windowsManager.secondCashWindow = this;
                     super.hideIt();
                     g.windowsManager.openWindow(WindowsManager.WO_LAST_RESOURCE, onClickBtnSell, {id: _curResourceId}, 'market');

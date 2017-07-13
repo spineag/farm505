@@ -226,6 +226,10 @@ public class WOMarket  extends WindowMain {
         _source.addChild(_ma.source);
     }
 
+    override public function showIt():void {
+        super.showIt();
+    }
+
     override public function showItParams(f:Function, params:Array):void {
         if (!g.userValidates.checkInfo('level', g.user.level)) return;
         _arrFriends = [];
@@ -239,12 +243,10 @@ public class WOMarket  extends WindowMain {
                     _shiftFriend = i;
                 }
             }
-//            if (_shiftFriend == 0 && _curUser.userSocialId == g.user.userSocialId)
             if(_shiftFriend == 0)  {
                 if (_curUser.userSocialId == g.user.userSocialId) createMarketTabBtns();
                 else createMarketTabBtns(true);
-            }
-            else createMarketTabBtns();
+            } else createMarketTabBtns();
 //            checkPapperTimer();
             choosePerson(_curUser);
         }

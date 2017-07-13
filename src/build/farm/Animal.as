@@ -49,7 +49,6 @@ public class Animal {
     private var _tutorialCallback:Function;
     private var _needShowArrow:Boolean = false;
     private var _wasStartActiveFeeding:Boolean;
-
     private var animation:AnimalAnimation;
     private var currentLabelAfterLoading:String;
     private var defaultLabel:String;
@@ -75,11 +74,8 @@ public class Animal {
         _wasStartActiveFeeding = false;
 
         currentLabelAfterLoading = '';
-        if (g.allData.factory[_data.url]) {
-            createAnimal();
-        } else {
-            g.loadAnimation.load('animations_json/x1/' + _data.url, _data.url, createAnimal);
-        }
+        if (g.allData.factory[_data.url])  createAnimal();
+        else  g.loadAnimation.load('animations_json/x1/' + _data.url, _data.url, createAnimal);
 
         _state = HUNGRY;
 
@@ -89,7 +85,6 @@ public class Animal {
             source.endClickCallback = onEndClick;
             source.startClickCallback = onStartClick;
         }
-//       if (g.isAway) source.releaseContDrag = true;
         source.releaseContDrag = true;
         switch (_data.id) {
             case 1: // chicken
@@ -136,46 +131,27 @@ public class Animal {
         animation.animalArmature(g.allData.factory[_data.url].buildArmature(_data.image), _data.id);
         source.addChild(animation.source);
         _rect = source.getBounds(source);
-        if (currentLabelAfterLoading != '') {
-            addRenderAnimation();
-        }
+        if (currentLabelAfterLoading != '') addRenderAnimation();
         if (_needShowArrow) {
             addArrow();
             _needShowArrow = false;
         }
     }
     
-    public function get state():int {
-        return _state;
-    }
-
-    public function get farm():Farm {
-        return _farm;
-    }
-
-    public function get depth():Number {
-        return source.y;
-    }
-
-    public function get timeToEnd():int {
-        return _timeToEnd;
-    }
-
-    public function get animalData():Object {
-        return _data;
-    }
-
-    public function get rect():Rectangle {
-        return _rect;
-    }
+    public function get state():int { return _state; }
+    public function get farm():Farm { return _farm; }
+    public function get depth():Number { return source.y; }
+    public function get timeToEnd():int { return _timeToEnd; }
+    public function get animalData():Object { return _data; }
+    public function get rect():Rectangle { return _rect; }
+    public function set tutorialCallback(f:Function):void { _tutorialCallback = f; }
+    private function craftResource():void { _farm.onAnimalReadyToCraft(_data.idResource, this); }
 
     public function isMouseUnderAnimal():Boolean {
         var p:Point = new Point(g.ownMouse.mouseX, g.ownMouse.mouseY);
         p = source.globalToLocal(p);
-
-        if (_rect && p.x > _rect.x && p.x < _rect.x+_rect.width && p.y > _rect.y && p.y < _rect.y+_rect.height) {
-            return true;
-        } else return false;
+        if (_rect && p.x > _rect.x && p.x < _rect.x+_rect.width && p.y > _rect.y && p.y < _rect.y+_rect.height) return true;
+        else return false;
     }
 
     public function addArrow(t:Number = 0):void {
@@ -195,10 +171,6 @@ public class Animal {
             _arrow.deleteIt();
             _arrow = null;
         }
-    }
-
-    public function set tutorialCallback(f:Function):void {
-        _tutorialCallback = f;
     }
 
     public function fillItFromServer(ob:Object):void {
@@ -237,10 +209,6 @@ public class Animal {
                 }
             }
         }
-    }
-
-    private function craftResource():void {
-        _farm.onAnimalReadyToCraft(_data.idResource, this);
     }
 
     public function onCraft():void {
@@ -351,8 +319,6 @@ public class Animal {
     }
 
     public function onStartClick():void {
-
-
         if(_farm.isAnyCrafted) return;
         if (g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED || g.toolsModifier.modifierType == ToolsModifier.PLANT_SEED_ACTIVE) g.toolsModifier.modifierType = ToolsModifier.NONE;
         if (g.toolsModifier.modifierType == ToolsModifier.NONE && _state == HUNGRY) {
@@ -370,7 +336,7 @@ public class Animal {
         }
     }
 
-public function onEndClick(last:Boolean = false):void {
+    public function onEndClick(last:Boolean = false):void {
         if (g.managerHelpers) g.managerHelpers.onUserAction();
         if (g.toolsModifier.modifierType == ToolsModifier.FEED_ANIMAL_ACTIVE) {
             g.toolsModifier.modifierType = ToolsModifier.NONE;
@@ -491,10 +457,15 @@ public function onEndClick(last:Boolean = false):void {
 
     public function addRenderAnimation():void {
         stopAnimation();
-        if (_state == CRAFT || _state == HUNGRY) {
-            showHungryAnimations();
-        } else if (_state == WORK) {
-            chooseAnimation();
+        try {
+            if (_state == CRAFT || _state == HUNGRY) {
+                showHungryAnimations();
+            } else if (_state == WORK) {
+                chooseAnimation();
+            }
+        } catch (e:Error) {
+            Cc.error('some error with animation for animalId: ' + _data.id);
+            addRenderAnimation();
         }
     }
 

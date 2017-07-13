@@ -90,19 +90,6 @@ public class ManagerOrder {
         checkOrders();
     }
 
-//    public function addOrderForTutorial(onArriveCallback:Function = null):void { for old Tutorial
-//        if (g.useNewTuts) return;
-//        if (g.managerTutorial.currentAction == TutorialAction.ORDER) {
-//            _arrOrders.length = 0;
-//            updateMaxCounts();
-//            if (_arrOrders.length < _curMaxCountOrders) {
-//                addNewTutorialOrder();
-//                checkForNewCats(onArriveCallback);
-//            }
-//        }
-//        checkOrders();
-//    }
-
     private function checkForNewCats(onArriveCallback:Function = null):void {
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (!_arrOrders[i].cat) {
@@ -111,13 +98,8 @@ public class ManagerOrder {
         }
     }
 
-    public function get countOrders():int {
-        return _arrOrders.length;
-    }
-
-    public function get maxCountOrders():int {
-        return _curMaxCountOrders;
-    }
+    public function get countOrders():int { return _arrOrders.length; }
+    public function get maxCountOrders():int { return _curMaxCountOrders; }
 
     public function addFromServer(ob:Object):void {
         if (_arrOrders.length >= _curMaxCountOrders) return;
@@ -209,7 +191,6 @@ public class ManagerOrder {
                 }
             }
             if (!resource) {
-                arr = [];
                 arr = g.townArea.getCityObjectsByType(BuildType.FARM);
                 var countAnimalWhoAccept:int = 0;
                 for (i = 0; i < arr.length; i++) {
@@ -239,7 +220,6 @@ public class ManagerOrder {
             trace ('Есть ресурсы на складе ' + "id " + ob.id + ' count ' + ob.count);
         }
         if (!resource) {
-            arr = [];
             arr = g.townArea.getCityObjectsByType(BuildType.RIDGE);
             if (arr && arr.length > 0) {
                 arrResource = [];
@@ -269,13 +249,12 @@ public class ManagerOrder {
                 }
             }
             if (!resource) {
-                arrResource = [];
                 arrResource = g.userInventory.getResourceforTypetoOrder(BuildType.PLANT);
                 if (arrResource && arrResource.length > 0) {
                     arrResource.sortOn("count", Array.DESCENDING | Array.NUMERIC);
                     ob = {};
                     ob.id = arrResource[0].id;
-                    ob.count = arrResource[0].count/2;
+                    ob.count = int(arrResource[0].count/2);
                     if (ob.count <= 0 || ob.count == 1)  {
                         ob.id = 31;
                         ob.count = 4;
@@ -291,7 +270,6 @@ public class ManagerOrder {
             ob.count = 4;
             trace('ЛАст истанция ' + "id " + ob.id + ' count ' + ob.count);
         }
-        trace ('Конец');
         return ob;
     }
 
@@ -323,15 +301,7 @@ public class ManagerOrder {
                     }
                 }
             } else countFastBuyer = 1;
-//            countFastBuyer = 1;
             if (countFastBuyer == 0 && g.user.level < 10) {
-//               var countTemp:int = g.userInventory.getCountResourceById(168);
-//                    if (Math.random() < .5) {
-//                        if (countTemp > 6) countTemp = countTemp/2;
-//                        else countTemp = 6;
-//                    } else {
-//                        countTemp += 4;
-//                    }
                 order = new ManagerOrderItem();
                 order.resourceIds = [];
                 order.resourceCounts = [];

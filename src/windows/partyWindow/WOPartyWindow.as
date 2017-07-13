@@ -3,38 +3,25 @@
  */
 package windows.partyWindow {
 import com.junkbyte.console.Cc;
-
 import data.BuildType;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
 import manager.ManagerLanguage;
 import manager.ManagerPartyNew;
-
 import social.SocialNetworkEvent;
 import social.SocialNetworkSwitch;
-
 import starling.display.Image;
-import starling.display.Quad;
 import starling.display.Sprite;
-
 import starling.events.Event;
 import starling.utils.Align;
 import starling.utils.Color;
-
 import ui.xpPanel.XPStar;
-
 import user.Someone;
-
 import utils.CButton;
 import utils.CSprite;
 import utils.CTextField;
 import utils.MCScaler;
 import utils.TimeUtils;
-
-import windows.WOComponents.Birka;
-import windows.WOComponents.DefaultVerticalScrollSprite;
 import windows.WOComponents.DefaultVerticalScrollSprite;
 import windows.WOComponents.WindowBackground;
 import windows.WindowMain;
@@ -128,7 +115,6 @@ public class WOPartyWindow extends WindowMain {
                     if (arrT[i].stateRidge > 1) arr.push(arrT[i]);
                 }
             }
-            arrT = [];
             arrT = g.townArea.getCityObjectsByType(BuildType.MARKET);
             arr.push(arrT[0]);
             g.cont.moveCenterToPos(arr[0].posX, arr[0].posY);

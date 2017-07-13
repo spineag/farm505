@@ -2,44 +2,23 @@
  * Created by user on 11/30/16.
  */
 package windows.dailyGiftWindow {
-import com.greensock.TweenMax;
-import com.greensock.easing.Back;
-
 import data.BuildType;
 import data.DataMoney;
-
-import flash.display.StageDisplayState;
-
 import flash.geom.Point;
-
 import manager.ManagerFilters;
-import manager.ManagerPartyNew;
-
+import resourceItem.DropDecor;
 import resourceItem.DropItem;
-
-import starling.core.Starling;
-
 import starling.display.Image;
-
 import starling.display.Sprite;
-
 import starling.events.Event;
-import starling.text.TextField;
 import starling.utils.Color;
-
 import temp.DropResourceVariaty;
-
-import user.User;
-
 import utils.CButton;
 import utils.CTextField;
 import utils.MCScaler;
-
-import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.CartonBackgroundIn;
 import windows.WOComponents.WindowBackground;
-
 import windows.WindowMain;
 import windows.WindowsManager;
 
@@ -247,20 +226,10 @@ public class WODailyGift extends WindowMain {
     }
 
     private function flyItDecor():void {
-        var f1:Function = function (dbId:int):void {
-            g.userInventory.addToDecorInventory(_itemToday.id, dbId);
-            deleteIt();
-        };
-        var f:Function = function ():void {
-            g.directServer.buyAndAddToInventory(_itemToday.id, f1);
-        };
-        var v:Number;
-        if (Starling.current.nativeStage.displayState == StageDisplayState.NORMAL) v = .5;
-        else v = .2;
-        var im:Image;
-        if (int(_itemToday.type) == BuildType.DECOR) im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(_itemToday.id).image + '_icon'));
-        else if (int(_itemToday.type) == BuildType.DECOR_ANIMATION) im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(_itemToday.id).url + '_icon'));
-        new TweenMax(im, v, {scaleX:.3, scaleY:.3, ease:Back.easeIn, onComplete:f});
+        var p:Point = new Point(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
+        p = _source.localToGlobal(p);
+        new DropDecor(p.x, p.y, g.allData.getBuildingById(_itemToday.id), 100, 100, 1);
+        hideIt();
     }
 
 }

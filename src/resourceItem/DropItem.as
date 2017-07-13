@@ -42,7 +42,7 @@ public class DropItem {
 
     private var g:Vars = Vars.getInstance();
 
-    public function DropItem(_x:int, _y:int, prise:Object, delay:Number = .3, fromSize:int = 50) {
+    public function DropItem(_x:int, _y:int, prise:Object, delay:Number = .3, startSize:int = 50) {
         var endPoint:Point;
         if (!prise) {
             Cc.error('DropItem:: prise == null');
@@ -52,7 +52,7 @@ public class DropItem {
 
         _source = new Sprite();
         var i:int = 0;
-        if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION) {
+        if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION) { // better use DropDecor
             _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(prise.id).url + '_icon'));
             endPoint = g.toolsPanel.pointXY();
             var f4:Function = function (dbId:int):void {
@@ -64,7 +64,7 @@ public class DropItem {
             for (i = 0; i < prise.count; i++) {
                 f();
             }
-        } else if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR) {
+        } else if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR) { // better use DropDecor
             _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(prise.id).image +'_icon'));
             endPoint = g.toolsPanel.pointXY();
             var f3:Function = function (dbId:int):void {
@@ -78,8 +78,8 @@ public class DropItem {
             }
         } else if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
             _image = new Image(g.allData.atlas[g.allData.getResourceById(prise.id).url].getTexture(g.allData.getResourceById(prise.id).imageShop));
-            endPoint = g.craftPanel.pointXY();
             g.craftPanel.showIt(BuildType.PLACE_SKLAD);
+            endPoint = g.craftPanel.pointXY();
             g.updateAmbarIndicator();
             g.userInventory.addResource(prise.id, prise.count);
         } else {
@@ -117,9 +117,9 @@ public class DropItem {
             g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'dropItem');
             return;
         }
-        MCScaler.scale(_image, fromSize, fromSize);
+        MCScaler.scale(_image, startSize, startSize);
         var txt:CTextField = new CTextField(70,30,'+' + String(prise.count));
-        txt.setFormat(CTextField.BOLD18, int(18*fromSize/50), Color.WHITE, ManagerFilters.BROWN_COLOR);
+        txt.setFormat(CTextField.BOLD18, int(18*startSize/50), Color.WHITE, ManagerFilters.BROWN_COLOR);
         txt.x = -15;
         txt.y = _image.height - 5;
         _source.addChild(_image);
@@ -173,8 +173,8 @@ public class DropItem {
         var t:Number = dist/1000 * 2;
         if (t > 2) t -= .6;
         if (t > 3) t -= 1;
-        if (fromSize != 50) {
-            var scale:Number = _image.scaleX / (fromSize/50);
+        if (startSize != 50) {
+            var scale:Number = _image.scaleX / (startSize/50);
             new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], scaleX:scale, scaleY:scale, ease:Linear.easeOut ,onComplete: f1, delay: delay});
         } else new TweenMax(_source, t, {bezier:[{x:tempX, y:tempY}, {x:endPoint.x, y:endPoint.y}], ease:Linear.easeOut ,onComplete: f1, delay: delay});
     }

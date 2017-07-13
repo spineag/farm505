@@ -214,15 +214,32 @@ public class TownArea extends Sprite {
         if (_needTownAreaSort) {
             _zSortCounter--;
             if (_zSortCounter > 0) return;
+            var i:int;
+            var l:int;
             try {
                 _cityObjects.sortOn("depth", Array.NUMERIC);
-                for (var i:int = 0; i < _cityObjects.length; i++) {
-                    if (_cityObjects[i]) {
-                        if (_cityObjects[i].source && _cont.contains(_cityObjects[i].source)) {
-                            _cont.setChildIndex(_cityObjects[i].source, i);
-                        }
-                    } else {
-                        Cc.error('zSort: empty _cityObjects[i]');
+            } catch (e:Error) { // smth in _cityObjects is null or dont have "depth"
+                l = _cityObjects.length;
+                for (i = 0; i < l; i++) {
+                    if (!_cityObjects[i]) {
+                        Cc.error('"null" in _cityObjects');
+                        _cityObjects.removeAt(i);
+                        --i;
+                        --l;
+                    } else if (!_cityObjects[i].depth) {
+                        Cc.error('no "depth" for one from _cityObjects');
+                        _cityObjects.removeAt(i);
+                        --i;
+                        --l;
+                    }
+                }
+                return;  // will check at next frame
+            }
+            try {
+                l = _cityObjects.length;
+                for (i = 0; i < l; i++) {
+                    if (_cityObjects[i].source && _cont.contains(_cityObjects[i].source)) {
+                        _cont.setChildIndex(_cityObjects[i].source, i);
                     }
                 }
             } catch (e:Error) {
@@ -1326,18 +1343,11 @@ public class TownArea extends Sprite {
         if(_cont.contains(worldObject.source)){
             _cont.removeChild(worldObject.source);
         }
-        if (worldObject is DecorFence || worldObject is DecorPostFence) {
-            if (worldObject is DecorPostFence) removeFenceLenta(worldObject);
+        if (worldObject is DecorFence || worldObject is DecorFenceArka) {
             unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
-        } else if (worldObject is DecorFenceGate) {
+        } else if (worldObject is DecorFenceGate || worldObject is DecorPostFence || worldObject is DecorPostFenceArka) {
             removeFenceLenta(worldObject);
             unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
-        } else if (worldObject is DecorPostFenceArka) {
-            removeFenceLenta(worldObject);
-            if (worldObject.flip) unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeY, worldObject.sizeX);
-            else unFillMatrixWithFence(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
-        } else if (worldObject is DecorFenceArka) {
-            
         } else {
             unFillMatrix(worldObject.posX, worldObject.posY, worldObject.sizeX, worldObject.sizeY);
         }
@@ -2274,16 +2284,35 @@ public class TownArea extends Sprite {
         if (_needTownAreaSort) {
             _zSortCounter--;
             if (_zSortCounter <= 0) {
+                var i:int;
+                var l:int;
                 try {
                     _cityAwayObjects.sortOn("depth", Array.NUMERIC);
-                    for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-                        if (_cityAwayObjects[i]) {
-                            if (_cityAwayObjects[i].source && _cont.contains(_cityAwayObjects[i].source))
-                                _cont.setChildIndex(_cityAwayObjects[i].source, i);
-                            else {
-                                if (_cityAwayObjects[i].source) Cc.error('TownArea zAwaySort: not in cont');
-                                else Cc.error('TownArea zAwaySort:: no _source for smth: ' + flash.utils.getQualifiedClassName(_cityAwayObjects[i]));
-                            }
+                } catch (e:Error) { // smth in _cityAwayObjects is null or dont have "depth"
+                    l = _cityAwayObjects.length;
+                    for (i = 0; i < l; i++) {
+                        if (!_cityAwayObjects[i]) {
+                            Cc.error('"null" in _cityAwayObjects');
+                            _cityAwayObjects.removeAt(i);
+                            --i;
+                            --l;
+                        } else if (!_cityAwayObjects[i].depth) {
+                            Cc.error('no "depth" for one from _cityAwayObjects');
+                            _cityAwayObjects.removeAt(i);
+                            --i;
+                            --l;
+                        }
+                    }
+                    return;  // will check at next frame
+                }
+                try {
+                    l = _cityAwayObjects.length;
+                    for (i = 0; i < l; i++) {
+                        if (_cityAwayObjects[i].source && _cont.contains(_cityAwayObjects[i].source))
+                            _cont.setChildIndex(_cityAwayObjects[i].source, i);
+                        else {
+                            if (_cityAwayObjects[i].source) Cc.error('TownArea zAwaySort: not in cont');
+                            else Cc.error('TownArea zAwaySort:: no _source for smth: ' + flash.utils.getQualifiedClassName(_cityAwayObjects[i]));
                         }
                     }
                 } catch (e:Error) {

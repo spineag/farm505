@@ -241,18 +241,19 @@ public class Farm extends WorldObject{
                 TweenMax.to(an.source, .3, {scaleY:1.3, onComplete:f2});
             };
 
-            var cancelAnimation:Function = function():void {
+            var lastAnimation:Function = function():void {
                 WorldClock.clock.remove(arm);
                 arm.removeEventListener(EventObject.COMPLETE,null);
                 arm.removeEventListener(EventObject.LOOP_COMPLETE, null);
                 _contAnimals.removeChild(arm.display as StarlingArmatureDisplay);
                 arm = null;
+                an.source.isTouchable = true;
             };
 
             var onAnimation1:Function = function():void {
                 _contAnimals.addChild(arm.display as StarlingArmatureDisplay);
-                arm.addEventListener(EventObject.COMPLETE, cancelAnimation);
-                arm.addEventListener(EventObject.LOOP_COMPLETE, cancelAnimation);
+                arm.addEventListener(EventObject.COMPLETE, lastAnimation);
+                arm.addEventListener(EventObject.LOOP_COMPLETE, lastAnimation);
                 arm.animation.gotoAndPlayByFrame("idle");
                TweenMax.to(an.source, .3, {scaleY:.7, onComplete:f1});
             };
@@ -267,7 +268,7 @@ public class Farm extends WorldObject{
                 g.starling.juggler.add(tween);
             };
 
-            if ((!g.managerTutorial.isTutorial || g.managerTutorial.isTutorial && g.managerTutorial.useNewTuts) && !isFromServer) {
+            if (!isFromServer) {
                 arm = g.allData.factory['explode_an'].buildArmature("expl_fabric");
                 (arm.display as StarlingArmatureDisplay).x = p.x;
                 (arm.display as StarlingArmatureDisplay).y = p.y - 20;
@@ -276,8 +277,8 @@ public class Farm extends WorldObject{
                 g.cont.moveCenterToPos(posX, posY, false, .5, onFinish);
                 an.source.alpha = 0;
                 an.source.y = p.y - 60;
+                an.source.isTouchable = false;
                 _contAnimals.addChild(an.source);
-
             } else {
                 _contAnimals.addChild(an.source);
             }

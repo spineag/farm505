@@ -51,6 +51,8 @@ import ui.xpPanel.XPStar;
 import utils.CButton;
 import utils.MCScaler;
 import utils.TimeUtils;
+import utils.Utils;
+
 import windows.WOComponents.Birka;
 import windows.WOComponents.CartonBackground;
 import windows.WOComponents.CartonBackgroundIn;
@@ -241,7 +243,7 @@ public class WOOrder extends WindowMain{
         _btnDeleteOrder.clickCallback = deleteOrder;
 
         _btnDeleteOrder.hoverCallback = function():void { g.hint.showIt(String(g.managerLanguage.allTexts[365])); };
-        _btnDeleteOrder.outCallback = function():void {g.hint.hideIt();};
+        _btnDeleteOrder.outCallback = function():void { g.hint.hideIt(); };
     }
 
     private function createItems():void {
@@ -335,31 +337,63 @@ public class WOOrder extends WindowMain{
             g.userInventory.addResource(_activeOrderItem.getOrder().resourceIds[i], -_activeOrderItem.getOrder().resourceCounts[i]);
         }
         var prise:Object = {};
-        var p:Point = new Point(134, 147);
-        p = _source.localToGlobal(p);
-        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) new XPStar(p.x, p.y, _activeOrderItem.getOrder().xp * g.managerParty.coefficient);
-        else new XPStar(p.x, p.y, _activeOrderItem.getOrder().xp);
-        p = new Point(186, 147);
-        p = _source.localToGlobal(p);
+        var p1:Point = new Point(134, 147);
+        if (g.managerParty.eventOn && g.managerParty.typeParty == 2 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) {
+            if (b) {
+                Utils.createDelay(.5, function():void {
+                    _clickItem = true;
+                    p1 = _source.localToGlobal(p1);
+                    new XPStar(p1.x, p1.y, _activeOrderItem.getOrder().xp * g.managerParty.coefficient) });
+            } else {
+                p1 = _source.localToGlobal(p1);
+                new XPStar(p1.x, p1.y, _activeOrderItem.getOrder().xp * g.managerParty.coefficient)
+            }
+        } else {
+            if (b) {
+                Utils.createDelay(.5, function():void {
+                    _clickItem = true;
+                    p1 = _source.localToGlobal(p1);
+                    new XPStar(p1.x, p1.y, _activeOrderItem.getOrder().xp)});
+            } else {
+                p1 = _source.localToGlobal(p1);
+                new XPStar(p1.x, p1.y, _activeOrderItem.getOrder().xp);
+            }
+        }
+        var p2:Point = new Point(186, 147);
         prise.id = DataMoney.SOFT_CURRENCY;
         if (g.managerParty.eventOn && g.managerParty.typeParty == 1 && g.managerParty.typeBuilding == BuildType.ORDER && g.managerParty.levelToStart <= g.user.level) prise.count = _activeOrderItem.getOrder().coins * g.managerParty.coefficient;
         else prise.count = _activeOrderItem.getOrder().coins;
-        new DropItem(p.x, p.y, prise);
+        if (b) {
+            Utils.createDelay(.5, function():void {
+                _clickItem = true;
+                p2 = _source.localToGlobal(p2);
+                new DropItem(p2.x, p2.y, prise) });
+        } else {
+            p2 = _source.localToGlobal(p2);
+            new DropItem(p2.x, p2.y, prise);
+        }
         if (g.managerParty.eventOn && (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) && g.managerParty.typeBuilding == BuildType.ORDER && g.allData.atlas['partyAtlas'] &&g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
         else if (g.managerParty.eventOn && g.managerParty.typeParty == 5 && g.allData.atlas['partyAtlas'] && g.managerParty.levelToStart <= g.user.level) new DropPartyResource(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2);
 
         if (_activeOrderItem.getOrder().addCoupone) {
-            p.x = _btnSell.x + _btnSell.width * 4 / 5;
-            p.y = _btnSell.y + _btnSell.height / 2;
+            var p3:Point = new Point();
+            p3.x = _btnSell.x + _btnSell.width * 4 / 5;
+            p3.y = _btnSell.y + _btnSell.height / 2;
             prise.id = int(Math.random() * 4) + 3;
             prise.count = 1;
-            new DropItem(p.x, p.y, prise);
+            if (b) {
+                Utils.createDelay(.5, function():void {
+                    _clickItem = true;
+                    p3 = _source.localToGlobal(p3);
+                    new DropItem(p3.x, p3.y, prise)});
+            } else {
+                p3 = _source.localToGlobal(p3);
+                new DropItem(p3.x, p3.y, prise);
+            }
         }
         _waitForAnswer = true;
         var tOrderItem:WOOrderItem = _activeOrderItem;
-        var f:Function = function (order:ManagerOrderItem):void {
-            afterSell(order, tOrderItem);
-        };
+        var f:Function = function (order:ManagerOrderItem):void { afterSell(order, tOrderItem); };
         _arrOrders[_activeOrderItem.position] = null;
         g.managerOrder.sellOrder(_activeOrderItem.getOrder(), f);
         animateCatsOnSell();
@@ -367,35 +401,36 @@ public class WOOrder extends WindowMain{
         g.soundManager.playSound(SoundConst.ORDER_DONE);
         if (g.managerTutorial.isTutorial && g.managerTutorial.currentAction == TutorialAction.ORDER) {
             g.managerTutorial.checkTutorialCallback();
-        } else {
-            g.managerMiniScenes.onBuyOrder();
-        }
+        } else g.managerMiniScenes.onBuyOrder();
         g.managerQuest.onActionForTaskType(ManagerQuest.RELEASE_ORDER);
     }
 
     private function afterSell(order:ManagerOrderItem, orderItem:WOOrderItem):void {
         _waitForAnswer = false;
-        var k:int;
         if (_isShowed) {
-            var b:Boolean = true;
-            for (k=0; k<order.resourceIds.length; k++) {
-                if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
-                    b = false;
-                    break;
-                }
-            }
             order.startTime = int(new Date().getTime()/1000) + 6;
-            orderItem.fillIt(order, order.placeNumber, onItemClick, b);
+            orderItem.fillIt(order, order.placeNumber, onItemClick);
             _arrOrders[order.placeNumber] = order;
             if (_activeOrderItem == orderItem) {
                 onItemClick(_activeOrderItem, true);
                 _clickItem = false;
             }
         }
+        updateItemsCheck();
+//        g.bottomPanel.checkIsFullOrder();
+//        newPlaceNumber();
+    }
+
+    private function updateItemsCheck():void {
         var i:int;
+        var k:int;
         for (k = 0; k < _arrOrders.length; k++) {
             if (_arrOrders[k]) {
                 for (i = 0; i < _arrOrders[k].resourceIds.length; i++) {
+                    if ((_arrItems[k] as WOOrderItem).isClock) {
+                        (_arrItems[k] as WOOrderItem).updateCheck(false);
+                        break;
+                    }
                     if (g.userInventory.getCountResourceById(_arrOrders[k].resourceIds[i]) < _arrOrders[k].resourceCounts[i]) {
                         (_arrItems[k] as WOOrderItem).updateCheck(false);
                         break;
@@ -404,8 +439,6 @@ public class WOOrder extends WindowMain{
                 }
             }
         }
-//        g.bottomPanel.checkIsFullOrder();
-//        newPlaceNumber();
     }
 
     private function fillList():void {
@@ -513,7 +546,6 @@ public class WOOrder extends WindowMain{
             _arrResourceItems[i].fillIt(_activeOrderItem.getOrder().resourceIds[i], _activeOrderItem.getOrder().resourceCounts[i]);
         }
     }
-
 
     private function deleteOrder():void {
         if (g.managerTutorial.isTutorial || g.managerCutScenes.isCutScene) return;
@@ -712,6 +744,7 @@ public class WOOrder extends WindowMain{
     }
 
     override protected function deleteIt():void {
+        g.hint.hideIt();
         if (!_source) return;
         _starSmall.filter = null;
         _coinSmall.filter = null;

@@ -359,7 +359,7 @@ public class WindowsManager {
             releaseSecondCashWindow();
             return;
         }
-        if (_cashWindow && _cashWindow != hiddenWindow) {
+        if (!_currentWindow && !_secondCashWindow && _cashWindow && _cashWindow != hiddenWindow) {
             releaseCashWindow();
         }
     }
@@ -389,7 +389,6 @@ public class WindowsManager {
     public function set secondCashWindow(wo:WindowMain):void {
         if (_secondCashWindow) {
             _secondCashWindow.isCashed = false;
-            _secondCashWindow.hideIt();
             _secondCashWindow = null;
         }
         _secondCashWindow = wo;

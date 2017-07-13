@@ -126,10 +126,6 @@ public class WOOrderItem {
         }
     }
 
-    public function get position():int {
-        return _position;
-    }
-
     public function fillIt(order:ManagerOrderItem, position:int, f:Function, b:Boolean = false, afterSale:Boolean = false,rech:Boolean = false):void {
         _recheck = rech;
         _position = position;
@@ -275,10 +271,6 @@ public class WOOrderItem {
         }
     }
 
-    public function get leftSeconds():int {
-        return _leftSeconds;
-    }
-
     public function onSkipTimer():void {
         g.gameDispatcher.removeFromTimer(renderLeftTime);
         _leftSeconds = 5;
@@ -289,10 +281,6 @@ public class WOOrderItem {
         _delImage.visible = false;
         _clockImage.visible = true;
         _order.startTime = int(new Date().getTime()/1000) + 5;
-    }
-
-    public function getOrder():ManagerOrderItem {
-        return _order;
     }
 
     private function onHover():void {
@@ -326,17 +314,13 @@ public class WOOrderItem {
         }
     }
 
-    public function updateCheck(b:Boolean):void {
-        _check.visible = b;
-    }
-
-    public function animation(delay:Number):void {
-        TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:1, y: source.y, delay:delay});
-    }
-
-    public function animationHide(delay:Number):void {
-        TweenMax.to(source, .3, {scaleX:0, scaleY:0, alpha:1, y: source.y, delay:delay});
-    }
+    public function get position():int { return _position; }
+    public function get leftSeconds():int { return _leftSeconds; }
+    public function getOrder():ManagerOrderItem { return _order; }
+    public function updateCheck(b:Boolean):void { _check.visible = b; }
+    public function animation(delay:Number):void { TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:1, y: source.y, delay:delay}); }
+    public function animationHide(delay:Number):void { TweenMax.to(source, .3, {scaleX:0, scaleY:0, alpha:1, y: source.y, delay:delay}); }
+    public function get isClock():Boolean { return _clockImage.visible; } 
 
     public function clearItem():void {
         _txtName.text = '';
@@ -346,6 +330,7 @@ public class WOOrderItem {
     }
 
     public function deleteIt():void {
+        g.hint.hideIt();
         _starImage.filter = null;
         _coinsImage.filter = null;
         if (_txtName) {
