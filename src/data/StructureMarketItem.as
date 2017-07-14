@@ -2,6 +2,7 @@
  * Created by andy on 2/23/17.
  */
 package data {
+import manager.Vars;
 public class StructureMarketItem {
     public var id:int;
     public var level:int;
@@ -21,6 +22,7 @@ public class StructureMarketItem {
     public var timeStart:String = '';
     public var numberCell:int=0;
     public var timeInPapper:int=0;
+    private var g:Vars = Vars.getInstance();
 
     public function StructureMarketItem(ob:Object) {
         if (ob.id) id = int(ob.id);
@@ -39,6 +41,8 @@ public class StructureMarketItem {
         if (ob.time_start) timeStart = ob.time_start;
         if (ob.number_cell) numberCell = int(ob.number_cell);
         if (ob.time_in_papper) timeInPapper = int(ob.time_in_papper);
+
+        if (needHelp > 0) g.user.getSomeoneBySocialId(userSocialId).needHelpCount = needHelp;
     }
 }
 }

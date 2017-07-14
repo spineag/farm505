@@ -209,7 +209,6 @@ public class WOMarket  extends WindowMain {
 
     private function fillFriends(e:SocialNetworkEvent=null):void {
         _arrFriends = g.user.arrFriends.slice();
-
         for (var i:int = 0; i <_arrFriends.length; i++) {
             if (_arrFriends[i].level < 5 || _arrFriends[i].level == 0) {
                 _arrFriends.splice(i,1);
@@ -224,10 +223,6 @@ public class WOMarket  extends WindowMain {
         _txtName.x = -195;
         _ma = new MarketAllFriend(_arrFriends, this, btnFriend);
         _source.addChild(_ma.source);
-    }
-
-    override public function showIt():void {
-        super.showIt();
     }
 
     override public function showItParams(f:Function, params:Array):void {

@@ -48,7 +48,7 @@ public class WOPapperItem {
     private var _txtSale:CTextField;
     private var _p:Someone;
     private var _wo:WOPapper;
-    private var number:int;
+    private var _number:int;
     private var _preloader:FlashAnimatedPreloader;
     private var _helpIcon:Image;
     private var _btnBuy:CButton;
@@ -56,7 +56,7 @@ public class WOPapperItem {
     private var g:Vars = Vars.getInstance();
 
     public function WOPapperItem(i:int, wo:WOPapper) {
-        number = i;
+        _number = i;
         _wo = wo;
         source = new CSprite();
         _bg = new Sprite();

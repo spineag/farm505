@@ -38,12 +38,10 @@ public class WOOrderItem {
     private var _clockImage:Image;
     private var _delImage:Image;
     private var _position:int;
-    private var _check:Image;
+    private var _checkImage:Image;
     private var _clickCallback:Function;
     private var _act:Boolean;
     private var _wo:WOOrder;
-    private var _deleteOrSell:Boolean;
-    private var _recheck:Boolean;
     private var _timer:int;
     private var _isHover:Boolean;
 
@@ -72,6 +70,7 @@ public class WOOrderItem {
         _delImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('order_window_del_or'));
         _delImage.x = 25;
         _delImage.y = 10;
+        _delImage.visible = false;
         source.addChild(_delImage);
 
         _txtName = new CTextField(112, 20, "Васько");
@@ -104,11 +103,11 @@ public class WOOrderItem {
         _act = false;
 
         source.visible = false;
-        _check = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
-        _check.y = -9;
-        _check.x = -9;
-        _check.visible = false;
-        source.addChild(_check);
+        _checkImage = new Image(g.allData.atlas['interfaceAtlas'].getTexture('check'));
+        _checkImage.y = -9;
+        _checkImage.x = -9;
+        _checkImage.visible = false;
+        source.addChild(_checkImage);
         source.hoverCallback = onHover;
         source.outCallback = onOut;
         _isHover = false;
@@ -126,8 +125,7 @@ public class WOOrderItem {
         }
     }
 
-    public function fillIt(order:ManagerOrderItem, position:int, f:Function, b:Boolean = false, afterSale:Boolean = false,rech:Boolean = false):void {
-        _recheck = rech;
+    public function fillIt(order:ManagerOrderItem, position:int, f:Function):void {
         _position = position;
         _order = order;
         _clickCallback = f;
@@ -138,11 +136,7 @@ public class WOOrderItem {
         else _txtCoins.text = String(_order.coins);
 
         source.visible = true;
-        if (b) _check.visible = true;
-        else _check.visible = false;
         source.endClickCallback = onClick;
-
-        _deleteOrSell = afterSale;
 
         _leftSeconds = _order.startTime - int(new Date().getTime()/1000);
 
@@ -153,7 +147,7 @@ public class WOOrderItem {
                 _txtCoins.visible = false;
                 _coinsImage.visible = false;
                 _starImage.visible = false;
-                _check.visible = false;
+                _checkImage.visible = false;
                 g.userTimer.setOrder(_order);
                 g.gameDispatcher.addToTimer(renderLeftTime);
                 _clockImage.visible = false;
@@ -164,7 +158,7 @@ public class WOOrderItem {
                 _txtCoins.visible = false;
                 _coinsImage.visible = false;
                 _starImage.visible = false;
-                _check.visible = false;
+                _checkImage.visible = false;
                 g.userTimer.setOrder(_order);
                 g.gameDispatcher.addToTimer(renderLeftTimeOrder);
                 _delImage.visible = false;
@@ -181,7 +175,7 @@ public class WOOrderItem {
             _clockImage.visible = false;
             _delImage.visible = false;
         }
-        if (rech) source.scaleX = source.scaleY = 0;
+        updateCheck();
     }
 
     private function onClick():void {
@@ -198,15 +192,14 @@ public class WOOrderItem {
         _txtName.text = '';
         _txtCoins.text = '';
         source.visible = false;
-        _check.visible = false;
+        _checkImage.visible = false;
         g.gameDispatcher.removeFromTimer(renderLeftTime);
         g.gameDispatcher.removeFromTimer(renderLeftTimeOrder);
     }
 
     private function renderLeftTime():void {
         _leftSeconds--;
-        if (_leftSeconds <= 19 && !_recheck) {
-            _recheck = true;
+        if (_leftSeconds == 19) {
             if (_order &&_txtName && _order.delOb) {
                 _wo.timerSkip(_order);
                 g.managerOrder.checkForFullOrder();
@@ -220,25 +213,34 @@ public class WOOrderItem {
             _leftSeconds = -1;
             g.gameDispatcher.removeFromTimer(renderLeftTime);
             g.managerOrder.checkForFullOrder();
-            if(_txtName)_txtName.visible = true;
-            if(_txtXP)_txtXP.visible = true;
-            if(_txtCoins)_txtCoins.visible = true;
-            if(_coinsImage)_coinsImage.visible = true;
-            if(_starImage)_starImage.visible = true;
-            if(_delImage)_delImage.visible = false;
+            if(_txtName) _txtName.visible = true;
+            if(_txtXP) _txtXP.visible = true;
+            if(_txtCoins) _txtCoins.visible = true;
+            if(_coinsImage) _coinsImage.visible = true;
+            if(_starImage) _starImage.visible = true;
+            if(_delImage) _delImage.visible = false;
             if (_clickCallback != null) {
                 _clickCallback.apply(null, [this,false,1]);
             }
-            if (_check) {
-                var b:Boolean = true;
-                for (var i:int = 0; i < _order.resourceIds.length; i++) {
-                   if (g.userInventory.getCountResourceById(_order.resourceIds[i]) < _order.resourceCounts[i]) {
-                       b = false;
-                       break;
-                   }
-                }
-                _check.visible = b;
+            updateCheck();
+        }
+    }
+    
+    public function updateCheck():void {
+        if (!_order) return;
+        if (_checkImage) {
+            if (_clockImage.visible || _delImage.visible) {
+                _checkImage.visible = false;
+                return;
             }
+            var b:Boolean = true;
+            for (var i:int = 0; i < _order.resourceIds.length; i++) {
+                if (g.userInventory.getCountResourceById(_order.resourceIds[i]) < _order.resourceCounts[i]) {
+                    b = false;
+                    break;
+                }
+            }
+            _checkImage.visible = b;
         }
     }
 
@@ -258,7 +260,7 @@ public class WOOrderItem {
                 _clickCallback.apply(null, [this,false,1]);
             }
             g.managerOrder.checkForFullOrder();
-            if (_check) {
+            if (_checkImage) {
                 var b:Boolean = true;
                 for (var i:int = 0; i < _order.resourceIds.length; i++) {
                     if (g.userInventory.getCountResourceById(_order.resourceIds[i]) < _order.resourceCounts[i]) {
@@ -266,7 +268,7 @@ public class WOOrderItem {
                         break;
                     }
                 }
-                _check.visible = b;
+                _checkImage.visible = b;
             }
         }
     }
@@ -277,7 +279,7 @@ public class WOOrderItem {
         g.gameDispatcher.addToTimer(renderLeftTimeOrder);
         g.managerOrder.onSkipTimer(_order);
         _order.delOb = false;
-        _check.visible = false;
+        _checkImage.visible = false;
         _delImage.visible = false;
         _clockImage.visible = true;
         _order.startTime = int(new Date().getTime()/1000) + 5;
@@ -317,7 +319,6 @@ public class WOOrderItem {
     public function get position():int { return _position; }
     public function get leftSeconds():int { return _leftSeconds; }
     public function getOrder():ManagerOrderItem { return _order; }
-    public function updateCheck(b:Boolean):void { _check.visible = b; }
     public function animation(delay:Number):void { TweenMax.to(source, .3, {scaleX:1, scaleY:1, alpha:1, y: source.y, delay:delay}); }
     public function animationHide(delay:Number):void { TweenMax.to(source, .3, {scaleX:0, scaleY:0, alpha:1, y: source.y, delay:delay}); }
     public function get isClock():Boolean { return _clockImage.visible; } 
@@ -362,7 +363,7 @@ public class WOOrderItem {
         _starImage = null;
         _coinsImage = null;
         _delImage = null;
-        _check = null;
+        _checkImage = null;
         source.deleteIt();
         source = null;
     }

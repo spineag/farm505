@@ -421,44 +421,20 @@ public class WOOrder extends WindowMain{
 //        newPlaceNumber();
     }
 
-    private function updateItemsCheck():void {
-        var i:int;
-        var k:int;
-        for (k = 0; k < _arrOrders.length; k++) {
-            if (_arrOrders[k]) {
-                for (i = 0; i < _arrOrders[k].resourceIds.length; i++) {
-                    if ((_arrItems[k] as WOOrderItem).isClock) {
-                        (_arrItems[k] as WOOrderItem).updateCheck(false);
-                        break;
-                    }
-                    if (g.userInventory.getCountResourceById(_arrOrders[k].resourceIds[i]) < _arrOrders[k].resourceCounts[i]) {
-                        (_arrItems[k] as WOOrderItem).updateCheck(false);
-                        break;
-                    }
-                    (_arrItems[k] as WOOrderItem).updateCheck(true);
-                }
-            }
+    private function updateItemsCheck():void { 
+        for (var i:int = 0; i < _arrItems.length; i++) {
+            if (_arrItems[i]) (_arrItems[i] as WOOrderItem).updateCheck();
         }
     }
 
     private function fillList():void {
         var maxCount:int = g.managerOrder.maxCountOrders;
-        var b:Boolean;
         var order:ManagerOrderItem;
-        var k:int;
-//        var delay:Number = .1;
         for (var i:int=0; i<_arrOrders.length; i++) {
             if (i >= maxCount) return;
-            b = true;
             order = _arrOrders[i];
-            for (k=0; k<order.resourceIds.length; k++) {
-                if (g.userInventory.getCountResourceById(order.resourceIds[k]) < order.resourceCounts[k]) {
-                    b = false;
-                    break;
-                }
-            }
             if (order.placeNumber > -1) {
-                _arrItems[i].fillIt(order, order.placeNumber, onItemClick, b, order.cat);
+                (_arrItems[i] as WOOrderItem).fillIt(order, order.placeNumber, onItemClick);
 //                _arrItems[i].animation(delay);
 //                delay += .1;
             } else {

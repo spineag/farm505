@@ -33,6 +33,7 @@ public class MarketFriendItem {
     public var visitBtn:CButton;
     private var _shiftFriend:int;
     private var _txtBtn:CTextField;
+    private var _helpIcon:Image;
     private var g:Vars = Vars.getInstance();
 
     public function MarketFriendItem(f:Someone, wo:WOMarket, _shift:int) {
@@ -85,11 +86,15 @@ public class MarketFriendItem {
         visitBtn.y = 3;
         source.addChild(visitBtn);
         visitBtn.clickCallback = visitPerson;
-
-        if (_person == g.user) {
-            visitBtn.visible = false;
-        }
         visitBtn.visible = false;
+
+        if (_person.needHelpCount > 0) {
+            _helpIcon = new Image(g.allData.atlas['interfaceAtlas'].getTexture('exclamation_point'));
+            MCScaler.scale(_helpIcon, 20, 20);
+            _helpIcon.x = 85;
+            _helpIcon.y = 80;
+            source.addChild(_helpIcon);
+        }
     }
 
     private function visitPerson():void {
@@ -109,9 +114,9 @@ public class MarketFriendItem {
         }
     }
 
-    public function get person():Someone {
-        return _person;
-    }
+    public function get person():Someone { return _person; }
+    private function onHover():void { source.filter = ManagerFilters.BUILD_STROKE; }
+    private function onOut():void { source.filter = null; }
 
     private function onGettingUserInfo(e:SocialNetworkEvent):void {
         g.socialNetwork.removeEventListener(SocialNetworkEvent.GET_TEMP_USERS_BY_IDS, onGettingUserInfo);
@@ -122,14 +127,6 @@ public class MarketFriendItem {
         _txtName.text = _person.name;
         if (_person.photo =='' || _person.photo == 'unknown') _person.photo =  SocialNetwork.getDefaultAvatar();
         g.load.loadImage(_person.photo, onLoadPhoto);
-    }
-
-    private function onHover():void {
-        source.filter = ManagerFilters.BUILD_STROKE;
-    }
-
-    private function onOut():void {
-        source.filter = null;
     }
 
     private function onLoadPhoto(bitmap:Bitmap):void {
@@ -149,9 +146,8 @@ public class MarketFriendItem {
         _ava.x = 4;
         _ava.y = 2;
         if (source) source.addChild(_ava);
-        if (visitBtn && source.contains(visitBtn)) {
-            source.setChildIndex(visitBtn, source.numChildren-1);
-        }
+        if (visitBtn && source.contains(visitBtn)) source.setChildIndex(visitBtn, source.numChildren-1);
+        if (_helpIcon && source.contains(_helpIcon)) source.setChildIndex(_helpIcon, source.numChildren-1);
     }
 
     private function chooseThis():void {
