@@ -459,7 +459,7 @@ public class WOPartyWindow extends WindowMain {
                 _sprEvent.addChild(im);
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
                     _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('butter_ru'));
-                    _imName.x = -_imName.width / 2 + 41;
+                    _imName.x = -_imName.width / 2 + 44;
                     _imName.y = -211;
                 } else {
                     if (ManagerLanguage.ENGLISH == g.user.language) {
