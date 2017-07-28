@@ -197,11 +197,8 @@
             <filename>progress.png</filename>
             <filename>valik_timer.png</filename>
             <filename>hint_button.png</filename>
-            <filename>new_event_window_l.png</filename>
             <filename>event_window_w.png</filename>
-            <filename>new_event_window_r.png</filename>
             <filename>event_window_baloon.png</filename>
-            <filename>new_event_window_r_2.png</filename>
             <filename>tabs_bonus_on.png</filename>
             <filename>tabs_event_on.png</filename>
             <filename>tabs_top_on.png</filename>
@@ -217,11 +214,11 @@
             <filename>tabs_top_2.png</filename>
             <filename>star_event_winner_45x45.png</filename>
             <filename>event_window_standard.png</filename>
-            <filename>milk.png</filename>
-            <filename>milk_text.png</filename>
-            <filename>corn_event_icon.png</filename>
-            <filename>cornbread_rus.png</filename>
-            <filename>seven_milk_desserts.png</filename>
+            <filename>maslo.png</filename>
+            <filename>sl_maslo.png</filename>
+            <filename>punckake_icon.png</filename>
+            <filename>butter_ru.png</filename>
+            <filename>butter.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

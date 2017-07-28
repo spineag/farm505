@@ -22,9 +22,9 @@ public class PartyPanel {
         _source = new CSprite();
         var im:Image;
         if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('corn_event_icon'));
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('punckake_icon'));
         } else {
-            im = new Image(g.allData.atlas['partyAtlas'].getTexture('milk'));
+            im = new Image(g.allData.atlas['partyAtlas'].getTexture('maslo'));
         }
         _source.addChild(im);
         _txtTimer = new CTextField(100,60,'');
@@ -68,7 +68,7 @@ public class PartyPanel {
     private function onHover():void {
         if (_isHover) return;
         _isHover = true;
-        g.hint.showIt(String(g.managerLanguage.allTexts[497]),'none', _source.x);
+        g.hint.showIt(String(g.managerLanguage.allTexts[278]),'none', _source.x);
         _source.filter = ManagerFilters.BUILDING_HOVER_FILTER;
     }
 

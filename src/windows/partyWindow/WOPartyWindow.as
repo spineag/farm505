@@ -458,14 +458,21 @@ public class WOPartyWindow extends WindowMain {
                 im.y = -im.height / 2 - 115;
                 _sprEvent.addChild(im);
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-                    _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('cornbread_rus'));
+                    _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('butter_ru'));
                     _imName.x = -_imName.width / 2 + 41;
                     _imName.y = -211;
                 } else {
-                    if (ManagerLanguage.ENGLISH == g.user.language) _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('seven_milk_desserts'));
-                    else _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('milk_text'));
-                    _imName.x = -_imName.width / 2 + 45;
-                    _imName.y = -218;
+                    if (ManagerLanguage.ENGLISH == g.user.language) {
+                        _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('butter'));
+                        _imName.x = -_imName.width / 2 + 38;
+                        _imName.y = -205;
+                    }
+                    else {
+                        _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('sl_maslo'));
+                        _imName.x = -_imName.width / 2 + 41;
+                        _imName.y = -211;
+                    }
+
                 }
 
                 _sprEvent.addChild(_imName);
@@ -473,7 +480,7 @@ public class WOPartyWindow extends WindowMain {
                 _txtBabl.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
                 _sprEvent.addChild(_txtBabl);
                 _txtBabl.x = -410;
-                _txtBabl.y = -225;
+                _txtBabl.y = -230;
                 _sprEvent.addChild(_sprItem);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
                 im.x = -158;
@@ -637,6 +644,7 @@ public class WOPartyWindow extends WindowMain {
                 || g.allData.getBuildingById(g.managerParty.idDecorBest).buildType == BuildType.DECOR_POST_FENCE_ARKA)
             im = new Image(g.allData.atlas[g.allData.getBuildingById(g.managerParty.idDecorBest).url].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).image));
         else im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).url + '_icon'));
+        MCScaler.scale(im, 150,150);
         im.x = -240;
         im.y = -120;
         _sprRating.addChild(im);
