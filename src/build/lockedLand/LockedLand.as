@@ -40,6 +40,7 @@ public class LockedLand extends WorldObject {
     private var _bottomRibbon:Sprite;
     private var _armatureOpen:Armature;
     private var _contOpen:Sprite;
+
     public function LockedLand(_data:Object) {
         super(_data);
         if (!_data) {
@@ -52,7 +53,7 @@ public class LockedLand extends WorldObject {
         _arrChest = [];
         _arrDecorAnimation = [];
         _dataLand = g.allData.lockedLandData[_data.dbId];
-        if (!_dataLand && !g.isAway) {
+        if (!_dataLand) {
             Cc.error('no dataLand for LockedLand _data.dbId: ' + _data.dbId);
             if (g.windowsManager) g.windowsManager.openWindow(WindowsManager.WO_GAME_ERROR, null, 'no dataLand');
             return;
@@ -352,7 +353,6 @@ public class LockedLand extends WorldObject {
         } else {
             count++;
         }
-
         return count != 4;
     }
 
