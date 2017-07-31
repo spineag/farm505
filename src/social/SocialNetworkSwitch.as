@@ -49,7 +49,7 @@ public class SocialNetworkSwitch {
                 break;
             case SN_FB_ID:
                 if (isDebug) {
-                    flashVars["uid"] = " 1402089059863470";
+                    flashVars["uid"] = "1302214063192215";
 //                    flashVars["uid"] = "444635519203361"; // ivan
                     g.socialNetwork = new SN_Blank_FB(flashVars);
                 } else {

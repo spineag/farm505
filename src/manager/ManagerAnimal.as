@@ -122,7 +122,6 @@ public class ManagerAnimal {
         g.townArea.zSort();
         if (cat.curActiveFarm.dataAnimal.id == 6) cat.workWithPlant(onFinishWork);
         else cat.workWithFarm(onFinishWork);
-
     }
 
     public function freeFarmCat(farmDbId:int):void {

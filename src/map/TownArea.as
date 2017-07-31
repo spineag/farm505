@@ -1692,12 +1692,12 @@ public class TownArea extends Sprite {
             g.managerCats.onGoAway(true);
             g.managerOrderCats.onGoAwayToUser(true);
         }
-        if (person.userDataCity.objects) {
-            setAwayCity(person, !g.isAway);
-        } else {
-            g.directServer.getAllCityData(person, setAwayCity, !g.isAway);
-        }
         g.isAway = true;
+        if (person.userDataCity.objects) {
+            setAwayCity(person);
+        } else {
+            g.directServer.getAllCityData(person, setAwayCity);
+        }
         g.bottomPanel.doorBoolean(true,person);
         _townAwayMatrix = [];
         setDefaultAwayMatrix();
@@ -1764,31 +1764,8 @@ public class TownArea extends Sprite {
         }
     }
 
-    private function setAwayCity(p:Someone, isGoFromUser:Boolean):void {
+    private function setAwayCity(p:Someone):void {
         var i:int;
-
-//        if (isGoFromUser) {
-//            g.managerLohmatic.onGoAway();
-//            removeTownAreaSortCheking();
-//            for (i = 0; i < _cityObjects.length; i++) {
-//                _cont.removeChild(_cityObjects[i].source);
-//                if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(false);
-//                if (_cityObjects[i] is Farm) (_cityObjects[i] as Farm).addAnimForCraftItem(false);
-//                if (_cityObjects[i] is Cave) (_cityObjects[i] as Cave).addAnimForCraftItem(false);
-//            }
-//            for (i = 0; i < _cityTailObjects.length; i++) {
-//                _contTail.removeChild(_cityTailObjects[i].source);
-//            }
-//            g.managerCats.onGoAway(true);
-//            g.managerOrderCats.onGoAwayToUser(true);
-//        } else {
-//            g.managerMouseHero.removeMouse();
-//            while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
-//            removeAwayTownAreaSortCheking();
-//            g.managerOrderCats.removeAwayCats();
-//            clearAwayCity();
-//        }
-
         _townAwayMatrix = [];
         setDefaultAwayMatrix();
         addAwayTownAreaSortCheking();
@@ -1796,7 +1773,6 @@ public class TownArea extends Sprite {
         point.x = 24;
         point.y = 26;
         g.cont.moveCenterToPos(point.x, point.y, true, 2);
-
 
         for (i=0; i<p.userDataCity.objects.length; i++) {
             createAwayNewBuild(Utils.objectFromStructureBuildToObject(g.allData.getBuildingById(p.userDataCity.objects[i].buildId)), p.userDataCity.objects[i].posX, p.userDataCity.objects[i].posY, int(p.userDataCity.objects[i].dbId), p.userDataCity.objects[i].isFlip);
@@ -1898,7 +1874,7 @@ public class TownArea extends Sprite {
                 build = new Train(_data);
                 break;
             case BuildType.LOCKED_LAND:
-                    _data.dbId = dbId;
+                _data.dbId = dbId;
                 build = new LockedLand(_data);
                 break;
             case BuildType.DECOR_TAIL:
@@ -1983,7 +1959,6 @@ public class TownArea extends Sprite {
             if (_townAwayMatrix[worldObject.posY][worldObject.posX].build && _townAwayMatrix[worldObject.posY][worldObject.posX].build is LockedLand) {
                 (_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand).addWild(null, null, worldObject as ChestYellow, null, point.x, point.y);
                 (worldObject as ChestYellow).setLockedLand(_townAwayMatrix[worldObject.posY][worldObject.posX].build as LockedLand);
-
                 return;
             } else  {
                 _cont.addChild(worldObject.source);
@@ -1993,15 +1968,15 @@ public class TownArea extends Sprite {
                 return;
             }
         }
-            if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
-                    worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus|| worldObject is LockedLand || worldObject is Wild ||
-                    worldObject is DecorFenceArka || worldObject is DecorFenceGate || worldObject is Achievement) {
-            } else {
-                if (!checkAwayFreeGrids(posX, posY, worldObject.sizeX, worldObject.sizeY)) {
-                    Cc.error('TownArea pasteAwayBuild checkFreeGrids::' + posX + ', ' + posY + ' not empty ' + worldObject.dataBuild.name + ' ' + worldObject.dataBuild.id);
-                    return;
-                }
+        if (worldObject is Ambar || worldObject is Sklad || worldObject is Order || worldObject is Market ||
+                worldObject is Cave || worldObject is Paper || worldObject is Train || worldObject is DailyBonus|| worldObject is LockedLand || worldObject is Wild ||
+                worldObject is DecorFenceArka || worldObject is DecorFenceGate || worldObject is Achievement) {
+        } else {
+            if (!checkAwayFreeGrids(posX, posY, worldObject.sizeX, worldObject.sizeY)) {
+                Cc.error('TownArea pasteAwayBuild checkFreeGrids::' + posX + ', ' + posY + ' not empty ' + worldObject.dataBuild.name + ' ' + worldObject.dataBuild.id);
+                return;
             }
+        }
         var point:Point;
         if (worldObject is Wild) {
             point = g.matrixGrid.getXYFromIndex(new Point(posX, posY));
@@ -2365,6 +2340,7 @@ public class TownArea extends Sprite {
         while (g.cont.craftAwayCont.numChildren) g.cont.craftAwayCont.removeChildAt(0);
         g.cont.craftAwayCont.visible = false;
         removeAwayTownAreaSortCheking();
+        _needTownAreaSort = false;
         _awayPreloader = new AwayPreloader();
         _awayPreloader.showIt(true);
         g.managerOrderCats.removeAwayCats();
@@ -2377,6 +2353,8 @@ public class TownArea extends Sprite {
             if (_cityObjects[i].source) _cont.addChild(_cityObjects[i].source);
             else {
                 Cc.error('backHome:: no _source or deleted for smth from class: ' + flash.utils.getQualifiedClassName(_cityObjects[i]));
+                _cityObjects.removeAt(i);
+                i--;
                 continue;
             }
             if (_cityObjects[i] is Fabrica) (_cityObjects[i] as Fabrica).addAnimForCraftItem(true);
@@ -2423,7 +2401,7 @@ public class TownArea extends Sprite {
 
     private function clearAwayCity():void {
         for (var i:int = 0; i < _cityAwayObjects.length; i++) {
-            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue; // wtf??
+            if (_cityAwayObjects[i] is BasicCat || _cityAwayObjects[i] is OrderCat) continue;
             _cont.removeChild(_cityAwayObjects[i].source);
             _cityAwayObjects[i].clearIt();
         }
@@ -2432,6 +2410,7 @@ public class TownArea extends Sprite {
             _cityAwayTailObjects[i].clearIt();
         }
         g.managerCats.removeAwayCats();
+        while (_cont.numChildren) _cont.removeChildAt(0);
         _cityAwayObjects = [];
         _cityAwayTailObjects = [];
         _townAwayMatrix = [];
