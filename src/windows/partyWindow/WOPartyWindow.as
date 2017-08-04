@@ -458,19 +458,19 @@ public class WOPartyWindow extends WindowMain {
                 im.y = -im.height / 2 - 115;
                 _sprEvent.addChild(im);
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-                    _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('butter_ru'));
-                    _imName.x = -_imName.width / 2 + 44;
+                    _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('cream_rus'));
+                    _imName.x = -_imName.width / 2 + 41;
                     _imName.y = -211;
                 } else {
                     if (ManagerLanguage.ENGLISH == g.user.language) {
-                        _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('butter'));
-                        _imName.x = -_imName.width / 2 + 38;
+                        _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('pancake_breakfast'));
+                        _imName.x = -_imName.width / 2 + 32;
                         _imName.y = -205;
                     }
                     else {
-                        _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('sl_maslo'));
-                        _imName.x = -_imName.width / 2 + 41;
-                        _imName.y = -211;
+                        _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('butter_ru'));
+                        _imName.x = -_imName.width / 2 + 30;
+                        _imName.y = -214;
                     }
 
                 }
