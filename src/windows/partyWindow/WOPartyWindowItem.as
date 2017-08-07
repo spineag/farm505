@@ -292,6 +292,10 @@ public class WOPartyWindowItem {
             prise.count = _data.countResource;
             prise.id =  _data.idResource;
             prise.type = DropResourceVariaty.DROP_TYPE_DECOR;
+        } else if (_data.typeResource == BuildType.DECOR_TAIL) {
+            prise.count = _data.countResource;
+            prise.id =  _data.idResource;
+            prise.type = DropResourceVariaty.DROP_TYPE_DECOR_TAIL;
         } else {
             if (_data.idResource == 1 && _data.typeResource == 1) {
                 prise.id = DataMoney.SOFT_CURRENCY;
@@ -308,7 +312,7 @@ public class WOPartyWindowItem {
             }
             prise.count = _data.countResource;
         }
-        if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR || prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION)
+        if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR || prise.type == DropResourceVariaty.DROP_TYPE_DECOR_ANIMATION || prise.type == DropResourceVariaty.DROP_TYPE_DECOR_TAIL)
             new DropDecor(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, g.allData.getBuildingById(prise.id), 100, 100, prise.count);
         else new DropItem(g.managerResize.stageWidth/2, g.managerResize.stageHeight/2, prise);
     }

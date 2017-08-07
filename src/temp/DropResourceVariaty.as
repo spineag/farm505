@@ -9,6 +9,7 @@ public class DropResourceVariaty {
     public static const DROP_TYPE_RESOURSE:String = 'resource';
     public static const DROP_TYPE_MONEY:String = 'money';
     public static const DROP_TYPE_DECOR:String = 'decor';
+    public static const DROP_TYPE_DECOR_TAIL:String = 'decor_tail';
     public static const DROP_TYPE_DECOR_ANIMATION:String = 'decorAnimation';
 
     public var resources:Array;

@@ -86,6 +86,10 @@ public class ManagerPartyNew {
                     obj.count = countGift[i];
                     obj.id =  g.managerParty.idGift[i];
                     obj.type = DropResourceVariaty.DROP_TYPE_DECOR;
+                } else if (typeGift[i] == BuildType.DECOR_TAIL) {
+                    obj.count = countGift[i];
+                    obj.id =  g.managerParty.idGift[i];
+                    obj.type = DropResourceVariaty.DROP_TYPE_DECOR_TAIL;
                 } else {
                     if (idGift[i] == 1 && typeGift[i] == 1) {
                         obj.id = DataMoney.SOFT_CURRENCY;
