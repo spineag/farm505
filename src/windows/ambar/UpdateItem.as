@@ -142,8 +142,8 @@ public class UpdateItem {
     private function onBuy():void {
         if (g.user.hardCurrency >= _countForBuy * g.allData.getResourceById(_resourceId).priceHard) {
             g.userInventory.addMoney(DataMoney.HARD_CURRENCY, -_countForBuy * g.allData.getResourceById(_resourceId).priceHard);
-            var p:Point = new Point(source.x, source.y);
-            p = source.parent.localToGlobal(p);
+//            var p:Point = new Point(source.x, source.y);
+//            p = source.parent.localToGlobal(p);
             var prise:Object = {};
             prise.id = _resourceId;
             prise.type = DropResourceVariaty.DROP_TYPE_RESOURSE;

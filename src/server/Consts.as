@@ -160,5 +160,10 @@ public class Consts {
     public static var INQ_SHOW_ANNOUNCEMENT:String = 'onShowAnnouncement.php';
     public static var INQ_FB_FAKE_GET_PROFILE:String = 'fake_social_network/FB_getProfile.php';
     public static var INQ_FB_FAKE_APP_USERS:String = 'fake_social_network/FB_getAppUsers.php';
+    public static var INQ_ASK_GIFTS_FROM_FRIENDS:String = 'askGiftsFromFriends.php';
+    public static var INQ_SENT_GIFTS_FROM_USER_DIRECTLY:String = 'sentGiftsFromUserDirectly.php';
+    public static var INQ_GET_USER_DATA_GIFTS:String = 'getUserDataGifts.php';
+    public static var INQ_ACCEPT_GIFT_FROM_FRIENDS:String = 'acceptGiftFromFriendsByDbId.php';
+    public static var INQ_SENT_GIFT_TO_FRIEND:String = 'sentGiftToFriendsByDbId.php';
 }
 }

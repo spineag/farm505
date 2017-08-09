@@ -123,6 +123,11 @@ public class CButton extends Sprite {
             }
         }
     }
+    
+    public function scaleIt(s:Number):void {
+        _scale = s;
+        this.scale = s;
+    }
 
     public function set startClickCallback(f:Function):void {
         _startClickCallback = f;
@@ -203,7 +208,7 @@ public class CButton extends Sprite {
 
     private function onOutAnimation():void {
         _isHover = false;
-        this.scaleX = this.scaleY = _scale;
+        this.scale = _scale;
         if (_bg.filter) _bg.filter.dispose();
         _bg.filter = null;
         if (_hoverImage) _hoverImage.visible = true;

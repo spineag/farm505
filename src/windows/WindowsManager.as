@@ -7,11 +7,15 @@ import manager.Vars;
 
 import mouse.ToolsModifier;
 
+import windows.acceptSentGift.WOAcceptSentGift;
+
 import windows.achievementWindow.WOAchievement;
 import windows.ambar.WOAmbars;
 import windows.ambarFilled.WOAmbarFilled;
 import windows.announcement.WOAnnouncement;
 import windows.anotherGameError.WOAnotherGame;
+import windows.askGift.WOAskGift;
+import windows.askGift.WOChooseGiftFriend;
 import windows.buyCoupone.WOBuyCoupone;
 import windows.buyCurrency.WOBuyCurrency;
 import windows.buyForHardCurrency.WOBuyForHardCurrency;
@@ -123,6 +127,9 @@ public class WindowsManager {
     public static const WO_ACHIEVEMENT:String = 'achievement';
     public static const WO_MISS_YOU:String = 'miss_you';
     public static const WO_ANNOUNCEMENT:String = 'announcement';
+    public static const WO_ASK_GIFT:String = 'askGift';
+    public static const WO_ACCEPT_SENT_GIFT:String = 'acceptSentGift';
+    public static const WO_CHOOSE_GIFT_FRIEND:String = 'chooseGiftFriend';
 
     private var _currentWindow:WindowMain;
     private var _cashWindow:WindowMain;
@@ -329,13 +336,23 @@ public class WindowsManager {
             case WO_ANNOUNCEMENT:
                 wo = new WOAnnouncement();
                 break;
+            case WO_ASK_GIFT:
+                wo = new WOAskGift();
+                break;
+            case WO_ACCEPT_SENT_GIFT:
+                wo = new WOAcceptSentGift();
+                break;
+            case WO_CHOOSE_GIFT_FRIEND:
+                wo = new WOChooseGiftFriend();
             default:
                 Cc.error('WindowsManager:: unknown window type: ' + type);
                 break;
         }
         Cc.info('try open wo: ' + type);
-        wo.showItParams(callback, params);
-        _currentWindow = wo;
+        if (wo) {
+            wo.showItParams(callback, params);
+            _currentWindow = wo;
+        } else Cc.error('no wo: ' + type);
         if (g.managerHelpers) g.managerHelpers.stopIt();
     }
 
