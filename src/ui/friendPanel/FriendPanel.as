@@ -39,6 +39,7 @@ import utils.CTextField;
 import utils.MCScaler;
 
 import windows.WOComponents.HorizontalPlawka;
+import windows.WindowsManager;
 
 public class FriendPanel {
     private const TYPE_NORMAL:int = 1;
@@ -62,6 +63,7 @@ public class FriendPanel {
     private var _activeTabType:int;
     private var _helpIcon:Image;
     private var _arrNeighborFriends:Array;
+    private var _askGiftBtn:CSprite;
 
     private var g:Vars = Vars.getInstance();
     public function FriendPanel() {
@@ -124,21 +126,33 @@ public class FriendPanel {
         _source.addChildAt(_tab2, 0);
         _tab2.endClickCallback = onTab2Click;
         _helpIcon.visible = false;
-//        if (g.user.isTester) {
-            _tab3 = new CSprite();
-            im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
-            im.x = 20;
-            im.y = -23;
-            _tab3.addChild(im);
-            txt = new CTextField(106, 27, String(g.managerLanguage.allTexts[1030]));
-            txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
-            txt.x = 30;
-            txt.y = -23;
-            _tab3.addChild(txt);
-            _tab3.x = 240;
-            _source.addChildAt(_tab3, 0);
-            _tab3.endClickCallback = onTab3Click;
-//        }
+        _tab3 = new CSprite();
+        im = new Image(g.allData.atlas['interfaceAtlas'].getTexture('friends_panel_tab'));
+        im.x = 20;
+        im.y = -23;
+        _tab3.addChild(im);
+        txt = new CTextField(106, 27, String(g.managerLanguage.allTexts[1030]));
+        txt.setFormat(CTextField.BOLD18, 14, ManagerFilters.BROWN_COLOR);
+        txt.x = 30;
+        txt.y = -23;
+        _tab3.addChild(txt);
+        _tab3.x = 240;
+        _source.addChildAt(_tab3, 0);
+        _tab3.endClickCallback = onTab3Click;
+    }
+
+    public function showAskGiftButton():void {
+        if (_askGiftBtn) return;
+        _askGiftBtn = new CSprite();
+        var im:Image = new Image(g.allData.atlas['interfaceAtlas'].getTexture('main_quest_icon'));
+        MCScaler.scale(im, 30 , 30);
+        im.y = -im.height;
+        _askGiftBtn.addChild(im);
+        _askGiftBtn.endClickCallback = function ():void {
+            g.windowsManager.openWindow(WindowsManager.WO_ASK_GIFT);
+        };
+        _askGiftBtn.x = 400;
+        _source.addChild(_askGiftBtn);
     }
 
     private function onTab1Click():void {

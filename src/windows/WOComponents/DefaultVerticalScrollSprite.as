@@ -3,6 +3,8 @@
  */
 package windows.WOComponents {
 
+import com.greensock.TweenMax;
+
 import flash.geom.Rectangle;
 import starling.display.BlendMode;
 import starling.display.Quad;
@@ -17,7 +19,7 @@ public class DefaultVerticalScrollSprite {
     private var _cellW:int;
     private var _cellH:int;
     private var _scroll:OwnScroll;
-    private var _arrCell:Array;
+    private var _arrSprites:Array;
     private var _nextCellX:int;
     private var _nextCellY:int;
     private var _percent:int;
@@ -29,7 +31,7 @@ public class DefaultVerticalScrollSprite {
         _height = h;
         _cellH = cellH;
         _cellW = cellW;
-        _arrCell = [];
+        _arrSprites = [];
         _source = new Sprite();
         _scrolledSprite = new Sprite();
         _source.addChild(_scrolledSprite);
@@ -53,12 +55,12 @@ public class DefaultVerticalScrollSprite {
         _percent = -int(( _scrolledSprite.height - _height)*percent);
     }
 
-    public function addNewCell(_cellSource:Sprite):void {
+    public function addNewCell(cellSource:Sprite):void {
         _scrolledSprite.y = -_percent;
-        _cellSource.x = _nextCellX;
-        _cellSource.y = _nextCellY + _percent;
+        cellSource.x = _nextCellX;
+        cellSource.y = _nextCellY + _percent;
 
-        _scrolledSprite.addChild(_cellSource);
+        _scrolledSprite.addChild(cellSource);
         if (_nextCellX + _cellW > _width - 10) {
             _nextCellX = 0;
             _nextCellY += _cellH;
@@ -66,7 +68,17 @@ public class DefaultVerticalScrollSprite {
             _nextCellX += _cellW;
         }
         _scroll.source.visible = _scrolledSprite.height > _height + _cellH/2;
-
+        _arrSprites.push(cellSource);
+    }
+    
+    public function removeCell_OneColumn(cellSource:Sprite):void {  //use it only if we have single column else will be hooinia
+        var index:int = _arrSprites.indexOf(cellSource);
+        if (index == -1) return;
+        _arrSprites.removeAt(index);
+        _scrolledSprite.removeChild(cellSource);
+        for (var i:int=index; i<_arrSprites.length; i++) {
+            TweenMax.to(_arrSprites[i], .2, {y: _arrSprites[i].y - _cellH});
+        }
     }
 
     public function resetAll():void {
@@ -78,18 +90,14 @@ public class DefaultVerticalScrollSprite {
         _scrolledSprite.y = 0;
         _scroll.resetPosition();
         _scroll.source.visible = false;
+        _arrSprites.length = 0;
     }
 
-    public function get source():Sprite {
-        return _source;
-    }
-
-    public function get scrolleSource():Sprite {
-        return _scrolledSprite;
-    }
+    public function get source():Sprite { return _source; }
+    public function get scrolleSource():Sprite { return _scrolledSprite; }
 
     public function deleteIt():void {
-        _arrCell = [];
+        _arrSprites = [];
         _source.removeChild(_scroll.source);
         _scroll.deleteIt();
         _scrolledSprite.dispose();

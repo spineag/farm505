@@ -79,14 +79,14 @@ public class DropItem {
         } else if (prise.type == DropResourceVariaty.DROP_TYPE_DECOR_TAIL) { // better use DropDecor
             _image = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(prise.id).image +'_icon'));
             endPoint = g.toolsPanel.pointXY();
-            var f4:Function = function (dbId:int):void {
+            var f3a:Function = function (dbId:int):void {
                 g.userInventory.addToDecorInventory(prise.id, dbId);
             };
-            var f5:Function = function ():void {
-                g.directServer.buyAndAddToInventory(prise.id, f4);
+            var f2a:Function = function ():void {
+                g.directServer.buyAndAddToInventory(prise.id, f3a);
             };
             for (i = 0; i < prise.count; i++) {
-                f5();
+                f2a();
             }
         } else if (prise.type == DropResourceVariaty.DROP_TYPE_RESOURSE) {
             _image = new Image(g.allData.atlas[g.allData.getResourceById(prise.id).url].getTexture(g.allData.getResourceById(prise.id).imageShop));

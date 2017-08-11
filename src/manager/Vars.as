@@ -212,6 +212,7 @@ public class Vars {
     public var managerResize:ManagerResize;
     public var managerAchievement:ManagerAchievement;
     public var managerAnnouncement:ManagerAnnouncement;
+    public var managerAskGift:ManagerAskGift;
 
     public var useQuests:Boolean = true;
 
@@ -475,6 +476,7 @@ public class Vars {
             managerButterfly.createBFlyes();
             managerButterfly.startButterflyFly();
             managerLohmatic = new ManagerLohmatik();
+            managerAskGift = new ManagerAskGift();
             if ((user as User).level >= 5 && !managerCutScenes.isCutScene) managerBuyerNyashuk = new ManagerBuyerNyashuk();
 //            if ((user as User).level >= 7 && socialNetworkID == SocialNetworkSwitch.SN_FB_ID) managerBuyerNyashuk = new ManagerBuyerNyashuk();
 

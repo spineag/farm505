@@ -215,6 +215,16 @@ public class User extends Someone {
         }
     }
 
+    public function getFriendById(id:int):Someone {
+        if (id == userId) return this;
+        for (var i:int=0; i<arrFriends.length; i++) {
+            if (arrFriends[i].userId == id) {
+                return arrFriends[i];
+            }
+        }
+        return null;
+    }
+
     public function getSomeoneBySocialId(socId:String):Someone {
         var p:Someone;
         var i:int;

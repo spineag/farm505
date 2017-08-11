@@ -17,6 +17,8 @@ public class Someone {
     public var needHelpCount:int;
     public var isOpenOrder:Boolean = true;
     public var lastVisitDate:int;
+    public var canAskFromFriend:Boolean = true;
+    public var canSendToFriend:Boolean = true;
 
     public function Someone() {
         needHelpCount = 0;

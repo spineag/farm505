@@ -8607,6 +8607,160 @@ public class DirectServer {
         }
     }
 
+    public function askGiftsFromFriends(ar:Array, resId:int):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ASK_GIFTS_FROM_FRIENDS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'askGiftsFromFriends', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.users = ar.join(',');
+        variables.resId = resId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteAskGiftsFromFriends);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteAskGiftsFromFriends(e:Event):void { completeAskGiftsFromFriends(e.target.data); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('askGiftsFromFriends error:' + error.errorID);
+        }
+    }
+
+    private function completeAskGiftsFromFriends(response:String):void {
+        iconMouse.endConnect();
+    }
+
+    public function sentGiftsFromUserDirectly(ar:Array, resId:int):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SENT_GIFTS_FROM_USER_DIRECTLY);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'sentGiftsFromUserDirectly', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.users = ar.join(',');
+        variables.resId = resId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteSentGiftsFromUserDirectly);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteSentGiftsFromUserDirectly(e:Event):void { completeSentGiftsFromUserDirectly(e.target.data); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('sentGiftsFromUserDirectly error:' + error.errorID);
+        }
+    }
+
+    private function completeSentGiftsFromUserDirectly(response:String):void {
+        iconMouse.endConnect();
+    }
+
+    public function getUserDataGifts(callback:Function = null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_GET_USER_DATA_GIFTS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'getUserDataGifts', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteGetUserDataGifts);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteGetUserDataGifts(e:Event):void { completeGetUserDataGifts(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('getUserDataGifts error:' + error.errorID);
+        }
+    }
+
+    private function completeGetUserDataGifts(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+        var d:Object;
+        try {
+            d = JSON.parse(response);
+        } catch (e:Error) {
+            Cc.error('getUserDataGifts: wrong JSON:' + String(response));
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, 'getUserDataGifts: wrong JSON:' + String(response));
+            return;
+        }
+
+        if (d.id == 0) {
+            Cc.ch('server', 'getUserDataGifts OK', 5);
+            if (callback != null) {
+                callback.apply(null, [d]);
+            }
+        } else if (d.id == 13) {
+            g.windowsManager.openWindow(WindowsManager.WO_ANOTHER_GAME_ERROR);
+        } else if (d.id == 6) {
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_CRACK, null, d.status);
+        } else {
+            Cc.error('getUserDataGifts: id: ' + d.id + '  with message: ' + d.message + ' '+ d.status);
+            g.windowsManager.openWindow(WindowsManager.WO_SERVER_ERROR, null, d.status);
+        }
+    }
+
+    public function acceptGiftFromFriendsByDbId(ar:Array, callback:Function = null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_ACCEPT_GIFT_FROM_FRIENDS);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'acceptGiftFromFriendsByDbId', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.arDbIds = ar.join(',');
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteAcceptGiftFromFriendsByDbId);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteAcceptGiftFromFriendsByDbId(e:Event):void { completeAcceptGiftFromFriendsByDbId(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('acceptGiftFromFriendsByDbId error:' + error.errorID);
+        }
+    }
+
+    private function completeAcceptGiftFromFriendsByDbId(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+    }
+
+    public function sentGiftToFriendsByDbId(arIds:Array, arUserIds:Array, callback:Function = null):void {
+        var loader:URLLoader = new URLLoader();
+        var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_SENT_GIFT_TO_FRIEND);
+        var variables:URLVariables = new URLVariables();
+
+        Cc.ch('server', 'sentGiftToFriendsByDbId', 1);
+        variables = addDefault(variables);
+        variables.userId = g.user.userId;
+        variables.arDbIds = arIds.join(',');
+        variables.arUserIds = arUserIds.join(',');
+        request.data = variables;
+        request.method = URLRequestMethod.POST;
+        iconMouse.startConnect();
+        loader.addEventListener(Event.COMPLETE, onСompleteSentGiftToFriendsByDbId);
+        loader.addEventListener(IOErrorEvent.IO_ERROR,internetNotWork);
+        function onСompleteSentGiftToFriendsByDbId(e:Event):void { completeSentGiftToFriendsByDbId(e.target.data, callback); }
+        try {
+            loader.load(request);
+        } catch (error:Error) {
+            Cc.error('sentGiftToFriendsByDbId error:' + error.errorID);
+        }
+    }
+
+    private function completeSentGiftToFriendsByDbId(response:String, callback:Function = null):void {
+        iconMouse.endConnect();
+    }
+
     public function updateUserMiss(userMissId:String = '', count_send:int = 0, send:Boolean = false, callback:Function = null):void {
     var loader:URLLoader = new URLLoader();
     var request:URLRequest = new URLRequest(g.dataPath.getMainPath() + g.dataPath.getVersion() + Consts.INQ_UPDATE_USER_MISS);
