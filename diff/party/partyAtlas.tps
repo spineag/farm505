@@ -214,11 +214,11 @@
             <filename>tabs_top_2.png</filename>
             <filename>star_event_winner_45x45.png</filename>
             <filename>event_window_standard.png</filename>
-            <filename>punckake_icon.png</filename>
-            <filename>butter_ru.png</filename>
             <filename>cream_icon.png</filename>
             <filename>cream_rus.png</filename>
-            <filename>pancake_breakfast.png</filename>
+            <filename>cookie_event_text_rus.png</filename>
+            <filename>cookie_event.png</filename>
+            <filename>mascarpone_cheese.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

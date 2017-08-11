@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:6546df99e454aa230b8f7344edd285c1:7ed7c2edde2264633d80c3db5d6512db:ac880a930f9f4f68bee3173fda432350$ -->
-<TextureAtlas imagePath="partyAtlas.png" width="2028" height="692">
-    <SubTexture name="best_players_1" x="1656" y="514" width="273" height="57" frameX="-3" frameY="-11" frameWidth="280" frameHeight="75"/>
-    <SubTexture name="best_players_2" x="1656" y="573" width="268" height="65" frameX="-5" frameY="-3" frameWidth="280" frameHeight="75"/>
-    <SubTexture name="best_players_3" x="1329" y="1" width="640" height="453" frameX="0" frameY="0" frameWidth="640" frameHeight="458"/>
-    <SubTexture name="butter_ru" x="1" y="542" width="389" height="71" frameX="-4" frameY="-6" frameWidth="394" frameHeight="85"/>
-    <SubTexture name="congratulations" x="1297" y="456" width="338" height="69" frameX="-4" frameY="-3" frameWidth="348" frameHeight="78"/>
-    <SubTexture name="cream_icon" x="886" y="591" width="100" height="100"/>
-    <SubTexture name="cream_rus" x="664" y="441" width="360" height="67"/>
-    <SubTexture name="end_event_title" x="1637" y="456" width="308" height="56"/>
-    <SubTexture name="event_window_baloon" x="1026" y="441" width="269" height="219" frameX="-2" frameY="-9" frameWidth="281" frameHeight="237"/>
+<!-- $TexturePacker:SmartUpdate:1b1e3b7151448c139ef46dbe2adac6e0:45b5b31ce0f1d3721088a5b8994ba7b2:ac880a930f9f4f68bee3173fda432350$ -->
+<TextureAtlas imagePath="partyAtlas.png" width="1393" height="1010">
+    <SubTexture name="best_players_1" x="410" y="945" width="273" height="57" frameX="-3" frameY="-11" frameWidth="280" frameHeight="75"/>
+    <SubTexture name="best_players_2" x="995" y="933" width="268" height="65" frameX="-5" frameY="-3" frameWidth="280" frameHeight="75"/>
+    <SubTexture name="best_players_3" x="1" y="490" width="640" height="453" frameX="0" frameY="0" frameWidth="640" frameHeight="458"/>
+    <SubTexture name="congratulations" x="725" y="862" width="338" height="69" frameX="-4" frameY="-3" frameWidth="348" frameHeight="78"/>
+    <SubTexture name="cookie_event" x="914" y="489" width="100" height="100"/>
+    <SubTexture name="cookie_event_text_rus" x="914" y="643" width="411" height="66"/>
+    <SubTexture name="cream_icon" x="1065" y="829" width="100" height="100"/>
+    <SubTexture name="cream_rus" x="1023" y="441" width="360" height="67"/>
+    <SubTexture name="end_event_title" x="685" y="945" width="308" height="56"/>
+    <SubTexture name="event_window_baloon" x="643" y="490" width="269" height="219" frameX="-2" frameY="-9" frameWidth="281" frameHeight="237"/>
     <SubTexture name="event_window_standard" x="664" y="1" width="663" height="438" frameX="-2" frameY="0" frameWidth="669" frameHeight="438"/>
-    <SubTexture name="event_window_w" x="1947" y="456" width="80" height="81"/>
-    <SubTexture name="hint_button" x="459" y="490" width="47" height="47"/>
-    <SubTexture name="pancake_breakfast" x="1" y="615" width="389" height="65"/>
-    <SubTexture name="place_1" x="639" y="510" width="119" height="119"/>
-    <SubTexture name="place_2" x="392" y="542" width="119" height="149"/>
-    <SubTexture name="progress" x="1" y="490" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
-    <SubTexture name="punckake_icon" x="760" y="604" width="100" height="85" frameX="0" frameY="-15" frameWidth="100" frameHeight="100"/>
-    <SubTexture name="star_event_winner_45x45" x="513" y="621" width="45" height="45"/>
-    <SubTexture name="tabs_bonus_on" x="1926" y="573" width="99" height="79" frameX="-8" frameY="0" frameWidth="115" frameHeight="79"/>
-    <SubTexture name="tabs_bt_1" x="760" y="510" width="124" height="92" frameX="0" frameY="0" frameWidth="126" frameHeight="92"/>
-    <SubTexture name="tabs_bt_2" x="1971" y="1" width="39" height="92"/>
+    <SubTexture name="event_window_w" x="643" y="862" width="80" height="81"/>
+    <SubTexture name="hint_button" x="1329" y="1" width="47" height="47"/>
+    <SubTexture name="mascarpone_cheese" x="1" y="945" width="407" height="64"/>
+    <SubTexture name="place_1" x="764" y="711" width="119" height="119"/>
+    <SubTexture name="place_2" x="643" y="711" width="119" height="149"/>
+    <SubTexture name="progress" x="914" y="591" width="456" height="50" frameX="-3" frameY="-3" frameWidth="462" frameHeight="57"/>
+    <SubTexture name="star_event_winner_45x45" x="1329" y="50" width="45" height="45"/>
+    <SubTexture name="tabs_bonus_on" x="1133" y="510" width="99" height="79" frameX="-8" frameY="0" frameWidth="115" frameHeight="79"/>
+    <SubTexture name="tabs_bt_1" x="1265" y="842" width="124" height="92" frameX="0" frameY="0" frameWidth="126" frameHeight="92"/>
+    <SubTexture name="tabs_bt_2" x="1329" y="97" width="39" height="92"/>
     <SubTexture name="tabs_congratulations" x="1" y="1" width="661" height="487"/>
-    <SubTexture name="tabs_event_on" x="1557" y="575" width="88" height="74" frameX="-14" frameY="-3" frameWidth="115" frameHeight="79"/>
-    <SubTexture name="tabs_top_1" x="1297" y="575" width="258" height="116" frameX="-3" frameY="-5" frameWidth="268" frameHeight="126"/>
-    <SubTexture name="tabs_top_2" x="1297" y="527" width="357" height="46" frameX="0" frameY="-11" frameWidth="357" frameHeight="57"/>
-    <SubTexture name="tabs_top_on" x="886" y="510" width="115" height="79"/>
-    <SubTexture name="valik_timer" x="513" y="490" width="124" height="129" frameX="-9" frameY="-9" frameWidth="145" frameHeight="145"/>
+    <SubTexture name="tabs_event_on" x="1234" y="510" width="88" height="74" frameX="-14" frameY="-3" frameWidth="115" frameHeight="79"/>
+    <SubTexture name="tabs_top_1" x="885" y="711" width="258" height="116" frameX="-3" frameY="-5" frameWidth="268" frameHeight="126"/>
+    <SubTexture name="tabs_top_2" x="664" y="441" width="357" height="46" frameX="0" frameY="-11" frameWidth="357" frameHeight="57"/>
+    <SubTexture name="tabs_top_on" x="1016" y="510" width="115" height="79"/>
+    <SubTexture name="valik_timer" x="1265" y="711" width="124" height="129" frameX="-9" frameY="-9" frameWidth="145" frameHeight="145"/>
 </TextureAtlas>

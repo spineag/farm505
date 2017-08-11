@@ -458,17 +458,17 @@ public class WOPartyWindow extends WindowMain {
                 im.y = -im.height / 2 - 115;
                 _sprEvent.addChild(im);
                 if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
-                    _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('cream_rus'));
+                    _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('cookie_event_text_rus'));
                     _imName.x = -_imName.width / 2 + 41;
                     _imName.y = -211;
                 } else {
                     if (ManagerLanguage.ENGLISH == g.user.language) {
-                        _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('pancake_breakfast'));
+                        _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('mascarpone_cheese'));
                         _imName.x = -_imName.width / 2 + 32;
                         _imName.y = -205;
                     }
                     else {
-                        _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('butter_ru'));
+                        _imName = new Image(g.allData.atlas['partyAtlas'].getTexture('cream_rus'));
                         _imName.x = -_imName.width / 2 + 30;
                         _imName.y = -214;
                     }
@@ -480,7 +480,7 @@ public class WOPartyWindow extends WindowMain {
                 _txtBabl.setFormat(CTextField.BOLD18, 16, Color.WHITE, ManagerFilters.BLUE_COLOR);
                 _sprEvent.addChild(_txtBabl);
                 _txtBabl.x = -410;
-                _txtBabl.y = -230;
+                _txtBabl.y = -226;
                 _sprEvent.addChild(_sprItem);
                 im = new Image(g.allData.atlas['partyAtlas'].getTexture('progress'));
                 im.x = -158;
@@ -645,7 +645,12 @@ public class WOPartyWindow extends WindowMain {
             im = new Image(g.allData.atlas[g.allData.getBuildingById(g.managerParty.idDecorBest).url].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).image));
         else im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(g.managerParty.idDecorBest).url + '_icon'));
         MCScaler.scale(im, 150,150);
-        im.x = -240;
+
+        if (g.socialNetworkID == SocialNetworkSwitch.SN_OK_ID || g.socialNetworkID == SocialNetworkSwitch.SN_VK_ID) {
+            im.x = -240;
+        } else {
+            im.x = -215;
+        }
         im.y = -120;
         _sprRating.addChild(im);
         txt = new CTextField(250, 100, String(g.allData.getBuildingById(g.managerParty.idDecorBest).name));
@@ -781,6 +786,9 @@ public class WOPartyWindow extends WindowMain {
             source.addChild(im);
 
         } else if (type == BuildType.DECOR) {
+            im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).image +'_icon'));
+            source.addChild(im);
+        }  else if (type == BuildType.DECOR_TAIL) {
             im = new Image(g.allData.atlas['iconAtlas'].getTexture(g.allData.getBuildingById(id).image +'_icon'));
             source.addChild(im);
         }
