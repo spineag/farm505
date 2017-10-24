@@ -45,7 +45,7 @@ public class DropPartyResource {
     public function DropPartyResource(_x:int, _y:int, delay:Number = .3, fromSize:int = 50) {
         var endPoint:Point;
         _source = new Sprite();
-        if(g.allData.atlas['partyAtlas'])_image = new Image(g.allData.atlas['partyAtlas'].getTexture('usa_badge'));
+        if(g.allData.atlas['partyAtlas'])_image = new Image(g.allData.atlas['partyAtlas'].getTexture('halloween_sheton'));
 
         MCScaler.scale(_image, fromSize, fromSize);
         _source.addChild(_image);
