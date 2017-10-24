@@ -96,7 +96,7 @@ public class WOPartyRatingFriendItem {
             onLoadPhoto(g.pBitmaps[_personS.photo].create() as Bitmap);
         }
 
-        if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) _imResource = new Image(g.allData.atlas['partyAtlas'].getTexture('usa_badge'));
+        if (g.managerParty.typeParty == 3 || g.managerParty.typeParty == 5) _imResource = new Image(g.allData.atlas['partyAtlas'].getTexture('halloween_sheton'));
         else {
             if (g.allData.getResourceById(g.managerParty.idResource).buildType == BuildType.RESOURCE) {
                 _imResource = new Image(g.allData.atlas[g.allData.getResourceById(g.managerParty.idResource).url].getTexture(g.allData.getResourceById(g.managerParty.idResource).imageShop));

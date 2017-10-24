@@ -213,12 +213,11 @@
             <filename>tabs_top_1.png</filename>
             <filename>tabs_top_2.png</filename>
             <filename>star_event_winner_45x45.png</filename>
-            <filename>event_window_standard.png</filename>
-            <filename>cream_icon.png</filename>
-            <filename>cream_rus.png</filename>
-            <filename>cookie_event_text_rus.png</filename>
-            <filename>cookie_event.png</filename>
-            <filename>mascarpone_cheese.png</filename>
+            <filename>halloween_bg.png</filename>
+            <filename>halloween_icon.png</filename>
+            <filename>halloween_sheton.png</filename>
+            <filename>halloween_txt_en.png</filename>
+            <filename>halloween_txt_ru.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
